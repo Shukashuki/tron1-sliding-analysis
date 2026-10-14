@@ -38,13 +38,11 @@ is **not** a meaningful drift-failure result. The Isaac physics-substep trace
 must not be fed to the policy-rate observation verifier: doing so produced a
 false row-2 mismatch, corrected by using `trajectory.npz`.
 
-## Limits and next step
+## Scope and subsequent result
 
-No full policy training or post-training friction grid has completed yet.
-The historical three-point XY figure uses a different fixed-friction-trained
-actor and is labeled accordingly. Full training should use the reviewed
-`scripts/train_beyondmimic_style.py` and
-`config/car_drift_beyondmimic_task.json`; after a frozen checkpoint is produced,
-validate it at fixed friction points in both engines and render only the
-top-down XY paths. The current evaluators support equal static/dynamic
+This one-iteration smoke result remains an interface test only. A separate
+1000-iteration training run and six-case fixed-friction sim2sim grid have since
+completed; see the [formal car result](2026-10-14-bm-friction-grid.md). The
+historical three-point XY figure uses a different fixed-friction-trained actor
+and is labeled accordingly. The current evaluators support equal static/dynamic
 coefficients up to 1.0; higher and off-diagonal pairs require audited changes.

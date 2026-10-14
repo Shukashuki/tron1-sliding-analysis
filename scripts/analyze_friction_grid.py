@@ -10,6 +10,46 @@ import numpy as np
 import analyze_saved_xy as xy
 
 
+def summarize_new_grid(trace: dict[str, np.ndarray], provenance: dict,
+                       cases: dict[str, tuple[float, str]]) -> dict:
+    config = json.loads((Path(__file__).resolve().parents[1] / "config/evaluation_friction.json").read_text())
+    result = xy.summarize(trace, provenance, config, cases=cases)
+    result["kind"] = "new_beyondmimic_dr_policy_fixed_friction_xy_grid"
+    result["policy_training_friction_randomization"] = True
+    result["limitations"] = [x for x in result["limitations"] if "archived" not in x and "mu=0.15" not in x]
+    result["limitations"].append("One deterministic episode per coefficient; the friction failure boundary needs more seeds or a finer grid.")
+    return result
+
+
+def write_analysis(trace: dict[str, np.ndarray], provenance: dict,
+                   cases: dict[str, tuple[float, str]], output: Path,
+                   *, save_trace: bool) -> dict:
+    result = summarize_new_grid(trace, provenance, cases)
+    if output.exists() and any(output.iterdir()):
+        raise FileExistsError("Preserving nonempty analysis output")
+    output.mkdir(parents=True, exist_ok=True)
+    if save_trace:
+        np.savez_compressed(output / "xy_trace.npz", **trace)
+        (output / "xy_trace.provenance.json").write_text(json.dumps(provenance, indent=2) + "\n")
+    (output / "summary.json").write_text(json.dumps(result, indent=2, allow_nan=False) + "\n")
+    xy.render(trace, output / "topdown.png", cases=cases)
+    return result
+
+
+def replay(trace_path: Path, output: Path, expected_summary: Path | None = None) -> dict:
+    trace = xy.arrays(trace_path)
+    provenance = json.loads(trace_path.with_suffix(".provenance.json").read_text())
+    if not provenance.get("training_manifest_sha256") or not provenance.get("checkpoint_sha256"):
+        raise ValueError("Compact trace lacks the trained-policy provenance")
+    cases = {name: (float(item["mu"]), "") for name, item in provenance["cases"].items()}
+    if not cases:
+        raise ValueError("Compact trace has no cases")
+    result = summarize_new_grid(trace, provenance, cases)
+    if expected_summary is not None and result != json.loads(expected_summary.read_text()):
+        raise ValueError("Recomputed XY metrics differ from the published summary")
+    return write_analysis(trace, provenance, cases, output, save_trace=False)
+
+
 def build(manifest_path: Path, output: Path) -> dict:
     manifest = json.loads(manifest_path.read_text())
     if manifest.get("schema_version") != 1 or manifest.get("policy_training_friction_randomization") is not True:
@@ -69,28 +109,24 @@ def build(manifest_path: Path, output: Path) -> dict:
         raise ValueError("Grid motion differs from policy training")
     provenance["checkpoint_sha256"] = checkpoint_hashes.pop()
     provenance["motion_sha256"] = motion_hashes.pop()
-    config = json.loads((Path(__file__).resolve().parents[1] / "config/evaluation_friction.json").read_text())
-    result = xy.summarize(trace, provenance, config, cases=cases)
-    result["kind"] = "new_beyondmimic_dr_policy_fixed_friction_xy_grid"
-    result["policy_training_friction_randomization"] = True
-    result["limitations"] = [x for x in result["limitations"] if "archived" not in x and "mu=0.15" not in x]
-    result["limitations"].append("One deterministic episode per coefficient; the friction failure boundary needs more seeds or a finer grid.")
-    if output.exists() and any(output.iterdir()):
-        raise FileExistsError("Preserving nonempty analysis output")
-    output.mkdir(parents=True, exist_ok=True)
-    np.savez_compressed(output / "xy_trace.npz", **trace)
-    (output / "xy_trace.provenance.json").write_text(json.dumps(provenance, indent=2) + "\n")
-    (output / "summary.json").write_text(json.dumps(result, indent=2, allow_nan=False) + "\n")
-    xy.render(trace, output / "topdown.png", cases=cases)
-    return result
+    return write_analysis(trace, provenance, cases, output, save_trace=True)
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--manifest", type=Path, required=True)
+    source = parser.add_mutually_exclusive_group(required=True)
+    source.add_argument("--manifest", type=Path, help="Full validated physics grid")
+    source.add_argument("--trace", type=Path, help="Published compact XY-only grid")
     parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument("--expected-summary", type=Path,
+                        help="In replay mode, reject any metric mismatch against this file")
     args = parser.parse_args()
-    result = build(args.manifest, args.output_dir)
+    if args.trace:
+        result = replay(args.trace, args.output_dir, args.expected_summary)
+    else:
+        if args.expected_summary:
+            parser.error("--expected-summary is only supported with --trace")
+        result = build(args.manifest, args.output_dir)
     print(json.dumps({"status": "analyzed", "cases": len(result["rows"]),
                       "output_dir": str(args.output_dir)}))
 

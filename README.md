@@ -90,6 +90,36 @@ The plot ends each engine path at its actual final observed state. Compact
 support independent re-analysis. No third-party raw mocap or vehicle CSV is
 redistributed here.
 
+## New result: BeyondMimic-randomized car policy
+
+The new 512-environment, 1000-iteration policy used the pinned BeyondMimic
+material, joint-offset, CoM and push events described above. The same frozen
+actor was evaluated at six fixed equal static/dynamic coefficients in both
+engines. All twelve rollouts completed the 1.44–4.00 s turn core; none crossed
+the exploratory large-root-XY screen in the tested `µ=0.30–1.00` grid. The
+largest Isaac reference-core XY RMSE was 0.0436 m, the largest MuJoCo value
+was 0.0426 m, and the largest Isaac–MuJoCo core XY RMSE was 0.0272 m. This
+does **not** locate a friction failure boundary or prove tire-patch sliding.
+
+![Top-down six-case XY comparison](results/car_bm_dr_seed42/topdown.png)
+
+The [formal experiment report](results/2026-10-14-bm-friction-grid.md),
+[training manifest](results/car_bm_dr_seed42/training_manifest.json),
+[full metric summary](results/car_bm_dr_seed42/summary.json), and
+[compact trajectories](results/car_bm_dr_seed42/xy_trace.npz) are public.
+Recompute the metrics and figure from only those compact traces:
+
+```bash
+python scripts/analyze_friction_grid.py \
+  --trace results/car_bm_dr_seed42/xy_trace.npz \
+  --expected-summary results/car_bm_dr_seed42/summary.json \
+  --output-dir outputs/replayed_bm_grid
+```
+
+The trained checkpoint is retained on the authorized remote machine; the
+public repository provides the training and validation code plus compact
+outputs, but not the licensed robot model or third-party raw data.
+
 ## Reproduce what is currently public
 
 ```bash
@@ -177,5 +207,5 @@ python scripts/attach_human_wheel_offset.py \
 The marker NPZ must provide `time_s`, `heel_xyz_m[T,2,3]`, and
 `toe_xyz_m[T,2,3]`, with L/R order and the exact GMR sample clock. Supply the
 actual coordinate alignment angle instead of using the illustrative zero if
-the source axes differ. Human and new car policy results are **pending**; no
-sim2sim claim is made for either.
+the source axes differ. Human GMR policy and sim2sim results remain pending;
+the completed car-policy sim2sim result is reported above.

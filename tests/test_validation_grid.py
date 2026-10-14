@@ -92,3 +92,19 @@ def test_generic_grid_rejects_no_data_and_renders_one_valid_case(tmp_path):
     result = grid.build(manifest, tmp_path / "output")
     assert result["rows"][0]["sim2sim"]["full_core_xy_rmse_m"] == 0.
     assert (tmp_path / "output/topdown.png").is_file()
+    replayed = grid.replay(tmp_path / "output/xy_trace.npz", tmp_path / "replay",
+                           tmp_path / "output/summary.json")
+    assert replayed == result
+    assert (tmp_path / "replay/topdown.png").is_file()
+
+
+def test_published_new_grid_replays_without_physics(tmp_path):
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import analyze_friction_grid as grid
+
+    source = ROOT / "results/car_bm_dr_seed42"
+    result = grid.replay(source / "xy_trace.npz", tmp_path / "replayed",
+                         source / "summary.json")
+    assert len(result["rows"]) == 6
+    assert all(row["isaac"]["core_complete"] and row["mujoco"]["core_complete"]
+               for row in result["rows"])
