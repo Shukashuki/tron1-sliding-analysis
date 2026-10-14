@@ -143,14 +143,15 @@ def read_source(root: Path) -> tuple[dict[str, np.ndarray], dict]:
     return trace, provenance
 
 
-def summarize(trace: dict[str, np.ndarray], provenance: dict, config: dict) -> dict:
+def summarize(trace: dict[str, np.ndarray], provenance: dict, config: dict,
+              cases: dict | None = None) -> dict:
     ref_t, ref_xy = trace["reference_t"], trace["reference_xy"]
     validate_path(ref_t, ref_xy, "reference")
     core = tuple(config["screening_core_interval_s"])
     if len(core) != 2 or not (ref_t[0] <= core[0] < core[1] <= ref_t[-1]):
         raise ValueError("Core interval must lie inside reference")
     rows = []
-    for name, (mu, _) in CASES.items():
+    for name, (mu, _) in (CASES if cases is None else cases).items():
         it, ip = trace[f"{name}_isaac_t"], trace[f"{name}_isaac_xy"]
         mt, mp = trace[f"{name}_mujoco_t"], trace[f"{name}_mujoco_xy"]
         validate_path(it, ip, f"{name} Isaac")
@@ -179,10 +180,12 @@ def summarize(trace: dict[str, np.ndarray], provenance: dict, config: dict) -> d
                             "This root-XY view does not establish actual wheel-ground patch slip or human GMR feasibility."]}
 
 
-def render(trace: dict[str, np.ndarray], output: Path) -> None:
-    fig, axes = plt.subplots(1, 3, figsize=(13.2, 4.4), dpi=150)
+def render(trace: dict[str, np.ndarray], output: Path, cases: dict | None = None) -> None:
+    cases = CASES if cases is None else cases
+    fig, axes = plt.subplots(1, len(cases), figsize=(max(4.4 * len(cases), 6), 4.4), dpi=150)
+    axes = np.atleast_1d(axes)
     ref = trace["reference_xy"]
-    for ax, (name, (mu, _)) in zip(axes, CASES.items()):
+    for ax, (name, (mu, _)) in zip(axes, cases.items()):
         ia, mj = trace[f"{name}_isaac_xy"], trace[f"{name}_mujoco_xy"]
         ax.plot(ref[:, 0], ref[:, 1], color="#c68b00", lw=1.8, label="reference")
         ax.plot(ia[:, 0], ia[:, 1], color="#0574b6", lw=1.5, label="Isaac")

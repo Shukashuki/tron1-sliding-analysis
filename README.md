@@ -126,10 +126,28 @@ python scripts/train_beyondmimic_style.py \
 
 Do not label a one-iteration smoke test as a trained policy. Export and validate
 the final actor's observation/action contract before running the fixed-friction
-   grid. The original source's friction evaluators presently support a single
-   equal static/dynamic µ up to 1.0; `µ=1.2` and off-diagonal pairs need explicit
-   evaluator support and material readback before they count as results. For
-   human motion, first supply
+grid. The original source's friction evaluators presently support a single
+equal static/dynamic µ up to 1.0; `µ=1.2` and off-diagonal pairs need explicit
+evaluator support and material readback before they count as results.
+
+```bash
+python scripts/run_car_validation.py \
+  --source-root /path/to/full/tron1-learning-from-human \
+  --motion-file /path/to/drift/motion.npz \
+  --reference-file /path/to/drift/robot_reference.npz \
+  --asset-path /path/to/WF_TRON1A.usda \
+  --mujoco-model /path/to/tron1_model.xml \
+  --checkpoint outputs/car_bm_dr_seed42/model_final.pt \
+  --runner-config outputs/car_bm_dr_seed42/runner_config.json \
+  --task-profile config/car_drift_beyondmimic_task.json \
+  --output-dir outputs/car_fixed_friction_grid --device cuda:0
+```
+
+The driver requires a completed training status, checks the BeyondMimic
+material recipe and source-motion hashes, runs both engines at each fixed µ,
+verifies Isaac policy-rate observations before MuJoCo playback, then generates
+`analysis/topdown.png` and `analysis/summary.json`. It will not overwrite an
+existing grid. For human motion, first supply
 one valid GMR retarget plus time-aligned bilateral foot markers; then run:
 
 ```bash

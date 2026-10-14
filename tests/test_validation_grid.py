@@ -1,0 +1,77 @@
+import importlib.util
+import json
+from pathlib import Path
+import sys
+
+import numpy as np
+import pytest
+
+
+ROOT = Path(__file__).resolve().parents[1]
+spec = importlib.util.spec_from_file_location("run_car_validation", ROOT / "scripts/run_car_validation.py")
+mod = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(mod)
+
+
+def test_case_names_and_supported_bounds():
+    assert mod.case_name(.3) == "mu0p300"
+    assert mod.case_name(1.0) == "mu1p000"
+    for invalid in (0., 1.2, float("nan")):
+        with pytest.raises(ValueError):
+            mod.case_name(invalid)
+
+
+def test_grid_config_has_no_false_beyondmimic_upper_coverage():
+    cfg = json.loads((ROOT / "config/evaluation_friction.json").read_text())
+    assert cfg["policy_training_friction_randomization"] is True
+    assert cfg["beyondmimic_static_range"] == [.3, 1.6]
+    assert cfg["beyondmimic_dynamic_range"] == [.3, 1.2]
+    assert max(cfg["currently_supported_equal_static_dynamic_grid"]) <= 1.0
+    assert 1.2 in cfg["pending_evaluator_extension_equal_grid"]
+
+
+def test_generic_grid_rejects_no_data_and_renders_one_valid_case(tmp_path):
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import analyze_friction_grid as grid
+
+    time = np.array([0., 1.44, 2., 4., 5.])
+    ref_pos = np.column_stack((time, np.zeros((5, 2))))
+    ref = tmp_path / "reference.npz"
+    np.savez_compressed(ref, time_s=time, root_target_position_m=ref_pos)
+    motion = tmp_path / "motion.npz"
+    motion.write_bytes(b"test-motion")
+    checkpoint = tmp_path / "model_final.pt"
+    checkpoint.write_bytes(b"test-actor")
+    trainer = tmp_path / "training.json"
+    trainer.write_text(json.dumps({"recipe": {"friction_static": [.3, 1.6],
+                                               "friction_dynamic": [.3, 1.2],
+                                               "material_buckets": 64},
+                                   "motion_sha256": mod.sha(motion)}))
+    ia_file = tmp_path / "isaac.npz"
+    mj_file = tmp_path / "mujoco.npz"
+    np.savez_compressed(ia_file, time_s=time, valid_mask=np.ones((5, 1), dtype=bool),
+                        root_position_m=ref_pos[:, None, :])
+    np.savez_compressed(mj_file, time_s=time, root_pos=ref_pos)
+    ia_report = tmp_path / "ia.json"
+    mj_report = tmp_path / "mj.json"
+    ia_report.write_text(json.dumps({
+        "evaluation_contact_friction_override": {"evaluation_contact_friction": .7},
+        "contact_material_audit": {"expected_friction": .7},
+        "physics_trajectory_sha256": mod.sha(ia_file),
+        "motion_file_sha256": mod.sha(motion),
+        "checkpoint_sha256": mod.sha(checkpoint)}))
+    mj_report.write_text(json.dumps({"contact_material_audit": {"compiled_friction_range": [.7, .7]},
+                                     "motion_sha256": mod.sha(motion)}))
+    manifest = tmp_path / "grid.json"
+    manifest.write_text(json.dumps({"schema_version": 1,
+                                    "policy_training_friction_randomization": True,
+                                    "training_manifest": str(trainer), "reference_file": str(ref),
+                                    "checkpoint": str(checkpoint),
+                                    "cases": [{"case": "mu0p700", "mu": .7,
+                                               "isaac_physics": str(ia_file),
+                                               "mujoco_rollout": str(mj_file),
+                                               "isaac_report": str(ia_report),
+                                               "mujoco_report": str(mj_report)}]}))
+    result = grid.build(manifest, tmp_path / "output")
+    assert result["rows"][0]["sim2sim"]["full_core_xy_rmse_m"] == 0.
+    assert (tmp_path / "output/topdown.png").is_file()
