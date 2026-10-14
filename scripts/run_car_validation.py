@@ -1,7 +1,7 @@
 """Run frozen-policy matched-mu Isaac/MuJoCo evaluations and top-down XY grid.
 
-The currently audited source evaluators support equal static/dynamic friction
-in [0.01, 1.0]. Every coefficient gets one seed-42 environment per engine.
+Use materialize_wide_friction_source.py for equal static/dynamic friction
+in [0.01, 2.0]. Every coefficient gets one seed-42 environment per engine.
 This entrypoint refuses incomplete training and never overwrites prior cases.
 """
 from __future__ import annotations
@@ -23,8 +23,8 @@ def sha(path: Path) -> str:
 
 
 def case_name(mu: float) -> str:
-    if not math.isfinite(mu) or not .01 <= mu <= 1.:
-        raise ValueError("Current audited fixed-friction evaluators require 0.01 <= mu <= 1.0")
+    if not math.isfinite(mu) or not .01 <= mu <= 2.:
+        raise ValueError("Fixed-friction evaluators require 0.01 <= mu <= 2.0")
     return f"mu{mu:.3f}".replace(".", "p")
 
 
@@ -61,6 +61,13 @@ def run(args: argparse.Namespace) -> Path:
     values = list(args.mu)
     if not values or len({case_name(mu) for mu in values}) != len(values):
         raise ValueError("Friction grid must have unique, supported values")
+    if max(values) > 1.0:
+        audit_path = source / "wide_friction_source.json"
+        audit = json.loads(audit_path.read_text())
+        if (audit.get("evaluation_mu_bounds") != [.01, 2.0]
+                or any(sha(source / name) != expected
+                       for name, expected in audit["changed_output_sha256"].items())):
+            raise ValueError("Wide friction source audit failed")
     target.mkdir(parents=True, exist_ok=True)
     cases = []
     for mu in values:
@@ -98,7 +105,8 @@ def run(args: argparse.Namespace) -> Path:
                 "motion_file": str(args.motion_file.resolve()),
                 "source_evaluator_sha256": {
                     "isaac": sha(source / "scripts/eval_tracking_friction_isaac.py"),
-                    "mujoco": sha(source / "scripts/eval_tracking_mujoco.py")},
+                    "mujoco": sha(source / "scripts/eval_tracking_mujoco.py"),
+                    "drift_module": sha(source / "training/tron1_drift.py")},
                 "cases": cases}
     manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")
     launch([sys.executable, str(ROOT / "scripts/analyze_friction_grid.py"),
@@ -117,7 +125,9 @@ def main() -> None:
     parser.add_argument("--runner-config", required=True, type=Path)
     parser.add_argument("--task-profile", required=True, type=Path)
     parser.add_argument("--output-dir", required=True, type=Path)
-    parser.add_argument("--mu", nargs="+", type=float, default=[.3, .45, .6, .7, .8, 1.0])
+    parser.add_argument("--mu", nargs="+", type=float,
+                        default=[.01, .03, .05, .1, .15, .2, .3, .45, .6, .7,
+                                 .8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0])
     parser.add_argument("--device", default="cuda:0")
     args = parser.parse_args()
     result = run(args)

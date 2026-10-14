@@ -17,7 +17,9 @@ spec.loader.exec_module(mod)
 def test_case_names_and_supported_bounds():
     assert mod.case_name(.3) == "mu0p300"
     assert mod.case_name(1.0) == "mu1p000"
-    for invalid in (0., 1.2, float("nan")):
+    assert mod.case_name(.01) == "mu0p010"
+    assert mod.case_name(2.) == "mu2p000"
+    for invalid in (0., .009, 2.01, float("nan")):
         with pytest.raises(ValueError):
             mod.case_name(invalid)
 
@@ -27,8 +29,40 @@ def test_grid_config_has_no_false_beyondmimic_upper_coverage():
     assert cfg["policy_training_friction_randomization"] is True
     assert cfg["beyondmimic_static_range"] == [.3, 1.6]
     assert cfg["beyondmimic_dynamic_range"] == [.3, 1.2]
-    assert max(cfg["currently_supported_equal_static_dynamic_grid"]) <= 1.0
-    assert 1.2 in cfg["pending_evaluator_extension_equal_grid"]
+    assert min(cfg["currently_supported_equal_static_dynamic_grid"]) == .01
+    assert max(cfg["currently_supported_equal_static_dynamic_grid"]) == 2.0
+    assert cfg["evaluation_mu_bounds"] == [.01, 2.0]
+    assert 1.2 in cfg["currently_supported_equal_static_dynamic_grid"]
+
+
+def test_wide_source_keeps_base_and_training_profile_and_checks_runtime_bounds(tmp_path):
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import materialize_wide_friction_source as wide
+
+    source = tmp_path / "base"
+    for name in ("training/tron1_drift.py", "scripts/eval_tracking.py"):
+        target = source / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes((ROOT / "upstream/tron1-learning-from-human" / name).read_bytes())
+    old = wide.sha(source / "training/tron1_drift.py")
+    output = tmp_path / "wide"
+    audit = wide.materialize(source, output)
+    assert wide.sha(source / "training/tron1_drift.py") == old
+    assert audit["evaluation_mu_bounds"] == [.01, 2.0]
+    assert audit["training_unchanged"] is True
+    with pytest.raises(FileExistsError):
+        wide.materialize(source, output)
+    namespace = {}
+    exec((output / "training/tron1_drift.py").read_text(), namespace)
+    profile = json.loads((ROOT / "config/car_drift_beyondmimic_task.json").read_text())
+    assert namespace["validate_task_profile"](profile) == profile
+    assert namespace["validate_task_profile"]({**profile, "contact_friction": 2.})["contact_friction"] == 2.
+    for mu in (.009, 2.01):
+        with pytest.raises(ValueError):
+            namespace["validate_task_profile"]({**profile, "contact_friction": mu})
+    evaluator = (output / "scripts/eval_tracking_friction_isaac.py").read_text()
+    assert '.01 <= args.evaluation_contact_friction <= 2.' in evaluator
+    compile(evaluator, "extended_evaluator", "exec")
 
 
 def test_locked_open_car_source_is_pinned():
@@ -87,7 +121,9 @@ def test_generic_grid_rejects_no_data_and_renders_one_valid_case(tmp_path):
     mj_report = tmp_path / "mj.json"
     ia_report.write_text(json.dumps({
         "evaluation_contact_friction_override": {"evaluation_contact_friction": .7},
-        "contact_material_audit": {"expected_friction": .7},
+        "contact_material_audit": {"expected_friction": .7,
+            "robot_runtime_friction_range": [.7, .7],
+            "ground_colliders": [{"static_friction": .7, "dynamic_friction": .7}]},
         "physics_trajectory_sha256": mod.sha(ia_file),
         "motion_file_sha256": mod.sha(motion),
         "checkpoint_sha256": mod.sha(checkpoint)}))
@@ -110,6 +146,11 @@ def test_generic_grid_rejects_no_data_and_renders_one_valid_case(tmp_path):
                            tmp_path / "output/summary.json")
     assert replayed == result
     assert (tmp_path / "replay/topdown.png").is_file()
+    report = json.loads(ia_report.read_text())
+    report["contact_material_audit"]["robot_runtime_friction_range"] = [.7, 1.0]
+    ia_report.write_text(json.dumps(report))
+    with pytest.raises(ValueError, match="friction/material/trace/reference"):
+        grid.build(manifest, tmp_path / "bad_readback")
 
 
 def test_published_new_grid_replays_without_physics(tmp_path):

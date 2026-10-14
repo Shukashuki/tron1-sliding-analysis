@@ -182,8 +182,11 @@ def summarize(trace: dict[str, np.ndarray], provenance: dict, config: dict,
 
 def render(trace: dict[str, np.ndarray], output: Path, cases: dict | None = None) -> None:
     cases = CASES if cases is None else cases
-    fig, axes = plt.subplots(1, len(cases), figsize=(max(4.4 * len(cases), 6), 4.4), dpi=150)
-    axes = np.atleast_1d(axes)
+    columns = len(cases) if len(cases) <= 6 else 4
+    rows = (len(cases) + columns - 1) // columns
+    fig, axes = plt.subplots(rows, columns,
+                             figsize=(max(4.4 * columns, 6), 4.4 * rows), dpi=150)
+    axes = np.atleast_1d(axes).ravel()
     ref = trace["reference_xy"]
     for ax, (name, (mu, _)) in zip(axes, cases.items()):
         ia, mj = trace[f"{name}_isaac_xy"], trace[f"{name}_mujoco_xy"]
@@ -192,9 +195,15 @@ def render(trace: dict[str, np.ndarray], output: Path, cases: dict | None = None
         ax.plot(mj[:, 0], mj[:, 1], color="#d55e00", lw=1.5, label="MuJoCo")
         ax.scatter([ia[-1, 0], mj[-1, 0]], [ia[-1, 1], mj[-1, 1]],
                    color=["#0574b6", "#d55e00"], marker="x", s=38)
-        ax.set(title=f"evaluation µ={mu:.2f}", xlabel="world X (m)", ylabel="world Y (m)")
+        title = f"evaluation µ={mu:.2f}"
+        if len(cases) > 6:
+            title += (f"\nIsaac {trace[f'{name}_isaac_t'][-1]:.2f}s | "
+                      f"MuJoCo {trace[f'{name}_mujoco_t'][-1]:.2f}s")
+        ax.set(title=title, xlabel="world X (m)", ylabel="world Y (m)")
         ax.set_aspect("equal", adjustable="datalim")
         ax.grid(alpha=.25)
+    for ax in axes[len(cases):]:
+        ax.set_visible(False)
     axes[0].legend(loc="best", fontsize=8)
     fig.suptitle("Frozen-policy matched-friction XY paths (× = last observed state)")
     fig.tight_layout()

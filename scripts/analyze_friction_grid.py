@@ -83,8 +83,13 @@ def build(manifest_path: Path, output: Path) -> dict:
         ia_report = json.loads(ia_report_file.read_text())
         mj_report = json.loads(mj_report_file.read_text())
         override = ia_report["evaluation_contact_friction_override"]
+        material = ia_report["contact_material_audit"]
         if (not np.isclose(override["evaluation_contact_friction"], mu)
-                or not np.isclose(ia_report["contact_material_audit"]["expected_friction"], mu)
+                or not np.isclose(material["expected_friction"], mu)
+                or not np.allclose(material["robot_runtime_friction_range"], [mu, mu])
+                or not material["ground_colliders"]
+                or any(not np.allclose([g["static_friction"], g["dynamic_friction"]], [mu, mu])
+                       for g in material["ground_colliders"])
                 or not np.allclose(mj_report["contact_material_audit"]["compiled_friction_range"], [mu, mu])
                 or ia_report["physics_trajectory_sha256"] != xy.sha(ia_file)
                 or ia_report["motion_file_sha256"] != mj_report["motion_sha256"]):
@@ -100,6 +105,11 @@ def build(manifest_path: Path, output: Path) -> dict:
             "isaac_report_sha256": xy.sha(ia_report_file), "mujoco_report_sha256": xy.sha(mj_report_file),
             "isaac_material_readback": ia_report["contact_material_audit"],
             "mujoco_compiled_friction_range": mj_report["contact_material_audit"]["compiled_friction_range"],
+            "isaac_episode_end": {
+                key: ia_report.get("summary", {}).get("episodes", [{}])[0].get(key)
+                for key in ("end_reason", "termination_terms", "completed_full_reference")},
+            "mujoco_episode_end": {key: mj_report.get(key) for key in
+                                    ("termination", "termination_terms", "completed_full_reference")},
         }
     if not cases or len(checkpoint_hashes) != 1 or len(motion_hashes) != 1:
         raise ValueError("Grid must reuse one checkpoint and one motion")
@@ -109,6 +119,7 @@ def build(manifest_path: Path, output: Path) -> dict:
         raise ValueError("Grid motion differs from policy training")
     provenance["checkpoint_sha256"] = checkpoint_hashes.pop()
     provenance["motion_sha256"] = motion_hashes.pop()
+    provenance["source_evaluator_sha256"] = manifest.get("source_evaluator_sha256", {})
     return write_analysis(trace, provenance, cases, output, save_trace=True)
 
 

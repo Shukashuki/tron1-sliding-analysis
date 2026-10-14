@@ -48,9 +48,11 @@ position error? Views are top-down only. Height/flight is not a failure gate.
    [`config/car_drift_beyondmimic_task.json`](config/car_drift_beyondmimic_task.json).
 5. Freeze the trained actor and evaluate single deterministic episodes per
    coefficient in Isaac/PhysX and MuJoCo. Turn off random events for validation.
-   First test equal static/dynamic `µ = 0.30, 0.45, 0.60, 0.70, 0.80, 1.00`
-   in both engines. `µ=1.20` is pending the current evaluator's upper-bound
-   extension; subsequently test `(µ_static,µ_dynamic)=(1.4,1.0)` and
+   The initial grid used equal static/dynamic
+   `µ = 0.30, 0.45, 0.60, 0.70, 0.80, 1.00` in both engines. The isolated
+   validation-source extension supports a wider 17-point grid from `0.01`
+   through `2.00`; values outside the training material ranges deliberately
+   test extrapolation. Subsequently test `(µ_static,µ_dynamic)=(1.4,1.0)` and
    `(1.6,1.2)` once both evaluators support and read back distinct components.
    This is a **grid of fixed evaluation cases**, not a second policy training
    distribution. Equal numeric coefficients are not equal calibrated tire laws.
@@ -149,7 +151,7 @@ python scripts/materialize_friction_evaluator.py \
 This adds one new, untracked evaluator file inside the local source submodule;
 it does not change pinned source files. Archived checkpoints and licensed TRON1
 assets are not included, so full **historical baseline** physics reruns still
-require those inputs. The new protocol can use the generated evaluator and
+require those inputs. The initial protocol can use the generated evaluator and
 public source code once its separately licensed asset/motion inputs are
 provided. The unpublished historical branch was not bulk-pushed because it
 includes many other outputs beyond this experiment.
@@ -186,6 +188,17 @@ Check `motion.npz` and `robot_reference.npz` against the SHA-256 values in
 [`config/car_reference_lock.json`](config/car_reference_lock.json) before
 training or validation; model/version mismatches are not interchangeable.
 
+For the wider validation range, create a separate source snapshot. This copies
+only the scripts, training code and configuration, extends the evaluator and
+drift-profile validation bounds to `[0.01,2.0]`, and records source/output
+hashes. It preserves the original source checkout and the trained checkpoint:
+
+```bash
+python scripts/materialize_wide_friction_source.py \
+  --source-root upstream/tron1-learning-from-human \
+  --output-dir outputs/wide_friction_source
+```
+
 For a new car-policy run, supply the source checkout, the licensed TRON1 USD,
 the 50 Hz retargeted drift motion, and the drift task profile to
 `scripts/train_beyondmimic_style.py` inside an Isaac Lab 2.3 / RSL-RL 3
@@ -203,13 +216,12 @@ python scripts/train_beyondmimic_style.py \
 
 Do not label a one-iteration smoke test as a trained policy. Export and validate
 the final actor's observation/action contract before running the fixed-friction
-grid. The original source's friction evaluators presently support a single
-equal static/dynamic µ up to 1.0; `µ=1.2` and off-diagonal pairs need explicit
-evaluator support and material readback before they count as results.
+grid. The isolated evaluation source above supports equal static/dynamic
+`µ=0.01–2.0`. Distinct static/dynamic pairs still require explicit support.
 
 ```bash
 python scripts/run_car_validation.py \
-  --source-root /path/to/full/tron1-learning-from-human \
+  --source-root outputs/wide_friction_source \
   --motion-file /path/to/drift/motion.npz \
   --reference-file /path/to/drift/robot_reference.npz \
   --asset-path /path/to/WF_TRON1A.usda \
@@ -224,7 +236,9 @@ The driver requires a completed training status, checks the BeyondMimic
 material recipe and source-motion hashes, runs both engines at each fixed µ,
 verifies Isaac policy-rate observations before MuJoCo playback, then generates
 `analysis/topdown.png` and `analysis/summary.json`. It will not overwrite an
-existing grid. For human motion, first supply
+existing grid. Its default equal-friction grid is
+`0.01, 0.03, 0.05, 0.10, 0.15, 0.20, 0.30, 0.45, 0.60, 0.70, 0.80, 1.00,
+1.20, 1.40, 1.60, 1.80, 2.00`; use `--mu` to select fewer cases. For human motion, first supply
 one valid GMR retarget plus time-aligned bilateral foot markers; then run:
 
 ```bash
