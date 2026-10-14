@@ -26,12 +26,14 @@ position error? Views are top-down only. Height/flight is not a failure gate.
    sidecar** using `scripts/attach_human_wheel_offset.py`; compare each foot
    independently and mask low-speed / near-ground-proxy samples. TRON1 WF has no
    independent wheel-yaw joint, so a human foot heading offset cannot be
-   silently imposed as a realized joint command. A skating-marker-to-GMR clip
-   with valid wheel-center fit and a corresponding trained policy is still
-   required; the existing skating IK/interaction-mesh previews are **not** GMR
-   results and are not substituted here. The
-   [FS-Jump3D source](upstream/FS-Jump3D) is pinned as a submodule; its
-   separately licensed C3D archive is not copied into this repository.
+   silently imposed as a realized joint command. The current source selection
+   is **HDM05 slow lateral steps, crossover steps and walking turns**, not
+   running or skating. Human work is currently **retarget-only**; there is no
+   trained human tracking policy or human sim2sim result yet. Earlier skating
+   IK/interaction-mesh previews are not substituted as GMR results. The previous
+   FS-Jump3D submodule is retained for historical provenance, not selected here.
+   The [re3data API audit](results/hdm05_registry_api/re3data_sources.json)
+   distinguishes repository metadata from downloadable motion samples.
 4. Train a new tracking PPO with the official BeyondMimic event ranges, mapped
    to TRON1 (`scripts/train_beyondmimic_style.py`). At startup, sample robot
    static friction U[0.3,1.6], dynamic friction U[0.3,1.2], restitution
