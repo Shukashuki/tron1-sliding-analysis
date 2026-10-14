@@ -107,13 +107,22 @@ Isaac or MuJoCo. With a local full source checkout **at the archived experiment
 revision**, `--source-root /path/to/tron1-learning-from-human` imports the
 original physics traces, verifies friction/readback and hashes, and regenerates
 the compact trace too. The `upstream/tron1-learning-from-human` submodule is
-pinned to its already-public commit; it does **not** yet contain all unpublished
-historical evaluator changes or the raw checkpoints/assets. Therefore a fresh
-physics rerun is not presently reproducible from public files alone. The
-unpublished source branch was **not** bulk-pushed here; publishing it requires
-separate review/approval because it includes many additional historical
-outputs. The new standalone analysis and training scripts are kept in this
-repository for narrow review.
+pinned to its already-public commit. Its base Isaac evaluator can be transformed
+into the byte-exact audited friction evaluator (input/output hashes are checked)
+without publishing the large unpublished historical branch:
+
+```bash
+python scripts/materialize_friction_evaluator.py \
+  --source-root upstream/tron1-learning-from-human
+```
+
+This adds one new, untracked evaluator file inside the local source submodule;
+it does not change pinned source files. Archived checkpoints and licensed TRON1
+assets are not included, so full **historical baseline** physics reruns still
+require those inputs. The new protocol can use the generated evaluator and
+public source code once its separately licensed asset/motion inputs are
+provided. The unpublished historical branch was not bulk-pushed because it
+includes many other outputs beyond this experiment.
 
 For a new car-policy run, supply the source checkout, the licensed TRON1 USD,
 the 50 Hz retargeted drift motion, and the drift task profile to

@@ -37,6 +37,16 @@ def test_locked_open_car_source_is_pinned():
     assert lock["left_wheel_peak_abs_separation_deg"] > 20
 
 
+def test_public_base_materializes_exact_audited_friction_evaluator():
+    spec = importlib.util.spec_from_file_location(
+        "materialize_friction_evaluator", ROOT / "scripts/materialize_friction_evaluator.py")
+    generator = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(generator)
+    base = ROOT / "upstream/tron1-learning-from-human/scripts/eval_tracking.py"
+    content = generator.generate(base)
+    assert __import__("hashlib").sha256(content.encode()).hexdigest() == generator.OUTPUT_SHA256
+
+
 def test_generic_grid_rejects_no_data_and_renders_one_valid_case(tmp_path):
     sys.path.insert(0, str(ROOT / "scripts"))
     import analyze_friction_grid as grid
