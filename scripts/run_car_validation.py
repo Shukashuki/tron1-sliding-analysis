@@ -48,6 +48,10 @@ def run(args: argparse.Namespace) -> Path:
     status = json.loads((args.checkpoint.parent / "run_status.json").read_text())
     training = json.loads((args.checkpoint.parent / "manifest.json").read_text())
     task = json.loads(args.task_profile.read_text())
+    reference_lock = json.loads((ROOT / "config/car_reference_lock.json").read_text())
+    if (sha(args.motion_file) != reference_lock["motion_npz_sha256"]
+            or sha(args.reference_file) != reference_lock["robot_reference_npz_sha256"]):
+        raise ValueError("Car validation motion/reference differs from pinned high-angle retarget")
     if (status.get("status") != "training_completed" or training.get("task_profile") != task
             or training.get("motion_sha256") != sha(args.motion_file)
             or training.get("asset_sha256") != sha(args.asset_path)
@@ -90,6 +94,7 @@ def run(args: argparse.Namespace) -> Path:
                 "training_manifest": str((args.checkpoint.parent / "manifest.json").resolve()),
                 "checkpoint": str(args.checkpoint.resolve()),
                 "reference_file": str(args.reference_file.resolve()),
+                "reference_lock_sha256": sha(ROOT / "config/car_reference_lock.json"),
                 "motion_file": str(args.motion_file.resolve()),
                 "source_evaluator_sha256": {
                     "isaac": sha(source / "scripts/eval_tracking_friction_isaac.py"),

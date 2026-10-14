@@ -30,6 +30,13 @@ def test_grid_config_has_no_false_beyondmimic_upper_coverage():
     assert 1.2 in cfg["pending_evaluator_extension_equal_grid"]
 
 
+def test_locked_open_car_source_is_pinned():
+    lock = json.loads((ROOT / "config/car_reference_lock.json").read_text())
+    source = ROOT / "upstream/drift_drl/code/ref_trajectory/traj_4.csv"
+    assert mod.sha(source) == lock["source_csv_sha256"]
+    assert lock["left_wheel_peak_abs_separation_deg"] > 20
+
+
 def test_generic_grid_rejects_no_data_and_renders_one_valid_case(tmp_path):
     sys.path.insert(0, str(ROOT / "scripts"))
     import analyze_friction_grid as grid

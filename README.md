@@ -12,11 +12,15 @@ position error? Views are top-down only. Height/flight is not a failure gate.
    course-to-wheel/foot angle. `γ = wrap(atan2(v_y,v_x) − wheel/foot heading)`.
    Do not equate this geometric angle with measured tire contact-patch slip.
 2. Car: retain the source XY/yaw trajectory, then measure the **retargeted**
-   TRON1 wheel rolling-plane headings. The open `drift_drl/traj_4` source has
+   TRON1 wheel rolling-plane headings. The pinned open
+   [`drift_drl/traj_4` source](upstream/drift_drl/code/ref_trajectory/traj_4.csv) has
    vehicle slip state but does **not** provide measured individual wheel steer
    angles. Thus its robot wheel headings are retarget output, not source sensor
    readings. Use this clip first; DOA `sa_traj29` is a second high-angle
-   candidate, still without a trained tracking policy.
+   candidate, still without a trained tracking policy. The selected reference
+   is hash-locked in [`config/car_reference_lock.json`](config/car_reference_lock.json):
+   at moving source frames its retargeted left-wheel offset has mean absolute
+   11.27° and peak absolute 27.22°.
 3. Human: use pinned [GMR](upstream/GMR) to retarget pelvis plus both ankles to
    TRON1. Add left/right human heel-to-toe heading offsets as an **auxiliary
    sidecar** using `scripts/attach_human_wheel_offset.py`; compare each foot
@@ -25,7 +29,9 @@ position error? Views are top-down only. Height/flight is not a failure gate.
    silently imposed as a realized joint command. A skating-marker-to-GMR clip
    with valid wheel-center fit and a corresponding trained policy is still
    required; the existing skating IK/interaction-mesh previews are **not** GMR
-   results and are not substituted here.
+   results and are not substituted here. The
+   [FS-Jump3D source](upstream/FS-Jump3D) is pinned as a submodule; its
+   separately licensed C3D archive is not copied into this repository.
 4. Train a new tracking PPO with the official BeyondMimic event ranges, mapped
    to TRON1 (`scripts/train_beyondmimic_style.py`). At startup, sample robot
    static friction U[0.3,1.6], dynamic friction U[0.3,1.2], restitution
