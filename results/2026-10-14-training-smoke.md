@@ -44,5 +44,7 @@ This one-iteration smoke result remains an interface test only. A separate
 1000-iteration training run and six-case fixed-friction sim2sim grid have since
 completed; see the [formal car result](2026-10-14-bm-friction-grid.md). The
 historical three-point XY figure uses a different fixed-friction-trained actor
-and is labeled accordingly. The current evaluators support equal static/dynamic
-coefficients up to 1.0; higher and off-diagonal pairs require audited changes.
+and is labeled accordingly. The original evaluators support equal static/dynamic
+coefficients up to 1.0. Higher equal-coefficient cases are supported by the
+separate `materialize_wide_friction_source.py` evaluation snapshot;
+off-diagonal pairs still require explicit support.

@@ -205,8 +205,9 @@ def render(trace: dict[str, np.ndarray], output: Path, cases: dict | None = None
     for ax in axes[len(cases):]:
         ax.set_visible(False)
     axes[0].legend(loc="best", fontsize=8)
-    fig.suptitle("Frozen-policy matched-friction XY paths (× = last observed state)")
-    fig.tight_layout()
+    fig.suptitle("Frozen-policy matched-friction XY paths (× = last observed state)",
+                 y=.995 if len(cases) > 6 else .98)
+    fig.tight_layout(rect=(0, 0, 1, .975) if len(cases) > 6 else (0, 0, 1, 1))
     fig.savefig(output)
     plt.close(fig)
 

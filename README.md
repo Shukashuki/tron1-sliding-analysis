@@ -40,8 +40,11 @@ position error? Views are top-down only. Height/flight is not a failure gate.
    from G1 torso to TRON1 `base_Link`), and
    1–3 s velocity pushes. These are **training** randomizations. TRON1's body,
    action, wheel handling, motion and drift rewards remain adaptations, not an
-   exact G1 reproduction. The ground material is fixed at 1.0 during training,
-   matching the upstream nominal ground material. The earlier worst-substep
+   exact G1 reproduction. The ground coefficient is fixed at 1.0 during training,
+   matching the upstream nominal value. The frozen TRON1 checkpoint retains
+   its `average` ground material combine rule; the official BeyondMimic ground
+   uses `multiply`. Thus matching event ranges alone does not make the actual
+   paired contact distribution identical. The earlier worst-substep
    ground-load reward is excluded: its audited mass/cache implementation only
    permits the historical fixed event set and is incompatible with new CoM
    randomization. The selected compatible reward profile is
@@ -92,7 +95,7 @@ The plot ends each engine path at its actual final observed state. Compact
 support independent re-analysis. No third-party raw mocap or vehicle CSV is
 redistributed here.
 
-## New result: BeyondMimic-randomized car policy
+## Initial result: BeyondMimic-randomized car policy
 
 The new 512-environment, 1000-iteration policy used the pinned BeyondMimic
 material, joint-offset, CoM and push events described above. The same frozen
@@ -121,6 +124,25 @@ python scripts/analyze_friction_grid.py \
 The trained checkpoint is retained on the authorized remote machine; the
 public repository provides the training and validation code plus compact
 outputs, but not the licensed robot model or third-party raw data.
+
+## Expanded validation result: µ=0.01–2.00
+
+The same actor was evaluated at 17 fixed equal static/dynamic coefficients.
+All sampled cases from `µ=0.20` through `2.00` completed the whole reference
+in both engines and stayed below the exploratory core XY screens. The largest
+paired core XY RMSE was 0.0489 m at `µ=0.20`.
+
+At `µ=0.01–0.10`, both engines stopped before the turn core; `µ=0.15` stopped
+early in Isaac and after the core in MuJoCo. Every stop was the inherited
+vertical-anchor-error condition (>0.35 m), which censors later data and is
+not an XY failure verdict. Nevertheless, already-recorded reference XY peaks
+at `µ=0.05` and `0.10` reached 0.312–0.427 m before the core. The wider sweep
+does not establish a complete-turn XY failure boundary.
+
+![Expanded top-down friction sweep](results/car_bm_dr_wide_seed42/topdown.png)
+
+The [expanded experiment report](results/2026-10-14-wide-friction-grid.md)
+includes all metrics, stopping causes and the simulator-free replay command.
 
 ## Reproduce what is currently public
 

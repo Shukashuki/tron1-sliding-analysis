@@ -1,5 +1,9 @@
 # Car-drift policy with BeyondMimic-style training randomization
 
+This report records the initial six-point grid. The subsequent
+[0.01–2.00 validation sweep](2026-10-14-wide-friction-grid.md) uses the same
+frozen policy and includes the low-friction censored episodes.
+
 ## Setup
 
 This is a **new** TRON1 WF PPO policy, not the earlier fixed-`µ=0.15` baseline. It tracks the locked high-wheel-heading-separation `drift_drl/traj_4` car reference. The retargeted wheel-heading separation is a kinematic reference feature, not a measured tire contact-slip angle. The training reference, task, policy action/observation contract and source hashes are in [training_manifest.json](car_bm_dr_seed42/training_manifest.json); the completed run and live material audit are in [training_status.json](car_bm_dr_seed42/training_status.json).
