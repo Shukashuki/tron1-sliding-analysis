@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "task": "car_drift",
+  "contact_friction": 1.0,
+  "env_spacing_m": 8.0,
+  "reward_weights": {"sideslip": 2.0, "yaw_rate": 1.0, "speed": 1.0, "grounded": 0.4, "tilt": -0.2},
+  "description": "High-sideslip car reference; BeyondMimic-style robot material DR at training startup with fixed ground mu=1.0. No cached worst-substep ground-load reward, because its historical audit only allows the original fixed event set. Evaluation uses frozen actor and fixed material pairs."
+}

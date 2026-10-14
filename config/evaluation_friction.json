@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "purpose": "beyondmimic_style_training_then_frozen_policy_friction_failure_screen",
+  "policy_training_friction_randomization": true,
+  "frozen_policy_required": true,
+  "reference": "BeyondMimic official tracking_env_cfg.py EventCfg.physics_material at pinned submodule commit cd65172032893724b445448818c34165846d847d",
+  "beyondmimic_static_range": [0.3, 1.6],
+  "beyondmimic_dynamic_range": [0.3, 1.2],
+  "beyondmimic_buckets": 64,
+  "beyondmimic_restitution_range": [0.0, 0.5],
+  "currently_supported_equal_static_dynamic_grid": [0.3, 0.45, 0.6, 0.7, 0.8, 1.0],
+  "pending_evaluator_extension_equal_grid": [1.2],
+  "later_distinct_static_dynamic_pairs": [[1.4, 1.0], [1.6, 1.2]],
+  "screening_core_interval_s": [1.44, 4.0],
+  "large_reference_xy_rmse_m": 0.15,
+  "large_reference_xy_peak_m": 0.3,
+  "interpretation": "The two XY limits are inherited exploratory screening limits from the previous turn task, not physical tire-calibration thresholds. Incomplete core is censored, not a pass. Isaac and MuJoCo material coefficients are not calibrated equivalents."
+}

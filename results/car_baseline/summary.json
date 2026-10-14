@@ -1,0 +1,548 @@
+{
+  "schema_version": 1,
+  "kind": "historical_fixed_mu_policy_matched_friction_xy_baseline",
+  "policy_training_friction_randomization": false,
+  "planned_training_friction_randomization": true,
+  "core_interval_s": [
+    1.44,
+    4.0
+  ],
+  "screening_limits_m": {
+    "reference_core_rmse": 0.15,
+    "reference_core_peak": 0.3
+  },
+  "provenance": {
+    "reference_sha256": "afc22f19b813cf10b3e3a90affb0f26f5a7743074f98b262394c69de786e9f6e",
+    "cases": {
+      "mu0p05": {
+        "mu": 0.05,
+        "isaac_trace_sha256": "21769bd9c70b41531fcaf7b65640dcc44319b50b4290ed62eaca5b3b48ab2cbc",
+        "mujoco_trace_sha256": "edaed0b4cd5cd65abab712c32adb9f881fffe4f79987e7a419998938be2d5763",
+        "isaac_report_sha256": "1c7c7476164f9ca56b8d7ce9b05e319be61ff1815b7e60a36cbb5c65a0e52429",
+        "mujoco_report_sha256": "7dd8e756294212e99a76655fdf7ca0ce1e3315445bca67d9e0da9037e6ca5080",
+        "isaac_contact_friction_readback": {
+          "expected_friction": 0.05,
+          "robot_runtime_friction_range": [
+            0.05000000074505806,
+            0.05000000074505806
+          ],
+          "leg_pd_gain_readback": {
+            "kp_range": [
+              500.0,
+              500.0
+            ],
+            "kd_range": [
+              10.0,
+              10.0
+            ]
+          },
+          "ground_colliders": [
+            {
+              "collider": "/World/ground/terrain/GroundPlane/CollisionPlane",
+              "material": "/World/ground/terrain/physicsMaterial",
+              "static_friction": 0.05000000074505806,
+              "dynamic_friction": 0.05000000074505806
+            }
+          ],
+          "ground_audit": "USD-bound material; robot materials additionally read back from live PhysX",
+          "ground_load_reserve": {
+            "schema_version": 1,
+            "settings": {
+              "weight": -1.0,
+              "scale_fraction": 0.2
+            },
+            "formula": "sum(exp(-clamp(ground_normal_force_world_z_N,min=0)/(scale_fraction*mg_N)))",
+            "sampling": "last_physics_substep",
+            "physics_dt_s": 0.005,
+            "policy_dt_s": 0.02,
+            "decimation": 4,
+            "force_evidence": "filtered ContactSensor.data.force_matrix_w; normal forces only",
+            "sensor_names": [
+              "wheel_L_ground",
+              "wheel_R_ground"
+            ],
+            "wheel_body_names": [
+              "wheel_L_Link",
+              "wheel_R_Link"
+            ],
+            "sensor_matrix_shape": [
+              1,
+              1,
+              1,
+              3
+            ],
+            "ground_collider": {
+              "path": "/World/ground/terrain/GroundPlane/CollisionPlane",
+              "usd_type": "Plane",
+              "collision_api_verified": true,
+              "native_cooked_geometry_readback_performed": false
+            },
+            "training_contact_point_tracking_required": false,
+            "sensor_track_contact_points": [
+              true,
+              true
+            ],
+            "native_mass_source": "ArticulationView.get_masses() CPU (N,bodies)",
+            "mass_reduction_dtype": "float64",
+            "cached_mg_dtype": "float32",
+            "mass_kg_range": [
+              22.272999772801995,
+              22.272999772801995
+            ],
+            "first_environment_link_mass_kg": [
+              9.585000038146973,
+              1.4689998626708984,
+              1.4689998626708984,
+              0.009999999776482582,
+              2.299999952316284,
+              2.299999952316284,
+              1.4900000095367432,
+              1.4900000095367432,
+              1.0800000429153442,
+              1.0800000429153442
+            ],
+            "mg_N_range": [
+              218.49813711731022,
+              218.49813711731022
+            ],
+            "configured_gravity_m_s2": [
+              0.0,
+              0.0,
+              -9.81
+            ],
+            "native_gravity_m_s2": [
+              0.0,
+              0.0,
+              -9.8100004196167
+            ],
+            "cuda_device": "cuda:2",
+            "num_envs": 1,
+            "active_event_identity_audit": [
+              {
+                "name": "physics_material",
+                "mode": "startup",
+                "function": "isaaclab.envs.mdp.events.randomize_rigid_body_material",
+                "initialized_exact_class_instance": true
+              },
+              {
+                "name": "legacy_joint_friction",
+                "mode": "startup",
+                "function": "training.tron1_tracking.clear_legacy_joint_friction",
+                "initialized_exact_class_instance": false
+              }
+            ],
+            "startup_force_finite_and_nonnegative_z": true,
+            "startup_loaded_contact_required": false,
+            "loaded_normal_vector_and_raw_aggregate_runtime_smoke_required": true,
+            "raw_normal_forces_thresholded": false,
+            "scale_is_minimum_force": false,
+            "cost_bounds": [
+              0.0,
+              2.0
+            ],
+            "continuous_contact_certified": false,
+            "host_synchronization_free": false,
+            "reset_or_history_state_added": false,
+            "soft_balanced_load_preference": true,
+            "tracking_tradeoff_and_no_hardware_safety_claim": true,
+            "module_sha256": "761eccede3c0d90d744a4d9c45c9671b318426ab9bc6f9762ee7cacb3c14496d"
+          }
+        },
+        "mujoco_compiled_sliding_friction_range": [
+          0.05,
+          0.05
+        ],
+        "isaac_termination": null,
+        "mujoco_termination": "early_termination"
+      },
+      "mu0p70": {
+        "mu": 0.7,
+        "isaac_trace_sha256": "8db8e04f7cdfc7052764d0bbca45f1f4551e12a25c79acb4e9cca7836d11e210",
+        "mujoco_trace_sha256": "f559d2b5a27388f6226be2f9b672f277286ea1f591fa6fca79ac908c9a3532b6",
+        "isaac_report_sha256": "3b090265036a2d88619cdbdbc4fa2317214db9f5305622c875a78908c173ad9f",
+        "mujoco_report_sha256": "b89018e311b933ba93bbeaf3162b56116ccb5a0a8a100a862b3befb41e858755",
+        "isaac_contact_friction_readback": {
+          "expected_friction": 0.7,
+          "robot_runtime_friction_range": [
+            0.699999988079071,
+            0.699999988079071
+          ],
+          "leg_pd_gain_readback": {
+            "kp_range": [
+              500.0,
+              500.0
+            ],
+            "kd_range": [
+              10.0,
+              10.0
+            ]
+          },
+          "ground_colliders": [
+            {
+              "collider": "/World/ground/terrain/GroundPlane/CollisionPlane",
+              "material": "/World/ground/terrain/physicsMaterial",
+              "static_friction": 0.699999988079071,
+              "dynamic_friction": 0.699999988079071
+            }
+          ],
+          "ground_audit": "USD-bound material; robot materials additionally read back from live PhysX",
+          "ground_load_reserve": {
+            "schema_version": 1,
+            "settings": {
+              "weight": -1.0,
+              "scale_fraction": 0.2
+            },
+            "formula": "sum(exp(-clamp(ground_normal_force_world_z_N,min=0)/(scale_fraction*mg_N)))",
+            "sampling": "last_physics_substep",
+            "physics_dt_s": 0.005,
+            "policy_dt_s": 0.02,
+            "decimation": 4,
+            "force_evidence": "filtered ContactSensor.data.force_matrix_w; normal forces only",
+            "sensor_names": [
+              "wheel_L_ground",
+              "wheel_R_ground"
+            ],
+            "wheel_body_names": [
+              "wheel_L_Link",
+              "wheel_R_Link"
+            ],
+            "sensor_matrix_shape": [
+              1,
+              1,
+              1,
+              3
+            ],
+            "ground_collider": {
+              "path": "/World/ground/terrain/GroundPlane/CollisionPlane",
+              "usd_type": "Plane",
+              "collision_api_verified": true,
+              "native_cooked_geometry_readback_performed": false
+            },
+            "training_contact_point_tracking_required": false,
+            "sensor_track_contact_points": [
+              true,
+              true
+            ],
+            "native_mass_source": "ArticulationView.get_masses() CPU (N,bodies)",
+            "mass_reduction_dtype": "float64",
+            "cached_mg_dtype": "float32",
+            "mass_kg_range": [
+              22.272999772801995,
+              22.272999772801995
+            ],
+            "first_environment_link_mass_kg": [
+              9.585000038146973,
+              1.4689998626708984,
+              1.4689998626708984,
+              0.009999999776482582,
+              2.299999952316284,
+              2.299999952316284,
+              1.4900000095367432,
+              1.4900000095367432,
+              1.0800000429153442,
+              1.0800000429153442
+            ],
+            "mg_N_range": [
+              218.49813711731022,
+              218.49813711731022
+            ],
+            "configured_gravity_m_s2": [
+              0.0,
+              0.0,
+              -9.81
+            ],
+            "native_gravity_m_s2": [
+              0.0,
+              0.0,
+              -9.8100004196167
+            ],
+            "cuda_device": "cuda:2",
+            "num_envs": 1,
+            "active_event_identity_audit": [
+              {
+                "name": "physics_material",
+                "mode": "startup",
+                "function": "isaaclab.envs.mdp.events.randomize_rigid_body_material",
+                "initialized_exact_class_instance": true
+              },
+              {
+                "name": "legacy_joint_friction",
+                "mode": "startup",
+                "function": "training.tron1_tracking.clear_legacy_joint_friction",
+                "initialized_exact_class_instance": false
+              }
+            ],
+            "startup_force_finite_and_nonnegative_z": true,
+            "startup_loaded_contact_required": false,
+            "loaded_normal_vector_and_raw_aggregate_runtime_smoke_required": true,
+            "raw_normal_forces_thresholded": false,
+            "scale_is_minimum_force": false,
+            "cost_bounds": [
+              0.0,
+              2.0
+            ],
+            "continuous_contact_certified": false,
+            "host_synchronization_free": false,
+            "reset_or_history_state_added": false,
+            "soft_balanced_load_preference": true,
+            "tracking_tradeoff_and_no_hardware_safety_claim": true,
+            "module_sha256": "761eccede3c0d90d744a4d9c45c9671b318426ab9bc6f9762ee7cacb3c14496d"
+          }
+        },
+        "mujoco_compiled_sliding_friction_range": [
+          0.7,
+          0.7
+        ],
+        "isaac_termination": null,
+        "mujoco_termination": "motion_end"
+      },
+      "mu1p00": {
+        "mu": 1.0,
+        "isaac_trace_sha256": "a11cfd059fd039aff2d4f5705b5718473dacec7ca46236690dbb9f1c39b11ba9",
+        "mujoco_trace_sha256": "1d85789c9b54ac49ee3cc548a3f1a1999323c48cc930898a412fb6b1eb204a65",
+        "isaac_report_sha256": "0f24375fbffc65e05758d4f91cb72c503573e0d98bc45d308769b69a6dc31926",
+        "mujoco_report_sha256": "4dc46f0f47bea62a73daee18e4e79227a905cb7b0fba8b8fa3eeb8cfe718dd02",
+        "isaac_contact_friction_readback": {
+          "expected_friction": 1.0,
+          "robot_runtime_friction_range": [
+            1.0,
+            1.0
+          ],
+          "leg_pd_gain_readback": {
+            "kp_range": [
+              500.0,
+              500.0
+            ],
+            "kd_range": [
+              10.0,
+              10.0
+            ]
+          },
+          "ground_colliders": [
+            {
+              "collider": "/World/ground/terrain/GroundPlane/CollisionPlane",
+              "material": "/World/ground/terrain/physicsMaterial",
+              "static_friction": 1.0,
+              "dynamic_friction": 1.0
+            }
+          ],
+          "ground_audit": "USD-bound material; robot materials additionally read back from live PhysX",
+          "ground_load_reserve": {
+            "schema_version": 1,
+            "settings": {
+              "weight": -1.0,
+              "scale_fraction": 0.2
+            },
+            "formula": "sum(exp(-clamp(ground_normal_force_world_z_N,min=0)/(scale_fraction*mg_N)))",
+            "sampling": "last_physics_substep",
+            "physics_dt_s": 0.005,
+            "policy_dt_s": 0.02,
+            "decimation": 4,
+            "force_evidence": "filtered ContactSensor.data.force_matrix_w; normal forces only",
+            "sensor_names": [
+              "wheel_L_ground",
+              "wheel_R_ground"
+            ],
+            "wheel_body_names": [
+              "wheel_L_Link",
+              "wheel_R_Link"
+            ],
+            "sensor_matrix_shape": [
+              1,
+              1,
+              1,
+              3
+            ],
+            "ground_collider": {
+              "path": "/World/ground/terrain/GroundPlane/CollisionPlane",
+              "usd_type": "Plane",
+              "collision_api_verified": true,
+              "native_cooked_geometry_readback_performed": false
+            },
+            "training_contact_point_tracking_required": false,
+            "sensor_track_contact_points": [
+              true,
+              true
+            ],
+            "native_mass_source": "ArticulationView.get_masses() CPU (N,bodies)",
+            "mass_reduction_dtype": "float64",
+            "cached_mg_dtype": "float32",
+            "mass_kg_range": [
+              22.272999772801995,
+              22.272999772801995
+            ],
+            "first_environment_link_mass_kg": [
+              9.585000038146973,
+              1.4689998626708984,
+              1.4689998626708984,
+              0.009999999776482582,
+              2.299999952316284,
+              2.299999952316284,
+              1.4900000095367432,
+              1.4900000095367432,
+              1.0800000429153442,
+              1.0800000429153442
+            ],
+            "mg_N_range": [
+              218.49813711731022,
+              218.49813711731022
+            ],
+            "configured_gravity_m_s2": [
+              0.0,
+              0.0,
+              -9.81
+            ],
+            "native_gravity_m_s2": [
+              0.0,
+              0.0,
+              -9.8100004196167
+            ],
+            "cuda_device": "cuda:2",
+            "num_envs": 1,
+            "active_event_identity_audit": [
+              {
+                "name": "physics_material",
+                "mode": "startup",
+                "function": "isaaclab.envs.mdp.events.randomize_rigid_body_material",
+                "initialized_exact_class_instance": true
+              },
+              {
+                "name": "legacy_joint_friction",
+                "mode": "startup",
+                "function": "training.tron1_tracking.clear_legacy_joint_friction",
+                "initialized_exact_class_instance": false
+              }
+            ],
+            "startup_force_finite_and_nonnegative_z": true,
+            "startup_loaded_contact_required": false,
+            "loaded_normal_vector_and_raw_aggregate_runtime_smoke_required": true,
+            "raw_normal_forces_thresholded": false,
+            "scale_is_minimum_force": false,
+            "cost_bounds": [
+              0.0,
+              2.0
+            ],
+            "continuous_contact_certified": false,
+            "host_synchronization_free": false,
+            "reset_or_history_state_added": false,
+            "soft_balanced_load_preference": true,
+            "tracking_tradeoff_and_no_hardware_safety_claim": true,
+            "module_sha256": "761eccede3c0d90d744a4d9c45c9671b318426ab9bc6f9762ee7cacb3c14496d"
+          }
+        },
+        "mujoco_compiled_sliding_friction_range": [
+          1.0,
+          1.0
+        ],
+        "isaac_termination": null,
+        "mujoco_termination": "motion_end"
+      }
+    },
+    "motion_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254"
+  },
+  "rows": [
+    {
+      "case": "mu0p05",
+      "evaluation_mu_static_dynamic_equal": 0.05,
+      "isaac": {
+        "last_observed_time_s": 2.82,
+        "core_complete": false,
+        "observed_core_samples": 277,
+        "observed_core_reference_xy_rmse_m": 0.06911339102582922,
+        "full_core_reference_xy_rmse_m": null,
+        "full_core_reference_xy_peak_m": null,
+        "observed_whole_clip_reference_xy_peak_m": 0.16074465920978892,
+        "large_reference_xy_screen": null
+      },
+      "mujoco": {
+        "last_observed_time_s": 2.1399999999999766,
+        "core_complete": false,
+        "observed_core_samples": 141,
+        "observed_core_reference_xy_rmse_m": 0.08946963718714153,
+        "full_core_reference_xy_rmse_m": null,
+        "full_core_reference_xy_peak_m": null,
+        "observed_whole_clip_reference_xy_peak_m": 0.15240691925366534,
+        "large_reference_xy_screen": null
+      },
+      "sim2sim": {
+        "overlap_end_s": 2.1399999999999766,
+        "overlap_xy_rmse_m": 0.06227745577454282,
+        "overlap_xy_peak_m": 0.2316908546784851,
+        "observed_core_xy_rmse_m": 0.10755790234011661,
+        "full_core_overlap": false,
+        "full_core_xy_rmse_m": null
+      }
+    },
+    {
+      "case": "mu0p70",
+      "evaluation_mu_static_dynamic_equal": 0.7,
+      "isaac": {
+        "last_observed_time_s": 6.98,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 0.09852672448784648,
+        "full_core_reference_xy_rmse_m": 0.09852672448784648,
+        "full_core_reference_xy_peak_m": 0.15594392766078205,
+        "observed_whole_clip_reference_xy_peak_m": 0.2883253871059602,
+        "large_reference_xy_screen": false
+      },
+      "mujoco": {
+        "last_observed_time_s": 6.979999999999873,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 0.10302109802874126,
+        "full_core_reference_xy_rmse_m": 0.10302109802874126,
+        "full_core_reference_xy_peak_m": 0.17408284972775054,
+        "observed_whole_clip_reference_xy_peak_m": 0.3090221531681489,
+        "large_reference_xy_screen": false
+      },
+      "sim2sim": {
+        "overlap_end_s": 6.979999999999873,
+        "overlap_xy_rmse_m": 0.028312889381964076,
+        "overlap_xy_peak_m": 0.05389968448125133,
+        "observed_core_xy_rmse_m": 0.015298215788616577,
+        "full_core_overlap": true,
+        "full_core_xy_rmse_m": 0.015298215788616577
+      }
+    },
+    {
+      "case": "mu1p00",
+      "evaluation_mu_static_dynamic_equal": 1.0,
+      "isaac": {
+        "last_observed_time_s": 6.98,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 0.15018258575631668,
+        "full_core_reference_xy_rmse_m": 0.15018258575631668,
+        "full_core_reference_xy_peak_m": 0.2242665661207083,
+        "observed_whole_clip_reference_xy_peak_m": 0.37447683090817635,
+        "large_reference_xy_screen": true
+      },
+      "mujoco": {
+        "last_observed_time_s": 6.979999999999873,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 0.1510460843279917,
+        "full_core_reference_xy_rmse_m": 0.1510460843279917,
+        "full_core_reference_xy_peak_m": 0.2712049559731646,
+        "observed_whole_clip_reference_xy_peak_m": 0.505501992895173,
+        "large_reference_xy_screen": true
+      },
+      "sim2sim": {
+        "overlap_end_s": 6.979999999999873,
+        "overlap_xy_rmse_m": 0.08166198160959309,
+        "overlap_xy_peak_m": 0.16483347524268105,
+        "observed_core_xy_rmse_m": 0.04550152545676494,
+        "full_core_overlap": true,
+        "full_core_xy_rmse_m": 0.04550152545676494
+      }
+    }
+  ],
+  "limitations": [
+    "Three archived deterministic pairs, not a completed BeyondMimic-range grid or a friction threshold estimate.",
+    "The frozen policy was trained at mu=0.15; no friction randomization was added to training.",
+    "Early termination censors the full-core XY verdict; trajectories are never extrapolated.",
+    "Equal numerical PhysX and MuJoCo friction is not physical tire-ground calibration.",
+    "This root-XY view does not establish actual wheel-ground patch slip or human GMR feasibility."
+  ]
+}
