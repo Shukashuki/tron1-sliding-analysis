@@ -144,6 +144,22 @@ does not establish a complete-turn XY failure boundary.
 The [expanded experiment report](results/2026-10-14-wide-friction-grid.md)
 includes all metrics, stopping causes and the simulator-free replay command.
 
+## Full-horizon XY result after observing pose predicates
+
+The follow-up retains the original pose-condition flags as diagnostics and
+records the complete 6.98 s reference without stopping on those flags. The
+same actor has large core reference-XY errors in both engines at `µ≤0.10`.
+At `µ=0.15`, Isaac's core reference XY RMSE is 1.8932 m and MuJoCo's is
+0.0568 m, giving a 1.9376 m sim2sim gap. The `µ=0.20` and `0.70` controls
+reproduce the earlier metrics exactly. These low-friction continuations
+include failed posture; the XY result describes tracking failure, not active
+controlled slip.
+
+![Full-horizon low-friction top-down comparison](results/car_bm_dr_full_horizon_seed42/topdown.png)
+
+The [full-horizon report](results/2026-10-14-full-horizon-friction-grid.md)
+contains all seven cases, predicate-onset diagnostics and reproduction commands.
+
 ## Reproduce what is currently public
 
 ```bash

@@ -61,13 +61,15 @@ def run(args: argparse.Namespace) -> Path:
     values = list(args.mu)
     if not values or len({case_name(mu) for mu in values}) != len(values):
         raise ValueError("Friction grid must have unique, supported values")
-    if max(values) > 1.0:
+    if max(values) > 1.0 or args.full_horizon_diagnostic or (source / "wide_friction_source.json").exists():
         audit_path = source / "wide_friction_source.json"
         audit = json.loads(audit_path.read_text())
         if (audit.get("evaluation_mu_bounds") != [.01, 2.0]
                 or any(sha(source / name) != expected
                        for name, expected in audit["changed_output_sha256"].items())):
             raise ValueError("Wide friction source audit failed")
+        if bool(audit.get("full_horizon_diagnostic", False)) != args.full_horizon_diagnostic:
+            raise ValueError("Full-horizon mode differs from the isolated source audit")
     target.mkdir(parents=True, exist_ok=True)
     cases = []
     for mu in values:
@@ -98,6 +100,7 @@ def run(args: argparse.Namespace) -> Path:
     manifest_path = target / "grid_manifest.json"
     manifest = {"schema_version": 1, "kind": "frozen_new_policy_fixed_mu_validation_grid",
                 "policy_training_friction_randomization": True,
+                "full_horizon_diagnostic": args.full_horizon_diagnostic,
                 "training_manifest": str((args.checkpoint.parent / "manifest.json").resolve()),
                 "checkpoint": str(args.checkpoint.resolve()),
                 "reference_file": str(args.reference_file.resolve()),
@@ -129,6 +132,8 @@ def main() -> None:
                         default=[.01, .03, .05, .1, .15, .2, .3, .45, .6, .7,
                                  .8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0])
     parser.add_argument("--device", default="cuda:0")
+    parser.add_argument("--full-horizon-diagnostic", action="store_true",
+                        help="Requires the isolated full-horizon source; observe pose predicates without stopping")
     args = parser.parse_args()
     result = run(args)
     print(json.dumps({"status": "validated_and_rendered", "manifest": str(result)}))

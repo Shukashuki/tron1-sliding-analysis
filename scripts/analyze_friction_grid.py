@@ -18,6 +18,9 @@ def summarize_new_grid(trace: dict[str, np.ndarray], provenance: dict,
     result["policy_training_friction_randomization"] = True
     result["limitations"] = [x for x in result["limitations"] if "archived" not in x and "mu=0.15" not in x]
     result["limitations"].append("One deterministic episode per coefficient; the friction failure boundary needs more seeds or a finer grid.")
+    if provenance.get("full_horizon_diagnostic"):
+        result["full_horizon_diagnostic"] = True
+        result["limitations"].append("Pose predicates are recorded but do not terminate this diagnostic; full duration or small XY error alone does not demonstrate controlled upright execution.")
     return result
 
 
@@ -69,6 +72,8 @@ def build(manifest_path: Path, output: Path) -> dict:
     trace = {"reference_t": rt, "reference_xy": rp}
     provenance = {"training_manifest_sha256": xy.sha(training_manifest),
                   "reference_sha256": xy.sha(ref_file), "cases": {}}
+    if manifest.get("full_horizon_diagnostic"):
+        provenance["full_horizon_diagnostic"] = True
     cases = {}
     checkpoint_hashes = set()
     motion_hashes = set()
@@ -82,6 +87,9 @@ def build(manifest_path: Path, output: Path) -> dict:
         ia_report_file, mj_report_file = Path(item["isaac_report"]), Path(item["mujoco_report"])
         ia_report = json.loads(ia_report_file.read_text())
         mj_report = json.loads(mj_report_file.read_text())
+        if manifest.get("full_horizon_diagnostic") and not (
+                ia_report.get("full_horizon_diagnostic") and mj_report.get("full_horizon_diagnostic")):
+            raise ValueError(f"{name}: full-horizon diagnostic mode differs across engines")
         override = ia_report["evaluation_contact_friction_override"]
         material = ia_report["contact_material_audit"]
         if (not np.isclose(override["evaluation_contact_friction"], mu)
@@ -111,6 +119,10 @@ def build(manifest_path: Path, output: Path) -> dict:
             "mujoco_episode_end": {key: mj_report.get(key) for key in
                                     ("termination", "termination_terms", "completed_full_reference")},
         }
+        if manifest.get("full_horizon_diagnostic"):
+            provenance["cases"][name]["pose_termination_diagnostics"] = {
+                "isaac": ia_report["pose_termination_diagnostics"],
+                "mujoco": mj_report["pose_termination_diagnostics"]}
     if not cases or len(checkpoint_hashes) != 1 or len(motion_hashes) != 1:
         raise ValueError("Grid must reuse one checkpoint and one motion")
     if next(iter(checkpoint_hashes)) != xy.sha(Path(manifest["checkpoint"])):
