@@ -33,7 +33,11 @@ position error? Views are top-down only. Height/flight is not a failure gate.
    IK/interaction-mesh previews are not substituted as GMR results. The previous
    FS-Jump3D submodule is retained for historical provenance, not selected here.
    The [re3data API audit](results/hdm05_registry_api/re3data_sources.json)
-   distinguishes repository metadata from downloadable motion samples.
+   distinguishes repository metadata from downloadable motion samples. The
+   [download report](results/2026-10-14-hdm05-downloads.md) records 180 locally
+   downloaded walking/turning BVH derivatives and 15 ASF/AMC mirror clips;
+   the BVH source already uses human-to-human IK skeleton standardization and
+   is not a TRON1 GMR result or an unprocessed foot-heading measurement.
 4. Train a new tracking PPO with the official BeyondMimic event ranges, mapped
    to TRON1 (`scripts/train_beyondmimic_style.py`). At startup, sample robot
    static friction U[0.3,1.6], dynamic friction U[0.3,1.2], restitution
