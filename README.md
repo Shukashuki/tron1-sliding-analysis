@@ -154,6 +154,38 @@ public source code once its separately licensed asset/motion inputs are
 provided. The unpublished historical branch was not bulk-pushed because it
 includes many other outputs beyond this experiment.
 
+For a **byte-exact formal-run** source checkout, the remote snapshot's drift
+reward module predates a later optional restitution-profile addition in the
+public submodule. The formal task profile does not use that option, so it does
+not change this run's reward or material event. Apply only the audited small
+patch inside a fresh, dedicated clone to reproduce the manifest's module
+SHA-256 (this intentionally makes that clone's submodule working tree dirty):
+
+```bash
+cd upstream/tron1-learning-from-human
+git apply ../../patches/tron1_drift_formal.patch
+cd ../..
+```
+
+The patch is tested against the pinned base and yields SHA-256
+`5eb40c9b3c14f5bd5c59c9861c1414ae8ac1b219ff0dd70591f2c6fe0bb5344c`.
+
+After placing the licensed TRON1 MuJoCo model and its referenced meshes at the
+source script's expected
+`upstream/tron1-learning-from-human/assets/robots/WF_TRON1A/mujoco/robot.xml`,
+regenerate the locked car reference from the pinned open CSV:
+
+```bash
+python upstream/tron1-learning-from-human/scripts/prepare_drift_drl_turn_reference.py \
+  --source-config upstream/tron1-learning-from-human/config/drift_turn_source.json \
+  --source-csv upstream/drift_drl/code/ref_trajectory/traj_4.csv \
+  --output-dir outputs/retargeted_car
+```
+
+Check `motion.npz` and `robot_reference.npz` against the SHA-256 values in
+[`config/car_reference_lock.json`](config/car_reference_lock.json) before
+training or validation; model/version mismatches are not interchangeable.
+
 For a new car-policy run, supply the source checkout, the licensed TRON1 USD,
 the 50 Hz retargeted drift motion, and the drift task profile to
 `scripts/train_beyondmimic_style.py` inside an Isaac Lab 2.3 / RSL-RL 3

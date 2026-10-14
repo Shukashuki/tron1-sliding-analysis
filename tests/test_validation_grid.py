@@ -1,6 +1,7 @@
 import importlib.util
 import json
 from pathlib import Path
+import subprocess
 import sys
 
 import numpy as np
@@ -45,6 +46,19 @@ def test_public_base_materializes_exact_audited_friction_evaluator():
     base = ROOT / "upstream/tron1-learning-from-human/scripts/eval_tracking.py"
     content = generator.generate(base)
     assert __import__("hashlib").sha256(content.encode()).hexdigest() == generator.OUTPUT_SHA256
+
+
+def test_narrow_drift_patch_matches_formal_training_source(tmp_path):
+    base = ROOT / "upstream/tron1-learning-from-human/training/tron1_drift.py"
+    target = tmp_path / "training/tron1_drift.py"
+    target.parent.mkdir()
+    target.write_bytes(base.read_bytes())
+    subprocess.run(["patch", "--silent", "-p1", "-i",
+                    str(ROOT / "patches/tron1_drift_formal.patch")],
+                   cwd=tmp_path, check=True)
+    assert mod.sha(target) == "5eb40c9b3c14f5bd5c59c9861c1414ae8ac1b219ff0dd70591f2c6fe0bb5344c"
+    profile = json.loads((ROOT / "config/car_drift_beyondmimic_task.json").read_text())
+    assert "training_robot_restitution_range" not in profile
 
 
 def test_generic_grid_rejects_no_data_and_renders_one_valid_case(tmp_path):

@@ -8,6 +8,8 @@ Training ran on the remote RTX 4090 D with seed 42, 512 parallel environments, 1
 
 The source policy contract retains an inherited `domain_randomization: "disabled for initial pilot"` label from the older TRON1 implementation. For this run, the operative `training_domain_randomization` and top-level `recipe` fields in the manifest, the trainer's installed event functions, and the live material audit document the actual enabled randomization; the inherited label should not be interpreted as the event state.
 
+The formal remote snapshot's `training/tron1_drift.py` predates a later optional restitution-profile hook in the pinned public submodule. The selected task profile does not use that hook. For byte-exact source-hash reproduction, the README provides a narrow [compatibility patch](../patches/tron1_drift_formal.patch); no broad unpublished source branch is needed.
+
 For validation, the final frozen checkpoint (SHA-256 `f803a8507752d5767a756a537bc844589523de0fb827e669865ac774343db20e`) was reused for every case, with randomization disabled. Robot and ground static/dynamic friction were set to the same fixed value and read back in Isaac/PhysX and MuJoCo. There was one deterministic seed-42 episode per engine and coefficient. The turn core is 1.44–4.00 s; exploratory large-XY screens are reference-core RMSE >0.15 m or peak >0.30 m. Neither is a physical drift-success criterion.
 
 ## Top-down XY result
