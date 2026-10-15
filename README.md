@@ -6,6 +6,14 @@ for a high course-to-wheel/foot heading offset, at which validation contact
 frictions does the learned TRON1 wheel-foot policy develop a large horizontal
 position error? Views are top-down only. Height/flight is not a failure gate.
 
+**Candidate selection update:** lateral and crossover steps are no longer active
+drift candidates. Their old GMR/rate-sweep results remain geometric-offset controls.
+We now seek sustained turning with translational momentum and explicitly report
+speed loss, rather than selecting on angle alone. The
+[new-source audit](results/2026-10-14-drift-candidate-search.md) checks traveling
+dance turns, an alpine-skiing supplement and continuous car-drift implementations;
+it does **not** claim a newly qualified human drift or start policy training.
+
 ## Experiment contract
 
 1. Select car or human demonstrations with a sustained, nontrivial signed
@@ -29,9 +37,10 @@ position error? Views are top-down only. Height/flight is not a failure gate.
    `attach_human_wheel_offset.py` remains a separate heel/toe-marker utility and
    is not used to relabel joint pivots as measured markers. TRON1 WF has no
    independent wheel-yaw joint, so a human foot heading offset cannot be
-   silently imposed as a realized joint command. The current source selection
-   is **HDM05 slow lateral steps, crossover steps and walking turns**, not
-   running or skating. Human work is currently **retarget-only**; there is no
+   silently imposed as a realized joint command. Human source screening
+   previously covered **HDM05 slow lateral steps, crossover steps and walking turns**.
+   Lateral/crossover clips are now excluded as active drift candidates; running
+   and skating remain excluded. Human work is currently **retarget-only**; there is no
    trained human tracking policy or human sim2sim result yet. Earlier skating
    IK/interaction-mesh previews are not substituted as GMR results. The previous
    FS-Jump3D submodule is retained for historical provenance, not selected here.

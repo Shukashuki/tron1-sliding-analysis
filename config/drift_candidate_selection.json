@@ -1,0 +1,66 @@
+{
+  "scope": "Replace lateral/crossover candidates. Discovery and source screening only; no new training or validation job.",
+  "excluded_as_active_drift_candidates": [
+    "HDM05 walkLeft2Steps", "HDM05 walkLeft3Steps",
+    "HDM05 walkRightCrossFront2Steps", "HDM05 walkRightCrossFront3Steps"
+  ],
+  "also_excluded_by_user": ["human running/jogging", "skating/inline skating"],
+  "historical_results": "Retained unchanged as geometric-offset controls, not selected drift demonstrations.",
+  "desired_features": [
+    "Nontrivial translational momentum at robot scale, not near-stationary yaw rotation",
+    "Sustained course change, not merely a constant lateral travel direction",
+    "Course-to-wheel or bilateral course-to-foot offsets during contact/proxy contact",
+    "Report speed loss throughout the turn; large offsets during a stop are not sufficient",
+    "Keep source and retarget measurements separate; no invented individual wheel/foot telemetry"
+  ],
+  "turn_window_policy": "Evaluate individual sustained turns/transitions with unwrapped course. Whole-clip endpoint course change can cancel on a full circle or figure-eight and must not reject those motions by itself. Window selection must be reported before training or friction evaluation.",
+  "exploratory_robot_reference_screen": {
+    "speed_m_s": 2.0, "axial_offset_deg": 20.0,
+    "continuous_window_s": 0.5, "course_change_deg": 30.0,
+    "minimum_speed_retention": 0.8,
+    "qualification": "Inherited exploratory screen, not user-specified physical limits. Retaining 80% of speed does NOT mean zero deceleration. Source-FK screening is not a robot-reference pass."
+  },
+  "human_candidates": [
+    {
+      "id": "sfu_traveling_turns", "clip": "0018_DanceTurns002.bvh",
+      "source": "https://mocap.cs.sfu.ca/",
+      "status": "Downloaded, FK-screened; NOT selected as a high-momentum drift",
+      "reason": "New non-running/non-skating turning motion with root translation and bilateral foot pivots, but native robot-scale root peak is only 1.268 m/s; no GMR result yet."
+    },
+    {
+      "id": "sfu_on_spot_control", "clip": "0018_DanceTurns001.bvh",
+      "source": "https://mocap.cs.sfu.ca/",
+      "status": "Downloaded negative control, excluded for low translation"
+    },
+    {
+      "id": "alpine_gnss_imu", "source": "https://zenodo.org/records/18468439",
+      "status": "Optional new-domain lead only; downloaded supplement is insufficient for bilateral GMR",
+      "released_fields": "12 runs, each COM XYZ + midpoint-between-ankles XYZ; NOT separate ankle tracks or foot orientations",
+      "caution": "Alpine skiing is not skating, but is outside the HDM05 preference and slope-powered. No source selection, slope flattening or retargeting performed."
+    },
+    {
+      "id": "ski_pose_ptz", "source": "https://www.epfl.ch/labs/cvlab/data/ski-poseptz-dataset/",
+      "status": "Access request required; no access request sent or raw file acquired"
+    }
+  ],
+  "car_candidates": [
+    {
+      "id": "xcar_iwd_circle_figure8_transitions",
+      "source": "https://github.com/zhou-yh19/xcar-rlgpu",
+      "inspected_commit": "eeeb289d8b700b3c9137ef40614988deeff31392",
+      "inspected_git_tree_sha": "0e2f855394b988dfec354bf2310e634834cd827f",
+      "paper": "https://arxiv.org/abs/2507.23339",
+      "status": "Open implementation verified; no ready-made measured state trajectory located in inspected tree",
+      "paths": ["envs/fixed_circle_iwd.py", "envs/eight_drift_iwd.py", "envs/continuous_drift_iwd.py"],
+      "verified_target": "fixed_circle_iwd.py: radius=1 m and beta=-1 rad (-57.3 deg); waypoint targets/reward definitions, NOT measured or achieved states. No exact constant-speed target: only a low-speed penalty saturating at 0.5 m/s.",
+      "reason": "Sustained circular drifting and continuous left/right drift transitions better match the desired motion family. Individual wheel drive is relevant, but a four-wheel steered car is not a two-wheel TRON1."
+    },
+    {
+      "id": "transient_nmpc_video",
+      "source": "https://api.figshare.com/v2/articles/25263323",
+      "status": "Two MP4 supplements only, not downloadable numeric state trajectories",
+      "files": ["Video_Overlay_Comparison.mp4", "Video_Uncut_Drone_Video.mp4"],
+      "caution": "Video reconstruction would be a separate estimated-trajectory method, not sensor ground truth."
+    }
+  ]
+}

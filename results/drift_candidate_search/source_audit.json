@@ -1,0 +1,1169 @@
+{
+  "scope": "Source discovery only; excludes lateral/crossover steps, running and skating. Skiing is an optional scope-expansion candidate, not selected or retargeted.",
+  "sources": {
+    "sfu_traveling_turns": {
+      "url": "https://mocap.cs.sfu.ca/nusmocap/0018_DanceTurns002.bvh",
+      "filename": "0018_DanceTurns002.bvh",
+      "max_bytes": 2000000,
+      "source_page": "https://mocap.cs.sfu.ca/",
+      "description": "Chinese dance turns (vertical circle), not declared a drift",
+      "license": "SFU site: free for research purposes; raw file not redistributed",
+      "bytes": 1176307,
+      "sha256": "91c68049ade0ed3369b070c6934df2e280f62df296f3c17bde3094eddfb15d54",
+      "source_fk_audit": {
+        "frames": 1867,
+        "duration_s": 15.549378,
+        "dt_s": 0.008333,
+        "scale_m_per_native_unit": 0.019339374963802322,
+        "robot_leg_normalization_m": 0.6038410402447854,
+        "root_xy_span_robot_scale_m": [
+          1.1483659659790377,
+          2.8826631924733386
+        ],
+        "root_speed_robot_scale_m_s_p50_p95_max": [
+          0.4340516639974472,
+          0.9498922314518291,
+          1.2678282727750727
+        ],
+        "high_offset_near_ground_windows": [
+          {
+            "speed_threshold_robot_scale_m_s": 0.8,
+            "samples_L_R": [
+              198,
+              172
+            ],
+            "longest_s_L_R": [
+              0.38331800000000005,
+              0.2999879999999999
+            ]
+          },
+          {
+            "speed_threshold_robot_scale_m_s": 1.5,
+            "samples_L_R": [
+              0,
+              0
+            ],
+            "longest_s_L_R": [
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "speed_threshold_robot_scale_m_s": 2.0,
+            "samples_L_R": [
+              0,
+              0
+            ],
+            "longest_s_L_R": [
+              0.0,
+              0.0
+            ]
+          }
+        ],
+        "limitations": [
+          "Source FK only: NOT a GMR retarget result, not robot CoM speed.",
+          "Units normalized by leg length, not anatomical human SI speed.",
+          "Ankle-to-toe-base axis and pooled low-height proxy, not measured contact or tire slip.",
+          "These windows do not yet require course change or speed retention: not drift passes."
+        ]
+      }
+    },
+    "sfu_on_spot_control": {
+      "url": "https://mocap.cs.sfu.ca/nusmocap/0018_DanceTurns001.bvh",
+      "filename": "0018_DanceTurns001.bvh",
+      "max_bytes": 2000000,
+      "source_page": "https://mocap.cs.sfu.ca/",
+      "description": "On-the-spot dance spins; negative control for translation",
+      "license": "SFU site: free for research purposes; raw file not redistributed",
+      "bytes": 456023,
+      "sha256": "c021833b6e63aae530bb500b4ad8df8693d5f5bd9c1d2448ff227270ef6e6513",
+      "source_fk_audit": {
+        "frames": 726,
+        "duration_s": 6.041425,
+        "dt_s": 0.008333,
+        "scale_m_per_native_unit": 0.019339374963802322,
+        "robot_leg_normalization_m": 0.6038410402447854,
+        "root_xy_span_robot_scale_m": [
+          0.26710916075292535,
+          0.3739399444883572
+        ],
+        "root_speed_robot_scale_m_s_p50_p95_max": [
+          0.25481188191582815,
+          0.5597778857308259,
+          0.9475752400225378
+        ],
+        "high_offset_near_ground_windows": [
+          {
+            "speed_threshold_robot_scale_m_s": 0.8,
+            "samples_L_R": [
+              8,
+              8
+            ],
+            "longest_s_L_R": [
+              0.05833099999999991,
+              0.05833099999999991
+            ]
+          },
+          {
+            "speed_threshold_robot_scale_m_s": 1.5,
+            "samples_L_R": [
+              0,
+              0
+            ],
+            "longest_s_L_R": [
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "speed_threshold_robot_scale_m_s": 2.0,
+            "samples_L_R": [
+              0,
+              0
+            ],
+            "longest_s_L_R": [
+              0.0,
+              0.0
+            ]
+          }
+        ],
+        "limitations": [
+          "Source FK only: NOT a GMR retarget result, not robot CoM speed.",
+          "Units normalized by leg length, not anatomical human SI speed.",
+          "Ankle-to-toe-base axis and pooled low-height proxy, not measured contact or tire slip.",
+          "These windows do not yet require course change or speed retention: not drift passes."
+        ]
+      }
+    },
+    "alpine_gnss_imu": {
+      "url": "https://zenodo.org/api/records/18468439/files/Biomechanics_AllRuns.xlsx/content",
+      "filename": "Biomechanics_AllRuns.xlsx",
+      "max_bytes": 14200000,
+      "expected_md5": "afde48109aeec15daef3c090199cfc6a",
+      "source_page": "https://zenodo.org/records/18468439",
+      "description": "Giant-slalom biomechanical supplement; audit released columns before assuming full pose",
+      "license": "CC BY 4.0, Zenodo API metadata",
+      "bytes": 14167020,
+      "sha256": "3b966620b41ccc164d90aec9866cb90a9c5657704d9d979a653eb51198b2f56b",
+      "released_workbook_schema": [
+        {
+          "sheet": "Info",
+          "dimension": "A1:F6",
+          "first_four_rows": [
+            {
+              "A1": "Skier",
+              "B1": "Height (cm)",
+              "C1": "Mass (kg) ",
+              "D1": "Number of runs"
+            },
+            {
+              "A2": "A",
+              "B2": "175",
+              "C2": "67",
+              "D2": "3",
+              "F2": ""
+            },
+            {
+              "A3": "B",
+              "B3": "180",
+              "C3": "87",
+              "D3": "2",
+              "F3": ""
+            },
+            {
+              "A4": "C",
+              "B4": "177.8",
+              "C4": "83",
+              "D4": "1",
+              "F4": ""
+            }
+          ]
+        },
+        {
+          "sheet": "A1_COM",
+          "dimension": "A1:C8501",
+          "first_four_rows": [
+            {
+              "A1": "X",
+              "B1": "Y",
+              "C1": "Z"
+            },
+            {
+              "A2": "0.56701631048230094",
+              "B2": "5.1454988157934487",
+              "C2": "1290.7407043227699"
+            },
+            {
+              "A3": "0.56766480869775282",
+              "B3": "5.1462744156577962",
+              "C3": "1290.7384633787137"
+            },
+            {
+              "A4": "0.567910761356752",
+              "B4": "5.1467924857394376",
+              "C4": "1290.7360925335477"
+            }
+          ],
+          "source_com_kinematics": {
+            "samples": 8500,
+            "assumed_hz": 240,
+            "clock_basis": "Article methods: GNSS resampled to 240 Hz; no timestamp column in workbook",
+            "rate_source": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0347192",
+            "span_s_under_rate_assumption": 35.4125,
+            "source_xy_speed_m_s_p50_p95_max_under_rate_assumption": [
+              11.799997655663802,
+              14.097920566732594,
+              19.454140418893356
+            ],
+            "global_xy_span_m": [
+              72.96349396264924,
+              321.29759610222857
+            ],
+            "global_z_span_m": 88.0815824225997,
+            "caution": "Measured/processed HUMAN CoM coordinates, not robot-scale speed; no individual foot heading or contact state."
+          }
+        },
+        {
+          "sheet": "A1_MAJ",
+          "dimension": "A1:C8501",
+          "first_four_rows": [
+            {
+              "A1": "X",
+              "B1": "Y",
+              "C1": "Z"
+            },
+            {
+              "A2": "0.62041245056912808",
+              "B2": "5.0921758829988786",
+              "C2": "1289.9751413567128"
+            },
+            {
+              "A3": "0.62013817701227336",
+              "B3": "5.0930351301161654",
+              "C3": "1289.9739073558803"
+            },
+            {
+              "A4": "0.61948018200206811",
+              "B4": "5.0936295171862849",
+              "C4": "1289.9725472607952"
+            }
+          ]
+        },
+        {
+          "sheet": "A2_COM",
+          "dimension": "A1:C11301",
+          "first_four_rows": [
+            {
+              "A1": "X",
+              "B1": "Y",
+              "C1": "Z"
+            },
+            {
+              "A2": "0.11429774001331802",
+              "B2": "2.0480568887199162",
+              "C2": "1290.6184588754722"
+            },
+            {
+              "A3": "0.1185388693686254",
+              "B3": "2.0511708757873537",
+              "C3": "1290.6188655096178"
+            },
+            {
+              "A4": "0.12249561194591388",
+              "B4": "2.0549210844822938",
+              "C4": "1290.6192959500461"
+            }
+          ],
+          "source_com_kinematics": {
+            "samples": 11300,
+            "assumed_hz": 240,
+            "clock_basis": "Article methods: GNSS resampled to 240 Hz; no timestamp column in workbook",
+            "rate_source": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0347192",
+            "span_s_under_rate_assumption": 47.079166666666666,
+            "source_xy_speed_m_s_p50_p95_max_under_rate_assumption": [
+              9.896765305399594,
+              14.28085998854133,
+              19.1244890316085
+            ],
+            "global_xy_span_m": [
+              72.81862775199004,
+              317.9739835884716
+            ],
+            "global_z_span_m": 88.07455460478354,
+            "caution": "Measured/processed HUMAN CoM coordinates, not robot-scale speed; no individual foot heading or contact state."
+          }
+        },
+        {
+          "sheet": "A2_MAJ",
+          "dimension": "A1:C11301",
+          "first_four_rows": [
+            {
+              "A1": "X",
+              "B1": "Y",
+              "C1": "Z"
+            },
+            {
+              "A2": "0.12051654629966159",
+              "B2": "1.9908907313092949",
+              "C2": "1289.8478181125929"
+            },
+            {
+              "A3": "0.1245201018166474",
+              "B3": "1.9938979099049607",
+              "C3": "1289.8482023233082"
+            },
+            {
+              "A4": "0.12823834584727373",
+              "B4": "1.9975420726071547",
+              "C4": "1289.8486133195261"
+            }
+          ]
+        },
+        {
+          "sheet": "A3_COM",
+          "dimension": "A1:C22858",
+          "first_four_rows": [
+            {
+              "A1": "X",
+              "B1": "Y",
+              "C1": "Z"
+            },
+            {
+              "A2": "-0.49541689570141878",
+              "B2": "0.65912803594792291",
+              "C2": "1290.7568482743841"
+            },
+            {
+              "A3": "-0.49759697899318867",
+              "B3": "0.65719750637584662",
+              "C3": "1290.757011295083"
+            },
+            {
+              "A4": "-0.49944863195771855",
+              "B4": "0.65522377485457539",
+              "C4": "1290.7574555789154"
+            }
+          ],
+          "source_com_kinematics": {
+            "samples": 22857,
+            "assumed_hz": 240,
+            "clock_basis": "Article methods: GNSS resampled to 240 Hz; no timestamp column in workbook",
+            "rate_source": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0347192",
+            "span_s_under_rate_assumption": 95.23333333333333,
+            "source_xy_speed_m_s_p50_p95_max_under_rate_assumption": [
+              0.15175967610455926,
+              12.246766672485293,
+              14.30634215101719
+            ],
+            "global_xy_span_m": [
+              71.826074103394,
+              322.51922794135356
+            ],
+            "global_z_span_m": 88.31606580258426,
+            "caution": "Measured/processed HUMAN CoM coordinates, not robot-scale speed; no individual foot heading or contact state."
+          }
+        },
+        {
+          "sheet": "A3_MAJ",
+          "dimension": "A1:C22858",
+          "first_four_rows": [
+            {
+              "A1": "X",
+              "B1": "Y",
+              "C1": "Z"
+            },
+            {
+              "A2": "-0.58323454589823875",
+              "B2": "0.53867683493663843",
+              "C2": "1290.0550522564913"
+            },
+            {
+              "A3": "-0.58536426476623393",
+              "B3": "0.53642897855702509",
+              "C3": "1290.0552032981668"
+            },
+            {
+              "A4": "-0.58709913821136528",
+              "B4": "0.53419282605275598",
+              "C4": "1290.0556371203147"
+            }
+          ]
+        },
+        {
+          "sheet": "B1_COM",
+          "dimension": "A1:C12179",
+          "first_four_rows": [
+            {
+              "A1": "X",
+              "B1": "Y",
+              "C1": "Z"
+            },
+            {
+              "A2": "0.15048795433571382",
+              "B2": "-0.22703192083262641",
+              "C2": "1290.7358895447585"
+            },
+            {
+              "A3": "0.14969599794524324",
+              "B3": "-0.22731623635553594",
+              "C3": "1290.7375918682928"
+            },
+            {
+              "A4": "0.14931387875597435",
+              "B4": "-0.22675022583824281",
+              "C4": "1290.737887715236"
+            }
+          ],
+          "source_com_kinematics": {
+            "samples": 12178,
+            "assumed_hz": 240,
+            "clock_basis": "Article methods: GNSS resampled to 240 Hz; no timestamp column in workbook",
+            "rate_source": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0347192",
+            "span_s_under_rate_assumption": 50.7375,
+            "source_xy_speed_m_s_p50_p95_max_under_rate_assumption": [
+              9.514148447349134,
+              12.169117468552937,
+              14.301283494453427
+            ],
+            "global_xy_span_m": [
+              101.15312557283441,
+              327.6788361953347
+            ],
+            "global_z_span_m": 88.33647001467148,
+            "caution": "Measured/processed HUMAN CoM coordinates, not robot-scale speed; no individual foot heading or contact state."
+          }
+        },
+        {
+          "sheet": "B1_MAJ",
+          "dimension": "A1:C12179",
+          "first_four_rows": [
+            {
+              "A1": "X",
+              "B1": "Y",
+              "C1": "Z"
+            },
+            {
+              "A2": "0.25412810782621481",
+              "B2": "-0.2639735010633264",
+              "C2": "1289.9633484629953"
+            },
+            {
+              "A3": "0.25209537189604697",
+              "B3": "-0.26381876701182561",
+              "C3": "1289.9664329369539"
+            },
+            {
+              "A4": "0.25050103362513065",
+              "B4": "-0.26283994101764263",
+              "C4": "1289.9680602991225"
+            }
+          ]
+        },
+        {
+          "sheet": "B2_COM",
+          "dimension": "A1:C12719",
+          "first_four_rows": [
+            {
+              "A1": "X",
+              "B1": "Y",
+              "C1": "Z"
+            },
+            {
+              "A2": "-0.32175293069819255",
+              "B2": "1.0918094001731462",
+              "C2": "1290.6860814324546"
+            },
+            {
+              "A3": "-0.32402596722713289",
+              "B3": "1.0935119168082053",
+              "C3": "1290.684487932843"
+            },
+            {
+              "A4": "-0.32621278585492275",
+              "B4": "1.0950153356988903",
+              "C4": "1290.6836065447246"
+            }
+          ],
+          "source_com_kinematics": {
+            "samples": 12718,
+            "assumed_hz": 240,
+            "clock_basis": "Article methods: GNSS resampled to 240 Hz; no timestamp column in workbook",
+            "rate_source": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0347192",
+            "span_s_under_rate_assumption": 52.9875,
+            "source_xy_speed_m_s_p50_p95_max_under_rate_assumption": [
+              10.10380030131181,
+              12.215194559037547,
+              14.131376452931518
+            ],
+            "global_xy_span_m": [
+              109.23145048981968,
+              326.1857683089209
+            ],
+            "global_z_span_m": 88.2714374196737,
+            "caution": "Measured/processed HUMAN CoM coordinates, not robot-scale speed; no individual foot heading or contact state."
+          }
+        },
+        {
+          "sheet": "B2_MAJ",
+          "dimension": "A1:C12719",
+          "first_four_rows": [
+            {
+              "A1": "X",
+              "B1": "Y",
+              "C1": "Z"
+            },
+            {
+              "A2": "-0.32764993739794029",
+              "B2": "1.013925841104262",
+              "C2": "1289.8881008225362"
+            },
+            {
+              "A3": "-0.32956837967815655",
+              "B3": "1.0157055375188424",
+              "C3": "1289.88684833867"
+            },
+            {
+              "A4": "-0.3314074572057234",
+              "B4": "1.0173010071069459",
+              "C4": "1289.8863142022128"
+            }
+          ]
+        },
+        {
+          "sheet": "C1_COM",
+          "dimension": "A1:C9719",
+          "first_four_rows": [
+            {
+              "A1": "X",
+              "B1": "Y",
+              "C1": "Z"
+            },
+            {
+              "A2": "-0.22819617049718599",
+              "B2": "0.1031823465163338",
+              "C2": "1290.7199869335857"
+            },
+            {
+              "A3": "-0.2279599741147588",
+              "B3": "0.10342844352472194",
+              "C3": "1290.719372755035"
+            },
+            {
+              "A4": "-0.22777791713890208",
+              "B4": "0.10381344298317211",
+              "C4": "1290.71957640355"
+            }
+          ],
+          "source_com_kinematics": {
+            "samples": 9718,
+            "assumed_hz": 240,
+            "clock_basis": "Article methods: GNSS resampled to 240 Hz; no timestamp column in workbook",
+            "rate_source": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0347192",
+            "span_s_under_rate_assumption": 40.4875,
+            "source_xy_speed_m_s_p50_p95_max_under_rate_assumption": [
+              11.179546415313983,
+              12.723933438420177,
+              14.048392904030047
+            ],
+            "global_xy_span_m": [
+              71.53136568279699,
+              324.64548757763725
+            ],
+            "global_z_span_m": 88.3689444556876,
+            "caution": "Measured/processed HUMAN CoM coordinates, not robot-scale speed; no individual foot heading or contact state."
+          }
+        },
+        {
+          "sheet": "C1_MAJ",
+          "dimension": "A1:C9719",
+          "first_four_rows": [
+            {
+              "A1": "X",
+              "B1": "Y",
+              "C1": "Z"
+            },
+            {
+              "A2": "-0.23767385535264335",
+              "B2": "6.6185700260345856E-2",
+              "C2": "1289.9079012045063"
+            },
+            {
+              "A3": "-0.23872221843717692",
+              "B3": "6.5692596252745428E-2",
+              "C3": "1289.9093635219315"
+            },
+            {
+              "A4": "-0.23982758637295695",
+              "B4": "6.5331068756218913E-2",
+              "C4": "1289.9116902932426"
+            }
+          ]
+        },
+        {
+          "sheet": "D1_COM",
+          "dimension": "A1:C10751",
+          "first_four_rows": [
+            {
+              "A1": "X",
+              "B1": "Y",
+              "C1": "Z"
+            },
+            {
+              "A2": "1.5014912055354532",
+              "B2": "0.6597051705862611",
+              "C2": "1291.1963338417495"
+            },
+            {
+              "A3": "1.50458682372474",
+              "B3": "0.66116015065056732",
+              "C3": "1291.1960965511043"
+            },
+            {
+              "A4": "1.5075037615780627",
+              "B4": "0.66245819949681151",
+              "C4": "1291.1956719404798"
+            }
+          ],
+          "source_com_kinematics": {
+            "samples": 10750,
+            "assumed_hz": 240,
+            "clock_basis": "Article methods: GNSS resampled to 240 Hz; no timestamp column in workbook",
+            "rate_source": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0347192",
+            "span_s_under_rate_assumption": 44.7875,
+            "source_xy_speed_m_s_p50_p95_max_under_rate_assumption": [
+              11.372907069978872,
+              13.186715998489975,
+              17.47799195945111
+            ],
+            "global_xy_span_m": [
+              93.80214997314103,
+              322.0719499470426
+            ],
+            "global_z_span_m": 88.13820446142495,
+            "caution": "Measured/processed HUMAN CoM coordinates, not robot-scale speed; no individual foot heading or contact state."
+          }
+        },
+        {
+          "sheet": "D1_MAJ",
+          "dimension": "A1:C10751",
+          "first_four_rows": [
+            {
+              "A1": "X",
+              "B1": "Y",
+              "C1": "Z"
+            },
+            {
+              "A2": "1.4409319456978407",
+              "B2": "0.68280514060161202",
+              "C2": "1290.3059631615356"
+            },
+            {
+              "A3": "1.4438888754921311",
+              "B3": "0.68492810102888213",
+              "C3": "1290.3057209954634"
+            },
+            {
+              "A4": "1.4466683015816957",
+              "B4": "0.68690028095695688",
+              "C4": "1290.3052903360776"
+            }
+          ]
+        },
+        {
+          "sheet": "D2_COM",
+          "dimension": "A1:C9987",
+          "first_four_rows": [
+            {
+              "A1": "X",
+              "B1": "Y",
+              "C1": "Z"
+            },
+            {
+              "A2": "-0.69320497231548572",
+              "B2": "4.0190251743709675",
+              "C2": "1291.3185076143116"
+            },
+            {
+              "A3": "-0.69375738724019276",
+              "B3": "4.0176950221959986",
+              "C3": "1291.3184212179108"
+            },
+            {
+              "A4": "-0.69453585038229793",
+              "B4": "4.0165739072227584",
+              "C4": "1291.3187608593184"
+            }
+          ],
+          "source_com_kinematics": {
+            "samples": 9986,
+            "assumed_hz": 240,
+            "clock_basis": "Article methods: GNSS resampled to 240 Hz; no timestamp column in workbook",
+            "rate_source": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0347192",
+            "span_s_under_rate_assumption": 41.604166666666664,
+            "source_xy_speed_m_s_p50_p95_max_under_rate_assumption": [
+              10.4738068857583,
+              12.417564783809794,
+              14.40056649196552
+            ],
+            "global_xy_span_m": [
+              98.65975170991845,
+              321.88102090627206
+            ],
+            "global_z_span_m": 88.00529328750576,
+            "caution": "Measured/processed HUMAN CoM coordinates, not robot-scale speed; no individual foot heading or contact state."
+          }
+        },
+        {
+          "sheet": "D2_MAJ",
+          "dimension": "A1:C9987",
+          "first_four_rows": [
+            {
+              "A1": "X",
+              "B1": "Y",
+              "C1": "Z"
+            },
+            {
+              "A2": "-0.63073112296866807",
+              "B2": "3.9190599927474858",
+              "C2": "1290.4864009155472"
+            },
+            {
+              "A3": "-0.63127882375876943",
+              "B3": "3.9177829833938187",
+              "C3": "1290.4863140340879"
+            },
+            {
+              "A4": "-0.63205208226760845",
+              "B4": "3.9167152987541258",
+              "C4": "1290.4866535114147"
+            }
+          ]
+        },
+        {
+          "sheet": "D3_COM",
+          "dimension": "A1:C14776",
+          "first_four_rows": [
+            {
+              "A1": "X",
+              "B1": "Y",
+              "C1": "Z"
+            },
+            {
+              "A2": "-0.29403991639445404",
+              "B2": "3.1347784007143482",
+              "C2": "1291.3001754817199"
+            },
+            {
+              "A3": "-0.29399109587408384",
+              "B3": "3.1357746618435129",
+              "C3": "1291.2990051952568"
+            },
+            {
+              "A4": "-0.29435448293569377",
+              "B4": "3.1370845681453172",
+              "C4": "1291.298331126826"
+            }
+          ],
+          "source_com_kinematics": {
+            "samples": 14775,
+            "assumed_hz": 240,
+            "clock_basis": "Article methods: GNSS resampled to 240 Hz; no timestamp column in workbook",
+            "rate_source": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0347192",
+            "span_s_under_rate_assumption": 61.55833333333333,
+            "source_xy_speed_m_s_p50_p95_max_under_rate_assumption": [
+              8.465200476527892,
+              12.490458212936371,
+              16.458185455002212
+            ],
+            "global_xy_span_m": [
+              98.09255756480593,
+              328.25543898040837
+            ],
+            "global_z_span_m": 88.41998195212977,
+            "caution": "Measured/processed HUMAN CoM coordinates, not robot-scale speed; no individual foot heading or contact state."
+          }
+        },
+        {
+          "sheet": "D3_MAJ",
+          "dimension": "A1:C14776",
+          "first_four_rows": [
+            {
+              "A1": "X",
+              "B1": "Y",
+              "C1": "Z"
+            },
+            {
+              "A2": "-0.21538075602316359",
+              "B2": "3.099308125113831",
+              "C2": "1290.465216139389"
+            },
+            {
+              "A3": "-0.21536489060068681",
+              "B3": "3.1003377690565808",
+              "C3": "1290.4640281547108"
+            },
+            {
+              "A4": "-0.21576294622630421",
+              "B4": "3.1016803097843777",
+              "C4": "1290.4633362807326"
+            }
+          ]
+        },
+        {
+          "sheet": "E1_COM",
+          "dimension": "A1:C16821",
+          "first_four_rows": [
+            {
+              "A1": "X",
+              "B1": "Y",
+              "C1": "Z"
+            },
+            {
+              "A2": "-5.4076752830113355",
+              "B2": "9.3696178187051782",
+              "C2": "1291.2564601000556"
+            },
+            {
+              "A3": "-5.4077579691010236",
+              "B3": "9.3696663378584191",
+              "C3": "1291.2566931311451"
+            },
+            {
+              "A4": "-5.4079135779304419",
+              "B4": "9.3696131575903081",
+              "C4": "1291.257032555864"
+            }
+          ],
+          "source_com_kinematics": {
+            "samples": 16820,
+            "assumed_hz": 240,
+            "clock_basis": "Article methods: GNSS resampled to 240 Hz; no timestamp column in workbook",
+            "rate_source": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0347192",
+            "span_s_under_rate_assumption": 70.07916666666667,
+            "source_xy_speed_m_s_p50_p95_max_under_rate_assumption": [
+              7.173373034192156,
+              11.117086094772862,
+              13.713166008855113
+            ],
+            "global_xy_span_m": [
+              103.41635616657051,
+              335.5950966782297
+            ],
+            "global_z_span_m": 89.04640473928634,
+            "caution": "Measured/processed HUMAN CoM coordinates, not robot-scale speed; no individual foot heading or contact state."
+          }
+        },
+        {
+          "sheet": "E1_MAJ",
+          "dimension": "A1:C16821",
+          "first_four_rows": [
+            {
+              "A1": "X",
+              "B1": "Y",
+              "C1": "Z"
+            },
+            {
+              "A2": "-5.3994101317388878",
+              "B2": "9.3966148145466359",
+              "C2": "1290.4013105933213"
+            },
+            {
+              "A3": "-5.3994319296346402",
+              "B3": "9.3967530321661776",
+              "C3": "1290.4015548353736"
+            },
+            {
+              "A4": "-5.3995282996175771",
+              "B4": "9.396788494707474",
+              "C4": "1290.4019051313769"
+            }
+          ]
+        },
+        {
+          "sheet": "E2_COM",
+          "dimension": "A1:C14781",
+          "first_four_rows": [
+            {
+              "A1": "X",
+              "B1": "Y",
+              "C1": "Z"
+            },
+            {
+              "A2": "0.14313904431019359",
+              "B2": "-1.9823868426228387E-2",
+              "C2": "1291.3713048497266"
+            },
+            {
+              "A3": "0.1429838002795415",
+              "B3": "-1.9841983988160651E-2",
+              "C3": "1291.3714918018886"
+            },
+            {
+              "A4": "0.14279520925719608",
+              "B4": "-1.9862743439813455E-2",
+              "C4": "1291.3716691214256"
+            }
+          ],
+          "source_com_kinematics": {
+            "samples": 14780,
+            "assumed_hz": 240,
+            "clock_basis": "Article methods: GNSS resampled to 240 Hz; no timestamp column in workbook",
+            "rate_source": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0347192",
+            "span_s_under_rate_assumption": 61.579166666666666,
+            "source_xy_speed_m_s_p50_p95_max_under_rate_assumption": [
+              8.357344261745387,
+              11.335631932038634,
+              13.30987475642371
+            ],
+            "global_xy_span_m": [
+              100.93327905119335,
+              334.4895824961403
+            ],
+            "global_z_span_m": 89.10072139121007,
+            "caution": "Measured/processed HUMAN CoM coordinates, not robot-scale speed; no individual foot heading or contact state."
+          }
+        },
+        {
+          "sheet": "E2_MAJ",
+          "dimension": "A1:C14781",
+          "first_four_rows": [
+            {
+              "A1": "X",
+              "B1": "Y",
+              "C1": "Z"
+            },
+            {
+              "A2": "8.0013448060727327E-2",
+              "B2": "-3.2061622493309558E-2",
+              "C2": "1290.5168749735758"
+            },
+            {
+              "A3": "7.9903879256621263E-2",
+              "B3": "-3.2006030837914687E-2",
+              "C3": "1290.5170384888211"
+            },
+            {
+              "A4": "7.9762566991901776E-2",
+              "B4": "-3.1953872737607442E-2",
+              "C4": "1290.5171929316684"
+            }
+          ]
+        },
+        {
+          "sheet": "E3_COM",
+          "dimension": "A1:C13903",
+          "first_four_rows": [
+            {
+              "A1": "X",
+              "B1": "Y",
+              "C1": "Z"
+            },
+            {
+              "A2": "8.1299245678331439E-2",
+              "B2": "-2.3732508928112697E-2",
+              "C2": "1291.3419728652102"
+            },
+            {
+              "A3": "8.0568633917908861E-2",
+              "B3": "-2.380905458662283E-2",
+              "C3": "1291.3412800407632"
+            },
+            {
+              "A4": "7.9052976712661219E-2",
+              "B4": "-2.4565958763634876E-2",
+              "C4": "1291.3404034554226"
+            }
+          ],
+          "source_com_kinematics": {
+            "samples": 13902,
+            "assumed_hz": 240,
+            "clock_basis": "Article methods: GNSS resampled to 240 Hz; no timestamp column in workbook",
+            "rate_source": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0347192",
+            "span_s_under_rate_assumption": 57.920833333333334,
+            "source_xy_speed_m_s_p50_p95_max_under_rate_assumption": [
+              8.57606727208644,
+              11.433913532402109,
+              13.657678202965181
+            ],
+            "global_xy_span_m": [
+              97.92187711499116,
+              329.3557424940907
+            ],
+            "global_z_span_m": 88.577195405863,
+            "caution": "Measured/processed HUMAN CoM coordinates, not robot-scale speed; no individual foot heading or contact state."
+          }
+        },
+        {
+          "sheet": "E3_MAJ",
+          "dimension": "A1:C13903",
+          "first_four_rows": [
+            {
+              "A1": "X",
+              "B1": "Y",
+              "C1": "Z"
+            },
+            {
+              "A2": "8.5945270648896108E-2",
+              "B2": "-2.8605455340435446E-2",
+              "C2": "1290.4859716413284"
+            },
+            {
+              "A3": "8.6238997475937398E-2",
+              "B3": "-2.8853968359558231E-2",
+              "C3": "1290.4853956078864"
+            },
+            {
+              "A4": "8.5769159101226622E-2",
+              "B4": "-2.9766292374635329E-2",
+              "C4": "1290.4846403942845"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "policy_trained": false,
+  "physics_validated": false,
+  "hdm05_available_archive_inventory": {
+    "archive_url": "https://theorangeduck.com/media/uploads/other_stuff/motionsynth_data.zip",
+    "archive_etag": "\"150f8ee81-5383e54e561c0\"",
+    "archive_size_bytes": 5653458561,
+    "range_bytes_read": 1109633,
+    "bvh_members": 2344,
+    "named_class_counts": {
+      "": 1,
+      "cartwheelLHandStart1Reps": 21,
+      "cartwheelLHandStart2Reps": 4,
+      "cartwheelRHandStart1Reps": 3,
+      "clap1Reps": 17,
+      "clap5Reps": 17,
+      "clapAboveHead1Reps": 17,
+      "clapAboveHead5Reps": 14,
+      "depositFloorR": 32,
+      "depositHighR": 28,
+      "depositLowR": 29,
+      "depositMiddleR": 29,
+      "elbowToKnee1RepsLelbowStart": 27,
+      "elbowToKnee1RepsRelbowStart": 27,
+      "elbowToKnee3RepsLelbowStart": 13,
+      "elbowToKnee3RepsRelbowStart": 13,
+      "grabFloorR": 16,
+      "grabHighR": 29,
+      "grabLowR": 29,
+      "grabMiddleR": 28,
+      "hitRHandHead": 13,
+      "hopBothLegs1hops": 36,
+      "hopBothLegs2hops": 12,
+      "hopBothLegs3hops": 12,
+      "hopLLeg1hops": 41,
+      "hopLLeg2hops": 14,
+      "hopLLeg3hops": 14,
+      "hopRLeg1hops": 42,
+      "hopRLeg2hops": 14,
+      "hopRLeg3hops": 14,
+      "jogLeftCircle4StepsRstart": 17,
+      "jogLeftCircle6StepsRstart": 15,
+      "jogOnPlaceStartAir2StepsLStart": 14,
+      "jogOnPlaceStartAir2StepsRStart": 14,
+      "jogOnPlaceStartAir4StepsLStart": 14,
+      "jogOnPlaceStartFloor2StepsRStart": 14,
+      "jogOnPlaceStartFloor4StepsRStart": 14,
+      "jogRightCircle4StepsLstart": 2,
+      "jogRightCircle4StepsRstart": 17,
+      "jogRightCircle6StepsLstart": 2,
+      "jogRightCircle6StepsRstart": 12,
+      "jumpDown": 14,
+      "jumpingJack1Reps": 52,
+      "jumpingJack3Reps": 13,
+      "kickLFront1Reps": 29,
+      "kickLFront2Reps": 14,
+      "kickLSide1Reps": 26,
+      "kickLSide2Reps": 13,
+      "kickRFront1Reps": 30,
+      "kickRFront2Reps": 15,
+      "kickRSide1Reps": 30,
+      "kickRSide2Reps": 15,
+      "lieDownFloor": 20,
+      "punchLFront1Reps": 30,
+      "punchLFront2Reps": 15,
+      "punchLSide1Reps": 30,
+      "punchLSide2Reps": 15,
+      "punchRFront1Reps": 30,
+      "punchRFront2Reps": 15,
+      "punchRSide1Reps": 28,
+      "punchRSide2Reps": 14,
+      "rotateArmsBothBackward1Reps": 16,
+      "rotateArmsBothBackward3Reps": 16,
+      "rotateArmsBothForward1Reps": 16,
+      "rotateArmsBothForward3Reps": 16,
+      "rotateArmsLBackward1Reps": 16,
+      "rotateArmsLBackward3Reps": 16,
+      "rotateArmsLForward1Reps": 16,
+      "rotateArmsLForward3Reps": 16,
+      "rotateArmsRBackward1Reps": 16,
+      "rotateArmsRBackward3Reps": 16,
+      "rotateArmsRForward1Reps": 16,
+      "rotateArmsRForward3Reps": 16,
+      "runOnPlaceStartAir2StepsLStart": 15,
+      "runOnPlaceStartAir2StepsRStart": 15,
+      "runOnPlaceStartAir4StepsLStart": 14,
+      "runOnPlaceStartFloor2StepsRStart": 15,
+      "runOnPlaceStartFloor4StepsRStart": 15,
+      "shuffle2StepsLStart": 13,
+      "shuffle2StepsRStart": 13,
+      "shuffle4StepsLStart": 13,
+      "shuffle4StepsRStart": 12,
+      "sitDownChair": 20,
+      "sitDownFloor": 20,
+      "sitDownKneelTieShoes": 17,
+      "sitDownTable": 20,
+      "skier1RepsLstart": 30,
+      "skier3RepsLstart": 10,
+      "sneak2StepsLStart": 16,
+      "sneak2StepsRStart": 16,
+      "sneak4StepsLStart": 15,
+      "sneak4StepsRStart": 16,
+      "squat1Reps": 52,
+      "squat3Reps": 13,
+      "staircaseDown3Rstart": 15,
+      "staircaseUp3Rstart": 28,
+      "standUpKneelToStand": 17,
+      "standUpLieFloor": 20,
+      "standUpSitChair": 20,
+      "standUpSitFloor": 20,
+      "standUpSitTable": 20,
+      "throwBasketball": 14,
+      "throwFarR": 14,
+      "throwSittingHighR": 14,
+      "throwSittingLowR": 14,
+      "throwStandingHighR": 14,
+      "throwStandingLowR": 14,
+      "turnLeft": 30,
+      "turnRight": 30,
+      "walk2StepsLstart": 31,
+      "walk2StepsRstart": 31,
+      "walk4StepsLstart": 16,
+      "walk4StepsRstart": 16,
+      "walkBackwards2StepsRstart": 15,
+      "walkBackwards4StepsRstart": 15,
+      "walkLeft2Steps": 16,
+      "walkLeft3Steps": 16,
+      "walkLeftCircle4StepsLstart": 2,
+      "walkLeftCircle4StepsRstart": 18,
+      "walkLeftCircle6StepsLstart": 2,
+      "walkLeftCircle6StepsRstart": 15,
+      "walkOnPlace2StepsLStart": 15,
+      "walkOnPlace2StepsRStart": 15,
+      "walkOnPlace4StepsLStart": 15,
+      "walkOnPlace4StepsRStart": 15,
+      "walkRightCircle4StepsLstart": 1,
+      "walkRightCircle4StepsRstart": 15,
+      "walkRightCircle6StepsLstart": 1,
+      "walkRightCircle6StepsRstart": 10,
+      "walkRightCrossFront2Steps": 16,
+      "walkRightCrossFront3Steps": 13
+    },
+    "scope": "Available processed/hdm05 ZIP members, NOT all raw/full-take HDM05 recordings. An empty class denotes a nonstandard filename.",
+    "limitations": "File/class inventory only; class labels do not establish drift or motion absence in inaccessible raw full takes."
+  }
+}
