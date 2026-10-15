@@ -14,6 +14,15 @@ speed loss, rather than selecting on angle alone. The
 dance turns, an alpine-skiing supplement and continuous car-drift implementations;
 it does **not** claim a newly qualified human drift or start policy training.
 
+**Current focus (2026-10-15):** human source/retarget work is paused. Resume the
+existing car-reference frozen-policy Isaac↔MuJoCo experiment, first refining the
+low-friction XY-error transition with the
+[fixed six-case specification](config/car_boundary_refinement.json). Do not
+replace the reference, retrain the actor or use flight/height as the failure gate.
+The [completed refinement](results/2026-10-15-car-sim2sim-boundary.md) places
+the sampled Isaac XY-verdict change between µ=0.16 and 0.18, versus µ=0.14 and
+0.15 in MuJoCo, and includes top-down animation plus divergence-onset timing.
+
 ## Experiment contract
 
 1. Select car or human demonstrations with a sustained, nontrivial signed
@@ -306,6 +315,7 @@ the 50 Hz retargeted drift motion, and the drift task profile to
 environment. A representative invocation is:
 
 ```bash
+export TRON1_BEYONDMIMIC_ROOT="$PWD/upstream/whole_body_tracking"
 python scripts/train_beyondmimic_style.py \
   --source-root /path/to/tron1-learning-from-human \
   --motion-file /path/to/drift/motion.npz \

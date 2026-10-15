@@ -1,0 +1,27 @@
+{
+  "experiment": "car_bm_dr_seed42_boundary_refinement_20261015",
+  "purpose": "Refine the existing car-reference frozen-policy sim2sim XY-error transition; human retarget work paused.",
+  "reference_lock": "config/car_reference_lock.json",
+  "checkpoint_sha256": "f803a8507752d5767a756a537bc844589523de0fb827e669865ac774343db20e",
+  "evaluation_mu_static_dynamic_equal": [0.12, 0.14, 0.15, 0.16, 0.18, 0.20],
+  "repeat_control_mu": [0.15, 0.20],
+  "seed": 42,
+  "num_envs": 1,
+  "full_horizon_diagnostic": true,
+  "core_interval_s": [1.44, 4.0],
+  "large_reference_xy_rmse_m": 0.15,
+  "large_reference_xy_peak_m": 0.30,
+  "additional_onset_diagnostic": {
+    "xy_error_above_m": 0.30,
+    "minimum_contiguous_duration_s": 0.20,
+    "scope": "Entire observed clip, reported separately from the original core RMSE/peak verdict. Not a new failure gate."
+  },
+  "unchanged": ["trained policy", "training BeyondMimic domain randomization", "reference geometry and clock", "PD and wheel torque control", "reset frame", "engine timestep and material combine rules"],
+  "limitations": [
+    "One deterministic episode per engine/coefficient, not a multi-seed robustness estimate.",
+    "Height and pose predicates recorded only; not XY failure criteria.",
+    "Equal friction numbers are not calibrated equivalent contact laws.",
+    "Do not assume monotonic success versus friction; report all sampled outcomes.",
+    "Moving evaluation to an idle GPU may expose numerical repeatability differences; compare the repeated controls."
+  ]
+}

@@ -10,6 +10,7 @@ import argparse
 import hashlib
 import json
 import math
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -30,6 +31,25 @@ def case_name(mu: float) -> str:
 
 def launch(command: list[str], cwd: Path) -> None:
     subprocess.run(command, cwd=cwd, check=True)
+
+
+def require_beyondmimic_source(source: Path) -> Path:
+    root = Path(os.environ.get("TRON1_BEYONDMIMIC_ROOT", source / "third_party/whole_body_tracking")).resolve()
+    config = root / "source/whole_body_tracking/whole_body_tracking/tasks/tracking/tracking_env_cfg.py"
+    if not config.is_file():
+        raise FileNotFoundError("BeyondMimic source missing before Isaac launch; set "
+                                "TRON1_BEYONDMIMIC_ROOT to the pinned whole_body_tracking checkout: " + str(root))
+    return root
+
+
+def require_isaac_artifacts(directory: Path) -> None:
+    required = ("actor_normalized.pt", "policy_contract.json", "trajectory.npz",
+                "physics_trajectory.npz", "report.json")
+    missing = [name for name in required if not (directory / name).is_file()
+               or (directory / name).stat().st_size == 0]
+    if missing:
+        raise RuntimeError("Isaac returned without complete rollout artifacts: " + ", ".join(missing)
+                           + ". This is a runtime failure, NOT a physical pass/fail; inspect its traceback/log.")
 
 
 def run(args: argparse.Namespace) -> Path:
@@ -70,6 +90,7 @@ def run(args: argparse.Namespace) -> Path:
             raise ValueError("Wide friction source audit failed")
         if bool(audit.get("full_horizon_diagnostic", False)) != args.full_horizon_diagnostic:
             raise ValueError("Full-horizon mode differs from the isolated source audit")
+    beyondmimic_source = require_beyondmimic_source(source)
     target.mkdir(parents=True, exist_ok=True)
     cases = []
     for mu in values:
@@ -86,6 +107,7 @@ def run(args: argparse.Namespace) -> Path:
                 "--evaluation-contact-friction", str(mu), "--output-dir", str(ia),
                 "--num-envs", "1", "--seed", "42", "--record-physics",
                 "--verify-unmasked-device", "--device", args.device, "--headless"], source)
+        require_isaac_artifacts(ia)
         launch([sys.executable, str(source / "scripts/eval_tracking_mujoco.py"),
                 "--policy", str(ia / "actor_normalized.pt"),
                 "--contract", str(ia / "policy_contract.json"),
@@ -101,6 +123,8 @@ def run(args: argparse.Namespace) -> Path:
     manifest = {"schema_version": 1, "kind": "frozen_new_policy_fixed_mu_validation_grid",
                 "policy_training_friction_randomization": True,
                 "full_horizon_diagnostic": args.full_horizon_diagnostic,
+                "beyondmimic_source": str(beyondmimic_source),
+                "validation_driver_sha256": sha(Path(__file__).resolve()),
                 "training_manifest": str((args.checkpoint.parent / "manifest.json").resolve()),
                 "checkpoint": str(args.checkpoint.resolve()),
                 "reference_file": str(args.reference_file.resolve()),

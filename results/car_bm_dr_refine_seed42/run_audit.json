@@ -1,0 +1,47 @@
+{
+  "experiment_date_client": "2026-10-15",
+  "cases_completed": 6,
+  "versions": {
+    "python": "3.11.15",
+    "torch": "2.7.0+cu128",
+    "mujoco": "3.8.1"
+  },
+  "validation_driver_sha256": "5a134519787da9f40efe34ae3588b3a434f41ad670a5ece5ef4dee1eb67efab4",
+  "beyondmimic_source_audit": {
+    "python_files": 27,
+    "python_tree_sha256": "7ece37a44638ffcaf17ae243ee725ea9894fc749e673084e145928c5592ee38c",
+    "git_metadata_available": false
+  },
+  "common_isaac_report_readback": {
+    "runtime_device_audit": {
+      "schema_version": 1,
+      "status": "verified",
+      "requested_device": "cuda:1",
+      "environment_device": "cuda:1",
+      "physics_sim_view_frontend_device": "cuda:1",
+      "robot_native_transform_tensor_device": "cuda:1",
+      "native_physics_backend_device_ordinal": 1,
+      "torch_current_device": 1,
+      "physics_cudaDevice_setting": 1,
+      "physics_sceneMultiGPUMode_setting": 0,
+      "cuda_visible_devices": null,
+      "required_unmasked": true,
+      "device_index": 1,
+      "index_scope": "unmasked_cuda_ordinal",
+      "native_and_tensor_device_consistency_verified": true,
+      "physical_mapping_verified": false,
+      "exclusivity_verified": false
+    },
+    "physics_dt_s": 0.005,
+    "seed": 42,
+    "observation_noise_enabled": false,
+    "domain_randomization_enabled": false,
+    "full_horizon_diagnostic": true,
+    "checkpoint_sha256": "f803a8507752d5767a756a537bc844589523de0fb827e669865ac774343db20e",
+    "motion_file_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+    "simulator": "IsaacLab/PhysX"
+  },
+  "grid_manifest_sha256": "653bcabb96e1a6fae5e93362d46331de026596e5e91b5c5d48b196c1410e2c7c",
+  "isolated_evaluation_source_audit_sha256": "228b181bbba1cf7a316dc5b2f24582ff080dbc162efaa1b139b170435a6f8a12",
+  "runtime_note": "Initial launch lacked TRON1_BEYONDMIMIC_ROOT and produced no valid trajectory. Successful rerun supplies the hash-matched dependency path; no evaluator/physics/policy changes. The remote driver predates the new local fail-fast checks."
+}
