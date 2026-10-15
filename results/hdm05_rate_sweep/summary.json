@@ -1,0 +1,5874 @@
+{
+  "kind": "HDM05_frozen_GMR_reference_physical_clock_rate_sweep",
+  "settings": {
+    "rates": [
+      1.0,
+      2.0,
+      3.0
+    ],
+    "speed_thresholds_m_s": [
+      0.8,
+      1.5,
+      2.0
+    ],
+    "high_axial_offset_deg": 20.0,
+    "goal_speed_m_s": 2.0,
+    "goal_duration_s": 0.5,
+    "core_phase_fraction": [
+      0.15,
+      0.85
+    ],
+    "entry_exit_phase_window": 0.1,
+    "exploratory_min_core_course_change_deg": 30.0,
+    "exploratory_min_core_speed_retention": 0.8,
+    "motor_source_commit": "03450544c06cb622e1626370d8876fefc3fc565e",
+    "motor_contract_source": "upstream/tron1-learning-from-human/training/tron1_tracking.py",
+    "motor_contract_sha256": "0a29fa27c1d65c0b9add0886221491e549553e3529d6970f1ec5ba35e2532817",
+    "motor_envelope_source": "upstream/tron1-learning-from-human/scripts/eval_tracking_mujoco.py",
+    "motor_envelope_sha256": "da6d1da378b5065589a49f2befaebfb0576665dbd2ad5d34a157d11b8984a3aa",
+    "motor_contract": {
+      "leg_saturation_effort_nm": 80.0,
+      "leg_torque_limit_nm": 80.0,
+      "leg_motor_velocity_limit_rad_s": 15.0,
+      "wheel_saturation_effort_nm": 12.0,
+      "wheel_torque_limit_nm": 12.0,
+      "wheel_motor_velocity_limit_rad_s": 100.0,
+      "policy_fps": 50.0
+    },
+    "render_clips": [
+      "HDM_bd_walkLeft2Steps_001_120.bvh",
+      "HDM_bd_walkLeft3Steps_001_120.bvh",
+      "HDM_bd_walkRightCrossFront2Steps_001_120.bvh",
+      "HDM_bd_walkRightCrossFront3Steps_001_120.bvh",
+      "HDM_bd_walkLeftCircle4StepsRstart_001_120.bvh",
+      "HDM_bd_walkRightCircle4StepsRstart_001_120.bvh"
+    ],
+    "scope": "Frozen GMR geometry with changed physical reference clocks. Nominal motor-envelope availability only, not demanded torque, a policy rollout or a friction sweep. Exploratory kinematic screens are not physical pass/fail limits."
+  },
+  "settings_sha256": "7109105fb890152e21e277dd5761189248ff6b56b3db3b413c1dd284f30c06ce",
+  "analysis_source_sha256": "e7b5b1931a46dae87c8af351b0c9c841af2886e773acdc87f5947a157d5fadaf",
+  "base_experiment_sha256": "c30049a395258354f47a1c2d82e1f75d1618c43bf66c713a902058f682a1f982",
+  "model_sha256": "30c8bb94b32b1804aa2f7de2425f7a8dd02be7792881255388097e2e68092e52",
+  "mass_kg": 22.273000000000003,
+  "cases": [
+    {
+      "clip": "HDM_bd_walkLeft2Steps_001_120.bvh",
+      "factor": 1.0,
+      "base_trace_sha256": "875a546ba010c8707d2d66bcf236c136b03b55003d0335ceb60ff4dfaaf6127b",
+      "geometry_sha256": "7335dcd2766279009444065ed65230277344dde402be679f29b8e5452933c1bb",
+      "delta_file": "HDM_bd_walkLeft2Steps_001_120/rate_1.npz",
+      "delta_sha256": "eda8f48b1dd3dd167242abf38e1fc6186955ff4b0756f036591bb06e9f8c5e3b",
+      "metrics": {
+        "factor": 1.0,
+        "duration_s": 2.699892,
+        "frames": 325,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 0.34036607025265087,
+          "p95": 0.5946733489056196,
+          "max": 0.6503318258530218
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 7.580973482737293,
+          "p95": 13.24515950017487,
+          "max": 14.484840757224358
+        },
+        "com_xy_translation_energy_J": {
+          "median": 1.2901530765044225,
+          "p95": 3.9382814340202135,
+          "max": 4.709976468417993
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 0.9760462699923587,
+          "p95": 2.6421568638887085,
+          "max": 4.685360069235547
+        },
+        "peak_leg_speed_rad_s": 3.8855553305801314,
+        "peak_leg_acceleration_rad_s2": 93.14781275109938,
+        "peak_leg_no_load_speed_ratio": 0.2590370220386754,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.0,
+        "min_directional_motoring_torque_available_nm": 59.277038236905966,
+        "max_policy_50Hz_leg_reference_step_rad": 0.07670234019133426,
+        "peak_reference_wheel_spin_rate_rad_s": 1.708816109701261e-08,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81
+          ],
+          "exit_native_frame_indices": [
+            243,
+            244,
+            245,
+            246,
+            247,
+            248,
+            249,
+            250,
+            251,
+            252,
+            253,
+            254,
+            255,
+            256,
+            257,
+            258,
+            259,
+            260,
+            261,
+            262,
+            263,
+            264,
+            265,
+            266,
+            267,
+            268,
+            269,
+            270,
+            271,
+            272,
+            273,
+            274,
+            275
+          ],
+          "entry_speed_median_m_s": 0.13392181547531676,
+          "exit_speed_median_m_s": 0.5224871188458298,
+          "exit_over_entry_speed": 3.9014339597429504,
+          "core_speed_p10_over_entry": 1.3271748026513508,
+          "net_course_change_deg": 6.652607688540201
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": false,
+          "fixed_core_speed_retention": true
+        },
+        "all_exploratory_screens": false
+      }
+    },
+    {
+      "clip": "HDM_bd_walkLeft2Steps_001_120.bvh",
+      "factor": 2.0,
+      "base_trace_sha256": "875a546ba010c8707d2d66bcf236c136b03b55003d0335ceb60ff4dfaaf6127b",
+      "geometry_sha256": "7335dcd2766279009444065ed65230277344dde402be679f29b8e5452933c1bb",
+      "delta_file": "HDM_bd_walkLeft2Steps_001_120/rate_2.npz",
+      "delta_sha256": "13d7c9e3ba92e902a1afa02bafe7d2ee1717165a179860b19c113701f4c19d4f",
+      "metrics": {
+        "factor": 2.0,
+        "duration_s": 1.349946,
+        "frames": 325,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 0.6807321405053017,
+          "p95": 1.1893466978112393,
+          "max": 1.3006636517060437
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 15.161946965474586,
+          "p95": 26.49031900034974,
+          "max": 28.969681514448716
+        },
+        "com_xy_translation_energy_J": {
+          "median": 5.16061230601769,
+          "p95": 15.753125736080854,
+          "max": 18.83990587367197
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 3.9041850799694346,
+          "p95": 10.568627455554834,
+          "max": 18.74144027694219
+        },
+        "peak_leg_speed_rad_s": 7.771110661160263,
+        "peak_leg_acceleration_rad_s2": 372.5912510043975,
+        "peak_leg_no_load_speed_ratio": 0.5180740440773508,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.0,
+        "min_directional_motoring_torque_available_nm": 38.55407647381193,
+        "max_policy_50Hz_leg_reference_step_rad": 0.147957924536863,
+        "peak_reference_wheel_spin_rate_rad_s": 3.417632219402522e-08,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 0.9166300000000001,
+              "end_s": 1.3041145,
+              "duration_s": 0.3874845,
+              "samples": 94
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 0.9166300000000001,
+              "end_s": 1.3041145,
+              "duration_s": 0.3874845,
+              "samples": 94
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 1.091623,
+                "end_s": 1.3041145,
+                "duration_s": 0.21249150000000006,
+                "samples": 52
+              },
+              {
+                "start_s": 0.9166300000000001,
+                "end_s": 1.158287,
+                "duration_s": 0.241657,
+                "samples": 59
+              }
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              75,
+              87
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81
+          ],
+          "exit_native_frame_indices": [
+            243,
+            244,
+            245,
+            246,
+            247,
+            248,
+            249,
+            250,
+            251,
+            252,
+            253,
+            254,
+            255,
+            256,
+            257,
+            258,
+            259,
+            260,
+            261,
+            262,
+            263,
+            264,
+            265,
+            266,
+            267,
+            268,
+            269,
+            270,
+            271,
+            272,
+            273,
+            274,
+            275
+          ],
+          "entry_speed_median_m_s": 0.2678436309506335,
+          "exit_speed_median_m_s": 1.0449742376916595,
+          "exit_over_entry_speed": 3.9014339597429504,
+          "core_speed_p10_over_entry": 1.3271748026513508,
+          "net_course_change_deg": 6.652607688540201
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": false,
+          "fixed_core_speed_retention": true
+        },
+        "all_exploratory_screens": false
+      }
+    },
+    {
+      "clip": "HDM_bd_walkLeft2Steps_001_120.bvh",
+      "factor": 3.0,
+      "base_trace_sha256": "875a546ba010c8707d2d66bcf236c136b03b55003d0335ceb60ff4dfaaf6127b",
+      "geometry_sha256": "7335dcd2766279009444065ed65230277344dde402be679f29b8e5452933c1bb",
+      "delta_file": "HDM_bd_walkLeft2Steps_001_120/rate_3.npz",
+      "delta_sha256": "018cb30cfceb74dae357c3d468237cf0c4d959437253a56af36a3937510ed91e",
+      "metrics": {
+        "factor": 3.0,
+        "duration_s": 0.8999640000000001,
+        "frames": 325,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 1.0210982107579534,
+          "p95": 1.7840200467168565,
+          "max": 1.9509954775590372
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 22.742920448211898,
+          "p95": 39.73547850052455,
+          "max": 43.454522271672445
+        },
+        "com_xy_translation_energy_J": {
+          "median": 11.61137768853982,
+          "p95": 35.44453290618183,
+          "max": 42.389788215760696
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 8.784416429931365,
+          "p95": 23.779411774998938,
+          "max": 42.16824062312041
+        },
+        "peak_leg_speed_rad_s": 11.656665991740393,
+        "peak_leg_acceleration_rad_s2": 838.3303147598831,
+        "peak_leg_no_load_speed_ratio": 0.7771110661160262,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.0,
+        "min_directional_motoring_torque_available_nm": 17.831114710717905,
+        "max_policy_50Hz_leg_reference_step_rad": 0.2064942563526921,
+        "peak_reference_wheel_spin_rate_rad_s": 5.1264483291037834e-08,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 0.22221333333333335,
+              "end_s": 0.533312,
+              "duration_s": 0.31109866666666663,
+              "samples": 113
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 0.22221333333333335,
+              "end_s": 0.533312,
+              "duration_s": 0.31109866666666663,
+              "samples": 113
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 0.34998599999999996,
+                "end_s": 0.533312,
+                "duration_s": 0.18332600000000004,
+                "samples": 67
+              },
+              {
+                "start_s": 0.22221333333333335,
+                "end_s": 0.4222053333333333,
+                "duration_s": 0.19999199999999998,
+                "samples": 73
+              }
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              133,
+              174
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 0.716638,
+              "end_s": 0.8055233333333334,
+              "duration_s": 0.08888533333333337,
+              "samples": 33
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 0.716638,
+              "end_s": 0.8055233333333334,
+              "duration_s": 0.08888533333333337,
+              "samples": 33
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 0.7277486666666667,
+                "end_s": 0.8055233333333334,
+                "duration_s": 0.07777466666666666,
+                "samples": 29
+              },
+              {
+                "start_s": 0.716638,
+                "end_s": 0.7721913333333333,
+                "duration_s": 0.05555333333333334,
+                "samples": 21
+              }
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              44,
+              36
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81
+          ],
+          "exit_native_frame_indices": [
+            243,
+            244,
+            245,
+            246,
+            247,
+            248,
+            249,
+            250,
+            251,
+            252,
+            253,
+            254,
+            255,
+            256,
+            257,
+            258,
+            259,
+            260,
+            261,
+            262,
+            263,
+            264,
+            265,
+            266,
+            267,
+            268,
+            269,
+            270,
+            271,
+            272,
+            273,
+            274,
+            275
+          ],
+          "entry_speed_median_m_s": 0.40176544642594986,
+          "exit_speed_median_m_s": 1.567461356537532,
+          "exit_over_entry_speed": 3.9014339597430605,
+          "core_speed_p10_over_entry": 1.3271748026513555,
+          "net_course_change_deg": 6.652607688540172
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": false,
+          "fixed_core_speed_retention": true
+        },
+        "all_exploratory_screens": false
+      }
+    },
+    {
+      "clip": "HDM_bd_walkLeft3Steps_001_120.bvh",
+      "factor": 1.0,
+      "base_trace_sha256": "92aaf3f03fe51dea70331b9d23b12fef6e718b7867aa9cb618a379c93eef17c9",
+      "geometry_sha256": "eb15557325e6fb9106fc9eeac581040b932ca8dd3eff033f0a70029af96d1efb",
+      "delta_file": "HDM_bd_walkLeft3Steps_001_120/rate_1.npz",
+      "delta_sha256": "260abf600716ee74eed6ebca46db08a5cb5215923092411b39b4c65ccfa130d2",
+      "metrics": {
+        "factor": 1.0,
+        "duration_s": 4.199832,
+        "frames": 505,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 0.35690914328788687,
+          "p95": 0.6429402712998059,
+          "max": 0.7111057493986118
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 7.949437348451106,
+          "p95": 14.320208662660582,
+          "max": 15.838458356355284
+        },
+        "com_xy_translation_energy_J": {
+          "median": 1.4186134368282075,
+          "p95": 4.603519767261853,
+          "max": 5.6314093994073655
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 0.9808032703127458,
+          "p95": 2.7539888229891254,
+          "max": 4.685360069235547
+        },
+        "peak_leg_speed_rad_s": 4.651310887368369,
+        "peak_leg_acceleration_rad_s2": 214.89630249648522,
+        "peak_leg_no_load_speed_ratio": 0.3100873924912246,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.0,
+        "min_directional_motoring_torque_available_nm": 55.19300860070203,
+        "max_policy_50Hz_leg_reference_step_rad": 0.09257601453401121,
+        "peak_reference_wheel_spin_rate_rad_s": 1.708816109701261e-08,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84,
+            85,
+            86,
+            87,
+            88,
+            89,
+            90,
+            91,
+            92,
+            93,
+            94,
+            95,
+            96,
+            97,
+            98,
+            99,
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107,
+            108,
+            109,
+            110,
+            111,
+            112,
+            113,
+            114,
+            115,
+            116,
+            117,
+            118,
+            119,
+            120,
+            121,
+            122,
+            123,
+            124,
+            125,
+            126
+          ],
+          "exit_native_frame_indices": [
+            378,
+            379,
+            380,
+            381,
+            382,
+            383,
+            384,
+            385,
+            386,
+            387,
+            388,
+            389,
+            390,
+            391,
+            392,
+            393,
+            394,
+            395,
+            396,
+            397,
+            398,
+            399,
+            400,
+            401,
+            402,
+            403,
+            404,
+            405,
+            406,
+            407,
+            408,
+            409,
+            410,
+            411,
+            412,
+            413,
+            414,
+            415,
+            416,
+            417,
+            418,
+            419,
+            420,
+            421,
+            422,
+            423,
+            424,
+            425,
+            426,
+            427,
+            428
+          ],
+          "entry_speed_median_m_s": 0.3063604057675773,
+          "exit_speed_median_m_s": 0.6369387176069327,
+          "exit_over_entry_speed": 2.0790503786254653,
+          "core_speed_p10_over_entry": 0.9016181582905287,
+          "net_course_change_deg": 15.214244734168574
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": false,
+          "fixed_core_speed_retention": true
+        },
+        "all_exploratory_screens": false
+      }
+    },
+    {
+      "clip": "HDM_bd_walkLeft3Steps_001_120.bvh",
+      "factor": 2.0,
+      "base_trace_sha256": "92aaf3f03fe51dea70331b9d23b12fef6e718b7867aa9cb618a379c93eef17c9",
+      "geometry_sha256": "eb15557325e6fb9106fc9eeac581040b932ca8dd3eff033f0a70029af96d1efb",
+      "delta_file": "HDM_bd_walkLeft3Steps_001_120/rate_2.npz",
+      "delta_sha256": "adf0307edb84d301c440e93ac9b18cef0a1100c54c2e27ba9764bc2dfbc96155",
+      "metrics": {
+        "factor": 2.0,
+        "duration_s": 2.099916,
+        "frames": 505,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 0.7138182865757737,
+          "p95": 1.2858805425996118,
+          "max": 1.4222114987972236
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 15.898874696902212,
+          "p95": 28.640417325321163,
+          "max": 31.676916712710568
+        },
+        "com_xy_translation_energy_J": {
+          "median": 5.67445374731283,
+          "p95": 18.41407906904741,
+          "max": 22.525637597629462
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 3.9232130812509833,
+          "p95": 11.015955291956502,
+          "max": 18.74144027694219
+        },
+        "peak_leg_speed_rad_s": 9.302621774736737,
+        "peak_leg_acceleration_rad_s2": 859.5852099859409,
+        "peak_leg_no_load_speed_ratio": 0.6201747849824492,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.0,
+        "min_directional_motoring_torque_available_nm": 30.386017201404066,
+        "max_policy_50Hz_leg_reference_step_rad": 0.17960018126428995,
+        "peak_reference_wheel_spin_rate_rad_s": 3.417632219402522e-08,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 1.41661,
+              "end_s": 1.8540925,
+              "duration_s": 0.4374825,
+              "samples": 106
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 1.41661,
+              "end_s": 1.8540925,
+              "duration_s": 0.4374825,
+              "samples": 106
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 1.091623,
+                "end_s": 1.3041145,
+                "duration_s": 0.21249150000000006,
+                "samples": 52
+              },
+              {
+                "start_s": 1.41661,
+                "end_s": 1.6707665,
+                "duration_s": 0.2541565000000001,
+                "samples": 62
+              }
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              133,
+              156
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84,
+            85,
+            86,
+            87,
+            88,
+            89,
+            90,
+            91,
+            92,
+            93,
+            94,
+            95,
+            96,
+            97,
+            98,
+            99,
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107,
+            108,
+            109,
+            110,
+            111,
+            112,
+            113,
+            114,
+            115,
+            116,
+            117,
+            118,
+            119,
+            120,
+            121,
+            122,
+            123,
+            124,
+            125,
+            126
+          ],
+          "exit_native_frame_indices": [
+            378,
+            379,
+            380,
+            381,
+            382,
+            383,
+            384,
+            385,
+            386,
+            387,
+            388,
+            389,
+            390,
+            391,
+            392,
+            393,
+            394,
+            395,
+            396,
+            397,
+            398,
+            399,
+            400,
+            401,
+            402,
+            403,
+            404,
+            405,
+            406,
+            407,
+            408,
+            409,
+            410,
+            411,
+            412,
+            413,
+            414,
+            415,
+            416,
+            417,
+            418,
+            419,
+            420,
+            421,
+            422,
+            423,
+            424,
+            425,
+            426,
+            427,
+            428
+          ],
+          "entry_speed_median_m_s": 0.6127208115351546,
+          "exit_speed_median_m_s": 1.2738774352138653,
+          "exit_over_entry_speed": 2.0790503786254653,
+          "core_speed_p10_over_entry": 0.9016181582905287,
+          "net_course_change_deg": 15.214244734168574
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": false,
+          "fixed_core_speed_retention": true
+        },
+        "all_exploratory_screens": false
+      }
+    },
+    {
+      "clip": "HDM_bd_walkLeft3Steps_001_120.bvh",
+      "factor": 3.0,
+      "base_trace_sha256": "92aaf3f03fe51dea70331b9d23b12fef6e718b7867aa9cb618a379c93eef17c9",
+      "geometry_sha256": "eb15557325e6fb9106fc9eeac581040b932ca8dd3eff033f0a70029af96d1efb",
+      "delta_file": "HDM_bd_walkLeft3Steps_001_120/rate_3.npz",
+      "delta_sha256": "fa7377ac736d375db1d1fdea6ad06a2eccc23b798e1c3647ed216d7572879728",
+      "metrics": {
+        "factor": 3.0,
+        "duration_s": 1.3999439999999999,
+        "frames": 505,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 1.0707274298636607,
+          "p95": 1.928820813899426,
+          "max": 2.1333172481959353
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 23.848312045353318,
+          "p95": 42.96062598798192,
+          "max": 47.51537506906808
+        },
+        "com_xy_translation_energy_J": {
+          "median": 12.76752093145387,
+          "p95": 41.43167790535703,
+          "max": 50.682684594671024
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 8.82722943280634,
+          "p95": 24.785899406907664,
+          "max": 42.16824062312041
+        },
+        "peak_leg_speed_rad_s": 13.953932662105107,
+        "peak_leg_acceleration_rad_s2": 1934.0667224685217,
+        "peak_leg_no_load_speed_ratio": 0.9302621774736738,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.0,
+        "min_directional_motoring_torque_available_nm": 5.579025802106097,
+        "max_policy_50Hz_leg_reference_step_rad": 0.2684142497812152,
+        "peak_reference_wheel_spin_rate_rad_s": 5.1264483291037834e-08,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 0.9305183333333334,
+              "end_s": 1.258283,
+              "duration_s": 0.3277646666666666,
+              "samples": 119
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 0.9305183333333334,
+              "end_s": 1.258283,
+              "duration_s": 0.3277646666666666,
+              "samples": 119
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 0.34998599999999996,
+                "end_s": 0.533312,
+                "duration_s": 0.18332600000000004,
+                "samples": 67
+              },
+              {
+                "start_s": 0.22221333333333335,
+                "end_s": 0.4222053333333333,
+                "duration_s": 0.19999199999999998,
+                "samples": 73
+              }
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              212,
+              264
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 0.9944046666666667,
+              "end_s": 1.2193956666666665,
+              "duration_s": 0.22499099999999983,
+              "samples": 82
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 0.9944046666666667,
+              "end_s": 1.2193956666666665,
+              "duration_s": 0.22499099999999983,
+              "samples": 82
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 1.0971783333333334,
+                "end_s": 1.2193956666666665,
+                "duration_s": 0.12221733333333318,
+                "samples": 45
+              },
+              {
+                "start_s": 0.9944046666666667,
+                "end_s": 1.1138443333333334,
+                "duration_s": 0.11943966666666672,
+                "samples": 44
+              }
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              89,
+              82
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 1.108289,
+              "end_s": 1.133288,
+              "duration_s": 0.024998999999999993,
+              "samples": 10
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 1.108289,
+              "end_s": 1.133288,
+              "duration_s": 0.024998999999999993,
+              "samples": 10
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 1.108289,
+                "end_s": 1.133288,
+                "duration_s": 0.024998999999999993,
+                "samples": 10
+              },
+              {
+                "start_s": 1.108289,
+                "end_s": 1.1138443333333334,
+                "duration_s": 0.0055553333333333565,
+                "samples": 3
+              }
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              10,
+              3
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84,
+            85,
+            86,
+            87,
+            88,
+            89,
+            90,
+            91,
+            92,
+            93,
+            94,
+            95,
+            96,
+            97,
+            98,
+            99,
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107,
+            108,
+            109,
+            110,
+            111,
+            112,
+            113,
+            114,
+            115,
+            116,
+            117,
+            118,
+            119,
+            120,
+            121,
+            122,
+            123,
+            124,
+            125,
+            126
+          ],
+          "exit_native_frame_indices": [
+            378,
+            379,
+            380,
+            381,
+            382,
+            383,
+            384,
+            385,
+            386,
+            387,
+            388,
+            389,
+            390,
+            391,
+            392,
+            393,
+            394,
+            395,
+            396,
+            397,
+            398,
+            399,
+            400,
+            401,
+            402,
+            403,
+            404,
+            405,
+            406,
+            407,
+            408,
+            409,
+            410,
+            411,
+            412,
+            413,
+            414,
+            415,
+            416,
+            417,
+            418,
+            419,
+            420,
+            421,
+            422,
+            423,
+            424,
+            425,
+            426,
+            427,
+            428
+          ],
+          "entry_speed_median_m_s": 0.9190812173027256,
+          "exit_speed_median_m_s": 1.910816152820784,
+          "exit_over_entry_speed": 2.079050378625464,
+          "core_speed_p10_over_entry": 0.9016181582905077,
+          "net_course_change_deg": 15.214244734168602
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": false,
+          "fixed_core_speed_retention": true
+        },
+        "all_exploratory_screens": false
+      }
+    },
+    {
+      "clip": "HDM_bd_walkRightCrossFront2Steps_001_120.bvh",
+      "factor": 1.0,
+      "base_trace_sha256": "b7b0b3bfee1e75aeb0ee931d337fa103652e78385e34da77d99634a656dda9e4",
+      "geometry_sha256": "ef9304651a0e2daef78ff6250d436c14f370fc46eb89cacc26d09130317affae",
+      "delta_file": "HDM_bd_walkRightCrossFront2Steps_001_120/rate_1.npz",
+      "delta_sha256": "70d5259f1ff5c07e1d1628aa6fa080e3a7c9b9ea4dc3d71f9a65d44c843c1e13",
+      "metrics": {
+        "factor": 1.0,
+        "duration_s": 2.849886,
+        "frames": 343,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 0.33176964417795307,
+          "p95": 0.5238406569359474,
+          "max": 0.6030931627567991
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 7.389505284775549,
+          "p95": 11.66750295193436,
+          "max": 13.43269401408219
+        },
+        "com_xy_translation_energy_J": {
+          "median": 1.225806769490544,
+          "p95": 3.0559566479658318,
+          "max": 4.050582958648576
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 0.7725547574166294,
+          "p95": 1.8897036886795697,
+          "max": 3.0149041621323165
+        },
+        "peak_leg_speed_rad_s": 3.5711927174284614,
+        "peak_leg_acceleration_rad_s2": 66.7356440636422,
+        "peak_leg_no_load_speed_ratio": 0.23807951449523077,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.0,
+        "min_directional_motoring_torque_available_nm": 60.95363884038154,
+        "max_policy_50Hz_leg_reference_step_rad": 0.07076674456296371,
+        "peak_reference_wheel_spin_rate_rad_s": 1.779868782579165e-08,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84,
+            85
+          ],
+          "exit_native_frame_indices": [
+            257,
+            258,
+            259,
+            260,
+            261,
+            262,
+            263,
+            264,
+            265,
+            266,
+            267,
+            268,
+            269,
+            270,
+            271,
+            272,
+            273,
+            274,
+            275,
+            276,
+            277,
+            278,
+            279,
+            280,
+            281,
+            282,
+            283,
+            284,
+            285,
+            286,
+            287,
+            288,
+            289,
+            290
+          ],
+          "entry_speed_median_m_s": 0.22982857648987376,
+          "exit_speed_median_m_s": 0.35460241203833986,
+          "exit_over_entry_speed": 1.5428995708632587,
+          "core_speed_p10_over_entry": 0.8379032061373578,
+          "net_course_change_deg": -7.337338559785167
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": false,
+          "fixed_core_speed_retention": true
+        },
+        "all_exploratory_screens": false
+      }
+    },
+    {
+      "clip": "HDM_bd_walkRightCrossFront2Steps_001_120.bvh",
+      "factor": 2.0,
+      "base_trace_sha256": "b7b0b3bfee1e75aeb0ee931d337fa103652e78385e34da77d99634a656dda9e4",
+      "geometry_sha256": "ef9304651a0e2daef78ff6250d436c14f370fc46eb89cacc26d09130317affae",
+      "delta_file": "HDM_bd_walkRightCrossFront2Steps_001_120/rate_2.npz",
+      "delta_sha256": "92587b5e37f350fa76f039009178efdaacdfea7dfd4fd8eb2378b1d1e65f9527",
+      "metrics": {
+        "factor": 2.0,
+        "duration_s": 1.424943,
+        "frames": 343,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 0.6635392883559061,
+          "p95": 1.0476813138718948,
+          "max": 1.2061863255135983
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 14.779010569551097,
+          "p95": 23.33500590386872,
+          "max": 26.86538802816438
+        },
+        "com_xy_translation_energy_J": {
+          "median": 4.903227077962176,
+          "p95": 12.223826591863327,
+          "max": 16.202331834594304
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 3.0902190296665175,
+          "p95": 7.558814754718279,
+          "max": 12.059616648529266
+        },
+        "peak_leg_speed_rad_s": 7.142385434856923,
+        "peak_leg_acceleration_rad_s2": 266.9425762545688,
+        "peak_leg_no_load_speed_ratio": 0.47615902899046153,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.0,
+        "min_directional_motoring_torque_available_nm": 41.90727768076307,
+        "max_policy_50Hz_leg_reference_step_rad": 0.1411076596444708,
+        "peak_reference_wheel_spin_rate_rad_s": 3.55973756515833e-08,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 1.1624535,
+              "end_s": 1.424943,
+              "duration_s": 0.26248950000000004,
+              "samples": 64
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 1.1624535,
+              "end_s": 1.424943,
+              "duration_s": 0.26248950000000004,
+              "samples": 64
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 1.1624535,
+                "end_s": 1.424943,
+                "duration_s": 0.26248950000000004,
+                "samples": 64
+              },
+              {
+                "start_s": 0.7624695,
+                "end_s": 0.983294,
+                "duration_s": 0.22082449999999998,
+                "samples": 54
+              }
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              78,
+              74
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84,
+            85
+          ],
+          "exit_native_frame_indices": [
+            257,
+            258,
+            259,
+            260,
+            261,
+            262,
+            263,
+            264,
+            265,
+            266,
+            267,
+            268,
+            269,
+            270,
+            271,
+            272,
+            273,
+            274,
+            275,
+            276,
+            277,
+            278,
+            279,
+            280,
+            281,
+            282,
+            283,
+            284,
+            285,
+            286,
+            287,
+            288,
+            289,
+            290
+          ],
+          "entry_speed_median_m_s": 0.4596571529797475,
+          "exit_speed_median_m_s": 0.7092048240766797,
+          "exit_over_entry_speed": 1.5428995708632587,
+          "core_speed_p10_over_entry": 0.8379032061373578,
+          "net_course_change_deg": -7.337338559785167
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": false,
+          "fixed_core_speed_retention": true
+        },
+        "all_exploratory_screens": false
+      }
+    },
+    {
+      "clip": "HDM_bd_walkRightCrossFront2Steps_001_120.bvh",
+      "factor": 3.0,
+      "base_trace_sha256": "b7b0b3bfee1e75aeb0ee931d337fa103652e78385e34da77d99634a656dda9e4",
+      "geometry_sha256": "ef9304651a0e2daef78ff6250d436c14f370fc46eb89cacc26d09130317affae",
+      "delta_file": "HDM_bd_walkRightCrossFront2Steps_001_120/rate_3.npz",
+      "delta_sha256": "cb978e11f9d94599024ff5931846a50ff6f2f7b4d149ba9f6650159f2e3164d8",
+      "metrics": {
+        "factor": 3.0,
+        "duration_s": 0.9499620000000001,
+        "frames": 343,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 0.9953089325338573,
+          "p95": 1.5715219708078785,
+          "max": 1.8092794882703735
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 22.168515854326607,
+          "p95": 35.00250885580388,
+          "max": 40.29808204224604
+        },
+        "com_xy_translation_energy_J": {
+          "median": 11.032260925414853,
+          "p95": 27.503609831693748,
+          "max": 36.455246627836225
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 6.952992816749361,
+          "p95": 17.007333198117163,
+          "max": 27.134137459189013
+        },
+        "peak_leg_speed_rad_s": 10.713578152285384,
+        "peak_leg_acceleration_rad_s2": 600.6207965728278,
+        "peak_leg_no_load_speed_ratio": 0.7142385434856923,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.0,
+        "min_directional_motoring_torque_available_nm": 22.860916521144617,
+        "max_policy_50Hz_leg_reference_step_rad": 0.21106809286593126,
+        "peak_reference_wheel_spin_rate_rad_s": 5.3396063477374945e-08,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 0.36387433333333336,
+              "end_s": 0.9499620000000001,
+              "duration_s": 0.5860876666666668,
+              "samples": 212
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 0.36387433333333336,
+              "end_s": 0.9499620000000001,
+              "duration_s": 0.5860876666666668,
+              "samples": 212
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 0.6610846666666667,
+                "end_s": 0.9499620000000001,
+                "duration_s": 0.28887733333333343,
+                "samples": 105
+              },
+              {
+                "start_s": 0.43331600000000003,
+                "end_s": 0.7638583333333333,
+                "duration_s": 0.33054233333333327,
+                "samples": 120
+              }
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              171,
+              140
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 0.8305223333333333,
+              "end_s": 0.8805203333333332,
+              "duration_s": 0.04999799999999999,
+              "samples": 19
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 0.8305223333333333,
+              "end_s": 0.8805203333333332,
+              "duration_s": 0.04999799999999999,
+              "samples": 19
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 0.8305223333333333,
+                "end_s": 0.8805203333333332,
+                "duration_s": 0.04999799999999999,
+                "samples": 19
+              },
+              {
+                "start_s": 0.933296,
+                "end_s": 0.9499620000000001,
+                "duration_s": 0.01666600000000007,
+                "samples": 7
+              }
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              26,
+              7
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84,
+            85
+          ],
+          "exit_native_frame_indices": [
+            257,
+            258,
+            259,
+            260,
+            261,
+            262,
+            263,
+            264,
+            265,
+            266,
+            267,
+            268,
+            269,
+            270,
+            271,
+            272,
+            273,
+            274,
+            275,
+            276,
+            277,
+            278,
+            279,
+            280,
+            281,
+            282,
+            283,
+            284,
+            285,
+            286,
+            287,
+            288,
+            289,
+            290
+          ],
+          "entry_speed_median_m_s": 0.6894857294696239,
+          "exit_speed_median_m_s": 1.0638072361150126,
+          "exit_over_entry_speed": 1.5428995708632427,
+          "core_speed_p10_over_entry": 0.8379032061373582,
+          "net_course_change_deg": -7.337338559785138
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": false,
+          "fixed_core_speed_retention": true
+        },
+        "all_exploratory_screens": false
+      }
+    },
+    {
+      "clip": "HDM_bd_walkRightCrossFront3Steps_001_120.bvh",
+      "factor": 1.0,
+      "base_trace_sha256": "362a43c87c49fd7c9d0c5f628158d7a3c37c6728b612e2cea12017a08e7cae38",
+      "geometry_sha256": "9e3b31c487212dfbd5526668dedcab89d5bbc477e8db481ee282bb04ce6b74ff",
+      "delta_file": "HDM_bd_walkRightCrossFront3Steps_001_120/rate_1.npz",
+      "delta_sha256": "c93f0d21b55c3c79fa398ee7865a6a9eaedee6c9d1af75a877b2572eebbaffd8",
+      "metrics": {
+        "factor": 1.0,
+        "duration_s": 5.8331,
+        "frames": 701,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 0.2734175163888584,
+          "p95": 0.523116919489093,
+          "max": 0.6604651200954795
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 6.089828342529044,
+          "p95": 11.651383147780567,
+          "max": 14.710539619886617
+        },
+        "com_xy_translation_energy_J": {
+          "median": 0.8325328703243847,
+          "p95": 3.047517830027052,
+          "max": 4.857899158358863
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 0.675124287150012,
+          "p95": 1.6972932428085818,
+          "max": 3.828165151436239
+        },
+        "peak_leg_speed_rad_s": 3.373264195066963,
+        "peak_leg_acceleration_rad_s2": 60.32430615952751,
+        "peak_leg_no_load_speed_ratio": 0.22488427967113087,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.0,
+        "min_directional_motoring_torque_available_nm": 62.00925762630953,
+        "max_policy_50Hz_leg_reference_step_rad": 0.06688134564422521,
+        "peak_reference_wheel_spin_rate_rad_s": 2.2122315396574025e-08,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            105,
+            106,
+            107,
+            108,
+            109,
+            110,
+            111,
+            112,
+            113,
+            114,
+            115,
+            116,
+            117,
+            118,
+            119,
+            120,
+            121,
+            122,
+            123,
+            124,
+            125,
+            126,
+            127,
+            128,
+            129,
+            130,
+            131,
+            132,
+            133,
+            134,
+            135,
+            136,
+            137,
+            138,
+            139,
+            140,
+            141,
+            142,
+            143,
+            144,
+            145,
+            146,
+            147,
+            148,
+            149,
+            150,
+            151,
+            152,
+            153,
+            154,
+            155,
+            156,
+            157,
+            158,
+            159,
+            160,
+            161,
+            162,
+            163,
+            164,
+            165,
+            166,
+            167,
+            168,
+            169,
+            170,
+            171,
+            172,
+            173,
+            174,
+            175
+          ],
+          "exit_native_frame_indices": [
+            525,
+            526,
+            527,
+            528,
+            529,
+            530,
+            531,
+            532,
+            533,
+            534,
+            535,
+            536,
+            537,
+            538,
+            539,
+            540,
+            541,
+            542,
+            543,
+            544,
+            545,
+            546,
+            547,
+            548,
+            549,
+            550,
+            551,
+            552,
+            553,
+            554,
+            555,
+            556,
+            557,
+            558,
+            559,
+            560,
+            561,
+            562,
+            563,
+            564,
+            565,
+            566,
+            567,
+            568,
+            569,
+            570,
+            571,
+            572,
+            573,
+            574,
+            575,
+            576,
+            577,
+            578,
+            579,
+            580,
+            581,
+            582,
+            583,
+            584,
+            585,
+            586,
+            587,
+            588,
+            589,
+            590,
+            591,
+            592,
+            593,
+            594
+          ],
+          "entry_speed_median_m_s": 0.21100913621056988,
+          "exit_speed_median_m_s": 0.2513420175784742,
+          "exit_over_entry_speed": 1.1911428201272545,
+          "core_speed_p10_over_entry": 0.9491104762539827,
+          "net_course_change_deg": -4.398430980796746
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": false,
+          "fixed_core_speed_retention": true
+        },
+        "all_exploratory_screens": false
+      }
+    },
+    {
+      "clip": "HDM_bd_walkRightCrossFront3Steps_001_120.bvh",
+      "factor": 2.0,
+      "base_trace_sha256": "362a43c87c49fd7c9d0c5f628158d7a3c37c6728b612e2cea12017a08e7cae38",
+      "geometry_sha256": "9e3b31c487212dfbd5526668dedcab89d5bbc477e8db481ee282bb04ce6b74ff",
+      "delta_file": "HDM_bd_walkRightCrossFront3Steps_001_120/rate_2.npz",
+      "delta_sha256": "449a0f3b29d85357d57045b725561ab72c9daf7717de24a713e78b45287c9638",
+      "metrics": {
+        "factor": 2.0,
+        "duration_s": 2.91655,
+        "frames": 701,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 0.5468350327777168,
+          "p95": 1.046233838978186,
+          "max": 1.320930240190959
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 12.179656685058088,
+          "p95": 23.302766295561135,
+          "max": 29.421079239773235
+        },
+        "com_xy_translation_energy_J": {
+          "median": 3.330131481297539,
+          "p95": 12.190071320108208,
+          "max": 19.43159663343545
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 2.700497148600048,
+          "p95": 6.789172971234327,
+          "max": 15.312660605744956
+        },
+        "peak_leg_speed_rad_s": 6.746528390133926,
+        "peak_leg_acceleration_rad_s2": 241.29722463811004,
+        "peak_leg_no_load_speed_ratio": 0.44976855934226173,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.0,
+        "min_directional_motoring_torque_available_nm": 44.01851525261905,
+        "max_policy_50Hz_leg_reference_step_rad": 0.13267762242956693,
+        "peak_reference_wheel_spin_rate_rad_s": 4.424463079314805e-08,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 1.433276,
+              "end_s": 1.9624215,
+              "duration_s": 0.5291455,
+              "samples": 128
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 1.433276,
+              "end_s": 1.9624215,
+              "duration_s": 0.5291455,
+              "samples": 128
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 1.433276,
+                "end_s": 1.7374305,
+                "duration_s": 0.3041545000000001,
+                "samples": 74
+              },
+              {
+                "start_s": 1.608269,
+                "end_s": 1.9624215,
+                "duration_s": 0.3541525000000001,
+                "samples": 86
+              }
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              97,
+              140
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            105,
+            106,
+            107,
+            108,
+            109,
+            110,
+            111,
+            112,
+            113,
+            114,
+            115,
+            116,
+            117,
+            118,
+            119,
+            120,
+            121,
+            122,
+            123,
+            124,
+            125,
+            126,
+            127,
+            128,
+            129,
+            130,
+            131,
+            132,
+            133,
+            134,
+            135,
+            136,
+            137,
+            138,
+            139,
+            140,
+            141,
+            142,
+            143,
+            144,
+            145,
+            146,
+            147,
+            148,
+            149,
+            150,
+            151,
+            152,
+            153,
+            154,
+            155,
+            156,
+            157,
+            158,
+            159,
+            160,
+            161,
+            162,
+            163,
+            164,
+            165,
+            166,
+            167,
+            168,
+            169,
+            170,
+            171,
+            172,
+            173,
+            174,
+            175
+          ],
+          "exit_native_frame_indices": [
+            525,
+            526,
+            527,
+            528,
+            529,
+            530,
+            531,
+            532,
+            533,
+            534,
+            535,
+            536,
+            537,
+            538,
+            539,
+            540,
+            541,
+            542,
+            543,
+            544,
+            545,
+            546,
+            547,
+            548,
+            549,
+            550,
+            551,
+            552,
+            553,
+            554,
+            555,
+            556,
+            557,
+            558,
+            559,
+            560,
+            561,
+            562,
+            563,
+            564,
+            565,
+            566,
+            567,
+            568,
+            569,
+            570,
+            571,
+            572,
+            573,
+            574,
+            575,
+            576,
+            577,
+            578,
+            579,
+            580,
+            581,
+            582,
+            583,
+            584,
+            585,
+            586,
+            587,
+            588,
+            589,
+            590,
+            591,
+            592,
+            593,
+            594
+          ],
+          "entry_speed_median_m_s": 0.42201827242113976,
+          "exit_speed_median_m_s": 0.5026840351569484,
+          "exit_over_entry_speed": 1.1911428201272545,
+          "core_speed_p10_over_entry": 0.9491104762539827,
+          "net_course_change_deg": -4.398430980796746
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": false,
+          "fixed_core_speed_retention": true
+        },
+        "all_exploratory_screens": false
+      }
+    },
+    {
+      "clip": "HDM_bd_walkRightCrossFront3Steps_001_120.bvh",
+      "factor": 3.0,
+      "base_trace_sha256": "362a43c87c49fd7c9d0c5f628158d7a3c37c6728b612e2cea12017a08e7cae38",
+      "geometry_sha256": "9e3b31c487212dfbd5526668dedcab89d5bbc477e8db481ee282bb04ce6b74ff",
+      "delta_file": "HDM_bd_walkRightCrossFront3Steps_001_120/rate_3.npz",
+      "delta_sha256": "244a93cab2bcc74f57dc790a6b58ea11ca06585e94aa5f5d9c1eefafed837340",
+      "metrics": {
+        "factor": 3.0,
+        "duration_s": 1.9443666666666666,
+        "frames": 701,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 0.8202525491665734,
+          "p95": 1.5693507584673072,
+          "max": 1.9813953602864307
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 18.269485027587095,
+          "p95": 34.95414944334234,
+          "max": 44.131618859659675
+        },
+        "com_xy_translation_energy_J": {
+          "median": 7.4927958329194295,
+          "p95": 27.42766047024445,
+          "max": 43.721092425229415
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 6.0761185843547665,
+          "p95": 15.275639185277035,
+          "max": 34.453486362944496
+        },
+        "peak_leg_speed_rad_s": 10.119792585200889,
+        "peak_leg_acceleration_rad_s2": 542.9187554357404,
+        "peak_leg_no_load_speed_ratio": 0.6746528390133926,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.0,
+        "min_directional_motoring_torque_available_nm": 26.027772878928594,
+        "max_policy_50Hz_leg_reference_step_rad": 0.19844757788648648,
+        "peak_reference_wheel_spin_rate_rad_s": 6.636694618972208e-08,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 0.5444226666666666,
+              "end_s": 1.519383666666667,
+              "duration_s": 0.9749610000000003,
+              "samples": 352
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 0.5444226666666666,
+              "end_s": 1.519383666666667,
+              "duration_s": 0.9749610000000003,
+              "samples": 352
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 0.841633,
+                "end_s": 1.158287,
+                "duration_s": 0.3166540000000001,
+                "samples": 115
+              },
+              {
+                "start_s": 0.6110866666666667,
+                "end_s": 0.9471843333333334,
+                "duration_s": 0.33609766666666674,
+                "samples": 122
+              }
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              267,
+              234
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 1.1138443333333334,
+              "end_s": 1.2138403333333334,
+              "duration_s": 0.09999599999999997,
+              "samples": 37
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 1.1138443333333334,
+              "end_s": 1.2138403333333334,
+              "duration_s": 0.09999599999999997,
+              "samples": 37
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 1.1138443333333334,
+                "end_s": 1.158287,
+                "duration_s": 0.04444266666666663,
+                "samples": 17
+              },
+              {
+                "start_s": 1.1138443333333334,
+                "end_s": 1.2138403333333334,
+                "duration_s": 0.09999599999999997,
+                "samples": 37
+              }
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              34,
+              56
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            105,
+            106,
+            107,
+            108,
+            109,
+            110,
+            111,
+            112,
+            113,
+            114,
+            115,
+            116,
+            117,
+            118,
+            119,
+            120,
+            121,
+            122,
+            123,
+            124,
+            125,
+            126,
+            127,
+            128,
+            129,
+            130,
+            131,
+            132,
+            133,
+            134,
+            135,
+            136,
+            137,
+            138,
+            139,
+            140,
+            141,
+            142,
+            143,
+            144,
+            145,
+            146,
+            147,
+            148,
+            149,
+            150,
+            151,
+            152,
+            153,
+            154,
+            155,
+            156,
+            157,
+            158,
+            159,
+            160,
+            161,
+            162,
+            163,
+            164,
+            165,
+            166,
+            167,
+            168,
+            169,
+            170,
+            171,
+            172,
+            173,
+            174,
+            175
+          ],
+          "exit_native_frame_indices": [
+            525,
+            526,
+            527,
+            528,
+            529,
+            530,
+            531,
+            532,
+            533,
+            534,
+            535,
+            536,
+            537,
+            538,
+            539,
+            540,
+            541,
+            542,
+            543,
+            544,
+            545,
+            546,
+            547,
+            548,
+            549,
+            550,
+            551,
+            552,
+            553,
+            554,
+            555,
+            556,
+            557,
+            558,
+            559,
+            560,
+            561,
+            562,
+            563,
+            564,
+            565,
+            566,
+            567,
+            568,
+            569,
+            570,
+            571,
+            572,
+            573,
+            574,
+            575,
+            576,
+            577,
+            578,
+            579,
+            580,
+            581,
+            582,
+            583,
+            584,
+            585,
+            586,
+            587,
+            588,
+            589,
+            590,
+            591,
+            592,
+            593,
+            594
+          ],
+          "entry_speed_median_m_s": 0.6330274086317055,
+          "exit_speed_median_m_s": 0.7540260527353452,
+          "exit_over_entry_speed": 1.1911428201271401,
+          "core_speed_p10_over_entry": 0.9491104762539863,
+          "net_course_change_deg": -4.398430980796775
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": false,
+          "fixed_core_speed_retention": true
+        },
+        "all_exploratory_screens": false
+      }
+    },
+    {
+      "clip": "HDM_bd_walkLeftCircle4StepsRstart_001_120.bvh",
+      "factor": 1.0,
+      "base_trace_sha256": "f1214ac0f2efce6309e5186c2e3554af646b2e483859337da2950b8abe5fd2c7",
+      "geometry_sha256": "07814489a93fb63671ec327d3283a0df7e62ba9b68ad483fbb9c751f3cf8cb37",
+      "delta_file": "HDM_bd_walkLeftCircle4StepsRstart_001_120/rate_1.npz",
+      "delta_sha256": "e8fc80829f84774cdea1b8e01306a1be19a86c4c4e14bec444a5d7bb18ac8d04",
+      "metrics": {
+        "factor": 1.0,
+        "duration_s": 2.841553,
+        "frames": 342,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 0.8934013831265042,
+          "p95": 1.032803575884114,
+          "max": 1.074255911101711
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 19.89872900637663,
+          "p95": 23.003634045666878,
+          "max": 23.92690190796841
+        },
+        "com_xy_translation_energy_J": {
+          "median": 8.888779637591046,
+          "p95": 11.879117770195746,
+          "max": 12.851807904492935
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 1.2158801794373377,
+          "p95": 2.8274353336541873,
+          "max": 4.164301593555368
+        },
+        "peak_leg_speed_rad_s": 8.580613980751677,
+        "peak_leg_acceleration_rad_s2": 480.62126542945015,
+        "peak_leg_no_load_speed_ratio": 0.5720409320501118,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.0,
+        "min_directional_motoring_torque_available_nm": 34.23672543599106,
+        "max_policy_50Hz_leg_reference_step_rad": 0.16972991525898562,
+        "peak_reference_wheel_spin_rate_rad_s": 1.1659499805180357e-08,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 1.799928,
+              "end_s": 2.133248,
+              "duration_s": 0.33332000000000006,
+              "samples": 41
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 1.799928,
+              "end_s": 2.108249,
+              "duration_s": 0.30832099999999985,
+              "samples": 38
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 1.799928,
+                "end_s": 1.891591,
+                "duration_s": 0.09166300000000005,
+                "samples": 12
+              },
+              {
+                "start_s": 1.824927,
+                "end_s": 2.108249,
+                "duration_s": 0.28332199999999985,
+                "samples": 35
+              }
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              12,
+              37
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84,
+            85
+          ],
+          "exit_native_frame_indices": [
+            256,
+            257,
+            258,
+            259,
+            260,
+            261,
+            262,
+            263,
+            264,
+            265,
+            266,
+            267,
+            268,
+            269,
+            270,
+            271,
+            272,
+            273,
+            274,
+            275,
+            276,
+            277,
+            278,
+            279,
+            280,
+            281,
+            282,
+            283,
+            284,
+            285,
+            286,
+            287,
+            288,
+            289
+          ],
+          "entry_speed_median_m_s": 0.5818041278257711,
+          "exit_speed_median_m_s": 0.8991918227656601,
+          "exit_over_entry_speed": 1.5455232779560735,
+          "core_speed_p10_over_entry": 1.015788021875677,
+          "net_course_change_deg": 52.452899969729856
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": true,
+          "fixed_core_speed_retention": true
+        },
+        "all_exploratory_screens": false
+      }
+    },
+    {
+      "clip": "HDM_bd_walkLeftCircle4StepsRstart_001_120.bvh",
+      "factor": 2.0,
+      "base_trace_sha256": "f1214ac0f2efce6309e5186c2e3554af646b2e483859337da2950b8abe5fd2c7",
+      "geometry_sha256": "07814489a93fb63671ec327d3283a0df7e62ba9b68ad483fbb9c751f3cf8cb37",
+      "delta_file": "HDM_bd_walkLeftCircle4StepsRstart_001_120/rate_2.npz",
+      "delta_sha256": "0ee7270856be41e27a4f32bf48372dfde5c7667807aa46e363a4a2a1a89cb6da",
+      "metrics": {
+        "factor": 2.0,
+        "duration_s": 1.4207765,
+        "frames": 342,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 1.7868027662530084,
+          "p95": 2.065607151768228,
+          "max": 2.148511822203422
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 39.79745801275326,
+          "p95": 46.007268091333756,
+          "max": 47.85380381593682
+        },
+        "com_xy_translation_energy_J": {
+          "median": 35.555118550364185,
+          "p95": 47.516471080782985,
+          "max": 51.40723161797174
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 4.863520717749351,
+          "p95": 11.30974133461675,
+          "max": 16.657206374221474
+        },
+        "peak_leg_speed_rad_s": 17.161227961503354,
+        "peak_leg_acceleration_rad_s2": 1922.4850617178006,
+        "peak_leg_no_load_speed_ratio": 1.1440818641002235,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.005376344086021506,
+        "min_directional_motoring_torque_available_nm": 0.0,
+        "max_policy_50Hz_leg_reference_step_rad": 0.3394574374137015,
+        "peak_reference_wheel_spin_rate_rad_s": 2.3318999610360714e-08,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 0.899964,
+              "end_s": 1.066624,
+              "duration_s": 0.16666000000000003,
+              "samples": 41
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 0.899964,
+              "end_s": 1.0541245,
+              "duration_s": 0.15416049999999992,
+              "samples": 38
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 0.899964,
+                "end_s": 0.9457955,
+                "duration_s": 0.045831500000000025,
+                "samples": 12
+              },
+              {
+                "start_s": 0.9124635,
+                "end_s": 1.0541245,
+                "duration_s": 0.14166099999999993,
+                "samples": 35
+              }
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              18,
+              46
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 0.899964,
+              "end_s": 1.066624,
+              "duration_s": 0.16666000000000003,
+              "samples": 41
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 0.899964,
+              "end_s": 1.0541245,
+              "duration_s": 0.15416049999999992,
+              "samples": 38
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 0.899964,
+                "end_s": 0.9457955,
+                "duration_s": 0.045831500000000025,
+                "samples": 12
+              },
+              {
+                "start_s": 0.9124635,
+                "end_s": 1.0541245,
+                "duration_s": 0.14166099999999993,
+                "samples": 35
+              }
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              13,
+              41
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 0.9791275,
+              "end_s": 0.99996,
+              "duration_s": 0.02083249999999992,
+              "samples": 6
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 0.9791275,
+              "end_s": 0.99996,
+              "duration_s": 0.02083249999999992,
+              "samples": 6
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              {
+                "start_s": 0.9791275,
+                "end_s": 0.99996,
+                "duration_s": 0.02083249999999992,
+                "samples": 6
+              }
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              6
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84,
+            85
+          ],
+          "exit_native_frame_indices": [
+            256,
+            257,
+            258,
+            259,
+            260,
+            261,
+            262,
+            263,
+            264,
+            265,
+            266,
+            267,
+            268,
+            269,
+            270,
+            271,
+            272,
+            273,
+            274,
+            275,
+            276,
+            277,
+            278,
+            279,
+            280,
+            281,
+            282,
+            283,
+            284,
+            285,
+            286,
+            287,
+            288,
+            289
+          ],
+          "entry_speed_median_m_s": 1.1636082556515421,
+          "exit_speed_median_m_s": 1.7983836455313202,
+          "exit_over_entry_speed": 1.5455232779560735,
+          "core_speed_p10_over_entry": 1.015788021875677,
+          "net_course_change_deg": 52.452899969729856
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": true,
+          "fixed_core_speed_retention": true
+        },
+        "all_exploratory_screens": false
+      }
+    },
+    {
+      "clip": "HDM_bd_walkLeftCircle4StepsRstart_001_120.bvh",
+      "factor": 3.0,
+      "base_trace_sha256": "f1214ac0f2efce6309e5186c2e3554af646b2e483859337da2950b8abe5fd2c7",
+      "geometry_sha256": "07814489a93fb63671ec327d3283a0df7e62ba9b68ad483fbb9c751f3cf8cb37",
+      "delta_file": "HDM_bd_walkLeftCircle4StepsRstart_001_120/rate_3.npz",
+      "delta_sha256": "397caeb1888ade347b1f6b8b9bdbf4f6daa8663f738b49c7f81b96dac6f52c46",
+      "metrics": {
+        "factor": 3.0,
+        "duration_s": 0.9471843333333334,
+        "frames": 342,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 2.6802041493794784,
+          "p95": 3.098410727652258,
+          "max": 3.222767733305106
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 59.69618701912914,
+          "p95": 69.01090213699875,
+          "max": 71.78070572390463
+        },
+        "com_xy_translation_energy_J": {
+          "median": 79.99901673831741,
+          "p95": 106.9120599317559,
+          "max": 115.6662711404345
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 10.942921614943877,
+          "p95": 25.44691800288873,
+          "max": 37.47871434199504
+        },
+        "peak_leg_speed_rad_s": 25.74184194225503,
+        "peak_leg_acceleration_rad_s2": 4325.591388864995,
+        "peak_leg_no_load_speed_ratio": 1.7161227961503351,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.04985337243401759,
+        "min_directional_motoring_torque_available_nm": 0.0,
+        "max_policy_50Hz_leg_reference_step_rad": 0.4767190789343058,
+        "peak_reference_wheel_spin_rate_rad_s": 3.497849941554107e-08,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 0.599976,
+              "end_s": 0.7110826666666666,
+              "duration_s": 0.11110666666666669,
+              "samples": 41
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 0.599976,
+              "end_s": 0.7027496666666666,
+              "duration_s": 0.10277366666666665,
+              "samples": 38
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 0.599976,
+                "end_s": 0.6305303333333333,
+                "duration_s": 0.03055433333333335,
+                "samples": 12
+              },
+              {
+                "start_s": 0.608309,
+                "end_s": 0.7027496666666666,
+                "duration_s": 0.09444066666666662,
+                "samples": 35
+              }
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              18,
+              46
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 0.599976,
+              "end_s": 0.7110826666666666,
+              "duration_s": 0.11110666666666669,
+              "samples": 41
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 0.599976,
+              "end_s": 0.7027496666666666,
+              "duration_s": 0.10277366666666665,
+              "samples": 38
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 0.599976,
+                "end_s": 0.6305303333333333,
+                "duration_s": 0.03055433333333335,
+                "samples": 12
+              },
+              {
+                "start_s": 0.608309,
+                "end_s": 0.7027496666666666,
+                "duration_s": 0.09444066666666662,
+                "samples": 35
+              }
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              18,
+              46
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 0.599976,
+              "end_s": 0.7110826666666666,
+              "duration_s": 0.11110666666666669,
+              "samples": 41
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 0.599976,
+              "end_s": 0.7027496666666666,
+              "duration_s": 0.10277366666666665,
+              "samples": 38
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 0.599976,
+                "end_s": 0.6305303333333333,
+                "duration_s": 0.03055433333333335,
+                "samples": 12
+              },
+              {
+                "start_s": 0.608309,
+                "end_s": 0.7027496666666666,
+                "duration_s": 0.09444066666666662,
+                "samples": 35
+              }
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              18,
+              46
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84,
+            85
+          ],
+          "exit_native_frame_indices": [
+            256,
+            257,
+            258,
+            259,
+            260,
+            261,
+            262,
+            263,
+            264,
+            265,
+            266,
+            267,
+            268,
+            269,
+            270,
+            271,
+            272,
+            273,
+            274,
+            275,
+            276,
+            277,
+            278,
+            279,
+            280,
+            281,
+            282,
+            283,
+            284,
+            285,
+            286,
+            287,
+            288,
+            289
+          ],
+          "entry_speed_median_m_s": 1.7454123834773139,
+          "exit_speed_median_m_s": 2.6975754682969946,
+          "exit_over_entry_speed": 1.545523277956081,
+          "core_speed_p10_over_entry": 1.015788021875672,
+          "net_course_change_deg": 52.4528999697298
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": true,
+          "fixed_core_speed_retention": true
+        },
+        "all_exploratory_screens": false
+      }
+    },
+    {
+      "clip": "HDM_bd_walkRightCircle4StepsRstart_001_120.bvh",
+      "factor": 1.0,
+      "base_trace_sha256": "56f57fdf9202c029b65c547e7753a59aefe1ce39a76693fdff53c7fa97cd8c97",
+      "geometry_sha256": "c1fad43dc7ca79e2042e8224c191d06e1dc495797ea2f3f0c31cf1f0910e71d2",
+      "delta_file": "HDM_bd_walkRightCircle4StepsRstart_001_120/rate_1.npz",
+      "delta_sha256": "d956aeca05b51f32950273b44a7588642e022e11c2d2eb92e91dd754cbd5050f",
+      "metrics": {
+        "factor": 1.0,
+        "duration_s": 3.158207,
+        "frames": 380,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 0.8279239939800851,
+          "p95": 0.9053004000734871,
+          "max": 0.9429286323850558
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 18.44035111791844,
+          "p95": 20.163755810836783,
+          "max": 21.00184942911235
+        },
+        "com_xy_translation_energy_J": {
+          "median": 7.633605786298379,
+          "p95": 9.127128640585227,
+          "max": 9.901622579874886
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 1.1391094443317513,
+          "p95": 2.863783945206541,
+          "max": 19.653077710888603
+        },
+        "peak_leg_speed_rad_s": 7.0044014389991185,
+        "peak_leg_acceleration_rad_s2": 552.6228934391064,
+        "peak_leg_no_load_speed_ratio": 0.4669600959332746,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.0,
+        "min_directional_motoring_torque_available_nm": 42.643192325338035,
+        "max_policy_50Hz_leg_reference_step_rad": 0.12127238758591455,
+        "peak_reference_wheel_spin_rate_rad_s": 1.5125968396812667e-08,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 1.74993,
+              "end_s": 1.74993,
+              "duration_s": 0.0,
+              "samples": 1
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 1.74993,
+              "end_s": 1.74993,
+              "duration_s": 0.0,
+              "samples": 1
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 1.74993,
+                "end_s": 1.74993,
+                "duration_s": 0.0,
+                "samples": 1
+              },
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              1,
+              0
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84,
+            85,
+            86,
+            87,
+            88,
+            89,
+            90,
+            91,
+            92,
+            93,
+            94
+          ],
+          "exit_native_frame_indices": [
+            285,
+            286,
+            287,
+            288,
+            289,
+            290,
+            291,
+            292,
+            293,
+            294,
+            295,
+            296,
+            297,
+            298,
+            299,
+            300,
+            301,
+            302,
+            303,
+            304,
+            305,
+            306,
+            307,
+            308,
+            309,
+            310,
+            311,
+            312,
+            313,
+            314,
+            315,
+            316,
+            317,
+            318,
+            319,
+            320,
+            321,
+            322
+          ],
+          "entry_speed_median_m_s": 0.4914784715799892,
+          "exit_speed_median_m_s": 0.8454467776636794,
+          "exit_over_entry_speed": 1.7202112128040201,
+          "core_speed_p10_over_entry": 1.0635362887940287,
+          "net_course_change_deg": -49.60015743533012
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": true,
+          "fixed_core_speed_retention": true
+        },
+        "all_exploratory_screens": false
+      }
+    },
+    {
+      "clip": "HDM_bd_walkRightCircle4StepsRstart_001_120.bvh",
+      "factor": 2.0,
+      "base_trace_sha256": "56f57fdf9202c029b65c547e7753a59aefe1ce39a76693fdff53c7fa97cd8c97",
+      "geometry_sha256": "c1fad43dc7ca79e2042e8224c191d06e1dc495797ea2f3f0c31cf1f0910e71d2",
+      "delta_file": "HDM_bd_walkRightCircle4StepsRstart_001_120/rate_2.npz",
+      "delta_sha256": "c030d396c030f65f6170caf4993da6982de8b6bad11c0667a4f4d5ec54d55605",
+      "metrics": {
+        "factor": 2.0,
+        "duration_s": 1.5791035,
+        "frames": 380,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 1.6558479879601702,
+          "p95": 1.8106008001469742,
+          "max": 1.8858572647701115
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 36.88070223583688,
+          "p95": 40.327511621673565,
+          "max": 42.0036988582247
+        },
+        "com_xy_translation_energy_J": {
+          "median": 30.534423145193514,
+          "p95": 36.508514562340906,
+          "max": 39.60649031949954
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 4.556437777327005,
+          "p95": 11.455135780826163,
+          "max": 78.61231084355441
+        },
+        "peak_leg_speed_rad_s": 14.008802877998237,
+        "peak_leg_acceleration_rad_s2": 2210.4915737564256,
+        "peak_leg_no_load_speed_ratio": 0.9339201918665492,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.0,
+        "min_directional_motoring_torque_available_nm": 5.286384650676066,
+        "max_policy_50Hz_leg_reference_step_rad": 0.23838292898769256,
+        "peak_reference_wheel_spin_rate_rad_s": 3.0251936793625334e-08,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 0.874965,
+              "end_s": 0.874965,
+              "duration_s": 0.0,
+              "samples": 1
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 0.874965,
+              "end_s": 0.874965,
+              "duration_s": 0.0,
+              "samples": 1
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 0.874965,
+                "end_s": 0.874965,
+                "duration_s": 0.0,
+                "samples": 1
+              },
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              1,
+              0
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 0.874965,
+              "end_s": 0.874965,
+              "duration_s": 0.0,
+              "samples": 1
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 0.874965,
+              "end_s": 0.874965,
+              "duration_s": 0.0,
+              "samples": 1
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 0.874965,
+                "end_s": 0.874965,
+                "duration_s": 0.0,
+                "samples": 1
+              },
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              1,
+              0
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84,
+            85,
+            86,
+            87,
+            88,
+            89,
+            90,
+            91,
+            92,
+            93,
+            94
+          ],
+          "exit_native_frame_indices": [
+            285,
+            286,
+            287,
+            288,
+            289,
+            290,
+            291,
+            292,
+            293,
+            294,
+            295,
+            296,
+            297,
+            298,
+            299,
+            300,
+            301,
+            302,
+            303,
+            304,
+            305,
+            306,
+            307,
+            308,
+            309,
+            310,
+            311,
+            312,
+            313,
+            314,
+            315,
+            316,
+            317,
+            318,
+            319,
+            320,
+            321,
+            322
+          ],
+          "entry_speed_median_m_s": 0.9829569431599784,
+          "exit_speed_median_m_s": 1.6908935553273587,
+          "exit_over_entry_speed": 1.7202112128040201,
+          "core_speed_p10_over_entry": 1.0635362887940287,
+          "net_course_change_deg": -49.60015743533012
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": true,
+          "fixed_core_speed_retention": true
+        },
+        "all_exploratory_screens": false
+      }
+    },
+    {
+      "clip": "HDM_bd_walkRightCircle4StepsRstart_001_120.bvh",
+      "factor": 3.0,
+      "base_trace_sha256": "56f57fdf9202c029b65c547e7753a59aefe1ce39a76693fdff53c7fa97cd8c97",
+      "geometry_sha256": "c1fad43dc7ca79e2042e8224c191d06e1dc495797ea2f3f0c31cf1f0910e71d2",
+      "delta_file": "HDM_bd_walkRightCircle4StepsRstart_001_120/rate_3.npz",
+      "delta_sha256": "c0c5af2ff622c46b84e3d55aed12a4326f1cb438e1c92a06ec4bcdfce1b84604",
+      "metrics": {
+        "factor": 3.0,
+        "duration_s": 1.0527356666666667,
+        "frames": 380,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 2.4837719819402584,
+          "p95": 2.7159012002204594,
+          "max": 2.82878589715518
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 55.32105335375539,
+          "p95": 60.49126743251031,
+          "max": 63.00554828733732
+        },
+        "com_xy_translation_energy_J": {
+          "median": 68.70245207668557,
+          "p95": 82.14415776526695,
+          "max": 89.11460321887476
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 10.251984998991313,
+          "p95": 25.774055506854317,
+          "max": 176.8776993980017
+        },
+        "peak_leg_speed_rad_s": 21.013204316997356,
+        "peak_leg_acceleration_rad_s2": 4973.60604095209,
+        "peak_leg_no_load_speed_ratio": 1.4008802877998237,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.03210202286719437,
+        "min_directional_motoring_torque_available_nm": 0.0,
+        "max_policy_50Hz_leg_reference_step_rad": 0.34116744934742216,
+        "peak_reference_wheel_spin_rate_rad_s": 4.5377905190438005e-08,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 0.58331,
+              "end_s": 0.58331,
+              "duration_s": 0.0,
+              "samples": 1
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 0.58331,
+              "end_s": 0.58331,
+              "duration_s": 0.0,
+              "samples": 1
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 0.58331,
+                "end_s": 0.58331,
+                "duration_s": 0.0,
+                "samples": 1
+              },
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              1,
+              0
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 0.58331,
+              "end_s": 0.58331,
+              "duration_s": 0.0,
+              "samples": 1
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 0.58331,
+              "end_s": 0.58331,
+              "duration_s": 0.0,
+              "samples": 1
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 0.58331,
+                "end_s": 0.58331,
+                "duration_s": 0.0,
+                "samples": 1
+              },
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              1,
+              0
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 0.58331,
+              "end_s": 0.58331,
+              "duration_s": 0.0,
+              "samples": 1
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 0.58331,
+              "end_s": 0.58331,
+              "duration_s": 0.0,
+              "samples": 1
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 0.58331,
+                "end_s": 0.58331,
+                "duration_s": 0.0,
+                "samples": 1
+              },
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              1,
+              0
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84,
+            85,
+            86,
+            87,
+            88,
+            89,
+            90,
+            91,
+            92,
+            93,
+            94
+          ],
+          "exit_native_frame_indices": [
+            285,
+            286,
+            287,
+            288,
+            289,
+            290,
+            291,
+            292,
+            293,
+            294,
+            295,
+            296,
+            297,
+            298,
+            299,
+            300,
+            301,
+            302,
+            303,
+            304,
+            305,
+            306,
+            307,
+            308,
+            309,
+            310,
+            311,
+            312,
+            313,
+            314,
+            315,
+            316,
+            317,
+            318,
+            319,
+            320,
+            321,
+            322
+          ],
+          "entry_speed_median_m_s": 1.4744354147399663,
+          "exit_speed_median_m_s": 2.536340332991029,
+          "exit_over_entry_speed": 1.7202112128040155,
+          "core_speed_p10_over_entry": 1.0635362887940303,
+          "net_course_change_deg": -49.6001574353302
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": true,
+          "fixed_core_speed_retention": true
+        },
+        "all_exploratory_screens": false
+      }
+    },
+    {
+      "clip": "HDM_bd_turnLeft_001_120.bvh",
+      "factor": 1.0,
+      "base_trace_sha256": "880696508bbe524a73e6324664d9cada5a85644d039281c1896eefcc344fa8de",
+      "geometry_sha256": "187051a60cdea6d33115a0f3edb36cccccf58c87c05fb4f5a1e26edab5705da0",
+      "delta_file": "HDM_bd_turnLeft_001_120/rate_1.npz",
+      "delta_sha256": "50b22b27df901f65e1816d9a07b60084d5956d3b9b8af680a0ff6f0efbfbf0ba",
+      "metrics": {
+        "factor": 1.0,
+        "duration_s": 2.16658,
+        "frames": 261,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 0.09931100839523882,
+          "p95": 0.24710048190806924,
+          "max": 0.2778190547689749
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 2.2119540899871546,
+          "p95": 5.503669033538427,
+          "max": 6.187863806869379
+        },
+        "com_xy_translation_energy_J": {
+          "median": 0.10983569560029859,
+          "p95": 0.6799796352249315,
+          "max": 0.8595532369318006
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 0.6537703966672135,
+          "p95": 1.9601323664245511,
+          "max": 3.5719715091371076
+        },
+        "peak_leg_speed_rad_s": 1.6704487877246907,
+        "peak_leg_acceleration_rad_s2": 40.31180056522603,
+        "peak_leg_no_load_speed_ratio": 0.11136325251497939,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.0,
+        "min_directional_motoring_torque_available_nm": 71.09093979880166,
+        "max_policy_50Hz_leg_reference_step_rad": 0.03307580821721122,
+        "peak_reference_wheel_spin_rate_rad_s": 1.161475309803541e-08,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65
+          ],
+          "exit_native_frame_indices": [
+            195,
+            196,
+            197,
+            198,
+            199,
+            200,
+            201,
+            202,
+            203,
+            204,
+            205,
+            206,
+            207,
+            208,
+            209,
+            210,
+            211,
+            212,
+            213,
+            214,
+            215,
+            216,
+            217,
+            218,
+            219,
+            220,
+            221
+          ],
+          "entry_speed_median_m_s": 0.02472579180828974,
+          "exit_speed_median_m_s": 0.09488040521600631,
+          "exit_over_entry_speed": 3.8373050275460154,
+          "core_speed_p10_over_entry": 1.062857597161785,
+          "net_course_change_deg": -157.5860897630011
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": true,
+          "fixed_core_speed_retention": true
+        },
+        "all_exploratory_screens": false
+      }
+    },
+    {
+      "clip": "HDM_bd_turnLeft_001_120.bvh",
+      "factor": 2.0,
+      "base_trace_sha256": "880696508bbe524a73e6324664d9cada5a85644d039281c1896eefcc344fa8de",
+      "geometry_sha256": "187051a60cdea6d33115a0f3edb36cccccf58c87c05fb4f5a1e26edab5705da0",
+      "delta_file": "HDM_bd_turnLeft_001_120/rate_2.npz",
+      "delta_sha256": "b1fc400a647089519cff437261a1bd63eb3dcf89d5b968ca56ecb421e69df4c2",
+      "metrics": {
+        "factor": 2.0,
+        "duration_s": 1.08329,
+        "frames": 261,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 0.19862201679047764,
+          "p95": 0.4942009638161385,
+          "max": 0.5556381095379498
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 4.423908179974309,
+          "p95": 11.007338067076853,
+          "max": 12.375727613738759
+        },
+        "com_xy_translation_energy_J": {
+          "median": 0.43934278240119434,
+          "p95": 2.719918540899726,
+          "max": 3.4382129477272025
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 2.615081586668854,
+          "p95": 7.8405294656982045,
+          "max": 14.28788603654843
+        },
+        "peak_leg_speed_rad_s": 3.3408975754493815,
+        "peak_leg_acceleration_rad_s2": 161.24720226090412,
+        "peak_leg_no_load_speed_ratio": 0.22272650502995878,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.0,
+        "min_directional_motoring_torque_available_nm": 62.1818795976033,
+        "max_policy_50Hz_leg_reference_step_rad": 0.06384150867087697,
+        "peak_reference_wheel_spin_rate_rad_s": 2.322950619607082e-08,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65
+          ],
+          "exit_native_frame_indices": [
+            195,
+            196,
+            197,
+            198,
+            199,
+            200,
+            201,
+            202,
+            203,
+            204,
+            205,
+            206,
+            207,
+            208,
+            209,
+            210,
+            211,
+            212,
+            213,
+            214,
+            215,
+            216,
+            217,
+            218,
+            219,
+            220,
+            221
+          ],
+          "entry_speed_median_m_s": 0.04945158361657948,
+          "exit_speed_median_m_s": 0.18976081043201262,
+          "exit_over_entry_speed": 3.8373050275460154,
+          "core_speed_p10_over_entry": 1.062857597161785,
+          "net_course_change_deg": -157.5860897630011
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": true,
+          "fixed_core_speed_retention": true
+        },
+        "all_exploratory_screens": false
+      }
+    },
+    {
+      "clip": "HDM_bd_turnLeft_001_120.bvh",
+      "factor": 3.0,
+      "base_trace_sha256": "880696508bbe524a73e6324664d9cada5a85644d039281c1896eefcc344fa8de",
+      "geometry_sha256": "187051a60cdea6d33115a0f3edb36cccccf58c87c05fb4f5a1e26edab5705da0",
+      "delta_file": "HDM_bd_turnLeft_001_120/rate_3.npz",
+      "delta_sha256": "09b779b2cd3d6cb5db6be4895c667f079298e7d8a970e463e4ad0b174155aae9",
+      "metrics": {
+        "factor": 3.0,
+        "duration_s": 0.7221933333333334,
+        "frames": 261,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 0.29793302518571785,
+          "p95": 0.7413014457242095,
+          "max": 0.8334571643069293
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 6.635862269961495,
+          "p95": 16.511007100615323,
+          "max": 18.563591420608237
+        },
+        "com_xy_translation_energy_J": {
+          "median": 0.9885212604026963,
+          "p95": 6.119816717024413,
+          "max": 7.7359791323862925
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 5.883933570004974,
+          "p95": 17.64119129782121,
+          "max": 32.14774358223155
+        },
+        "peak_leg_speed_rad_s": 5.011346363174072,
+        "peak_leg_acceleration_rad_s2": 362.80620508706323,
+        "peak_leg_no_load_speed_ratio": 0.33408975754493814,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.0,
+        "min_directional_motoring_torque_available_nm": 53.27281939640494,
+        "max_policy_50Hz_leg_reference_step_rad": 0.09564097308982297,
+        "peak_reference_wheel_spin_rate_rad_s": 3.484425929410623e-08,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 0.45275966666666667,
+              "end_s": 0.4722033333333333,
+              "duration_s": 0.019443666666666637,
+              "samples": 8
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 0.45275966666666667,
+              "end_s": 0.4722033333333333,
+              "duration_s": 0.019443666666666637,
+              "samples": 8
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 0.45275966666666667,
+                "end_s": 0.4722033333333333,
+                "duration_s": 0.019443666666666637,
+                "samples": 8
+              },
+              {
+                "start_s": 0.45275966666666667,
+                "end_s": 0.4722033333333333,
+                "duration_s": 0.019443666666666637,
+                "samples": 8
+              }
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              8,
+              8
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65
+          ],
+          "exit_native_frame_indices": [
+            195,
+            196,
+            197,
+            198,
+            199,
+            200,
+            201,
+            202,
+            203,
+            204,
+            205,
+            206,
+            207,
+            208,
+            209,
+            210,
+            211,
+            212,
+            213,
+            214,
+            215,
+            216,
+            217,
+            218,
+            219,
+            220,
+            221
+          ],
+          "entry_speed_median_m_s": 0.07417737542486934,
+          "exit_speed_median_m_s": 0.2846412156480173,
+          "exit_over_entry_speed": 3.837305027545988,
+          "core_speed_p10_over_entry": 1.062857597161783,
+          "net_course_change_deg": -157.58608976300104
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": true,
+          "fixed_core_speed_retention": true
+        },
+        "all_exploratory_screens": false
+      }
+    },
+    {
+      "clip": "HDM_bd_turnRight_001_120.bvh",
+      "factor": 1.0,
+      "base_trace_sha256": "b7abb318746592fa3f905dd61588f117563c2166853bf8a8778ddb3ec16e402a",
+      "geometry_sha256": "cdfd9a962fc9d8c22fc2640e6af0d1e98e0c654ba8cde0dcef2a1ac177ac9c87",
+      "delta_file": "HDM_bd_turnRight_001_120/rate_1.npz",
+      "delta_sha256": "4111d6b7f1dd9a13b6c4285ad423aa1df735391133e66b298828a0c205e85bea",
+      "metrics": {
+        "factor": 1.0,
+        "duration_s": 1.49994,
+        "frames": 181,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 0.28254622188096856,
+          "p95": 0.5273279179621491,
+          "max": 0.5719294795653702
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 6.293151999954814,
+          "p95": 11.745174716770947,
+          "max": 12.738585298359492
+        },
+        "com_xy_translation_energy_J": {
+          "median": 0.889053160654947,
+          "p95": 3.096779264748249,
+          "max": 3.6427862300449103
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 0.9450266417088299,
+          "p95": 2.3062366606802596,
+          "max": 7.495146079904989
+        },
+        "peak_leg_speed_rad_s": 4.491908536395232,
+        "peak_leg_acceleration_rad_s2": 92.78399222728812,
+        "peak_leg_no_load_speed_ratio": 0.29946056909301544,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.0,
+        "min_directional_motoring_torque_available_nm": 56.04315447255877,
+        "max_policy_50Hz_leg_reference_step_rad": 0.08807542750460057,
+        "peak_reference_wheel_spin_rate_rad_s": 4.344030488444342e-09,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45
+          ],
+          "exit_native_frame_indices": [
+            136,
+            137,
+            138,
+            139,
+            140,
+            141,
+            142,
+            143,
+            144,
+            145,
+            146,
+            147,
+            148,
+            149,
+            150,
+            151,
+            152
+          ],
+          "entry_speed_median_m_s": 0.38511982390724686,
+          "exit_speed_median_m_s": 0.18460891235414975,
+          "exit_over_entry_speed": 0.4793544785131897,
+          "core_speed_p10_over_entry": 0.5899786069801344,
+          "net_course_change_deg": -15.208083586626259
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": false,
+          "fixed_core_speed_retention": false
+        },
+        "all_exploratory_screens": false
+      }
+    },
+    {
+      "clip": "HDM_bd_turnRight_001_120.bvh",
+      "factor": 2.0,
+      "base_trace_sha256": "b7abb318746592fa3f905dd61588f117563c2166853bf8a8778ddb3ec16e402a",
+      "geometry_sha256": "cdfd9a962fc9d8c22fc2640e6af0d1e98e0c654ba8cde0dcef2a1ac177ac9c87",
+      "delta_file": "HDM_bd_turnRight_001_120/rate_2.npz",
+      "delta_sha256": "e02bd2f7f30d11bff8888e53c56750fa79eb7ae9056fde90544f8de439f2252c",
+      "metrics": {
+        "factor": 2.0,
+        "duration_s": 0.74997,
+        "frames": 181,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 0.5650924437619371,
+          "p95": 1.0546558359242981,
+          "max": 1.1438589591307404
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 12.586303999909628,
+          "p95": 23.490349433541894,
+          "max": 25.477170596718985
+        },
+        "com_xy_translation_energy_J": {
+          "median": 3.556212642619788,
+          "p95": 12.387117058992995,
+          "max": 14.571144920179641
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 3.7801065668353195,
+          "p95": 9.224946642721038,
+          "max": 29.980584319619958
+        },
+        "peak_leg_speed_rad_s": 8.983817072790464,
+        "peak_leg_acceleration_rad_s2": 371.1359689091525,
+        "peak_leg_no_load_speed_ratio": 0.5989211381860309,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.0,
+        "min_directional_motoring_torque_available_nm": 32.08630894511753,
+        "max_policy_50Hz_leg_reference_step_rad": 0.17439721324897803,
+        "peak_reference_wheel_spin_rate_rad_s": 8.688060976888684e-09,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45
+          ],
+          "exit_native_frame_indices": [
+            136,
+            137,
+            138,
+            139,
+            140,
+            141,
+            142,
+            143,
+            144,
+            145,
+            146,
+            147,
+            148,
+            149,
+            150,
+            151,
+            152
+          ],
+          "entry_speed_median_m_s": 0.7702396478144937,
+          "exit_speed_median_m_s": 0.3692178247082995,
+          "exit_over_entry_speed": 0.4793544785131897,
+          "core_speed_p10_over_entry": 0.5899786069801344,
+          "net_course_change_deg": -15.208083586626259
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": false,
+          "fixed_core_speed_retention": false
+        },
+        "all_exploratory_screens": false
+      }
+    },
+    {
+      "clip": "HDM_bd_turnRight_001_120.bvh",
+      "factor": 3.0,
+      "base_trace_sha256": "b7abb318746592fa3f905dd61588f117563c2166853bf8a8778ddb3ec16e402a",
+      "geometry_sha256": "cdfd9a962fc9d8c22fc2640e6af0d1e98e0c654ba8cde0dcef2a1ac177ac9c87",
+      "delta_file": "HDM_bd_turnRight_001_120/rate_3.npz",
+      "delta_sha256": "464eb49cefcad1fb766ad2b887855fe31d49d7e29478a51277fe25a68a797c51",
+      "metrics": {
+        "factor": 3.0,
+        "duration_s": 0.49998000000000004,
+        "frames": 181,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 0.8476386656428958,
+          "p95": 1.581983753886447,
+          "max": 1.7157884386961106
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 18.87945599986422,
+          "p95": 35.235524150312834,
+          "max": 38.21575589507848
+        },
+        "com_xy_translation_energy_J": {
+          "median": 8.001478445894335,
+          "p95": 27.87101338273423,
+          "max": 32.785076070404195
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 8.50523977537967,
+          "p95": 20.75612994612249,
+          "max": 67.45631471914803
+        },
+        "peak_leg_speed_rad_s": 13.475725609185695,
+        "peak_leg_acceleration_rad_s2": 835.0559300456043,
+        "peak_leg_no_load_speed_ratio": 0.8983817072790463,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.0,
+        "min_directional_motoring_torque_available_nm": 8.129463417676295,
+        "max_policy_50Hz_leg_reference_step_rad": 0.25463455791279016,
+        "peak_reference_wheel_spin_rate_rad_s": 1.3032091465333026e-08,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 0.12499500000000001,
+              "end_s": 0.24443466666666666,
+              "duration_s": 0.11943966666666665,
+              "samples": 44
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 0.31943166666666667,
+              "end_s": 0.3694296666666667,
+              "duration_s": 0.04999800000000004,
+              "samples": 19
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 0.31943166666666667,
+                "end_s": 0.3694296666666667,
+                "duration_s": 0.04999800000000004,
+                "samples": 19
+              },
+              {
+                "start_s": 0.34998599999999996,
+                "end_s": 0.3694296666666667,
+                "duration_s": 0.019443666666666748,
+                "samples": 8
+              }
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              37,
+              8
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45
+          ],
+          "exit_native_frame_indices": [
+            136,
+            137,
+            138,
+            139,
+            140,
+            141,
+            142,
+            143,
+            144,
+            145,
+            146,
+            147,
+            148,
+            149,
+            150,
+            151,
+            152
+          ],
+          "entry_speed_median_m_s": 1.155359471721732,
+          "exit_speed_median_m_s": 0.5538267370624496,
+          "exit_over_entry_speed": 0.4793544785131935,
+          "core_speed_p10_over_entry": 0.589978606980134,
+          "net_course_change_deg": -15.208083586626174
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": false,
+          "fixed_core_speed_retention": false
+        },
+        "all_exploratory_screens": false
+      }
+    },
+    {
+      "clip": "HDM_bd_shuffle2StepsLStart_001_120.bvh",
+      "factor": 1.0,
+      "base_trace_sha256": "812648f4442574f09e9cbe03d1ce3a337de36d04b511bf9401b6a12bb8af315f",
+      "geometry_sha256": "da35583b1ac19c0f13831e7e5af6796b1da1733d66ab90c30062bc11588c35cd",
+      "delta_file": "HDM_bd_shuffle2StepsLStart_001_120/rate_1.npz",
+      "delta_sha256": "22ae25ccbf4edbc1666edf2ec38e24f9320e644614d5b1fb5d018b48bceb4f09",
+      "metrics": {
+        "factor": 1.0,
+        "duration_s": 1.5166060000000001,
+        "frames": 183,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 0.5238937967591978,
+          "p95": 0.5642841219710639,
+          "max": 0.5798295382696657
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 11.668686535217613,
+          "p95": 12.56830024866151,
+          "max": 12.914543305880265
+        },
+        "com_xy_translation_energy_J": {
+          "median": 3.056576246064042,
+          "p95": 3.546051462190005,
+          "max": 3.7441168410060777
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 0.7702888932663654,
+          "p95": 1.832817714819053,
+          "max": 2.8457048416198902
+        },
+        "peak_leg_speed_rad_s": 3.6939291492128676,
+        "peak_leg_acceleration_rad_s2": 235.45729883354284,
+        "peak_leg_no_load_speed_ratio": 0.24626194328085785,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.0,
+        "min_directional_motoring_torque_available_nm": 60.29904453753137,
+        "max_policy_50Hz_leg_reference_step_rad": 0.07275645000253013,
+        "peak_reference_wheel_spin_rate_rad_s": 1.1073222325825486e-08,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45
+          ],
+          "exit_native_frame_indices": [
+            137,
+            138,
+            139,
+            140,
+            141,
+            142,
+            143,
+            144,
+            145,
+            146,
+            147,
+            148,
+            149,
+            150,
+            151,
+            152,
+            153,
+            154
+          ],
+          "entry_speed_median_m_s": 0.4747127132531493,
+          "exit_speed_median_m_s": 0.522032210680119,
+          "exit_over_entry_speed": 1.0996802826338794,
+          "core_speed_p10_over_entry": 0.9188226905027629,
+          "net_course_change_deg": -32.1343087914575
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": true,
+          "fixed_core_speed_retention": true
+        },
+        "all_exploratory_screens": false
+      }
+    },
+    {
+      "clip": "HDM_bd_shuffle2StepsLStart_001_120.bvh",
+      "factor": 2.0,
+      "base_trace_sha256": "812648f4442574f09e9cbe03d1ce3a337de36d04b511bf9401b6a12bb8af315f",
+      "geometry_sha256": "da35583b1ac19c0f13831e7e5af6796b1da1733d66ab90c30062bc11588c35cd",
+      "delta_file": "HDM_bd_shuffle2StepsLStart_001_120/rate_2.npz",
+      "delta_sha256": "a81f9c2b943065c0c9aeb464d3c8b9002d17570346db8531511c0ad428e1a837",
+      "metrics": {
+        "factor": 2.0,
+        "duration_s": 0.7583030000000001,
+        "frames": 183,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 1.0477875935183956,
+          "p95": 1.1285682439421278,
+          "max": 1.1596590765393313
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 23.337373070435227,
+          "p95": 25.13660049732302,
+          "max": 25.82908661176053
+        },
+        "com_xy_translation_energy_J": {
+          "median": 12.226304984256169,
+          "p95": 14.18420584876002,
+          "max": 14.97646736402431
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 3.0811555730654616,
+          "p95": 7.331270859276212,
+          "max": 11.382819366479561
+        },
+        "peak_leg_speed_rad_s": 7.387858298425735,
+        "peak_leg_acceleration_rad_s2": 941.8291953341713,
+        "peak_leg_no_load_speed_ratio": 0.4925238865617157,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.0,
+        "min_directional_motoring_torque_available_nm": 40.598089075062745,
+        "max_policy_50Hz_leg_reference_step_rad": 0.1451488607010458,
+        "peak_reference_wheel_spin_rate_rad_s": 2.2146444651650972e-08,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 0.549978,
+              "end_s": 0.6208085,
+              "duration_s": 0.07083050000000002,
+              "samples": 18
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 0.549978,
+              "end_s": 0.6208085,
+              "duration_s": 0.07083050000000002,
+              "samples": 18
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 0.5708105,
+                "end_s": 0.616642,
+                "duration_s": 0.045831500000000025,
+                "samples": 12
+              },
+              {
+                "start_s": 0.549978,
+                "end_s": 0.6208085,
+                "duration_s": 0.07083050000000002,
+                "samples": 18
+              }
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              16,
+              18
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45
+          ],
+          "exit_native_frame_indices": [
+            137,
+            138,
+            139,
+            140,
+            141,
+            142,
+            143,
+            144,
+            145,
+            146,
+            147,
+            148,
+            149,
+            150,
+            151,
+            152,
+            153,
+            154
+          ],
+          "entry_speed_median_m_s": 0.9494254265062986,
+          "exit_speed_median_m_s": 1.044064421360238,
+          "exit_over_entry_speed": 1.0996802826338794,
+          "core_speed_p10_over_entry": 0.9188226905027629,
+          "net_course_change_deg": -32.1343087914575
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": true,
+          "fixed_core_speed_retention": true
+        },
+        "all_exploratory_screens": false
+      }
+    },
+    {
+      "clip": "HDM_bd_shuffle2StepsLStart_001_120.bvh",
+      "factor": 3.0,
+      "base_trace_sha256": "812648f4442574f09e9cbe03d1ce3a337de36d04b511bf9401b6a12bb8af315f",
+      "geometry_sha256": "da35583b1ac19c0f13831e7e5af6796b1da1733d66ab90c30062bc11588c35cd",
+      "delta_file": "HDM_bd_shuffle2StepsLStart_001_120/rate_3.npz",
+      "delta_sha256": "40915c60fa41945427d15057b29da74e8dbbea8de31c6a754fffbab1b53bbce1",
+      "metrics": {
+        "factor": 3.0,
+        "duration_s": 0.5055353333333333,
+        "frames": 183,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 1.571681390277594,
+          "p95": 1.6928523659132142,
+          "max": 1.7394886148089972
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 35.00605960565286,
+          "p95": 37.70490074598502,
+          "max": 38.743629917640796
+        },
+        "com_xy_translation_energy_J": {
+          "median": 27.509186214576395,
+          "p95": 31.914463159710888,
+          "max": 33.69705156905471
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 6.932600039395858,
+          "p95": 16.495359433370762,
+          "max": 25.61134357457961
+        },
+        "peak_leg_speed_rad_s": 11.081787447638604,
+        "peak_leg_acceleration_rad_s2": 2119.115689501914,
+        "peak_leg_no_load_speed_ratio": 0.7387858298425736,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.0,
+        "min_directional_motoring_torque_available_nm": 20.897133612594114,
+        "max_policy_50Hz_leg_reference_step_rad": 0.2109271933862607,
+        "peak_reference_wheel_spin_rate_rad_s": 3.321966697747646e-08,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 0.366652,
+              "end_s": 0.41387233333333334,
+              "duration_s": 0.047220333333333364,
+              "samples": 18
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 0.366652,
+              "end_s": 0.41387233333333334,
+              "duration_s": 0.047220333333333364,
+              "samples": 18
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 0.3805403333333333,
+                "end_s": 0.41109466666666666,
+                "duration_s": 0.03055433333333335,
+                "samples": 12
+              },
+              {
+                "start_s": 0.366652,
+                "end_s": 0.41387233333333334,
+                "duration_s": 0.047220333333333364,
+                "samples": 18
+              }
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              16,
+              18
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 0.366652,
+              "end_s": 0.41387233333333334,
+              "duration_s": 0.047220333333333364,
+              "samples": 18
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 0.366652,
+              "end_s": 0.41387233333333334,
+              "duration_s": 0.047220333333333364,
+              "samples": 18
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 0.3805403333333333,
+                "end_s": 0.41109466666666666,
+                "duration_s": 0.03055433333333335,
+                "samples": 12
+              },
+              {
+                "start_s": 0.366652,
+                "end_s": 0.41387233333333334,
+                "duration_s": 0.047220333333333364,
+                "samples": 18
+              }
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              16,
+              18
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45
+          ],
+          "exit_native_frame_indices": [
+            137,
+            138,
+            139,
+            140,
+            141,
+            142,
+            143,
+            144,
+            145,
+            146,
+            147,
+            148,
+            149,
+            150,
+            151,
+            152,
+            153,
+            154
+          ],
+          "entry_speed_median_m_s": 1.4241381397594461,
+          "exit_speed_median_m_s": 1.5660966320403529,
+          "exit_over_entry_speed": 1.0996802826338778,
+          "core_speed_p10_over_entry": 0.9188226905027647,
+          "net_course_change_deg": -32.13430879145747
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": true,
+          "fixed_core_speed_retention": true
+        },
+        "all_exploratory_screens": false
+      }
+    },
+    {
+      "clip": "HDM_bd_shuffle2StepsRStart_001_120.bvh",
+      "factor": 1.0,
+      "base_trace_sha256": "01409a0ec1f43afd518fc4742417552e8bf3b8bdbcd797e8a6dbf4c6661b27ff",
+      "geometry_sha256": "4ca4c556ef66e859da4c13e7e4ab751973ee69e8d3bc8f16fb97c091d83da266",
+      "delta_file": "HDM_bd_shuffle2StepsRStart_001_120/rate_1.npz",
+      "delta_sha256": "f2a4144a229c63ccc3ed7c256ffe1593cca2755b1e1dc0460187f5eb8935efe9",
+      "metrics": {
+        "factor": 1.0,
+        "duration_s": 1.866592,
+        "frames": 225,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 0.47245531661594126,
+          "p95": 0.6041072295734238,
+          "max": 0.6176865462772183
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 10.522997266986861,
+          "p95": 13.45528032428887,
+          "max": 13.757732445232486
+        },
+        "com_xy_translation_energy_J": {
+          "median": 2.4858230027614807,
+          "p95": 4.064216346293634,
+          "max": 4.248983119350841
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 0.7098304503644406,
+          "p95": 1.6562731034792164,
+          "max": 2.2441074243640604
+        },
+        "peak_leg_speed_rad_s": 3.726589993853154,
+        "peak_leg_acceleration_rad_s2": 79.26775570124225,
+        "peak_leg_no_load_speed_ratio": 0.24843933292354362,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.0,
+        "min_directional_motoring_torque_available_nm": 60.12485336611651,
+        "max_policy_50Hz_leg_reference_step_rad": 0.07420672960794461,
+        "peak_reference_wheel_spin_rate_rad_s": 1.1472639799768094e-08,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56
+          ],
+          "exit_native_frame_indices": [
+            168,
+            169,
+            170,
+            171,
+            172,
+            173,
+            174,
+            175,
+            176,
+            177,
+            178,
+            179,
+            180,
+            181,
+            182,
+            183,
+            184,
+            185,
+            186,
+            187,
+            188,
+            189,
+            190
+          ],
+          "entry_speed_median_m_s": 0.31068078825863216,
+          "exit_speed_median_m_s": 0.49761543549420373,
+          "exit_over_entry_speed": 1.6016936170509335,
+          "core_speed_p10_over_entry": 1.0371737153412681,
+          "net_course_change_deg": 11.373528092511634
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": false,
+          "fixed_core_speed_retention": true
+        },
+        "all_exploratory_screens": false
+      }
+    },
+    {
+      "clip": "HDM_bd_shuffle2StepsRStart_001_120.bvh",
+      "factor": 2.0,
+      "base_trace_sha256": "01409a0ec1f43afd518fc4742417552e8bf3b8bdbcd797e8a6dbf4c6661b27ff",
+      "geometry_sha256": "4ca4c556ef66e859da4c13e7e4ab751973ee69e8d3bc8f16fb97c091d83da266",
+      "delta_file": "HDM_bd_shuffle2StepsRStart_001_120/rate_2.npz",
+      "delta_sha256": "5fa0703cfe2f8836fadab38c4633e46f6cfb29dfcfe9a2e2dc144bc0bff33c0f",
+      "metrics": {
+        "factor": 2.0,
+        "duration_s": 0.933296,
+        "frames": 225,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 0.9449106332318825,
+          "p95": 1.2082144591468476,
+          "max": 1.2353730925544366
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 21.045994533973722,
+          "p95": 26.91056064857774,
+          "max": 27.515464890464973
+        },
+        "com_xy_translation_energy_J": {
+          "median": 9.943292011045923,
+          "p95": 16.256865385174535,
+          "max": 16.995932477403365
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 2.8393218014577624,
+          "p95": 6.625092413916866,
+          "max": 8.976429697456242
+        },
+        "peak_leg_speed_rad_s": 7.453179987706308,
+        "peak_leg_acceleration_rad_s2": 317.071022804969,
+        "peak_leg_no_load_speed_ratio": 0.49687866584708723,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.0,
+        "min_directional_motoring_torque_available_nm": 40.24970673223302,
+        "max_policy_50Hz_leg_reference_step_rad": 0.1476985356223285,
+        "peak_reference_wheel_spin_rate_rad_s": 2.2945279599536188e-08,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 0.391651,
+              "end_s": 0.4874805,
+              "duration_s": 0.09582949999999996,
+              "samples": 24
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 0.391651,
+              "end_s": 0.4874805,
+              "duration_s": 0.09582949999999996,
+              "samples": 24
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 0.391651,
+                "end_s": 0.399984,
+                "duration_s": 0.00833299999999998,
+                "samples": 3
+              },
+              {
+                "start_s": 0.391651,
+                "end_s": 0.4874805,
+                "duration_s": 0.09582949999999996,
+                "samples": 24
+              }
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              4,
+              25
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56
+          ],
+          "exit_native_frame_indices": [
+            168,
+            169,
+            170,
+            171,
+            172,
+            173,
+            174,
+            175,
+            176,
+            177,
+            178,
+            179,
+            180,
+            181,
+            182,
+            183,
+            184,
+            185,
+            186,
+            187,
+            188,
+            189,
+            190
+          ],
+          "entry_speed_median_m_s": 0.6213615765172643,
+          "exit_speed_median_m_s": 0.9952308709884075,
+          "exit_over_entry_speed": 1.6016936170509335,
+          "core_speed_p10_over_entry": 1.0371737153412681,
+          "net_course_change_deg": 11.373528092511634
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": false,
+          "fixed_core_speed_retention": true
+        },
+        "all_exploratory_screens": false
+      }
+    },
+    {
+      "clip": "HDM_bd_shuffle2StepsRStart_001_120.bvh",
+      "factor": 3.0,
+      "base_trace_sha256": "01409a0ec1f43afd518fc4742417552e8bf3b8bdbcd797e8a6dbf4c6661b27ff",
+      "geometry_sha256": "4ca4c556ef66e859da4c13e7e4ab751973ee69e8d3bc8f16fb97c091d83da266",
+      "delta_file": "HDM_bd_shuffle2StepsRStart_001_120/rate_3.npz",
+      "delta_sha256": "d090fb743b2c57a44c9561a5d26fe10470195aa018dd7ecce64e8714d55866ed",
+      "metrics": {
+        "factor": 3.0,
+        "duration_s": 0.6221973333333334,
+        "frames": 225,
+        "mass_kg": 22.273000000000003,
+        "com_xy_speed_m_s": {
+          "median": 1.4173659498477962,
+          "p95": 1.8123216887202713,
+          "max": 1.8530596388316547
+        },
+        "com_xy_momentum_magnitude_kg_m_s": {
+          "median": 31.568991800959967,
+          "p95": 40.36584097286661,
+          "max": 41.27319733569745
+        },
+        "com_xy_translation_energy_J": {
+          "median": 22.372407024852457,
+          "p95": 36.5779471166427,
+          "max": 38.24084807415757
+        },
+        "com_xy_acceleration_m_s2": {
+          "median": 6.388474053279664,
+          "p95": 14.906457931314113,
+          "max": 20.19696681927612
+        },
+        "peak_leg_speed_rad_s": 11.179769981559463,
+        "peak_leg_acceleration_rad_s2": 713.4098013111899,
+        "peak_leg_no_load_speed_ratio": 0.7453179987706309,
+        "leg_interval_joint_fraction_at_or_above_no_load": 0.0,
+        "min_directional_motoring_torque_available_nm": 20.37456009834953,
+        "max_policy_50Hz_leg_reference_step_rad": 0.21731250171275535,
+        "peak_reference_wheel_spin_rate_rad_s": 3.441791939930428e-08,
+        "motor_torque_demand_assessed": false,
+        "physical_feasibility_assessed": false,
+        "heading_speed_windows": {
+          "0.8": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 0.233324,
+              "end_s": 0.32498699999999997,
+              "duration_s": 0.09166299999999997,
+              "samples": 34
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 0.233324,
+              "end_s": 0.32498699999999997,
+              "duration_s": 0.09166299999999997,
+              "samples": 34
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              {
+                "start_s": 0.233324,
+                "end_s": 0.266656,
+                "duration_s": 0.033332,
+                "samples": 13
+              },
+              {
+                "start_s": 0.233324,
+                "end_s": 0.32498699999999997,
+                "duration_s": 0.09166299999999997,
+                "samples": 34
+              }
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              14,
+              35
+            ]
+          },
+          "1.5": {
+            "fast_high_angle_ungrounded_max_window": {
+              "start_s": 0.291655,
+              "end_s": 0.32498699999999997,
+              "duration_s": 0.03333199999999997,
+              "samples": 13
+            },
+            "fast_high_angle_any_near_ground_max_window": {
+              "start_s": 0.291655,
+              "end_s": 0.32498699999999997,
+              "duration_s": 0.03333199999999997,
+              "samples": 13
+            },
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              {
+                "start_s": 0.291655,
+                "end_s": 0.32498699999999997,
+                "duration_s": 0.03333199999999997,
+                "samples": 13
+              }
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              13
+            ]
+          },
+          "2": {
+            "fast_high_angle_ungrounded_max_window": null,
+            "fast_high_angle_any_near_ground_max_window": null,
+            "fast_high_angle_near_ground_max_window_L_R": [
+              null,
+              null
+            ],
+            "fast_high_angle_near_ground_samples_L_R": [
+              0,
+              0
+            ]
+          }
+        },
+        "fixed_phase_core": {
+          "source_phase_fraction": [
+            0.15,
+            0.85
+          ],
+          "entry_exit_window_fraction": 0.1,
+          "entry_native_frame_indices": [
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56
+          ],
+          "exit_native_frame_indices": [
+            168,
+            169,
+            170,
+            171,
+            172,
+            173,
+            174,
+            175,
+            176,
+            177,
+            178,
+            179,
+            180,
+            181,
+            182,
+            183,
+            184,
+            185,
+            186,
+            187,
+            188,
+            189,
+            190
+          ],
+          "entry_speed_median_m_s": 0.9320423647758973,
+          "exit_speed_median_m_s": 1.4928463064826112,
+          "exit_over_entry_speed": 1.6016936170509322,
+          "core_speed_p10_over_entry": 1.037173715341268,
+          "net_course_change_deg": 11.373528092511606
+        },
+        "exploratory_screens": {
+          "fast_high_angle_duration": false,
+          "fixed_core_course_change": false,
+          "fixed_core_speed_retention": true
+        },
+        "all_exploratory_screens": false
+      }
+    }
+  ],
+  "policy_trained": false,
+  "dynamics_validated": false,
+  "limitations": [
+    "CoM momentum/energy are imposed reference-state estimates, not achieved motion.",
+    "Motor-envelope availability is nominal; demanded torque and contact forces are not solved.",
+    "No-load speed is not a hard joint-speed limit or an automatic feasibility verdict.",
+    "Geometry, source human pre-processing, wheel-spin freeze and contact-proxy limitations are inherited.",
+    "Friction DR and friction validation have not been changed or performed.",
+    "Fixed-phase turn and sustained-speed thresholds are exploratory screens, not physical success criteria."
+  ]
+}

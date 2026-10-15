@@ -169,7 +169,7 @@ controlled slip.
 The [full-horizon report](results/2026-10-14-full-horizon-friction-grid.md)
 contains all seven cases, predicate-onset diagnostics and reproduction commands.
 
-## HDM05 result: GMR references and near-ground heading features
+## HDM05 initial result: low-speed GMR geometry control
 
 Ten predeclared clips from actor `bd` have been retargeted with the pinned
 upstream GMR two-stage algorithm (3,446 native-clock frames), then replayed
@@ -193,6 +193,26 @@ The [experiment report and all ten animations](results/2026-10-14-hdm05-gmr.md)
 include left/right angles, near-ground masks, exact metrics and reproduction.
 Saved poses and FK-derived traces are published; raw BVH and robot meshes are
 not redistributed.
+
+## HDM05 time-scale experiment: higher momentum is not automatically a drift
+
+All ten frozen GMR paths were tested at 1x/2x/3x physical reference clocks
+(30 kinematic prechecks). Three-times lateral-three-step motion reaches
+CoM speed P95 1.93 m/s and planar translation-energy P95 41.43 J, but leaves
+only 5.58 Nm nominal motoring torque at its 13.95 rad/s peak leg speed. Its
+longest >=2 m/s, >=20-degree, near-ground window is only 0.025 s.
+The 3x circle references are faster, but peak leg speeds exceed the nominal
+no-load speed. Availability is not demanded torque or proof of failure.
+
+![Shared-clock 1x/2x/3x human and TRON1 comparison](results/hdm05_rate_sweep/renders/HDM_bd_walkLeft3Steps_001_120.gif)
+
+Time compression preserves path geometry: the lateral/crossover cores still
+change travel direction by only about 4–15 degrees. None of the 30 references
+passes the exploratory sustained-speed/angle/turn prechecks. They remain
+reference stress tests, not demonstrated high-speed drifting. The
+[rate-sweep report](results/2026-10-14-hdm05-rate-sweep.md) includes six shared-
+clock animations, motor margins, CoM estimates and model-free metric replay.
+No human policy, physical rollout or friction sweep was performed here.
 
 ## Reproduce what is currently public
 

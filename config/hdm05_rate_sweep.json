@@ -1,0 +1,34 @@
+{
+  "rates": [1.0, 2.0, 3.0],
+  "speed_thresholds_m_s": [0.8, 1.5, 2.0],
+  "high_axial_offset_deg": 20.0,
+  "goal_speed_m_s": 2.0,
+  "goal_duration_s": 0.5,
+  "core_phase_fraction": [0.15, 0.85],
+  "entry_exit_phase_window": 0.1,
+  "exploratory_min_core_course_change_deg": 30.0,
+  "exploratory_min_core_speed_retention": 0.8,
+  "motor_source_commit": "03450544c06cb622e1626370d8876fefc3fc565e",
+  "motor_contract_source": "upstream/tron1-learning-from-human/training/tron1_tracking.py",
+  "motor_contract_sha256": "0a29fa27c1d65c0b9add0886221491e549553e3529d6970f1ec5ba35e2532817",
+  "motor_envelope_source": "upstream/tron1-learning-from-human/scripts/eval_tracking_mujoco.py",
+  "motor_envelope_sha256": "da6d1da378b5065589a49f2befaebfb0576665dbd2ad5d34a157d11b8984a3aa",
+  "motor_contract": {
+    "leg_saturation_effort_nm": 80.0,
+    "leg_torque_limit_nm": 80.0,
+    "leg_motor_velocity_limit_rad_s": 15.0,
+    "wheel_saturation_effort_nm": 12.0,
+    "wheel_torque_limit_nm": 12.0,
+    "wheel_motor_velocity_limit_rad_s": 100.0,
+    "policy_fps": 50.0
+  },
+  "render_clips": [
+    "HDM_bd_walkLeft2Steps_001_120.bvh",
+    "HDM_bd_walkLeft3Steps_001_120.bvh",
+    "HDM_bd_walkRightCrossFront2Steps_001_120.bvh",
+    "HDM_bd_walkRightCrossFront3Steps_001_120.bvh",
+    "HDM_bd_walkLeftCircle4StepsRstart_001_120.bvh",
+    "HDM_bd_walkRightCircle4StepsRstart_001_120.bvh"
+  ],
+  "scope": "Frozen GMR geometry with changed physical reference clocks. Nominal motor-envelope availability only, not demanded torque, a policy rollout or a friction sweep. Exploratory kinematic screens are not physical pass/fail limits."
+}
