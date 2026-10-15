@@ -1,0 +1,2285 @@
+{
+  "kind": "HDM05_GMR_kinematic_contact_heading_experiment",
+  "settings": {
+    "schema_version": 1,
+    "gmr_commit": "bb1bbe40774794fceb2a7c579a3464a28e68c844",
+    "source_locks": {
+      "motion_retarget.py": "3a4f9fb0d13b204c8dcbb2ab62db59bce9de81b1f5911167aa73f079e0c90663",
+      "params.py": "3506cdd277375139770b0ced7108719145620a389a8dee85bc6c94c6bf135bef",
+      "utils/lafan_vendor/extract.py": "4c374bbcb7d1026b940862b130ada9da45850d6dca2c60d6ee6b4024d0a06f22",
+      "utils/lafan_vendor/utils.py": "1181093a4641a7981e3e83589d32755b8b17301862d043f40c9fcbcb3926ac5e"
+    },
+    "solver": "daqp",
+    "damping": 0.5,
+    "max_iter_per_stage": 10,
+    "human_unit_policy": "Robot-leg normalization in native BVH units, not an assumed cm/inch conversion. Human speeds and heights reported at robot scale.",
+    "source_to_z_up": [
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ]
+    ],
+    "bvh_hip_nodes": [
+      "lfemur",
+      "rfemur"
+    ],
+    "bvh_knee_nodes": [
+      "ltibia",
+      "rtibia"
+    ],
+    "bvh_ankle_nodes": [
+      "lfoot",
+      "rfoot"
+    ],
+    "bvh_toe_base_nodes": [
+      "ltoes",
+      "rtoes"
+    ],
+    "min_speed_m_s": 0.8,
+    "slow_speed_sensitivity_m_s": 0.2,
+    "human_near_ground_height_m": 0.1,
+    "robot_near_ground_height_m": 0.03,
+    "robot_max_contact_proxy_penetration_m": 0.02,
+    "high_axial_offset_deg": 20.0,
+    "min_high_offset_event_duration_s": 0.2,
+    "clips": [
+      "HDM_bd_walkLeft2Steps_001_120.bvh",
+      "HDM_bd_walkLeft3Steps_001_120.bvh",
+      "HDM_bd_walkRightCrossFront2Steps_001_120.bvh",
+      "HDM_bd_walkRightCrossFront3Steps_001_120.bvh",
+      "HDM_bd_walkLeftCircle4StepsRstart_001_120.bvh",
+      "HDM_bd_walkRightCircle4StepsRstart_001_120.bvh",
+      "HDM_bd_turnLeft_001_120.bvh",
+      "HDM_bd_turnRight_001_120.bvh",
+      "HDM_bd_shuffle2StepsLStart_001_120.bvh",
+      "HDM_bd_shuffle2StepsRStart_001_120.bvh"
+    ]
+  },
+  "pipeline_sha256": "fe5aa5b6d75b79213dc4be4ea08498e633e053f79073f49025ce0b040f711ba5",
+  "config_sha256": "e80c4da887dd1e46d98bef4e35a8550f5e2d0a027eb670a4658959144284332f",
+  "source_audit_sha256": "8be29aed8bc09b6da04c24ff98ee8a81d5db32ab2d63d832c89433c605ab7f87",
+  "model_sha256": "30c8bb94b32b1804aa2f7de2425f7a8dd02be7792881255388097e2e68092e52",
+  "model_local_path": "/home/roy/tron1-learning-from-human/assets/robots/WF_TRON1A/mujoco/robot.xml",
+  "versions": {
+    "numpy": "2.3.5",
+    "scipy": "1.17.1",
+    "mujoco": "3.8.1",
+    "mink": "1.2.0",
+    "qpsolvers": "4.12.0",
+    "daqp": "0.8.7"
+  },
+  "clips": [
+    {
+      "clip": "HDM_bd_walkLeft2Steps_001_120.bvh",
+      "method": "pinned_upstream_GMR_two_stage",
+      "gmr_commit": "bb1bbe40774794fceb2a7c579a3464a28e68c844",
+      "upstream_core_modified": false,
+      "upstream_retarget_calls": 325,
+      "both_stages": true,
+      "frames": 325,
+      "duration_s": 2.699892,
+      "elapsed_s": 1.1435779640451074,
+      "model_sha256": "30c8bb94b32b1804aa2f7de2425f7a8dd02be7792881255388097e2e68092e52",
+      "source_sha256": "a4bcaac7fe61974dde06a55bf920e972237ba826f925514fbfee05d32d800e6a",
+      "task_sha256": "338a18a02ba7fb8801cf35c1448755fa919dd686c9dd11ac37e2884b7b0ee548",
+      "robot_scale_m_per_source_unit": 0.04081093119911808,
+      "robot_leg_length_m_L_R": [
+        0.6038410402447854,
+        0.6038410402447854
+      ],
+      "human_leg_length_native_L_R": [
+        14.64917244811119,
+        14.942950177007166
+      ],
+      "heading_alignment_rad": -0.31206308540555167,
+      "bvh_frame_time_s": 0.008333,
+      "bvh_ankle_pivots": [
+        "lfoot",
+        "rfoot"
+      ],
+      "foot_heading_axis": "BVH ankle joint pivot to toe-base pivot; not heel markers or measured sole axis",
+      "root_xy_error_m": {
+        "rmse": 0.00020511477673421728,
+        "p95_abs": 0.0005360725181649074,
+        "max_abs": 0.0007293015805256618
+      },
+      "wheel_center_error_m": {
+        "rmse": 8.003527806408918e-06,
+        "p95_abs": 1.8539307545141463e-05,
+        "max_abs": 4.2378974124012994e-05
+      },
+      "joint_limit_violation_rad": 0.0,
+      "max_sampled_leg_speed_rad_s": 3.8855553305801314,
+      "max_wheel_spin_rad": 5.951713661066272e-10,
+      "max_wheel_ground_penetration_m": 0.010850169917408212,
+      "robot_near_ground_fraction_L_R": [
+        0.7138461538461538,
+        0.8430769230769231
+      ],
+      "human_near_ground_fraction_L_R": [
+        1.0,
+        1.0
+      ],
+      "angle_analysis": {
+        "common": {
+          "human_L_R": [
+            {
+              "samples": 0,
+              "fraction_of_frames": 0.0,
+              "mean_abs_axial_deg": null,
+              "p90_abs_axial_deg": null,
+              "high_offset_fraction_of_valid": null,
+              "high_offset_events": []
+            },
+            {
+              "samples": 0,
+              "fraction_of_frames": 0.0,
+              "mean_abs_axial_deg": null,
+              "p90_abs_axial_deg": null,
+              "high_offset_fraction_of_valid": null,
+              "high_offset_events": []
+            }
+          ],
+          "robot_L_R": [
+            {
+              "samples": 0,
+              "fraction_of_frames": 0.0,
+              "mean_abs_axial_deg": null,
+              "p90_abs_axial_deg": null,
+              "high_offset_fraction_of_valid": null,
+              "high_offset_events": []
+            },
+            {
+              "samples": 0,
+              "fraction_of_frames": 0.0,
+              "mean_abs_axial_deg": null,
+              "p90_abs_axial_deg": null,
+              "high_offset_fraction_of_valid": null,
+              "high_offset_events": []
+            }
+          ],
+          "paired_samples_L_R": [
+            0,
+            0
+          ],
+          "paired_mean_abs_axial_L_R": [
+            {
+              "human_deg": null,
+              "robot_deg": null,
+              "human_to_robot_heading_sidecar_deg": null
+            },
+            {
+              "human_deg": null,
+              "robot_deg": null,
+              "human_to_robot_heading_sidecar_deg": null
+            }
+          ]
+        },
+        "slow_sensitivity": {
+          "human_L_R": [
+            {
+              "samples": 236,
+              "fraction_of_frames": 0.7261538461538461,
+              "mean_abs_axial_deg": 76.77709525168862,
+              "p90_abs_axial_deg": 87.32538586967928,
+              "high_offset_fraction_of_valid": 1.0,
+              "high_offset_events": [
+                {
+                  "start_s": 0.741637,
+                  "end_s": 2.699892,
+                  "duration_s": 1.9582550000000003,
+                  "samples": 236,
+                  "mean_abs_axial_deg": 76.77709525168862,
+                  "peak_abs_axial_deg": 89.99879835901186
+                }
+              ]
+            },
+            {
+              "samples": 236,
+              "fraction_of_frames": 0.7261538461538461,
+              "mean_abs_axial_deg": 76.98037739789119,
+              "p90_abs_axial_deg": 87.34601724278579,
+              "high_offset_fraction_of_valid": 1.0,
+              "high_offset_events": [
+                {
+                  "start_s": 0.741637,
+                  "end_s": 2.699892,
+                  "duration_s": 1.9582550000000003,
+                  "samples": 236,
+                  "mean_abs_axial_deg": 76.98037739789119,
+                  "peak_abs_axial_deg": 89.68252071578502
+                }
+              ]
+            }
+          ],
+          "robot_L_R": [
+            {
+              "samples": 153,
+              "fraction_of_frames": 0.4707692307692308,
+              "mean_abs_axial_deg": 84.08723109673043,
+              "p90_abs_axial_deg": 88.65241051159245,
+              "high_offset_fraction_of_valid": 1.0,
+              "high_offset_events": [
+                {
+                  "start_s": 1.049958,
+                  "end_s": 1.791595,
+                  "duration_s": 0.7416370000000001,
+                  "samples": 90,
+                  "mean_abs_axial_deg": 84.32455604250734,
+                  "peak_abs_axial_deg": 89.9067757704068
+                },
+                {
+                  "start_s": 2.183246,
+                  "end_s": 2.699892,
+                  "duration_s": 0.5166460000000002,
+                  "samples": 63,
+                  "mean_abs_axial_deg": 83.74819545990633,
+                  "peak_abs_axial_deg": 89.7205781811092
+                }
+              ]
+            },
+            {
+              "samples": 185,
+              "fraction_of_frames": 0.5692307692307692,
+              "mean_abs_axial_deg": 83.38450589662172,
+              "p90_abs_axial_deg": 87.82862348926696,
+              "high_offset_fraction_of_valid": 1.0,
+              "high_offset_events": [
+                {
+                  "start_s": 0.741637,
+                  "end_s": 1.266616,
+                  "duration_s": 0.524979,
+                  "samples": 64,
+                  "mean_abs_axial_deg": 85.87602538027392,
+                  "peak_abs_axial_deg": 89.87014650788831
+                },
+                {
+                  "start_s": 1.458275,
+                  "end_s": 2.316574,
+                  "duration_s": 0.8582990000000001,
+                  "samples": 104,
+                  "mean_abs_axial_deg": 82.19097876722928,
+                  "peak_abs_axial_deg": 89.94183219435308
+                }
+              ]
+            }
+          ],
+          "paired_samples_L_R": [
+            153,
+            185
+          ],
+          "paired_mean_abs_axial_L_R": [
+            {
+              "human_deg": 81.67392740803207,
+              "robot_deg": 84.08723109673043,
+              "human_to_robot_heading_sidecar_deg": 9.405461252419098
+            },
+            {
+              "human_deg": 78.56281833103573,
+              "robot_deg": 83.38450589662172,
+              "human_to_robot_heading_sidecar_deg": 7.9905188824371844
+            }
+          ]
+        }
+      },
+      "physics_validated": false,
+      "policy_trained": false,
+      "root_prescribed": false,
+      "limitations": [
+        "Source BVH has pre-existing human-to-human Jacobian IK skeleton standardization.",
+        "Uniform leg normalization: human distances/speeds are at robot scale, not measured anatomical SI units.",
+        "Three landmarks only: pelvis and ankles, no human knee or foot orientation task.",
+        "GMR itself uses Mink IK; this is the upstream GMR algorithm, not the historical custom Mink baseline.",
+        "Wheel spin is frozen; heading sidecar is diagnostic, not an independent wheel-yaw command.",
+        "No rolling, contact-force, collision avoidance, leg-speed or momentum constraint.",
+        "Near-ground masks are geometry proxies, not observed stance or contact forces.",
+        "Course-to-heading offsets are features, not a tracking mismatch or proof of sliding.",
+        "No training, friction validation or Isaac/MuJoCo dynamics rollout in this step."
+      ],
+      "trace_sha256": "875a546ba010c8707d2d66bcf236c136b03b55003d0335ceb60ff4dfaaf6127b"
+    },
+    {
+      "clip": "HDM_bd_walkLeft3Steps_001_120.bvh",
+      "method": "pinned_upstream_GMR_two_stage",
+      "gmr_commit": "bb1bbe40774794fceb2a7c579a3464a28e68c844",
+      "upstream_core_modified": false,
+      "upstream_retarget_calls": 505,
+      "both_stages": true,
+      "frames": 505,
+      "duration_s": 4.199832,
+      "elapsed_s": 1.5920713600353338,
+      "model_sha256": "30c8bb94b32b1804aa2f7de2425f7a8dd02be7792881255388097e2e68092e52",
+      "source_sha256": "86ceb312f92058bfecab35d8af8987909641b0b97f9d2a1f660da985d2209bac",
+      "task_sha256": "338a18a02ba7fb8801cf35c1448755fa919dd686c9dd11ac37e2884b7b0ee548",
+      "robot_scale_m_per_source_unit": 0.04081093119911808,
+      "robot_leg_length_m_L_R": [
+        0.6038410402447854,
+        0.6038410402447854
+      ],
+      "human_leg_length_native_L_R": [
+        14.64917244811119,
+        14.942950177007166
+      ],
+      "heading_alignment_rad": -0.31206308540555167,
+      "bvh_frame_time_s": 0.008333,
+      "bvh_ankle_pivots": [
+        "lfoot",
+        "rfoot"
+      ],
+      "foot_heading_axis": "BVH ankle joint pivot to toe-base pivot; not heel markers or measured sole axis",
+      "root_xy_error_m": {
+        "rmse": 0.0002340475928593108,
+        "p95_abs": 0.0006174062668233147,
+        "max_abs": 0.0009622050506728843
+      },
+      "wheel_center_error_m": {
+        "rmse": 8.00972020225714e-06,
+        "p95_abs": 1.81972261236776e-05,
+        "max_abs": 4.2378974124012994e-05
+      },
+      "joint_limit_violation_rad": 0.0,
+      "max_sampled_leg_speed_rad_s": 4.651310887368369,
+      "max_wheel_spin_rad": 6.731105948937466e-10,
+      "max_wheel_ground_penetration_m": 0.010850169917408212,
+      "robot_near_ground_fraction_L_R": [
+        0.7207920792079208,
+        0.8257425742574257
+      ],
+      "human_near_ground_fraction_L_R": [
+        1.0,
+        1.0
+      ],
+      "angle_analysis": {
+        "common": {
+          "human_L_R": [
+            {
+              "samples": 22,
+              "fraction_of_frames": 0.04356435643564356,
+              "mean_abs_axial_deg": 73.39400992173752,
+              "p90_abs_axial_deg": 86.36858729079434,
+              "high_offset_fraction_of_valid": 1.0,
+              "high_offset_events": []
+            },
+            {
+              "samples": 22,
+              "fraction_of_frames": 0.04356435643564356,
+              "mean_abs_axial_deg": 76.30063133317822,
+              "p90_abs_axial_deg": 86.60512739252572,
+              "high_offset_fraction_of_valid": 1.0,
+              "high_offset_events": []
+            }
+          ],
+          "robot_L_R": [
+            {
+              "samples": 14,
+              "fraction_of_frames": 0.027722772277227723,
+              "mean_abs_axial_deg": 85.95632647415417,
+              "p90_abs_axial_deg": 88.91819229149007,
+              "high_offset_fraction_of_valid": 1.0,
+              "high_offset_events": []
+            },
+            {
+              "samples": 15,
+              "fraction_of_frames": 0.0297029702970297,
+              "mean_abs_axial_deg": 85.30573706055692,
+              "p90_abs_axial_deg": 86.176877566795,
+              "high_offset_fraction_of_valid": 1.0,
+              "high_offset_events": []
+            }
+          ],
+          "paired_samples_L_R": [
+            13,
+            15
+          ],
+          "paired_mean_abs_axial_L_R": [
+            {
+              "human_deg": 80.2080347658525,
+              "robot_deg": 85.79485908776036,
+              "human_to_robot_heading_sidecar_deg": 5.8171178451667735
+            },
+            {
+              "human_deg": 81.0407698072905,
+              "robot_deg": 85.30573706055692,
+              "human_to_robot_heading_sidecar_deg": 13.671606268835133
+            }
+          ]
+        },
+        "slow_sensitivity": {
+          "human_L_R": [
+            {
+              "samples": 373,
+              "fraction_of_frames": 0.7386138613861386,
+              "mean_abs_axial_deg": 76.20933210696421,
+              "p90_abs_axial_deg": 87.49733390868742,
+              "high_offset_fraction_of_valid": 1.0,
+              "high_offset_events": [
+                {
+                  "start_s": 0.741637,
+                  "end_s": 3.841513,
+                  "duration_s": 3.099876,
+                  "samples": 373,
+                  "mean_abs_axial_deg": 76.20933210696421,
+                  "peak_abs_axial_deg": 89.99879835901186
+                }
+              ]
+            },
+            {
+              "samples": 373,
+              "fraction_of_frames": 0.7386138613861386,
+              "mean_abs_axial_deg": 76.87112393090389,
+              "p90_abs_axial_deg": 86.83519720894706,
+              "high_offset_fraction_of_valid": 1.0,
+              "high_offset_events": [
+                {
+                  "start_s": 0.741637,
+                  "end_s": 3.841513,
+                  "duration_s": 3.099876,
+                  "samples": 373,
+                  "mean_abs_axial_deg": 76.87112393090389,
+                  "peak_abs_axial_deg": 89.68252071578502
+                }
+              ]
+            }
+          ],
+          "robot_L_R": [
+            {
+              "samples": 243,
+              "fraction_of_frames": 0.48118811881188117,
+              "mean_abs_axial_deg": 83.19008406301053,
+              "p90_abs_axial_deg": 88.49978192943466,
+              "high_offset_fraction_of_valid": 1.0,
+              "high_offset_events": [
+                {
+                  "start_s": 1.049958,
+                  "end_s": 1.791595,
+                  "duration_s": 0.7416370000000001,
+                  "samples": 90,
+                  "mean_abs_axial_deg": 84.32455604250734,
+                  "peak_abs_axial_deg": 89.9067757704068
+                },
+                {
+                  "start_s": 2.183246,
+                  "end_s": 2.883218,
+                  "duration_s": 0.6999719999999998,
+                  "samples": 85,
+                  "mean_abs_axial_deg": 82.8311859711286,
+                  "peak_abs_axial_deg": 89.7205781811092
+                },
+                {
+                  "start_s": 3.291535,
+                  "end_s": 3.849846,
+                  "duration_s": 0.5583109999999998,
+                  "samples": 68,
+                  "mean_abs_axial_deg": 82.13719964617597,
+                  "peak_abs_axial_deg": 89.92492151144677
+                }
+              ]
+            },
+            {
+              "samples": 286,
+              "fraction_of_frames": 0.5663366336633663,
+              "mean_abs_axial_deg": 82.11696874625162,
+              "p90_abs_axial_deg": 87.20261163256265,
+              "high_offset_fraction_of_valid": 1.0,
+              "high_offset_events": [
+                {
+                  "start_s": 0.741637,
+                  "end_s": 1.266616,
+                  "duration_s": 0.524979,
+                  "samples": 64,
+                  "mean_abs_axial_deg": 85.87602538027392,
+                  "peak_abs_axial_deg": 89.87014650788831
+                },
+                {
+                  "start_s": 1.458275,
+                  "end_s": 2.316574,
+                  "duration_s": 0.8582990000000001,
+                  "samples": 104,
+                  "mean_abs_axial_deg": 82.19097876722928,
+                  "peak_abs_axial_deg": 89.94183219435308
+                },
+                {
+                  "start_s": 2.566564,
+                  "end_s": 3.341533,
+                  "duration_s": 0.774969,
+                  "samples": 94,
+                  "mean_abs_axial_deg": 81.04385955913226,
+                  "peak_abs_axial_deg": 86.7436725802246
+                }
+              ]
+            }
+          ],
+          "paired_samples_L_R": [
+            242,
+            285
+          ],
+          "paired_mean_abs_axial_L_R": [
+            {
+              "human_deg": 81.9012786581158,
+              "robot_deg": 83.24282252821953,
+              "human_to_robot_heading_sidecar_deg": 8.917404208460468
+            },
+            {
+              "human_deg": 78.70036153669223,
+              "robot_deg": 82.15692867512504,
+              "human_to_robot_heading_sidecar_deg": 7.106446657686401
+            }
+          ]
+        }
+      },
+      "physics_validated": false,
+      "policy_trained": false,
+      "root_prescribed": false,
+      "limitations": [
+        "Source BVH has pre-existing human-to-human Jacobian IK skeleton standardization.",
+        "Uniform leg normalization: human distances/speeds are at robot scale, not measured anatomical SI units.",
+        "Three landmarks only: pelvis and ankles, no human knee or foot orientation task.",
+        "GMR itself uses Mink IK; this is the upstream GMR algorithm, not the historical custom Mink baseline.",
+        "Wheel spin is frozen; heading sidecar is diagnostic, not an independent wheel-yaw command.",
+        "No rolling, contact-force, collision avoidance, leg-speed or momentum constraint.",
+        "Near-ground masks are geometry proxies, not observed stance or contact forces.",
+        "Course-to-heading offsets are features, not a tracking mismatch or proof of sliding.",
+        "No training, friction validation or Isaac/MuJoCo dynamics rollout in this step."
+      ],
+      "trace_sha256": "92aaf3f03fe51dea70331b9d23b12fef6e718b7867aa9cb618a379c93eef17c9"
+    },
+    {
+      "clip": "HDM_bd_walkRightCrossFront2Steps_001_120.bvh",
+      "method": "pinned_upstream_GMR_two_stage",
+      "gmr_commit": "bb1bbe40774794fceb2a7c579a3464a28e68c844",
+      "upstream_core_modified": false,
+      "upstream_retarget_calls": 343,
+      "both_stages": true,
+      "frames": 343,
+      "duration_s": 2.849886,
+      "elapsed_s": 1.053025709989015,
+      "model_sha256": "30c8bb94b32b1804aa2f7de2425f7a8dd02be7792881255388097e2e68092e52",
+      "source_sha256": "719b563b573b2d73b6b2c30013786a384a4a0cd05b47d95d940655581d049721",
+      "task_sha256": "338a18a02ba7fb8801cf35c1448755fa919dd686c9dd11ac37e2884b7b0ee548",
+      "robot_scale_m_per_source_unit": 0.04081093119911808,
+      "robot_leg_length_m_L_R": [
+        0.6038410402447854,
+        0.6038410402447854
+      ],
+      "human_leg_length_native_L_R": [
+        14.649172448111191,
+        14.942950177007164
+      ],
+      "heading_alignment_rad": -0.6399397812198027,
+      "bvh_frame_time_s": 0.008333,
+      "bvh_ankle_pivots": [
+        "lfoot",
+        "rfoot"
+      ],
+      "foot_heading_axis": "BVH ankle joint pivot to toe-base pivot; not heel markers or measured sole axis",
+      "root_xy_error_m": {
+        "rmse": 0.0002218073591960229,
+        "p95_abs": 0.00045879585311912793,
+        "max_abs": 0.0006182752496985672
+      },
+      "wheel_center_error_m": {
+        "rmse": 1.746870816871237e-05,
+        "p95_abs": 3.82790366723056e-05,
+        "max_abs": 7.417202617062545e-05
+      },
+      "joint_limit_violation_rad": 0.0,
+      "max_sampled_leg_speed_rad_s": 3.5711927174284614,
+      "max_wheel_spin_rad": 1.887117849081712e-09,
+      "max_wheel_ground_penetration_m": 0.011237971957699294,
+      "robot_near_ground_fraction_L_R": [
+        0.717201166180758,
+        0.749271137026239
+      ],
+      "human_near_ground_fraction_L_R": [
+        1.0,
+        1.0
+      ],
+      "angle_analysis": {
+        "common": {
+          "human_L_R": [
+            {
+              "samples": 0,
+              "fraction_of_frames": 0.0,
+              "mean_abs_axial_deg": null,
+              "p90_abs_axial_deg": null,
+              "high_offset_fraction_of_valid": null,
+              "high_offset_events": []
+            },
+            {
+              "samples": 0,
+              "fraction_of_frames": 0.0,
+              "mean_abs_axial_deg": null,
+              "p90_abs_axial_deg": null,
+              "high_offset_fraction_of_valid": null,
+              "high_offset_events": []
+            }
+          ],
+          "robot_L_R": [
+            {
+              "samples": 0,
+              "fraction_of_frames": 0.0,
+              "mean_abs_axial_deg": null,
+              "p90_abs_axial_deg": null,
+              "high_offset_fraction_of_valid": null,
+              "high_offset_events": []
+            },
+            {
+              "samples": 0,
+              "fraction_of_frames": 0.0,
+              "mean_abs_axial_deg": null,
+              "p90_abs_axial_deg": null,
+              "high_offset_fraction_of_valid": null,
+              "high_offset_events": []
+            }
+          ],
+          "paired_samples_L_R": [
+            0,
+            0
+          ],
+          "paired_mean_abs_axial_L_R": [
+            {
+              "human_deg": null,
+              "robot_deg": null,
+              "human_to_robot_heading_sidecar_deg": null
+            },
+            {
+              "human_deg": null,
+              "robot_deg": null,
+              "human_to_robot_heading_sidecar_deg": null
+            }
+          ]
+        },
+        "slow_sensitivity": {
+          "human_L_R": [
+            {
+              "samples": 254,
+              "fraction_of_frames": 0.7405247813411079,
+              "mean_abs_axial_deg": 57.165741988973885,
+              "p90_abs_axial_deg": 78.84135468833769,
+              "high_offset_fraction_of_valid": 0.9921259842519685,
+              "high_offset_events": [
+                {
+                  "start_s": 0.6249750000000001,
+                  "end_s": 0.99996,
+                  "duration_s": 0.3749849999999999,
+                  "samples": 46,
+                  "mean_abs_axial_deg": 34.33521662254503,
+                  "peak_abs_axial_deg": 49.56562022277609
+                },
+                {
+                  "start_s": 1.141621,
+                  "end_s": 2.849886,
+                  "duration_s": 1.7082650000000001,
+                  "samples": 206,
+                  "mean_abs_axial_deg": 62.63430560940091,
+                  "peak_abs_axial_deg": 89.50803588541866
+                }
+              ]
+            },
+            {
+              "samples": 254,
+              "fraction_of_frames": 0.7405247813411079,
+              "mean_abs_axial_deg": 61.2412140717677,
+              "p90_abs_axial_deg": 74.46235825707093,
+              "high_offset_fraction_of_valid": 1.0,
+              "high_offset_events": [
+                {
+                  "start_s": 0.608309,
+                  "end_s": 0.99996,
+                  "duration_s": 0.39165099999999997,
+                  "samples": 48,
+                  "mean_abs_axial_deg": 66.43234677675387,
+                  "peak_abs_axial_deg": 76.99497121918785
+                },
+                {
+                  "start_s": 1.141621,
+                  "end_s": 2.849886,
+                  "duration_s": 1.7082650000000001,
+                  "samples": 206,
+                  "mean_abs_axial_deg": 60.03162975215927,
+                  "peak_abs_axial_deg": 83.40763519852578
+                }
+              ]
+            }
+          ],
+          "robot_L_R": [
+            {
+              "samples": 203,
+              "fraction_of_frames": 0.5918367346938775,
+              "mean_abs_axial_deg": 64.54146183679005,
+              "p90_abs_axial_deg": 83.13539178465446,
+              "high_offset_fraction_of_valid": 1.0,
+              "high_offset_events": [
+                {
+                  "start_s": 0.691639,
+                  "end_s": 0.99996,
+                  "duration_s": 0.30832099999999996,
+                  "samples": 38,
+                  "mean_abs_axial_deg": 51.891096536108236,
+                  "peak_abs_axial_deg": 60.172969614987224
+                },
+                {
+                  "start_s": 1.141621,
+                  "end_s": 1.633268,
+                  "duration_s": 0.49164699999999995,
+                  "samples": 60,
+                  "mean_abs_axial_deg": 79.75018393416511,
+                  "peak_abs_axial_deg": 89.56784011998131
+                },
+                {
+                  "start_s": 1.983254,
+                  "end_s": 2.849886,
+                  "duration_s": 0.8666320000000001,
+                  "samples": 105,
+                  "mean_abs_axial_deg": 60.42899093758438,
+                  "peak_abs_axial_deg": 83.59200675249164
+                }
+              ]
+            },
+            {
+              "samples": 184,
+              "fraction_of_frames": 0.5364431486880467,
+              "mean_abs_axial_deg": 64.4173643692528,
+              "p90_abs_axial_deg": 84.40722712941262,
+              "high_offset_fraction_of_valid": 1.0,
+              "high_offset_events": [
+                {
+                  "start_s": 0.608309,
+                  "end_s": 0.966628,
+                  "duration_s": 0.35831900000000005,
+                  "samples": 44,
+                  "mean_abs_axial_deg": 49.38144978344587,
+                  "peak_abs_axial_deg": 56.356932913182945
+                },
+                {
+                  "start_s": 1.299948,
+                  "end_s": 2.291575,
+                  "duration_s": 0.9916269999999998,
+                  "samples": 120,
+                  "mean_abs_axial_deg": 67.97904794797306,
+                  "peak_abs_axial_deg": 89.81131210724479
+                }
+              ]
+            }
+          ],
+          "paired_samples_L_R": [
+            203,
+            184
+          ],
+          "paired_mean_abs_axial_L_R": [
+            {
+              "human_deg": 58.360441076445014,
+              "robot_deg": 64.54146183679005,
+              "human_to_robot_heading_sidecar_deg": 6.239752707547447
+            },
+            {
+              "human_deg": 65.62620902704214,
+              "robot_deg": 64.4173643692528,
+              "human_to_robot_heading_sidecar_deg": 11.571072310607633
+            }
+          ]
+        }
+      },
+      "physics_validated": false,
+      "policy_trained": false,
+      "root_prescribed": false,
+      "limitations": [
+        "Source BVH has pre-existing human-to-human Jacobian IK skeleton standardization.",
+        "Uniform leg normalization: human distances/speeds are at robot scale, not measured anatomical SI units.",
+        "Three landmarks only: pelvis and ankles, no human knee or foot orientation task.",
+        "GMR itself uses Mink IK; this is the upstream GMR algorithm, not the historical custom Mink baseline.",
+        "Wheel spin is frozen; heading sidecar is diagnostic, not an independent wheel-yaw command.",
+        "No rolling, contact-force, collision avoidance, leg-speed or momentum constraint.",
+        "Near-ground masks are geometry proxies, not observed stance or contact forces.",
+        "Course-to-heading offsets are features, not a tracking mismatch or proof of sliding.",
+        "No training, friction validation or Isaac/MuJoCo dynamics rollout in this step."
+      ],
+      "trace_sha256": "b7b0b3bfee1e75aeb0ee931d337fa103652e78385e34da77d99634a656dda9e4"
+    },
+    {
+      "clip": "HDM_bd_walkRightCrossFront3Steps_001_120.bvh",
+      "method": "pinned_upstream_GMR_two_stage",
+      "gmr_commit": "bb1bbe40774794fceb2a7c579a3464a28e68c844",
+      "upstream_core_modified": false,
+      "upstream_retarget_calls": 701,
+      "both_stages": true,
+      "frames": 701,
+      "duration_s": 5.8331,
+      "elapsed_s": 2.3438156499760225,
+      "model_sha256": "30c8bb94b32b1804aa2f7de2425f7a8dd02be7792881255388097e2e68092e52",
+      "source_sha256": "c5ed3be4f18885f069feaa2c95763f1f03ecded9b9a2deb949edf94d5f137c7b",
+      "task_sha256": "338a18a02ba7fb8801cf35c1448755fa919dd686c9dd11ac37e2884b7b0ee548",
+      "robot_scale_m_per_source_unit": 0.040810931199118085,
+      "robot_leg_length_m_L_R": [
+        0.6038410402447854,
+        0.6038410402447854
+      ],
+      "human_leg_length_native_L_R": [
+        14.649172448111186,
+        14.942950177007166
+      ],
+      "heading_alignment_rad": -0.6621280099207677,
+      "bvh_frame_time_s": 0.008333,
+      "bvh_ankle_pivots": [
+        "lfoot",
+        "rfoot"
+      ],
+      "foot_heading_axis": "BVH ankle joint pivot to toe-base pivot; not heel markers or measured sole axis",
+      "root_xy_error_m": {
+        "rmse": 0.00018318644214747968,
+        "p95_abs": 0.0003794833016231418,
+        "max_abs": 0.0005404178537452251
+      },
+      "wheel_center_error_m": {
+        "rmse": 1.287983410931011e-05,
+        "p95_abs": 2.926254451598456e-05,
+        "max_abs": 6.58803857767217e-05
+      },
+      "joint_limit_violation_rad": 0.0,
+      "max_sampled_leg_speed_rad_s": 3.373264195066963,
+      "max_wheel_spin_rad": 2.739222129940166e-09,
+      "max_wheel_ground_penetration_m": 0.014546466280203951,
+      "robot_near_ground_fraction_L_R": [
+        0.797432239657632,
+        0.8059914407988588
+      ],
+      "human_near_ground_fraction_L_R": [
+        1.0,
+        1.0
+      ],
+      "angle_analysis": {
+        "common": {
+          "human_L_R": [
+            {
+              "samples": 0,
+              "fraction_of_frames": 0.0,
+              "mean_abs_axial_deg": null,
+              "p90_abs_axial_deg": null,
+              "high_offset_fraction_of_valid": null,
+              "high_offset_events": []
+            },
+            {
+              "samples": 0,
+              "fraction_of_frames": 0.0,
+              "mean_abs_axial_deg": null,
+              "p90_abs_axial_deg": null,
+              "high_offset_fraction_of_valid": null,
+              "high_offset_events": []
+            }
+          ],
+          "robot_L_R": [
+            {
+              "samples": 0,
+              "fraction_of_frames": 0.0,
+              "mean_abs_axial_deg": null,
+              "p90_abs_axial_deg": null,
+              "high_offset_fraction_of_valid": null,
+              "high_offset_events": []
+            },
+            {
+              "samples": 0,
+              "fraction_of_frames": 0.0,
+              "mean_abs_axial_deg": null,
+              "p90_abs_axial_deg": null,
+              "high_offset_fraction_of_valid": null,
+              "high_offset_events": []
+            }
+          ],
+          "paired_samples_L_R": [
+            0,
+            0
+          ],
+          "paired_mean_abs_axial_L_R": [
+            {
+              "human_deg": null,
+              "robot_deg": null,
+              "human_to_robot_heading_sidecar_deg": null
+            },
+            {
+              "human_deg": null,
+              "robot_deg": null,
+              "human_to_robot_heading_sidecar_deg": null
+            }
+          ]
+        },
+        "slow_sensitivity": {
+          "human_L_R": [
+            {
+              "samples": 445,
+              "fraction_of_frames": 0.6348074179743224,
+              "mean_abs_axial_deg": 55.011232776494595,
+              "p90_abs_axial_deg": 78.16050266834554,
+              "high_offset_fraction_of_valid": 0.9955056179775281,
+              "high_offset_events": [
+                {
+                  "start_s": 1.16662,
+                  "end_s": 1.5416050000000001,
+                  "duration_s": 0.3749850000000001,
+                  "samples": 46,
+                  "mean_abs_axial_deg": 34.33521662254505,
+                  "peak_abs_axial_deg": 49.56562022277632
+                },
+                {
+                  "start_s": 1.683266,
+                  "end_s": 4.983134,
+                  "duration_s": 3.299868,
+                  "samples": 397,
+                  "mean_abs_axial_deg": 57.588330165937826,
+                  "peak_abs_axial_deg": 89.50803588541886
+                }
+              ]
+            },
+            {
+              "samples": 445,
+              "fraction_of_frames": 0.6348074179743224,
+              "mean_abs_axial_deg": 58.39222757978682,
+              "p90_abs_axial_deg": 73.26325416500497,
+              "high_offset_fraction_of_valid": 0.9707865168539326,
+              "high_offset_events": [
+                {
+                  "start_s": 1.149954,
+                  "end_s": 1.5416050000000001,
+                  "duration_s": 0.3916510000000002,
+                  "samples": 48,
+                  "mean_abs_axial_deg": 66.43234677675389,
+                  "peak_abs_axial_deg": 76.99497121918787
+                },
+                {
+                  "start_s": 1.683266,
+                  "end_s": 4.241497,
+                  "duration_s": 2.558231,
+                  "samples": 308,
+                  "mean_abs_axial_deg": 59.16574408236866,
+                  "peak_abs_axial_deg": 83.40763519852541
+                },
+                {
+                  "start_s": 4.358159,
+                  "end_s": 4.983134,
+                  "duration_s": 0.6249750000000001,
+                  "samples": 76,
+                  "mean_abs_axial_deg": 57.75842165253441,
+                  "peak_abs_axial_deg": 73.22036567760081
+                }
+              ]
+            }
+          ],
+          "robot_L_R": [
+            {
+              "samples": 350,
+              "fraction_of_frames": 0.4992867332382311,
+              "mean_abs_axial_deg": 59.882268028937354,
+              "p90_abs_axial_deg": 82.36104384006694,
+              "high_offset_fraction_of_valid": 1.0,
+              "high_offset_events": [
+                {
+                  "start_s": 1.233284,
+                  "end_s": 1.5416050000000001,
+                  "duration_s": 0.30832100000000007,
+                  "samples": 38,
+                  "mean_abs_axial_deg": 51.48130779073417,
+                  "peak_abs_axial_deg": 59.784688891612845
+                },
+                {
+                  "start_s": 1.683266,
+                  "end_s": 2.174913,
+                  "duration_s": 0.49164700000000017,
+                  "samples": 60,
+                  "mean_abs_axial_deg": 79.7099540265594,
+                  "peak_abs_axial_deg": 89.65873064976653
+                },
+                {
+                  "start_s": 2.524899,
+                  "end_s": 3.474861,
+                  "duration_s": 0.9499620000000002,
+                  "samples": 115,
+                  "mean_abs_axial_deg": 62.724714960805635,
+                  "peak_abs_axial_deg": 89.79392181382924
+                },
+                {
+                  "start_s": 3.849846,
+                  "end_s": 4.983134,
+                  "duration_s": 1.1332879999999999,
+                  "samples": 137,
+                  "mean_abs_axial_deg": 51.142807678788046,
+                  "peak_abs_axial_deg": 67.90237865456272
+                }
+              ]
+            },
+            {
+              "samples": 325,
+              "fraction_of_frames": 0.463623395149786,
+              "mean_abs_axial_deg": 62.97931660451393,
+              "p90_abs_axial_deg": 84.73060783727215,
+              "high_offset_fraction_of_valid": 1.0,
+              "high_offset_events": [
+                {
+                  "start_s": 1.149954,
+                  "end_s": 1.508273,
+                  "duration_s": 0.35831900000000005,
+                  "samples": 44,
+                  "mean_abs_axial_deg": 49.742643306061545,
+                  "peak_abs_axial_deg": 56.669219023442736
+                },
+                {
+                  "start_s": 1.8332600000000001,
+                  "end_s": 2.841553,
+                  "duration_s": 1.008293,
+                  "samples": 122,
+                  "mean_abs_axial_deg": 68.0818249707713,
+                  "peak_abs_axial_deg": 89.66339233284381
+                },
+                {
+                  "start_s": 3.216538,
+                  "end_s": 4.141501,
+                  "duration_s": 0.924963,
+                  "samples": 112,
+                  "mean_abs_axial_deg": 63.433753329779414,
+                  "peak_abs_axial_deg": 88.00293992520386
+                },
+                {
+                  "start_s": 4.599816,
+                  "end_s": 4.983134,
+                  "duration_s": 0.38331800000000005,
+                  "samples": 47,
+                  "mean_abs_axial_deg": 61.04337386448777,
+                  "peak_abs_axial_deg": 67.48731543882104
+                }
+              ]
+            }
+          ],
+          "paired_samples_L_R": [
+            350,
+            325
+          ],
+          "paired_mean_abs_axial_L_R": [
+            {
+              "human_deg": 54.533289418410725,
+              "robot_deg": 59.882268028937354,
+              "human_to_robot_heading_sidecar_deg": 5.405985039121876
+            },
+            {
+              "human_deg": 64.34123239218006,
+              "robot_deg": 62.97931660451393,
+              "human_to_robot_heading_sidecar_deg": 10.308981211882928
+            }
+          ]
+        }
+      },
+      "physics_validated": false,
+      "policy_trained": false,
+      "root_prescribed": false,
+      "limitations": [
+        "Source BVH has pre-existing human-to-human Jacobian IK skeleton standardization.",
+        "Uniform leg normalization: human distances/speeds are at robot scale, not measured anatomical SI units.",
+        "Three landmarks only: pelvis and ankles, no human knee or foot orientation task.",
+        "GMR itself uses Mink IK; this is the upstream GMR algorithm, not the historical custom Mink baseline.",
+        "Wheel spin is frozen; heading sidecar is diagnostic, not an independent wheel-yaw command.",
+        "No rolling, contact-force, collision avoidance, leg-speed or momentum constraint.",
+        "Near-ground masks are geometry proxies, not observed stance or contact forces.",
+        "Course-to-heading offsets are features, not a tracking mismatch or proof of sliding.",
+        "No training, friction validation or Isaac/MuJoCo dynamics rollout in this step."
+      ],
+      "trace_sha256": "362a43c87c49fd7c9d0c5f628158d7a3c37c6728b612e2cea12017a08e7cae38"
+    },
+    {
+      "clip": "HDM_bd_walkLeftCircle4StepsRstart_001_120.bvh",
+      "method": "pinned_upstream_GMR_two_stage",
+      "gmr_commit": "bb1bbe40774794fceb2a7c579a3464a28e68c844",
+      "upstream_core_modified": false,
+      "upstream_retarget_calls": 342,
+      "both_stages": true,
+      "frames": 342,
+      "duration_s": 2.841553,
+      "elapsed_s": 1.235945321037434,
+      "model_sha256": "30c8bb94b32b1804aa2f7de2425f7a8dd02be7792881255388097e2e68092e52",
+      "source_sha256": "8a20bb401a372320d37d619a9b3db6b908204d58380b43e7b8c61b08364dcb58",
+      "task_sha256": "338a18a02ba7fb8801cf35c1448755fa919dd686c9dd11ac37e2884b7b0ee548",
+      "robot_scale_m_per_source_unit": 0.04081093119911808,
+      "robot_leg_length_m_L_R": [
+        0.6038410402447854,
+        0.6038410402447854
+      ],
+      "human_leg_length_native_L_R": [
+        14.649172448111191,
+        14.942950177007166
+      ],
+      "heading_alignment_rad": -3.135569933851712,
+      "bvh_frame_time_s": 0.008333,
+      "bvh_ankle_pivots": [
+        "lfoot",
+        "rfoot"
+      ],
+      "foot_heading_axis": "BVH ankle joint pivot to toe-base pivot; not heel markers or measured sole axis",
+      "root_xy_error_m": {
+        "rmse": 0.0006991096733489796,
+        "p95_abs": 0.0015699293380095369,
+        "max_abs": 0.0026103545629990246
+      },
+      "wheel_center_error_m": {
+        "rmse": 4.640291014480821e-05,
+        "p95_abs": 0.00010425088370743796,
+        "max_abs": 0.00020770766470122273
+      },
+      "joint_limit_violation_rad": 0.0,
+      "max_sampled_leg_speed_rad_s": 8.580613980751677,
+      "max_wheel_spin_rad": 9.715861210982622e-11,
+      "max_wheel_ground_penetration_m": 0.008971503904688469,
+      "robot_near_ground_fraction_L_R": [
+        0.7339181286549707,
+        0.543859649122807
+      ],
+      "human_near_ground_fraction_L_R": [
+        1.0,
+        0.9766081871345029
+      ],
+      "angle_analysis": {
+        "common": {
+          "human_L_R": [
+            {
+              "samples": 231,
+              "fraction_of_frames": 0.6754385964912281,
+              "mean_abs_axial_deg": 18.668069718260934,
+              "p90_abs_axial_deg": 43.57289482701435,
+              "high_offset_fraction_of_valid": 0.3463203463203463,
+              "high_offset_events": [
+                {
+                  "start_s": 1.691599,
+                  "end_s": 2.183246,
+                  "duration_s": 0.49164699999999995,
+                  "samples": 60,
+                  "mean_abs_axial_deg": 39.19705161528265,
+                  "peak_abs_axial_deg": 86.2576249528222
+                }
+              ]
+            },
+            {
+              "samples": 215,
+              "fraction_of_frames": 0.6286549707602339,
+              "mean_abs_axial_deg": 15.404869770849118,
+              "p90_abs_axial_deg": 29.347234746986707,
+              "high_offset_fraction_of_valid": 0.2930232558139535,
+              "high_offset_events": [
+                {
+                  "start_s": 1.7582630000000001,
+                  "end_s": 2.066584,
+                  "duration_s": 0.30832100000000007,
+                  "samples": 38,
+                  "mean_abs_axial_deg": 26.28563457131299,
+                  "peak_abs_axial_deg": 29.498458387272706
+                }
+              ]
+            }
+          ],
+          "robot_L_R": [
+            {
+              "samples": 168,
+              "fraction_of_frames": 0.49122807017543857,
+              "mean_abs_axial_deg": 10.836475898876714,
+              "p90_abs_axial_deg": 22.012972859179154,
+              "high_offset_fraction_of_valid": 0.13095238095238096,
+              "high_offset_events": []
+            },
+            {
+              "samples": 127,
+              "fraction_of_frames": 0.3713450292397661,
+              "mean_abs_axial_deg": 16.389461971806362,
+              "p90_abs_axial_deg": 26.928695499214687,
+              "high_offset_fraction_of_valid": 0.3779527559055118,
+              "high_offset_events": [
+                {
+                  "start_s": 1.824927,
+                  "end_s": 2.216578,
+                  "duration_s": 0.3916510000000002,
+                  "samples": 48,
+                  "mean_abs_axial_deg": 23.56532269647691,
+                  "peak_abs_axial_deg": 28.28978316732764
+                }
+              ]
+            }
+          ],
+          "paired_samples_L_R": [
+            168,
+            126
+          ],
+          "paired_mean_abs_axial_L_R": [
+            {
+              "human_deg": 11.822930011427715,
+              "robot_deg": 10.836475898876714,
+              "human_to_robot_heading_sidecar_deg": 20.096564459133692
+            },
+            {
+              "human_deg": 12.391081409734028,
+              "robot_deg": 16.432314889053167,
+              "human_to_robot_heading_sidecar_deg": 5.796331117922042
+            }
+          ]
+        },
+        "slow_sensitivity": {
+          "human_L_R": [
+            {
+              "samples": 310,
+              "fraction_of_frames": 0.9064327485380117,
+              "mean_abs_axial_deg": 21.715618087832,
+              "p90_abs_axial_deg": 51.91390303026255,
+              "high_offset_fraction_of_valid": 0.43548387096774194,
+              "high_offset_events": [
+                {
+                  "start_s": 0.566644,
+                  "end_s": 1.016626,
+                  "duration_s": 0.449982,
+                  "samples": 55,
+                  "mean_abs_axial_deg": 40.457781746734774,
+                  "peak_abs_axial_deg": 89.14873194823741
+                },
+                {
+                  "start_s": 1.691599,
+                  "end_s": 2.183246,
+                  "duration_s": 0.49164699999999995,
+                  "samples": 60,
+                  "mean_abs_axial_deg": 39.19705161528265,
+                  "peak_abs_axial_deg": 86.2576249528222
+                }
+              ]
+            },
+            {
+              "samples": 294,
+              "fraction_of_frames": 0.8596491228070176,
+              "mean_abs_axial_deg": 14.845626435022613,
+              "p90_abs_axial_deg": 29.392951600259256,
+              "high_offset_fraction_of_valid": 0.2585034013605442,
+              "high_offset_events": [
+                {
+                  "start_s": 1.7582630000000001,
+                  "end_s": 2.066584,
+                  "duration_s": 0.30832100000000007,
+                  "samples": 38,
+                  "mean_abs_axial_deg": 26.28563457131299,
+                  "peak_abs_axial_deg": 29.498458387272706
+                }
+              ]
+            }
+          ],
+          "robot_L_R": [
+            {
+              "samples": 220,
+              "fraction_of_frames": 0.6432748538011696,
+              "mean_abs_axial_deg": 10.36482507428185,
+              "p90_abs_axial_deg": 19.76545128354468,
+              "high_offset_fraction_of_valid": 0.1,
+              "high_offset_events": []
+            },
+            {
+              "samples": 165,
+              "fraction_of_frames": 0.4824561403508772,
+              "mean_abs_axial_deg": 15.690483775593142,
+              "p90_abs_axial_deg": 25.525799973489057,
+              "high_offset_fraction_of_valid": 0.2909090909090909,
+              "high_offset_events": [
+                {
+                  "start_s": 1.824927,
+                  "end_s": 2.216578,
+                  "duration_s": 0.3916510000000002,
+                  "samples": 48,
+                  "mean_abs_axial_deg": 23.56532269647691,
+                  "peak_abs_axial_deg": 28.28978316732764
+                }
+              ]
+            }
+          ],
+          "paired_samples_L_R": [
+            219,
+            165
+          ],
+          "paired_mean_abs_axial_L_R": [
+            {
+              "human_deg": 14.036861398588306,
+              "robot_deg": 10.340555837606438,
+              "human_to_robot_heading_sidecar_deg": 20.13767319986566
+            },
+            {
+              "human_deg": 11.879337268383816,
+              "robot_deg": 15.690483775593142,
+              "human_to_robot_heading_sidecar_deg": 5.273130201321125
+            }
+          ]
+        }
+      },
+      "physics_validated": false,
+      "policy_trained": false,
+      "root_prescribed": false,
+      "limitations": [
+        "Source BVH has pre-existing human-to-human Jacobian IK skeleton standardization.",
+        "Uniform leg normalization: human distances/speeds are at robot scale, not measured anatomical SI units.",
+        "Three landmarks only: pelvis and ankles, no human knee or foot orientation task.",
+        "GMR itself uses Mink IK; this is the upstream GMR algorithm, not the historical custom Mink baseline.",
+        "Wheel spin is frozen; heading sidecar is diagnostic, not an independent wheel-yaw command.",
+        "No rolling, contact-force, collision avoidance, leg-speed or momentum constraint.",
+        "Near-ground masks are geometry proxies, not observed stance or contact forces.",
+        "Course-to-heading offsets are features, not a tracking mismatch or proof of sliding.",
+        "No training, friction validation or Isaac/MuJoCo dynamics rollout in this step."
+      ],
+      "trace_sha256": "f1214ac0f2efce6309e5186c2e3554af646b2e483859337da2950b8abe5fd2c7"
+    },
+    {
+      "clip": "HDM_bd_walkRightCircle4StepsRstart_001_120.bvh",
+      "method": "pinned_upstream_GMR_two_stage",
+      "gmr_commit": "bb1bbe40774794fceb2a7c579a3464a28e68c844",
+      "upstream_core_modified": false,
+      "upstream_retarget_calls": 380,
+      "both_stages": true,
+      "frames": 380,
+      "duration_s": 3.158207,
+      "elapsed_s": 1.0474571799859405,
+      "model_sha256": "30c8bb94b32b1804aa2f7de2425f7a8dd02be7792881255388097e2e68092e52",
+      "source_sha256": "a9f85de117dc79f10560569032dd50450299447e41dcdd58c110d3704b9457cf",
+      "task_sha256": "338a18a02ba7fb8801cf35c1448755fa919dd686c9dd11ac37e2884b7b0ee548",
+      "robot_scale_m_per_source_unit": 0.04081093119911807,
+      "robot_leg_length_m_L_R": [
+        0.6038410402447854,
+        0.6038410402447854
+      ],
+      "human_leg_length_native_L_R": [
+        14.649172448111194,
+        14.94295017700717
+      ],
+      "heading_alignment_rad": -2.6529511418932175,
+      "bvh_frame_time_s": 0.008333,
+      "bvh_ankle_pivots": [
+        "lfoot",
+        "rfoot"
+      ],
+      "foot_heading_axis": "BVH ankle joint pivot to toe-base pivot; not heel markers or measured sole axis",
+      "root_xy_error_m": {
+        "rmse": 0.00041170564650297903,
+        "p95_abs": 0.0009485894345531984,
+        "max_abs": 0.0011386702465791298
+      },
+      "wheel_center_error_m": {
+        "rmse": 4.089949384209532e-05,
+        "p95_abs": 0.00010003745412985513,
+        "max_abs": 0.00019092176657913452
+      },
+      "joint_limit_violation_rad": 0.0,
+      "max_sampled_leg_speed_rad_s": 7.0044014389991185,
+      "max_wheel_spin_rad": 6.150992357788803e-10,
+      "max_wheel_ground_penetration_m": 0.0036589413378556312,
+      "robot_near_ground_fraction_L_R": [
+        0.6894736842105263,
+        0.6368421052631579
+      ],
+      "human_near_ground_fraction_L_R": [
+        1.0,
+        1.0
+      ],
+      "angle_analysis": {
+        "common": {
+          "human_L_R": [
+            {
+              "samples": 144,
+              "fraction_of_frames": 0.37894736842105264,
+              "mean_abs_axial_deg": 13.130279583204846,
+              "p90_abs_axial_deg": 20.670446697841427,
+              "high_offset_fraction_of_valid": 0.1875,
+              "high_offset_events": []
+            },
+            {
+              "samples": 148,
+              "fraction_of_frames": 0.3894736842105263,
+              "mean_abs_axial_deg": 10.128177417274536,
+              "p90_abs_axial_deg": 25.248365102291324,
+              "high_offset_fraction_of_valid": 0.12162162162162163,
+              "high_offset_events": []
+            }
+          ],
+          "robot_L_R": [
+            {
+              "samples": 106,
+              "fraction_of_frames": 0.2789473684210526,
+              "mean_abs_axial_deg": 9.527947964343928,
+              "p90_abs_axial_deg": 14.835984777094922,
+              "high_offset_fraction_of_valid": 0.0,
+              "high_offset_events": []
+            },
+            {
+              "samples": 113,
+              "fraction_of_frames": 0.29736842105263156,
+              "mean_abs_axial_deg": 7.42400762471471,
+              "p90_abs_axial_deg": 13.337117300337466,
+              "high_offset_fraction_of_valid": 0.0,
+              "high_offset_events": []
+            }
+          ],
+          "paired_samples_L_R": [
+            106,
+            113
+          ],
+          "paired_mean_abs_axial_L_R": [
+            {
+              "human_deg": 14.697425910851857,
+              "robot_deg": 9.527947964343928,
+              "human_to_robot_heading_sidecar_deg": 5.726320771885536
+            },
+            {
+              "human_deg": 4.234750051320942,
+              "robot_deg": 7.42400762471471,
+              "human_to_robot_heading_sidecar_deg": 10.925624497942124
+            }
+          ]
+        },
+        "slow_sensitivity": {
+          "human_L_R": [
+            {
+              "samples": 307,
+              "fraction_of_frames": 0.8078947368421052,
+              "mean_abs_axial_deg": 11.643867634801213,
+              "p90_abs_axial_deg": 20.48863131560793,
+              "high_offset_fraction_of_valid": 0.13355048859934854,
+              "high_offset_events": []
+            },
+            {
+              "samples": 312,
+              "fraction_of_frames": 0.8210526315789474,
+              "mean_abs_axial_deg": 7.581765567057452,
+              "p90_abs_axial_deg": 12.997736227521676,
+              "high_offset_fraction_of_valid": 0.057692307692307696,
+              "high_offset_events": []
+            }
+          ],
+          "robot_L_R": [
+            {
+              "samples": 216,
+              "fraction_of_frames": 0.5684210526315789,
+              "mean_abs_axial_deg": 9.054511930388701,
+              "p90_abs_axial_deg": 14.504924530456151,
+              "high_offset_fraction_of_valid": 0.0,
+              "high_offset_events": []
+            },
+            {
+              "samples": 205,
+              "fraction_of_frames": 0.5394736842105263,
+              "mean_abs_axial_deg": 6.437414671187767,
+              "p90_abs_axial_deg": 11.6973114491385,
+              "high_offset_fraction_of_valid": 0.0,
+              "high_offset_events": []
+            }
+          ],
+          "paired_samples_L_R": [
+            216,
+            205
+          ],
+          "paired_mean_abs_axial_L_R": [
+            {
+              "human_deg": 12.032548549123335,
+              "robot_deg": 9.054511930388701,
+              "human_to_robot_heading_sidecar_deg": 3.8874599534180905
+            },
+            {
+              "human_deg": 3.487600436696106,
+              "robot_deg": 6.437414671187767,
+              "human_to_robot_heading_sidecar_deg": 8.563080033780873
+            }
+          ]
+        }
+      },
+      "physics_validated": false,
+      "policy_trained": false,
+      "root_prescribed": false,
+      "limitations": [
+        "Source BVH has pre-existing human-to-human Jacobian IK skeleton standardization.",
+        "Uniform leg normalization: human distances/speeds are at robot scale, not measured anatomical SI units.",
+        "Three landmarks only: pelvis and ankles, no human knee or foot orientation task.",
+        "GMR itself uses Mink IK; this is the upstream GMR algorithm, not the historical custom Mink baseline.",
+        "Wheel spin is frozen; heading sidecar is diagnostic, not an independent wheel-yaw command.",
+        "No rolling, contact-force, collision avoidance, leg-speed or momentum constraint.",
+        "Near-ground masks are geometry proxies, not observed stance or contact forces.",
+        "Course-to-heading offsets are features, not a tracking mismatch or proof of sliding.",
+        "No training, friction validation or Isaac/MuJoCo dynamics rollout in this step."
+      ],
+      "trace_sha256": "56f57fdf9202c029b65c547e7753a59aefe1ce39a76693fdff53c7fa97cd8c97"
+    },
+    {
+      "clip": "HDM_bd_turnLeft_001_120.bvh",
+      "method": "pinned_upstream_GMR_two_stage",
+      "gmr_commit": "bb1bbe40774794fceb2a7c579a3464a28e68c844",
+      "upstream_core_modified": false,
+      "upstream_retarget_calls": 261,
+      "both_stages": true,
+      "frames": 261,
+      "duration_s": 2.16658,
+      "elapsed_s": 0.7927610899787396,
+      "model_sha256": "30c8bb94b32b1804aa2f7de2425f7a8dd02be7792881255388097e2e68092e52",
+      "source_sha256": "6cc1863b177ed010b4c5da57410416ebb5f93a8c77ef09a0c63b46077aea13e9",
+      "task_sha256": "338a18a02ba7fb8801cf35c1448755fa919dd686c9dd11ac37e2884b7b0ee548",
+      "robot_scale_m_per_source_unit": 0.040810931199118085,
+      "robot_leg_length_m_L_R": [
+        0.6038410402447854,
+        0.6038410402447854
+      ],
+      "human_leg_length_native_L_R": [
+        14.649172448111187,
+        14.942950177007166
+      ],
+      "heading_alignment_rad": 2.940604397542413,
+      "bvh_frame_time_s": 0.008333,
+      "bvh_ankle_pivots": [
+        "lfoot",
+        "rfoot"
+      ],
+      "foot_heading_axis": "BVH ankle joint pivot to toe-base pivot; not heel markers or measured sole axis",
+      "root_xy_error_m": {
+        "rmse": 0.00010855374502227025,
+        "p95_abs": 0.00023868973772978621,
+        "max_abs": 0.0003057905639894213
+      },
+      "wheel_center_error_m": {
+        "rmse": 5.119125433599477e-06,
+        "p95_abs": 1.3567657152173963e-05,
+        "max_abs": 2.0974343251443442e-05
+      },
+      "joint_limit_violation_rad": 0.0,
+      "max_sampled_leg_speed_rad_s": 1.6704487877246907,
+      "max_wheel_spin_rad": 1.1849630816755462e-09,
+      "max_wheel_ground_penetration_m": 0.008949505001486752,
+      "robot_near_ground_fraction_L_R": [
+        0.9578544061302682,
+        0.9578544061302682
+      ],
+      "human_near_ground_fraction_L_R": [
+        1.0,
+        1.0
+      ],
+      "angle_analysis": {
+        "common": {
+          "human_L_R": [
+            {
+              "samples": 0,
+              "fraction_of_frames": 0.0,
+              "mean_abs_axial_deg": null,
+              "p90_abs_axial_deg": null,
+              "high_offset_fraction_of_valid": null,
+              "high_offset_events": []
+            },
+            {
+              "samples": 0,
+              "fraction_of_frames": 0.0,
+              "mean_abs_axial_deg": null,
+              "p90_abs_axial_deg": null,
+              "high_offset_fraction_of_valid": null,
+              "high_offset_events": []
+            }
+          ],
+          "robot_L_R": [
+            {
+              "samples": 0,
+              "fraction_of_frames": 0.0,
+              "mean_abs_axial_deg": null,
+              "p90_abs_axial_deg": null,
+              "high_offset_fraction_of_valid": null,
+              "high_offset_events": []
+            },
+            {
+              "samples": 0,
+              "fraction_of_frames": 0.0,
+              "mean_abs_axial_deg": null,
+              "p90_abs_axial_deg": null,
+              "high_offset_fraction_of_valid": null,
+              "high_offset_events": []
+            }
+          ],
+          "paired_samples_L_R": [
+            0,
+            0
+          ],
+          "paired_mean_abs_axial_L_R": [
+            {
+              "human_deg": null,
+              "robot_deg": null,
+              "human_to_robot_heading_sidecar_deg": null
+            },
+            {
+              "human_deg": null,
+              "robot_deg": null,
+              "human_to_robot_heading_sidecar_deg": null
+            }
+          ]
+        },
+        "slow_sensitivity": {
+          "human_L_R": [
+            {
+              "samples": 41,
+              "fraction_of_frames": 0.15708812260536398,
+              "mean_abs_axial_deg": 40.0607680898441,
+              "p90_abs_axial_deg": 84.59994970333223,
+              "high_offset_fraction_of_valid": 0.8292682926829268,
+              "high_offset_events": []
+            },
+            {
+              "samples": 41,
+              "fraction_of_frames": 0.15708812260536398,
+              "mean_abs_axial_deg": 72.20669894060661,
+              "p90_abs_axial_deg": 78.62630270562397,
+              "high_offset_fraction_of_valid": 1.0,
+              "high_offset_events": [
+                {
+                  "start_s": 1.124955,
+                  "end_s": 1.458275,
+                  "duration_s": 0.33332000000000006,
+                  "samples": 41,
+                  "mean_abs_axial_deg": 72.20669894060661,
+                  "peak_abs_axial_deg": 87.95878609539497
+                }
+              ]
+            }
+          ],
+          "robot_L_R": [
+            {
+              "samples": 40,
+              "fraction_of_frames": 0.1532567049808429,
+              "mean_abs_axial_deg": 78.43106474886847,
+              "p90_abs_axial_deg": 87.60085972998505,
+              "high_offset_fraction_of_valid": 1.0,
+              "high_offset_events": [
+                {
+                  "start_s": 1.133288,
+                  "end_s": 1.458275,
+                  "duration_s": 0.3249869999999999,
+                  "samples": 40,
+                  "mean_abs_axial_deg": 78.43106474886847,
+                  "peak_abs_axial_deg": 89.90665052075086
+                }
+              ]
+            },
+            {
+              "samples": 40,
+              "fraction_of_frames": 0.1532567049808429,
+              "mean_abs_axial_deg": 78.4163167868836,
+              "p90_abs_axial_deg": 87.55054023644747,
+              "high_offset_fraction_of_valid": 1.0,
+              "high_offset_events": [
+                {
+                  "start_s": 1.133288,
+                  "end_s": 1.458275,
+                  "duration_s": 0.3249869999999999,
+                  "samples": 40,
+                  "mean_abs_axial_deg": 78.4163167868836,
+                  "peak_abs_axial_deg": 89.76193725280152
+                }
+              ]
+            }
+          ],
+          "paired_samples_L_R": [
+            40,
+            40
+          ],
+          "paired_mean_abs_axial_L_R": [
+            {
+              "human_deg": 40.91311218400339,
+              "robot_deg": 78.43106474886847,
+              "human_to_robot_heading_sidecar_deg": 44.84662606795354
+            },
+            {
+              "human_deg": 72.19492689650588,
+              "robot_deg": 78.4163167868836,
+              "human_to_robot_heading_sidecar_deg": 20.939599725641035
+            }
+          ]
+        }
+      },
+      "physics_validated": false,
+      "policy_trained": false,
+      "root_prescribed": false,
+      "limitations": [
+        "Source BVH has pre-existing human-to-human Jacobian IK skeleton standardization.",
+        "Uniform leg normalization: human distances/speeds are at robot scale, not measured anatomical SI units.",
+        "Three landmarks only: pelvis and ankles, no human knee or foot orientation task.",
+        "GMR itself uses Mink IK; this is the upstream GMR algorithm, not the historical custom Mink baseline.",
+        "Wheel spin is frozen; heading sidecar is diagnostic, not an independent wheel-yaw command.",
+        "No rolling, contact-force, collision avoidance, leg-speed or momentum constraint.",
+        "Near-ground masks are geometry proxies, not observed stance or contact forces.",
+        "Course-to-heading offsets are features, not a tracking mismatch or proof of sliding.",
+        "No training, friction validation or Isaac/MuJoCo dynamics rollout in this step."
+      ],
+      "trace_sha256": "880696508bbe524a73e6324664d9cada5a85644d039281c1896eefcc344fa8de"
+    },
+    {
+      "clip": "HDM_bd_turnRight_001_120.bvh",
+      "method": "pinned_upstream_GMR_two_stage",
+      "gmr_commit": "bb1bbe40774794fceb2a7c579a3464a28e68c844",
+      "upstream_core_modified": false,
+      "upstream_retarget_calls": 181,
+      "both_stages": true,
+      "frames": 181,
+      "duration_s": 1.49994,
+      "elapsed_s": 0.5433958200155757,
+      "model_sha256": "30c8bb94b32b1804aa2f7de2425f7a8dd02be7792881255388097e2e68092e52",
+      "source_sha256": "6b8ba1bbe6e701bff7712210982b46872a0a9d579e4c0eb4e9e184b60c0cd897",
+      "task_sha256": "338a18a02ba7fb8801cf35c1448755fa919dd686c9dd11ac37e2884b7b0ee548",
+      "robot_scale_m_per_source_unit": 0.04081093119911808,
+      "robot_leg_length_m_L_R": [
+        0.6038410402447854,
+        0.6038410402447854
+      ],
+      "human_leg_length_native_L_R": [
+        14.649172448111191,
+        14.942950177007168
+      ],
+      "heading_alignment_rad": 0.07188729972138945,
+      "bvh_frame_time_s": 0.008333,
+      "bvh_ankle_pivots": [
+        "lfoot",
+        "rfoot"
+      ],
+      "foot_heading_axis": "BVH ankle joint pivot to toe-base pivot; not heel markers or measured sole axis",
+      "root_xy_error_m": {
+        "rmse": 0.00011387566753200723,
+        "p95_abs": 0.0002491955651803995,
+        "max_abs": 0.00032957038272678245
+      },
+      "wheel_center_error_m": {
+        "rmse": 8.962083988177381e-06,
+        "p95_abs": 2.2397802396173972e-05,
+        "max_abs": 3.762022277682126e-05
+      },
+      "joint_limit_violation_rad": 0.0,
+      "max_sampled_leg_speed_rad_s": 4.491908536395232,
+      "max_wheel_spin_rad": 3.6198805837930086e-11,
+      "max_wheel_ground_penetration_m": 0.04607411397380337,
+      "robot_near_ground_fraction_L_R": [
+        0.7790055248618785,
+        0.18232044198895028
+      ],
+      "human_near_ground_fraction_L_R": [
+        1.0,
+        1.0
+      ],
+      "angle_analysis": {
+        "common": {
+          "human_L_R": [
+            {
+              "samples": 0,
+              "fraction_of_frames": 0.0,
+              "mean_abs_axial_deg": null,
+              "p90_abs_axial_deg": null,
+              "high_offset_fraction_of_valid": null,
+              "high_offset_events": []
+            },
+            {
+              "samples": 0,
+              "fraction_of_frames": 0.0,
+              "mean_abs_axial_deg": null,
+              "p90_abs_axial_deg": null,
+              "high_offset_fraction_of_valid": null,
+              "high_offset_events": []
+            }
+          ],
+          "robot_L_R": [
+            {
+              "samples": 0,
+              "fraction_of_frames": 0.0,
+              "mean_abs_axial_deg": null,
+              "p90_abs_axial_deg": null,
+              "high_offset_fraction_of_valid": null,
+              "high_offset_events": []
+            },
+            {
+              "samples": 0,
+              "fraction_of_frames": 0.0,
+              "mean_abs_axial_deg": null,
+              "p90_abs_axial_deg": null,
+              "high_offset_fraction_of_valid": null,
+              "high_offset_events": []
+            }
+          ],
+          "paired_samples_L_R": [
+            0,
+            0
+          ],
+          "paired_mean_abs_axial_L_R": [
+            {
+              "human_deg": null,
+              "robot_deg": null,
+              "human_to_robot_heading_sidecar_deg": null
+            },
+            {
+              "human_deg": null,
+              "robot_deg": null,
+              "human_to_robot_heading_sidecar_deg": null
+            }
+          ]
+        },
+        "slow_sensitivity": {
+          "human_L_R": [
+            {
+              "samples": 130,
+              "fraction_of_frames": 0.7182320441988951,
+              "mean_abs_axial_deg": 32.484541754478904,
+              "p90_abs_axial_deg": 75.68957359866509,
+              "high_offset_fraction_of_valid": 0.4846153846153846,
+              "high_offset_events": [
+                {
+                  "start_s": 0.558311,
+                  "end_s": 1.074957,
+                  "duration_s": 0.5166459999999999,
+                  "samples": 63,
+                  "mean_abs_axial_deg": 61.43910981675509,
+                  "peak_abs_axial_deg": 89.77612754804034
+                }
+              ]
+            },
+            {
+              "samples": 130,
+              "fraction_of_frames": 0.7182320441988951,
+              "mean_abs_axial_deg": 50.22141791282076,
+              "p90_abs_axial_deg": 63.968844777044545,
+              "high_offset_fraction_of_valid": 0.9769230769230769,
+              "high_offset_events": [
+                {
+                  "start_s": 0.024999,
+                  "end_s": 1.074957,
+                  "duration_s": 1.049958,
+                  "samples": 127,
+                  "mean_abs_axial_deg": 51.02431077931537,
+                  "peak_abs_axial_deg": 89.52065325666047
+                }
+              ]
+            }
+          ],
+          "robot_L_R": [
+            {
+              "samples": 90,
+              "fraction_of_frames": 0.4972375690607735,
+              "mean_abs_axial_deg": 47.857856035631215,
+              "p90_abs_axial_deg": 84.44234772881424,
+              "high_offset_fraction_of_valid": 0.6222222222222222,
+              "high_offset_events": [
+                {
+                  "start_s": 0.616642,
+                  "end_s": 1.074957,
+                  "duration_s": 0.4583149999999999,
+                  "samples": 56,
+                  "mean_abs_axial_deg": 72.21177594491768,
+                  "peak_abs_axial_deg": 89.43100631156511
+                }
+              ]
+            },
+            {
+              "samples": 10,
+              "fraction_of_frames": 0.055248618784530384,
+              "mean_abs_axial_deg": 34.98205861591172,
+              "p90_abs_axial_deg": 78.46020827015555,
+              "high_offset_fraction_of_valid": 0.4,
+              "high_offset_events": []
+            }
+          ],
+          "paired_samples_L_R": [
+            90,
+            10
+          ],
+          "paired_mean_abs_axial_L_R": [
+            {
+              "human_deg": 41.941862443293594,
+              "robot_deg": 47.857856035631215,
+              "human_to_robot_heading_sidecar_deg": 17.39872475063732
+            },
+            {
+              "human_deg": 44.58458839665583,
+              "robot_deg": 34.98205861591172,
+              "human_to_robot_heading_sidecar_deg": 15.748408285184377
+            }
+          ]
+        }
+      },
+      "physics_validated": false,
+      "policy_trained": false,
+      "root_prescribed": false,
+      "limitations": [
+        "Source BVH has pre-existing human-to-human Jacobian IK skeleton standardization.",
+        "Uniform leg normalization: human distances/speeds are at robot scale, not measured anatomical SI units.",
+        "Three landmarks only: pelvis and ankles, no human knee or foot orientation task.",
+        "GMR itself uses Mink IK; this is the upstream GMR algorithm, not the historical custom Mink baseline.",
+        "Wheel spin is frozen; heading sidecar is diagnostic, not an independent wheel-yaw command.",
+        "No rolling, contact-force, collision avoidance, leg-speed or momentum constraint.",
+        "Near-ground masks are geometry proxies, not observed stance or contact forces.",
+        "Course-to-heading offsets are features, not a tracking mismatch or proof of sliding.",
+        "No training, friction validation or Isaac/MuJoCo dynamics rollout in this step."
+      ],
+      "trace_sha256": "b7abb318746592fa3f905dd61588f117563c2166853bf8a8778ddb3ec16e402a"
+    },
+    {
+      "clip": "HDM_bd_shuffle2StepsLStart_001_120.bvh",
+      "method": "pinned_upstream_GMR_two_stage",
+      "gmr_commit": "bb1bbe40774794fceb2a7c579a3464a28e68c844",
+      "upstream_core_modified": false,
+      "upstream_retarget_calls": 183,
+      "both_stages": true,
+      "frames": 183,
+      "duration_s": 1.5166060000000001,
+      "elapsed_s": 0.6793156699859537,
+      "model_sha256": "30c8bb94b32b1804aa2f7de2425f7a8dd02be7792881255388097e2e68092e52",
+      "source_sha256": "faa1c740b18ddc9b3306249a8d7fc91835100a32b2158b4a62dbd8cc5c95a88a",
+      "task_sha256": "338a18a02ba7fb8801cf35c1448755fa919dd686c9dd11ac37e2884b7b0ee548",
+      "robot_scale_m_per_source_unit": 0.04081093119911808,
+      "robot_leg_length_m_L_R": [
+        0.6038410402447854,
+        0.6038410402447854
+      ],
+      "human_leg_length_native_L_R": [
+        14.649172448111191,
+        14.942950177007166
+      ],
+      "heading_alignment_rad": 0.5638080896078534,
+      "bvh_frame_time_s": 0.008333,
+      "bvh_ankle_pivots": [
+        "lfoot",
+        "rfoot"
+      ],
+      "foot_heading_axis": "BVH ankle joint pivot to toe-base pivot; not heel markers or measured sole axis",
+      "root_xy_error_m": {
+        "rmse": 0.00020085038408633086,
+        "p95_abs": 0.0004290328807967681,
+        "max_abs": 0.0007521742728672888
+      },
+      "wheel_center_error_m": {
+        "rmse": 8.832148282356338e-06,
+        "p95_abs": 1.9679607500560828e-05,
+        "max_abs": 3.6006716714729036e-05
+      },
+      "joint_limit_violation_rad": 0.0,
+      "max_sampled_leg_speed_rad_s": 3.6939291492128676,
+      "max_wheel_spin_rad": 1.708107987835193e-10,
+      "max_wheel_ground_penetration_m": 0.03241307650639752,
+      "robot_near_ground_fraction_L_R": [
+        0.2459016393442623,
+        0.8688524590163934
+      ],
+      "human_near_ground_fraction_L_R": [
+        1.0,
+        1.0
+      ],
+      "angle_analysis": {
+        "common": {
+          "human_L_R": [
+            {
+              "samples": 0,
+              "fraction_of_frames": 0.0,
+              "mean_abs_axial_deg": null,
+              "p90_abs_axial_deg": null,
+              "high_offset_fraction_of_valid": null,
+              "high_offset_events": []
+            },
+            {
+              "samples": 0,
+              "fraction_of_frames": 0.0,
+              "mean_abs_axial_deg": null,
+              "p90_abs_axial_deg": null,
+              "high_offset_fraction_of_valid": null,
+              "high_offset_events": []
+            }
+          ],
+          "robot_L_R": [
+            {
+              "samples": 0,
+              "fraction_of_frames": 0.0,
+              "mean_abs_axial_deg": null,
+              "p90_abs_axial_deg": null,
+              "high_offset_fraction_of_valid": null,
+              "high_offset_events": []
+            },
+            {
+              "samples": 0,
+              "fraction_of_frames": 0.0,
+              "mean_abs_axial_deg": null,
+              "p90_abs_axial_deg": null,
+              "high_offset_fraction_of_valid": null,
+              "high_offset_events": []
+            }
+          ],
+          "paired_samples_L_R": [
+            0,
+            0
+          ],
+          "paired_mean_abs_axial_L_R": [
+            {
+              "human_deg": null,
+              "robot_deg": null,
+              "human_to_robot_heading_sidecar_deg": null
+            },
+            {
+              "human_deg": null,
+              "robot_deg": null,
+              "human_to_robot_heading_sidecar_deg": null
+            }
+          ]
+        },
+        "slow_sensitivity": {
+          "human_L_R": [
+            {
+              "samples": 183,
+              "fraction_of_frames": 1.0,
+              "mean_abs_axial_deg": 10.480632970223867,
+              "p90_abs_axial_deg": 18.991331608659255,
+              "high_offset_fraction_of_valid": 0.04918032786885246,
+              "high_offset_events": []
+            },
+            {
+              "samples": 183,
+              "fraction_of_frames": 1.0,
+              "mean_abs_axial_deg": 6.407201479965678,
+              "p90_abs_axial_deg": 10.962410489986736,
+              "high_offset_fraction_of_valid": 0.0,
+              "high_offset_events": []
+            }
+          ],
+          "robot_L_R": [
+            {
+              "samples": 45,
+              "fraction_of_frames": 0.2459016393442623,
+              "mean_abs_axial_deg": 12.02978909743719,
+              "p90_abs_axial_deg": 16.66584775883294,
+              "high_offset_fraction_of_valid": 0.0,
+              "high_offset_events": []
+            },
+            {
+              "samples": 159,
+              "fraction_of_frames": 0.8688524590163934,
+              "mean_abs_axial_deg": 8.12047575091855,
+              "p90_abs_axial_deg": 15.45011410734403,
+              "high_offset_fraction_of_valid": 0.0,
+              "high_offset_events": []
+            }
+          ],
+          "paired_samples_L_R": [
+            45,
+            159
+          ],
+          "paired_mean_abs_axial_L_R": [
+            {
+              "human_deg": 2.6933616600798094,
+              "robot_deg": 12.02978909743719,
+              "human_to_robot_heading_sidecar_deg": 13.40760112002121
+            },
+            {
+              "human_deg": 6.074146627240145,
+              "robot_deg": 8.12047575091855,
+              "human_to_robot_heading_sidecar_deg": 3.7608880274930785
+            }
+          ]
+        }
+      },
+      "physics_validated": false,
+      "policy_trained": false,
+      "root_prescribed": false,
+      "limitations": [
+        "Source BVH has pre-existing human-to-human Jacobian IK skeleton standardization.",
+        "Uniform leg normalization: human distances/speeds are at robot scale, not measured anatomical SI units.",
+        "Three landmarks only: pelvis and ankles, no human knee or foot orientation task.",
+        "GMR itself uses Mink IK; this is the upstream GMR algorithm, not the historical custom Mink baseline.",
+        "Wheel spin is frozen; heading sidecar is diagnostic, not an independent wheel-yaw command.",
+        "No rolling, contact-force, collision avoidance, leg-speed or momentum constraint.",
+        "Near-ground masks are geometry proxies, not observed stance or contact forces.",
+        "Course-to-heading offsets are features, not a tracking mismatch or proof of sliding.",
+        "No training, friction validation or Isaac/MuJoCo dynamics rollout in this step."
+      ],
+      "trace_sha256": "812648f4442574f09e9cbe03d1ce3a337de36d04b511bf9401b6a12bb8af315f"
+    },
+    {
+      "clip": "HDM_bd_shuffle2StepsRStart_001_120.bvh",
+      "method": "pinned_upstream_GMR_two_stage",
+      "gmr_commit": "bb1bbe40774794fceb2a7c579a3464a28e68c844",
+      "upstream_core_modified": false,
+      "upstream_retarget_calls": 225,
+      "both_stages": true,
+      "frames": 225,
+      "duration_s": 1.866592,
+      "elapsed_s": 0.7537745599984191,
+      "model_sha256": "30c8bb94b32b1804aa2f7de2425f7a8dd02be7792881255388097e2e68092e52",
+      "source_sha256": "526dab571097927d4d352dc1c4f3de760f5418a7edcd0c12eabf5657ebc26fd9",
+      "task_sha256": "338a18a02ba7fb8801cf35c1448755fa919dd686c9dd11ac37e2884b7b0ee548",
+      "robot_scale_m_per_source_unit": 0.04081093119911808,
+      "robot_leg_length_m_L_R": [
+        0.6038410402447854,
+        0.6038410402447854
+      ],
+      "human_leg_length_native_L_R": [
+        14.649172448111191,
+        14.942950177007168
+      ],
+      "heading_alignment_rad": 0.5365296717974949,
+      "bvh_frame_time_s": 0.008333,
+      "bvh_ankle_pivots": [
+        "lfoot",
+        "rfoot"
+      ],
+      "foot_heading_axis": "BVH ankle joint pivot to toe-base pivot; not heel markers or measured sole axis",
+      "root_xy_error_m": {
+        "rmse": 0.00013939877951613173,
+        "p95_abs": 0.0003492333237935203,
+        "max_abs": 0.00043819298255692076
+      },
+      "wheel_center_error_m": {
+        "rmse": 9.883986233865013e-06,
+        "p95_abs": 1.9640190803361543e-05,
+        "max_abs": 5.8014784447616806e-05
+      },
+      "joint_limit_violation_rad": 0.0,
+      "max_sampled_leg_speed_rad_s": 3.726589993853154,
+      "max_wheel_spin_rad": 2.9771070676606446e-10,
+      "max_wheel_ground_penetration_m": 0.003270140551462228,
+      "robot_near_ground_fraction_L_R": [
+        0.8133333333333334,
+        0.8844444444444445
+      ],
+      "human_near_ground_fraction_L_R": [
+        1.0,
+        1.0
+      ],
+      "angle_analysis": {
+        "common": {
+          "human_L_R": [
+            {
+              "samples": 0,
+              "fraction_of_frames": 0.0,
+              "mean_abs_axial_deg": null,
+              "p90_abs_axial_deg": null,
+              "high_offset_fraction_of_valid": null,
+              "high_offset_events": []
+            },
+            {
+              "samples": 0,
+              "fraction_of_frames": 0.0,
+              "mean_abs_axial_deg": null,
+              "p90_abs_axial_deg": null,
+              "high_offset_fraction_of_valid": null,
+              "high_offset_events": []
+            }
+          ],
+          "robot_L_R": [
+            {
+              "samples": 0,
+              "fraction_of_frames": 0.0,
+              "mean_abs_axial_deg": null,
+              "p90_abs_axial_deg": null,
+              "high_offset_fraction_of_valid": null,
+              "high_offset_events": []
+            },
+            {
+              "samples": 0,
+              "fraction_of_frames": 0.0,
+              "mean_abs_axial_deg": null,
+              "p90_abs_axial_deg": null,
+              "high_offset_fraction_of_valid": null,
+              "high_offset_events": []
+            }
+          ],
+          "paired_samples_L_R": [
+            0,
+            0
+          ],
+          "paired_mean_abs_axial_L_R": [
+            {
+              "human_deg": null,
+              "robot_deg": null,
+              "human_to_robot_heading_sidecar_deg": null
+            },
+            {
+              "human_deg": null,
+              "robot_deg": null,
+              "human_to_robot_heading_sidecar_deg": null
+            }
+          ]
+        },
+        "slow_sensitivity": {
+          "human_L_R": [
+            {
+              "samples": 193,
+              "fraction_of_frames": 0.8577777777777778,
+              "mean_abs_axial_deg": 9.437173348063,
+              "p90_abs_axial_deg": 18.730905796158883,
+              "high_offset_fraction_of_valid": 0.04145077720207254,
+              "high_offset_events": []
+            },
+            {
+              "samples": 193,
+              "fraction_of_frames": 0.8577777777777778,
+              "mean_abs_axial_deg": 7.370814570719631,
+              "p90_abs_axial_deg": 11.84489482810833,
+              "high_offset_fraction_of_valid": 0.0,
+              "high_offset_events": []
+            }
+          ],
+          "robot_L_R": [
+            {
+              "samples": 151,
+              "fraction_of_frames": 0.6711111111111111,
+              "mean_abs_axial_deg": 9.147714000496194,
+              "p90_abs_axial_deg": 19.384337383322077,
+              "high_offset_fraction_of_valid": 0.08609271523178808,
+              "high_offset_events": []
+            },
+            {
+              "samples": 167,
+              "fraction_of_frames": 0.7422222222222222,
+              "mean_abs_axial_deg": 11.56751456902258,
+              "p90_abs_axial_deg": 23.71200091079353,
+              "high_offset_fraction_of_valid": 0.19161676646706588,
+              "high_offset_events": [
+                {
+                  "start_s": 0.699972,
+                  "end_s": 0.958295,
+                  "duration_s": 0.25832299999999997,
+                  "samples": 32,
+                  "mean_abs_axial_deg": 23.858732023214188,
+                  "peak_abs_axial_deg": 27.26265587178557
+                }
+              ]
+            }
+          ],
+          "paired_samples_L_R": [
+            151,
+            167
+          ],
+          "paired_mean_abs_axial_L_R": [
+            {
+              "human_deg": 10.629053167197444,
+              "robot_deg": 9.147714000496194,
+              "human_to_robot_heading_sidecar_deg": 9.745116723194014
+            },
+            {
+              "human_deg": 7.171585774572825,
+              "robot_deg": 11.56751456902258,
+              "human_to_robot_heading_sidecar_deg": 5.760357999032585
+            }
+          ]
+        }
+      },
+      "physics_validated": false,
+      "policy_trained": false,
+      "root_prescribed": false,
+      "limitations": [
+        "Source BVH has pre-existing human-to-human Jacobian IK skeleton standardization.",
+        "Uniform leg normalization: human distances/speeds are at robot scale, not measured anatomical SI units.",
+        "Three landmarks only: pelvis and ankles, no human knee or foot orientation task.",
+        "GMR itself uses Mink IK; this is the upstream GMR algorithm, not the historical custom Mink baseline.",
+        "Wheel spin is frozen; heading sidecar is diagnostic, not an independent wheel-yaw command.",
+        "No rolling, contact-force, collision avoidance, leg-speed or momentum constraint.",
+        "Near-ground masks are geometry proxies, not observed stance or contact forces.",
+        "Course-to-heading offsets are features, not a tracking mismatch or proof of sliding.",
+        "No training, friction validation or Isaac/MuJoCo dynamics rollout in this step."
+      ],
+      "trace_sha256": "01409a0ec1f43afd518fc4742417552e8bf3b8bdbcd797e8a6dbf4c6661b27ff"
+    }
+  ],
+  "policy_trained": false,
+  "dynamics_validated": false
+}

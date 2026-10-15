@@ -22,9 +22,12 @@ position error? Views are top-down only. Height/flight is not a failure gate.
    at moving source frames its retargeted left-wheel offset has mean absolute
    11.27° and peak absolute 27.22°.
 3. Human: use pinned [GMR](upstream/GMR) to retarget pelvis plus both ankles to
-   TRON1. Add left/right human heel-to-toe heading offsets as an **auxiliary
-   sidecar** using `scripts/attach_human_wheel_offset.py`; compare each foot
-   independently and mask low-speed / near-ground-proxy samples. TRON1 WF has no
+   TRON1 with `scripts/hdm05_gmr.py`. In the HDM05 BVH experiment, human headings
+   use **ankle-to-toe-base joint pivots**, not heel markers. Retain human-to-wheel
+   heading offsets as an auxiliary sidecar; compare each foot independently and
+   mask low-speed / near-ground-proxy samples. The older
+   `attach_human_wheel_offset.py` remains a separate heel/toe-marker utility and
+   is not used to relabel joint pivots as measured markers. TRON1 WF has no
    independent wheel-yaw joint, so a human foot heading offset cannot be
    silently imposed as a realized joint command. The current source selection
    is **HDM05 slow lateral steps, crossover steps and walking turns**, not
@@ -165,6 +168,31 @@ controlled slip.
 
 The [full-horizon report](results/2026-10-14-full-horizon-friction-grid.md)
 contains all seven cases, predicate-onset diagnostics and reproduction commands.
+
+## HDM05 result: GMR references and near-ground heading features
+
+Ten predeclared clips from actor `bd` have been retargeted with the pinned
+upstream GMR two-stage algorithm (3,446 native-clock frames), then replayed
+beside their human FK keypoints using the actual TRON1 mesh. These are
+**kinematic results, not trained policies or human sim2sim rollouts**.
+
+![HDM05 lateral steps: human keypoints versus TRON1 GMR playback](results/hdm05_gmr_bd/renders/HDM_bd_walkLeft2Steps_001_120.gif)
+
+At the separately labeled slow-speed sensitivity threshold of 0.2 m/s, mean
+absolute wheel-axis offsets in paired near-ground samples are approximately
+82–84° for lateral steps and 60–65° for crossover steps, versus 6–16° for the
+two circular-walking clips. These offsets are candidate learning features,
+**not mismatch penalties or demonstrated controlled sliding**. The original
+0.8 m/s criterion is retained: seven clips have no paired samples at that
+speed, so the slow-speed result is not a same-speed comparison with the car.
+Source distances/speeds are normalized to robot leg length, not claimed as
+measured human SI units. The BVH source has pre-existing human-to-human IK
+processing, and its foot headings have not been checked against originals.
+
+The [experiment report and all ten animations](results/2026-10-14-hdm05-gmr.md)
+include left/right angles, near-ground masks, exact metrics and reproduction.
+Saved poses and FK-derived traces are published; raw BVH and robot meshes are
+not redistributed.
 
 ## Reproduce what is currently public
 
