@@ -61,6 +61,27 @@ def test_published_bundle_is_not_replaced_with_recomputed_self_hashes(bundle, mo
         a.load_mujoco_bundle(directory, summary["reference_spec"], summary["input_sha256"], reference)
 
 
+def test_policy_join_retains_float64_cast_proof_without_overwriting_pinned_reference():
+    reference = np.zeros((258,3),dtype=np.float32)
+    compact = {"reference_position": reference}
+    original = np.ones((258,3),dtype=np.float64)
+    time = np.arange(258)*.02
+    controller = np.ones((1033,3))
+    data = {"reference_position": np.full((258,3),9.),
+        "reference_robot_position_float64_m": original,
+        "reference_robot_time_s": time, "PPO_mu0p700_isaac_position": controller}
+    a.append_policy_compact(compact,data)
+    assert compact["reference_position"] is reference
+    assert compact["reference_robot_position_float64_m"].dtype == np.float64
+    assert np.array_equal(compact["reference_robot_position_float64_m"],original)
+    assert np.array_equal(compact["reference_robot_time_s"],time)
+    assert np.array_equal(compact["PPO_mu0p700_isaac_position"],controller)
+    original[:]=0.;time[:]=0.;controller[:]=0.
+    assert compact["reference_robot_position_float64_m"].sum() == 774.
+    assert compact["reference_robot_time_s"][-1] == 5.14
+    assert compact["PPO_mu0p700_isaac_position"].sum() == 3099.
+
+
 @pytest.fixture
 def isaac_synthetic():
     n, f = a.SAMPLES, a.FRAMES

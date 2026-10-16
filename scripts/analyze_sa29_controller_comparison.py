@@ -255,6 +255,14 @@ def audit_isaac_episode(directory, mu, spec, model_sha, mj_record):
             "failed_requests_prove_completed_native_steps": False}}
 
 
+def append_policy_compact(compact, policy_data):
+    """Retain cast-proof inputs without replacing the pinned MJ reference."""
+    proof = {"reference_robot_time_s", "reference_robot_position_float64_m"}
+    for name, value in policy_data.items():
+        if not name.startswith("reference_") or name in proof:
+            compact[name] = value.copy()
+
+
 def run(args):
     output = Path(args.output_dir); require(not output.exists(), "Choose a fresh output directory")
     directories = parse_runs(args.run); require(list(directories) == list(GRID), "Complete-only comparison requires all17 Isaac cases")
@@ -297,6 +305,7 @@ def run(args):
         "frames_per_episode": FRAMES, "physical_samples_per_episode": SAMPLES, "input_sha256": inputs,
         "mujoco_bundle_sha256": mj_hashes, "policy_dynamics_bundle_sha256": policy_hashes,
         "policy_training_evidence": None if policy_summary is None else policy_summary["policies"],
+        "reference_numeric_representation_audit": None if policy_summary is None else policy_summary["reference_numeric_representation_audit"],
         "isaac_runs": audits, "model_loader_audit": loader,
         "isaac_fk_audit": {n: g["audit"] for n,g in geometry.items()},
         "isaac_posture_diagnostics": {n: posture_diagnostic(t) for n,t in traces.items()},
@@ -326,8 +335,7 @@ def run(args):
             key = prefix+"_"+name
             if key in mj_data: compact[destination+"_"+name] = mj_data[key].copy()
     if policy_data is not None:
-        for name, value in policy_data.items():
-            if not name.startswith("reference_"): compact[name] = value.copy()
+        append_policy_compact(compact, policy_data)
     output.parent.mkdir(parents=True, exist_ok=True)
     temporary = Path(tempfile.mkdtemp(prefix=output.name+".partial-", dir=output.parent))
     np.savez_compressed(temporary/"development_trace.npz", **compact)
