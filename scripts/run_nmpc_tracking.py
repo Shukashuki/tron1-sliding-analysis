@@ -1,8 +1,8 @@
 """Run one full-body MuJoCo height-smooth NMPC episode, or a short smoke.
 
 The plant is initialized once and remains entirely physics-driven. Prediction
-friction scenarios come only from the frozen settings/explicit CLI override,
-never from the validation --plant-mu. No learned policy, TVLQR design, old Q/R,
+friction scenarios come only from the settings/explicit CLI override, or an
+explicit adaptive model bank, never from the validation --plant-mu. No learned policy, TVLQR design, old Q/R,
 root-force correction, pose reset, or absolute-height failure gate is used.
 The cold-start qacc/time predictor-state limitation is explicit in the report.
 """
@@ -288,6 +288,12 @@ def _run(args, resources):
         raise ValueError("max-policy-steps must be positive")
     reference_spec=selected_reference(args)
     settings,cem,scenarios=effective_settings(args)
+    adaptation_path=getattr(args,"adaptive_contact_config",None)
+    adaptation=None
+    if adaptation_path is not None:
+        from adaptive_mpc_runtime import load_adaptation
+        adaptation=load_adaptation(adaptation_path,args.prediction_mu_scenarios)
+        scenarios=adaptation.mu_hypotheses
     task=json.loads(Path(args.task_profile).read_text())
     contract=json.loads(Path(args.contract).read_text())
     provider=build_provider(args.model,args.motion,contract,settings,scenarios)
@@ -305,7 +311,13 @@ def _run(args, resources):
         controller_predictor=resources.enter_context(NativeBatchTrackingPredictor(predictor,library))
         native_metadata=controller_predictor.metadata
     model_nominal_plan=attach_model_nominal_plan(args,controller_predictor,predictor,reference_spec)
-    controller=ShootingNMPC(controller_predictor,cem,action_low=-np.ones(8),action_high=np.ones(8),mu_scenarios=scenarios)
+    if adaptation is None:
+        controller=ShootingNMPC(controller_predictor,cem,action_low=-np.ones(8),action_high=np.ones(8),mu_scenarios=scenarios)
+    else:
+        from adaptive_nmpc import AdaptiveShootingNMPC
+        from adaptive_mpc_runtime import ScalarIdentificationModel,transition_context,adaptation_summary
+        controller=AdaptiveShootingNMPC(controller_predictor,cem,adaptation_config=adaptation,
+            identification_model=ScalarIdentificationModel(predictor),action_low=-np.ones(8),action_high=np.ones(8))
     if backend=="native":
         controller_predictor.record_cem_wiring(controller)
     model,_=provider.api.load_model(args.model,no_visual_mesh=True)
@@ -337,6 +349,9 @@ def _run(args, resources):
         source_files.extend((ROOT/"scripts/nmpc_native_batch.py",ROOT/"scripts/nmpc_batch_objective.py",ROOT/"native/nmpc_batch.cpp"))
     if model_nominal_plan["enabled"]:
         source_files.extend((ROOT/"scripts/model_nominal_plan.py",Path(args.model_nominal_plan)))
+    if adaptation is not None:
+        source_files.extend((Path(adaptation_path),ROOT/"scripts/adaptive_contact_model.py",
+                             ROOT/"scripts/adaptive_nmpc.py",ROOT/"scripts/adaptive_mpc_runtime.py"))
     report={"kind":"full_body_height_smooth_cem_nmpc","engine":"MuJoCo","mujoco_version":mujoco.__version__,
             "status":"running","model_sha256":sha(args.model),"motion_sha256":sha(args.motion),
             "reference_id":reference_spec["reference_id"],"role":reference_spec["role"],
@@ -363,6 +378,12 @@ def _run(args, resources):
             "state_access":"Full simulator qpos/qvel, objective memory and future reference preview; unlike the actor-only observation interface.",
             "robustness_certificate":False,"real_time_verified":False,
             "isaac_result":False,"surrogate_flags":[]}
+    if adaptation is not None:
+        report.update(kind="full_body_height_smooth_adaptive_cem_mpc",
+            controller_label="Finite-model contact-adaptive MPC (not certified robust MPC)",
+            adaptation_contract=controller.adaptation_contract(),prediction_mu_model_bank=list(scenarios),
+            prediction_mu_scenarios=None,prediction_selection="Causal singleton per solve; see solver log",
+            identification_state_channels=["base_COM_vx_world_m_s","base_COM_vy_world_m_s","base_omega_z_world_rad_s"])
     output.mkdir(parents=True)
     (output/"report.json").write_text(json.dumps(report,indent=2,allow_nan=False)+"\n")
     records=[];decisions=[];surrogates=set();started=time.perf_counter()
@@ -395,7 +416,12 @@ def _run(args, resources):
             packed=predictor.layout.pack(data.qpos,data.qvel,history,k==0)
             held=predictor.objective.hold_reference(predictor.reference_frame(k),pre)
             now=time.perf_counter()
-            action,info=controller.action(packed,k,previous_action=previous,previous_vz=previous_vz)
+            if adaptation is None:
+                action,info=controller.action(packed,k,previous_action=previous,previous_vz=previous_vz)
+            else:
+                context=None if k==0 else transition_context(records[-4:])
+                action,info=controller.action(packed,k,previous_action=previous,previous_vz=previous_vz,
+                                              transition_context=context)
             elapsed=time.perf_counter()-now
             if action.shape!=(8,) or not np.isfinite(action).all() or np.max(np.abs(action))>1.+1e-9:
                 raise FloatingPointError("NMPC returned an invalid bounded action")
@@ -421,7 +447,7 @@ def _run(args, resources):
                               "solver":info,"objective":objective})
             previous=action.copy();previous_vz=objective["base_com_vz"]
             if k%25==0:
-                print(f"nmpc frame={k}/{steps} plant_mu={args.plant_mu} prediction={scenarios} compute_ms={1000*elapsed:.2f}",flush=True)
+                print(f"nmpc frame={k}/{steps} plant_mu={args.plant_mu} prediction={controller.mu_scenarios} compute_ms={1000*elapsed:.2f}",flush=True)
     except Exception as error:
         report.update(status="failed",error_type=type(error).__name__,error=str(error),
                       completed_policy_steps=len(decisions),wall_s=time.perf_counter()-started)
@@ -452,6 +478,8 @@ def _run(args, resources):
                   solver_failures=sum(bool(r["solver"]["optimization_failed"]) for r in decisions),
                   total_stage_cost=float(trace["stage_cost"].sum()),surrogate_flags=sorted(surrogates),
                   rollout_sha256=sha(output/"rollout.npz"),solver_log_sha256=sha(output/"solver_log.json"))
+    if adaptation is not None:
+        report["adaptation_summary"]=adaptation_summary(decisions)
     (output/"report.json").write_text(json.dumps(report,indent=2,allow_nan=False)+"\n")
     print(json.dumps({name:report[name] for name in ("status","duration_s","completed_policy_steps",
                      "core_coverage_complete","core_xy_rmse_m","compute_ms_median_p95_max","solver_failures")}),flush=True)
@@ -477,6 +505,8 @@ def parser():
     p.add_argument("--native-library",type=Path,default=None)
     p.add_argument("--model-nominal-plan",type=Path,default=None,
                    help="Optional audited model-generated plan metadata; an extra rescored initial candidate, never applied-action replay")
+    p.add_argument("--adaptive-contact-config",type=Path,default=None,
+                   help="Explicit causal contact-model adaptation; fixed-model NMPC is unchanged when omitted")
     for name in ("horizon-steps","control-blocks","candidates","iterations","elite-count"):
         p.add_argument("--"+name,type=int,default=None,help="Explicit CEM override, saved in report")
     return p

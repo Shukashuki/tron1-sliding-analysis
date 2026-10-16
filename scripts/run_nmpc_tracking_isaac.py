@@ -289,6 +289,8 @@ def main():
     parser.add_argument("--settings",type=Path,default=ROOT/"config/nmpc_height_smooth.json")
     parser.add_argument("--model-nominal-plan",type=Path,default=None,
                         help="Optional audited model-generated plan metadata; additive current-state/scenario-scored candidate, not action replay")
+    parser.add_argument("--adaptive-contact-config",type=Path,default=None,
+                        help="Explicit causal model adaptation; omitted means existing fixed-model NMPC")
     parser.add_argument("--plant-mu",type=float,required=True)
     parser.add_argument("--prediction-mu-scenarios",type=float,nargs="+",default=None)
     parser.add_argument("--max-policy-steps",type=int,default=None)
@@ -307,6 +309,10 @@ def main():
             or not np.isfinite(args.contact_threshold_n) or args.contact_threshold_n<0):
         parser.error("Invalid friction/contact threshold")
     backend,native_library=prediction_backend_options(args)
+    adaptation=None
+    if args.adaptive_contact_config is not None:
+        from adaptive_mpc_runtime import load_adaptation
+        adaptation=load_adaptation(args.adaptive_contact_config,args.prediction_mu_scenarios)
     output=args.output_dir.resolve()
     if output.exists():
         raise FileExistsError("Preserving prior Isaac NMPC output: "+str(output))
@@ -332,6 +338,10 @@ def main():
             "prediction_backend":backend,"native_library":str(native_library) if native_library else None,
             "native_compilation_automatic":False,
             "pooled_success_statistics":False,"robustness_certificate":False,"real_time_verified":False}
+    if adaptation is not None:
+        status.update(kind="receding_horizon_contact_adaptive_mpc",
+            controller_label="Isaac plant / contact-adaptive MuJoCo model (not certified robust MPC)",
+            adaptation_contract=adaptation.contract(),prediction_mu_model_bank=list(adaptation.mu_hypotheses))
     def write_status():
         (output/"report.json").write_text(json.dumps(status,indent=2,allow_nan=False)+"\n")
     app=env=native_prediction=None;original_scene_update=None;started=time.perf_counter()
@@ -349,6 +359,8 @@ def main():
         from nmpc_tracking_objective import BODY_NAMES,JOINT_NAMES,HeightSmoothTrackingObjective,quaternion_rotate,quaternion_inverse
         from height_smoothness import install_height_smoothness
         settings,cem,scenarios=effective_settings(args)
+        if adaptation is not None:
+            scenarios=adaptation.mu_hypotheses
         profile=load_task_profile(args.task_profile)
         contract=json.loads(args.contract.read_text())
         provider=SourceModelProvider(args.source_root,args.mujoco_model,args.motion,contract,settings,scenarios)
@@ -430,7 +442,13 @@ def main():
         if backend=="native":
             native_prediction=controller_prediction
         model_nominal_plan=attach_model_nominal_plan(args,controller_prediction,prediction,reference_spec)
-        controller=ShootingNMPC(controller_prediction,cem,action_low=-np.ones(8),action_high=np.ones(8),mu_scenarios=scenarios)
+        if adaptation is None:
+            controller=ShootingNMPC(controller_prediction,cem,action_low=-np.ones(8),action_high=np.ones(8),mu_scenarios=scenarios)
+        else:
+            from adaptive_nmpc import AdaptiveShootingNMPC
+            from adaptive_mpc_runtime import ScalarIdentificationModel,transition_context,adaptation_summary
+            controller=AdaptiveShootingNMPC(controller_prediction,cem,adaptation_config=adaptation,
+                identification_model=ScalarIdentificationModel(prediction),action_low=-np.ones(8),action_high=np.ones(8))
         if native_prediction is not None:
             native_prediction.record_cem_wiring(controller)
         nonwheel_sensors=tuple(name for name in env.scene.sensors if name.startswith("nonwheel_ground_"))
@@ -457,6 +475,9 @@ def main():
                                  Path(__file__).with_name("nmpc_native_batch.py"),ROOT/"native/nmpc_batch.cpp"))
         if model_nominal_plan["enabled"]:
             source_paths.extend((Path(__file__).with_name("model_nominal_plan.py"),Path(args.model_nominal_plan)))
+        if adaptation is not None:
+            source_paths.extend((args.adaptive_contact_config,Path(__file__).with_name("adaptive_contact_model.py"),
+                                 Path(__file__).with_name("adaptive_nmpc.py"),Path(__file__).with_name("adaptive_mpc_runtime.py")))
         for relative in ("scripts/eval_tracking_mujoco.py","scripts/eval_tracking.py","training/tron1_tracking.py",
                          "training/tron1_drift.py","training/tron1_domain_randomization.py","training/tron1_contact_slip.py",
                          "training/tron1_runtime_device.py","training/tron1_physics_clock.py"):
@@ -496,6 +517,11 @@ def main():
                       truncated_smoke=steps<provider.reference.frames,pose_height_failure_gate=False,
                       contact_slip_definition="Per-wheel force-weighted contact-point lateral-speed RMS; >threshold normal force, ground-filtered. Zero with no active contact is unavailable, not rolling.",
                       timing_scope="Replanning call including native worker IPC when enabled; CUDA extraction, logging and plant stepping additionally cost time; no real-time deadline enforced.")
+        if adaptation is not None:
+            status.update(prediction_mu_scenarios=None,
+                adaptation_contract=controller.adaptation_contract(),
+                prediction_selection="Causal singleton per solve; see solver log",
+                identification_state_channels=["base_COM_vx_world_m_s","base_COM_vy_world_m_s","base_omega_z_world_rad_s"])
         write_status()
         previous_action=np.zeros(8);previous_vz=float(pre["body_lin_vel_w"][0,2]);decisions=[];packed_samples=[]
         for k in range(steps):
@@ -508,7 +534,12 @@ def main():
             packed,error=conversion.convert(measurement,pre["contact_force_history_w"],environment_origin=origin,first_reward_after_reset=k==0)
             held=prediction.objective.hold_reference(prediction.reference_frame(k),pre)
             now=time.perf_counter()
-            action,info=controller.action(packed,k,previous_action=previous_action,previous_vz=previous_vz)
+            if adaptation is None:
+                action,info=controller.action(packed,k,previous_action=previous_action,previous_vz=previous_vz)
+            else:
+                context=None if k==0 else transition_context(recorder.records[-4:])
+                action,info=controller.action(packed,k,previous_action=previous_action,previous_vz=previous_vz,
+                                              transition_context=context)
             elapsed=time.perf_counter()-now
             raw_action=action.copy()
             if action.shape!=(8,) or not np.isfinite(action).all() or np.max(np.abs(action))>1.+1e-9:
@@ -534,7 +565,7 @@ def main():
             packed_samples.append(packed)
             previous_action=action.copy();previous_vz=objective["base_com_vz"]
             if k%25==0:
-                print(f"Isaac/MuJoCo NMPC frame={k}/{steps} plant_mu={args.plant_mu} prediction={scenarios} compute_ms={1000*elapsed:.2f}",flush=True)
+                print(f"Isaac/MuJoCo NMPC frame={k}/{steps} plant_mu={args.plant_mu} prediction={controller.mu_scenarios} compute_ms={1000*elapsed:.2f}",flush=True)
         env.scene.update=original_scene_update;original_scene_update=None
         trace=recorder.arrays()
         trace.update(actions=np.asarray([row["action"] for row in decisions]),
@@ -543,6 +574,8 @@ def main():
                      action_joint_names=np.array(JOINT_NAMES),body_names=np.array(BODY_NAMES),physics_dt_s=np.array(.005),policy_dt_s=np.array(.02),
                      reference_time_s=np.arange(provider.reference.frames)*.02,reference_root_xy_m=provider.reference.archive["body_pos_w"][:,0,:2])
         status.update(_metrics(trace,provider.reference,reference_spec))
+        if adaptation is not None:
+            status["adaptation_summary"]=adaptation_summary(decisions)
         np.savez_compressed(output/"rollout.npz",**trace)
         (output/"solver_log.json").write_text(json.dumps(decisions,indent=2,allow_nan=False)+"\n")
         timing=trace["compute_s"]

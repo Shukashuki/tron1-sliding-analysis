@@ -27,8 +27,21 @@ not establish a high-speed capability result or dynamic similarity to a car.
 versions, including nominal failures. Report XY tracking, speed retention,
 contact-conditioned sliding, actuator burden and computational cost separately;
 nominal failures remain reportable results, not a reason for open-ended tuning.
-This does not make NMPC a qualified frozen benchmark. No new remote deployment
-or NMPC friction sweep was performed in this update.
+This does not make NMPC a qualified frozen benchmark; no formal NMPC friction
+sweep has been completed.
+
+The next controller is a [causal contact-adaptive MPC pilot](results/2026-10-16-adaptive-mpc.md):
+an unchanged CEM planner chooses from a fixed prediction-model bank using only
+completed measured transitions. It does not read the plant coefficient, and
+unsupported/indistinguishable evidence holds the current model. This is not
+certified robust MPC. The fixed/adaptive × μ={0.7,0.3} pilot is MuJoCo-only;
+no adaptive Isaac result or remote deployment is claimed.
+Both adaptive episodes made zero model switches and were bitwise identical to
+the fixed-model controls; this is not a demonstrated adaptation improvement.
+The subsequent [model-nominal-initialized TVLQR pilot](results/2026-10-16-tvlqr-model-nominal.md)
+also retains its failure: 0.439 m nominal core XY RMSE, frequent command clipping
+and posture loss. Its quadratic design cost differs from the common task
+evaluation. Neither pilot triggers further parameter search or a ranking.
 
 The [completed historical refinement](results/2026-10-15-car-sim2sim-boundary.md) places
 the sampled Isaac XY-verdict change between µ=0.16 and 0.18, versus µ=0.14 and

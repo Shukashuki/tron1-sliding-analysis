@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "kind": "bounded_fixed_vs_adaptive_mujoco_pilot",
+  "reference_id": "drift_drl_traj4",
+  "plant_friction_cases": [0.7, 0.3],
+  "controllers": ["fixed_prediction_mu_0.7", "causal_contact_adaptive"],
+  "prediction_model_bank": [0.3, 0.7, 1.6],
+  "initial_prediction_mu": 0.7,
+  "adaptive_configuration": "config/adaptive_contact_mpc.json",
+  "settings": "config/nmpc_height_smooth_residual.json",
+  "effective_cem_overrides": {
+    "horizon_steps": 30,
+    "control_blocks": 10,
+    "candidates": 64,
+    "iterations": 3,
+    "elite_count": 8,
+    "seed": 42
+  },
+  "height_or_flight_failure_gate": false,
+  "heading_offset_is_mismatch": false,
+  "settings_changed_after_observing_pilot_results": false,
+  "physical_friction_estimate_claimed": false,
+  "robustness_certificate": false,
+  "real_time_claimed": false,
+  "isaac_results_available": false,
+  "formal_frozen_friction_grid": false
+}
