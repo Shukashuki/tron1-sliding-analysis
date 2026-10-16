@@ -27,8 +27,8 @@ not establish a high-speed capability result or dynamic similarity to a car.
 versions, including nominal failures. Report XY tracking, speed retention,
 contact-conditioned sliding, actuator burden and computational cost separately;
 nominal failures remain reportable results, not a reason for open-ended tuning.
-This does not make NMPC a qualified frozen benchmark; no formal NMPC friction
-sweep has been completed.
+The completed development grid below does not make NMPC a nominal-qualified
+frozen benchmark.
 
 The next controller is a [causal contact-adaptive MPC pilot](results/2026-10-16-adaptive-mpc.md):
 an unchanged CEM planner chooses from a fixed prediction-model bank using only
@@ -49,9 +49,11 @@ plan, with the same rollout count as CEM but an additional Gaussian prior.
 This is MuJoCo-only; no MPPI retuning, Isaac result or friction grid is claimed.
 
 The [fixed-controller friction development comparison](results/2026-10-16-primary-controller-friction-development.md)
-now includes all 17 MuJoCo NMPC coefficients, without retuning: 7 exceed the
-XY screen and 10 remain below both limits. The nominal μ=0.7 failure is retained.
-The new matching-source Isaac sweep is in progress, not a completed paired grid.
+now includes all 17 NMPC coefficients in **both engines**, without retuning.
+NMPC stays below both XY limits at 10/17 points per engine, but only 8/17 at
+the same μ in both; the nominal μ=0.7 MuJoCo failure is retained. PPO has
+13/17 Isaac and 11/17 MuJoCo below-screen points; this SAC configuration has 0/17.
+The report includes the reference / PPO / SAC / NMPC top-down comparison.
 Original PPO/SAC raw recordings also now support measured COM-speed, wheel-heading
 and contact-slip replay; no new training or policy inference was performed.
 This development evidence does not pass or weaken the qualified freeze gate.
