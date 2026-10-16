@@ -20,6 +20,7 @@ CASES = [
     ("NMPC", "controller_primary_nmpc_residual_nominal_pair_v1", "2026-10-16-primary-nmpc-residual-nominal-pair.md"),
     ("NMPC", "controller_primary_nmpc_residual_h30_b5_nominal_pair_v1", "2026-10-16-nmpc-progress-and-horizon.md"),
     ("NMPC", "controller_primary_nmpc_residual_scenario3_nominal_pair_v1", "2026-10-16-nmpc-progress-and-horizon.md"),
+    ("NMPC", "controller_primary_nmpc_residual_h30_b10_nominal_pair_v1", "2026-10-16-nmpc-progress-and-horizon.md"),
 ]
 
 
@@ -211,3 +212,55 @@ def test_three_prediction_scenarios_are_not_a_plant_friction_grid_or_qualificati
     assert summary["posture_diagnostics"]["isaac"]["max_base_tilt_deg"] < 20.
     assert summary["posture_diagnostics"]["mujoco"]["max_base_tilt_deg"] > 90.
     assert not summary["controlled_execution_success_claimed"]
+
+
+def test_h30_b10_isaac_xy_pass_is_not_two_engine_qualification_or_source_identity():
+    _, summary, compact = publication("controller_primary_nmpc_residual_h30_b10_nominal_pair_v1")
+    development = summary["development_status"]
+    for field in ("controller_frozen", "qualified_for_friction_grid", "algorithm_ranking_claimed"):
+        assert development[field] is False
+    assert development["exact_controller_source_identity"] is False
+    assert development["default_off_regression_tests_pass"] is True
+    assert "search dimension doubles" in development["configuration_caveat"]
+    identity = summary["audit"]["nmpc_controller_identity"]
+    config = identity["effective_cem_config"]
+    assert identity["exact_configuration_match"]
+    assert {key: config[key] for key in ("horizon_steps", "control_blocks", "candidates", "iterations", "elite_count", "seed")} == {
+        "horizon_steps": 30, "control_blocks": 10, "candidates": 64, "iterations": 3, "elite_count": 8, "seed": 42}
+    assert config["initial_std"] == [.04]*6+[.35, .35]
+    assert config["reference_convention"] == "held_pre_action"
+    assert identity["parameterization_mode"] == config["parameterization"] == "warm_start_residual_blocks"
+    assert identity["action_parameterization_contract"]["baseline_copied_and_fixed_per_solve"]
+    assert not identity["action_parameterization_contract"]["learned_baseline"]
+    assert identity["model_generated_nominal_plan"] == {"enabled": False}
+    core = summary["windows"]["core"]
+    assert core["isaac"]["large_xy_exploratory_screen"] is False
+    assert core["mujoco"]["large_xy_exploratory_screen"] is True
+    assert core["mujoco"]["reference_xy_rmse_m"] > .15
+    assert core["mujoco"]["reference_xy_peak_m"] > .30
+    recorded_cem = {}
+    for engine, rmse, peak, speed, trace_sha, cem_sha in (
+        ("isaac", .0674089412008753, .11217601728215072, 1.0224657798654433,
+         "540a02b817f6812bbae7967453288d8c5e14ed6af3f45193e32e5dffdca39098",
+         "8d2ac598d9e0e2765f9566954ba3fd0f443d939d2a5c6566125cca18668b35bd"),
+        ("mujoco", .170030215967865, .30637733265429923, .9568193344433233,
+         "8408c44fb3ac04971f8ff2dce81ec648614b30b393fbb5eb1c16c3ee2aae713f",
+         "d7d50588af454dcd50d27e8e00bdcfd9b62a4803cf843dccac40f1a187d7a4ae")):
+        assert core[engine]["reference_xy_rmse_m"] == pytest.approx(rmse, abs=1e-14)
+        assert core[engine]["reference_xy_peak_m"] == pytest.approx(peak, abs=1e-14)
+        assert core[engine]["mean_speed_retention_ratio"] == pytest.approx(speed, abs=1e-14)
+        assert summary["input_sha256"][f"{engine}_trace"] == trace_sha
+        assert len(compact[f"{engine}_time_s"]) == 1397
+        sources = {entry["source_name"]: entry["sha256"] for entry in
+                   summary["reported_plant_source_provenance"][engine]["reported_source_hashes"]}
+        recorded_cem[engine] = sources["nmpc_shooting.py"]
+        assert recorded_cem[engine] == cem_sha
+        assert sources["nmpc_tracking_objective.py"] == "ff22eebb2b22b9af7dba114c64fcd10f6b0a90822559af8f32cbe6884015b860"
+        assert summary["posture_diagnostics"][engine]["max_base_tilt_deg"] < 20.
+        assert core[engine]["ground_contact_heading_geometry"]["measured_contact_gate_applied"]
+        assert core[engine]["ground_contact_lateral_slip_m_s"] is not None
+        assert not core[engine]["heading_offset_is_mismatch"]
+        assert not core[engine]["height_or_flight_failure_gate"]
+    # Optional-hook default-OFF parity is narrower than byte-identical source.
+    assert recorded_cem["isaac"] != recorded_cem["mujoco"]
+    assert not summary["controlled_execution_success_claimed"] and not summary["hardware_ready"]

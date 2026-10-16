@@ -154,8 +154,37 @@ remain diagnostics, not new height or flight failure gates.
 Neither initializer nor lower-leg-width variant has been evaluated in Isaac;
 the prepared initializer snapshot has not been uploaded. No controller is
 frozen and no NMPC friction grid has started: **both engines must first achieve
-core XY RMSE ≤0.15 m and peak ≤0.30 m**. Separate local and Isaac H30/B10 checks
-are in progress; no outcome from them is claimed here.
+core XY RMSE ≤0.15 m and peak ≤0.30 m**.
+
+## Finer residual blocks pass the XY screen in Isaac, not in MuJoCo
+
+The completed [H30/B10 pair](controller_primary_nmpc_residual_h30_b10_nominal_pair_v1/summary.json)
+keeps the 0.60 s horizon but changes residual-correction blocks from 0.12 to
+0.06 s, doubling search parameters from 40 to 80. Actual control remains
+0.02 s; the full shifted baseline can retain 20 ms variation. Population 64,
+three iterations, eight elites, seed 42 and plant/prediction μ=0.70 remain
+unchanged. This is not a causal block-resolution-only test.
+
+![H30/B10: reference, Isaac and MuJoCo](controller_primary_nmpc_residual_h30_b10_nominal_pair_v1/topdown.png)
+
+| H30/B10 core diagnostic | Isaac | MuJoCo |
+| --- | ---: | ---: |
+| XY RMSE / peak (m) | 0.067409 / 0.112176 | 0.170030 / 0.306377 |
+| Mean COM-speed retention | 102.25% | 95.68% |
+| Maximum full-episode tilt | 14.58° | 14.54° |
+
+Both runs complete 349 decisions / 1,397 physical samples, with zero solver
+failures and no nonwheel-ground contact. Isaac passes both XY limits; MuJoCo
+exceeds both, so this configuration is **not frozen or qualified for the
+friction grid**. Neither posture nor flight becomes a new failure gate.
+
+The engines also use different implementation bytes: remote Isaac retains
+the approved CEM source `8d2ac598…`, while local MuJoCo uses `d7d50588…`, which
+adds optional model-plan instrumentation with that feature OFF here. Effective
+configuration and objective match, and default-OFF behavior has exact golden
+regression coverage; separate source hashes are retained. This is development
+evidence, **not an identical-source frozen benchmark**. The six-iteration
+H30/B5 check remains in progress; no result from it is claimed here.
 
 ## Reproduction
 

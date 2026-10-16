@@ -73,6 +73,8 @@ Nominal XY must pass before freezing or starting the NMPC friction grid.
 [Further local search ablations](results/2026-10-16-nmpc-progress-and-horizon.md#model-only-initialization-and-narrower-leg-sampling-did-not-improve-tracking)
 retain unsuccessful model-only initializer and narrower-leg-search results.
 Those cases remain MuJoCo-only; no controller freeze or NMPC friction grid is claimed.
+[H30/B10](results/2026-10-16-nmpc-progress-and-horizon.md#finer-residual-blocks-pass-the-xy-screen-in-isaac-not-in-mujoco)
+now passes Isaac's XY screen (0.067 m RMSE), but MuJoCo still fails (0.170 m); it remains unfrozen.
 Matching the 15 stage rewards does not match RL's discount, bootstrap and
 orientation-termination semantics; the
 [termination audit](results/2026-10-16-controller-termination-semantics.md)
