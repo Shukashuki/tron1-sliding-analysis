@@ -58,6 +58,11 @@ Original PPO/SAC raw recordings also now support measured COM-speed, wheel-headi
 and contact-slip replay; no new training or policy inference was performed.
 This development evidence does not pass or weaken the qualified freeze gate.
 
+The separate [SA29 nominal NMPC pilot](results/2026-10-16-sa29-nmpc-pilot.md)
+now records 0.102 m MuJoCo core XY RMSE, 0.160 m peak and 99.1% retained speed
+with the unchanged controller. It is not a large-angle-turn replicate, trained
+supplementary policy, Isaac result or completed supplementary friction grid.
+
 The [completed historical refinement](results/2026-10-15-car-sim2sim-boundary.md) places
 the sampled Isaac XY-verdict change between µ=0.16 and 0.18, versus µ=0.14 and
 0.15 in MuJoCo, and includes top-down animation plus divergence-onset timing.
