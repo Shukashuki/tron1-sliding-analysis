@@ -9,6 +9,8 @@ import argparse
 import copy
 import json
 from pathlib import Path
+import re
+import shlex
 import tempfile
 
 import numpy as np
@@ -34,6 +36,94 @@ MUJOCO_BUNDLE_SHA256 = {
     "topdown.png": "1d3a7971a0eb7c03a340a7297390ec37cc670045b0c5262c443140baac5d37df",
 }
 ISAAC_ASSET_SHA256 = "327ca5080e753bbc95d8c3c797e9cd49a0f134d400cfe80494af0ba840e23a8e"
+TERMINAL_ERROR_PATTERN = (r"Traceback \(most recent call last\)|Fatal Python error|Segmentation fault|"
+    r"CUDA (?:error|out of memory)|unhandled exception|\[(?:ERROR|FATAL)\]")
+
+
+def load_execution_manifest(path):
+    """Bind genuine terminal captures without opening simulators or weights."""
+    from analyze_sa29_policy_friction_dynamics import checked_file
+    path = Path(path).resolve(); document = read_json(path)
+    require(set(document) == {"schema_version", "kind", "reference_id", "cases"}
+            and type(document["schema_version"]) is int and document["schema_version"] == 1
+            and document["kind"] == "sa29_nmpc_isaac_terminal_capture"
+            and document["reference_id"] == REFERENCE_ID
+            and isinstance(document["cases"], list) and len(document["cases"]) == len(GRID),
+            "Require the complete portable SA29 NMPC Isaac execution manifest")
+    cases, inodes = {}, set()
+    for item in document["cases"]:
+        require(isinstance(item, dict) and set(item) == {"mu", "receipt", "log"}, "Unexpected terminal case fields")
+        mu = item["mu"]
+        require(type(mu) in (int, float) and np.isfinite(mu) and mu in GRID and mu not in cases,
+                "Missing, duplicate or undeclared terminal coefficient")
+        capture = {}
+        for role in ("receipt", "log"):
+            target = checked_file(item[role], path.parent); state = target.stat()
+            inode = (state.st_dev, state.st_ino)
+            require(inode not in inodes, "Execution file/path/inode reused across distinct case roles")
+            inodes.add(inode); capture[role] = target
+        cases[float(mu)] = capture
+    require(set(cases) == set(GRID), "Missing NMPC Isaac terminal cases")
+    return {"manifest_sha256": sha256(path), "cases": cases}
+
+
+def audit_execution_case(capture, mu, artifact_hashes, device_audit):
+    """Actual exit/log/argv closure is separate from physical XY outcomes."""
+    from analyze_sa29_policy_friction_dynamics import _argument
+    receipt = read_json(capture["receipt"]); log_sha = sha256(capture["log"])
+    require(set(artifact_hashes) == {"report", "trace", "solver"}
+            and receipt.get("schema_version") == 1 and type(receipt.get("schema_version")) is int
+            and receipt.get("kind") == "sa29_nmpc_engine_terminal_receipt"
+            and receipt.get("algorithm") == "NMPC" and receipt.get("engine") == "isaac"
+            and receipt.get("reference_id") == REFERENCE_ID and type(receipt.get("mu")) in (int, float)
+            and receipt["mu"] == mu and receipt.get("terminal_status") == "exited"
+            and type(receipt.get("exit_code")) is int and receipt["exit_code"] == 0
+            and receipt.get("log_sha256") == log_sha and receipt.get("artifact_sha256") == artifact_hashes
+            and receipt.get("owned_processes_and_contexts_absent") is True
+            and receipt.get("source_bindings_unchanged") is True,
+            "NMPC terminal receipt identity/exit/log/artifact/owned closure differs")
+    log = Path(capture["log"]).read_text(encoding="utf-8", errors="strict")
+    require(re.search(TERMINAL_ERROR_PATTERN, log, re.I) is None,
+            "NMPC full execution log contains an error/traceback despite terminal status")
+    command = receipt.get("command")
+    require(isinstance(command, list) and len(command) >= 2 and all(isinstance(x, str) and x for x in command),
+            "Missing actual NMPC execution argv")
+    operand = 1
+    while operand < len(command) and command[operand] in ("-u", "-B"): operand += 1
+    require(re.fullmatch(r"python(?:3(?:\.[0-9]+)?)?(?:\.exe)?", Path(command[0]).name) is not None
+            and operand < len(command) and Path(command[operand]).name == "run_nmpc_tracking_isaac.py"
+            and sum(Path(x).name == "run_nmpc_tracking_isaac.py" for x in command) == 1,
+            "Wrong actual NMPC direct entrypoint")
+    forbidden = ("--max-policy-steps", "--adaptive-contact-config", "--model-nominal-plan")
+    require(not any(token == flag or token.startswith(flag+"=") for token in command for flag in forbidden),
+            "Truncation/adaptation/model-plan execution overrides are forbidden")
+    expected = {"--num-envs": "1", "--seed": "42", "--horizon-steps": "30", "--control-blocks": "10",
+        "--candidates": "64", "--iterations": "3", "--elite-count": "8", "--prediction-backend": "native",
+        "--reference-id": REFERENCE_ID}
+    require(all(_argument(command, flag) == value for flag, value in expected.items())
+            and float(_argument(command, "--plant-mu")) == mu
+            and float(_argument(command, "--contact-threshold-n")) == 5.
+            and float(_argument(command, "--prediction-mu-scenarios")) == .7
+            and command.count("--headless") == 1,
+            "NMPC command contradicts the fixed complete-episode controller")
+    scenario = command.index("--prediction-mu-scenarios")+2
+    require(scenario == len(command) or command[scenario].startswith("--"), "Prediction must remain singleton mu=.7")
+    requested = receipt.get("requested_device")
+    require(isinstance(requested, str) and re.fullmatch(r"cuda:(0|[1-9][0-9]*)", requested) is not None
+            and _argument(command, "--device") == requested == device_audit.get("requested_device")
+            and device_audit.get("status") == "verified" and device_audit.get("required_unmasked") is True
+            and device_audit.get("cuda_visible_devices") is None
+            and device_audit.get("native_and_tensor_device_consistency_verified") is True,
+            "Terminal command/device disagrees with verified unmasked native/tensor audit")
+    index = int(requested.split(":")[1])
+    kit = shlex.split(_argument(command, "--kit_args"))
+    require(len(kit) == 4 and set(kit) == {f"--/renderer/activeGpu={index}", "--/renderer/multiGpu/enabled=false",
+            f"--/physics/cudaDevice={index}", "--/physics/sceneMultiGPUMode=0"}
+            and bool(_argument(command, "--native-library")), "Missing explicit four Kit settings or existing native-library selection")
+    return {"receipt_sha256": sha256(capture["receipt"]), "log_sha256": log_sha,
+        "exit_code": 0, "terminal_status": "exited", "traceback_error_scan_passed": True,
+        "owned_processes_and_contexts_absent": True, "source_bindings_unchanged": True,
+        "scope": "Hash-bound original terminal receipt/full log; consistency of trusted capture, not independent provenance or GPU exclusivity."}
 
 
 def compact_case(data, prefix):
@@ -238,7 +328,7 @@ def audit_isaac_trace(report, raw, log):
             "scope": "Original uncontrolled solve wall times including native IPC; plant waits for each solve, not real-time execution evidence."}}
 
 
-def audit_isaac_episode(directory, mu, spec, model_sha, mj_record):
+def audit_isaac_episode(directory, mu, spec, model_sha, mj_record, *, capture):
     directory = Path(directory); report = read_json(directory/"report.json")
     require(report.get("status") == "completed", "Incomplete runtime is censored, not a physical verdict; complete-only publication")
     header = audit_isaac_header(report, mu, spec, model_sha, mj_record)
@@ -248,7 +338,9 @@ def audit_isaac_episode(directory, mu, spec, model_sha, mj_record):
          "prediction_mu_scenarios": [.7]}, mu)
     raw = load_arrays(directory/"rollout.npz"); log = json.loads((directory/"solver_log.json").read_text())
     trace, diagnostic = audit_isaac_trace(report, raw, log)
+    execution = audit_execution_case(capture, mu, evidence["hashes"], header["device_audit"])
     return evidence, trace, {**header, "input_sha256": evidence["hashes"],
+        "execution": execution,
         "complete_physical_evidence": True, "censored": False, "solver_diagnostics": diagnostic,
         "simulation_budget": {"actual_plant_physics_substeps": SAMPLES-1,
             "requested_prediction_substeps": diagnostic["counts"]["scenario_evaluations"]*30*4,
@@ -266,13 +358,15 @@ def append_policy_compact(compact, policy_data):
 def run(args):
     output = Path(args.output_dir); require(not output.exists(), "Choose a fresh output directory")
     directories = parse_runs(args.run); require(list(directories) == list(GRID), "Complete-only comparison requires all17 Isaac cases")
+    execution = load_execution_manifest(args.execution_manifest)
     spec = verify_reference_pair(args.motion_file, args.reference_file, REFERENCE_ID)
     inputs = {"motion": sha256(args.motion_file), "robot_reference": sha256(args.reference_file), "model": sha256(args.model)}
     reference = reference_trace(load_arrays(args.motion_file))
     mj, mj_hashes, mj_data, ref_geometry, mj_traces, mj_geometry = load_mujoco_bundle(args.mujoco_bundle, spec, inputs, reference)
     traces, audits, first, header = {}, {}, None, None
     for mu, directory in directories.items():
-        case = case_name(mu); evidence, trace, public = audit_isaac_episode(directory, mu, spec, inputs["model"], mj["runs"][case])
+        case = case_name(mu); evidence, trace, public = audit_isaac_episode(directory, mu, spec, inputs["model"], mj["runs"][case],
+            capture=execution["cases"][mu])
         identity = {n: public[n] for n in ("controller_contract", "native_identity", "asset_sha256", "fk_source_helpers_sha256")}
         require(header is None or header == identity, "Isaac source/controller/asset identity changed across mu")
         header = identity
@@ -304,6 +398,7 @@ def run(args):
         "complete_nmpc_two_engine_grid": True, "complete_three_controller_two_engine_grid": policy_summary is not None,
         "frames_per_episode": FRAMES, "physical_samples_per_episode": SAMPLES, "input_sha256": inputs,
         "mujoco_bundle_sha256": mj_hashes, "policy_dynamics_bundle_sha256": policy_hashes,
+        "nmpc_execution_manifest_sha256": execution["manifest_sha256"],
         "policy_training_evidence": None if policy_summary is None else policy_summary["policies"],
         "reference_numeric_representation_audit": None if policy_summary is None else policy_summary["reference_numeric_representation_audit"],
         "isaac_runs": audits, "model_loader_audit": loader,
@@ -397,7 +492,7 @@ def render_topdown(data, summary, output):
 def parser():
     result=argparse.ArgumentParser(description=__doc__)
     result.add_argument("--motion", "--motion-file", dest="motion_file", type=Path, required=True)
-    for name in ("reference-file","model","source-root","mujoco-bundle","output-dir"):
+    for name in ("reference-file","model","source-root","mujoco-bundle","execution-manifest","output-dir"):
         result.add_argument("--"+name,type=Path,required=True)
     result.add_argument("--run",action="append",required=True,metavar="MU=ISAAC_DIR")
     result.add_argument("--policy-dynamics",type=Path)

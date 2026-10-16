@@ -2,8 +2,10 @@
 
 This is the separate `doa_sa29_scale2` S-avoidance supplement, not another
 trial of the primary large-angle turn. Do not pool its statistics with
-`drift_drl_traj4`. SA29-specific PPO/SAC training and Isaac validation remain
-missing; this record concerns the local MuJoCo fixed-controller grid only.
+`drift_drl_traj4`. The completed local MuJoCo fixed-controller grid below is
+unchanged. The remote follow-up has completed PPO training; SAC training and
+the matched three-controller grid are still in progress, not inferred from
+the local results.
 
 ## Results
 
@@ -169,8 +171,36 @@ with a fresh main-GPU guard before each application. The allowance concerns
 auxiliary memory/context allocation, not running the main training/PhysX work
 on an already busy GPU, retuning, new native builds or other users' processes.
 
+PPO subsequently completed exactly 12,288,000 transitions / 24,000 policy
+steps, with final checkpoint SHA-256
+`bc9123c247ccfa2427d1ca6a42416592512e610db32e49ec8f2961769bef16fc`.
+Its original manifest, status, runner and checkpoint bytes passed independent
+budget/source/device checks. The μ=0.7 Isaac recording has all 1,033 physics
+samples / 258 decisions / 5.16 s; it is not yet a completed sim2sim pair.
+SAC started with the unchanged fixed recipe and remains a separate sequential
+experiment.
+
+The first matching MuJoCo attempt stepped dynamics but failed at report
+construction: an unconditional provenance hash read required
+`training/tron1_terrain.py`, absent from the approved archive. It failed before
+trace/report persistence, so its exact physical outcome is unavailable and
+is not classified as an XY failure. The successful Isaac recording and the
+failed MuJoCo log/receipt are preserved. An identical helper already on the
+remote host (SHA-256 `dec819a3c3c526fce706fb6a5a6491388298884b32bfe73a5c331b166f976ebf`)
+was copied into a new derived evaluation source; no new upload, native build,
+controller or physics change was made. Historical provenance remains nine
+originals / five changed outputs / twelve code files. The thirteenth code file
+is separately bound as a reporting-only dependency; flat-ground and
+no-visual-mesh checks ensure it is not used to augment the model.
+One explicit MuJoCo-only retry will use a fresh output after SAC finishes,
+reusing the original Isaac actor/contract/trajectory without rerunning Isaac.
+
 The new offline [policy-grid analyzer](../scripts/analyze_sa29_policy_friction_dynamics.py)
 and [three-controller comparison adapter](../scripts/analyze_sa29_controller_comparison.py)
 are prepared, with portable synthetic evidence tests. They require complete
 reference-specific recordings and do not generate missing simulation results.
+The comparison adapter also requires a portable `--execution-manifest` for
+all 17 NMPC Isaac cases, binding the original terminal receipts and full logs
+to each report, trace and solver log. Successful file parsing or process exit
+alone does not establish a completed simulation recording.
 No SA29 policy-grid or paired-controller result bundle has been published.

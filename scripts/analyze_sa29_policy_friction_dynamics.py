@@ -46,6 +46,12 @@ BASE_SOURCE_SHA256 = {
     "training/tron1_physics_clock.py": "bcd89d6a24652d4501baf6744b46944d369fd224a9ab4727fc8b6073a20cf44e",
     "training/tron1_runtime_device.py": "2a1460d1b48e884fc5608e0365edc43b815d1fc74c8439945d4e2cc18027f775",
 }
+# Existing helper, absent from the approved 43-file archive. On this strictly
+# flat/no-visual-mesh path it is read only by the evaluator's report SHA field,
+# not imported for terrain augmentation. Never fold it into historical BASE9.
+REPORTING_ONLY_DEPENDENCIES_SHA256 = {
+    "training/tron1_terrain.py": "dec819a3c3c526fce706fb6a5a6491388298884b32bfe73a5c331b166f976ebf",
+}
 ADAPTER_SHA256 = {
     "train_beyondmimic_style.py": "880e84b6394ab99e51aa610ee9db778e113b173012a13db6e76284167983ca5d",
     "train_sac_tracking_isaac.py": "c485b155fbffc44ba7e8147bc76358ca5978e0b8aace81cf8c1d4b495c9d83cf",
@@ -99,7 +105,8 @@ def parse_manifest(document, base_dir):
                 "Original adjacent training filenames must be preserved")
         result["policies"][algorithm]=paths
     source=document["evaluation_source"]
-    require(isinstance(source,dict) and set(source)=={"root","audit","source_sha256"}, "Incomplete isolated evaluation-source binding")
+    require(isinstance(source,dict) and set(source)=={"root","audit","source_sha256","reporting_only_dependencies"}
+            and source["reporting_only_dependencies"]==REPORTING_ONLY_DEPENDENCIES_SHA256, "Incomplete isolated evaluation-source/reporting-dependency binding")
     root=(Path(base_dir).resolve()/_relative(source["root"])).resolve()
     require(root.is_relative_to(Path(base_dir).resolve()) and root.is_dir(), "Evaluation source escapes the private capture tree")
     result["source_root"]=root
@@ -144,7 +151,7 @@ def expected_evaluation_sources():
     return {**BASE_SOURCE_SHA256,**hashes},hashes
 
 
-def audit_source(root, audit_binding, source_sha256, base_dir):
+def audit_source(root, audit_binding, source_sha256, base_dir, *, reporting_only_dependencies=None):
     audit_path=checked_file(audit_binding,base_dir); audit=read_json(audit_path)
     expected,changed=expected_evaluation_sources()
     require(source_sha256==expected and audit.get("source_hashes")==BASE_SOURCE_SHA256
@@ -155,8 +162,17 @@ def audit_source(root, audit_binding, source_sha256, base_dir):
             "Isolated source differs from the approved packaged d5da original and audited full-horizon/controller materializers")
     for name,value in expected.items():
         require(sha256(Path(root)/name)==value, "Changed captured evaluation source: "+name)
+    require(reporting_only_dependencies==REPORTING_ONLY_DEPENDENCIES_SHA256,
+            "Require separately captured reporting-only dependencies, not modified historical materializer hashes")
+    source_root=Path(root).resolve()
+    for name,value in reporting_only_dependencies.items():
+        path=(source_root/name).resolve()
+        require(path.is_relative_to(source_root) and path.is_file() and sha256(path)==value,
+                "Missing or changed captured reporting-only helper: "+name)
     return {"audit_sha256":sha256(audit_path),"original_source_sha256":dict(BASE_SOURCE_SHA256),
         "generated_source_sha256":expected,"changed_output_sha256":changed,"full_horizon_diagnostic":True,
+        "reporting_only_dependencies_sha256":dict(REPORTING_ONLY_DEPENDENCIES_SHA256),
+        "materialized_code_file_count":12,"runtime_code_file_count":13,"reporting_dependency_in_original_43_file_archive":False,
         "source_difference_disclosure":"SA29 packaged original drift d5da59c7..., not historical primary formal drift 5eb40c9b..."}
 
 
@@ -369,6 +385,11 @@ def audit_case_sources(ia, mj, sources, files, training):
             and mj.get("contract_source_sha256")==sha256(files["isaac_contract"])
             and mj.get("policy_sha256")==sha256(files["isaac_actor"])
             and ia.get("asset_root_file_sha256")==training.get("asset_sha256"), "Actual exported actor/contract/asset identities differ")
+    dependency=REPORTING_ONLY_DEPENDENCIES_SHA256["training/tron1_terrain.py"]
+    require(contract.get("terrain") is None and "terrain" in mj and "terrain_runtime_audit" in mj
+            and mj["terrain"] is None and mj["terrain_runtime_audit"] is None
+            and mj.get("no_visual_mesh") is True and mj.get("terrain_module_sha256")==dependency,
+            "Reporting-only helper is allowed only for the hash-bound flat/no-visual-mesh report path")
     observation=mj.get("isaac_observation_validation",{})
     require(observation.get("status")=="passed" and observation.get("trajectory_sha256")==sha256(files["isaac_policy_trace"])
             and observation.get("observations_checked")==FRAMES+1 and observation.get("atol")==2e-5 and observation.get("rtol")==2e-5,
@@ -378,6 +399,8 @@ def audit_case_sources(ia, mj, sources, files, training):
     return {"reported_evaluator_source_sha256":{e:r["evaluator_source_sha256"] for e,r in (("isaac",ia),("mujoco",mj))},
         "exported_actor_sha256":sha256(files["isaac_actor"]),"exported_contract_sha256":sha256(files["isaac_contract"]),
         "isaac_policy_trajectory_sha256":sha256(files["isaac_policy_trace"]),"observation_replay_status":"passed",
+        "flat_ground_reporting_dependency":{"terrain_module_sha256":dependency,"contract_terrain":contract.get("terrain"),
+            "terrain":mj.get("terrain"),"terrain_runtime_audit":mj.get("terrain_runtime_audit"),"no_visual_mesh":mj["no_visual_mesh"]},
         "isaac_device_audit":_device(ia.get("runtime_device_audit"))}
 
 
@@ -450,6 +473,9 @@ def load_public_bundle(directory, spec, inputs, reference):
     expected_sources,changed=expected_evaluation_sources(); source=summary["evaluation_source"]
     require(source["generated_source_sha256"]==expected_sources and source["original_source_sha256"]==BASE_SOURCE_SHA256
             and source["changed_output_sha256"]==changed and source["full_horizon_diagnostic"] is True
+            and source.get("reporting_only_dependencies_sha256")==REPORTING_ONLY_DEPENDENCIES_SHA256
+            and source.get("materialized_code_file_count")==12 and source.get("runtime_code_file_count")==13
+            and source.get("reporting_dependency_in_original_43_file_archive") is False
             and _digest(source["audit_sha256"]), "Public isolated-source bindings differ")
     prefixes=["reference"]+[a+"_"+case_name(mu)+"_"+engine for a in ("PPO","SAC") for mu in GRID for engine in ("isaac","mujoco")]
     allowed={"schema_version","wheel_order","reference_robot_time_s","reference_robot_position_float64_m"}|{
@@ -478,6 +504,10 @@ def load_public_bundle(directory, spec, inputs, reference):
             require(bindings["exported_actor_sha256"]==run["input_sha256"]["isaac_actor"]
                     and bindings["exported_contract_sha256"]==run["input_sha256"]["isaac_contract"]
                     and bindings["isaac_policy_trajectory_sha256"]==run["input_sha256"]["isaac_policy_trace"], "Public export/observation identities differ")
+            require(bindings.get("flat_ground_reporting_dependency")=={
+                "terrain_module_sha256":REPORTING_ONLY_DEPENDENCIES_SHA256["training/tron1_terrain.py"],
+                "contract_terrain":None,"terrain":None,"terrain_runtime_audit":None,"no_visual_mesh":True},
+                "Public report/contract contradict the separate flat-ground reporting-only dependency")
             for engine in ("isaac","mujoco"):
                 execution=run["execution"][engine]
                 require(type(execution["exit_code"]) is int and execution["exit_code"]==0 and execution["terminal_status"]=="exited"
@@ -537,7 +567,8 @@ def run(args):
     manifest_path=Path(args.manifest).resolve(); document=read_json(manifest_path); base=manifest_path.parent
     parsed=parse_manifest(document,base); inputs=parsed["inputs"]
     spec=verify_reference_pair(inputs["motion"],inputs["robot_reference"],REFERENCE_ID)
-    source=document["evaluation_source"]; source_evidence=audit_source(parsed["source_root"],source["audit"],source["source_sha256"],base)
+    source=document["evaluation_source"]; source_evidence=audit_source(parsed["source_root"],source["audit"],source["source_sha256"],base,
+        reporting_only_dependencies=source["reporting_only_dependencies"])
     motion=load_arrays(inputs["motion"]); robot=load_arrays(inputs["robot_reference"]); reference=reference_trace(motion)
     proof=reference_numeric_representation_audit(motion,robot); traces={"reference":reference}; policies={}; runs={}
     for algorithm,files in parsed["policies"].items():
@@ -585,6 +616,8 @@ def run(args):
         **{name:False for name in FALSE_CLAIMS},"selected_display_mu":list(SELECTED_MU),
         "analysis_source_sha256":{name:sha256(ROOT/"scripts"/name) for name in ANALYSIS_SOURCES},
         "limitations":["Complete means recorded duration, not successful upright tracking; the core alone uses the existing XY screen.",
+            "An earlier PPO mu=0.70 MuJoCo attempt failed during the missing reporting-helper SHA read before trajectory/report persistence. Its original failure receipt/log are retained privately; no lost arrays or XY verdict were reconstructed.",
+            "The separately pinned existing terrain helper was not included in the approved 43-file archive. Original materializer provenance remains nine originals/five changed outputs/twelve generated sources; the derived runtime has thirteen code files. Flat/no-visual-mesh checks restrict the additional helper to report provenance only.",
             "One seed/episode per coefficient, not statistical success rates, a controller ranking or a universal friction threshold.",
             "SA29 is CARLA S-avoidance, separate from the primary large-angle-turn task; no pooled statistics.",
             "Reference contacts are unmeasured; eligible physical contacts require count>0 and upward net force>5N. Unavailable slip is null, not zero or proof of flight.",

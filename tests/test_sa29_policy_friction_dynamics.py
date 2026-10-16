@@ -25,6 +25,7 @@ from test_nmpc_nominal_development import canonical, geometry
 SPEC = get_reference("doa_sa29_scale2")
 GRID = [.01, .03, .05, .1, .15, .2, .3, .45, .6, .7, .8, 1., 1.2, 1.4, 1.6, 1.8, 2.]
 FRAMES, SAMPLES = 258, 1033
+REPORTING_ONLY = {"training/tron1_terrain.py": "dec819a3c3c526fce706fb6a5a6491388298884b32bfe73a5c331b166f976ebf"}
 
 
 def digest(path):
@@ -375,7 +376,7 @@ def manifest_fixture(tmp_path):
         "reference_spec": copy.deepcopy(SPEC), "reference_catalog_sha256": digest(ROOT / "config/controller_references.json"),
         "evaluation_mu": GRID.copy(), "inputs": {role: file("inputs/" + role + ".bin") for role in ("motion", "robot_reference", "model")},
         "evaluation_source": {"root": "evaluation_source", "audit": file("evaluation_source/wide_friction_source.json", b"{}"),
-            "source_sha256": {}}, "policies": policies, "cases": cases}
+            "source_sha256": {}, "reporting_only_dependencies": REPORTING_ONLY.copy()}, "policies": policies, "cases": cases}
 
 
 def test_manifest_requires_all_34_pairs_but_allows_independent_identical_content(tmp_path):
@@ -419,7 +420,8 @@ def test_standalone_io_correction_never_weakens_both_embedded_contract_bindings(
 
 
 @pytest.mark.parametrize("problem", ["missing_pair", "duplicate_pair", "primary_reference", "wrong_grid", "unknown_algorithm",
-    "missing_engine", "missing_role", "missing_receipt", "extra_field", "path_alias", "inode_alias"])
+    "missing_engine", "missing_role", "missing_receipt", "missing_reporting_dependency", "wrong_reporting_dependency",
+    "extra_field", "path_alias", "inode_alias"])
 def test_manifest_rejects_partial_grid_relabeling_missing_execution_or_file_aliases(tmp_path, problem):
     manifest = manifest_fixture(tmp_path)
     if problem == "missing_pair": manifest["cases"].pop()
@@ -430,6 +432,8 @@ def test_manifest_rejects_partial_grid_relabeling_missing_execution_or_file_alia
     elif problem == "missing_engine": del manifest["cases"][0]["execution"]["mujoco"]
     elif problem == "missing_role": del manifest["cases"][0]["files"]["mujoco_report"]
     elif problem == "missing_receipt": del manifest["cases"][0]["execution"]["isaac"]["receipt"]
+    elif problem == "missing_reporting_dependency": del manifest["evaluation_source"]["reporting_only_dependencies"]
+    elif problem == "wrong_reporting_dependency": manifest["evaluation_source"]["reporting_only_dependencies"] = {}
     elif problem == "extra_field": manifest["qualified"] = True
     elif problem == "path_alias": manifest["cases"][1]["files"]["isaac_trace"] = manifest["cases"][0]["files"]["isaac_trace"]
     else:
@@ -520,7 +524,9 @@ def test_policy_rate_observation_capture_matches_the_same_physical_episode(probl
         with pytest.raises(ValueError): analysis.audit_policy_trajectory(policy, physical)
 
 
-@pytest.mark.parametrize("problem", [None, "source_bytes", "original_pin", "controller_capability"])
+@pytest.mark.parametrize("problem", [None, "source_bytes", "original_pin", "controller_capability",
+    "missing_reporting_helper", "changed_reporting_helper", "missing_reporting_binding", "changed_reporting_binding",
+    "reporting_helper_symlink_escape", "historical_audit_pollution"])
 def test_real_pure_materializer_closure_is_bound_without_changing_original_sources(tmp_path, problem):
     from materialize_controller_source import materialize
     original = tmp_path / "packaged_original"
@@ -533,16 +539,100 @@ def test_real_pure_materializer_closure_is_bound_without_changing_original_sourc
     audit = materialize(original, generated)
     path = generated / "wide_friction_source.json"
     expected, _ = analysis.expected_evaluation_sources()
+    assert analysis.REPORTING_ONLY_DEPENDENCIES_SHA256 == REPORTING_ONLY
+    assert len(analysis.BASE_SOURCE_SHA256) == 9 and len(expected) == 12
+    assert len(audit["source_hashes"]) == 9 and len(audit["changed_output_sha256"]) == 5
+    assert not set(REPORTING_ONLY) & (set(expected) | set(audit["source_hashes"]) | set(audit["changed_output_sha256"]))
+    reporting = REPORTING_ONLY.copy()
+    helper = generated / "training/tron1_terrain.py"
+    helper_source = ROOT / "upstream/tron1-learning-from-human/training/tron1_terrain.py"
+    before[helper_source] = helper_source.read_bytes()
+    helper.write_bytes(before[helper_source])
+    assert digest(helper) == REPORTING_ONLY["training/tron1_terrain.py"]
     if problem == "source_bytes": (generated / "training/tron1_tracking.py").write_bytes(b"changed runtime code")
     elif problem == "original_pin": audit["source_hashes"]["training/tron1_drift.py"] = "0" * 64
     elif problem == "controller_capability": audit["controller_algorithms"] = ["PPO"]
-    if problem in {"original_pin", "controller_capability"}: path.write_text(json.dumps(audit))
+    elif problem == "missing_reporting_helper": helper.unlink()
+    elif problem == "changed_reporting_helper": helper.write_bytes(b"changed reporting helper")
+    elif problem == "missing_reporting_binding": reporting = None
+    elif problem == "changed_reporting_binding": reporting["training/tron1_terrain.py"] = "0" * 64
+    elif problem == "reporting_helper_symlink_escape":
+        helper.unlink(); helper.symlink_to(helper_source)
+    elif problem == "historical_audit_pollution": audit["source_hashes"].update(REPORTING_ONLY)
+    if problem in {"original_pin", "controller_capability", "historical_audit_pollution"}: path.write_text(json.dumps(audit))
     if problem is None:
-        result = analysis.audit_source(generated, bind(path, tmp_path), expected, tmp_path)
+        result = analysis.audit_source(generated, bind(path, tmp_path), expected, tmp_path, reporting_only_dependencies=reporting)
         assert "/tmp/" not in json.dumps(result) and "5eb40" in result["source_difference_disclosure"]
+        assert result["reporting_only_dependencies_sha256"] == REPORTING_ONLY
+        assert result["materialized_code_file_count"] == 12 and result["runtime_code_file_count"] == 13
+        assert result["reporting_dependency_in_original_43_file_archive"] is False
+        assert len(list(generated.rglob("*.py"))) == 13
     else:
-        with pytest.raises(ValueError): analysis.audit_source(generated, bind(path, tmp_path), expected, tmp_path)
+        with pytest.raises((ValueError, FileNotFoundError)):
+            analysis.audit_source(generated, bind(path, tmp_path), expected, tmp_path, reporting_only_dependencies=reporting)
     assert all(path.read_bytes() == data for path, data in before.items())
+
+
+def case_source_fixture(tmp_path):
+    """Opaque export tokens and reports only; no model, actor or physics loads."""
+    files = {}
+    for role in analysis.FILE_ROLES:
+        path = tmp_path / (role + ".bin")
+        path.write_bytes((role + " synthetic original artifact token").encode())
+        files[role] = path
+    _, training, *_ = write_training(tmp_path, "PPO")
+    training["asset_sha256"] = "f" * 64
+    ia, mj = sa29_reports()
+    sources, _ = analysis.expected_evaluation_sources()
+    for report, fields in ((ia, {"evaluator_source_sha256": "scripts/eval_tracking_friction_isaac.py",
+        "drift_module_sha256": "training/tron1_drift.py", "contact_slip_helper_sha256": "training/tron1_contact_slip.py",
+        "runtime_device_module_sha256": "training/tron1_runtime_device.py"}),
+        (mj, {"evaluator_source_sha256": "scripts/eval_tracking_mujoco.py", "task_source_sha256": "training/tron1_tracking.py",
+        "domain_source_sha256": "training/tron1_domain_randomization.py", "contact_slip_helper_sha256": "training/tron1_contact_slip.py"})):
+        report.update({field: sources[name] for field, name in fields.items()})
+    contract = {"export_validation_max_abs_error": 0.}
+    files["isaac_contract"].write_text(json.dumps(contract))
+    ia.update(policy_export=copy.deepcopy(contract), asset_root_file_sha256=training["asset_sha256"],
+        runtime_device_audit=copy.deepcopy(training["device_audit"]))
+    mj.update(contract=copy.deepcopy(contract), contract_source_sha256=digest(files["isaac_contract"]),
+        policy_sha256=digest(files["isaac_actor"]), terrain=None, terrain_runtime_audit=None, no_visual_mesh=True,
+        terrain_module_sha256=REPORTING_ONLY["training/tron1_terrain.py"],
+        isaac_observation_validation={"status": "passed", "trajectory_sha256": digest(files["isaac_policy_trace"]),
+            "observations_checked": FRAMES + 1, "atol": 2e-5, "rtol": 2e-5})
+    return ia, mj, sources, files, training
+
+
+@pytest.mark.parametrize("explicit_none", [False, True])
+def test_flat_reporting_helper_is_separate_and_contract_may_omit_terrain_key(tmp_path, explicit_none):
+    ia, mj, sources, files, training = case_source_fixture(tmp_path)
+    if explicit_none:
+        ia["policy_export"]["terrain"] = mj["contract"]["terrain"] = None
+        files["isaac_contract"].write_text(json.dumps(ia["policy_export"]))
+        mj["contract_source_sha256"] = digest(files["isaac_contract"])
+    result = analysis.audit_case_sources(ia, mj, sources, files, training)
+    assert result["flat_ground_reporting_dependency"] == {"terrain_module_sha256": REPORTING_ONLY["training/tron1_terrain.py"],
+        "contract_terrain": None, "terrain": None, "terrain_runtime_audit": None, "no_visual_mesh": True}
+    assert not set(REPORTING_ONLY) & set(sources)
+
+
+@pytest.mark.parametrize("problem", ["missing_hash", "wrong_hash", "contract_nonflat", "report_nonflat", "runtime_terrain",
+    "missing_report_terrain", "missing_report_runtime_audit", "visual_mesh", "missing_visual_guard"])
+def test_reporting_only_exception_cannot_enable_terrain_or_unbound_runtime_code(tmp_path, problem):
+    ia, mj, sources, files, training = case_source_fixture(tmp_path)
+    if problem == "missing_hash": del mj["terrain_module_sha256"]
+    elif problem == "wrong_hash": mj["terrain_module_sha256"] = "0" * 64
+    elif problem == "contract_nonflat":
+        ia["policy_export"]["terrain"] = mj["contract"]["terrain"] = {"schema_version": 1}
+        files["isaac_contract"].write_text(json.dumps(ia["policy_export"]))
+        mj["contract_source_sha256"] = digest(files["isaac_contract"])
+    elif problem == "report_nonflat": mj["terrain"] = {"schema_version": 1}
+    elif problem == "runtime_terrain": mj["terrain_runtime_audit"] = {"status": "active"}
+    elif problem == "missing_report_terrain": del mj["terrain"]
+    elif problem == "missing_report_runtime_audit": del mj["terrain_runtime_audit"]
+    elif problem == "visual_mesh": mj["no_visual_mesh"] = False
+    else: del mj["no_visual_mesh"]
+    with pytest.raises(ValueError):
+        analysis.audit_case_sources(ia, mj, sources, files, training)
 
 
 def publication_stub():
