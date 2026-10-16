@@ -58,10 +58,10 @@ Original PPO/SAC raw recordings also now support measured COM-speed, wheel-headi
 and contact-slip replay; no new training or policy inference was performed.
 This development evidence does not pass or weaken the qualified freeze gate.
 
-The separate [SA29 NMPC friction grid](results/2026-10-16-sa29-nmpc-friction-development.md)
-now completes all 17 MuJoCo coefficients with the unchanged controller: 6 exceed
-the XY screen, including isolated μ=1.40, and 11 stay below both limits. The
-[original nominal pilot](results/2026-10-16-sa29-nmpc-pilot.md) is reused unchanged.
+The separate [SA29 controller comparison](results/2026-10-16-sa29-nmpc-friction-development.md)
+now includes all 17 friction coefficients in both engines for PPO, SAC and
+fixed NMPC. The [original NMPC nominal MuJoCo pilot](results/2026-10-16-sa29-nmpc-pilot.md)
+is reused unchanged.
 SA29 is not another large-angle-turn trial, and it uses its own policies.
 Following permission for the observed auxiliary CUDA allocations, fresh
 fixed-recipe PPO and SAC each completed 12,288,000 transitions and all 17 μ
@@ -71,15 +71,19 @@ are published: PPO stays below both XY limits at 12/17 Isaac and 11/17 MuJoCo
 points; SAC at 0/17 and 1/17 respectively. At μ=0.20, PPO's core XY RMSE is
 0.073 m in Isaac versus 0.859 m in MuJoCo. Speed retention alone is not
 controlled turning: low-friction recordings can retain speed while sliding
-after posture loss. Fixed NMPC's Isaac grid is still running sequentially;
-the completed local MuJoCo grid is reused without reruns. The linked report
-preserves the interrupted startup and reporting-dependency failure separately
+after posture loss. Fixed NMPC stays below both XY limits at 11/17 points in
+each engine and 9/17 at the same coefficient in both. The
+[four-column comparison](results/sa29_controller_comparison_20261016_v1/topdown.png)
+shows reference / PPO / SAC / NMPC, and the
+[μ=0.20 post-hoc view](results/sa29_mu0p200_posthoc_topdown_20261016.png)
+shows the unusually large PPO and SAC engine divergence. The linked report
+retains the interrupted startup and reporting-dependency failure separately
 from physical XY outcomes.
 
 | Reference / separate stratum | PPO and SAC | Fixed NMPC |
 | --- | --- | --- |
 | traj_4 / large-angle turn | Each trained; 17 μ in both engines | 17 μ in both engines |
-| SA29 / S-avoidance supplement | Each trained; 17 μ in both engines | 17 μ in MuJoCo; Isaac in progress |
+| SA29 / S-avoidance supplement | Each trained; 17 μ in both engines | 17 μ in both engines |
 
 The [completed historical refinement](results/2026-10-15-car-sim2sim-boundary.md) places
 the sampled Isaac XY-verdict change between µ=0.16 and 0.18, versus µ=0.14 and
@@ -289,8 +293,8 @@ start a friction sweep.
    vehicle slip state but does **not** provide measured individual wheel steer
    angles. Thus its robot wheel headings are retarget output, not source sensor
    readings. Use this clip as the primary; pinned [DOA](upstream/DOA) `sa_traj29`
-   is the selected high-angle S-avoidance supplement, still without a trained
-   tracking policy. Do not pool their success statistics. The original primary reference
+   is the selected high-angle S-avoidance supplement, with separately trained
+   policies. Do not pool their success statistics. The original primary reference
    is hash-locked in [`config/car_reference_lock.json`](config/car_reference_lock.json):
    at moving source frames its retargeted left-wheel offset has mean absolute
    11.27° and peak absolute 27.22°.
