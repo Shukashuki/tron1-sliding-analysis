@@ -62,22 +62,24 @@ The separate [SA29 NMPC friction grid](results/2026-10-16-sa29-nmpc-friction-dev
 now completes all 17 MuJoCo coefficients with the unchanged controller: 6 exceed
 the XY screen, including isolated μ=1.40, and 11 stay below both limits. The
 [original nominal pilot](results/2026-10-16-sa29-nmpc-pilot.md) is reused unchanged.
-SA29 is not another large-angle-turn trial, and its missing PPO/SAC/Isaac work
-is not replaced by primary policies or local model-control evidence.
-The approved remote snapshot is deployed. An initial PPO run was interrupted
-after auxiliary Isaac CUDA contexts also appeared on busy GPUs. The user has
-since permitted those auxiliary allocations. Fresh fixed-recipe PPO and SAC
-each completed all 12,288,000 transitions. PPO's nominal sim2sim pair is complete;
-SAC validation is starting. A missing reporting-only helper caused the first
-MuJoCo attempt to fail before persistence; its original failure is preserved,
-and the explicit retry using an existing identical remote helper completed.
-The paired grid remains incomplete. See the linked SA29 report for the
-preserved runtime evidence.
+SA29 is not another large-angle-turn trial, and it uses its own policies.
+Following permission for the observed auxiliary CUDA allocations, fresh
+fixed-recipe PPO and SAC each completed 12,288,000 transitions and all 17 μ
+in both engines. The [policy top-down comparison](results/policy_sa29_friction_dynamics_20261016_v1/topdown.png)
+and [audited signals/summary](results/policy_sa29_friction_dynamics_20261016_v1/summary.json)
+are published: PPO stays below both XY limits at 12/17 Isaac and 11/17 MuJoCo
+points; SAC at 0/17 and 1/17 respectively. At μ=0.20, PPO's core XY RMSE is
+0.073 m in Isaac versus 0.859 m in MuJoCo. Speed retention alone is not
+controlled turning: low-friction recordings can retain speed while sliding
+after posture loss. Fixed NMPC's Isaac grid is still running sequentially;
+the completed local MuJoCo grid is reused without reruns. The linked report
+preserves the interrupted startup and reporting-dependency failure separately
+from physical XY outcomes.
 
 | Reference / separate stratum | PPO and SAC | Fixed NMPC |
 | --- | --- | --- |
 | traj_4 / large-angle turn | Each trained; 17 μ in both engines | 17 μ in both engines |
-| SA29 / S-avoidance supplement | Both trained; paired validation in progress | 17 μ in MuJoCo; Isaac missing |
+| SA29 / S-avoidance supplement | Each trained; 17 μ in both engines | 17 μ in MuJoCo; Isaac in progress |
 
 The [completed historical refinement](results/2026-10-15-car-sim2sim-boundary.md) places
 the sampled Isaac XY-verdict change between µ=0.16 and 0.18, versus µ=0.14 and

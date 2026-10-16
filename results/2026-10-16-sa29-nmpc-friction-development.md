@@ -1,13 +1,69 @@
-# SA29: fixed-NMPC friction development
+# SA29: controller friction development
 
 This is the separate `doa_sa29_scale2` S-avoidance supplement, not another
 trial of the primary large-angle turn. Do not pool its statistics with
 `drift_drl_traj4`. The completed local MuJoCo fixed-controller grid below is
-unchanged. The remote follow-up has completed PPO and SAC training; the
-matched three-controller grid is still in progress, not inferred from
-the local results.
+unchanged. PPO and SAC training and their full two-engine grids are complete.
+Fixed NMPC's 17-point Isaac follow-up is still running sequentially; a complete
+three-controller paired result is not inferred from the local results.
 
-## Results
+## Completed PPO/SAC sim2sim grid
+
+Both policies collected exactly 12,288,000 transitions with 512 environments
+and seed 42. All 34 policy/coefficient pairs have original complete recordings
+in both engines: 258 decisions, 1,033 physics samples and 5.16 s per episode.
+Original terminal receipts, full logs, input/source hashes, training budgets,
+exported observations/actions and owned-process closure passed capture audits.
+Independent replay of the public signal bundle also passed; no new dynamics
+or policy inference was used to assemble or recheck these results.
+
+The core remains 0–3.14 s and the screen remains XY RMSE >0.15 m OR peak
+>0.30 m. Counts below are sampled outcomes, not success rates or class rankings.
+
+| Controller | Isaac below both XY limits | MuJoCo below both | Same μ below both engines |
+| --- | ---: | ---: | ---: |
+| PPO | 12/17 | 11/17 | 11/17 |
+| SAC | 0/17 | 1/17 | 0/17 |
+
+PPO exceeds the screen at μ={0.01,0.03,0.05,0.10,0.15} in Isaac; MuJoCo
+also exceeds it at 0.20. SAC exceeds it throughout Isaac's grid and at all
+MuJoCo points except 2.00. Below-screen XY is not an upright-execution claim.
+
+| Nominal μ=0.70 | Core XY RMSE / peak [m] | Core speed retained |
+| --- | ---: | ---: |
+| PPO / Isaac | 0.0746 / 0.1480 | 99.87% |
+| PPO / MuJoCo | 0.0684 / 0.1382 | 100.15% |
+| SAC / Isaac | 0.1571 / 0.2657 | 105.22% |
+| SAC / MuJoCo | 0.1630 / 0.2765 | 107.92% |
+
+At μ=0.20, PPO's core XY RMSE is 0.0726 m in Isaac versus 0.8591 m in
+MuJoCo; its paired XY-gap RMSE is 0.8574 m. Core speed retention is 99.67%
+versus 60.26%. MuJoCo's full maximum tilt is 153.72° and its first recorded
+nonwheel-ground contact is at 1.08 s, versus 8.34° and no recorded nonwheel
+contact in Isaac. These are descriptive co-occurring differences, not proof
+that one contact parameter alone caused the divergence. SAC's paired XY-gap
+RMSE at the same coefficient is 1.3078 m. This coefficient is an additional
+post-hoc diagnostic, not a replacement for the five predeclared display rows.
+
+At μ=0.01, PPO retains approximately 102% mean core speed in both engines
+but has already lost posture: full maximum tilt is about 92–94° and first
+nonwheel-ground contact is near 0.65 s. That is not controlled drifting.
+Height, flight, posture, heading offsets and nonwheel contact remain separate
+diagnostics, not extra XY failure gates. Contact-conditioned wheel-slip
+statistics retain their eligibility coverage; unavailable contact is not zero
+slip or proof of flight.
+
+![SA29 reference / PPO / SAC, paired engines at the five declared frictions](policy_sa29_friction_dynamics_20261016_v1/topdown.png)
+
+The [full summary](policy_sa29_friction_dynamics_20261016_v1/summary.json) and
+[public measured-signal archive](policy_sa29_friction_dynamics_20261016_v1/policy_dynamics_trace.npz)
+retain all 17 points, both descriptive event windows, speed, heading geometry,
+measured contact slip/coverage, posture and cross-engine gaps. Original weights
+and private raw captures are not published. The public offline assembler was
+exercised on the actual original captures; it is not a substitute for their
+historical supervisor receipts.
+
+## Completed fixed-NMPC MuJoCo grid
 
 All 17 predeclared coefficients have complete recordings and zero solver
 fallbacks. The nominal μ=0.7 pilot is reused byte-for-byte; the 16 new episodes
@@ -125,9 +181,9 @@ establish physical-car dynamic similarity.
 
 The [completed primary three-controller paired grid](2026-10-16-primary-controller-friction-development.md)
 and [original SA29 nominal pilot](2026-10-16-sa29-nmpc-pilot.md) remain unchanged.
-Completing the original two-reference comparison still requires supplementary-
-specific PPO/SAC training and both-engine fixed-friction validation. The user
-subsequently approved the 43-file remote snapshot and full SA29 comparison.
+At the end of the original local grid, the two-reference comparison still
+required supplementary-specific PPO/SAC training and two-engine validation.
+The user subsequently approved the 43-file remote snapshot and full SA29 comparison.
 The exact archive (339,297 bytes; SHA-256
 `0065669a538f488eaaf619bc2b2c18d8d0c16cd7163d8c6788f48b2e8cba602e`)
 was uploaded, extracted and all 43 member hashes verified. Existing runtime,
@@ -175,8 +231,9 @@ PPO subsequently completed exactly 12,288,000 transitions / 24,000 policy
 steps, with final checkpoint SHA-256
 `bc9123c247ccfa2427d1ca6a42416592512e610db32e49ec8f2961769bef16fc`.
 Its original manifest, status, runner and checkpoint bytes passed independent
-budget/source/device checks. The μ=0.7 Isaac recording has all 1,033 physics
-samples / 258 decisions / 5.16 s; it is not yet a completed sim2sim pair.
+budget/source/device checks. The first μ=0.7 Isaac recording had all 1,033
+physics samples / 258 decisions / 5.16 s; its matching MuJoCo capture is
+described below and is now part of the completed policy grid.
 SAC subsequently completed the same 12,288,000 transitions / 24,000 policy
 steps with the unchanged fixed recipe. Its final checkpoint SHA-256 is
 `1620573e528cc5e0b0082153d8c2347e3731d133d700632312275b1b60773f6a`.
@@ -208,18 +265,21 @@ reusing the original Isaac actor/contract/trajectory without rerunning Isaac.
 Both original nominal recordings passed the offline first-pair I/O audit:
 1,033 physics samples / 258 decisions / 5.16 s each, unchanged training and
 source identities, verified exported observations and real clean terminal
-captures. This opens the remaining declared validation cases; it is not a
-performance-based selection or a completed-grid claim.
+captures. This opened the remaining declared validation cases without a
+performance gate. All policy cases subsequently completed; NMPC Isaac
+validation continues using the already completed local MuJoCo cases.
 
-The new offline [policy-grid analyzer](../scripts/analyze_sa29_policy_friction_dynamics.py)
-and [three-controller comparison adapter](../scripts/analyze_sa29_controller_comparison.py)
-are prepared, with portable synthetic evidence tests. They require complete
+The offline [policy-grid analyzer](../scripts/analyze_sa29_policy_friction_dynamics.py)
+produced the completed policy bundle above; the
+[three-controller comparison adapter](../scripts/analyze_sa29_controller_comparison.py)
+has portable synthetic evidence tests and awaits all 17 NMPC Isaac captures.
+Both require complete
 reference-specific recordings and do not generate missing simulation results.
 The comparison adapter also requires a portable `--execution-manifest` for
 all 17 NMPC Isaac cases, binding the original terminal receipts and full logs
 to each report, trace and solver log. Successful file parsing or process exit
 alone does not establish a completed simulation recording.
-No SA29 policy-grid or paired-controller result bundle has been published.
+No complete SA29 three-controller paired bundle is claimed yet.
 
 ## Public capture and reproduction workflow
 
