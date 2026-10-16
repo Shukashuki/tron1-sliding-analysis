@@ -1,0 +1,2284 @@
+{
+  "schema_version": 1,
+  "kind": "mujoco_only_nominal_nmpc_development_ablation",
+  "status": "development_analysis_only",
+  "engine": "MuJoCo",
+  "fixed_mu": 0.7,
+  "reference_id": "drift_drl_traj4",
+  "reference_spec": {
+    "reference_id": "drift_drl_traj4",
+    "role": "primary",
+    "stratum": "large_angle_turn",
+    "source": {
+      "repository": "https://github.com/caipeide/drift_drl",
+      "commit": "9f3a125f76ac2c0415014a761a514a511553322c",
+      "csv_path": "code/ref_trajectory/traj_4.csv",
+      "csv_sha256": "eb67a507817605d9b0018bdf2196c04f58f9a9238e7e1906350a7568ab87cf27",
+      "row_interval_inclusive": [
+        1535,
+        1595
+      ],
+      "kind": "CARLA_simulation",
+      "is_physical_car_capture": false,
+      "clock": "reconstructed_estimate_not_original_timestamps"
+    },
+    "motion_npz_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+    "robot_reference_npz_sha256": "afc22f19b813cf10b3e3a90affb0f26f5a7743074f98b262394c69de786e9f6e",
+    "frames": 349,
+    "fps": 50.0,
+    "sample_span_s": 6.96,
+    "source_demo_frames": 249,
+    "source_demo_interval_s": [
+      0.0,
+      4.96
+    ],
+    "evaluation_core_interval_s": [
+      1.44,
+      4.0
+    ],
+    "supplementary_event_windows_s": [],
+    "synthetic_recovery_frames": 75,
+    "stationary_tail_frames": 25,
+    "source_demo_speed_range_m_s": [
+      0.892961323261261,
+      1.3199347257614136
+    ],
+    "source_demo_left_separation_mean_abs_deg": 11.271605282421872,
+    "source_demo_left_separation_peak_abs_deg": 27.22207119854508,
+    "core_course_turn_deg": 60.928079107816444,
+    "spatial_scale": 0.08,
+    "time_scale": 2.0,
+    "pooled_success_statistics": false,
+    "heading_separation_definition": "signed wrap(base_Link COM XY velocity course minus each retargeted wheel rolling-plane heading)",
+    "heading_separation_is_measured_contact_slip": false,
+    "wheel_heading_definition": "world(local +Y wheel axle) crossed with world +Z; independent of axle spin",
+    "motion_contract": {
+      "positions": "world Z-up meters, link origins rather than COM",
+      "linear_velocities": "world-frame original unmerged URDF link COM velocities, m/s",
+      "angular_velocities": "world-frame rad/s",
+      "quaternions": "world-from-link, wxyz",
+      "wheel_spin_observed": false,
+      "wheel_orientation_is_training_target": false,
+      "export_model_sha256": "30c8bb94b32b1804aa2f7de2425f7a8dd02be7792881255388097e2e68092e52",
+      "export_urdf_sha256": "f09c56c15acd507bba43b394e37a9abe024e0111fdde7dbf41796408895ee4c5",
+      "runtime_model_note": "Export-model hashes document kinematic provenance, not an actuator/contact contract; apply and audit the shared validation model settings separately."
+    }
+  },
+  "run_order": [
+    "b5_i3",
+    "b10_i3",
+    "b5_i6",
+    "b10_i6"
+  ],
+  "sim2sim_comparison": false,
+  "frozen_benchmark": false,
+  "eligible_for_controller_ranking": false,
+  "controlled_execution_success_claimed": false,
+  "pooled_success_statistics": false,
+  "height_or_flight_failure_gate": false,
+  "heading_offset_is_mismatch": false,
+  "dynamics_stepping": false,
+  "learned_inference": false,
+  "objective_contract": {
+    "kind": "numpy_height_smooth_tracking_objective",
+    "body_names": [
+      "base_Link",
+      "abad_L_Link",
+      "abad_R_Link",
+      "hip_L_Link",
+      "hip_R_Link",
+      "knee_L_Link",
+      "knee_R_Link",
+      "wheel_L_Link",
+      "wheel_R_Link"
+    ],
+    "joint_names": [
+      "abad_L_Joint",
+      "abad_R_Joint",
+      "hip_L_Joint",
+      "hip_R_Joint",
+      "knee_L_Joint",
+      "knee_R_Joint",
+      "wheel_L_Joint",
+      "wheel_R_Joint"
+    ],
+    "dt_s": 0.02,
+    "weights": {
+      "motion_global_anchor_pos": 2.0,
+      "motion_global_anchor_ori": 2.0,
+      "motion_body_pos": 1.0,
+      "motion_body_ori": 1.0,
+      "motion_body_lin_vel": 1.0,
+      "motion_body_ang_vel": 1.0,
+      "action_rate_l2": -0.1,
+      "joint_limit": -10.0,
+      "undesired_contacts": -0.1,
+      "drift_sideslip": 2.0,
+      "drift_yaw_rate": 1.0,
+      "drift_speed": 1.0,
+      "drift_grounded": 0.4,
+      "drift_tilt": -0.2,
+      "height_vertical_acceleration": -0.1
+    },
+    "stds": {
+      "anchor_position_m": 0.3,
+      "anchor_orientation_rad": 0.4,
+      "body_position_m": 0.3,
+      "body_orientation_rad": 0.4,
+      "body_linear_velocity_m_s": 0.5,
+      "body_angular_velocity_rad_s": 0.8,
+      "sideslip_rad": 0.12,
+      "yaw_rate_rad_s": 0.5,
+      "speed_m_s": 0.35
+    },
+    "height_regularization": {
+      "mode": "vertical_acceleration_only",
+      "weight": -0.1,
+      "acceleration_scale_m_s2": 5.0
+    },
+    "absolute_height_target": false,
+    "reference_vertical_velocity_target": false,
+    "sideslip_target": "held reference body-frame course angle, NOT zero",
+    "reference_order": "Freeze reference[k] and relative-body targets at pre-action state; evaluate after decimation, before command advances.",
+    "pose_semantics": "World link-origin position and link wxyz quaternion",
+    "velocity_semantics": "World original-unmerged-link COM linear velocity and world angular velocity",
+    "cost": "dt * (sum_positive_reward_weights - sum(weight * raw_term)); no terminal term supplied",
+    "contact_thresholds_n": {
+      "grounded_each_wheel_net_force": 5.0,
+      "undesired_contact_body_force": 1.0
+    },
+    "joint_limit_joints": [
+      "abad_L_Joint",
+      "abad_R_Joint",
+      "hip_L_Joint",
+      "hip_R_Joint",
+      "knee_L_Joint",
+      "knee_R_Joint"
+    ],
+    "surrogate_differences": [
+      "MuJoCo net contact forces are not identical to PhysX ContactSensor forces; all contacts, including self-contact, are included.",
+      "undesired_contacts uses max norm over supplied physical-substep history; omitted history is explicitly an instantaneous surrogate.",
+      "MuJoCo-derived 0.95 joint ranges are an approximation unless replaced by Isaac runtime soft_joint_pos_limits in matching joint order.",
+      "Body COM offsets/inertias must match the original unmerged USD links; random COM offsets require the same realized model parameters.",
+      "Task tilt safety termination and policy action/observation privileges are outside this stage objective."
+    ]
+  },
+  "runs": {
+    "b5_i3": {
+      "effective_cem_config": {
+        "horizon_steps": 30,
+        "control_blocks": 5,
+        "candidates": 64,
+        "iterations": 3,
+        "elite_count": 8,
+        "initial_std": [
+          0.04,
+          0.04,
+          0.04,
+          0.04,
+          0.04,
+          0.04,
+          0.35,
+          0.35
+        ],
+        "min_std": [
+          0.005,
+          0.005,
+          0.005,
+          0.005,
+          0.005,
+          0.005,
+          0.03,
+          0.03
+        ],
+        "smoothing": 0.0,
+        "seed": 42,
+        "scenario_reduction": "worst",
+        "fallback_action": "previous",
+        "reference_convention": "held_pre_action",
+        "parameterization": "warm_start_residual_blocks"
+      },
+      "effective_cem_config_sha256": "8d1e0bb8de1ee74f7258618f46b7ea9803560f2ddf3602ba58d646efe808f7a2",
+      "reported_settings": {
+        "schema_version": 1,
+        "task": "car_drift_height_smooth",
+        "policy_dt_s": 0.02,
+        "physics_dt_s": 0.005,
+        "prediction_mu_scenarios": [
+          0.7
+        ],
+        "nmpc": {
+          "horizon_steps": 15,
+          "control_blocks": 5,
+          "candidates": 64,
+          "iterations": 3,
+          "elite_count": 8,
+          "initial_std": [
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.35,
+            0.35
+          ],
+          "min_std": [
+            0.005,
+            0.005,
+            0.005,
+            0.005,
+            0.005,
+            0.005,
+            0.03,
+            0.03
+          ],
+          "smoothing": 0.0,
+          "seed": 42,
+          "scenario_reduction": "worst",
+          "fallback_action": "previous",
+          "reference_convention": "held_pre_action",
+          "parameterization": "warm_start_residual_blocks"
+        },
+        "notes": [
+          "Untuned full-body CEM NMPC starting configuration; not a successful or real-time controller result.",
+          "Prediction scenarios are frozen independently of validation plant friction; one scenario is nominal NMPC, several are finite-scenario NMPC without a robustness certificate.",
+          "Use the same height-smooth reward components as the new PPO/SAC task; no old TVLQR Q/R or terminal matrix.",
+          "Physics-only initial plan uses bounded bias-force joint feedforward from the reference, not a learned-policy demonstration or TVLQR.",
+          "Default 15-step horizon predicts 0.3 seconds at 50 Hz; compute deadlines are reported, not enforced.",
+          "MuJoCo soft joint limits and contact sensor forces remain explicitly disclosed surrogates until measured Isaac limits and cross-engine reward checks are available.",
+          "Parameterization-only nominal development ablation: freeze the winning initial full plan within each solve and optimize bounded block residuals, updating encoded residual elite moments. No objective, actuator, horizon, search-budget or learned-initialization change."
+        ]
+      },
+      "reported_settings_sha256": "cec37982b03cb31384fb9d5589887b8f60edd2bad7d986fdf677ecdc71d06c81",
+      "configuration_hash_definition": "SHA-256 of sorted compact UTF-8 JSON; not a settings-file byte hash",
+      "parameterization": {
+        "mode": "warm_start_residual_blocks",
+        "source": "explicit_reported_configuration",
+        "declarations": {
+          "report.action_parameterization": {
+            "mode": "warm_start_residual_blocks",
+            "parameter_units": "Normalized action residuals",
+            "baseline": "Winning bounded initial FULL plan, or bounded fallback when all initial scores fail; fresh after each warm shift",
+            "baseline_copied_and_fixed_per_solve": true,
+            "decode": "clip(fixed_full_baseline + block_residual[assignment], action_low, action_high)",
+            "zero_residual": "Exactly represents the initial baseline, not a later improved incumbent",
+            "incumbent": "Paired stored best encoded residual and decoded full plan",
+            "elite_moments": "Encoded clipped residual parameters; never re-compress decoded/clipped actions",
+            "residual_parameter_clip_low": [
+              -2.0,
+              -2.0,
+              -2.0,
+              -2.0,
+              -2.0,
+              -2.0,
+              -2.0,
+              -2.0
+            ],
+            "residual_parameter_clip_high": [
+              2.0,
+              2.0,
+              2.0,
+              2.0,
+              2.0,
+              2.0,
+              2.0,
+              2.0
+            ],
+            "finite_validation": "Before residual encoding clip, before decoded action clip, and for elite moment arithmetic; invalid arithmetic raises",
+            "generic_bounds": "New mode rejects nonfinite spans and rounded spans failing endpoint saturation; decoded sums must still be finite",
+            "learned_baseline": false
+          },
+          "effective_cem_config.parameterization": "warm_start_residual_blocks"
+        }
+      },
+      "model_generated_nominal_plan": {
+        "enabled": false
+      },
+      "prediction_horizon_s": 0.6,
+      "control_block_durations_s": [
+        0.12,
+        0.12,
+        0.12,
+        0.12,
+        0.12
+      ],
+      "actuator_identity": {
+        "policy_contract_sha256": "6e105cbd6efe7d35117a895fa097e8ec64b6ac822a9de07c00acfaef4d09642f",
+        "actuator_helper_sha256": "3fcafdb6a16058280aa1e5a0ade6113f6963ddf3085c25ebe2ed6fbb30661c57",
+        "actuator_setup_helper_sha256": "da6d1da378b5065589a49f2befaebfb0576665dbd2ad5d34a157d11b8984a3aa",
+        "physics_dt_s": 0.005,
+        "control_dt_s": 0.02
+      },
+      "packed_state_contract": {
+        "dimension": 111,
+        "qpos_dimension": 15,
+        "qvel_dimension": 14,
+        "contact_force_history_shape": [
+          3,
+          9,
+          3
+        ],
+        "algorithmic_memory": "Physical-substep contact-force history plus first-reward reset flag; not extra robot state or actuators.",
+        "excluded_integration_state": "qacc warm-start and simulator time are cold-reset per prediction interval; no actuator activation state exists in this model.",
+        "external_applied_forces": "Required zero in both predictor and plant; no prescribed root correction."
+      },
+      "evidence_scope": "Hash-bound recorded reports/traces; source declarations are not independent proof of original simulator internals",
+      "input_sha256": {
+        "report.json": "ba83fa72e060ad52c0660f8271397e857ad3597e83e8fda88109781e95f9de61",
+        "rollout.npz": "b5e03d9223703b8e35811862db92b955794477f4ba328c01a2a2a9e651b9fc81",
+        "solver_log.json": "a712d1f3400cf79d5ae0dfe3a2e55932ea0b8cb23d0dc60da55d9f4a5b301afa"
+      },
+      "solver_diagnostics": {
+        "decision_samples": 349,
+        "counts": {
+          "candidate_evaluations": 68054,
+          "finite_candidates": 68054,
+          "failed_candidates": 0,
+          "scenario_evaluations": 68054,
+          "failed_scenarios": 0,
+          "batch_prediction_calls": 2093,
+          "failed_batch_prediction_calls": 0,
+          "optimization_failed": 0,
+          "fallback_used": 0,
+          "warm_start_used": 348,
+          "initial_candidate_generation_failed": 0
+        },
+        "optional_residual_diagnostics": {
+          "initial_baseline_block_projection_max_abs_error": {
+            "present_steps": 349,
+            "finite_value_steps": 349,
+            "null_steps": 0,
+            "missing_steps": 0,
+            "mean": 0.6128185614131607,
+            "median_p95_max": [
+              0.6712710029979438,
+              1.1598817242702564,
+              1.4401985102804185
+            ]
+          },
+          "residual_parameter_clip_fraction": {
+            "present_steps": 349,
+            "finite_value_steps": 349,
+            "null_steps": 0,
+            "missing_steps": 0,
+            "mean": 1.4923591212989494e-06,
+            "median_p95_max": [
+              0.0,
+              0.0,
+              0.00013020833333333333
+            ]
+          },
+          "residual_action_decode_clip_fraction": {
+            "present_steps": 349,
+            "finite_value_steps": 349,
+            "null_steps": 0,
+            "missing_steps": 0,
+            "mean": 0.019224445837312955,
+            "median_p95_max": [
+              0.014518229166666667,
+              0.056540798611111075,
+              0.08257378472222222
+            ]
+          },
+          "residual_selected_parameter_linf": {
+            "present_steps": 349,
+            "finite_value_steps": 349,
+            "null_steps": 0,
+            "missing_steps": 0,
+            "mean": 0.21488382297680356,
+            "median_p95_max": [
+              0.0,
+              0.7337303718148851,
+              1.261201211094144
+            ]
+          }
+        },
+        "optional_diagnostics_scope": "Original logs only; projection is of the winning INITIAL baseline, not final selected plan. Missing/null values are never imputed as zero.",
+        "residual_fixed_baseline_flag": {
+          "present_steps": 349,
+          "true_steps": 349,
+          "missing_steps": 0
+        },
+        "timing": {
+          "compute_ms_median_p95_max": [
+            969.448640011251,
+            1129.1857586009426,
+            1423.9294069702737
+          ],
+          "fraction_above_20ms": 1.0,
+          "all_calls_above_20ms": true,
+          "sample_count": 349,
+          "reported_solver_timing_scopes": [
+            "controller_including_predictor_rollouts"
+          ],
+          "scope": "Complete recorded controller.action including native worker IPC/solver bookkeeping; plant/logging/model/worker startup excluded",
+          "recorded_rollout_wall_s": 338.16619356599404,
+          "real_time_verified": false,
+          "comparison_scope": "Saved original-run timings, not a controlled hardware microbenchmark",
+          "deadline_enforced": false,
+          "actuation_delay_injected": false,
+          "delay_scope": "Physical trace advances exactly four 5ms samples per decision, irrespective of solve wall time; no injected wall-latency delay model"
+        }
+      },
+      "reported_plant_source_provenance": {
+        "mujoco_version": "3.8.1",
+        "reported_source_hashes": [
+          {
+            "source_name": "car_drift_height_smooth_task.json",
+            "sha256": "31de29a61eec847e0e39783f3a0d9d8f2db551acd679a1b38dfde2b24e8ae7d6"
+          },
+          {
+            "source_name": "classical_tracking.json",
+            "sha256": "01fd19ad1c91ad1b1dd3f01e6f80ae678736f4b5a28e4d2bac097c837a2438d7"
+          },
+          {
+            "source_name": "controller_references.json",
+            "sha256": "b2c6062ebc6c25d48d7845ffb8786971f85d7b44e37d5f6f27a9f65e395b96c1"
+          },
+          {
+            "source_name": "nmpc_height_smooth_residual.json",
+            "sha256": "643262e037d766e924c5ffa165385f2f9a85d5af0257192f222d7106e2685266"
+          },
+          {
+            "source_name": "nmpc_batch.cpp",
+            "sha256": "deb3afe3367e11c28295e00e4a081e84968818070dcfb7044f06466761875ed2"
+          },
+          {
+            "source_name": "policy_contract.json",
+            "sha256": "6e105cbd6efe7d35117a895fa097e8ec64b6ac822a9de07c00acfaef4d09642f"
+          },
+          {
+            "source_name": "classical_tracking.py",
+            "sha256": "3fcafdb6a16058280aa1e5a0ade6113f6963ddf3085c25ebe2ed6fbb30661c57"
+          },
+          {
+            "source_name": "controller_references.py",
+            "sha256": "2f2746946c37a527298ef83d6a4f07063a9d95250c49815f4f1478d5141b4bf6"
+          },
+          {
+            "source_name": "height_smoothness.py",
+            "sha256": "e133aca58f671fc22ae1dfc97a03461e7724e4072bf8b74f58a2c14281d198b8"
+          },
+          {
+            "source_name": "nmpc_batch_objective.py",
+            "sha256": "1c9da90ae66778a71ceb2e6bb9d0dcf7f0a2259fafee39b37cbe958b79178fae"
+          },
+          {
+            "source_name": "nmpc_native_batch.py",
+            "sha256": "475ef6fe1712783ea11af2cae64b5ff0d61321e6edee0a596f9977a7a69da8a1"
+          },
+          {
+            "source_name": "nmpc_shooting.py",
+            "sha256": "8d2ac598d9e0e2765f9566954ba3fd0f443d939d2a5c6566125cca18668b35bd"
+          },
+          {
+            "source_name": "nmpc_tracking_objective.py",
+            "sha256": "ff22eebb2b22b9af7dba114c64fcd10f6b0a90822559af8f32cbe6884015b860"
+          },
+          {
+            "source_name": "run_nmpc_tracking.py",
+            "sha256": "d121350b553c8a5622e6759a9e69b33e946e9193e01f442ebe3d333541743293"
+          },
+          {
+            "source_name": "eval_tracking.py",
+            "sha256": "fd90089810d3d14bfd96210723afdd3a36113a19f667ec60b2df617dd032f992"
+          },
+          {
+            "source_name": "eval_tracking_mujoco.py",
+            "sha256": "da6d1da378b5065589a49f2befaebfb0576665dbd2ad5d34a157d11b8984a3aa"
+          },
+          {
+            "source_name": "tron1_contact_slip.py",
+            "sha256": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4"
+          },
+          {
+            "source_name": "tron1_domain_randomization.py",
+            "sha256": "3f3a0b62c85a0af496ae9e9e0d75dda85c3ec30da587e4a47969843f5b1b1dca"
+          },
+          {
+            "source_name": "tron1_drift.py",
+            "sha256": "d5da59c7af58f8a45e3deeb8f69fb0af8d382335e7b0974a5637106fc8c56bb6"
+          },
+          {
+            "source_name": "tron1_tracking.py",
+            "sha256": "0a29fa27c1d65c0b9add0886221491e549553e3529d6970f1ec5ba35e2532817"
+          },
+          {
+            "source_name": "rewards.py",
+            "sha256": "b323de7a120e8ac45d3dfc9f7d85d8d8633ec42e5af3162653d1b7804cc90f4b"
+          },
+          {
+            "source_name": "tracking_env_cfg.py",
+            "sha256": "30a4c688bacf1bb411f1516121c21630880bb64b7889ca2ae56f738375f856c8"
+          }
+        ]
+      }
+    },
+    "b10_i3": {
+      "effective_cem_config": {
+        "horizon_steps": 30,
+        "control_blocks": 10,
+        "candidates": 64,
+        "iterations": 3,
+        "elite_count": 8,
+        "initial_std": [
+          0.04,
+          0.04,
+          0.04,
+          0.04,
+          0.04,
+          0.04,
+          0.35,
+          0.35
+        ],
+        "min_std": [
+          0.005,
+          0.005,
+          0.005,
+          0.005,
+          0.005,
+          0.005,
+          0.03,
+          0.03
+        ],
+        "smoothing": 0.0,
+        "seed": 42,
+        "scenario_reduction": "worst",
+        "fallback_action": "previous",
+        "reference_convention": "held_pre_action",
+        "parameterization": "warm_start_residual_blocks"
+      },
+      "effective_cem_config_sha256": "c30a83dffe39e167748d8305f02d43025dbb83af2d6539bd44b3de7ec4616a74",
+      "reported_settings": {
+        "schema_version": 1,
+        "task": "car_drift_height_smooth",
+        "policy_dt_s": 0.02,
+        "physics_dt_s": 0.005,
+        "prediction_mu_scenarios": [
+          0.7
+        ],
+        "nmpc": {
+          "horizon_steps": 15,
+          "control_blocks": 5,
+          "candidates": 64,
+          "iterations": 3,
+          "elite_count": 8,
+          "initial_std": [
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.35,
+            0.35
+          ],
+          "min_std": [
+            0.005,
+            0.005,
+            0.005,
+            0.005,
+            0.005,
+            0.005,
+            0.03,
+            0.03
+          ],
+          "smoothing": 0.0,
+          "seed": 42,
+          "scenario_reduction": "worst",
+          "fallback_action": "previous",
+          "reference_convention": "held_pre_action",
+          "parameterization": "warm_start_residual_blocks"
+        },
+        "notes": [
+          "Untuned full-body CEM NMPC starting configuration; not a successful or real-time controller result.",
+          "Prediction scenarios are frozen independently of validation plant friction; one scenario is nominal NMPC, several are finite-scenario NMPC without a robustness certificate.",
+          "Use the same height-smooth reward components as the new PPO/SAC task; no old TVLQR Q/R or terminal matrix.",
+          "Physics-only initial plan uses bounded bias-force joint feedforward from the reference, not a learned-policy demonstration or TVLQR.",
+          "Default 15-step horizon predicts 0.3 seconds at 50 Hz; compute deadlines are reported, not enforced.",
+          "MuJoCo soft joint limits and contact sensor forces remain explicitly disclosed surrogates until measured Isaac limits and cross-engine reward checks are available.",
+          "Parameterization-only nominal development ablation: freeze the winning initial full plan within each solve and optimize bounded block residuals, updating encoded residual elite moments. No objective, actuator, horizon, search-budget or learned-initialization change."
+        ]
+      },
+      "reported_settings_sha256": "cec37982b03cb31384fb9d5589887b8f60edd2bad7d986fdf677ecdc71d06c81",
+      "configuration_hash_definition": "SHA-256 of sorted compact UTF-8 JSON; not a settings-file byte hash",
+      "parameterization": {
+        "mode": "warm_start_residual_blocks",
+        "source": "explicit_reported_configuration",
+        "declarations": {
+          "report.action_parameterization": {
+            "mode": "warm_start_residual_blocks",
+            "parameter_units": "Normalized action residuals",
+            "baseline": "Winning bounded initial FULL plan, or bounded fallback when all initial scores fail; fresh after each warm shift",
+            "baseline_copied_and_fixed_per_solve": true,
+            "decode": "clip(fixed_full_baseline + block_residual[assignment], action_low, action_high)",
+            "zero_residual": "Exactly represents the initial baseline, not a later improved incumbent",
+            "incumbent": "Paired stored best encoded residual and decoded full plan",
+            "elite_moments": "Encoded clipped residual parameters; never re-compress decoded/clipped actions",
+            "residual_parameter_clip_low": [
+              -2.0,
+              -2.0,
+              -2.0,
+              -2.0,
+              -2.0,
+              -2.0,
+              -2.0,
+              -2.0
+            ],
+            "residual_parameter_clip_high": [
+              2.0,
+              2.0,
+              2.0,
+              2.0,
+              2.0,
+              2.0,
+              2.0,
+              2.0
+            ],
+            "finite_validation": "Before residual encoding clip, before decoded action clip, and for elite moment arithmetic; invalid arithmetic raises",
+            "generic_bounds": "New mode rejects nonfinite spans and rounded spans failing endpoint saturation; decoded sums must still be finite",
+            "learned_baseline": false
+          },
+          "effective_cem_config.parameterization": "warm_start_residual_blocks"
+        }
+      },
+      "model_generated_nominal_plan": {
+        "enabled": false
+      },
+      "prediction_horizon_s": 0.6,
+      "control_block_durations_s": [
+        0.06,
+        0.06,
+        0.06,
+        0.06,
+        0.06,
+        0.06,
+        0.06,
+        0.06,
+        0.06,
+        0.06
+      ],
+      "actuator_identity": {
+        "policy_contract_sha256": "6e105cbd6efe7d35117a895fa097e8ec64b6ac822a9de07c00acfaef4d09642f",
+        "actuator_helper_sha256": "3fcafdb6a16058280aa1e5a0ade6113f6963ddf3085c25ebe2ed6fbb30661c57",
+        "actuator_setup_helper_sha256": "da6d1da378b5065589a49f2befaebfb0576665dbd2ad5d34a157d11b8984a3aa",
+        "physics_dt_s": 0.005,
+        "control_dt_s": 0.02
+      },
+      "packed_state_contract": {
+        "dimension": 111,
+        "qpos_dimension": 15,
+        "qvel_dimension": 14,
+        "contact_force_history_shape": [
+          3,
+          9,
+          3
+        ],
+        "algorithmic_memory": "Physical-substep contact-force history plus first-reward reset flag; not extra robot state or actuators.",
+        "excluded_integration_state": "qacc warm-start and simulator time are cold-reset per prediction interval; no actuator activation state exists in this model.",
+        "external_applied_forces": "Required zero in both predictor and plant; no prescribed root correction."
+      },
+      "evidence_scope": "Hash-bound recorded reports/traces; source declarations are not independent proof of original simulator internals",
+      "input_sha256": {
+        "report.json": "80878f57a7ea472117eb4da78ddb31ab8d63432c9c0bc787753508ca9b16061d",
+        "rollout.npz": "8408c44fb3ac04971f8ff2dce81ec648614b30b393fbb5eb1c16c3ee2aae713f",
+        "solver_log.json": "e17d5fada2ff867c2179a6f74555269771caad2077052ab330a670f6a972d404"
+      },
+      "solver_diagnostics": {
+        "decision_samples": 349,
+        "counts": {
+          "candidate_evaluations": 68054,
+          "finite_candidates": 68054,
+          "failed_candidates": 0,
+          "scenario_evaluations": 68054,
+          "failed_scenarios": 0,
+          "batch_prediction_calls": 2093,
+          "failed_batch_prediction_calls": 0,
+          "optimization_failed": 0,
+          "fallback_used": 0,
+          "warm_start_used": 348,
+          "initial_candidate_generation_failed": 0
+        },
+        "optional_residual_diagnostics": {
+          "initial_baseline_block_projection_max_abs_error": {
+            "present_steps": 349,
+            "finite_value_steps": 349,
+            "null_steps": 0,
+            "missing_steps": 0,
+            "mean": 0.47754638522343484,
+            "median_p95_max": [
+              0.5697995371865854,
+              1.0100987792871523,
+              1.2317871793646473
+            ]
+          },
+          "residual_parameter_clip_fraction": {
+            "present_steps": 349,
+            "finite_value_steps": 349,
+            "null_steps": 0,
+            "missing_steps": 0,
+            "mean": 1.4923591212989494e-06,
+            "median_p95_max": [
+              0.0,
+              0.0,
+              6.510416666666667e-05
+            ]
+          },
+          "residual_action_decode_clip_fraction": {
+            "present_steps": 349,
+            "finite_value_steps": 349,
+            "null_steps": 0,
+            "missing_steps": 0,
+            "mean": 0.016262921342725244,
+            "median_p95_max": [
+              0.008355034722222222,
+              0.04788628472222219,
+              0.05887586805555556
+            ]
+          },
+          "residual_selected_parameter_linf": {
+            "present_steps": 349,
+            "finite_value_steps": 349,
+            "null_steps": 0,
+            "missing_steps": 0,
+            "mean": 0.2029638326593557,
+            "median_p95_max": [
+              0.0,
+              0.7953292095832185,
+              1.1287611189975362
+            ]
+          }
+        },
+        "optional_diagnostics_scope": "Original logs only; projection is of the winning INITIAL baseline, not final selected plan. Missing/null values are never imputed as zero.",
+        "residual_fixed_baseline_flag": {
+          "present_steps": 349,
+          "true_steps": 349,
+          "missing_steps": 0
+        },
+        "timing": {
+          "compute_ms_median_p95_max": [
+            999.0082010044716,
+            1191.8566912063395,
+            1679.8783529666252
+          ],
+          "fraction_above_20ms": 1.0,
+          "all_calls_above_20ms": true,
+          "sample_count": 349,
+          "reported_solver_timing_scopes": [
+            "controller_including_predictor_rollouts"
+          ],
+          "scope": "Complete recorded controller.action including native worker IPC/solver bookkeeping; plant/logging/model/worker startup excluded",
+          "recorded_rollout_wall_s": 349.02583053003764,
+          "real_time_verified": false,
+          "comparison_scope": "Saved original-run timings, not a controlled hardware microbenchmark",
+          "deadline_enforced": false,
+          "actuation_delay_injected": false,
+          "delay_scope": "Physical trace advances exactly four 5ms samples per decision, irrespective of solve wall time; no injected wall-latency delay model"
+        }
+      },
+      "reported_plant_source_provenance": {
+        "mujoco_version": "3.8.1",
+        "reported_source_hashes": [
+          {
+            "source_name": "car_drift_height_smooth_task.json",
+            "sha256": "31de29a61eec847e0e39783f3a0d9d8f2db551acd679a1b38dfde2b24e8ae7d6"
+          },
+          {
+            "source_name": "classical_tracking.json",
+            "sha256": "01fd19ad1c91ad1b1dd3f01e6f80ae678736f4b5a28e4d2bac097c837a2438d7"
+          },
+          {
+            "source_name": "controller_references.json",
+            "sha256": "b2c6062ebc6c25d48d7845ffb8786971f85d7b44e37d5f6f27a9f65e395b96c1"
+          },
+          {
+            "source_name": "nmpc_height_smooth_residual.json",
+            "sha256": "643262e037d766e924c5ffa165385f2f9a85d5af0257192f222d7106e2685266"
+          },
+          {
+            "source_name": "nmpc_batch.cpp",
+            "sha256": "deb3afe3367e11c28295e00e4a081e84968818070dcfb7044f06466761875ed2"
+          },
+          {
+            "source_name": "policy_contract.json",
+            "sha256": "6e105cbd6efe7d35117a895fa097e8ec64b6ac822a9de07c00acfaef4d09642f"
+          },
+          {
+            "source_name": "classical_tracking.py",
+            "sha256": "3fcafdb6a16058280aa1e5a0ade6113f6963ddf3085c25ebe2ed6fbb30661c57"
+          },
+          {
+            "source_name": "controller_references.py",
+            "sha256": "2f2746946c37a527298ef83d6a4f07063a9d95250c49815f4f1478d5141b4bf6"
+          },
+          {
+            "source_name": "height_smoothness.py",
+            "sha256": "e133aca58f671fc22ae1dfc97a03461e7724e4072bf8b74f58a2c14281d198b8"
+          },
+          {
+            "source_name": "nmpc_batch_objective.py",
+            "sha256": "1c9da90ae66778a71ceb2e6bb9d0dcf7f0a2259fafee39b37cbe958b79178fae"
+          },
+          {
+            "source_name": "nmpc_native_batch.py",
+            "sha256": "475ef6fe1712783ea11af2cae64b5ff0d61321e6edee0a596f9977a7a69da8a1"
+          },
+          {
+            "source_name": "nmpc_shooting.py",
+            "sha256": "d7d50588af454dcd50d27e8e00bdcfd9b62a4803cf843dccac40f1a187d7a4ae"
+          },
+          {
+            "source_name": "nmpc_tracking_objective.py",
+            "sha256": "ff22eebb2b22b9af7dba114c64fcd10f6b0a90822559af8f32cbe6884015b860"
+          },
+          {
+            "source_name": "run_nmpc_tracking.py",
+            "sha256": "ccc14be5cca439e43b9211b2d98e4faf2e931202979b8ac832238c38d299d46f"
+          },
+          {
+            "source_name": "eval_tracking.py",
+            "sha256": "fd90089810d3d14bfd96210723afdd3a36113a19f667ec60b2df617dd032f992"
+          },
+          {
+            "source_name": "eval_tracking_mujoco.py",
+            "sha256": "da6d1da378b5065589a49f2befaebfb0576665dbd2ad5d34a157d11b8984a3aa"
+          },
+          {
+            "source_name": "tron1_contact_slip.py",
+            "sha256": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4"
+          },
+          {
+            "source_name": "tron1_domain_randomization.py",
+            "sha256": "3f3a0b62c85a0af496ae9e9e0d75dda85c3ec30da587e4a47969843f5b1b1dca"
+          },
+          {
+            "source_name": "tron1_drift.py",
+            "sha256": "d5da59c7af58f8a45e3deeb8f69fb0af8d382335e7b0974a5637106fc8c56bb6"
+          },
+          {
+            "source_name": "tron1_tracking.py",
+            "sha256": "0a29fa27c1d65c0b9add0886221491e549553e3529d6970f1ec5ba35e2532817"
+          },
+          {
+            "source_name": "rewards.py",
+            "sha256": "b323de7a120e8ac45d3dfc9f7d85d8d8633ec42e5af3162653d1b7804cc90f4b"
+          },
+          {
+            "source_name": "tracking_env_cfg.py",
+            "sha256": "30a4c688bacf1bb411f1516121c21630880bb64b7889ca2ae56f738375f856c8"
+          }
+        ]
+      }
+    },
+    "b5_i6": {
+      "effective_cem_config": {
+        "horizon_steps": 30,
+        "control_blocks": 5,
+        "candidates": 64,
+        "iterations": 6,
+        "elite_count": 8,
+        "initial_std": [
+          0.04,
+          0.04,
+          0.04,
+          0.04,
+          0.04,
+          0.04,
+          0.35,
+          0.35
+        ],
+        "min_std": [
+          0.005,
+          0.005,
+          0.005,
+          0.005,
+          0.005,
+          0.005,
+          0.03,
+          0.03
+        ],
+        "smoothing": 0.0,
+        "seed": 42,
+        "scenario_reduction": "worst",
+        "fallback_action": "previous",
+        "reference_convention": "held_pre_action",
+        "parameterization": "warm_start_residual_blocks"
+      },
+      "effective_cem_config_sha256": "fd48f2064ff42b3de173ac53ea3cbcde46f6005338474f29a57566ab0e702c1f",
+      "reported_settings": {
+        "schema_version": 1,
+        "task": "car_drift_height_smooth",
+        "policy_dt_s": 0.02,
+        "physics_dt_s": 0.005,
+        "prediction_mu_scenarios": [
+          0.7
+        ],
+        "nmpc": {
+          "horizon_steps": 15,
+          "control_blocks": 5,
+          "candidates": 64,
+          "iterations": 3,
+          "elite_count": 8,
+          "initial_std": [
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.35,
+            0.35
+          ],
+          "min_std": [
+            0.005,
+            0.005,
+            0.005,
+            0.005,
+            0.005,
+            0.005,
+            0.03,
+            0.03
+          ],
+          "smoothing": 0.0,
+          "seed": 42,
+          "scenario_reduction": "worst",
+          "fallback_action": "previous",
+          "reference_convention": "held_pre_action",
+          "parameterization": "warm_start_residual_blocks"
+        },
+        "notes": [
+          "Untuned full-body CEM NMPC starting configuration; not a successful or real-time controller result.",
+          "Prediction scenarios are frozen independently of validation plant friction; one scenario is nominal NMPC, several are finite-scenario NMPC without a robustness certificate.",
+          "Use the same height-smooth reward components as the new PPO/SAC task; no old TVLQR Q/R or terminal matrix.",
+          "Physics-only initial plan uses bounded bias-force joint feedforward from the reference, not a learned-policy demonstration or TVLQR.",
+          "Default 15-step horizon predicts 0.3 seconds at 50 Hz; compute deadlines are reported, not enforced.",
+          "MuJoCo soft joint limits and contact sensor forces remain explicitly disclosed surrogates until measured Isaac limits and cross-engine reward checks are available.",
+          "Parameterization-only nominal development ablation: freeze the winning initial full plan within each solve and optimize bounded block residuals, updating encoded residual elite moments. No objective, actuator, horizon, search-budget or learned-initialization change."
+        ]
+      },
+      "reported_settings_sha256": "cec37982b03cb31384fb9d5589887b8f60edd2bad7d986fdf677ecdc71d06c81",
+      "configuration_hash_definition": "SHA-256 of sorted compact UTF-8 JSON; not a settings-file byte hash",
+      "parameterization": {
+        "mode": "warm_start_residual_blocks",
+        "source": "explicit_reported_configuration",
+        "declarations": {
+          "report.action_parameterization": {
+            "mode": "warm_start_residual_blocks",
+            "parameter_units": "Normalized action residuals",
+            "baseline": "Winning bounded initial FULL plan, or bounded fallback when all initial scores fail; fresh after each warm shift",
+            "baseline_copied_and_fixed_per_solve": true,
+            "decode": "clip(fixed_full_baseline + block_residual[assignment], action_low, action_high)",
+            "zero_residual": "Exactly represents the initial baseline, not a later improved incumbent",
+            "incumbent": "Paired stored best encoded residual and decoded full plan",
+            "elite_moments": "Encoded clipped residual parameters; never re-compress decoded/clipped actions",
+            "residual_parameter_clip_low": [
+              -2.0,
+              -2.0,
+              -2.0,
+              -2.0,
+              -2.0,
+              -2.0,
+              -2.0,
+              -2.0
+            ],
+            "residual_parameter_clip_high": [
+              2.0,
+              2.0,
+              2.0,
+              2.0,
+              2.0,
+              2.0,
+              2.0,
+              2.0
+            ],
+            "finite_validation": "Before residual encoding clip, before decoded action clip, and for elite moment arithmetic; invalid arithmetic raises",
+            "generic_bounds": "New mode rejects nonfinite spans and rounded spans failing endpoint saturation; decoded sums must still be finite",
+            "learned_baseline": false
+          },
+          "effective_cem_config.parameterization": "warm_start_residual_blocks"
+        }
+      },
+      "model_generated_nominal_plan": {
+        "enabled": false
+      },
+      "prediction_horizon_s": 0.6,
+      "control_block_durations_s": [
+        0.12,
+        0.12,
+        0.12,
+        0.12,
+        0.12
+      ],
+      "actuator_identity": {
+        "policy_contract_sha256": "6e105cbd6efe7d35117a895fa097e8ec64b6ac822a9de07c00acfaef4d09642f",
+        "actuator_helper_sha256": "3fcafdb6a16058280aa1e5a0ade6113f6963ddf3085c25ebe2ed6fbb30661c57",
+        "actuator_setup_helper_sha256": "da6d1da378b5065589a49f2befaebfb0576665dbd2ad5d34a157d11b8984a3aa",
+        "physics_dt_s": 0.005,
+        "control_dt_s": 0.02
+      },
+      "packed_state_contract": {
+        "dimension": 111,
+        "qpos_dimension": 15,
+        "qvel_dimension": 14,
+        "contact_force_history_shape": [
+          3,
+          9,
+          3
+        ],
+        "algorithmic_memory": "Physical-substep contact-force history plus first-reward reset flag; not extra robot state or actuators.",
+        "excluded_integration_state": "qacc warm-start and simulator time are cold-reset per prediction interval; no actuator activation state exists in this model.",
+        "external_applied_forces": "Required zero in both predictor and plant; no prescribed root correction."
+      },
+      "evidence_scope": "Hash-bound recorded reports/traces; source declarations are not independent proof of original simulator internals",
+      "input_sha256": {
+        "report.json": "9bfb16dc1a5da567d919d802b32792f4c0f0610e9396069cd264f3497758514b",
+        "rollout.npz": "89b9ce395b9ec7115ff879f95f6092b1d9ba9ec2869c073eac39b5b56b6c7824",
+        "solver_log.json": "74dd4fa8b06744c9438f9fb4dce2d4f6228b0efc9e16e00a21f80454f711a9dd"
+      },
+      "solver_diagnostics": {
+        "decision_samples": 349,
+        "counts": {
+          "candidate_evaluations": 135062,
+          "finite_candidates": 135062,
+          "failed_candidates": 0,
+          "scenario_evaluations": 135062,
+          "failed_scenarios": 0,
+          "batch_prediction_calls": 3140,
+          "failed_batch_prediction_calls": 0,
+          "optimization_failed": 0,
+          "fallback_used": 0,
+          "warm_start_used": 348,
+          "initial_candidate_generation_failed": 0
+        },
+        "optional_residual_diagnostics": {
+          "initial_baseline_block_projection_max_abs_error": {
+            "present_steps": 349,
+            "finite_value_steps": 349,
+            "null_steps": 0,
+            "missing_steps": 0,
+            "mean": 0.5544076691262323,
+            "median_p95_max": [
+              0.504974385630139,
+              1.0423443081643469,
+              1.237503511425314
+            ]
+          },
+          "residual_parameter_clip_fraction": {
+            "present_steps": 349,
+            "finite_value_steps": 349,
+            "null_steps": 0,
+            "missing_steps": 0,
+            "mean": 4.290532473734479e-06,
+            "median_p95_max": [
+              0.0,
+              0.0,
+              0.0005208333333333333
+            ]
+          },
+          "residual_action_decode_clip_fraction": {
+            "present_steps": 349,
+            "finite_value_steps": 349,
+            "null_steps": 0,
+            "missing_steps": 0,
+            "mean": 0.0070011230002387775,
+            "median_p95_max": [
+              0.002712673611111111,
+              0.027973090277777737,
+              0.044694010416666666
+            ]
+          },
+          "residual_selected_parameter_linf": {
+            "present_steps": 349,
+            "finite_value_steps": 349,
+            "null_steps": 0,
+            "missing_steps": 0,
+            "mean": 0.1476775632233188,
+            "median_p95_max": [
+              0.0,
+              0.5807321601938227,
+              1.1391635710188355
+            ]
+          }
+        },
+        "optional_diagnostics_scope": "Original logs only; projection is of the winning INITIAL baseline, not final selected plan. Missing/null values are never imputed as zero.",
+        "residual_fixed_baseline_flag": {
+          "present_steps": 349,
+          "true_steps": 349,
+          "missing_steps": 0
+        },
+        "timing": {
+          "compute_ms_median_p95_max": [
+            2098.6952719977126,
+            2423.673242807854,
+            2907.9254109528847
+          ],
+          "fraction_above_20ms": 1.0,
+          "all_calls_above_20ms": true,
+          "sample_count": 349,
+          "reported_solver_timing_scopes": [
+            "controller_including_predictor_rollouts"
+          ],
+          "scope": "Complete recorded controller.action including native worker IPC/solver bookkeeping; plant/logging/model/worker startup excluded",
+          "recorded_rollout_wall_s": 739.4793574669748,
+          "real_time_verified": false,
+          "comparison_scope": "Saved original-run timings, not a controlled hardware microbenchmark",
+          "deadline_enforced": false,
+          "actuation_delay_injected": false,
+          "delay_scope": "Physical trace advances exactly four 5ms samples per decision, irrespective of solve wall time; no injected wall-latency delay model"
+        }
+      },
+      "reported_plant_source_provenance": {
+        "mujoco_version": "3.8.1",
+        "reported_source_hashes": [
+          {
+            "source_name": "car_drift_height_smooth_task.json",
+            "sha256": "31de29a61eec847e0e39783f3a0d9d8f2db551acd679a1b38dfde2b24e8ae7d6"
+          },
+          {
+            "source_name": "classical_tracking.json",
+            "sha256": "01fd19ad1c91ad1b1dd3f01e6f80ae678736f4b5a28e4d2bac097c837a2438d7"
+          },
+          {
+            "source_name": "controller_references.json",
+            "sha256": "b2c6062ebc6c25d48d7845ffb8786971f85d7b44e37d5f6f27a9f65e395b96c1"
+          },
+          {
+            "source_name": "nmpc_height_smooth_residual.json",
+            "sha256": "643262e037d766e924c5ffa165385f2f9a85d5af0257192f222d7106e2685266"
+          },
+          {
+            "source_name": "nmpc_batch.cpp",
+            "sha256": "deb3afe3367e11c28295e00e4a081e84968818070dcfb7044f06466761875ed2"
+          },
+          {
+            "source_name": "policy_contract.json",
+            "sha256": "6e105cbd6efe7d35117a895fa097e8ec64b6ac822a9de07c00acfaef4d09642f"
+          },
+          {
+            "source_name": "classical_tracking.py",
+            "sha256": "3fcafdb6a16058280aa1e5a0ade6113f6963ddf3085c25ebe2ed6fbb30661c57"
+          },
+          {
+            "source_name": "controller_references.py",
+            "sha256": "2f2746946c37a527298ef83d6a4f07063a9d95250c49815f4f1478d5141b4bf6"
+          },
+          {
+            "source_name": "height_smoothness.py",
+            "sha256": "e133aca58f671fc22ae1dfc97a03461e7724e4072bf8b74f58a2c14281d198b8"
+          },
+          {
+            "source_name": "nmpc_batch_objective.py",
+            "sha256": "1c9da90ae66778a71ceb2e6bb9d0dcf7f0a2259fafee39b37cbe958b79178fae"
+          },
+          {
+            "source_name": "nmpc_native_batch.py",
+            "sha256": "475ef6fe1712783ea11af2cae64b5ff0d61321e6edee0a596f9977a7a69da8a1"
+          },
+          {
+            "source_name": "nmpc_shooting.py",
+            "sha256": "d7d50588af454dcd50d27e8e00bdcfd9b62a4803cf843dccac40f1a187d7a4ae"
+          },
+          {
+            "source_name": "nmpc_tracking_objective.py",
+            "sha256": "ff22eebb2b22b9af7dba114c64fcd10f6b0a90822559af8f32cbe6884015b860"
+          },
+          {
+            "source_name": "run_nmpc_tracking.py",
+            "sha256": "ccc14be5cca439e43b9211b2d98e4faf2e931202979b8ac832238c38d299d46f"
+          },
+          {
+            "source_name": "eval_tracking.py",
+            "sha256": "fd90089810d3d14bfd96210723afdd3a36113a19f667ec60b2df617dd032f992"
+          },
+          {
+            "source_name": "eval_tracking_mujoco.py",
+            "sha256": "da6d1da378b5065589a49f2befaebfb0576665dbd2ad5d34a157d11b8984a3aa"
+          },
+          {
+            "source_name": "tron1_contact_slip.py",
+            "sha256": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4"
+          },
+          {
+            "source_name": "tron1_domain_randomization.py",
+            "sha256": "3f3a0b62c85a0af496ae9e9e0d75dda85c3ec30da587e4a47969843f5b1b1dca"
+          },
+          {
+            "source_name": "tron1_drift.py",
+            "sha256": "d5da59c7af58f8a45e3deeb8f69fb0af8d382335e7b0974a5637106fc8c56bb6"
+          },
+          {
+            "source_name": "tron1_tracking.py",
+            "sha256": "0a29fa27c1d65c0b9add0886221491e549553e3529d6970f1ec5ba35e2532817"
+          },
+          {
+            "source_name": "rewards.py",
+            "sha256": "b323de7a120e8ac45d3dfc9f7d85d8d8633ec42e5af3162653d1b7804cc90f4b"
+          },
+          {
+            "source_name": "tracking_env_cfg.py",
+            "sha256": "30a4c688bacf1bb411f1516121c21630880bb64b7889ca2ae56f738375f856c8"
+          }
+        ]
+      }
+    },
+    "b10_i6": {
+      "effective_cem_config": {
+        "horizon_steps": 30,
+        "control_blocks": 10,
+        "candidates": 64,
+        "iterations": 6,
+        "elite_count": 8,
+        "initial_std": [
+          0.04,
+          0.04,
+          0.04,
+          0.04,
+          0.04,
+          0.04,
+          0.35,
+          0.35
+        ],
+        "min_std": [
+          0.005,
+          0.005,
+          0.005,
+          0.005,
+          0.005,
+          0.005,
+          0.03,
+          0.03
+        ],
+        "smoothing": 0.0,
+        "seed": 42,
+        "scenario_reduction": "worst",
+        "fallback_action": "previous",
+        "reference_convention": "held_pre_action",
+        "parameterization": "warm_start_residual_blocks"
+      },
+      "effective_cem_config_sha256": "0e535295be4b0eb75ea90d3ff047e25b074ade3e3e74ea5d15a6d8a3cd224b0e",
+      "reported_settings": {
+        "schema_version": 1,
+        "task": "car_drift_height_smooth",
+        "policy_dt_s": 0.02,
+        "physics_dt_s": 0.005,
+        "prediction_mu_scenarios": [
+          0.7
+        ],
+        "nmpc": {
+          "horizon_steps": 15,
+          "control_blocks": 5,
+          "candidates": 64,
+          "iterations": 3,
+          "elite_count": 8,
+          "initial_std": [
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.04,
+            0.35,
+            0.35
+          ],
+          "min_std": [
+            0.005,
+            0.005,
+            0.005,
+            0.005,
+            0.005,
+            0.005,
+            0.03,
+            0.03
+          ],
+          "smoothing": 0.0,
+          "seed": 42,
+          "scenario_reduction": "worst",
+          "fallback_action": "previous",
+          "reference_convention": "held_pre_action",
+          "parameterization": "warm_start_residual_blocks"
+        },
+        "notes": [
+          "Untuned full-body CEM NMPC starting configuration; not a successful or real-time controller result.",
+          "Prediction scenarios are frozen independently of validation plant friction; one scenario is nominal NMPC, several are finite-scenario NMPC without a robustness certificate.",
+          "Use the same height-smooth reward components as the new PPO/SAC task; no old TVLQR Q/R or terminal matrix.",
+          "Physics-only initial plan uses bounded bias-force joint feedforward from the reference, not a learned-policy demonstration or TVLQR.",
+          "Default 15-step horizon predicts 0.3 seconds at 50 Hz; compute deadlines are reported, not enforced.",
+          "MuJoCo soft joint limits and contact sensor forces remain explicitly disclosed surrogates until measured Isaac limits and cross-engine reward checks are available.",
+          "Parameterization-only nominal development ablation: freeze the winning initial full plan within each solve and optimize bounded block residuals, updating encoded residual elite moments. No objective, actuator, horizon, search-budget or learned-initialization change."
+        ]
+      },
+      "reported_settings_sha256": "cec37982b03cb31384fb9d5589887b8f60edd2bad7d986fdf677ecdc71d06c81",
+      "configuration_hash_definition": "SHA-256 of sorted compact UTF-8 JSON; not a settings-file byte hash",
+      "parameterization": {
+        "mode": "warm_start_residual_blocks",
+        "source": "explicit_reported_configuration",
+        "declarations": {
+          "report.action_parameterization": {
+            "mode": "warm_start_residual_blocks",
+            "parameter_units": "Normalized action residuals",
+            "baseline": "Winning bounded initial FULL plan, or bounded fallback when all initial scores fail; fresh after each warm shift",
+            "baseline_copied_and_fixed_per_solve": true,
+            "decode": "clip(fixed_full_baseline + block_residual[assignment], action_low, action_high)",
+            "zero_residual": "Exactly represents the initial baseline, not a later improved incumbent",
+            "incumbent": "Paired stored best encoded residual and decoded full plan",
+            "elite_moments": "Encoded clipped residual parameters; never re-compress decoded/clipped actions",
+            "residual_parameter_clip_low": [
+              -2.0,
+              -2.0,
+              -2.0,
+              -2.0,
+              -2.0,
+              -2.0,
+              -2.0,
+              -2.0
+            ],
+            "residual_parameter_clip_high": [
+              2.0,
+              2.0,
+              2.0,
+              2.0,
+              2.0,
+              2.0,
+              2.0,
+              2.0
+            ],
+            "finite_validation": "Before residual encoding clip, before decoded action clip, and for elite moment arithmetic; invalid arithmetic raises",
+            "generic_bounds": "New mode rejects nonfinite spans and rounded spans failing endpoint saturation; decoded sums must still be finite",
+            "learned_baseline": false
+          },
+          "effective_cem_config.parameterization": "warm_start_residual_blocks"
+        }
+      },
+      "model_generated_nominal_plan": {
+        "enabled": false
+      },
+      "prediction_horizon_s": 0.6,
+      "control_block_durations_s": [
+        0.06,
+        0.06,
+        0.06,
+        0.06,
+        0.06,
+        0.06,
+        0.06,
+        0.06,
+        0.06,
+        0.06
+      ],
+      "actuator_identity": {
+        "policy_contract_sha256": "6e105cbd6efe7d35117a895fa097e8ec64b6ac822a9de07c00acfaef4d09642f",
+        "actuator_helper_sha256": "3fcafdb6a16058280aa1e5a0ade6113f6963ddf3085c25ebe2ed6fbb30661c57",
+        "actuator_setup_helper_sha256": "da6d1da378b5065589a49f2befaebfb0576665dbd2ad5d34a157d11b8984a3aa",
+        "physics_dt_s": 0.005,
+        "control_dt_s": 0.02
+      },
+      "packed_state_contract": {
+        "dimension": 111,
+        "qpos_dimension": 15,
+        "qvel_dimension": 14,
+        "contact_force_history_shape": [
+          3,
+          9,
+          3
+        ],
+        "algorithmic_memory": "Physical-substep contact-force history plus first-reward reset flag; not extra robot state or actuators.",
+        "excluded_integration_state": "qacc warm-start and simulator time are cold-reset per prediction interval; no actuator activation state exists in this model.",
+        "external_applied_forces": "Required zero in both predictor and plant; no prescribed root correction."
+      },
+      "evidence_scope": "Hash-bound recorded reports/traces; source declarations are not independent proof of original simulator internals",
+      "input_sha256": {
+        "report.json": "8d0a3dc07e5871a8e707f19b5903a1fb1b56d2878d193ee03eb6d1864b89e459",
+        "rollout.npz": "f0429603d0e2ed553cad3d07cbf946eeec65de9116fdb99dadb4fce53e4f018b",
+        "solver_log.json": "cce00b34ee528ea0447d08672a0399362b4a300a93ff804caf91d00d5183060a"
+      },
+      "solver_diagnostics": {
+        "decision_samples": 349,
+        "counts": {
+          "candidate_evaluations": 135062,
+          "finite_candidates": 135062,
+          "failed_candidates": 0,
+          "scenario_evaluations": 135062,
+          "failed_scenarios": 0,
+          "batch_prediction_calls": 3140,
+          "failed_batch_prediction_calls": 0,
+          "optimization_failed": 0,
+          "fallback_used": 0,
+          "warm_start_used": 348,
+          "initial_candidate_generation_failed": 0
+        },
+        "optional_residual_diagnostics": {
+          "initial_baseline_block_projection_max_abs_error": {
+            "present_steps": 349,
+            "finite_value_steps": 349,
+            "null_steps": 0,
+            "missing_steps": 0,
+            "mean": 0.5680420874386882,
+            "median_p95_max": [
+              0.5822172292342649,
+              1.0478112068419612,
+              1.2930018809328083
+            ]
+          },
+          "residual_parameter_clip_fraction": {
+            "present_steps": 349,
+            "finite_value_steps": 349,
+            "null_steps": 0,
+            "missing_steps": 0,
+            "mean": 6.715616045845273e-06,
+            "median_p95_max": [
+              0.0,
+              3.255208333333333e-05,
+              0.00035807291666666664
+            ]
+          },
+          "residual_action_decode_clip_fraction": {
+            "present_steps": 349,
+            "finite_value_steps": 349,
+            "null_steps": 0,
+            "missing_steps": 0,
+            "mean": 0.01700966053804521,
+            "median_p95_max": [
+              0.0087890625,
+              0.04890625,
+              0.06509331597222222
+            ]
+          },
+          "residual_selected_parameter_linf": {
+            "present_steps": 349,
+            "finite_value_steps": 349,
+            "null_steps": 0,
+            "missing_steps": 0,
+            "mean": 0.19786049949847598,
+            "median_p95_max": [
+              0.0,
+              0.7489362554236731,
+              1.3885877097640988
+            ]
+          }
+        },
+        "optional_diagnostics_scope": "Original logs only; projection is of the winning INITIAL baseline, not final selected plan. Missing/null values are never imputed as zero.",
+        "residual_fixed_baseline_flag": {
+          "present_steps": 349,
+          "true_steps": 349,
+          "missing_steps": 0
+        },
+        "timing": {
+          "compute_ms_median_p95_max": [
+            2036.4161159959622,
+            2325.0296807847913,
+            2656.3117409823462
+          ],
+          "fraction_above_20ms": 1.0,
+          "all_calls_above_20ms": true,
+          "sample_count": 349,
+          "reported_solver_timing_scopes": [
+            "controller_including_predictor_rollouts"
+          ],
+          "scope": "Complete recorded controller.action including native worker IPC/solver bookkeeping; plant/logging/model/worker startup excluded",
+          "recorded_rollout_wall_s": 706.9858978170087,
+          "real_time_verified": false,
+          "comparison_scope": "Saved original-run timings, not a controlled hardware microbenchmark",
+          "deadline_enforced": false,
+          "actuation_delay_injected": false,
+          "delay_scope": "Physical trace advances exactly four 5ms samples per decision, irrespective of solve wall time; no injected wall-latency delay model"
+        }
+      },
+      "reported_plant_source_provenance": {
+        "mujoco_version": "3.8.1",
+        "reported_source_hashes": [
+          {
+            "source_name": "car_drift_height_smooth_task.json",
+            "sha256": "31de29a61eec847e0e39783f3a0d9d8f2db551acd679a1b38dfde2b24e8ae7d6"
+          },
+          {
+            "source_name": "classical_tracking.json",
+            "sha256": "01fd19ad1c91ad1b1dd3f01e6f80ae678736f4b5a28e4d2bac097c837a2438d7"
+          },
+          {
+            "source_name": "controller_references.json",
+            "sha256": "b2c6062ebc6c25d48d7845ffb8786971f85d7b44e37d5f6f27a9f65e395b96c1"
+          },
+          {
+            "source_name": "nmpc_height_smooth_residual.json",
+            "sha256": "643262e037d766e924c5ffa165385f2f9a85d5af0257192f222d7106e2685266"
+          },
+          {
+            "source_name": "nmpc_batch.cpp",
+            "sha256": "deb3afe3367e11c28295e00e4a081e84968818070dcfb7044f06466761875ed2"
+          },
+          {
+            "source_name": "policy_contract.json",
+            "sha256": "6e105cbd6efe7d35117a895fa097e8ec64b6ac822a9de07c00acfaef4d09642f"
+          },
+          {
+            "source_name": "classical_tracking.py",
+            "sha256": "3fcafdb6a16058280aa1e5a0ade6113f6963ddf3085c25ebe2ed6fbb30661c57"
+          },
+          {
+            "source_name": "controller_references.py",
+            "sha256": "2f2746946c37a527298ef83d6a4f07063a9d95250c49815f4f1478d5141b4bf6"
+          },
+          {
+            "source_name": "height_smoothness.py",
+            "sha256": "e133aca58f671fc22ae1dfc97a03461e7724e4072bf8b74f58a2c14281d198b8"
+          },
+          {
+            "source_name": "nmpc_batch_objective.py",
+            "sha256": "1c9da90ae66778a71ceb2e6bb9d0dcf7f0a2259fafee39b37cbe958b79178fae"
+          },
+          {
+            "source_name": "nmpc_native_batch.py",
+            "sha256": "bb19aeea51cf03eedd87c0fb9e4561c11bc8ab5569cabf31c5465287a815fb76"
+          },
+          {
+            "source_name": "nmpc_shooting.py",
+            "sha256": "7c667ef0cbd32c58ce53882302e75f5d33487bcfea51c2f6ec3435d454a480ce"
+          },
+          {
+            "source_name": "nmpc_tracking_objective.py",
+            "sha256": "ff22eebb2b22b9af7dba114c64fcd10f6b0a90822559af8f32cbe6884015b860"
+          },
+          {
+            "source_name": "run_nmpc_tracking.py",
+            "sha256": "ccc14be5cca439e43b9211b2d98e4faf2e931202979b8ac832238c38d299d46f"
+          },
+          {
+            "source_name": "eval_tracking.py",
+            "sha256": "fd90089810d3d14bfd96210723afdd3a36113a19f667ec60b2df617dd032f992"
+          },
+          {
+            "source_name": "eval_tracking_mujoco.py",
+            "sha256": "da6d1da378b5065589a49f2befaebfb0576665dbd2ad5d34a157d11b8984a3aa"
+          },
+          {
+            "source_name": "tron1_contact_slip.py",
+            "sha256": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4"
+          },
+          {
+            "source_name": "tron1_domain_randomization.py",
+            "sha256": "3f3a0b62c85a0af496ae9e9e0d75dda85c3ec30da587e4a47969843f5b1b1dca"
+          },
+          {
+            "source_name": "tron1_drift.py",
+            "sha256": "d5da59c7af58f8a45e3deeb8f69fb0af8d382335e7b0974a5637106fc8c56bb6"
+          },
+          {
+            "source_name": "tron1_tracking.py",
+            "sha256": "0a29fa27c1d65c0b9add0886221491e549553e3529d6970f1ec5ba35e2532817"
+          },
+          {
+            "source_name": "rewards.py",
+            "sha256": "b323de7a120e8ac45d3dfc9f7d85d8d8633ec42e5af3162653d1b7804cc90f4b"
+          },
+          {
+            "source_name": "tracking_env_cfg.py",
+            "sha256": "30a4c688bacf1bb411f1516121c21630880bb64b7889ca2ae56f738375f856c8"
+          }
+        ]
+      }
+    }
+  },
+  "windows": {
+    "core": {
+      "reference": {
+        "window_s": [
+          1.44,
+          4.0
+        ],
+        "coverage_complete": true,
+        "samples_in_window": 129,
+        "reference_xy_rmse_m": 0.0,
+        "reference_xy_peak_m": 0.0,
+        "large_xy_exploratory_screen": false,
+        "mean_speed_m_s": 1.0285870794256273,
+        "reference_mean_speed_m_s": 1.0285870794256273,
+        "mean_speed_retention_ratio": 1.0,
+        "fraction_below_80pct_reference_speed": 0.0,
+        "net_course_change_deg": 59.25535645538145,
+        "heading_geometry": {
+          "root_directed_beta": {
+            "valid_samples": 129,
+            "eligible_samples": 129,
+            "valid_fraction": 1.0,
+            "signed_circular_mean_deg": -19.35590172913662,
+            "mean_absolute_deg": 19.351634719552546,
+            "absolute_p95_deg": 26.54276932583653
+          },
+          "per_wheel": {
+            "left": {
+              "root_course_to_wheel_gamma": {
+                "valid_samples": 129,
+                "eligible_samples": 129,
+                "valid_fraction": 1.0,
+                "signed_circular_mean_deg": -19.368877643268235,
+                "mean_absolute_deg": 19.35163482314112,
+                "absolute_p95_deg": 26.542770169061683
+              },
+              "wheel_center_course_to_wheel_gamma": {
+                "valid_samples": 129,
+                "eligible_samples": 129,
+                "valid_fraction": 1.0,
+                "signed_circular_mean_deg": -21.592737544457385,
+                "mean_absolute_deg": 21.56755125116802,
+                "absolute_p95_deg": 29.61739101120421
+              }
+            },
+            "right": {
+              "root_course_to_wheel_gamma": {
+                "valid_samples": 129,
+                "eligible_samples": 129,
+                "valid_fraction": 1.0,
+                "signed_circular_mean_deg": -19.36887764326823,
+                "mean_absolute_deg": 19.351634823141115,
+                "absolute_p95_deg": 26.54277016906168
+              },
+              "wheel_center_course_to_wheel_gamma": {
+                "valid_samples": 129,
+                "eligible_samples": 129,
+                "valid_fraction": 1.0,
+                "signed_circular_mean_deg": -19.238587545384743,
+                "mean_absolute_deg": 19.22337181647922,
+                "absolute_p95_deg": 25.99542492595436
+              }
+            }
+          },
+          "measured_contact_gate_applied": false
+        },
+        "ground_contact_heading_geometry": null,
+        "ground_contact_lateral_slip_m_s": null,
+        "heading_offset_is_mismatch": false,
+        "height_or_flight_failure_gate": false,
+        "xy_screen_limits_m": {
+          "rmse": 0.15,
+          "peak": 0.3
+        }
+      },
+      "b5_i3": {
+        "window_s": [
+          1.44,
+          4.0
+        ],
+        "coverage_complete": true,
+        "samples_in_window": 513,
+        "reference_xy_rmse_m": 0.09163851640152391,
+        "reference_xy_peak_m": 0.12520633892938793,
+        "large_xy_exploratory_screen": false,
+        "mean_speed_m_s": 1.0402207699224204,
+        "reference_mean_speed_m_s": 1.0283094526778527,
+        "mean_speed_retention_ratio": 1.011583397598407,
+        "fraction_below_80pct_reference_speed": 0.011695906432748537,
+        "net_course_change_deg": 36.4819066447366,
+        "heading_geometry": {
+          "root_directed_beta": {
+            "valid_samples": 513,
+            "eligible_samples": 513,
+            "valid_fraction": 1.0,
+            "signed_circular_mean_deg": -19.120661315579962,
+            "mean_absolute_deg": 19.364634848949954,
+            "absolute_p95_deg": 29.355299059457007
+          },
+          "per_wheel": {
+            "left": {
+              "root_course_to_wheel_gamma": {
+                "valid_samples": 513,
+                "eligible_samples": 513,
+                "valid_fraction": 1.0,
+                "signed_circular_mean_deg": -18.758135306876785,
+                "mean_absolute_deg": 18.937531340692917,
+                "absolute_p95_deg": 29.435620587329016
+              },
+              "wheel_center_course_to_wheel_gamma": {
+                "valid_samples": 505,
+                "eligible_samples": 513,
+                "valid_fraction": 0.9844054580896686,
+                "signed_circular_mean_deg": -11.310719045236516,
+                "mean_absolute_deg": 24.926946217488414,
+                "absolute_p95_deg": 76.10830694362171
+              }
+            },
+            "right": {
+              "root_course_to_wheel_gamma": {
+                "valid_samples": 513,
+                "eligible_samples": 513,
+                "valid_fraction": 1.0,
+                "signed_circular_mean_deg": -18.907399938944547,
+                "mean_absolute_deg": 19.107814825501098,
+                "absolute_p95_deg": 29.850849223859814
+              },
+              "wheel_center_course_to_wheel_gamma": {
+                "valid_samples": 503,
+                "eligible_samples": 513,
+                "valid_fraction": 0.9805068226120858,
+                "signed_circular_mean_deg": -13.558283749120971,
+                "mean_absolute_deg": 20.169658798353865,
+                "absolute_p95_deg": 76.24405733916716
+              }
+            }
+          },
+          "measured_contact_gate_applied": false
+        },
+        "ground_contact_heading_geometry": {
+          "threshold_upward_force_n": 5.0,
+          "per_wheel": {
+            "left": {
+              "root_course_to_wheel_gamma": {
+                "valid_samples": 159,
+                "eligible_samples": 513,
+                "valid_fraction": 0.30994152046783624,
+                "signed_circular_mean_deg": -15.468112898013935,
+                "mean_absolute_deg": 15.880419517078225,
+                "absolute_p95_deg": 28.536639249461135
+              },
+              "wheel_center_course_to_wheel_gamma": {
+                "valid_samples": 155,
+                "eligible_samples": 513,
+                "valid_fraction": 0.30214424951267055,
+                "signed_circular_mean_deg": -3.465082996056097,
+                "mean_absolute_deg": 12.129607675409602,
+                "absolute_p95_deg": 64.82227764568701
+              }
+            },
+            "right": {
+              "root_course_to_wheel_gamma": {
+                "valid_samples": 237,
+                "eligible_samples": 513,
+                "valid_fraction": 0.4619883040935672,
+                "signed_circular_mean_deg": -17.70915140673412,
+                "mean_absolute_deg": 17.77153836200345,
+                "absolute_p95_deg": 28.73868877220652
+              },
+              "wheel_center_course_to_wheel_gamma": {
+                "valid_samples": 231,
+                "eligible_samples": 513,
+                "valid_fraction": 0.4502923976608187,
+                "signed_circular_mean_deg": -7.315372397055125,
+                "mean_absolute_deg": 9.472216268665266,
+                "absolute_p95_deg": 34.23253872775423
+              }
+            }
+          },
+          "measured_contact_gate_applied": true,
+          "contact_fraction_left_right": [
+            0.30994152046783624,
+            0.4619883040935672
+          ]
+        },
+        "ground_contact_lateral_slip_m_s": {
+          "left": 0.41582106402293656,
+          "right": 0.27549930620280894
+        },
+        "heading_offset_is_mismatch": false,
+        "height_or_flight_failure_gate": false,
+        "xy_screen_limits_m": {
+          "rmse": 0.15,
+          "peak": 0.3
+        }
+      },
+      "b10_i3": {
+        "window_s": [
+          1.44,
+          4.0
+        ],
+        "coverage_complete": true,
+        "samples_in_window": 513,
+        "reference_xy_rmse_m": 0.170030215967865,
+        "reference_xy_peak_m": 0.30637733265429923,
+        "large_xy_exploratory_screen": true,
+        "mean_speed_m_s": 0.9839063661130011,
+        "reference_mean_speed_m_s": 1.0283094526778527,
+        "mean_speed_retention_ratio": 0.9568193344433233,
+        "fraction_below_80pct_reference_speed": 0.09941520467836257,
+        "net_course_change_deg": 66.0604067494293,
+        "heading_geometry": {
+          "root_directed_beta": {
+            "valid_samples": 513,
+            "eligible_samples": 513,
+            "valid_fraction": 1.0,
+            "signed_circular_mean_deg": -10.797024686966694,
+            "mean_absolute_deg": 16.18745461266913,
+            "absolute_p95_deg": 30.17496462387235
+          },
+          "per_wheel": {
+            "left": {
+              "root_course_to_wheel_gamma": {
+                "valid_samples": 513,
+                "eligible_samples": 513,
+                "valid_fraction": 1.0,
+                "signed_circular_mean_deg": -11.054289566636596,
+                "mean_absolute_deg": 16.107938040846406,
+                "absolute_p95_deg": 29.700092784148847
+              },
+              "wheel_center_course_to_wheel_gamma": {
+                "valid_samples": 485,
+                "eligible_samples": 513,
+                "valid_fraction": 0.9454191033138402,
+                "signed_circular_mean_deg": -11.19543277138137,
+                "mean_absolute_deg": 21.616495842398184,
+                "absolute_p95_deg": 67.71401066572882
+              }
+            },
+            "right": {
+              "root_course_to_wheel_gamma": {
+                "valid_samples": 513,
+                "eligible_samples": 513,
+                "valid_fraction": 1.0,
+                "signed_circular_mean_deg": -11.102209258259657,
+                "mean_absolute_deg": 16.17612380955965,
+                "absolute_p95_deg": 29.783437231126857
+              },
+              "wheel_center_course_to_wheel_gamma": {
+                "valid_samples": 485,
+                "eligible_samples": 513,
+                "valid_fraction": 0.9454191033138402,
+                "signed_circular_mean_deg": -7.331409497751726,
+                "mean_absolute_deg": 18.265738080075867,
+                "absolute_p95_deg": 65.73224767441528
+              }
+            }
+          },
+          "measured_contact_gate_applied": false
+        },
+        "ground_contact_heading_geometry": {
+          "threshold_upward_force_n": 5.0,
+          "per_wheel": {
+            "left": {
+              "root_course_to_wheel_gamma": {
+                "valid_samples": 192,
+                "eligible_samples": 513,
+                "valid_fraction": 0.3742690058479532,
+                "signed_circular_mean_deg": -6.5449218858036255,
+                "mean_absolute_deg": 15.561110801429257,
+                "absolute_p95_deg": 29.600364399735412
+              },
+              "wheel_center_course_to_wheel_gamma": {
+                "valid_samples": 179,
+                "eligible_samples": 513,
+                "valid_fraction": 0.3489278752436647,
+                "signed_circular_mean_deg": -1.095341351408443,
+                "mean_absolute_deg": 8.256063841119051,
+                "absolute_p95_deg": 28.952141099257673
+              }
+            },
+            "right": {
+              "root_course_to_wheel_gamma": {
+                "valid_samples": 295,
+                "eligible_samples": 513,
+                "valid_fraction": 0.5750487329434698,
+                "signed_circular_mean_deg": -7.6573719847705055,
+                "mean_absolute_deg": 15.442120498665297,
+                "absolute_p95_deg": 30.758165316584254
+              },
+              "wheel_center_course_to_wheel_gamma": {
+                "valid_samples": 278,
+                "eligible_samples": 513,
+                "valid_fraction": 0.5419103313840156,
+                "signed_circular_mean_deg": -2.2383156881429693,
+                "mean_absolute_deg": 7.571097208272333,
+                "absolute_p95_deg": 33.01457379674294
+              }
+            }
+          },
+          "measured_contact_gate_applied": true,
+          "contact_fraction_left_right": [
+            0.3742690058479532,
+            0.5750487329434698
+          ]
+        },
+        "ground_contact_lateral_slip_m_s": {
+          "left": 0.25403568023684925,
+          "right": 0.22196353305981095
+        },
+        "heading_offset_is_mismatch": false,
+        "height_or_flight_failure_gate": false,
+        "xy_screen_limits_m": {
+          "rmse": 0.15,
+          "peak": 0.3
+        }
+      },
+      "b5_i6": {
+        "window_s": [
+          1.44,
+          4.0
+        ],
+        "coverage_complete": true,
+        "samples_in_window": 513,
+        "reference_xy_rmse_m": 0.067312481937738,
+        "reference_xy_peak_m": 0.11812278367690882,
+        "large_xy_exploratory_screen": false,
+        "mean_speed_m_s": 1.0059424327620505,
+        "reference_mean_speed_m_s": 1.0283094526778527,
+        "mean_speed_retention_ratio": 0.9782487461750395,
+        "fraction_below_80pct_reference_speed": 0.0,
+        "net_course_change_deg": 69.72959479127606,
+        "heading_geometry": {
+          "root_directed_beta": {
+            "valid_samples": 513,
+            "eligible_samples": 513,
+            "valid_fraction": 1.0,
+            "signed_circular_mean_deg": -18.8604706777285,
+            "mean_absolute_deg": 18.854768447053083,
+            "absolute_p95_deg": 28.79202000302729
+          },
+          "per_wheel": {
+            "left": {
+              "root_course_to_wheel_gamma": {
+                "valid_samples": 513,
+                "eligible_samples": 513,
+                "valid_fraction": 1.0,
+                "signed_circular_mean_deg": -18.57719672488067,
+                "mean_absolute_deg": 18.554679695163035,
+                "absolute_p95_deg": 28.46633528601644
+              },
+              "wheel_center_course_to_wheel_gamma": {
+                "valid_samples": 499,
+                "eligible_samples": 513,
+                "valid_fraction": 0.9727095516569201,
+                "signed_circular_mean_deg": -15.465479953489274,
+                "mean_absolute_deg": 25.961244304303932,
+                "absolute_p95_deg": 72.96624945945736
+              }
+            },
+            "right": {
+              "root_course_to_wheel_gamma": {
+                "valid_samples": 513,
+                "eligible_samples": 513,
+                "valid_fraction": 1.0,
+                "signed_circular_mean_deg": -18.41076062414697,
+                "mean_absolute_deg": 18.387804646244906,
+                "absolute_p95_deg": 28.172926950708547
+              },
+              "wheel_center_course_to_wheel_gamma": {
+                "valid_samples": 513,
+                "eligible_samples": 513,
+                "valid_fraction": 1.0,
+                "signed_circular_mean_deg": -16.757740133268666,
+                "mean_absolute_deg": 20.223583737855453,
+                "absolute_p95_deg": 59.20123705568849
+              }
+            }
+          },
+          "measured_contact_gate_applied": false
+        },
+        "ground_contact_heading_geometry": {
+          "threshold_upward_force_n": 5.0,
+          "per_wheel": {
+            "left": {
+              "root_course_to_wheel_gamma": {
+                "valid_samples": 141,
+                "eligible_samples": 513,
+                "valid_fraction": 0.27485380116959063,
+                "signed_circular_mean_deg": -18.288815494302636,
+                "mean_absolute_deg": 18.278568068023205,
+                "absolute_p95_deg": 28.650027446899703
+              },
+              "wheel_center_course_to_wheel_gamma": {
+                "valid_samples": 138,
+                "eligible_samples": 513,
+                "valid_fraction": 0.26900584795321636,
+                "signed_circular_mean_deg": -5.511485848634559,
+                "mean_absolute_deg": 10.124577619994898,
+                "absolute_p95_deg": 39.00316572106244
+              }
+            },
+            "right": {
+              "root_course_to_wheel_gamma": {
+                "valid_samples": 253,
+                "eligible_samples": 513,
+                "valid_fraction": 0.49317738791423,
+                "signed_circular_mean_deg": -17.68266230954785,
+                "mean_absolute_deg": 17.660487873630565,
+                "absolute_p95_deg": 28.202012164187696
+              },
+              "wheel_center_course_to_wheel_gamma": {
+                "valid_samples": 253,
+                "eligible_samples": 513,
+                "valid_fraction": 0.49317738791423,
+                "signed_circular_mean_deg": -7.0176296060420755,
+                "mean_absolute_deg": 8.453644492750657,
+                "absolute_p95_deg": 32.74246913581074
+              }
+            }
+          },
+          "measured_contact_gate_applied": true,
+          "contact_fraction_left_right": [
+            0.27485380116959063,
+            0.49317738791423
+          ]
+        },
+        "ground_contact_lateral_slip_m_s": {
+          "left": 0.37202736546300164,
+          "right": 0.23230753993088663
+        },
+        "heading_offset_is_mismatch": false,
+        "height_or_flight_failure_gate": false,
+        "xy_screen_limits_m": {
+          "rmse": 0.15,
+          "peak": 0.3
+        }
+      },
+      "b10_i6": {
+        "window_s": [
+          1.44,
+          4.0
+        ],
+        "coverage_complete": true,
+        "samples_in_window": 513,
+        "reference_xy_rmse_m": 0.05206128270397581,
+        "reference_xy_peak_m": 0.09667200965191625,
+        "large_xy_exploratory_screen": false,
+        "mean_speed_m_s": 1.049354956788901,
+        "reference_mean_speed_m_s": 1.0283094526778527,
+        "mean_speed_retention_ratio": 1.0204661194704017,
+        "fraction_below_80pct_reference_speed": 0.015594541910331383,
+        "net_course_change_deg": 58.35239095400022,
+        "heading_geometry": {
+          "root_directed_beta": {
+            "valid_samples": 513,
+            "eligible_samples": 513,
+            "valid_fraction": 1.0,
+            "signed_circular_mean_deg": -18.622079194297406,
+            "mean_absolute_deg": 18.61523038291773,
+            "absolute_p95_deg": 32.25420995522478
+          },
+          "per_wheel": {
+            "left": {
+              "root_course_to_wheel_gamma": {
+                "valid_samples": 513,
+                "eligible_samples": 513,
+                "valid_fraction": 1.0,
+                "signed_circular_mean_deg": -18.57699455122147,
+                "mean_absolute_deg": 18.544423439781117,
+                "absolute_p95_deg": 31.447848115660776
+              },
+              "wheel_center_course_to_wheel_gamma": {
+                "valid_samples": 481,
+                "eligible_samples": 513,
+                "valid_fraction": 0.9376218323586745,
+                "signed_circular_mean_deg": -17.759480857166302,
+                "mean_absolute_deg": 26.654244696489904,
+                "absolute_p95_deg": 76.07267613103808
+              }
+            },
+            "right": {
+              "root_course_to_wheel_gamma": {
+                "valid_samples": 513,
+                "eligible_samples": 513,
+                "valid_fraction": 1.0,
+                "signed_circular_mean_deg": -18.775181875267283,
+                "mean_absolute_deg": 18.749309103333598,
+                "absolute_p95_deg": 32.78521344996156
+              },
+              "wheel_center_course_to_wheel_gamma": {
+                "valid_samples": 496,
+                "eligible_samples": 513,
+                "valid_fraction": 0.9668615984405458,
+                "signed_circular_mean_deg": -16.155788391059993,
+                "mean_absolute_deg": 21.721462315502293,
+                "absolute_p95_deg": 74.07341736639724
+              }
+            }
+          },
+          "measured_contact_gate_applied": false
+        },
+        "ground_contact_heading_geometry": {
+          "threshold_upward_force_n": 5.0,
+          "per_wheel": {
+            "left": {
+              "root_course_to_wheel_gamma": {
+                "valid_samples": 169,
+                "eligible_samples": 513,
+                "valid_fraction": 0.32943469785575047,
+                "signed_circular_mean_deg": -17.198567842455198,
+                "mean_absolute_deg": 17.228624611530538,
+                "absolute_p95_deg": 32.956441488339586
+              },
+              "wheel_center_course_to_wheel_gamma": {
+                "valid_samples": 150,
+                "eligible_samples": 513,
+                "valid_fraction": 0.29239766081871343,
+                "signed_circular_mean_deg": -6.551184675839617,
+                "mean_absolute_deg": 12.726454049135773,
+                "absolute_p95_deg": 53.963678149256225
+              }
+            },
+            "right": {
+              "root_course_to_wheel_gamma": {
+                "valid_samples": 232,
+                "eligible_samples": 513,
+                "valid_fraction": 0.4522417153996101,
+                "signed_circular_mean_deg": -18.30981800393099,
+                "mean_absolute_deg": 18.306695961797978,
+                "absolute_p95_deg": 33.94707325360168
+              },
+              "wheel_center_course_to_wheel_gamma": {
+                "valid_samples": 220,
+                "eligible_samples": 513,
+                "valid_fraction": 0.42884990253411304,
+                "signed_circular_mean_deg": -8.136536606546427,
+                "mean_absolute_deg": 11.210236365834595,
+                "absolute_p95_deg": 43.01482896427421
+              }
+            }
+          },
+          "measured_contact_gate_applied": true,
+          "contact_fraction_left_right": [
+            0.32943469785575047,
+            0.4522417153996101
+          ]
+        },
+        "ground_contact_lateral_slip_m_s": {
+          "left": 0.4680450120037906,
+          "right": 0.3781202467903556
+        },
+        "heading_offset_is_mismatch": false,
+        "height_or_flight_failure_gate": false,
+        "xy_screen_limits_m": {
+          "rmse": 0.15,
+          "peak": 0.3
+        }
+      }
+    }
+  },
+  "model_loader_audit": {
+    "source_helpers_sha256": {
+      "scripts/eval_tracking_mujoco.py": "da6d1da378b5065589a49f2befaebfb0576665dbd2ad5d34a157d11b8984a3aa",
+      "scripts/eval_tracking.py": "fd90089810d3d14bfd96210723afdd3a36113a19f667ec60b2df617dd032f992",
+      "training/tron1_domain_randomization.py": "3f3a0b62c85a0af496ae9e9e0d75dda85c3ec30da587e4a47969843f5b1b1dca",
+      "training/tron1_contact_slip.py": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4"
+    },
+    "visual_geometries_removed": 9,
+    "loader": "eval_tracking_mujoco.load_model(no_visual_mesh=True)",
+    "dynamics_stepping": false
+  },
+  "fk_audit": {
+    "reference": {
+      "maximum_wheel_link_position_error_m": 4.579503055580069e-07,
+      "wheel_position_tolerance_m": 0.0002,
+      "maximum_root_com_velocity_reconstruction_error": 1.1102230246251565e-16,
+      "dynamics_stepping": false,
+      "measured_contact_replaced": false,
+      "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+    },
+    "b5_i3": {
+      "maximum_wheel_link_position_error_m": 2.1429389537261496e-15,
+      "wheel_position_tolerance_m": 0.0002,
+      "maximum_root_com_velocity_reconstruction_error": 8.881784197001252e-16,
+      "dynamics_stepping": false,
+      "measured_contact_replaced": false,
+      "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+    },
+    "b10_i3": {
+      "maximum_wheel_link_position_error_m": 2.1429389537261496e-15,
+      "wheel_position_tolerance_m": 0.0002,
+      "maximum_root_com_velocity_reconstruction_error": 1.7763568394002505e-15,
+      "dynamics_stepping": false,
+      "measured_contact_replaced": false,
+      "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+    },
+    "b5_i6": {
+      "maximum_wheel_link_position_error_m": 2.127062440398611e-15,
+      "wheel_position_tolerance_m": 0.0002,
+      "maximum_root_com_velocity_reconstruction_error": 1.3322676295501878e-15,
+      "dynamics_stepping": false,
+      "measured_contact_replaced": false,
+      "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+    },
+    "b10_i6": {
+      "maximum_wheel_link_position_error_m": 2.0350724194510405e-15,
+      "wheel_position_tolerance_m": 0.0002,
+      "maximum_root_com_velocity_reconstruction_error": 2.220446049250313e-15,
+      "dynamics_stepping": false,
+      "measured_contact_replaced": false,
+      "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+    }
+  },
+  "posture_diagnostics": {
+    "b5_i3": {
+      "max_base_tilt_deg": 18.441088031720653,
+      "fraction_tilt_over_60_deg": 0.0,
+      "interval": "entire recorded first episode, not only the declared core",
+      "role": "Posture diagnostic, not a height/flight failure gate or controlled-execution certificate",
+      "heading_geometry_caveat": "World-XY projected beta/gamma are not reward body-frame beta under pitch/roll; interpret large-tilt geometry cautiously"
+    },
+    "b10_i3": {
+      "max_base_tilt_deg": 14.544955764072036,
+      "fraction_tilt_over_60_deg": 0.0,
+      "interval": "entire recorded first episode, not only the declared core",
+      "role": "Posture diagnostic, not a height/flight failure gate or controlled-execution certificate",
+      "heading_geometry_caveat": "World-XY projected beta/gamma are not reward body-frame beta under pitch/roll; interpret large-tilt geometry cautiously"
+    },
+    "b5_i6": {
+      "max_base_tilt_deg": 16.453275511641447,
+      "fraction_tilt_over_60_deg": 0.0,
+      "interval": "entire recorded first episode, not only the declared core",
+      "role": "Posture diagnostic, not a height/flight failure gate or controlled-execution certificate",
+      "heading_geometry_caveat": "World-XY projected beta/gamma are not reward body-frame beta under pitch/roll; interpret large-tilt geometry cautiously"
+    },
+    "b10_i6": {
+      "max_base_tilt_deg": 13.369186792168179,
+      "fraction_tilt_over_60_deg": 0.0,
+      "interval": "entire recorded first episode, not only the declared core",
+      "role": "Posture diagnostic, not a height/flight failure gate or controlled-execution certificate",
+      "heading_geometry_caveat": "World-XY projected beta/gamma are not reward body-frame beta under pitch/roll; interpret large-tilt geometry cautiously"
+    }
+  },
+  "contact_diagnostics": {
+    "b5_i3": {
+      "role": "Measured ground-contact diagnostic, NOT a height/flight failure gate",
+      "full_clip_nonwheel_ground_fraction": 0.0,
+      "core_nonwheel_ground_fraction": 0.0,
+      "first_nonwheel_ground_time_s": null,
+      "maximum_nonwheel_ground_force_norm_n": 0.0
+    },
+    "b10_i3": {
+      "role": "Measured ground-contact diagnostic, NOT a height/flight failure gate",
+      "full_clip_nonwheel_ground_fraction": 0.0,
+      "core_nonwheel_ground_fraction": 0.0,
+      "first_nonwheel_ground_time_s": null,
+      "maximum_nonwheel_ground_force_norm_n": 0.0
+    },
+    "b5_i6": {
+      "role": "Measured ground-contact diagnostic, NOT a height/flight failure gate",
+      "full_clip_nonwheel_ground_fraction": 0.0,
+      "core_nonwheel_ground_fraction": 0.0,
+      "first_nonwheel_ground_time_s": null,
+      "maximum_nonwheel_ground_force_norm_n": 0.0
+    },
+    "b10_i6": {
+      "role": "Measured ground-contact diagnostic, NOT a height/flight failure gate",
+      "full_clip_nonwheel_ground_fraction": 0.0,
+      "core_nonwheel_ground_fraction": 0.0,
+      "first_nonwheel_ground_time_s": null,
+      "maximum_nonwheel_ground_force_norm_n": 0.0
+    }
+  },
+  "input_sha256": {
+    "motion_file": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+    "reference_file": "afc22f19b813cf10b3e3a90affb0f26f5a7743074f98b262394c69de786e9f6e",
+    "model": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513"
+  },
+  "reference_catalog_sha256": "b2c6062ebc6c25d48d7845ffb8786971f85d7b44e37d5f6f27a9f65e395b96c1",
+  "analysis_source_sha256": {
+    "analyze_nmpc_nominal_development.py": "7b7ba81cbdf2a86c49f88f9abcf23b7486e12127e9106ed7bfe15bf24bb228b9",
+    "analyze_controller_pair.py": "bac9dc6c81b02e46143322462ca6e53de1a1057da72e19ccaeb8632725d6bd2d",
+    "controller_metrics.py": "40921dad0c268d4bd871e0910086957555116fdd07188ba7cb4f8c76ca4343de",
+    "controller_trace.py": "673d17bda4d9f6c93b76b0b963b199aef3e3abe8982cfc6cc6580184e5b0a3e6",
+    "controller_references.py": "2f2746946c37a527298ef83d6a4f07063a9d95250c49815f4f1478d5141b4bf6",
+    "nmpc_tracking_objective.py": "ff22eebb2b22b9af7dba114c64fcd10f6b0a90822559af8f32cbe6884015b860"
+  },
+  "limitations": [
+    "MuJoCo-only DEVELOPMENT variants, not a sim2sim comparison, frozen controller, statistical success rate or hardware result.",
+    "Horizon and block duration may change together; parameterization/search knobs are preserved, not treated as a causal horizon-only experiment.",
+    "Full-clip tilt and measured nonwheel contacts are separate diagnostics. XY screens alone do not certify upright controlled execution.",
+    "Reference contacts are unmeasured; no grounded/patch-slip labels are inferred by FK. Heading offsets are features, not mismatch gates.",
+    "World axes and native clocks are unchanged; no alignment/time warp. The figure shows the demonstrated interval, not synthetic recovery/tail."
+  ],
+  "artifacts": {
+    "compact_trace": "development_trace.npz",
+    "compact_trace_sha256": "04ee3083df5e59d7a60add6e1ecb1e42d0d23f7788aa0356c08410636513b4bd",
+    "topdown": "topdown.png",
+    "topdown_sha256": "1ffc2068c93d678bef014a507df7b5d676d6a3623ddbeb2d9db411798c2a124a",
+    "replay": "Use render_topdown with development_trace.npz and this summary; arrays retain native named states, masks and measured contacts"
+  }
+}

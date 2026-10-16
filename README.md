@@ -23,6 +23,13 @@ trial of the same turn. Both are hash-locked in
 Current robot-scale reference speeds are roughly 1 m/s; these inputs alone do
 not establish a high-speed capability result or dynamic similarity to a car.
 
+**Latest direction:** stop adding NMPC tuning cases and compare the existing
+versions, including nominal failures. Report XY tracking, speed retention,
+contact-conditioned sliding, actuator burden and computational cost separately;
+nominal failures remain reportable results, not a reason for open-ended tuning.
+This does not make NMPC a qualified frozen benchmark. No new remote deployment
+or NMPC friction sweep was performed in this update.
+
 The [completed historical refinement](results/2026-10-15-car-sim2sim-boundary.md) places
 the sampled Isaac XY-verdict change between µ=0.16 and 0.18, versus µ=0.14 and
 0.15 in MuJoCo, and includes top-down animation plus divergence-onset timing.
@@ -47,8 +54,8 @@ is retained even though nominal tracking is unsuccessful.
 
 **NMPC development is not frozen.** The initial full-turn nominal controller
 has core XY RMSE 0.324 m in Isaac and 0.280 m in MuJoCo at µ=0.70, with all
-solver calls exceeding 20 ms. The next step is to improve nominal tracking
-before freezing its settings and running the friction grid. Other coefficients
+solver calls exceeding 20 ms. Nominal refinement was attempted before a formal
+freeze and friction grid; further tuning is now stopped. Other coefficients
 are not NMPC tuning data. Keep the reference speed, nonzero sideslip target and
 height-free objective unchanged; neither leaving the ground nor heading offset
 alone is a failure gate. The initial NMPC results are diagnostics, not a final
@@ -69,7 +76,8 @@ Isaac's squared XY error is along-track. Longer look-ahead lowers core RMSE
 to 0.232 m in Isaac / 0.092 m in MuJoCo, but Isaac still exceeds the XY screen.
 The same follow-up records a three-prediction-model test at plant µ=0.70:
 Isaac RMSE is 0.274 m, so that attempt did not improve nominal tracking.
-Nominal XY must pass before freezing or starting the NMPC friction grid.
+The existing qualified-grid workflow still requires a valid passing nominal
+pair; no such qualification or grid is claimed for these development versions.
 [Further local search ablations](results/2026-10-16-nmpc-progress-and-horizon.md#model-only-initialization-and-narrower-leg-sampling-did-not-improve-tracking)
 retain unsuccessful model-only initializer and narrower-leg-search results.
 Those cases remain MuJoCo-only; no controller freeze or NMPC friction grid is claimed.
@@ -79,6 +87,13 @@ The [six-iteration H30/B5 diagnostic](results/2026-10-16-nmpc-progress-and-horiz
 records 211 Isaac fallback decisions after prediction failures. Its cause and
 actual app exit code are unknown; it is not a valid nominal comparison or a
 normal-timing result. No controller freeze or NMPC friction grid is claimed.
+The [bounded historical-prefix reconstruction](results/2026-10-16-nmpc-prefix-reconstruction.md)
+matches frames 0–136 but does not reproduce the first prediction failure;
+it stops at frame 137, leaving the original cause unknown.
+The [completed MuJoCo block/search-budget comparison](results/2026-10-16-nmpc-block-budget.md)
+includes H30/B10/I6 at 0.052 m RMSE, but no matching Isaac result.
+The [existing-controller burden audit](results/2026-10-16-nominal-control-burden.md)
+compares eight recorded nominal episodes without new training or simulation.
 Matching the 15 stage rewards does not match RL's discount, bootstrap and
 orientation-termination semantics; the
 [termination audit](results/2026-10-16-controller-termination-semantics.md)
