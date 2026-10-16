@@ -70,6 +70,8 @@ def nmpc_reports():
               "external_root_forces_used": False, "prediction_receives_plant_mu": False,
               "truncated_smoke": False, "prediction_mu_scenarios": [.7, 1.2],
               "plant_mu": .18, "pose_height_failure_gate": False, "objective_contract": objective,
+              "effective_cem_config": {"horizon_steps": 3, "control_blocks": 1, "candidates": 4,
+                                       "iterations": 2, "elite_count": 2, "seed": 42},
               "contact_slip_definition": "Measured contact-point force-weighted lateral-speed RMS"}
     ia, mj = copy.deepcopy(shared), copy.deepcopy(shared)
     ia.update(engine="Isaac/PhysX", rollout_sha256=IA_HASH, mujoco_model_sha256=MODEL_HASH,
@@ -160,6 +162,76 @@ def test_nmpc_rejects_oracle_scenarios_learned_replay_missing_material_and_objec
     target[path[-1]] = value
     with pytest.raises(ValueError):
         audited("NMPC", reports, integration_only=True)
+
+
+@pytest.mark.parametrize("integration_only", [False, True])
+@pytest.mark.parametrize("field,value", [("horizon_steps", 30), ("control_blocks", 2),
+                                         ("candidates", 64), ("iterations", 3),
+                                         ("elite_count", 3), ("seed", 314),
+                                         ("parameterization", "warm_start_residual_blocks")])
+def test_nmpc_rejects_mismatched_effective_search_config_even_in_integration_mode(field, value, integration_only):
+    reports = nmpc_reports()
+    reports[1]["effective_cem_config"][field] = value
+    with pytest.raises(ValueError, match="effective_cem_config"):
+        audited("NMPC", reports, integration_only=integration_only)
+
+
+@pytest.mark.parametrize("problem", ["one_missing", "both_missing", "empty", "not_dict"])
+def test_nmpc_effective_search_config_is_required_nonempty_object(problem):
+    reports = nmpc_reports()
+    if problem == "one_missing": del reports[0]["effective_cem_config"]
+    elif problem == "both_missing":
+        for report in reports: del report["effective_cem_config"]
+    else:
+        for report in reports: report["effective_cem_config"] = {} if problem == "empty" else []
+    with pytest.raises(ValueError, match="effective_cem_config"):
+        audited("NMPC", reports)
+
+
+def test_legacy_absolute_nmpc_without_new_contracts_still_passes_and_records_its_identity():
+    reports = nmpc_reports()
+    result = audited("NMPC", reports)["nmpc_controller_identity"]
+    assert result["exact_configuration_match"] is True
+    assert result["parameterization_mode"] == "absolute_blocks"
+    assert result["legacy_absolute_without_parameterization_contract"] is True
+    assert result["action_parameterization_contract"] is None
+    result["effective_cem_config"]["seed"] = 314
+    assert reports[0]["effective_cem_config"]["seed"] == 42
+
+
+@pytest.mark.parametrize("mode", ["absolute_blocks", "warm_start_residual_blocks"])
+def test_matching_explicit_nmpc_parameterization_contracts_agree_with_config(mode):
+    reports = nmpc_reports()
+    contract = {"mode": mode, "baseline_copied_and_fixed_per_solve": mode == "warm_start_residual_blocks"}
+    for report in reports:
+        report["effective_cem_config"]["parameterization"] = mode
+        report["action_parameterization"] = copy.deepcopy(contract)
+    result = audited("NMPC", reports)["nmpc_controller_identity"]
+    assert result["parameterization_mode"] == mode
+    assert result["action_parameterization_contract"] == contract
+    assert result["legacy_absolute_without_parameterization_contract"] is False
+    result["action_parameterization_contract"]["mode"] = "changed"
+    assert reports[0]["action_parameterization"]["mode"] == mode
+
+
+@pytest.mark.parametrize("integration_only", [False, True])
+@pytest.mark.parametrize("problem", ["isaac_only", "mujoco_only", "different_contract", "wrong_mode", "null", "empty", "residual_missing"])
+def test_nmpc_parameterization_contract_missing_mismatch_or_inconsistent_mode_rejected(problem, integration_only):
+    reports = nmpc_reports()
+    for report in reports:
+        report["effective_cem_config"]["parameterization"] = "warm_start_residual_blocks"
+        report["action_parameterization"] = {"mode": "warm_start_residual_blocks", "baseline_copied_and_fixed_per_solve": True}
+    if problem == "isaac_only": del reports[1]["action_parameterization"]
+    elif problem == "mujoco_only": del reports[0]["action_parameterization"]
+    elif problem == "different_contract": reports[1]["action_parameterization"]["baseline_copied_and_fixed_per_solve"] = False
+    elif problem == "wrong_mode":
+        for report in reports: report["action_parameterization"]["mode"] = "absolute_blocks"
+    elif problem in ("null", "empty"):
+        for report in reports: report["action_parameterization"] = None if problem == "null" else {}
+    else:
+        for report in reports: del report["action_parameterization"]
+    with pytest.raises(ValueError, match="action_parameterization"):
+        audited("NMPC", reports, integration_only=integration_only)
 
 
 def test_smoke_is_explicit_integration_only_and_never_ranking():

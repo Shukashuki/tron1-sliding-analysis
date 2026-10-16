@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 from contextlib import contextmanager
+import copy
 import hashlib
 import importlib.util
 import json
@@ -86,6 +87,7 @@ def audit_reports(algorithm, spec, isaac, mujoco, *, isaac_trace_sha256,
     _require(algorithm in ("PPO", "SAC", "NMPC"), "Unsupported algorithm")
     motion_hash = spec["motion_npz_sha256"]
     learned = algorithm != "NMPC"
+    nmpc_identity = None
     _require(isaac.get("simulator" if learned else "engine") in ("IsaacLab/PhysX", "Isaac/PhysX")
              and mujoco.get("engine") == "MuJoCo", "Reports must declare Isaac/PhysX and MuJoCo engines respectively")
     ia_contract = isaac.get("policy_export", {}) if learned else isaac.get("objective_contract", {})
@@ -159,6 +161,25 @@ def audit_reports(algorithm, spec, isaac, mujoco, *, isaac_trace_sha256,
             _require(report.get("reference_id") == spec["reference_id"], f"{engine}: reference_id mismatch")
             _require(integration_only or report.get("truncated_smoke") is False,
                      "Truncated NMPC smoke needs explicit --integration-only; it is not a full comparison")
+        ia_cem, mj_cem = isaac.get("effective_cem_config"), mujoco.get("effective_cem_config")
+        _require(isinstance(ia_cem, dict) and bool(ia_cem)
+                 and isinstance(mj_cem, dict) and ia_cem == mj_cem,
+                 "NMPC engines must share the exact nonempty effective_cem_config, including horizon, population, seed and parameterization")
+        mode = ia_cem.get("parameterization", "absolute_blocks")
+        _require(mode in ("absolute_blocks", "warm_start_residual_blocks"), "Unsupported NMPC parameterization mode")
+        have_parameterization = ["action_parameterization" in report for report in (isaac, mujoco)]
+        if any(have_parameterization):
+            ia_parameters, mj_parameters = isaac.get("action_parameterization"), mujoco.get("action_parameterization")
+            _require(all(have_parameterization) and isinstance(ia_parameters, dict) and bool(ia_parameters)
+                     and isinstance(mj_parameters, dict) and ia_parameters == mj_parameters
+                     and ia_parameters.get("mode") == mode,
+                     "NMPC action_parameterization contracts must both exist, match exactly and agree with effective CEM mode")
+        else:
+            _require(mode == "absolute_blocks", "Residual NMPC requires explicit matching action_parameterization contracts")
+            ia_parameters = None
+        nmpc_identity = {"exact_configuration_match": True, "effective_cem_config": copy.deepcopy(ia_cem),
+                         "parameterization_mode": mode, "action_parameterization_contract": copy.deepcopy(ia_parameters),
+                         "legacy_absolute_without_parameterization_contract": not any(have_parameterization)}
         _require(isaac.get("mujoco_model_sha256") == model_sha256, "Isaac predictor model hash differs from FK model")
         _require(isaac.get("fixed_evaluation", {}).get("all_termination_terms_removed") is True,
                  "Isaac NMPC requires explicit removal of reset-triggering termination terms")
@@ -195,7 +216,8 @@ def audit_reports(algorithm, spec, isaac, mujoco, *, isaac_trace_sha256,
             "height_free_objective_and_evaluation": height_free,
             "scope": "Reported provenance and file-identity checks; not independent proof of simulator internals",
             "checkpoint_sha256": isaac.get("checkpoint_sha256") if learned else None,
-            "integration_only": bool(integration_only), "eligible_for_controller_ranking": not integration_only}
+            "integration_only": bool(integration_only), "eligible_for_controller_ranking": not integration_only,
+            **({"nmpc_controller_identity": nmpc_identity} if not learned else {})}
 
 
 def audit_training(manifest_path, algorithm, spec, isaac, mujoco, *, integration_only=False, checkpoint_path=None):

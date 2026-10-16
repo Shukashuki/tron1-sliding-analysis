@@ -314,6 +314,7 @@ def _run(args, resources):
             "settings":settings,"effective_cem_config":asdict(cem),"plant_mu":args.plant_mu,
             "prediction_mu_scenarios":list(scenarios),"prediction_receives_plant_mu":False,
             "prediction_backend":backend,"native_prediction_backend":native_metadata,
+            "action_parameterization":controller.parameterization_contract(),
             "plant_material_readback":{"compiled_sliding_friction_range":[float(model.geom_friction[:,0].min()),float(model.geom_friction[:,0].max())],
                                        "note":"Equal numeric contact coefficient, not a calibrated tire model."},
             "packed_state_contract":predictor.layout.contract(),"objective_contract":predictor.objective.contract(),

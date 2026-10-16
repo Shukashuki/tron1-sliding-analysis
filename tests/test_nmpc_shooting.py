@@ -89,9 +89,10 @@ def test_scenarios_share_entire_plan_and_do_not_mutate_predictor_mu(reduction, e
     assert info["robustness_certificate"] is False
 
 
-def test_warm_start_shifts_previous_plan_and_repeats_final_action():
+@pytest.mark.parametrize("mode", ["absolute_blocks", "warm_start_residual_blocks"])
+def test_warm_start_shifts_previous_plan_and_repeats_final_action(mode):
     p = RecordingRollout()
-    c = controller(p)
+    c = controller(p,parameterization=mode)
     c.action(np.zeros(2), 0, previous_action=np.zeros(1), previous_vz=0.0)
     original = c.last_plan
     p.calls.clear()
@@ -224,10 +225,11 @@ def assert_same_decision_and_counts(scalar, batch, scalar_info, batch_info):
 
 
 @pytest.mark.parametrize("reduction", ["worst", "mean"])
-def test_optional_batch_matches_seeded_scalar_plans_actions_counts_and_warm_start(reduction):
+@pytest.mark.parametrize("mode", ["absolute_blocks", "warm_start_residual_blocks"])
+def test_optional_batch_matches_seeded_scalar_plans_actions_counts_and_warm_start(reduction,mode):
     config = CEMConfig(horizon_steps=6, control_blocks=3, candidates=16,
                        iterations=3, elite_count=4, initial_std=.5,
-                       scenario_reduction=reduction, seed=712)
+                       scenario_reduction=reduction, seed=712,parameterization=mode)
     p, bp = RecordingRollout(), BatchRecordingRollout()
     scalar = ShootingNMPC(p, config, action_low=[-1.], action_high=[1.], mu_scenarios=(.2,.7))
     batch = ShootingNMPC(bp, config, action_low=[-1.], action_high=[1.], mu_scenarios=(.2,.7))
@@ -257,7 +259,8 @@ def test_optional_batch_matches_seeded_scalar_plans_actions_counts_and_warm_star
     assert_same_decision_and_counts(scalar, batch, info, other)
 
 
-def test_batch_per_candidate_nonfinite_scenario_costs_have_scalar_failure_accounting():
+@pytest.mark.parametrize("mode", ["absolute_blocks", "warm_start_residual_blocks"])
+def test_batch_per_candidate_nonfinite_scenario_costs_have_scalar_failure_accounting(mode):
     class FailingScalar(RecordingRollout):
         def rollout(self, state, plan, reference_index, **kwargs):
             if kwargs["mu"] == .2 and np.any(plan < 0.):
@@ -268,7 +271,7 @@ def test_batch_per_candidate_nonfinite_scenario_costs_have_scalar_failure_accoun
         rollout = FailingScalar.rollout
 
     config = CEMConfig(horizon_steps=3, control_blocks=2, candidates=12,
-                       iterations=2, elite_count=3, initial_std=.6)
+                       iterations=2, elite_count=3, initial_std=.6,parameterization=mode)
     scalar = ShootingNMPC(FailingScalar(),config,action_low=[-1.],action_high=[1.],mu_scenarios=(.2,.7))
     batch = ShootingNMPC(FailingBatch(),config,action_low=[-1.],action_high=[1.],mu_scenarios=(.2,.7))
     kwargs = dict(previous_action=np.array([-.5]), previous_vz=.2)
@@ -282,7 +285,8 @@ def test_batch_per_candidate_nonfinite_scenario_costs_have_scalar_failure_accoun
 
 
 @pytest.mark.parametrize("fallback, expected", [("previous", .7), ("neutral", 0.)])
-def test_batch_runtime_warning_rejects_whole_scenario_and_has_explicit_fallback(fallback, expected):
+@pytest.mark.parametrize("mode", ["absolute_blocks", "warm_start_residual_blocks"])
+def test_batch_runtime_warning_rejects_whole_scenario_and_has_explicit_fallback(fallback, expected,mode):
     class BatchWarning(BatchRecordingRollout):
         def rollout_batch(self, state, plans, reference_index, **kwargs):
             if kwargs["mu"] == .2:
@@ -290,7 +294,7 @@ def test_batch_runtime_warning_rejects_whole_scenario_and_has_explicit_fallback(
             return np.ones(len(plans))
 
     config = CEMConfig(horizon_steps=3,control_blocks=1,candidates=4,
-                       iterations=2,elite_count=2,fallback_action=fallback)
+                       iterations=2,elite_count=2,fallback_action=fallback,parameterization=mode)
     c = ShootingNMPC(BatchWarning(),config,action_low=[-1.],action_high=[1.],mu_scenarios=(.2,.7))
     action, info = c.action(np.zeros(2),0,previous_action=np.array([.7]),previous_vz=0.)
     np.testing.assert_array_equal(action,[expected])
@@ -318,12 +322,168 @@ def test_batch_programming_errors_are_fatal_not_silent_fallback(problem):
     assert c.last_plan is None
 
 
-def test_batch_constant_cost_ties_keep_first_incumbent_and_stable_candidate_order():
+@pytest.mark.parametrize("mode", ["absolute_blocks", "warm_start_residual_blocks"])
+def test_batch_constant_cost_ties_keep_first_incumbent_and_stable_candidate_order(mode):
     costs={1.:2.}
-    scalar, batch = controller(RecordingRollout(costs)), controller(BatchRecordingRollout(costs))
+    scalar, batch = controller(RecordingRollout(costs),parameterization=mode), controller(BatchRecordingRollout(costs),parameterization=mode)
     a, info = scalar.action(np.zeros(2),0,previous_action=np.array([.23]),previous_vz=.4,
                             seed_plan=np.full((8,1),.9))
     b, other = batch.action(np.zeros(2),0,previous_action=np.array([.23]),previous_vz=.4,
                            seed_plan=np.full((8,1),.9))
     np.testing.assert_array_equal(a,[.23]);np.testing.assert_array_equal(a,b)
     assert_same_decision_and_counts(scalar,batch,info,other)
+
+
+def test_default_absolute_exact_prechange_plan_cost_and_random_stream_golden():
+    c=controller(NonlinearPredictor())
+    action,info=c.action(np.zeros(2),0,previous_action=np.zeros(1),previous_vz=0.)
+    expected=np.array([.9555126940917484,.9555126940917484,.9750008602087729,.9750008602087729,
+                       .11149400230942114,.11149400230942114,-.23077745882095135,-.23077745882095135])[:,None]
+    np.testing.assert_array_equal(c.last_plan,expected)
+    np.testing.assert_array_equal(action,expected[0])
+    assert info["selected_model_cost"]==.9881224923456084
+    assert info["initial_model_cost"]==10.
+    assert info["best_cost_by_iteration"]==[2.799728496110986,1.2879915966675333,.9881224923456084]
+    np.testing.assert_array_equal(c.rng.normal(size=4),[-1.2798409576400205,1.681816619300824,1.7289953408857035,1.359220600295612])
+    assert info["action_parameterization"]=="absolute_blocks"
+
+
+class PrescribedNormals:
+    def __init__(self,*rows):
+        self.rows=list(rows)
+    def normal(self,*,size):
+        return np.asarray(self.rows.pop(0),dtype=float).reshape(size)
+
+
+def residual_controller(predictor,**kwargs):
+    values=dict(horizon_steps=3,control_blocks=1,candidates=3,iterations=2,elite_count=1,
+                initial_std=1.,min_std=1.,parameterization="warm_start_residual_blocks")
+    values.update(kwargs)
+    return ShootingNMPC(predictor,CEMConfig(**values),action_low=[-1.],action_high=[1.],mu_scenarios=(1.,))
+
+
+def test_residual_fixed_nonconstant_baseline_encoded_elites_and_paired_incumbent_under_clip():
+    baseline=np.array([-.8,0.,.8])[:,None]
+    target=np.clip(baseline+.5,-1.,1.)
+    class Seeded(BatchRecordingRollout):
+        def initial_candidate(self,*args,**kwargs):
+            return baseline.copy()
+        def rollout(self,state,plan,reference_index,**kwargs):
+            return float(np.sum((plan-target)**2))
+    p=Seeded();c=residual_controller(p)
+    c.rng=PrescribedNormals([0.,.5,-.5],[99.,0.,.2])
+    action,info=c.action(np.zeros(2),0,previous_action=np.zeros(1),previous_vz=0.)
+    populations=[call[1] for call in p.batch_calls if len(call[1])==3]
+    # Zero delta preserves a full plan which cannot be represented by K=1
+    # absolute blocks. Initial fallback and seed were scored before sampling.
+    np.testing.assert_array_equal(populations[0][0],baseline)
+    np.testing.assert_array_equal(populations[0][1],target)
+    # Saturation means mean(decoded-baseline)=.4, NOT encoded delta=.5.
+    # Both row0 and the zero-noise row1 must retain delta=.5 on iteration2.
+    np.testing.assert_array_equal(populations[1][0],target)
+    np.testing.assert_array_equal(populations[1][1],target)
+    np.testing.assert_array_equal(c.last_plan,target)
+    np.testing.assert_array_equal(action,target[0])
+    np.testing.assert_array_equal(baseline,np.array([-.8,0.,.8])[:,None])
+    assert info["residual_selected_parameter_linf"]==.5
+    assert info["initial_baseline_block_projection_max_abs_error"]==.8
+    assert info["residual_action_decode_clip_fraction"]>0.
+    assert info["residual_baseline_fixed_per_solve"] is True
+
+
+def test_residual_encoder_unequal_blocks_asymmetric_multiaction_bounds_and_finiteness():
+    c=ShootingNMPC(RecordingRollout(),CEMConfig(horizon_steps=7,control_blocks=3,candidates=2,
+        iterations=1,elite_count=1,parameterization="warm_start_residual_blocks"),
+        action_low=[-2.,1.],action_high=[1.,4.],mu_scenarios=(1.,))
+    baseline=np.column_stack((np.linspace(-2.,1.,7),np.linspace(4.,1.,7)))
+    delta=np.array([[[100.,-100.],[.2,-.2],[-.3,.3]]])
+    encoded=c._encode_residual(delta)
+    plans,raw=c._decode_residual(baseline,encoded)
+    np.testing.assert_array_equal(encoded[0,0],[3.,-3.])
+    np.testing.assert_array_equal(plans,np.clip(baseline[None]+encoded[:,c.assignment],[-2.,1.],[1.,4.]))
+    assert c.assignment.tolist()==[0,0,0,1,1,2,2]
+    invalid=delta.copy();invalid[0,0,0]=np.inf
+    with pytest.raises(FloatingPointError,match="before encoding clip"):
+        c._encode_residual(invalid)
+    with pytest.raises(ValueError,match="already-clipped"):
+        c._decode_residual(baseline,delta)
+    assert c.parameterization_contract()["baseline_copied_and_fixed_per_solve"] is True
+
+
+@pytest.mark.parametrize("low,high", [(-1e308,1e308),(-1e16,1.)])
+def test_residual_rejects_nonfinite_or_rounded_lossy_span_without_changing_absolute_constructor(low,high):
+    base=dict(horizon_steps=3,control_blocks=1,candidates=2,iterations=1,elite_count=1)
+    ShootingNMPC(RecordingRollout(),CEMConfig(**base),action_low=[low],action_high=[high],mu_scenarios=(1.,))
+    with pytest.raises(ValueError,match="endpoint saturation"):
+        ShootingNMPC(RecordingRollout(),CEMConfig(**base,parameterization="warm_start_residual_blocks"),
+            action_low=[low],action_high=[high],mu_scenarios=(1.,))
+
+
+def test_residual_checks_decoded_sum_and_elite_moments_before_any_final_clip():
+    cfg=CEMConfig(horizon_steps=3,control_blocks=1,candidates=2,iterations=1,elite_count=1,
+                  parameterization="warm_start_residual_blocks")
+    c=ShootingNMPC(RecordingRollout(),cfg,action_low=[0.],action_high=[1e308],mu_scenarios=(1.,))
+    with pytest.raises(FloatingPointError):
+        c._decode_residual(np.full((3,1),1e308),np.full((1,1,1),1e308))
+    c=residual_controller(RecordingRollout())
+    with pytest.raises(FloatingPointError):
+        c._residual_moments(np.array([[[1e200]],[[-1e200]]]),np.zeros((1,1)),np.ones((1,1)))
+
+
+def test_residual_all_initial_fail_search_can_recover_and_all_search_fail_retains_initial():
+    class InitialFail(BatchRecordingRollout):
+        def rollout_batch(self,state,plans,reference_index,**kwargs):
+            return np.array([np.inf if np.any(plan<0.) else float(np.sum((plan-.5)**2)) for plan in plans])
+    c=residual_controller(InitialFail(),iterations=1)
+    c.rng=PrescribedNormals([0.,1.,-1.])
+    action,info=c.action(np.zeros(2),0,previous_action=np.array([-.5]),previous_vz=0.)
+    np.testing.assert_array_equal(action,[.5])
+    assert info["initial_candidate_source"]=="all_initial_candidates_failed"
+    assert not info["optimization_failed"]
+    class SearchFail(BatchRecordingRollout):
+        def rollout_batch(self,state,plans,reference_index,**kwargs):
+            if len(plans)>1:
+                raise RuntimeError("whole population rejected")
+            return np.array([1.])
+    c=residual_controller(SearchFail())
+    action,info=c.action(np.zeros(2),0,previous_action=np.array([.2]),previous_vz=0.)
+    np.testing.assert_array_equal(action,[.2])
+    assert not info["fallback_used"] and info["failed_batch_prediction_calls"]==2
+
+
+def test_residual_repeated_backward_long_phase_shifts_and_reset_create_fresh_zero_baseline():
+    class Seeded(BatchRecordingRollout):
+        def initial_candidate(self,*args,**kwargs):
+            return np.array([.2,.4,.6])[:,None]
+    p=Seeded();c=residual_controller(p,iterations=1)
+    for phase in (0,1,4,4,2):
+        p.batch_calls.clear()
+        action,info=c.action(np.zeros(2),phase,previous_action=np.zeros(1),previous_vz=0.)
+        population=[x[1] for x in p.batch_calls if len(x[1])==3][0]
+        initial_calls=[x[1][0] for x in p.batch_calls if len(x[1])==1]
+        # Candidate0 is exactly one fully scored initial plan, not a residual
+        # accidentally carried from a preceding solve with a different base.
+        assert any(np.array_equal(population[0],seed) for seed in initial_calls)
+    c.reset();assert c.last_plan is None
+    with pytest.raises(ValueError,match="parameterization"):
+        CEMConfig(parameterization="unknown")
+
+
+def test_residual_total_failure_clears_existing_warm_plan_and_returns_bounded_unlearned_fallback():
+    p=BatchRecordingRollout(costs={1.:1.});c=residual_controller(p,iterations=1)
+    c.action(np.zeros(2),0,previous_action=np.array([.1]),previous_vz=0.)
+    assert c.last_plan is not None
+    p.costs={1.:np.inf}
+    action,info=c.action(np.zeros(2),1,previous_action=np.array([.2]),previous_vz=0.)
+    np.testing.assert_array_equal(action,[.2])
+    assert c.last_plan is None and info["optimization_failed"] and info["fallback_used"]
+    assert not info["learned_policy_fallback"]
+
+
+def test_residual_profile_changes_only_parameterization_and_notes():
+    root=Path(__file__).parents[1]
+    base=json.loads((root/"config/nmpc_height_smooth.json").read_text())
+    residual=json.loads((root/"config/nmpc_height_smooth_residual.json").read_text())
+    assert residual["nmpc"].pop("parameterization")=="warm_start_residual_blocks"
+    residual.pop("notes");base.pop("notes")
+    assert residual==base

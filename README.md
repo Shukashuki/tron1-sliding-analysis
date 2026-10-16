@@ -55,6 +55,14 @@ alone is a failure gate. The initial NMPC results are diagnostics, not a final
 PPO/SAC/NMPC ranking. The
 [untuned nominal NMPC pair](results/2026-10-16-primary-nmpc-nominal-pair.md)
 includes the top-down comparison and bounded one-step model audit.
+In [nominal MuJoCo development](results/2026-10-16-nmpc-nominal-development.md),
+fixed-baseline residual search reduced core XY RMSE from 0.280 to 0.115 m
+without recorded nonwheel-ground contact. The new mode still awaits Isaac
+validation and is **not frozen**; no NMPC friction grid has started.
+Matching the 15 stage rewards does not match RL's discount, bootstrap and
+orientation-termination semantics; the
+[termination audit](results/2026-10-16-controller-termination-semantics.md)
+records this distinction. No new height/flight gate is introduced.
 
 The current TRON1 model is usable as a nonlinear shooting predictor: 15 qpos
 coordinates, 14 generalized velocities (28-dimensional tangent state), and

@@ -187,6 +187,8 @@ def test_one_python_control_interval_records_native_contacts_clock_material_and_
     assert report["reference_id"]==PRIMARY_REFERENCE_ID
     assert report["core_coverage_complete"] is False and report["core_xy_rmse_m"] is None
     assert report["prediction_backend"]=="python" and report["native_prediction_backend"] is None
+    assert report["action_parameterization"]["mode"]=="absolute_blocks"
+    assert report["action_parameterization"]["baseline_copied_and_fixed_per_solve"] is False
     assert report["prediction_mu_scenarios"]==[.7]  # Never oracle-selected from plant .23.
     assert report["prediction_receives_plant_mu"] is False
     assert report["plant_material_readback"]["compiled_sliding_friction_range"]==[.23,.23]

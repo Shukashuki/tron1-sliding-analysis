@@ -474,6 +474,7 @@ def main():
                       device_audit=device_audit,material_audit=material_audit,
                       actuator_audit=actuator_audit,legacy_joint_friction_audit=legacy_friction_audit,
                       objective_contract=prediction.objective.contract(),packed_state_contract=prediction.layout.contract(),
+                      action_parameterization=controller.parameterization_contract(),
                       prediction_backend_metadata=(native_prediction.metadata if native_prediction is not None else
                           {"kind":"existing_python_scalar_predictor","population_batching":False,
                            "ipc_included_in_latency":False}),

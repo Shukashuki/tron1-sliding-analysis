@@ -55,6 +55,7 @@ class CEMConfig:
     scenario_reduction: Literal["worst", "mean"] = "worst"
     fallback_action: Literal["previous", "neutral"] = "previous"
     reference_convention: str = "held_pre_action"
+    parameterization: Literal["absolute_blocks", "warm_start_residual_blocks"] = "absolute_blocks"
 
     def __post_init__(self):
         for name in ("horizon_steps", "control_blocks", "candidates", "iterations", "elite_count"):
@@ -75,10 +76,15 @@ class CEMConfig:
             raise ValueError("fallback_action must be 'previous' or 'neutral'")
         if self.reference_convention != "held_pre_action":
             raise ValueError("Only the held_pre_action reference convention is supported")
+        if self.parameterization not in ("absolute_blocks", "warm_start_residual_blocks"):
+            raise ValueError("Unknown CEM action parameterization")
 
 
 class ShootingNMPC:
-    """Receding-horizon CEM over bounded absolute control sequences.
+    """Receding-horizon CEM over bounded decoded control sequences.
+
+    Default parameters are absolute blocks; optional residual blocks use a
+    copied full-plan baseline held fixed for the duration of each solve.
 
     All friction scenarios evaluate exactly the same full candidate sequence.
     This is an open-loop scenario plan with feedback supplied by replanning,
@@ -105,7 +111,74 @@ class ShootingNMPC:
         self.initial_std = self._std_vector(config.initial_std, "initial_std")
         self.min_std = self._std_vector(config.min_std, "min_std")
         self.assignment = np.arange(config.horizon_steps) * config.control_blocks // config.horizon_steps
+        self.residual_span = None
+        if config.parameterization == "warm_start_residual_blocks":
+            with np.errstate(over="ignore", invalid="ignore"):
+                span = self.high-self.low
+                reach_high, reach_low = self.low+span, self.high-span
+            if (not np.isfinite(span).all() or np.any(span <= 0)
+                    or not np.isfinite(reach_high).all() or not np.isfinite(reach_low).all()
+                    or np.any(reach_high < self.high) or np.any(reach_low > self.low)):
+                raise ValueError("Residual encoding requires finite action span with exact endpoint saturation")
+            self.residual_span = span
         self.reset()
+
+    def parameterization_contract(self):
+        residual = self.config.parameterization == "warm_start_residual_blocks"
+        return {
+            "mode": self.config.parameterization,
+            "parameter_units": "Normalized absolute actions" if not residual else "Normalized action residuals",
+            "baseline": ("Winning bounded initial FULL plan, or bounded fallback when all initial scores fail; fresh after each warm shift"
+                         if residual else None),
+            "baseline_copied_and_fixed_per_solve": residual,
+            "decode": ("clip(fixed_full_baseline + block_residual[assignment], action_low, action_high)"
+                       if residual else "clip(absolute_block_parameters, action_low, action_high)[assignment]"),
+            "zero_residual": "Exactly represents the initial baseline, not a later improved incumbent" if residual else None,
+            "incumbent": "Paired stored best encoded residual and decoded full plan" if residual else "Stored bounded full plan",
+            "elite_moments": "Encoded clipped residual parameters; never re-compress decoded/clipped actions" if residual else "Block-compressed elite absolute actions",
+            "residual_parameter_clip_low": (-self.residual_span).tolist() if residual else None,
+            "residual_parameter_clip_high": self.residual_span.tolist() if residual else None,
+            "finite_validation": ("Before residual encoding clip, before decoded action clip, and for elite moment arithmetic; invalid arithmetic raises"
+                                  if residual else "Existing absolute-block behavior preserved"),
+            "generic_bounds": ("New mode rejects nonfinite spans and rounded spans failing endpoint saturation; decoded sums must still be finite"
+                               if residual else "Existing absolute bounds contract unchanged"),
+            "learned_baseline": False,
+        }
+
+    def _encode_residual(self, value):
+        value = np.asarray(value, dtype=float)
+        if (self.residual_span is None or value.ndim != 3 or value.shape[0] < 1
+                or value.shape[1:] != (self.config.control_blocks, self.nu)):
+            raise ValueError("Residual parameters require (batch,control_blocks,action_dimension)")
+        if not np.isfinite(value).all():
+            raise FloatingPointError("Nonfinite residual proposal before encoding clip")
+        return np.clip(value, -self.residual_span, self.residual_span)
+
+    def _decode_residual(self, baseline, encoded):
+        baseline = np.asarray(baseline, dtype=float)
+        encoded = np.asarray(encoded, dtype=float)
+        if (baseline.shape != (self.config.horizon_steps, self.nu)
+                or not np.isfinite(baseline).all() or np.any(baseline < self.low) or np.any(baseline > self.high)):
+            raise ValueError("Residual baseline must be a finite bounded FULL plan")
+        checked = self._encode_residual(encoded)
+        if not np.array_equal(checked, encoded):
+            raise ValueError("Decode requires the stored already-clipped residual encoding")
+        with np.errstate(over="raise", invalid="raise"):
+            proposed = baseline[None] + encoded[:, self.assignment]
+        if not np.isfinite(proposed).all():
+            raise FloatingPointError("Nonfinite decoded residual sum before action clip")
+        return np.clip(proposed, self.low, self.high), proposed
+
+    def _residual_moments(self, elite, mean, std):
+        if not np.isfinite(elite).all():
+            raise FloatingPointError("Nonfinite encoded residual elite")
+        with np.errstate(over="raise", invalid="raise"):
+            smoothing = self.config.smoothing
+            new_mean = smoothing*mean + (1-smoothing)*elite.mean(axis=0)
+            new_std = np.maximum(smoothing*std + (1-smoothing)*elite.std(axis=0), self.min_std)
+        if not np.isfinite(new_mean).all() or not np.isfinite(new_std).all():
+            raise FloatingPointError("Nonfinite residual elite moments")
+        return new_mean, new_std
 
     def _std_vector(self, value, name):
         values = np.asarray(value, dtype=float)
@@ -275,22 +348,51 @@ class ShootingNMPC:
                 best_plan, best_cost, best_costs = plan.copy(), cost, costs
                 initial_source = source
         initial_cost = best_cost
-        mean = self._compress(best_plan)
+        residual_mode = self.config.parameterization == "warm_start_residual_blocks"
+        # This baseline is copied ONCE. Never move it when a later sample wins:
+        # that would add old residual means to an already moved best plan.
+        baseline = best_plan.copy() if residual_mode else None
+        best_parameters = np.zeros((self.config.control_blocks, self.nu)) if residual_mode else None
+        mean = np.zeros_like(best_parameters) if residual_mode else self._compress(best_plan)
+        with np.errstate(over="ignore", invalid="ignore"):
+            projection = self._compress(best_plan)[self.assignment]
+            projection_error = float(np.max(np.abs(projection-best_plan)))
+        if not np.isfinite(projection_error):
+            projection_error = None
         std = np.tile(np.maximum(self.initial_std, self.min_std), (self.config.control_blocks, 1))
         best_history = []
+        parameter_clip_count = action_clip_count = parameter_count = action_count = 0
         for _ in range(self.config.iterations):
-            # CEM moments are ABSOLUTE bounded controls. Never add an old noise
-            # mean to a newly moved best-plan base, which double-counts updates.
-            blocks = np.clip(self.rng.normal(size=(self.config.candidates, *mean.shape)) * std + mean,
-                             self.low, self.high)
-            plans = blocks[:, self.assignment].copy()
-            plans[0] = best_plan
+            # Moments live in the declared coordinates: absolute blocks or
+            # encoded residuals about the SAME fixed per-solve baseline. Never
+            # add a residual mean to a newly moved best-plan base.
+            if residual_mode:
+                with np.errstate(over="raise", invalid="raise"):
+                    proposals = self.rng.normal(size=(self.config.candidates, *mean.shape))*std + mean
+                if not np.isfinite(proposals).all():
+                    raise FloatingPointError("Nonfinite residual proposal before encoding clip")
+                proposals[0] = best_parameters
+                parameter_clip_count += int(np.count_nonzero(np.abs(proposals) > self.residual_span))
+                parameter_count += proposals.size
+                parameters = self._encode_residual(proposals)
+                plans, proposed_actions = self._decode_residual(baseline, parameters)
+                if not np.array_equal(plans[0], best_plan):
+                    raise FloatingPointError("Residual incumbent encoding does not reproduce its stored full plan")
+                action_clip_count += int(np.count_nonzero((proposed_actions < self.low) | (proposed_actions > self.high)))
+                action_count += proposed_actions.size
+            else:
+                blocks = np.clip(self.rng.normal(size=(self.config.candidates, *mean.shape)) * std + mean,
+                                 self.low, self.high)
+                plans = blocks[:, self.assignment].copy()
+                plans[0] = best_plan
             if use_batch:
                 scores, population_costs = score_many(plans)
                 for candidate, plan in enumerate(plans):
                     value = float(scores[candidate])
                     if value < best_cost:
                         best_plan, best_cost, best_costs = plan.copy(), value, population_costs[candidate].tolist()
+                        if residual_mode:
+                            best_parameters = parameters[candidate].copy()
             else:
                 scores = np.empty(self.config.candidates)
                 for candidate, plan in enumerate(plans):
@@ -298,13 +400,18 @@ class ShootingNMPC:
                     scores[candidate] = value
                     if value < best_cost:
                         best_plan, best_cost, best_costs = plan.copy(), value, costs
+                        if residual_mode:
+                            best_parameters = parameters[candidate].copy()
             finite = np.flatnonzero(np.isfinite(scores))
             if finite.size:
                 elite_indices = finite[np.argsort(scores[finite], kind="stable")[:self.config.elite_count]]
-                elite_blocks = np.stack([self._compress(plans[index]) for index in elite_indices])
-                smoothing = self.config.smoothing
-                mean = smoothing * mean + (1 - smoothing) * elite_blocks.mean(axis=0)
-                std = np.maximum(smoothing * std + (1 - smoothing) * elite_blocks.std(axis=0), self.min_std)
+                if residual_mode:
+                    mean, std = self._residual_moments(parameters[elite_indices], mean, std)
+                else:
+                    elite_blocks = np.stack([self._compress(plans[index]) for index in elite_indices])
+                    smoothing = self.config.smoothing
+                    mean = smoothing * mean + (1 - smoothing) * elite_blocks.mean(axis=0)
+                    std = np.maximum(smoothing * std + (1 - smoothing) * elite_blocks.std(axis=0), self.min_std)
             best_history.append(float(best_cost) if np.isfinite(best_cost) else None)
 
         failed = not np.isfinite(best_cost)
@@ -345,6 +452,12 @@ class ShootingNMPC:
             "timing_scope": "controller_including_predictor_rollouts",
             "control_deadline_enforced": False,
             "real_time_verified": False,
+            "action_parameterization": self.config.parameterization,
+            "residual_baseline_fixed_per_solve": residual_mode,
+            "initial_baseline_block_projection_max_abs_error": projection_error,
+            "residual_parameter_clip_fraction": parameter_clip_count/parameter_count if residual_mode else None,
+            "residual_action_decode_clip_fraction": action_clip_count/action_count if residual_mode else None,
+            "residual_selected_parameter_linf": float(np.max(np.abs(best_parameters))) if residual_mode else None,
             "population_evaluation_backend": "predictor_rollout_batch" if use_batch else "scalar_candidate_loop",
             "batch_runtime_failure_scope": "All candidates in the failed scenario call" if use_batch else None,
             **batch_counts,
