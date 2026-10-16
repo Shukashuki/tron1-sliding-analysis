@@ -58,10 +58,17 @@ Original PPO/SAC raw recordings also now support measured COM-speed, wheel-headi
 and contact-slip replay; no new training or policy inference was performed.
 This development evidence does not pass or weaken the qualified freeze gate.
 
-The separate [SA29 nominal NMPC pilot](results/2026-10-16-sa29-nmpc-pilot.md)
-now records 0.102 m MuJoCo core XY RMSE, 0.160 m peak and 99.1% retained speed
-with the unchanged controller. It is not a large-angle-turn replicate, trained
-supplementary policy, Isaac result or completed supplementary friction grid.
+The separate [SA29 NMPC friction grid](results/2026-10-16-sa29-nmpc-friction-development.md)
+now completes all 17 MuJoCo coefficients with the unchanged controller: 6 exceed
+the XY screen, including isolated μ=1.40, and 11 stay below both limits. The
+[original nominal pilot](results/2026-10-16-sa29-nmpc-pilot.md) is reused unchanged.
+SA29 is not another large-angle-turn trial, and its missing PPO/SAC/Isaac work
+is not replaced by primary policies or local model-control evidence.
+
+| Reference / separate stratum | PPO and SAC | Fixed NMPC |
+| --- | --- | --- |
+| traj_4 / large-angle turn | Each trained; 17 μ in both engines | 17 μ in both engines |
+| SA29 / S-avoidance supplement | Not yet trained for this reference | 17 μ in MuJoCo; Isaac missing |
 
 The [completed historical refinement](results/2026-10-15-car-sim2sim-boundary.md) places
 the sampled Isaac XY-verdict change between µ=0.16 and 0.18, versus µ=0.14 and

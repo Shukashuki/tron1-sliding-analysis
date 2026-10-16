@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "kind": "separate_supplement_fixed_parameter_mujoco_nmpc_friction_development",
+  "reference_id": "doa_sa29_scale2",
+  "controller_revision": "5469ad6",
+  "evaluation_only": true,
+  "controller_parameters_changed_between_coefficients": false,
+  "prediction_mu_scenarios": [
+    0.7
+  ],
+  "plant_mu": [
+    0.01,
+    0.03,
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.3,
+    0.45,
+    0.6,
+    0.7,
+    0.8,
+    1,
+    1.2,
+    1.4,
+    1.6,
+    1.8,
+    2
+  ],
+  "reused_existing_plant_mu": [
+    0.7
+  ],
+  "settings": "config/nmpc_height_smooth_residual.json",
+  "task_profile": "config/car_drift_height_smooth_task.json",
+  "explicit_overrides": {
+    "horizon_steps": 30,
+    "control_blocks": 10,
+    "candidates": 64,
+    "iterations": 3,
+    "elite_count": 8
+  },
+  "effective_cem_configuration_sha256": "c30a83dffe39e167748d8305f02d43025dbb83af2d6539bd44b3de7ec4616a74",
+  "source_sha256": {
+    "scripts/run_nmpc_tracking.py": "5a5f714db4d8165f5d39d98372d96f97dd36d8e87f82c53bef740a620c5c1980",
+    "scripts/controller_references.py": "2f2746946c37a527298ef83d6a4f07063a9d95250c49815f4f1478d5141b4bf6",
+    "config/controller_references.json": "b2c6062ebc6c25d48d7845ffb8786971f85d7b44e37d5f6f27a9f65e395b96c1",
+    "scripts/nmpc_shooting.py": "7c667ef0cbd32c58ce53882302e75f5d33487bcfea51c2f6ec3435d454a480ce",
+    "scripts/nmpc_tracking_objective.py": "ff22eebb2b22b9af7dba114c64fcd10f6b0a90822559af8f32cbe6884015b860",
+    "scripts/height_smoothness.py": "e133aca58f671fc22ae1dfc97a03461e7724e4072bf8b74f58a2c14281d198b8",
+    "scripts/classical_tracking.py": "3fcafdb6a16058280aa1e5a0ade6113f6963ddf3085c25ebe2ed6fbb30661c57",
+    "upstream/tron1-learning-from-human/scripts/eval_tracking_mujoco.py": "da6d1da378b5065589a49f2befaebfb0576665dbd2ad5d34a157d11b8984a3aa",
+    "upstream/tron1-learning-from-human/scripts/eval_tracking.py": "fd90089810d3d14bfd96210723afdd3a36113a19f667ec60b2df617dd032f992",
+    "upstream/tron1-learning-from-human/training/tron1_domain_randomization.py": "3f3a0b62c85a0af496ae9e9e0d75dda85c3ec30da587e4a47969843f5b1b1dca",
+    "upstream/tron1-learning-from-human/training/tron1_contact_slip.py": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4",
+    "upstream/tron1-learning-from-human/training/tron1_tracking.py": "0a29fa27c1d65c0b9add0886221491e549553e3529d6970f1ec5ba35e2532817",
+    "upstream/tron1-learning-from-human/training/tron1_drift.py": "d5da59c7af58f8a45e3deeb8f69fb0af8d382335e7b0974a5637106fc8c56bb6",
+    "upstream/whole_body_tracking/source/whole_body_tracking/whole_body_tracking/tasks/tracking/mdp/rewards.py": "b323de7a120e8ac45d3dfc9f7d85d8d8633ec42e5af3162653d1b7804cc90f4b",
+    "upstream/whole_body_tracking/source/whole_body_tracking/whole_body_tracking/tasks/tracking/tracking_env_cfg.py": "30a4c688bacf1bb411f1516121c21630880bb64b7889ca2ae56f738375f856c8",
+    "config/classical_tracking.json": "01fd19ad1c91ad1b1dd3f01e6f80ae678736f4b5a28e4d2bac097c837a2438d7",
+    "config/nmpc_height_smooth_residual.json": "643262e037d766e924c5ffa165385f2f9a85d5af0257192f222d7106e2685266",
+    "config/car_drift_height_smooth_task.json": "31de29a61eec847e0e39783f3a0d9d8f2db551acd679a1b38dfde2b24e8ae7d6",
+    "scripts/nmpc_native_batch.py": "bb19aeea51cf03eedd87c0fb9e4561c11bc8ab5569cabf31c5465287a815fb76",
+    "scripts/nmpc_batch_objective.py": "1c9da90ae66778a71ceb2e6bb9d0dcf7f0a2259fafee39b37cbe958b79178fae",
+    "native/nmpc_batch.cpp": "deb3afe3367e11c28295e00e4a081e84968818070dcfb7044f06466761875ed2"
+  },
+  "input_sha256": {
+    "model": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513",
+    "motion": "7e6b260611e846b47da206b4296aea1eaa6e6e4c56bff8c3d166362cb83a2d10",
+    "robot_reference": "79bc00a9fed5ba1b9b3bae6605cf337e7dc14b444197c3ae13b91b2491aa20d0",
+    "actuator_contract": "6e105cbd6efe7d35117a895fa097e8ec64b6ac822a9de07c00acfaef4d09642f",
+    "native_library": "b13e74df3a532496449d2f6b34b6934784a6bfd4ea5f0574c90cf279048821b7"
+  },
+  "seed": 42,
+  "maximum_concurrent_local_episodes": 3,
+  "retuning_or_selection_after_friction_results": false,
+  "qualified_nominal_pair_available": false,
+  "formal_controller_freeze_claimed": false,
+  "qualified_validation_driver_modified": false,
+  "isaac_results_for_this_development_sweep": false,
+  "sim2sim_sweep_claimed": false,
+  "height_flight_or_heading_offset_failure_gate": false,
+  "notes": [
+    "Separate SA29 S-avoidance supplement; never pool its statistics with the primary large-angle turn.",
+    "Use identical fixed CEM bytes, actuator/model/native identities, parameters and prediction mu=0.7 as the completed primary grid. Change only the locked reference and per-case plant coefficient.",
+    "Reuse the completed 258-decision nominal mu=0.7 pilot regardless of XY/posture outcome. Preserve all other failures, never rerun for selection.",
+    "Complete 16 new local MuJoCo episodes, maximum three at once; no training, native build, new remote contact, upload or job included.",
+    "No new absolute-height, flight, tilt or heading-offset failure gate; the two event windows are descriptive only.",
+    "SA29-specific PPO/SAC training and Isaac validation remain missing and require separately scoped remote authority. Primary checkpoint transfer is not supplementary-specific training."
+  ],
+  "role": "separate_supplement",
+  "stratum": "high_sideslip_s_avoidance",
+  "pooled_success_statistics": false,
+  "intended_local_episodes": 17,
+  "new_local_episodes": 16,
+  "reused_nominal_pilot_predeclaration_sha256": "3346fddd93e3312535d9b24899370f657e06ef1938cf9484e29e4eacd3579aa8",
+  "evaluation": {
+    "frames": 258,
+    "physical_samples": 1033,
+    "control_dt_s": 0.02,
+    "physics_dt_s": 0.005,
+    "duration_s": 5.16,
+    "core_window_s": [
+      0,
+      3.14
+    ],
+    "supplementary_event_windows_s": [
+      [
+        0.78,
+        1.54
+      ],
+      [
+        1.88,
+        3.04
+      ]
+    ],
+    "events_are_descriptive_not_gates": true,
+    "xy_screen_limits_m": {
+      "rmse": 0.15,
+      "peak": 0.3
+    }
+  }
+}
