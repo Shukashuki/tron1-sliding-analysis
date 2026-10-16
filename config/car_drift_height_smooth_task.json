@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "task": "car_drift",
+  "contact_friction": 1.0,
+  "env_spacing_m": 8.0,
+  "reward_weights": {"sideslip": 2.0, "yaw_rate": 1.0, "speed": 1.0, "grounded": 0.4, "tilt": -0.2},
+  "height_regularization": {
+    "mode": "vertical_acceleration_only",
+    "weight": -0.1,
+    "acceleration_scale_m_s2": 5.0
+  },
+  "description": "New, untrained task revision. XY-only position/linear-velocity tracking with bounded vertical-acceleration smoothness; no reference-height reward or Z termination. Keep the BeyondMimic DR recipe, planar/yaw/sideslip objectives and existing stability/action regularizers. 0.75 m remains an initialization/reference value, not a height limit. Smoothness parameters are initial settings, not tuned results."
+}

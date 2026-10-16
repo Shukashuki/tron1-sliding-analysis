@@ -13,6 +13,9 @@ import analyze_saved_xy as xy
 def summarize_new_grid(trace: dict[str, np.ndarray], provenance: dict,
                        cases: dict[str, tuple[float, str]]) -> dict:
     config = json.loads((Path(__file__).resolve().parents[1] / "config/evaluation_friction.json").read_text())
+    reference_spec = provenance.get("reference_spec")
+    if reference_spec is not None:
+        config["screening_core_interval_s"] = reference_spec["evaluation_core_interval_s"]
     result = xy.summarize(trace, provenance, config, cases=cases)
     result["kind"] = "new_beyondmimic_dr_policy_fixed_friction_xy_grid"
     result["policy_training_friction_randomization"] = True
@@ -21,6 +24,17 @@ def summarize_new_grid(trace: dict[str, np.ndarray], provenance: dict,
     if provenance.get("full_horizon_diagnostic"):
         result["full_horizon_diagnostic"] = True
         result["limitations"].append("Pose predicates are recorded but do not terminate this diagnostic; full duration or small XY error alone does not demonstrate controlled upright execution.")
+    if reference_spec is not None:
+        result.update(reference_id=reference_spec["reference_id"], task_stratum=reference_spec["stratum"],
+                      pooled_success_statistics=False)
+        events = reference_spec.get("supplementary_event_windows_s", [])
+        if events:
+            result["supplementary_event_results"] = []
+            for interval in events:
+                event_config = {**config, "screening_core_interval_s": interval}
+                event = xy.summarize(trace, provenance, event_config, cases=cases)
+                result["supplementary_event_results"].append({"interval_s": interval, "rows": event["rows"]})
+        result["limitations"].append("Large-angle turning and supplementary S-avoidance are separate task strata; their success rates are not pooled.")
     return result
 
 
@@ -72,6 +86,16 @@ def build(manifest_path: Path, output: Path) -> dict:
     trace = {"reference_t": rt, "reference_xy": rp}
     provenance = {"training_manifest_sha256": xy.sha(training_manifest),
                   "reference_sha256": xy.sha(ref_file), "cases": {}}
+    if manifest.get("reference_spec") is not None:
+        from controller_references import get_reference
+        reference_spec = manifest["reference_spec"]
+        if reference_spec != get_reference(reference_spec["reference_id"]):
+            raise ValueError("Grid reference specification differs from its registered task stratum")
+        if (xy.sha(ref_file) != reference_spec["robot_reference_npz_sha256"]
+                or trained["motion_sha256"] != reference_spec["motion_npz_sha256"]):
+            raise ValueError("Grid reference specification does not match the trained motion/reference")
+        provenance["reference_spec"] = reference_spec
+        provenance["reference_catalog_sha256"] = manifest.get("reference_catalog_sha256")
     if manifest.get("full_horizon_diagnostic"):
         provenance["full_horizon_diagnostic"] = True
     cases = {}

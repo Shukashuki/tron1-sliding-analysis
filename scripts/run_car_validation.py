@@ -68,10 +68,11 @@ def run(args: argparse.Namespace) -> Path:
     status = json.loads((args.checkpoint.parent / "run_status.json").read_text())
     training = json.loads((args.checkpoint.parent / "manifest.json").read_text())
     task = json.loads(args.task_profile.read_text())
-    reference_lock = json.loads((ROOT / "config/car_reference_lock.json").read_text())
-    if (sha(args.motion_file) != reference_lock["motion_npz_sha256"]
-            or sha(args.reference_file) != reference_lock["robot_reference_npz_sha256"]):
-        raise ValueError("Car validation motion/reference differs from pinned high-angle retarget")
+    from height_smoothness import require_height_free_validation
+    require_height_free_validation(task, training, args.full_horizon_diagnostic)
+    from controller_references import verify_reference_pair
+    reference_spec = verify_reference_pair(args.motion_file, args.reference_file,
+                                          getattr(args, "reference_id", "drift_drl_traj4"))
     if (status.get("status") != "training_completed" or training.get("task_profile") != task
             or training.get("motion_sha256") != sha(args.motion_file)
             or training.get("asset_sha256") != sha(args.asset_path)
@@ -90,6 +91,8 @@ def run(args: argparse.Namespace) -> Path:
             raise ValueError("Wide friction source audit failed")
         if bool(audit.get("full_horizon_diagnostic", False)) != args.full_horizon_diagnostic:
             raise ValueError("Full-horizon mode differs from the isolated source audit")
+        if training.get("algorithm") == "SAC" and "SAC" not in audit.get("controller_algorithms", []):
+            raise ValueError("SAC validation requires the audited controller evaluation source")
     beyondmimic_source = require_beyondmimic_source(source)
     target.mkdir(parents=True, exist_ok=True)
     cases = []
@@ -128,7 +131,10 @@ def run(args: argparse.Namespace) -> Path:
                 "training_manifest": str((args.checkpoint.parent / "manifest.json").resolve()),
                 "checkpoint": str(args.checkpoint.resolve()),
                 "reference_file": str(args.reference_file.resolve()),
-                "reference_lock_sha256": sha(ROOT / "config/car_reference_lock.json"),
+                "reference_spec": reference_spec,
+                "reference_catalog_sha256": sha(ROOT / "config/controller_references.json"),
+                "reference_lock_sha256": (sha(ROOT / "config/car_reference_lock.json")
+                                          if reference_spec["reference_id"] == "drift_drl_traj4" else None),
                 "motion_file": str(args.motion_file.resolve()),
                 "source_evaluator_sha256": {
                     "isaac": sha(source / "scripts/eval_tracking_friction_isaac.py"),
@@ -146,6 +152,8 @@ def main() -> None:
     parser.add_argument("--source-root", required=True, type=Path)
     parser.add_argument("--motion-file", required=True, type=Path)
     parser.add_argument("--reference-file", required=True, type=Path)
+    parser.add_argument("--reference-id", default="drift_drl_traj4",
+                        help="Hash-locked reference ID; the S-turn supplement is doa_sa29_scale2")
     parser.add_argument("--asset-path", required=True, type=Path)
     parser.add_argument("--mujoco-model", required=True, type=Path)
     parser.add_argument("--checkpoint", required=True, type=Path)

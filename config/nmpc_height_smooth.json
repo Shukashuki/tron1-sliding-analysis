@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "task": "car_drift_height_smooth",
+  "policy_dt_s": 0.02,
+  "physics_dt_s": 0.005,
+  "prediction_mu_scenarios": [0.7],
+  "nmpc": {
+    "horizon_steps": 15,
+    "control_blocks": 5,
+    "candidates": 64,
+    "iterations": 3,
+    "elite_count": 8,
+    "initial_std": [0.04, 0.04, 0.04, 0.04, 0.04, 0.04, 0.35, 0.35],
+    "min_std": [0.005, 0.005, 0.005, 0.005, 0.005, 0.005, 0.03, 0.03],
+    "smoothing": 0.0,
+    "seed": 42,
+    "scenario_reduction": "worst",
+    "fallback_action": "previous",
+    "reference_convention": "held_pre_action"
+  },
+  "notes": [
+    "Untuned full-body CEM NMPC starting configuration; not a successful or real-time controller result.",
+    "Prediction scenarios are frozen independently of validation plant friction; one scenario is nominal NMPC, several are finite-scenario NMPC without a robustness certificate.",
+    "Use the same height-smooth reward components as the new PPO/SAC task; no old TVLQR Q/R or terminal matrix.",
+    "Physics-only initial plan uses bounded bias-force joint feedforward from the reference, not a learned-policy demonstration or TVLQR.",
+    "Default 15-step horizon predicts 0.3 seconds at 50 Hz; compute deadlines are reported, not enforced.",
+    "MuJoCo soft joint limits and contact sensor forces remain explicitly disclosed surrogates until measured Isaac limits and cross-engine reward checks are available."
+  ]
+}

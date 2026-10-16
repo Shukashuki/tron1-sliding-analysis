@@ -1,0 +1,301 @@
+{
+  "kind": "offline_model_and_optimizer_feasibility_probe",
+  "mujoco_version": "3.8.1",
+  "scipy_version": "1.17.1",
+  "python_version": "3.13.12",
+  "platform": "Linux-6.6.114.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "processor": "x86_64",
+  "probe_settings": {
+    "frames": [
+      0,
+      100
+    ],
+    "horizon_steps": 5,
+    "control_blocks": 2,
+    "maximum_iterations": 80
+  },
+  "model_sha256": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513",
+  "motion_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+  "contract_sha256": "6e105cbd6efe7d35117a895fa097e8ec64b6ac822a9de07c00acfaef4d09642f",
+  "probe_source_sha256": "74208c624ed02a18551d49a1cdf7b042ce8b23ac24ca704ba37686d476d7002f",
+  "predictor_source_sha256": "3fcafdb6a16058280aa1e5a0ade6113f6963ddf3085c25ebe2ed6fbb30661c57",
+  "coordinates": {
+    "nq": 15,
+    "nv": 14,
+    "nu": 8,
+    "stored_mechanical_state": 29,
+    "tangent_state": 28
+  },
+  "absolute_height_cost": false,
+  "reference_vz_cost": false,
+  "diagnostic_cost_exact_ppo_parity": false,
+  "learned_warm_start": false,
+  "closed_loop_tracking_test": false,
+  "real_time_test": false,
+  "guaranteed_robust_control": false,
+  "contact_parameters_modified": false,
+  "scenario_note": "Shared full action sequence for mu=[0.3,0.7,1.6], fixed independently of validation mu; finite scenarios only",
+  "constraints": "box-bounded normalized actions; no explicit hard path constraints beyond simulated contact/joint dynamics",
+  "derivative_checks": [
+    {
+      "frame": 0,
+      "central_differences_of": "complete normalized-action 20ms transition",
+      "state_coordinates": "28D position tangent + velocity; not raw quaternion subtraction",
+      "samples": [
+        {
+          "epsilon": 0.0001,
+          "elapsed_s": 0.03124785900581628,
+          "A_frobenius_norm": 596.5101715937958,
+          "B_frobenius_norm": 77.34675107656756,
+          "A_relative_difference_vs_1e_5": 1.2920618220023679,
+          "B_relative_difference_vs_1e_5": 6.806215792124018e-7
+        },
+        {
+          "epsilon": 0.00001,
+          "elapsed_s": 0.03416296502109617,
+          "A_frobenius_norm": 626.82816336617,
+          "B_frobenius_norm": 77.34674071803141,
+          "A_relative_difference_vs_1e_5": 0,
+          "B_relative_difference_vs_1e_5": 0
+        },
+        {
+          "epsilon": 0.000001,
+          "elapsed_s": 0.029940856038592756,
+          "A_frobenius_norm": 6145.952715699308,
+          "B_frobenius_norm": 77.34674061007823,
+          "A_relative_difference_vs_1e_5": 9.12569364425412,
+          "B_relative_difference_vs_1e_5": 7.013661292523769e-9
+        }
+      ]
+    },
+    {
+      "frame": 100,
+      "central_differences_of": "complete normalized-action 20ms transition",
+      "state_coordinates": "28D position tangent + velocity; not raw quaternion subtraction",
+      "samples": [
+        {
+          "epsilon": 0.0001,
+          "elapsed_s": 0.0286973369657062,
+          "A_frobenius_norm": 11973.88628942749,
+          "B_frobenius_norm": 86.0424387060898,
+          "A_relative_difference_vs_1e_5": 0.9008766574969258,
+          "B_relative_difference_vs_1e_5": 0.0000012536838504919892
+        },
+        {
+          "epsilon": 0.00001,
+          "elapsed_s": 0.031978533952496946,
+          "A_frobenius_norm": 120787.69291892009,
+          "B_frobenius_norm": 86.04246245341503,
+          "A_relative_difference_vs_1e_5": 0,
+          "B_relative_difference_vs_1e_5": 0
+        },
+        {
+          "epsilon": 0.000001,
+          "elapsed_s": 0.030138203990645707,
+          "A_frobenius_norm": 1080645.3121910898,
+          "B_frobenius_norm": 86.04246270072909,
+          "A_relative_difference_vs_1e_5": 8.065476717727508,
+          "B_relative_difference_vs_1e_5": 1.2643557922955604e-8
+        }
+      ]
+    }
+  ],
+  "short_optimizations": [
+    {
+      "frame": 0,
+      "reference_time_s": 0,
+      "prediction_mus": [
+        0.7
+      ],
+      "horizon_steps": 5,
+      "horizon_s": 0.1,
+      "control_blocks": 2,
+      "decision_variables": 16,
+      "optimizer": "SciPy SLSQP",
+      "maximum_iterations": 80,
+      "success": true,
+      "status": 0,
+      "message": "Optimization terminated successfully",
+      "iterations": 42,
+      "function_evaluations": 743,
+      "unique_plan_evaluations": 744,
+      "elapsed_s": 2.847534415021073,
+      "baseline_costs": [
+        0.30406057520022134
+      ],
+      "selected_costs": [
+        0.0045721345105838584
+      ],
+      "worst_cost_improved": true,
+      "action_bound_violation": 0,
+      "epigraph_constraint_violation": null,
+      "first_action": [
+        0.02817382669560231,
+        -0.01658030480262706,
+        0.008171545456614158,
+        -0.012936113053853395,
+        -0.05000871929399285,
+        0.039641890322902204,
+        -0.009668438481299167,
+        0.0013531890121412213
+      ]
+    },
+    {
+      "frame": 0,
+      "reference_time_s": 0,
+      "prediction_mus": [
+        0.3,
+        0.7,
+        1.6
+      ],
+      "horizon_steps": 5,
+      "horizon_s": 0.1,
+      "control_blocks": 2,
+      "decision_variables": 17,
+      "optimizer": "SciPy SLSQP",
+      "maximum_iterations": 80,
+      "success": true,
+      "status": 0,
+      "message": "Optimization terminated successfully",
+      "iterations": 20,
+      "function_evaluations": 374,
+      "unique_plan_evaluations": 374,
+      "elapsed_s": 4.388251591997687,
+      "baseline_costs": [
+        0.3027638447365385,
+        0.30406057520022134,
+        0.30856719843831343
+      ],
+      "selected_costs": [
+        0.004740801169073441,
+        0.004739286183502994,
+        0.00473975779444672
+      ],
+      "worst_cost_improved": true,
+      "action_bound_violation": 0,
+      "epigraph_constraint_violation": 0.0000036800931610602924,
+      "first_action": [
+        -0.00015897786100882517,
+        -0.00360449745533344,
+        0.007437873443514914,
+        -0.013466102983642375,
+        -0.04251879083049356,
+        0.04816523755409659,
+        -0.01511840082676992,
+        0.007355744737464087
+      ]
+    },
+    {
+      "frame": 100,
+      "reference_time_s": 2,
+      "prediction_mus": [
+        0.7
+      ],
+      "horizon_steps": 5,
+      "horizon_s": 0.1,
+      "control_blocks": 2,
+      "decision_variables": 16,
+      "optimizer": "SciPy SLSQP",
+      "maximum_iterations": 80,
+      "success": true,
+      "status": 0,
+      "message": "Optimization terminated successfully",
+      "iterations": 14,
+      "function_evaluations": 266,
+      "unique_plan_evaluations": 266,
+      "elapsed_s": 1.021049803995993,
+      "baseline_costs": [
+        0.357264842810449
+      ],
+      "selected_costs": [
+        0.10726718811764292
+      ],
+      "worst_cost_improved": true,
+      "action_bound_violation": 0,
+      "epigraph_constraint_violation": null,
+      "first_action": [
+        0.057194296533405846,
+        -0.034893612278192924,
+        0.012062189506805779,
+        -0.014655936375245463,
+        -0.03317791432886665,
+        0.05332326919058827,
+        -0.032204037802241015,
+        -0.02468840951265669
+      ]
+    },
+    {
+      "frame": 100,
+      "reference_time_s": 2,
+      "prediction_mus": [
+        0.3,
+        0.7,
+        1.6
+      ],
+      "horizon_steps": 5,
+      "horizon_s": 0.1,
+      "control_blocks": 2,
+      "decision_variables": 17,
+      "optimizer": "SciPy SLSQP",
+      "maximum_iterations": 80,
+      "success": true,
+      "status": 0,
+      "message": "Optimization terminated successfully",
+      "iterations": 59,
+      "function_evaluations": 1243,
+      "unique_plan_evaluations": 1243,
+      "elapsed_s": 14.850196502986364,
+      "baseline_costs": [
+        0.3413119187099023,
+        0.357264842810449,
+        0.37087985453626127
+      ],
+      "selected_costs": [
+        0.014267303778224003,
+        0.01426742836594528,
+        0.014267361442358007
+      ],
+      "worst_cost_improved": true,
+      "action_bound_violation": 0,
+      "epigraph_constraint_violation": 8.5259101930725e-7,
+      "first_action": [
+        0.028954237280234413,
+        0.02533398122706816,
+        0.01901659177748095,
+        -0.010720004507804692,
+        -0.03264517517867434,
+        0.05261090740145813,
+        -0.06151799164836424,
+        0.010379221017676644
+      ]
+    }
+  ],
+  "date": "2026-10-15",
+  "stage": "Initial model/solver feasibility only; PPO/SAC/NMPC comparison remains incomplete",
+  "source_references": [
+    "https://github.com/google-deepmind/mujoco_mpc/blob/main/docs/OVERVIEW.md",
+    "https://mujoco.readthedocs.io/en/stable/computation/index.html#derivatives",
+    "https://www.do-mpc.com/en/latest/theory_mpc.html#robust-multi-stage-nmpc"
+  ],
+  "existing_rollout_one_step_replay": {
+    "sample_count": 16,
+    "max_tangent_qpos_error": 1.4210854715202004e-14,
+    "max_qvel_error": 1.7763568394002505e-13,
+    "interpretation": "Limited archived nominal-mu samples show no predictor/plant mismatch; not proof of full integration-state equivalence"
+  },
+  "comparison_readiness": {
+    "archived_PPO": "Old height-tracking objective; historical baseline only",
+    "height_smooth_PPO": "New task adapter exists; not trained",
+    "TRON1_SAC": "Not implemented; upstream CARLA SAC is not a TRON1 policy",
+    "legacy_CEM_NMPC": "Old absolute-Z/vz objective, nominal MuJoCo-only prototype, not a matched baseline",
+    "scenario_probe": "Shared full action sequence, three finite friction values, offline open-loop probe only",
+    "pending": [
+      "Common task cost/reward and reference catalog",
+      "Closed-loop NMPC with feasible initialization and explicit constraint handling",
+      "PPO/SAC training on same task and DR",
+      "Cross-engine classical-controller runner",
+      "Paired fixed-mu validation, speed retention, XY and contact-conditioned sideslip metrics",
+      "Information/preview and timing fairness"
+    ]
+  }
+}

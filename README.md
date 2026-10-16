@@ -14,14 +14,79 @@ speed loss, rather than selecting on angle alone. The
 dance turns, an alpine-skiing supplement and continuous car-drift implementations;
 it does **not** claim a newly qualified human drift or start policy training.
 
-**Current focus (2026-10-15):** human source/retarget work is paused. Resume the
-existing car-reference frozen-policy Isaac↔MuJoCo experiment, first refining the
-low-friction XY-error transition with the
-[fixed six-case specification](config/car_boundary_refinement.json). Do not
-replace the reference, retrain the actor or use flight/height as the failure gate.
-The [completed refinement](results/2026-10-15-car-sim2sim-boundary.md) places
+**Current focus (2026-10-15):** compare PPO, SAC and NMPC on speed-retaining
+turning, followed by fixed-friction Isaac↔MuJoCo validation. Human work remains
+paused. `drift_drl_traj4` is the **primary large-angle turn**;
+`doa_sa29_scale2` is a **separately reported S-avoidance supplement**, not a second
+trial of the same turn. Both are hash-locked in
+[`config/controller_references.json`](config/controller_references.json).
+Current robot-scale reference speeds are roughly 1 m/s; these inputs alone do
+not establish a high-speed capability result or dynamic similarity to a car.
+
+The [completed historical refinement](results/2026-10-15-car-sim2sim-boundary.md) places
 the sampled Isaac XY-verdict change between µ=0.16 and 0.18, versus µ=0.14 and
 0.15 in MuJoCo, and includes top-down animation plus divergence-onset timing.
+
+**New task revision (integration-tested, no full trained baseline yet):** the new
+[`car_drift_height_smooth_task.json`](config/car_drift_height_smooth_task.json)
+removes absolute-height tracking and height-based stopping from **new PPO/SAC
+training**, replacing them with vertical-acceleration smoothness. Archived
+policies/results retain their original training objectives and are not relabeled.
+
+The current TRON1 model is usable as a nonlinear shooting predictor: 15 qpos
+coordinates, 14 generalized velocities (28-dimensional tangent state), and
+8 bounded leg/wheel actions. This is not a steer/throttle car model. A short
+reproducible offline probe is available in
+[`scripts/probe_mpc_feasibility.py`](scripts/probe_mpc_feasibility.py):
+
+```bash
+python scripts/probe_mpc_feasibility.py \
+  --model /path/to/tron1_model.xml --motion /path/to/drift/motion.npz \
+  --contract /path/to/policy_contract.json \
+  --maxiter 80 --output-dir outputs/mpc_feasibility_probe
+```
+
+It checks complete-action transition derivatives and solves nominal and
+shared-control three-friction scenario problems at two reference states.
+The probe uses a 0.1 s horizon and a height-free **diagnostic surrogate cost**,
+not the complete PPO reward, and does not execute the selected actions in a
+closed-loop benchmark. Solver success is not evidence of whole-turn tracking,
+20 ms real-time operation, or guaranteed robust MPC. Archived PPO and the old
+TVLQR/CEM prototype retain their old objectives and are not matched baselines.
+The [2026-10-15 feasibility record](results/2026-10-15-mpc-feasibility.json)
+contains four converged short optimizations, input hashes and derivative
+sensitivity checks. Their local solve times were about 1.0–14.9 s, not 20 ms.
+
+The new implementation has three distinct, not-yet-ranked paths:
+
+- PPO: [`train_beyondmimic_style.py`](scripts/train_beyondmimic_style.py), including
+  an explicit `--smoke-only --iterations 1` mode that cannot pass as full training.
+- SAC: [`train_sac_tracking_isaac.py`](scripts/train_sac_tracking_isaac.py), same
+  51-D actor / 120-D privileged critic / 8-action environment and BM events.
+  Actor/critic widths and ELU match PPO; SAC keeps explicit fixed identity
+  normalization while PPO uses RSL online normalization. SAC preserves dt-scaled
+  rewards, starts temperature at `0.2 * dt`, and records its update/replay budget.
+- NMPC: [`run_nmpc_tracking.py`](scripts/run_nmpc_tracking.py), independent bounded
+  CEM with the [new reward objective](scripts/nmpc_tracking_objective.py), not old
+  TVLQR costs or learned-policy warm starts. Fixed prediction scenarios never
+  read the validation plant coefficient. The
+  [Isaac bridge](scripts/run_nmpc_tracking_isaac.py) replans from measured Isaac
+  state using the same **MuJoCo predictor**; it is not action replay or an Isaac
+  prediction model. Finite scenarios are not a robustness proof.
+
+Only short integration checks have completed: PPO one update iteration, SAC
+32 control steps/29 updates with 16 correctly captured timeout successors,
+and NMPC 0.20 s without reaching the turn core. Same-state Isaac/NumPy reward
+parity passed 16 snapshots across 15 terms (max dt-scaled reward error
+`3.70e-8`); this does not make the engines' contact physics equivalent.
+Use [`materialize_controller_source.py`](scripts/materialize_controller_source.py)
+for the audited full-horizon PPO/SAC actor loader. Smoke actors remain explicitly
+untrained and are rejected by the formal validation driver. The untrained SAC
+export also completed both recording pipelines; 350 reconstructed Isaac
+observations had maximum absolute error `3.34e-6`. That actor loses posture:
+complete recording is not successful tracking. The sanitized
+[integration record](results/2026-10-15-controller-integration.json) separates
+these interface checks from controller performance and includes artifact hashes.
 
 ## Experiment contract
 
@@ -33,8 +98,9 @@ the sampled Isaac XY-verdict change between µ=0.16 and 0.18, versus µ=0.14 and
    [`drift_drl/traj_4` source](upstream/drift_drl/code/ref_trajectory/traj_4.csv) has
    vehicle slip state but does **not** provide measured individual wheel steer
    angles. Thus its robot wheel headings are retarget output, not source sensor
-   readings. Use this clip first; DOA `sa_traj29` is a second high-angle
-   candidate, still without a trained tracking policy. The selected reference
+   readings. Use this clip as the primary; pinned [DOA](upstream/DOA) `sa_traj29`
+   is the selected high-angle S-avoidance supplement, still without a trained
+   tracking policy. Do not pool their success statistics. The original primary reference
    is hash-locked in [`config/car_reference_lock.json`](config/car_reference_lock.json):
    at moving source frames its retargeted left-wheel offset has mean absolute
    11.27° and peak absolute 27.22°.
@@ -282,21 +348,52 @@ cd ../..
 The patch is tested against the pinned base and yields SHA-256
 `5eb40c9b3c14f5bd5c59c9861c1414ae8ac1b219ff0dd70591f2c6fe0bb5344c`.
 
-After placing the licensed TRON1 MuJoCo model and its referenced meshes at the
-source script's expected
-`upstream/tron1-learning-from-human/assets/robots/WF_TRON1A/mujoco/robot.xml`,
-regenerate the locked car reference from the pinned open CSV:
+The [reference catalog](config/controller_references.json) selects
+`drift_drl_traj4` as the primary large-angle turn and `doa_sa29_scale2` as a
+**separate S-avoidance supplement**; never pool their success statistics.
+The primary evaluation core is 1.44–4.00 s. The supplement uses its demonstrated
+0–3.14 s interval, with descriptive high-offset windows 0.78–1.54 s and
+1.88–3.04 s. Synthetic stopping/tail frames are outside both evaluation cores.
+Source CSVs come from the pinned [drift_drl](upstream/drift_drl) and
+[DOA](upstream/DOA) submodules (DOA commit `05ea8d643ea60b4649a59e2988cd1ae21719f9f4`).
+These are CARLA simulations with reconstructed clocks, not physical-car mocap.
+
+After initializing the source submodules, the
+[offline wrapper](scripts/prepare_controller_reference.py) reuses the pinned
+decoder/retarget/export functions without network requests, CARLA, rendering
+or dynamics stepping. Supply the hash-matched **original export MJCF**, its
+referenced meshes, and the **original unmerged URDF** explicitly; licensed
+robot assets are not included and a configured runtime XML is not a substitute:
 
 ```bash
-python upstream/tron1-learning-from-human/scripts/prepare_drift_drl_turn_reference.py \
-  --source-config upstream/tron1-learning-from-human/config/drift_turn_source.json \
-  --source-csv upstream/drift_drl/code/ref_trajectory/traj_4.csv \
-  --output-dir outputs/retargeted_car
+python scripts/prepare_controller_reference.py \
+  --reference-id drift_drl_traj4 \
+  --model /path/to/licensed/robot.xml \
+  --urdf /path/to/licensed/upstream/robot.urdf \
+  --output-dir outputs/reproduced_primary
+
+python scripts/prepare_controller_reference.py \
+  --reference-id doa_sa29_scale2 \
+  --model /path/to/licensed/robot.xml \
+  --urdf /path/to/licensed/upstream/robot.urdf \
+  --output-dir outputs/reproduced_supplement
 ```
 
-Check `motion.npz` and `robot_reference.npz` against the SHA-256 values in
-[`config/car_reference_lock.json`](config/car_reference_lock.json) before
-training or validation; model/version mismatches are not interchangeable.
+Each new directory gets `reproduction_report.json`; existing output is never
+overwritten. In the [audited single-pass reproduction](results/2026-10-15-reference-reproduction.json),
+SA29 matched both frozen NPZ byte hashes. Traj4 did **not**: generalized
+coordinate/velocity differences were at most `3.56e-13` in native units, but
+the cause was not established and numerical closeness does not satisfy its
+byte lock. The wrapper exits **2** on mismatch; it never changes the catalog
+or the [original primary lock](config/car_reference_lock.json). Continue using
+the separately provided, hash-matched frozen primary files for comparison;
+do not silently substitute the newly generated primary.
+
+Both policy trainers and the formal `run_car_validation.py` driver default to
+the primary. To select the supplement, pass `--reference-id doa_sa29_scale2`
+with its matching motion/reference files and separately trained checkpoint.
+Trainer preflight verifies motion byte identity before starting Isaac; this
+identity-only check is not paired-reference, asset or dynamics validation.
 
 For the wider validation range, create a separate source snapshot. This copies
 only the scripts, training code and configuration, extends the evaluator and
@@ -314,21 +411,63 @@ the 50 Hz retargeted drift motion, and the drift task profile to
 `scripts/train_beyondmimic_style.py` inside an Isaac Lab 2.3 / RSL-RL 3
 environment. A representative invocation is:
 
+The next-task profile below is distinct from the archived
+`car_drift_beyondmimic_task.json`. The trainer's
+[`height_smoothness.py`](scripts/height_smoothness.py) adapter changes anchor and
+body position rewards and body linear-velocity rewards to **XY only**, removes
+the base/wheel Z-error termination terms, and removes any optional wheel
+zero-vertical-speed penalty. It adds the soft cost
+`-0.1 * (1 - exp(-(a_z / 5 m/s²)^2))`, where
+`a_z = (v_z[t] - v_z[t-1]) / 0.02 s` uses base-Link COM world velocity at the
+50 Hz control clock. Constant vertical speed is not penalized; acceleration
+is, regardless of height. Reset samples are excluded and environments keep
+independent history. These weight/scale values are initial settings, not tuned
+results, and this signal is not physics-substep acceleration or jerk.
+
+The 0.75 m reference is still used for initialization; there is no height
+reward, band or height abort. The actor observation layout (including reference
+height information), reference leg posture, orientation tracking, tilt safety,
+joint limits, contact rewards and action-rate penalty stay unchanged. Therefore
+the robot is not free of posture/stability preferences, and global Z invariance
+does not imply that every leg configuration is dynamically equivalent. The
+BeyondMimic DR recipe is unchanged. The manifest records the new objective
+contract and adapter hash. **No full trained baseline has yet been validated
+for this revision.**
+
 ```bash
 export TRON1_BEYONDMIMIC_ROOT="$PWD/upstream/whole_body_tracking"
 python scripts/train_beyondmimic_style.py \
   --source-root /path/to/tron1-learning-from-human \
   --motion-file /path/to/drift/motion.npz \
   --asset-path /path/to/WF_TRON1A.usda \
-  --task-profile config/car_drift_beyondmimic_task.json \
-  --output-dir outputs/car_bm_dr_seed42 \
-  --num-envs 512 --iterations 1000 --seed 42 --device cuda:0 --headless
+  --task-profile config/car_drift_height_smooth_task.json \
+  --output-dir outputs/car_height_smooth_seed42 \
+  --reference-id drift_drl_traj4 \
+  --num-envs 512 --iterations 1000 --smoke-steps 0 --seed 42 --device cuda:0 --headless
 ```
+
+For SAC, use `scripts/train_sac_tracking_isaac.py` with the same reference,
+asset, task profile and source arguments, a separate output directory, and
+`--num-envs 512 --policy-steps 24000` (no `--iterations` or `--smoke-steps`).
+Both budgets contain 12,288,000 training transitions. SAC's default schedule
+has 10,240 rounded warmup transitions and 23,981 updates; equal interactions
+do not mean equal optimizer compute. Each manifest records the requested
+budget, source hashes, reference stratum, normalization and native CUDA audit;
+the final status records actual collected transitions. Finishing training does
+not establish successful turning; use the frozen-policy validation below.
 
 Do not label a one-iteration smoke test as a trained policy. Export and validate
 the final actor's observation/action contract before running the fixed-friction
 grid. The isolated evaluation source above supports equal static/dynamic
 `µ=0.01–2.0`. Distinct static/dynamic pairs still require explicit support.
+For the new height-smoothness policy, use an isolated **full-horizon** source
+from `materialize_controller_source.py` and pass `--full-horizon-diagnostic`
+to the validation driver; it rejects historical Z-stop evaluation and rejects
+an old actor mislabeled with the new task profile. Full-horizon evaluation
+observes all original pose predicates (including tilt) without stopping; this
+differs intentionally from training, where tilt safety remains. Keep the
+checkpoint, runner configuration and task profile from the same new run.
+The command below reproduces the **archived** profile, not the new revision:
 
 ```bash
 python scripts/run_car_validation.py \

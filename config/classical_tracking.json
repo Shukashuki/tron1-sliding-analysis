@@ -1,0 +1,23 @@
+{
+  "scope": "Pilot full-body classical tracking baselines, not a proof of controller-class superiority.",
+  "nominal_prediction_mu": 0.7,
+  "validation_mu": [0.16, 0.18, 0.7],
+  "policy_dt_s": 0.02,
+  "physics_dt_s": 0.005,
+  "seed": 42,
+  "state_position_weights": {"xy": 400.0, "z": 100.0, "roll_pitch": 500.0, "yaw": 120.0, "leg": 5.0, "wheel_angle": 0.0},
+  "state_velocity_weights": {"linear": 20.0, "angular": 5.0, "leg": 0.05, "wheel": 0.005},
+  "action_weights": {"leg": 10.0, "wheel": 0.5},
+  "terminal_multiplier": 5.0,
+  "finite_difference_epsilon": 0.00001,
+  "nmpc": {"horizon_steps": 15, "population": 16, "iterations": 2, "elite": 4, "leg_noise_std_rad": 0.025, "wheel_noise_std_normalized": 0.35, "control_blocks": 3},
+  "contract": "All eight normalized actions clipped to [-1,1]; original leg PD 500/10 and wheel 12 Nm action scale; original speed-dependent DC motor torque bounds. No root forces or pose correction after reset.",
+  "comparison_notes": [
+    "TVLQR includes affine reference-dynamics defects; the retarget is not assumed dynamically feasible.",
+    "NMPC is bounded sampling-based nonlinear shooting (CEM), not an IPOPT/acados solution or globally optimal solver.",
+    "Both classical controllers use simulator full states and reference preview, unlike the frozen actor interface. Preview and compute are explicit advantages/limitations.",
+    "Prediction friction stays at 0.7 for all validation cases; no oracle validation-friction retuning.",
+    "The cost tracks desired root yaw and velocity; it does not penalize sideslip toward zero.",
+    "No real-time deadline enforced in the simulator; report 20 ms budget overruns, not real-time deployability."
+  ]
+}

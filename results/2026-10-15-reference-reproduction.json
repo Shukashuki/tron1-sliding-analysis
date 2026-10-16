@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-15",
+  "kind": "offline_selected_reference_reproduction_audit",
+  "status": "supplement_byte_identical_primary_numerically_close_but_not_byte_locked",
+  "scope": "One offline regeneration per selected reference, using local pinned CSVs and explicit licensed assets. MuJoCo FK/Jacobians and the historical bounded kinematic solve only.",
+  "network_requests": 0,
+  "dynamics_integration_steps": 0,
+  "training_performed": false,
+  "animation_generated": false,
+  "catalog_locks_modified": false,
+  "pooled_success_statistics": false,
+  "wrapper": "scripts/prepare_controller_reference.py",
+  "wrapper_sha256": "73792aed509e732b061b558a9eaa9f976f0ddcf50a82bc5aeed8a479f8de181d",
+  "catalog": "config/controller_references.json",
+  "catalog_sha256": "b2c6062ebc6c25d48d7845ffb8786971f85d7b44e37d5f6f27a9f65e395b96c1",
+  "explicit_asset_hashes": {
+    "original_export_mjcf_sha256": "30c8bb94b32b1804aa2f7de2425f7a8dd02be7792881255388097e2e68092e52",
+    "original_unmerged_urdf_sha256": "f09c56c15acd507bba43b394e37a9abe024e0111fdde7dbf41796408895ee4c5"
+  },
+  "versions": {
+    "python": "3.13.12",
+    "numpy": "2.3.5",
+    "scipy": "1.17.1",
+    "mujoco": "3.8.1",
+    "zlib": "1.3.1"
+  },
+  "references": {
+    "drift_drl_traj4": {
+      "role": "primary",
+      "stratum": "large_angle_turn",
+      "source_repository": "https://github.com/caipeide/drift_drl",
+      "source_commit": "9f3a125f76ac2c0415014a761a514a511553322c",
+      "source_csv_sha256": "eb67a507817605d9b0018bdf2196c04f58f9a9238e7e1906350a7568ab87cf27",
+      "frames": 349,
+      "fps": 50.0,
+      "sample_span_s": 6.96,
+      "source_demo_interval_s": [0.0, 4.96],
+      "evaluation_core_interval_s": [1.44, 4.0],
+      "catalog_lock_matched": false,
+      "expected_hashes": {
+        "motion_npz_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+        "robot_reference_npz_sha256": "afc22f19b813cf10b3e3a90affb0f26f5a7743074f98b262394c69de786e9f6e"
+      },
+      "actual_hashes": {
+        "motion_npz_sha256": "41843be5cbac3b33cc0faa256fdfd9040893a8b3bd6016538ea8269bb5a1fe6c",
+        "robot_reference_npz_sha256": "08b3734abec2d7040b399f4e8224b0dac3722298b1f3690337d8e0dd205fe85d"
+      },
+      "array_comparison": {
+        "same_keys_order_shapes_dtypes": true,
+        "max_qpos_abs_difference_native_units": 1.6342482922482304e-13,
+        "max_qvel_abs_difference_native_units": 3.552713678800501e-13,
+        "max_root_target_position_abs_difference_m": 1.687538997430238e-14,
+        "motion_float32_differences": {
+          "body_lin_vel_w": {
+            "changed_elements": 1,
+            "max_abs_difference_m_s": 4.547473508864641e-13
+          },
+          "body_ang_vel_w": {
+            "changed_elements": 2,
+            "max_abs_difference_rad_s": 9.08461508078537e-22
+          }
+        },
+        "other_motion_float32_arrays_exactly_equal": true,
+        "motion_clocks_phases_names_masks_exactly_equal": true
+      },
+      "interpretation": "Tiny differences are compatible with numerical rounding, but the exact cause is unproven. The regenerated files do not satisfy the frozen byte locks. Preserve and use the original hash-matched primary artifacts for formal comparison."
+    },
+    "doa_sa29_scale2": {
+      "role": "separate_supplement",
+      "stratum": "high_sideslip_s_avoidance",
+      "source_repository": "https://github.com/ustcly/DOA",
+      "source_commit": "05ea8d643ea60b4649a59e2988cd1ae21719f9f4",
+      "source_csv_sha256": "3bb52933d7073b20b722b3b449a2e1a04671d95337a64d471ccf9be70371ce1f",
+      "source_license": "MIT",
+      "source_license_sha256": "8839ece5ab8d114f9fdf9c69c63c6c609be328053d69df60fc73acb9b275a167",
+      "frames": 258,
+      "fps": 50.0,
+      "sample_span_s": 5.14,
+      "source_demo_interval_s": [0.0, 3.14],
+      "evaluation_core_interval_s": [0.0, 3.14],
+      "descriptive_event_windows_s": [[0.78, 1.54], [1.88, 3.04]],
+      "catalog_lock_matched": true,
+      "expected_hashes": {
+        "motion_npz_sha256": "7e6b260611e846b47da206b4296aea1eaa6e6e4c56bff8c3d166362cb83a2d10",
+        "robot_reference_npz_sha256": "79bc00a9fed5ba1b9b3bae6605cf337e7dc14b444197c3ae13b91b2491aa20d0"
+      },
+      "actual_hashes": {
+        "motion_npz_sha256": "7e6b260611e846b47da206b4296aea1eaa6e6e4c56bff8c3d166362cb83a2d10",
+        "robot_reference_npz_sha256": "79bc00a9fed5ba1b9b3bae6605cf337e7dc14b444197c3ae13b91b2491aa20d0"
+      },
+      "interpretation": "Both regenerated NPZ files are byte-identical in this audited environment. This is reference reproduction, not policy training or dynamics validation. The offline capture audit is newly generated, not a copy of the historical multi-source/video metadata."
+    }
+  },
+  "limitations": [
+    "Source cars are CARLA simulations and clocks are reconstructed estimates, not physical mocap or original sensor timestamps.",
+    "Wheel rolling-plane separation is geometric, not measured tire contact-patch slip.",
+    "Licensed original export assets and frozen primary NPZ files are separate inputs, not redistributed here.",
+    "The two motions are different task strata; do not pool success statistics.",
+    "One local environment does not establish universal byte reproducibility or identify the cause of the primary rounding differences."
+  ]
+}

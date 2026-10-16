@@ -17,6 +17,9 @@ import subprocess
 import sys
 import time
 
+from controller_references import (DEFAULT_CATALOG, PRIMARY_REFERENCE_ID,
+                                   SELECTED_REFERENCES, verify_motion_identity)
+
 
 ROOT = Path(__file__).resolve().parents[1]
 BM_COMMIT = "cd65172032893724b445448818c34165846d847d"
@@ -44,6 +47,15 @@ def load_source_ppo_config(source_root: Path, seed: int, save_interval: int) -> 
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module.ppo_config(seed, save_interval)
+
+
+def ppo_collection_budget(runner_config, num_envs, iterations):
+    """Requested rollout collection, excluding setup smoke/reset checks."""
+    steps = runner_config.get("num_steps_per_env")
+    if isinstance(steps, bool) or not isinstance(steps, int) or steps < 1:
+        raise ValueError("PPO runner config requires positive integer num_steps_per_env")
+    return {"num_steps_per_env": steps, "policy_steps_requested": iterations * steps,
+            "environment_transitions_requested": num_envs * iterations * steps}
 
 
 def install_beyondmimic_events(cfg, *, ground_friction: float = 1.0) -> dict:
@@ -74,7 +86,7 @@ def install_beyondmimic_events(cfg, *, ground_friction: float = 1.0) -> dict:
     cfg.events.add_joint_default_pos = EventTermCfg(
         func=mdp.randomize_joint_default_pos, mode="startup",
         # Upstream helper also writes the joint_pos action offset. TRON1 has
-        # only six position-action joints; its two wheels are velocity actions.
+        # only six position-action joints; its two wheels are torque actions.
         params={"asset_cfg": SceneEntityCfg("robot", joint_names=LEG_JOINT_NAMES, preserve_order=True),
                 "pos_distribution_params": (-0.01, 0.01), "operation": "add"},
     )
@@ -122,6 +134,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source-root", type=Path, required=True)
     parser.add_argument("--motion-file", type=Path, required=True)
+    parser.add_argument("--reference-id", choices=tuple(SELECTED_REFERENCES), default=PRIMARY_REFERENCE_ID)
     parser.add_argument("--asset-path", type=Path, required=True)
     parser.add_argument("--task-profile", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
@@ -131,18 +144,25 @@ def main() -> None:
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--smoke-steps", type=int, default=8)
     parser.add_argument("--ground-friction", type=float, default=1.0)
+    parser.add_argument("--smoke-only", action="store_true",
+                        help="At most two PPO iterations; never label or save as a trained final policy")
     from isaaclab.app import AppLauncher
     AppLauncher.add_app_launcher_args(parser)
     args = parser.parse_args()
     if (min(args.num_envs, args.iterations, args.save_interval) < 1
             or args.smoke_steps < 0 or args.ground_friction <= 0):
         parser.error("Invalid environment/iteration/ground material settings")
+    if args.smoke_only and args.iterations > 2:
+        parser.error("PPO smoke requires --iterations 1 or 2")
+    reference_spec = verify_motion_identity(args.motion_file, args.reference_id)
+    reference_catalog_sha256 = sha(DEFAULT_CATALOG)
     output = args.output_dir.resolve()
     if output.exists() and any(output.iterdir()):
         parser.error("Preserving nonempty training output")
     output.mkdir(parents=True, exist_ok=True)
     app = env = accumulator = None
-    status = {"status": "initializing", "training_recipe": "BeyondMimic event mapping to TRON1"}
+    status = {"status": "initializing", "training_recipe": "BeyondMimic event mapping to TRON1",
+              "smoke_only": args.smoke_only, "trained_policy_claimed": False}
     start = time.monotonic()
     try:
         app = AppLauncher(args).app
@@ -162,12 +182,21 @@ def main() -> None:
                            args.device, task_profile=profile)
         cfg.seed = args.seed
         recipe = install_beyondmimic_events(cfg, ground_friction=args.ground_friction)
+        height_contract = None
+        if "height_regularization" in profile:
+            from height_smoothness import install_height_smoothness
+            height_contract = install_height_smoothness(cfg, profile["height_regularization"])
         env = ManagerBasedRLEnv(cfg=cfg)
+        from training.tron1_runtime_device import validate_simulation_device
+        device_audit = validate_simulation_device(env, requested_device=args.device)
         accumulator = install_drift_reward_sampling(env, profile)
         material_audit = audit_material_draw(env, recipe)
         wrapped = RslRlVecEnvWrapper(env, clip_actions=1.0)
         contract = apply_task_profile_to_contract(observation_action_contract(), profile)
         contract["training_domain_randomization"] = recipe
+        contract["domain_randomization"] = "BeyondMimic-style training events enabled; disabled for fixed-friction validation"
+        if height_contract is not None:
+            contract["height_regularization"] = height_contract
         obs, _ = wrapped.reset()
         if (tuple(obs["policy"].shape) != (args.num_envs, contract["actor_dim"])
                 or env.action_manager.total_action_dim != contract["action_dim"]):
@@ -178,12 +207,17 @@ def main() -> None:
                 raise FloatingPointError("Non-finite training smoke sample")
         wrapped.reset()
         ppo = load_source_ppo_config(source_root, args.seed, args.save_interval)
+        collection_budget = ppo_collection_budget(ppo, args.num_envs, args.iterations)
         (output / "runner_config.json").write_text(json.dumps(ppo, indent=2) + "\n")
         revision = source_revision(source_root)
         source_files = ["scripts/train_tracking.py", "training/tron1_tracking.py",
                         "training/tron1_drift.py", "training/tron1_domain_randomization.py",
                         "training/tron1_contact_slip.py"]
         manifest = {"status": "training_configured", "source_commit": revision,
+                    "algorithm": "PPO", "smoke_only": args.smoke_only,
+                    "reference_id": args.reference_id, "reference_spec": reference_spec,
+                    "reference_catalog_sha256": reference_catalog_sha256,
+                    "pooled_success_statistics": False,
                     "source_checkout_kind": "git" if revision else "snapshot_without_git_metadata",
                     "source_training_modules_sha256": {name: sha(source_root / name) for name in source_files},
                     "trainer_sha256": sha(Path(__file__)), "motion_sha256": sha(args.motion_file),
@@ -192,21 +226,34 @@ def main() -> None:
                     "asset_file": str(args.asset_path.resolve()),
                     "task_profile": profile, "terrain": None, "contract": contract,
                     "seed": args.seed, "num_envs": args.num_envs, "iterations": args.iterations,
+                    **collection_budget,
+                    "setup_smoke_control_steps": args.smoke_steps,
+                    "collection_budget_scope": "PPO rollout collection only, excluding setup smoke/reset checks",
                     "recipe": recipe, "material_draw_audit": material_audit,
+                    "device_audit": device_audit,
                     "policy_contract": contract,
                     "evaluation": "Freeze final actor; material randomization disabled; sweep fixed coefficients."}
+        if height_contract is not None:
+            manifest["height_regularization"] = height_contract
+            manifest["height_adapter_sha256"] = sha(Path(__file__).with_name("height_smoothness.py"))
         (output / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
-        status["status"] = "training"
+        status["status"] = "smoke_running" if args.smoke_only else "training"
         (output / "run_status.json").write_text(json.dumps(status, indent=2) + "\n")
         runner = OnPolicyRunner(wrapped, copy.deepcopy(ppo), log_dir=str(output), device=args.device)
         runner.learn(num_learning_iterations=args.iterations, init_at_random_ep_len=False)
-        runner.save(str(output / "model_final.pt"))
+        if runner.tot_timesteps != manifest["environment_transitions_requested"]:
+            raise AssertionError("PPO completed rollout transition count differs from the declared budget")
+        runner.save(str(output / ("model_smoke.pt" if args.smoke_only else "model_final.pt")))
         if runner.writer is not None:
             runner.writer.flush()
             runner.writer.close()
-        status.update(status="training_completed", elapsed_seconds=time.monotonic() - start,
+        status.update(status="smoke_passed" if args.smoke_only else "training_completed",
+                      trained_policy_claimed=not args.smoke_only,
+                      elapsed_seconds=time.monotonic() - start,
                       iterations_requested=args.iterations,
                       learning_iteration_index=runner.current_learning_iteration,
+                      environment_transitions=runner.tot_timesteps,
+                      policy_steps_completed=runner.tot_timesteps // args.num_envs,
                       final_material_draw_audit=audit_material_draw(env, recipe))
     except BaseException as error:
         status.update(status="failed", error=f"{type(error).__name__}: {error}",
