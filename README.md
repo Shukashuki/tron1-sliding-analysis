@@ -152,6 +152,44 @@ Use the same inputs and options with `--prediction-backend python`, omit
 comparison. Licensed robot assets, source motion and compiled binaries are
 not included; provide the hash-locked reference and compatible local inputs.
 
+### Preparing the frozen NMPC grid
+
+[`run_nmpc_validation.py`](scripts/run_nmpc_validation.py) separates `plan`,
+`freeze` and `execute`. **Only orchestration/evidence unit tests have run**;
+this is not a completed NMPC grid. The residual controller still lacks its
+new Isaac nominal result, so no actual freeze artifact has been created.
+
+`plan` prints 34 proposed local commands without importing simulators,
+launching subprocesses, compiling, creating the grid directory or contacting
+a host. Runtime paths in this example are deliberately unverified placeholders:
+
+```bash
+python scripts/run_nmpc_validation.py plan \
+  --source-root /path/to/audited/tron1/source \
+  --motion /path/to/locked/motion.npz \
+  --reference-file /path/to/locked/robot_reference.npz \
+  --asset-path /path/to/WF_TRON1A.usda --model /path/to/mujoco_model.xml \
+  --contract /path/to/policy_contract.json \
+  --native-library /path/to/libtron1_nmpc_batch.so \
+  --device cuda:2 --output-dir outputs/NEW_nmpc_fixed_mu_grid
+```
+
+After actual two-engine nominal qualification, `freeze` additionally requires
+`--nominal-isaac-dir`, `--nominal-mujoco-dir`, `--nominal-pair-dir` and a new
+`--freeze-output` outside the grid directory. `execute` needs the same input
+and nominal paths plus `--freeze-manifest`. It rechecks frozen bytes before
+and after every child, verifies complete physics artifacts rather than exit
+code alone, and produces the common three-panel top-down analysis per case.
+Only plant μ changes across the predeclared 17 coefficients; prediction
+scenarios and both seed-42 settings stay fixed. Primary and supplemental
+references require separate qualifications/outputs. Per-engine native builds
+can be supplied explicitly; no build is automatic.
+
+Valid finite low-friction failures and CEM fallbacks remain results. Runtime
+failures preserve an incomplete manifest and logs; they are not physical
+passes or failures. These commands neither upload files nor grant remote-host
+permission. The new Isaac snapshot upload remains pending explicit approval.
+
 ## Experiment contract
 
 1. Select car or human demonstrations with a sustained, nontrivial signed
