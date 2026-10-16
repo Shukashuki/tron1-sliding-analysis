@@ -240,6 +240,14 @@ contract, existing native library and adjacent build JSON. These tools do not
 download assets, install dependencies, compile native code or remove the
 historical input-byte locks.
 
+The original parameter-only [actuator contract](../config/nominal_actuator_contract.json)
+is now included byte-for-byte (SHA-256 `6e105cbd...d09642f`). It contains no
+weights or credentials. Its legacy export observation/task/checkpoint metadata
+is retained for identity, not used as a learned controller: NMPC loads no actor,
+and explicit plant-mu, prediction scenarios and the separate height-smooth task
+configure the current experiment. In particular, the archived `0.18` field is
+not SA29's validation friction or the fixed prediction mu.
+
 Start from the fresh upstream source with `tron1_drift.py` hash `d5da59c7...`,
 not the older historical `5eb40c9b...` patched source:
 
