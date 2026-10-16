@@ -42,6 +42,11 @@ The subsequent [model-nominal-initialized TVLQR pilot](results/2026-10-16-tvlqr-
 also retains its failure: 0.439 m nominal core XY RMSE, frequent command clipping
 and posture loss. Its quadratic design cost differs from the common task
 evaluation. Neither pilot triggers further parameter search or a ranking.
+The additional [fixed MPPI pilot](results/2026-10-16-mppi-pilot.md) also keeps its
+nominal failure: 0.666 m core XY RMSE, 60.48% speed retention and posture loss.
+It uses genuine Gaussian importance weights and a final weighted-mean action
+plan, with the same rollout count as CEM but an additional Gaussian prior.
+This is MuJoCo-only; no MPPI retuning, Isaac result or friction grid is claimed.
 
 The [completed historical refinement](results/2026-10-15-car-sim2sim-boundary.md) places
 the sampled Isaac XY-verdict change between µ=0.16 and 0.18, versus µ=0.14 and

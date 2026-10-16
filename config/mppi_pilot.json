@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "kind": "bounded_nominal_mppi_mujoco_pilot",
+  "reference_id": "drift_drl_traj4",
+  "plant_mu": 0.7,
+  "prediction_mu_scenarios": [0.7],
+  "settings": "config/mppi_height_smooth.json",
+  "open_source_reference": {
+    "submodule": "upstream/pytorch_mppi",
+    "commit": "e04a569cd4215e705f9013145c496fc59cb25ed6",
+    "runtime_dependency": false,
+    "bitwise_package_reproduction_claimed": false
+  },
+  "task_profile": "config/car_drift_height_smooth_task.json",
+  "baseline": "fixed CEM H30/B10, 64 candidates x 3 iterations, seed 42",
+  "mppi_rollouts_per_iteration": {
+    "independent_gaussian_population": 63,
+    "updated_mean_verification": 1
+  },
+  "iterations": 3,
+  "initial_plan_evaluations": "Two at reset, three with a valid shifted warm plan",
+  "expected_successful_full_episode_candidate_evaluations": 68054,
+  "expected_successful_full_episode_prediction_substeps": 8166480,
+  "temperature_or_noise_retuned_after_results": false,
+  "covariance_learning": false,
+  "elite_selection": false,
+  "sample_argmin_applied": false,
+  "latent_gaussian_importance_correction": true,
+  "implicit_prior_changes_optimization_objective": true,
+  "height_or_flight_failure_gate": false,
+  "heading_offset_is_mismatch": false,
+  "robustness_certificate": false,
+  "real_time_claimed": false,
+  "isaac_results_available": false,
+  "formal_frozen_friction_grid": false
+}
