@@ -3,8 +3,8 @@
 This is the separate `doa_sa29_scale2` S-avoidance supplement, not another
 trial of the primary large-angle turn. Do not pool its statistics with
 `drift_drl_traj4`. The completed local MuJoCo fixed-controller grid below is
-unchanged. The remote follow-up has completed PPO training; SAC training and
-the matched three-controller grid are still in progress, not inferred from
+unchanged. The remote follow-up has completed PPO and SAC training; the
+matched three-controller grid is still in progress, not inferred from
 the local results.
 
 ## Results
@@ -177,8 +177,12 @@ steps, with final checkpoint SHA-256
 Its original manifest, status, runner and checkpoint bytes passed independent
 budget/source/device checks. The μ=0.7 Isaac recording has all 1,033 physics
 samples / 258 decisions / 5.16 s; it is not yet a completed sim2sim pair.
-SAC started with the unchanged fixed recipe and remains a separate sequential
-experiment.
+SAC subsequently completed the same 12,288,000 transitions / 24,000 policy
+steps with the unchanged fixed recipe. Its final checkpoint SHA-256 is
+`1620573e528cc5e0b0082153d8c2347e3731d133d700632312275b1b60773f6a`.
+The original six selected training artifacts, full execution log and genuine
+exit/owned-process closure passed independent checks; intermediate checkpoint
+bytes have not been retrieved or claimed verified.
 
 The first matching MuJoCo attempt stepped dynamics but failed at report
 construction: an unconditional provenance hash read required
@@ -192,8 +196,13 @@ controller or physics change was made. Historical provenance remains nine
 originals / five changed outputs / twelve code files. The thirteenth code file
 is separately bound as a reporting-only dependency; flat-ground and
 no-visual-mesh checks ensure it is not used to augment the model.
-One explicit MuJoCo-only retry will use a fresh output after SAC finishes,
+The explicit MuJoCo-only retry used a fresh output after SAC's genuine closure,
 reusing the original Isaac actor/contract/trajectory without rerunning Isaac.
+Both original nominal recordings passed the offline first-pair I/O audit:
+1,033 physics samples / 258 decisions / 5.16 s each, unchanged training and
+source identities, verified exported observations and real clean terminal
+captures. This opens the remaining declared validation cases; it is not a
+performance-based selection or a completed-grid claim.
 
 The new offline [policy-grid analyzer](../scripts/analyze_sa29_policy_friction_dynamics.py)
 and [three-controller comparison adapter](../scripts/analyze_sa29_controller_comparison.py)

@@ -66,17 +66,18 @@ SA29 is not another large-angle-turn trial, and its missing PPO/SAC/Isaac work
 is not replaced by primary policies or local model-control evidence.
 The approved remote snapshot is deployed. An initial PPO run was interrupted
 after auxiliary Isaac CUDA contexts also appeared on busy GPUs. The user has
-since permitted those auxiliary allocations. Fresh fixed-recipe PPO completed
-all 12,288,000 transitions, and its nominal Isaac recording is complete. SAC
-is training. The first MuJoCo attempt failed before saving its report/trace
-because a reporting-only helper was missing; an existing identical remote
-helper is separately pinned for the explicit retry. The paired grid remains
-incomplete. See the linked SA29 report for the preserved runtime evidence.
+since permitted those auxiliary allocations. Fresh fixed-recipe PPO and SAC
+each completed all 12,288,000 transitions. PPO's nominal sim2sim pair is complete;
+SAC validation is starting. A missing reporting-only helper caused the first
+MuJoCo attempt to fail before persistence; its original failure is preserved,
+and the explicit retry using an existing identical remote helper completed.
+The paired grid remains incomplete. See the linked SA29 report for the
+preserved runtime evidence.
 
 | Reference / separate stratum | PPO and SAC | Fixed NMPC |
 | --- | --- | --- |
 | traj_4 / large-angle turn | Each trained; 17 μ in both engines | 17 μ in both engines |
-| SA29 / S-avoidance supplement | PPO trained; SAC running; paired grid incomplete | 17 μ in MuJoCo; Isaac missing |
+| SA29 / S-avoidance supplement | Both trained; paired validation in progress | 17 μ in MuJoCo; Isaac missing |
 
 The [completed historical refinement](results/2026-10-15-car-sim2sim-boundary.md) places
 the sampled Isaac XY-verdict change between µ=0.16 and 0.18, versus µ=0.14 and
