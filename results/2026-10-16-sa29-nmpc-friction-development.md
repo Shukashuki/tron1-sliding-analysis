@@ -184,6 +184,13 @@ The original six selected training artifacts, full execution log and genuine
 exit/owned-process closure passed independent checks; intermediate checkpoint
 bytes have not been retrieved or claimed verified.
 
+The archived DR `robot_mapping` sentence contains a legacy
+"velocity-controlled wheels" label. Executed wheel control instead uses
+direct effort commands, `tau_requested = 12 * clip(a, -1, 1)` Nm, followed by
+the motor torque-speed/saturation limits; it is not a wheel-speed setpoint.
+The frozen action implementation and numerical export contract establish
+this behavior. The original metadata bytes are retained unchanged.
+
 The first matching MuJoCo attempt stepped dynamics but failed at report
 construction: an unconditional provenance hash read required
 `training/tron1_terrain.py`, absent from the approved archive. It failed before
@@ -213,3 +220,138 @@ all 17 NMPC Isaac cases, binding the original terminal receipts and full logs
 to each report, trace and solver log. Successful file parsing or process exit
 alone does not establish a completed simulation recording.
 No SA29 policy-grid or paired-controller result bundle has been published.
+
+## Public capture and reproduction workflow
+
+The new [capture utility](../scripts/sa29_capture.py) and
+[portable assembler](../scripts/assemble_sa29_capture.py) remove the dependency
+on private dispatch scripts. They do not replace the historical queue or
+retroactively generate its receipts. Source preparation was tested on actual
+local files; process/GPU tests use mocks, not additional physics episodes.
+
+<details>
+<summary>Source preparation, execution and capture-schema details</summary>
+
+Use the existing asset/reference preparation instructions in the README and
+the pinned runtime versions. Isaac needs the licensed robot USD, the locked
+motion, and a **complete** BeyondMimic checkout through
+`TRON1_BEYONDMIMIC_ROOT`. NMPC additionally needs the hash-matched XML, actuator
+contract, existing native library and adjacent build JSON. These tools do not
+download assets, install dependencies, compile native code or remove the
+historical input-byte locks.
+
+Start from the fresh upstream source with `tron1_drift.py` hash `d5da59c7...`,
+not the older historical `5eb40c9b...` patched source:
+
+```sh
+python scripts/sa29_capture.py prepare-source \
+  --source-root upstream/tron1-learning-from-human \
+  --output-dir outputs/sa29_capture_source
+```
+
+This creates `original_source/` with exactly the nine selected originals,
+`evaluation_source/` with twelve materialized code files plus the separately
+pinned reporting helper and unchanged materializer audit, and
+`source_binding.json`. Do not materialize the entire upstream tree for this
+locked analyzer: its historical baseline is exactly nine files.
+
+Train with the unchanged `train_beyondmimic_style.py` and
+`train_sac_tracking_isaac.py` entrypoints, the prepared **original** source,
+`--reference-id doa_sa29_scale2`, locked motion/USD/task inputs, 512 environments,
+seed 42 and ground friction 1.0. PPO uses 1,000 iterations, save interval 100
+and `--smoke-steps 0`; SAC uses 24,000 policy steps, 10,000 warmup transitions,
+500,000 replay capacity, batch 1,024, one update per step, gamma 0.99, log
+interval 100 and save interval 2,400. Each collects 12,288,000 transitions.
+Select a genuinely idle main RTX and use consistent unmasked CUDA and the
+four explicit Kit settings for training as well as validation. The training
+friction DR recipe remains unchanged; the wide grid is evaluation-only.
+
+For each declared coefficient, provide a JSON **argv array** for one direct
+evaluator, using canonical absolute input paths and a fresh output. The policy
+Isaac entry is the prepared `eval_tracking_friction_isaac.py`; pass
+`--motion-file`, `--asset-path`, the original `model_final.pt` and adjacent
+`runner_config.json`, `--task-profile`, `--evaluation-contact-friction`,
+`--output-dir`, `--num-envs 1 --seed 42 --contact-threshold-n 5.0`,
+`--record-physics --verify-unmasked-device --device cuda:N --headless`, and
+one `--kit_args` value containing exactly:
+
+```text
+--/renderer/activeGpu=N --/renderer/multiGpu/enabled=false --/physics/cudaDevice=N --/physics/sceneMultiGPUMode=0
+```
+
+Invoke the capture wrapper with the same algorithm/coefficient/device/output:
+
+```sh
+python scripts/sa29_capture.py run-engine \
+  --algorithm PPO --engine isaac --mu 0.7 --device cuda:2 \
+  --source-root /absolute/evaluation_source \
+  --output-dir /absolute/new_case/isaac \
+  --receipt /absolute/new_case/capture/isaac_terminal.json \
+  --log /absolute/new_case/capture/isaac.log \
+  --command-json /absolute/isaac_argv.json --allow-auxiliary-contexts
+```
+
+The paths/device are examples, not runnable access to private infrastructure.
+Replace device `2` and every `N` consistently. Auxiliary-context consent is
+explicit and does not allow sharing a busy main GPU; the guard still requires
+less than 64 MiB, zero utilization and no attached compute PID. The wrapper
+does not select another GPU, retry, train, use SSH or stop foreign processes.
+
+Then capture the prepared `eval_tracking_mujoco.py` with the **same case's**
+exported actor/contract and `--verify-isaac-trajectory` policy-rate trajectory,
+locked motion/XML, fresh output and `--no-visual-mesh`. Use the wrapper's
+`--engine mujoco --device cpu --isaac-receipt ORIGINAL --isaac-log ORIGINAL`;
+it masks CUDA and verifies the actual prior Isaac evidence. NMPC capture uses
+`--algorithm NMPC --engine isaac`, the prepared original nine-file source,
+`run_nmpc_tracking_isaac.py`, fixed H30/B10/C64/I3/E8, singleton prediction
+mu 0.7 and the existing native library. There is no automatic build path.
+
+The wrapper observes the real child exit, full combined log, artifact hashes,
+pre/post source/input hashes and owned-process/context closure. A traceback
+with exit zero, missing files or an unclosed child produces an incomplete
+receipt. An interrupted live child is reported for operator reconciliation,
+not silently restarted or described as completed. This is trusted-capture
+consistency, not cryptographic authenticity or a physical success claim.
+
+Keep original raw states, weights, logs and receipts private. The assembler's
+input schema is documented at the top of its source. Each file binding is
+computed from an existing original, relative to an explicit `original_root`:
+
+```python
+from pathlib import Path
+import hashlib
+original_root = Path("originals").resolve()
+def bind(path):
+    p = Path(path).resolve()
+    return {"path": str(p.relative_to(original_root)),
+            "sha256": hashlib.sha256(p.read_bytes()).hexdigest()}
+```
+
+A policy plan (`kind: sa29_policy_capture_assembly_plan`) requires the three
+inputs; the prepared source root/audit/hash/dependency mapping; original PPO
+training files `manifest/status/checkpoint/runner_config`; SAC's same four plus
+`policy_contract/actor`; and all 34 unique cases. Each case has seven original
+artifact roles and both original receipt/log pairs. Rebase the prepared source
+binding paths under `original_root`, but never rewrite the materializer audit.
+Explicit paths also support preserving an original Isaac recording alongside
+a separately documented MuJoCo-only retry. Never fill missing cases with
+placeholders or generate terminal evidence from an old report.
+
+```sh
+python scripts/assemble_sa29_capture.py policy --plan actual_policy_plan.json \
+  --output-dir outputs/NEW_private_policy_capture \
+  --analysis-output-dir results/NEW_policy_bundle
+python scripts/assemble_sa29_capture.py nmpc-execution --plan actual_nmpc_plan.json \
+  --output-dir outputs/NEW_private_nmpc_capture \
+  --analysis-output-dir results/NEW_joined_bundle
+```
+
+These commands print, but do not execute, the next analyzer argv. Append
+`--policy-dynamics` with the completed policy bundle to the joined analyzer's
+argv. NMPC assembly requires all 17 original report/trace/solver/receipt/log
+sets, original source nine and the **published locked MuJoCo bundle**. It does
+not accept an arbitrary newly generated MuJoCo bundle as the historical one.
+Distinguish offline public-vector replay, a fresh physical rerun and byte-exact
+historical raw replay: the last still requires the original private inputs.
+
+</details>

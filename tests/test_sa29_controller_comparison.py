@@ -324,3 +324,59 @@ def test_synthetic_isaac_rejects_invalid_evidence(isaac_synthetic, mutation):
     elif mutation == "real_time": report["real_time_verified"] = True
     elif mutation == "missing_decision": log.pop()
     with pytest.raises(ValueError): a.audit_isaac_trace(report,raw,log)
+
+
+@pytest.mark.parametrize("selection", [(), (.2,.2), (.25,), (True,), (float("nan"),)])
+def test_topdown_rejects_undeclared_or_duplicate_display(tmp_path, selection):
+    with pytest.raises(ValueError, match="Display requires"):
+        a.render_topdown({}, {}, tmp_path/"plot.png", display_mu=selection)
+
+
+def test_topdown_preserves_existing_plot(tmp_path):
+    target = tmp_path/"plot.png"
+    target.write_bytes(b"existing original")
+    with pytest.raises(ValueError, match="Preserve"):
+        a.render_topdown({}, {}, target, display_mu=(.2,))
+    assert target.read_bytes() == b"existing original"
+
+
+def test_topdown_preserves_dangling_plot_symlink(tmp_path):
+    target = tmp_path/"plot.png"
+    missing = tmp_path/"unrelated-missing.png"
+    target.symlink_to(missing)
+    with pytest.raises(ValueError, match="Preserve"):
+        a.render_topdown({}, {}, target, display_mu=(.2,))
+    assert target.is_symlink() and not missing.exists()
+
+
+@pytest.mark.parametrize("selection,posthoc,rows", [(None,False,5), ((.2,),True,1)])
+def test_topdown_posthoc_is_presentation_only(tmp_path, monkeypatch, selection, posthoc, rows):
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    data = {}
+    selected = a.SELECTED_MU if selection is None else selection
+    for prefix in ["reference"] + [engine+"_"+a.case_name(mu) for mu in selected for engine in ("isaac","mujoco")]:
+        data.update({prefix+"_time_s":np.array([0.,.02]), prefix+"_physics_dt_s":np.array(.02),
+            prefix+"_position":np.array([[0.,0.,0.],[.02,0.,0.]]), prefix+"_wheel_pos":np.zeros((2,2,3)),
+            prefix+"_root_course_to_wheel_valid":np.ones((2,2),bool),
+            prefix+"_wheel_rolling_plane_heading_rad":np.zeros((2,2)),
+            prefix+"_contact_count":np.ones((2,2)), prefix+"_contact_force":np.tile([0.,0.,10.],(2,2,1)),
+            prefix+"_root_beta_valid":np.ones(2,bool), prefix+"_com_velocity":np.tile([1.,0.,0.],(2,1))})
+    original = {key:value.copy() for key,value in data.items()}
+    summary = {"complete_three_controller_two_engine_grid":False}
+    calls = {}; real_subplots = plt.subplots
+    def subplots(*args, **kwargs):
+        calls.update(rows=args[0],figsize=kwargs["figsize"])
+        fig,axes = real_subplots(*args, **kwargs)
+        monkeypatch.setattr(fig,"savefig",lambda output,**kw: calls.update(title=fig._suptitle.get_text()))
+        return fig,axes
+    monkeypatch.setattr(plt,"subplots",subplots)
+    kwargs = {} if selection is None else {"display_mu":selection}
+    result = a.render_topdown(data,summary,tmp_path/"plot.png",**kwargs)
+    assert calls["rows"] == rows and calls["figsize"] == (8.4,3.4*rows)
+    assert ("POST-HOC" in calls["title"]) is posthoc
+    assert result == {"display_mu":list(selected),"posthoc_display_selection":posthoc,
+        "new_physical_episodes":False,"metrics_or_trajectories_changed":False}
+    assert summary == {"complete_three_controller_two_engine_grid":False}
+    assert all(np.array_equal(data[key],value) for key,value in original.items())

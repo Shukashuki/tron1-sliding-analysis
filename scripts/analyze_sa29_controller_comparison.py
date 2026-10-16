@@ -443,16 +443,27 @@ def run(args):
     return summary
 
 
-def render_topdown(data, summary, output):
-    """Fixed illustrative mu, same world axes, both engines; contacts not invented."""
+def render_topdown(data, summary, output, *, display_mu=SELECTED_MU):
+    """Render original recordings; nondefault display selection is explicitly post-hoc.
+
+    This optional presentation-only view does not change the predeclared grid,
+    metrics, main five-row plot, or recorded trajectories. Save a diagnostic
+    outside the immutable three-file result bundle; never overwrite a plot.
+    """
+    display_mu = tuple(display_mu)
+    require(display_mu and len(set(display_mu)) == len(display_mu)
+            and all(type(mu) in (int, float) and mu in GRID for mu in display_mu),
+            "Display requires unique coefficients from the completed declared grid")
+    require(not Path(output).is_symlink() and not Path(output).exists(), "Preserve an existing plot")
+    posthoc = display_mu != tuple(SELECTED_MU)
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     from matplotlib.lines import Line2D
     algorithms = ("Reference", "PPO", "SAC", "NMPC") if summary["complete_three_controller_two_engine_grid"] else ("Reference", "NMPC")
-    fig, axes = plt.subplots(len(SELECTED_MU), len(algorithms), figsize=(4.2*len(algorithms),17.), squeeze=False)
+    fig, axes = plt.subplots(len(display_mu), len(algorithms), figsize=(4.2*len(algorithms),3.4*len(display_mu)), squeeze=False)
     ref = data["reference_position"][:, :2]
-    for r, mu in enumerate(SELECTED_MU):
+    for r, mu in enumerate(display_mu):
         bounds = [ref]; case = case_name(mu)
         for axis, algorithm in zip(axes[r], algorithms):
             axis.plot(ref[:,0],ref[:,1],"--",color=".7",lw=.8)
@@ -483,10 +494,14 @@ def render_topdown(data, summary, output):
             axis.set_aspect("equal",adjustable="box"); axis.grid(alpha=.2)
         xy=np.concatenate(bounds); lo,hi=xy.min(0),xy.max(0); margin=max(.15,.06*float(np.max(hi-lo)))
         for axis in axes[r]: axis.set_xlim(lo[0]-margin,hi[0]+margin); axis.set_ylim(lo[1]-margin,hi[1]+margin)
-    fig.suptitle("SA29 S-avoidance · separate DEVELOPMENT · original clocks/world axes · not ranked",fontsize=12)
+    title = ("SA29 S-avoidance · POST-HOC display selection · original clocks/world axes · not ranked"
+             if posthoc else "SA29 S-avoidance · separate DEVELOPMENT · original clocks/world axes · not ranked")
+    fig.suptitle(title,fontsize=12)
     fig.legend(handles=[Line2D([],[],color="#d62728",label="Isaac"),Line2D([],[],color="#1f77b4",label="MuJoCo"),
         Line2D([],[],color=".3",label="Thick: core; COM velocity arrows; wheel-plane ticks (pale: no eligible contact)")],loc="lower center",ncol=3,fontsize=8)
     fig.tight_layout(rect=(0,.03,1,.975));fig.savefig(output,dpi=150);plt.close(fig)
+    return {"display_mu": list(display_mu), "posthoc_display_selection": posthoc,
+            "new_physical_episodes": False, "metrics_or_trajectories_changed": False}
 
 
 def parser():
