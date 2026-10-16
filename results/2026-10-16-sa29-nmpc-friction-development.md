@@ -154,11 +154,20 @@ This is an interrupted runtime attempt, **not** a physical XY failure or a
 PPO/SAC/NMPC comparison result. Logs, partial metadata and termination evidence
 are retained privately; no weights or credentials are published.
 
-SAC and all new SA29 validation jobs remain unstarted. They require either
+At that point, SAC and all new SA29 validation jobs remained unstarted. Continuing required either
 verified single-GPU context isolation or explicit authorization for the
 observed auxiliary allocations. The completed local MuJoCo grid above and
 all prior primary-task recordings are unchanged; all 17 local SA29 NMPC
 MuJoCo episodes can be reused without rerunning physics.
+
+The user subsequently explicitly permitted the observed auxiliary allocations.
+A fresh PPO run started on a newly checked completely idle RTX at 20:50 UTC,
+with the same 512 environments, seed 42, 1,000 iterations, no setup smoke and
+12,288,000 requested transitions. The interrupted first run is preserved, not
+resumed or selected by performance. SAC and validation remain sequential,
+with a fresh main-GPU guard before each application. The allowance concerns
+auxiliary memory/context allocation, not running the main training/PhysX work
+on an already busy GPU, retuning, new native builds or other users' processes.
 
 The new offline [policy-grid analyzer](../scripts/analyze_sa29_policy_friction_dynamics.py)
 and [three-controller comparison adapter](../scripts/analyze_sa29_controller_comparison.py)

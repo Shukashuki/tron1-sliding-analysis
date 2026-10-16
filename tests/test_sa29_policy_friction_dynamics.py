@@ -113,13 +113,14 @@ def write_training(tmp_path, algorithm):
     status = {"status": "training_completed", "smoke_only": False, "trained_policy_claimed": True,
         "environment_transitions": 12288000, "policy_steps_completed": 24000}
     checkpoint = folder / "model_final.pt"; checkpoint.write_bytes((algorithm + " synthetic opaque checkpoint token").encode())
-    actor = folder / "actor_normalized.pt"; actor.write_bytes((algorithm + " synthetic opaque actor token").encode())
+    actor = folder / "actor_normalized.pt"
     training.update(reference_id=SPEC["reference_id"], reference_spec=copy.deepcopy(SPEC),
         motion_sha256=SPEC["motion_npz_sha256"], pooled_success_statistics=False)
     training["reference_spec"]["verification_scope"] = "motion_byte_identity_only_not_reference_pair_or_asset_validation"
     for name in training["source_training_modules_sha256"]:
         training["source_training_modules_sha256"][name] = digest(ROOT / "upstream/tron1-learning-from-human" / name)
     if algorithm == "SAC":
+        actor.write_bytes((algorithm + " synthetic opaque actor token").encode())
         sac = {"actor_dim": 51, "critic_dim": 120, "action_dim": 8, "hidden_sizes": [256, 128, 128], "activation": "elu",
             "learning_rate": .0003, "alpha_learning_rate": .0003, "initial_alpha": .004, "target_entropy": None,
             "tau": .005, "log_std_min": -5., "log_std_max": 2., "max_grad_norm": 10.}
@@ -139,10 +140,11 @@ def write_training(tmp_path, algorithm):
             "algorithm": {"class_name": "PPO", "value_loss_coef": 1., "use_clipped_value_loss": True, "clip_param": .2,
                 "entropy_coef": .005, "num_learning_epochs": 5, "num_mini_batches": 4, "learning_rate": .001,
                 "schedule": "adaptive", "gamma": .99, "lam": .95, "desired_kl": .01, "max_grad_norm": 1.}}
-    for name, value in (("manifest.json", training), ("run_status.json", status),
-        ("runner_config.json", runner), ("policy_contract.json", contract)):
+    documents = [("manifest.json", training), ("run_status.json", status), ("runner_config.json", runner)]
+    if algorithm == "SAC": documents.append(("policy_contract.json", contract))
+    for name, value in documents:
         (folder / name).write_text(json.dumps(value))
-    return folder, training, status, runner, contract, digest(checkpoint), digest(actor)
+    return folder, training, status, runner, contract, digest(checkpoint), digest(actor) if algorithm == "SAC" else None
 
 
 @pytest.mark.parametrize("algorithm", ["PPO", "SAC"])
@@ -358,8 +360,8 @@ def manifest_fixture(tmp_path):
     for algorithm in ("PPO", "SAC"):
         folder, *_ = write_training(tmp_path, algorithm)
         roles = {"manifest": "manifest.json", "status": "run_status.json", "checkpoint": "model_final.pt",
-            "runner_config": "runner_config.json", "policy_contract": "policy_contract.json"}
-        if algorithm == "SAC": roles["actor"] = "actor_normalized.pt"
+            "runner_config": "runner_config.json"}
+        if algorithm == "SAC": roles.update(policy_contract="policy_contract.json", actor="actor_normalized.pt")
         policies[algorithm] = {role: bind(folder / name, tmp_path) for role, name in roles.items()}
     cases = []
     for algorithm in ("PPO", "SAC"):
@@ -381,6 +383,39 @@ def test_manifest_requires_all_34_pairs_but_allows_independent_identical_content
     result = analysis.parse_manifest(manifest, tmp_path)
     assert len(result["cases"]) == 34 and manifest == before
     assert {(row["algorithm"], row["mu"]) for row in result["cases"]} == {(a, mu) for a in ("PPO", "SAC") for mu in GRID}
+
+
+def test_ppo_original_four_training_artifacts_need_no_fabricated_standalone_contract(tmp_path):
+    manifest = manifest_fixture(tmp_path)
+    assert not (tmp_path / "PPO" / "policy_contract.json").exists()
+    assert not (tmp_path / "PPO" / "actor_normalized.pt").exists()
+    parsed = analysis.parse_manifest(manifest, tmp_path)
+    assert set(parsed["policies"]["PPO"]) == {"manifest", "status", "checkpoint", "runner_config"}
+    training = json.loads(parsed["policies"]["PPO"]["manifest"].read_text())
+    assert training["contract"] == training["policy_contract"]
+
+
+@pytest.mark.parametrize("problem", ["fabricated_ppo_contract", "missing_sac_contract"])
+def test_training_capture_roles_follow_actual_algorithm_exports(tmp_path, problem):
+    manifest = manifest_fixture(tmp_path)
+    if problem == "fabricated_ppo_contract":
+        path = tmp_path / "PPO" / "policy_contract.json"
+        training = json.loads((tmp_path / "PPO" / "manifest.json").read_text())
+        path.write_text(json.dumps(training["policy_contract"]))
+        manifest["policies"]["PPO"]["policy_contract"] = bind(path, tmp_path)
+    else:
+        del manifest["policies"]["SAC"]["policy_contract"]
+    with pytest.raises(ValueError):
+        analysis.parse_manifest(manifest, tmp_path)
+
+
+@pytest.mark.parametrize("algorithm", ["PPO", "SAC"])
+@pytest.mark.parametrize("field", ["contract", "policy_contract"])
+def test_standalone_io_correction_never_weakens_both_embedded_contract_bindings(tmp_path, algorithm, field):
+    _, training, status, runner, contract, checkpoint, actor = write_training(tmp_path, algorithm)
+    training[field]["actor_dim"] = 999
+    with pytest.raises(ValueError):
+        analysis.audit_training_budget(algorithm, training, status, runner, contract, checkpoint, actor)
 
 
 @pytest.mark.parametrize("problem", ["missing_pair", "duplicate_pair", "primary_reference", "wrong_grid", "unknown_algorithm",

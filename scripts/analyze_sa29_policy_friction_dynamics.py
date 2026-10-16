@@ -91,7 +91,7 @@ def parse_manifest(document, base_dir):
     result={"inputs":{name:checked_file(value,base_dir) for name,value in document["inputs"].items()},"policies":{},"cases":[]}
     require(set(document["policies"])=={"PPO","SAC"}, "Require separately trained PPO and SAC")
     for algorithm, item in document["policies"].items():
-        roles={"manifest","status","checkpoint","runner_config","policy_contract"}|({"actor"} if algorithm=="SAC" else set())
+        roles={"manifest","status","checkpoint","runner_config"}|({"policy_contract","actor"} if algorithm=="SAC" else set())
         require(isinstance(item,dict) and set(item)==roles, "Incomplete or unexpected training artifact bindings")
         paths={name:checked_file(value,base_dir) for name,value in item.items()}
         expected={"manifest":"manifest.json","status":"run_status.json","checkpoint":"model_final.pt","runner_config":"runner_config.json","policy_contract":"policy_contract.json","actor":"actor_normalized.pt"}
@@ -461,7 +461,7 @@ def load_public_bundle(directory, spec, inputs, reference):
     require(set(summary["runs"])=={a+"_"+case_name(mu) for a in ("PPO","SAC") for mu in GRID}, "Missing canonical policy pairs")
     for algorithm in ("PPO","SAC"):
         policy=summary["policies"][algorithm]; budget=policy["budget"]; training_hashes=policy["input_sha256"]
-        require(set(training_hashes)==({"manifest","status","checkpoint","runner_config","policy_contract"}|({"actor"} if algorithm=="SAC" else set()))
+        require(set(training_hashes)==({"manifest","status","checkpoint","runner_config"}|({"policy_contract","actor"} if algorithm=="SAC" else set()))
                 and all(_digest(v) for v in training_hashes.values()) and budget["checkpoint_sha256"]==training_hashes["checkpoint"], "Public training file/weight identities differ")
         require(budget["algorithm"]==algorithm and budget["actual_environment_transitions"]==TRANSITIONS
                 and budget["actual_policy_steps"]==24000 and budget["seed"]==42 and budget["num_envs"]==512 and budget["smoke_only"] is False, "Public actual training evidence differs")
@@ -541,7 +541,8 @@ def run(args):
     motion=load_arrays(inputs["motion"]); robot=load_arrays(inputs["robot_reference"]); reference=reference_trace(motion)
     proof=reference_numeric_representation_audit(motion,robot); traces={"reference":reference}; policies={}; runs={}
     for algorithm,files in parsed["policies"].items():
-        training,status,runner,contract=[read_json(files[name]) for name in ("manifest","status","runner_config","policy_contract")]
+        training,status,runner=[read_json(files[name]) for name in ("manifest","status","runner_config")]
+        contract=training.get("policy_contract") if algorithm=="PPO" else read_json(files["policy_contract"])
         budget=audit_training_budget(algorithm,training,status,runner,contract,sha256(files["checkpoint"]),sha256(files["actor"]) if "actor" in files else None)
         policies[algorithm]={"budget":budget,"input_sha256":{name:sha256(path) for name,path in files.items()}}
     with source_model(parsed["source_root"],inputs["model"]) as (model,loader):
