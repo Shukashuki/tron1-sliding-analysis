@@ -48,6 +48,14 @@ It uses genuine Gaussian importance weights and a final weighted-mean action
 plan, with the same rollout count as CEM but an additional Gaussian prior.
 This is MuJoCo-only; no MPPI retuning, Isaac result or friction grid is claimed.
 
+The [fixed-controller friction development comparison](results/2026-10-16-primary-controller-friction-development.md)
+now includes all 17 MuJoCo NMPC coefficients, without retuning: 7 exceed the
+XY screen and 10 remain below both limits. The nominal μ=0.7 failure is retained.
+The new matching-source Isaac sweep is in progress, not a completed paired grid.
+Original PPO/SAC raw recordings also now support measured COM-speed, wheel-heading
+and contact-slip replay; no new training or policy inference was performed.
+This development evidence does not pass or weaken the qualified freeze gate.
+
 The [completed historical refinement](results/2026-10-15-car-sim2sim-boundary.md) places
 the sampled Isaac XY-verdict change between µ=0.16 and 0.18, versus µ=0.14 and
 0.15 in MuJoCo, and includes top-down animation plus divergence-onset timing.
@@ -87,7 +95,7 @@ without recorded nonwheel-ground contact. Its
 records 0.259 m core XY RMSE / 0.357 m peak in Isaac, still above the
 exploratory XY limits despite 99.18% mean speed retention. The MuJoCo
 improvement therefore does not qualify this controller for freezing. It is
-**not frozen**, and no NMPC friction grid has started.
+**not frozen**, and no nominal-qualified NMPC friction grid has started.
 The [progress/model audit and H30 follow-up](results/2026-10-16-nmpc-progress-and-horizon.md)
 separates along-track lag from normal displacement: 72.65% of residual H15
 Isaac's squared XY error is along-track. Longer look-ahead lowers core RMSE
