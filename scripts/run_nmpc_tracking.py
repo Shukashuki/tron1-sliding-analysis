@@ -204,6 +204,35 @@ def selected_reference(args):
     return spec
 
 
+def attach_model_nominal_plan(args, controller_predictor, scalar_predictor, reference_spec):
+    """Opt-in ADDITIONAL model-only initial candidate; never action playback.
+
+    The default imports no artifact loader and changes no candidate, score or
+    random draw. Attach to the final Python/native predictor so both engines
+    use the same CEM hook and actual-current-state scenario evaluation.
+    """
+    path=getattr(args,"model_nominal_plan",None)
+    if path is None:
+        return {"enabled":False}
+    if hasattr(controller_predictor,"initial_candidates"):
+        raise ValueError("Refusing to overwrite an existing additional-initial-candidate hook")
+    from model_nominal_plan import load_model_nominal_plan
+    model_path=getattr(args,"model",None) or getattr(args,"mujoco_model",None)
+    plan=load_model_nominal_plan(path,
+        expected_reference_id=reference_spec["reference_id"],
+        expected_motion_sha256=sha(args.motion),
+        expected_robot_reference_sha256=reference_spec["robot_reference_npz_sha256"],
+        expected_model_sha256=sha(model_path),
+        expected_actuator_contract_sha256=sha(args.contract),
+        expected_objective_contract=scalar_predictor.objective.contract(),
+        control_dt_s=scalar_predictor.provider.dt,action_joint_names=JOINT_NAMES)
+    metadata=plan.report_contract()
+    if metadata.get("enabled") is not True or metadata.get("artifact_sha256")!=sha(path):
+        raise ValueError("Loaded model-generated nominal plan has inconsistent provenance")
+    controller_predictor.initial_candidates=plan.initial_candidates
+    return metadata
+
+
 def _metrics(trace,reference,reference_spec=None):
     reference_spec=get_reference() if reference_spec is None else reference_spec
     t=trace["time_s"];positions=trace["root_pos"]
@@ -275,6 +304,7 @@ def _run(args, resources):
         from nmpc_batch_objective import NativeBatchTrackingPredictor
         controller_predictor=resources.enter_context(NativeBatchTrackingPredictor(predictor,library))
         native_metadata=controller_predictor.metadata
+    model_nominal_plan=attach_model_nominal_plan(args,controller_predictor,predictor,reference_spec)
     controller=ShootingNMPC(controller_predictor,cem,action_low=-np.ones(8),action_high=np.ones(8),mu_scenarios=scenarios)
     if backend=="native":
         controller_predictor.record_cem_wiring(controller)
@@ -305,6 +335,8 @@ def _run(args, resources):
                   ROOT/"config/classical_tracking.json",Path(args.settings),Path(args.task_profile),Path(args.contract)]
     if backend=="native":
         source_files.extend((ROOT/"scripts/nmpc_native_batch.py",ROOT/"scripts/nmpc_batch_objective.py",ROOT/"native/nmpc_batch.cpp"))
+    if model_nominal_plan["enabled"]:
+        source_files.extend((ROOT/"scripts/model_nominal_plan.py",Path(args.model_nominal_plan)))
     report={"kind":"full_body_height_smooth_cem_nmpc","engine":"MuJoCo","mujoco_version":mujoco.__version__,
             "status":"running","model_sha256":sha(args.model),"motion_sha256":sha(args.motion),
             "reference_id":reference_spec["reference_id"],"role":reference_spec["role"],
@@ -315,6 +347,7 @@ def _run(args, resources):
             "prediction_mu_scenarios":list(scenarios),"prediction_receives_plant_mu":False,
             "prediction_backend":backend,"native_prediction_backend":native_metadata,
             "action_parameterization":controller.parameterization_contract(),
+            "model_generated_nominal_plan":model_nominal_plan,
             "plant_material_readback":{"compiled_sliding_friction_range":[float(model.geom_friction[:,0].min()),float(model.geom_friction[:,0].max())],
                                        "note":"Equal numeric contact coefficient, not a calibrated tire model."},
             "packed_state_contract":predictor.layout.contract(),"objective_contract":predictor.objective.contract(),
@@ -442,6 +475,8 @@ def parser():
     p.add_argument("--prediction-backend",choices=("python","native"),default="python",
                    help="Native requires explicit prebuilt, hash-verified isolated CPU worker library")
     p.add_argument("--native-library",type=Path,default=None)
+    p.add_argument("--model-nominal-plan",type=Path,default=None,
+                   help="Optional audited model-generated plan metadata; an extra rescored initial candidate, never applied-action replay")
     for name in ("horizon-steps","control-blocks","candidates","iterations","elite-count"):
         p.add_argument("--"+name,type=int,default=None,help="Explicit CEM override, saved in report")
     return p

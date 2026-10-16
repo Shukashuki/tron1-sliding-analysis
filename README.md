@@ -67,6 +67,12 @@ The [progress/model audit and H30 follow-up](results/2026-10-16-nmpc-progress-an
 separates along-track lag from normal displacement: 72.65% of residual H15
 Isaac's squared XY error is along-track. Longer look-ahead lowers core RMSE
 to 0.232 m in Isaac / 0.092 m in MuJoCo, but Isaac still exceeds the XY screen.
+The same follow-up records a three-prediction-model test at plant µ=0.70:
+Isaac RMSE is 0.274 m, so that attempt did not improve nominal tracking.
+Nominal XY must pass before freezing or starting the NMPC friction grid.
+[Further local search ablations](results/2026-10-16-nmpc-progress-and-horizon.md#model-only-initialization-and-narrower-leg-sampling-did-not-improve-tracking)
+retain unsuccessful model-only initializer and narrower-leg-search results.
+Those cases remain MuJoCo-only; no controller freeze or NMPC friction grid is claimed.
 Matching the 15 stage rewards does not match RL's discount, bootstrap and
 orientation-termination semantics; the
 [termination audit](results/2026-10-16-controller-termination-semantics.md)

@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "task": "car_drift_height_smooth",
+  "policy_dt_s": 0.02,
+  "physics_dt_s": 0.005,
+  "prediction_mu_scenarios": [0.7],
+  "nmpc": {
+    "horizon_steps": 30,
+    "control_blocks": 5,
+    "candidates": 64,
+    "iterations": 3,
+    "elite_count": 8,
+    "initial_std": [0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.35, 0.35],
+    "min_std": [0.005, 0.005, 0.005, 0.005, 0.005, 0.005, 0.03, 0.03],
+    "smoothing": 0.0,
+    "seed": 42,
+    "scenario_reduction": "worst",
+    "fallback_action": "previous",
+    "reference_convention": "held_pre_action",
+    "parameterization": "warm_start_residual_blocks"
+  },
+  "notes": [
+    "Nominal-only development, not frozen or a real-time/robustness result.",
+    "Compared with the effective residual H30/B5 baseline, only the six leg initial proposal standard deviations change from 0.04 to 0.02 normalized action units; wheel proposal widths and all minimum widths are unchanged.",
+    "Horizon 0.60 s and five 0.12 s blocks; control remains 0.02 s, physics 0.005 s.",
+    "Same 15-term height-free objective and 80/12 Nm DC-motor mapping; no learned-policy initialization, root-state replay or new failure gate.",
+    "Prediction mu 0.7 is fixed independently of validation plant mu; no held-out friction case selects this setting."
+  ]
+}

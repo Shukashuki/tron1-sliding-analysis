@@ -234,6 +234,65 @@ def test_nmpc_parameterization_contract_missing_mismatch_or_inconsistent_mode_re
         audited("NMPC", reports, integration_only=integration_only)
 
 
+def nominal_plan_metadata():
+    return {"enabled": True, "artifact_sha256": "a"*64,
+            "candidate_name": "model_nominal_plan",
+            "contract": {"schema_version": 1, "kind": "model_generated_nominal_plan",
+                         "motion_sha256": get_reference()["motion_npz_sha256"],
+                         "model_sha256": MODEL_HASH, "action_shape": [349, 8],
+                         "learned_policy_used": False},
+            "offline_generation_budget": {"source_decisions": 349, "source_seed": 42}}
+
+
+@pytest.mark.parametrize("enabled_metadata", ["absent", "disabled", "legacy_and_disabled"])
+def test_optional_nominal_plan_legacy_or_disabled_does_not_change_pair_identity(enabled_metadata):
+    reports = nmpc_reports()
+    if enabled_metadata == "disabled":
+        for report in reports: report["model_generated_nominal_plan"] = {"enabled": False}
+    elif enabled_metadata == "legacy_and_disabled":
+        reports[1]["model_generated_nominal_plan"] = {"enabled": False}
+    result = audited("NMPC", reports)["nmpc_controller_identity"]["model_generated_nominal_plan"]
+    assert result == {"enabled": False}
+
+
+def test_matching_optional_model_plan_full_identity_is_preserved_without_input_aliasing():
+    reports = nmpc_reports()
+    for report in reports: report["model_generated_nominal_plan"] = nominal_plan_metadata()
+    result = audited("NMPC", reports)["nmpc_controller_identity"]["model_generated_nominal_plan"]
+    assert result == nominal_plan_metadata()
+    result["contract"]["action_shape"][0] = 1
+    result["offline_generation_budget"]["source_seed"] = 314
+    assert reports[0]["model_generated_nominal_plan"] == nominal_plan_metadata()
+    assert reports[1]["model_generated_nominal_plan"] == nominal_plan_metadata()
+
+
+@pytest.mark.parametrize("integration_only", [False, True])
+@pytest.mark.parametrize("problem", ["isaac_only", "mujoco_only", "disabled_one_side", "different_sha", "different_contract",
+    "different_budget", "different_extra_metadata", "missing_sha", "invalid_sha", "missing_contract", "empty_contract",
+    "missing_budget", "empty_budget", "nonboolean_enabled", "null_metadata"])
+def test_optional_nominal_plan_mismatch_or_malformed_identity_rejected(problem, integration_only):
+    reports = nmpc_reports()
+    for report in reports: report["model_generated_nominal_plan"] = nominal_plan_metadata()
+    metadata = reports[1]["model_generated_nominal_plan"]
+    if problem == "isaac_only": del reports[1]["model_generated_nominal_plan"]
+    elif problem == "mujoco_only": del reports[0]["model_generated_nominal_plan"]
+    elif problem == "disabled_one_side": metadata["enabled"] = False
+    elif problem == "different_sha": metadata["artifact_sha256"] = "b"*64
+    elif problem == "different_contract": metadata["contract"]["action_shape"][0] = 348
+    elif problem == "different_budget": metadata["offline_generation_budget"]["source_seed"] = 314
+    elif problem == "different_extra_metadata": metadata["candidate_name"] = "other_candidate"
+    elif problem == "nonboolean_enabled": metadata["enabled"] = 1
+    elif problem == "null_metadata": reports[1]["model_generated_nominal_plan"] = None
+    else:
+        key = {"sha": "artifact_sha256", "contract": "contract", "budget": "offline_generation_budget"}[problem.split("_")[1]]
+        for report in reports:
+            target = report["model_generated_nominal_plan"]
+            if problem.startswith("missing_"): del target[key]
+            else: target[key] = "x"*64 if problem == "invalid_sha" else {}
+    with pytest.raises(ValueError, match="model_generated_nominal_plan"):
+        audited("NMPC", reports, integration_only=integration_only)
+
+
 def test_smoke_is_explicit_integration_only_and_never_ranking():
     reports = nmpc_reports()
     for report in reports: report.update(status="smoke_completed", truncated_smoke=True)

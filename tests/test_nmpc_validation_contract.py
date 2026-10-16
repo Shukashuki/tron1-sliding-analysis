@@ -126,6 +126,32 @@ def refresh(args):
         args["pair_summary"]["input_sha256"].update({engine + "_trace": item["hashes"]["trace"], engine + "_report": item["hashes"]["report"]})
 
 
+def enable_model_plan(args):
+    """Synthetic identity only; no actual nominal result or real freeze is created."""
+    bound, spec = args["bindings"], args["reference_spec"]
+    bound.update(model_nominal_plan="e"*64, model_nominal_plan_actions="f"*64)
+    bound["source:scripts/model_nominal_plan.py"] = "a"*64
+    metadata = {"enabled": True, "artifact_sha256": bound["model_nominal_plan"],
+        "contract": {"actions_file": "actions.npz", "actions_file_sha256": bound["model_nominal_plan_actions"],
+            "identity": {"reference_id": spec["reference_id"], "reference_spec": spec,
+                **{name + "_sha256": bound[role] for name, role in (("motion", "motion"),
+                    ("robot_reference", "reference"), ("model", "model"), ("actuator_contract", "contract"),
+                    ("task_profile", "task_profile"))}}},
+        "offline_generation_budget": {"source_control_decisions": 349, "scope": "Synthetic fixture only"}}
+    for engine in ("isaac", "mujoco"):
+        def change(report, raw, log):
+            report["model_generated_nominal_plan"] = copy.deepcopy(metadata)
+            report["source_sha256"].update({"/private/source/scripts/model_nominal_plan.py": "a"*64,
+                "/private/artifact/plan.json": metadata["artifact_sha256"]})
+        alter_episode(args, engine, change)
+    refresh(args)
+    args["pair_summary"]["audit"] = contract.audit_reports("NMPC", spec,
+        args["nominal"]["isaac"]["report"], args["nominal"]["mujoco"]["report"],
+        isaac_trace_sha256=args["nominal"]["isaac"]["hashes"]["trace"],
+        mujoco_trace_sha256=args["nominal"]["mujoco"]["hashes"]["trace"], model_sha256=bound["model"])
+    return metadata
+
+
 def test_input_bindings_hash_files_not_paths_and_preserve_missing_inputs(tmp_path):
     path = tmp_path / "token"; path.write_text("local fixture")
     result = contract.input_bindings({"model": path, "source:scripts/runner.py": path})
@@ -327,3 +353,74 @@ def test_tracked_current_code_must_bind_to_corresponding_actual_nominal_sources(
     refresh(args)
     with pytest.raises(ValueError, match="source binding"):
         contract.make_freeze(**args)
+
+
+def test_enabled_model_plan_complete_metadata_and_generation_budget_are_frozen(tmp_path):
+    args = fixture(tmp_path)
+    metadata = enable_model_plan(args)
+    frozen = contract.make_freeze(**args)
+    assert frozen["model_generated_nominal_plan"] == metadata
+    for engine in ("isaac", "mujoco"):
+        assert frozen["nominal"][engine]["controller_contract"]["model_generated_nominal_plan"] == metadata
+    contract.validate_freeze(frozen, args["reference_spec"], args["settings_contract"], args["bindings"])
+    assert str(tmp_path) not in json.dumps(frozen)
+    frozen["model_generated_nominal_plan"]["offline_generation_budget"]["source_control_decisions"] = 1
+    assert args["nominal"]["isaac"]["controller_contract"]["model_generated_nominal_plan"] == metadata
+
+
+@pytest.mark.parametrize("role", ["model_nominal_plan", "model_nominal_plan_actions", "source:scripts/model_nominal_plan.py"])
+@pytest.mark.parametrize("change", ["missing", "changed"])
+def test_enabled_plan_requires_current_metadata_actions_and_loader_bindings(tmp_path, role, change):
+    args = fixture(tmp_path); enable_model_plan(args)
+    if change == "missing": del args["bindings"][role]
+    else: args["bindings"][role] = "b"*64
+    with pytest.raises(ValueError, match="plan|source binding"):
+        contract.make_freeze(**args)
+
+
+@pytest.mark.parametrize("engine", ["isaac", "mujoco"])
+def test_optional_plan_does_not_weaken_both_nominal_xy_pass_gates(tmp_path, engine):
+    args = fixture(tmp_path); enable_model_plan(args)
+    args["pair_summary"]["windows"]["core"][engine]["large_xy_exploratory_screen"] = True
+    with pytest.raises(ValueError, match="Both nominal XY screens"):
+        contract.make_freeze(**args)
+
+
+@pytest.mark.parametrize("change", ["top_missing", "top_disabled", "engine_missing", "audit_missing", "budget"])
+def test_enabled_freeze_cannot_drop_or_change_the_locked_optional_plan(tmp_path, change):
+    args = fixture(tmp_path); enable_model_plan(args)
+    frozen = contract.make_freeze(**args)
+    if change == "top_missing": del frozen["model_generated_nominal_plan"]
+    elif change == "top_disabled": frozen["model_generated_nominal_plan"] = {"enabled": False}
+    elif change == "engine_missing": del frozen["nominal"]["isaac"]["controller_contract"]["model_generated_nominal_plan"]
+    elif change == "audit_missing": del frozen["nominal_pair_audit"]["nmpc_controller_identity"]["model_generated_nominal_plan"]
+    else: frozen["model_generated_nominal_plan"]["offline_generation_budget"]["source_control_decisions"] += 1
+    with pytest.raises(ValueError, match="plan|identity"):
+        contract.validate_freeze(frozen, args["reference_spec"], args["settings_contract"], args["bindings"])
+
+
+def test_legacy_absent_and_explicit_off_optional_plan_contracts_are_equal(tmp_path):
+    args = fixture(tmp_path)
+    original = args["nominal"]["mujoco"]
+    legacy = copy.deepcopy(original)
+    del legacy["controller_contract"]["model_generated_nominal_plan"]
+    contract.validate_case_against_nominal(original, legacy)
+    contract.validate_case_against_nominal(legacy, original)
+    report = copy.deepcopy(original["report"])
+    report["model_generated_nominal_plan"] = {"enabled": False}
+    assert contract._controller_contract(report, "mujoco") == original["controller_contract"]
+
+
+@pytest.mark.parametrize("change", ["missing", "disabled", "sha", "contract", "budget"])
+def test_case_cannot_silently_drop_or_substitute_model_generated_initial_candidate(tmp_path, change):
+    args = fixture(tmp_path); enable_model_plan(args)
+    nominal = args["nominal"]["mujoco"]
+    case = copy.deepcopy(nominal)
+    metadata = case["controller_contract"]["model_generated_nominal_plan"]
+    if change == "missing": del case["controller_contract"]["model_generated_nominal_plan"]
+    elif change == "disabled": metadata["enabled"] = False
+    elif change == "sha": metadata["artifact_sha256"] = "b"*64
+    elif change == "contract": metadata["contract"]["actions_file_sha256"] = "b"*64
+    else: metadata["offline_generation_budget"]["source_control_decisions"] += 1
+    with pytest.raises(ValueError, match="controller_contract"):
+        contract.validate_case_against_nominal(case, nominal)

@@ -17,7 +17,7 @@ import numpy as np
 
 from analyze_controller_pair import (
     compact_arrays, load_arrays, plant_source_provenance, posture_diagnostic,
-    read_json, reference_trace, sha256, source_model,
+    read_json, reference_trace, sha256, source_model, _model_generated_nominal_plan_identity,
 )
 from controller_metrics import summarize_turn
 from controller_references import DEFAULT_CATALOG, PRIMARY_REFERENCE_ID, ROOT, verify_reference_pair
@@ -158,6 +158,8 @@ def audit_report(report, spec, *, model_sha256, trace_sha256, solver_sha256):
             "reported_settings": settings, "reported_settings_sha256": configuration_sha256(settings),
             "configuration_hash_definition": "SHA-256 of sorted compact UTF-8 JSON; not a settings-file byte hash",
             "parameterization": parameterization_audit(report),
+            "model_generated_nominal_plan": safe_configuration(
+                _model_generated_nominal_plan_identity(report, report)),
             "prediction_horizon_s": config["horizon_steps"]*.02,
             "control_block_durations_s": (np.bincount(assignment)*.02).tolist(),
             "actuator_identity": {"policy_contract_sha256": source_digest(report, "policy_contract.json"),

@@ -12,7 +12,7 @@ pytest.importorskip("mujoco")
 import mujoco
 
 from run_nmpc_tracking import (
-    PackedState,MujocoTrackingPredictor,build_provider,effective_settings,_metrics,selected_reference,parser,run,
+    PackedState,MujocoTrackingPredictor,build_provider,effective_settings,_metrics,selected_reference,parser,run,attach_model_nominal_plan,
 )
 from nmpc_tracking_objective import BODY_NAMES
 from controller_references import get_reference,PRIMARY_REFERENCE_ID,SUPPLEMENT_REFERENCE_ID
@@ -237,3 +237,53 @@ def test_one_python_control_interval_records_native_contacts_clock_material_and_
     audit=WheelKinematics(actual_predictor.models[.7]).reconstruct(canonical)["audit"]
     assert audit["maximum_wheel_link_position_error_m"]<1e-10
     assert audit["maximum_root_com_velocity_reconstruction_error"]<1e-10
+
+
+def test_model_nominal_plan_default_off_does_not_import_loader_or_touch_predictor(monkeypatch):
+    monkeypatch.setitem(sys.modules,"model_nominal_plan",None)
+    target=SimpleNamespace()
+    assert attach_model_nominal_plan(SimpleNamespace(),target,None,{})=={"enabled":False}
+    assert not hasattr(target,"initial_candidates")
+    args=parser().parse_args(["--model","m.xml","--motion","m.npz","--contract","c.json","--plant-mu",".7","--output-dir","unused"])
+    assert args.model_nominal_plan is None
+
+
+@pytest.mark.parametrize("model_arg", ["model","mujoco_model"])
+def test_model_nominal_plan_attaches_only_additive_hook_with_exact_identity_arguments(tmp_path,monkeypatch,model_arg):
+    paths={name:tmp_path/name for name in ("model","motion","contract","plan.json")}
+    for name,path in paths.items():path.write_text(name)
+    digest=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+    metadata={"enabled":True,"artifact_sha256":digest(paths["plan.json"]),"contract":{"model_generated":True},"offline_generation_budget":{"candidate_evaluations":12}}
+    calls=[]
+    class Plan:
+        def report_contract(self):return metadata.copy()
+        def initial_candidates(self,state,index,**kwargs):return {"model_nominal_plan":np.zeros((kwargs["horizon_steps"],8))}
+    def load(path,**kwargs):calls.append((path,kwargs));return Plan()
+    monkeypatch.setitem(sys.modules,"model_nominal_plan",SimpleNamespace(load_model_nominal_plan=load))
+    args=SimpleNamespace(model_nominal_plan=paths["plan.json"],motion=paths["motion"],contract=paths["contract"],**{model_arg:paths["model"]})
+    objective={"kind":"height_smooth","absolute_height_target":False}
+    scalar=SimpleNamespace(objective=SimpleNamespace(contract=lambda:objective),provider=SimpleNamespace(dt=.02))
+    target=SimpleNamespace(initial_candidate=lambda *a,**k: "original bias candidate")
+    result=attach_model_nominal_plan(args,target,scalar,{"reference_id":"primary","robot_reference_npz_sha256":"r"*64})
+    assert result==metadata and target.initial_candidate()=="original bias candidate"
+    assert set(target.initial_candidates(np.zeros(111),3,horizon_steps=30,previous_action=np.zeros(8),previous_vz=0.))=={"model_nominal_plan"}
+    assert calls[0][1]["expected_motion_sha256"]==digest(paths["motion"])
+    assert calls[0][1]["expected_model_sha256"]==digest(paths["model"])
+    assert calls[0][1]["expected_actuator_contract_sha256"]==digest(paths["contract"])
+    assert calls[0][1]["expected_robot_reference_sha256"]=="r"*64
+    assert calls[0][1]["expected_objective_contract"]==objective
+    assert calls[0][1]["control_dt_s"]==.02
+    with pytest.raises(ValueError,match="overwrite"):
+        attach_model_nominal_plan(args,target,scalar,{})
+
+
+def test_model_nominal_plan_bad_provenance_is_fatal_before_hook_install(tmp_path,monkeypatch):
+    artifact=tmp_path/"metadata.json";artifact.write_text("{}")
+    bad=SimpleNamespace(report_contract=lambda:{"enabled":True,"artifact_sha256":"0"*64},initial_candidates=lambda *a,**k:{})
+    monkeypatch.setitem(sys.modules,"model_nominal_plan",SimpleNamespace(load_model_nominal_plan=lambda *a,**k:bad))
+    args=SimpleNamespace(model_nominal_plan=artifact,model=artifact,motion=artifact,contract=artifact)
+    scalar=SimpleNamespace(objective=SimpleNamespace(contract=lambda:{}),provider=SimpleNamespace(dt=.02))
+    target=SimpleNamespace()
+    with pytest.raises(ValueError,match="inconsistent provenance"):
+        attach_model_nominal_plan(args,target,scalar,{"reference_id":"primary","robot_reference_npz_sha256":"1"*64})
+    assert not hasattr(target,"initial_candidates")

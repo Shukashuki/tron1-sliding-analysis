@@ -249,3 +249,124 @@ def test_cem_seed_is_not_silently_decoupled_from_matched_seed42(tmp_path):
     args.settings = tmp_path / "changed_settings.json"; args.settings.write_text(json.dumps(config))
     with pytest.raises(ValueError, match="CEM seed 42"):
         driver.build_plan(args)
+
+
+def test_optional_model_plan_placeholder_is_forwarded_to_both_engines_without_loading(tmp_path, monkeypatch):
+    args = arguments(tmp_path)
+    args.model_nominal_plan = tmp_path / "UNVERIFIED_PLAN_PLACEHOLDER/plan.json"
+    monkeypatch.setattr(driver, "requested_model_nominal_plan", lambda *a: pytest.fail("Plan mode must not load artifacts"))
+    monkeypatch.setattr(subprocess, "run", lambda *a, **k: pytest.fail("No process or GPU query in plan mode"))
+    plan = driver.build_plan(args)
+    request = plan["model_nominal_plan_request"]
+    assert request == {"requested": True, "metadata_path": str(args.model_nominal_plan.resolve()),
+                       "identity_verified": False, "artifact_loaded": False}
+    for case in plan["cases"]:
+        for engine in ("isaac", "mujoco"):
+            assert option(case[engine+"_command"], "--model-nominal-plan") == str(args.model_nominal_plan.resolve())
+    assert not list(tmp_path.iterdir())
+
+
+def test_runtime_paths_bind_optional_metadata_payload_and_actual_loader_source(tmp_path):
+    args = arguments(tmp_path)
+    args.source_root = ROOT / "upstream/tron1-learning-from-human"
+    args.model_nominal_plan = tmp_path / "plan/plan.json"
+    args.nominal_isaac_dir, args.nominal_mujoco_dir = tmp_path/"ia", tmp_path/"mj"
+    args.nominal_pair_dir = tmp_path/"pair"
+    paths = driver.runtime_paths(args)
+    assert paths["model_nominal_plan"] == args.model_nominal_plan
+    assert paths["model_nominal_plan_actions"] == args.model_nominal_plan.parent/"actions.npz"
+    assert paths["source:scripts/model_nominal_plan.py"] == ROOT/"scripts/model_nominal_plan.py"
+
+
+def test_optional_runtime_loader_receives_current_input_bytes_and_objective_without_physics(tmp_path, monkeypatch):
+    import model_nominal_plan
+    args = arguments(tmp_path)
+    args.model_nominal_plan = tmp_path/"plan.json"
+    for path in (args.motion, args.reference_file, args.model, args.contract, args.model_nominal_plan):
+        path.write_bytes(path.name.encode())
+    spec = driver.get_reference(args.reference_id)
+    metadata = {"enabled": True, "artifact_sha256": driver.file_sha(args.model_nominal_plan),
+        "contract": {"identity": {"reference_spec": spec, "task_profile_sha256": driver.file_sha(args.task_profile)}},
+        "offline_generation_budget": {"fixture_decisions": 349}}
+    calls = []
+    def load(path, **kwargs):
+        calls.append((path, kwargs))
+        return SimpleNamespace(report_contract=lambda: copy.deepcopy(metadata))
+    monkeypatch.setattr(model_nominal_plan, "load_model_nominal_plan", load)
+    assert driver.requested_model_nominal_plan(args, spec) == metadata
+    assert calls[0][0] == args.model_nominal_plan
+    kwargs = calls[0][1]
+    assert kwargs["expected_reference_id"] == spec["reference_id"]
+    for name, path in (("motion", args.motion), ("robot_reference", args.reference_file),
+                       ("model", args.model), ("actuator_contract", args.contract)):
+        assert kwargs["expected_"+name+"_sha256"] == driver.file_sha(path)
+    assert kwargs["expected_objective_contract"]["absolute_height_target"] is False
+    assert len(kwargs["expected_objective_contract"]["weights"]) == 15
+    metadata["contract"]["identity"]["task_profile_sha256"] = "f"*64
+    with pytest.raises(ValueError, match="task-profile"):
+        driver.requested_model_nominal_plan(args, spec)
+
+
+@pytest.mark.parametrize("problem", ["missing_flag", "stale_sha", "changed_contract", "changed_budget", "nominal_off"])
+def test_optional_nominal_identity_mismatch_rejects_before_child_or_gpu_query(tmp_path, monkeypatch, problem):
+    args = arguments(tmp_path, "execute")
+    args.freeze_manifest = tmp_path/"synthetic_freeze.json"; args.freeze_manifest.write_text("{}")
+    args.nominal_isaac_dir, args.nominal_mujoco_dir = tmp_path/"ia", tmp_path/"mj"
+    metadata = {"enabled": True, "artifact_sha256": "a"*64, "contract": {"fixture": 1},
+                "offline_generation_budget": {"fixture_decisions": 349}}
+    nominal_metadata, requested = copy.deepcopy(metadata), copy.deepcopy(metadata)
+    if problem == "missing_flag": requested = {"enabled": False}
+    else: args.model_nominal_plan = tmp_path/"plan.json"
+    if problem == "stale_sha": requested["artifact_sha256"] = "b"*64
+    elif problem == "changed_contract": requested["contract"]["fixture"] = 2
+    elif problem == "changed_budget": requested["offline_generation_budget"]["fixture_decisions"] = 1
+    elif problem == "nominal_off": nominal_metadata = {"enabled": False}
+    monkeypatch.setattr(driver, "verify_reference_pair", lambda *a: driver.get_reference(args.reference_id))
+    monkeypatch.setattr(driver, "runtime_paths", lambda *a: {})
+    monkeypatch.setattr(driver, "input_bindings", lambda *a: {})
+    monkeypatch.setattr(driver, "requested_model_nominal_plan", lambda *a: copy.deepcopy(requested))
+    monkeypatch.setattr(driver, "episode_evidence", lambda *a: {"report": {"plant_seed": 42,
+        "prediction_backend": "native", "model_generated_nominal_plan": copy.deepcopy(nominal_metadata)}})
+    monkeypatch.setattr(driver, "make_freeze", lambda **k: pytest.fail("No freeze after identity mismatch"))
+    monkeypatch.setattr(driver, "launch", lambda *a: pytest.fail("No child after identity mismatch"))
+    monkeypatch.setattr(driver, "require_idle_gpu", lambda *a: pytest.fail("No GPU query before qualification"))
+    with pytest.raises(ValueError, match="model-nominal-plan.*missing or differs"):
+        driver.execute(args)
+    assert not args.output_dir.exists()
+
+
+@pytest.mark.parametrize("role", ["model_nominal_plan", "model_nominal_plan_actions", "source:scripts/model_nominal_plan.py"])
+@pytest.mark.parametrize("when", ["before_child", "during_child"])
+def test_optional_artifact_byte_change_is_detected_before_or_after_every_child(tmp_path, monkeypatch, role, when):
+    args = arguments(tmp_path, "execute")
+    files = {"model_nominal_plan": tmp_path/"plan.json", "model_nominal_plan_actions": tmp_path/"actions.npz",
+             "source:scripts/model_nominal_plan.py": tmp_path/"synthetic_loader.py"}
+    for name, path in files.items(): path.write_text("Synthetic byte-binding fixture: "+name)
+    args.model_nominal_plan = files["model_nominal_plan"]
+    args.freeze_manifest = tmp_path/"synthetic_frozen.json"
+    nominal = {engine: {"engine": engine, "controller_contract": {}} for engine in ("isaac", "mujoco")}
+    def current():
+        return {"reference_spec": {}, "settings_contract": {}, "bindings": driver.input_bindings(files),
+            "evaluation_mu": driver.grid_values(), "validation_driver_sha256": driver.file_sha(driver.__file__),
+            "nominal": copy.deepcopy(nominal)}
+    args.freeze_manifest.write_text(json.dumps(current()))
+    checks, launches = [], []
+    def qualification(*unused):
+        checks.append(True)
+        if when == "before_child" and len(checks) == 2: files[role].write_text("Changed synthetic input")
+        return current(), {}
+    def launch(command, log):
+        launches.append(command)
+        if when == "during_child": files[role].write_text("Changed synthetic input")
+        return 0
+    monkeypatch.setattr(driver, "qualification", qualification)
+    monkeypatch.setattr(driver, "validate_freeze", lambda *a: None)  # Final exact-current-byte check remains real.
+    monkeypatch.setattr(driver, "require_beyondmimic_source", lambda *a: None)
+    monkeypatch.setattr(driver, "require_idle_gpu", lambda *a: None)
+    monkeypatch.setattr(driver, "launch", launch)
+    with pytest.raises(ValueError, match="metadata was modified"):
+        driver.execute(args)
+    assert len(launches) == (0 if when == "before_child" else 1)
+    assert len(checks) == (2 if when == "before_child" else 3)
+    status = json.loads((args.output_dir/"grid_manifest.json").read_text())
+    assert status["status"] == "runtime_failure_incomplete"

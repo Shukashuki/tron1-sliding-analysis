@@ -75,6 +75,42 @@ def _height_free(contract):
             and contract.get("position_and_linear_velocity_tracking_axes") == ["x", "y"])
 
 
+def _model_generated_nominal_plan_identity(isaac, mujoco):
+    """Bind an optional model-only candidate across engines, not its execution.
+
+    Absent legacy metadata and explicit disabled metadata both mean no optional
+    candidate. Enabled reports must provide the identical complete loader-owned
+    identity, including offline generation budget, without engine-specific paths.
+    Actual artifact validation remains the runner loader's responsibility.
+    """
+    key = "model_generated_nominal_plan"
+    plans = []
+    for engine, report in (("Isaac", isaac), ("MuJoCo", mujoco)):
+        if key not in report:
+            plans.append({"enabled": False})
+            continue
+        metadata = report[key]
+        _require(isinstance(metadata, dict) and type(metadata.get("enabled")) is bool,
+                 f"{engine}: model_generated_nominal_plan requires an explicit boolean enabled flag")
+        plans.append(metadata)
+    if not any(plan["enabled"] for plan in plans):
+        return {"enabled": False}
+    _require(all(plan["enabled"] for plan in plans),
+             "NMPC model_generated_nominal_plan must be enabled in both engines or neither")
+    for engine, metadata in zip(("Isaac", "MuJoCo"), plans):
+        artifact = metadata.get("artifact_sha256")
+        _require(isinstance(artifact, str) and len(artifact) == 64
+                 and all(character in "0123456789abcdef" for character in artifact),
+                 f"{engine}: model_generated_nominal_plan requires a valid artifact_sha256")
+        _require(isinstance(metadata.get("contract"), dict) and bool(metadata["contract"]),
+                 f"{engine}: model_generated_nominal_plan requires a nonempty contract")
+        _require(isinstance(metadata.get("offline_generation_budget"), dict) and bool(metadata["offline_generation_budget"]),
+                 f"{engine}: model_generated_nominal_plan requires its offline_generation_budget")
+    _require(plans[0] == plans[1],
+             "NMPC model_generated_nominal_plan artifact SHA, contract and complete metadata must match exactly across engines")
+    return copy.deepcopy(plans[0])
+
+
 def audit_reports(algorithm, spec, isaac, mujoco, *, isaac_trace_sha256,
                   mujoco_trace_sha256, model_sha256, integration_only=False,
                   mujoco_capture_sha256=None):
@@ -179,7 +215,8 @@ def audit_reports(algorithm, spec, isaac, mujoco, *, isaac_trace_sha256,
             ia_parameters = None
         nmpc_identity = {"exact_configuration_match": True, "effective_cem_config": copy.deepcopy(ia_cem),
                          "parameterization_mode": mode, "action_parameterization_contract": copy.deepcopy(ia_parameters),
-                         "legacy_absolute_without_parameterization_contract": not any(have_parameterization)}
+                         "legacy_absolute_without_parameterization_contract": not any(have_parameterization),
+                         "model_generated_nominal_plan": _model_generated_nominal_plan_identity(isaac, mujoco)}
         _require(isaac.get("mujoco_model_sha256") == model_sha256, "Isaac predictor model hash differs from FK model")
         _require(isaac.get("fixed_evaluation", {}).get("all_termination_terms_removed") is True,
                  "Isaac NMPC requires explicit removal of reset-triggering termination terms")

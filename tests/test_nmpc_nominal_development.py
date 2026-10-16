@@ -84,6 +84,26 @@ def test_explicit_future_residual_and_absolute_modes_preserve_full_decode_declar
     assert audited(report)["parameterization"]["mode"] == "absolute_blocks"
 
 
+def test_optional_model_plan_identity_and_offline_budget_are_not_lost_in_development_summary():
+    report = report_fixture()
+    assert audited(report)["model_generated_nominal_plan"] == {"enabled": False}
+    metadata = {"enabled": True, "artifact_sha256": "a" * 64,
+                "contract": {"kind": "model_generated_nominal_action_plan", "actions_content_sha256": "b" * 64},
+                "offline_generation_budget": {"source_predicted_physics_substeps": 8166480}}
+    report["model_generated_nominal_plan"] = metadata
+    result = audited(report)
+    assert result["model_generated_nominal_plan"] == metadata
+    result["model_generated_nominal_plan"]["contract"]["kind"] = "modified"
+    assert report["model_generated_nominal_plan"]["contract"]["kind"] == "model_generated_nominal_action_plan"
+    report["model_generated_nominal_plan"]["contract"]["path"] = "/private/plan.json"
+    with pytest.raises(ValueError, match="private/absolute"):
+        audited(report)
+    del report["model_generated_nominal_plan"]["contract"]["path"]
+    report["model_generated_nominal_plan"]["artifact_sha256"] = "invalid"
+    with pytest.raises(ValueError, match="artifact_sha256"):
+        audited(report)
+
+
 @pytest.mark.parametrize("path,value", [
     (("status",), "running"), (("engine",), "Isaac/PhysX"), (("plant_mu",), .18),
     (("prediction_mu_scenarios",), [.7, 1.2]), (("model_sha256",), "0"*64),

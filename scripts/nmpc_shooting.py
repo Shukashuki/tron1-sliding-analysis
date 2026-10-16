@@ -35,6 +35,7 @@ CEM is not an SQP/RTI solver and its timing metadata is not a real-time claim.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from collections.abc import Mapping
 import time
 from typing import Literal
 
@@ -340,13 +341,53 @@ class ShootingNMPC:
             except (FloatingPointError, OverflowError, RuntimeError, ValueError):
                 candidate_generation_failed = True
 
+        # Optional ADDITIVE named candidates. Never replace the previous,
+        # shifted-full-plan or existing bias-only candidate. Candidate plans
+        # are evaluated from x under ALL scenarios below, not replayed.
+        additional_hook = getattr(self.predictor, "initial_candidates", None)
+        additional_hook_used = callable(additional_hook)
+        additional_generation_s = None
+        additional_generation_failures = []
+        if additional_hook_used:
+            generation_started = time.perf_counter()
+            try:
+                generated = additional_hook(x.copy(), reference_index,
+                    previous_action=previous.copy(), previous_vz=previous_vz,
+                    horizon_steps=self.config.horizon_steps)
+                if not isinstance(generated, Mapping):
+                    raise ValueError("initial_candidates must return an ordered mapping of names to full plans")
+                reserved = {name for name, _ in initial} | {
+                    "bounded_previous", "bounded_neutral", "shifted_previous_plan",
+                    "explicit_physics_only_seed", "physics_only_initial_candidate",
+                    "all_initial_candidates_failed", "initial_candidates_hook"}
+                for name, value in generated.items():
+                    try:
+                        if not isinstance(name, str) or not name or name in reserved:
+                            raise ValueError("Additional candidate name is empty, non-string or collides with an existing source")
+                        plan = self._plan(value)
+                        initial.append((name, plan))
+                        reserved.add(name)
+                    except (FloatingPointError, OverflowError, RuntimeError, ValueError) as error:
+                        additional_generation_failures.append({"source": str(name), "error_type": type(error).__name__, "reason": str(error)})
+            except (FloatingPointError, OverflowError, RuntimeError, ValueError) as error:
+                additional_generation_failures.append({"source": "initial_candidates_hook", "error_type": type(error).__name__, "reason": str(error)})
+            additional_generation_s = float(time.perf_counter()-generation_started)
+            candidate_generation_failed = candidate_generation_failed or bool(additional_generation_failures)
+
         best_plan, best_cost, best_costs = repeated.copy(), np.inf, None
         initial_source = "all_initial_candidates_failed"
+        initial_evaluations = []
         for source, plan in initial:
             cost, costs = score(plan)
+            initial_evaluations.append({"source": source,
+                "model_cost": float(cost) if np.isfinite(cost) else None,
+                "scenario_costs": [float(value) if np.isfinite(value) else None for value in costs],
+                "generation_failed": False})
             if cost < best_cost:
                 best_plan, best_cost, best_costs = plan.copy(), cost, costs
                 initial_source = source
+        for evaluation in initial_evaluations:
+            evaluation["winning_initial_seed"] = evaluation["source"] == initial_source
         initial_cost = best_cost
         residual_mode = self.config.parameterization == "warm_start_residual_blocks"
         # This baseline is copied ONCE. Never move it when a later sample wins:
@@ -423,6 +464,21 @@ class ShootingNMPC:
             self._last_plan = best_plan.copy()
             self._last_reference_index = reference_index
             selected_action = best_plan[0].copy()
+        model_plan_correction = None
+        model_plans = [plan for name, plan in initial if name == "model_nominal_plan"]
+        if model_plans:
+            nominal = model_plans[0]
+            action_delta = selected_action-nominal[0]
+            model_plan_correction = {
+                "winning_initial_seed_is_model_plan": initial_source == "model_nominal_plan",
+                "final_action_equals_model_plan_first_action": bool(np.array_equal(selected_action, nominal[0])),
+                "final_action_minus_model_plan_first_action_l2": float(np.linalg.norm(action_delta)),
+                "final_action_minus_model_plan_first_action_linf": float(np.max(np.abs(action_delta))),
+                "selected_full_plan_minus_model_plan_l2": float(np.linalg.norm(best_plan-nominal)) if not failed else None,
+                "selected_full_plan_minus_model_plan_linf": float(np.max(np.abs(best_plan-nominal))) if not failed else None,
+                "final_action_is_optimization_fallback": failed,
+                "action_precision": "Raw selected CEM action before the runner's float32 conversion; applied actions are logged separately.",
+                "units": "Normalized action units; a selected initial seed does not imply final action replay."}
         elapsed = time.perf_counter() - started
         info = {
             "optimizer": "bounded_cem_shooting",
@@ -436,7 +492,13 @@ class ShootingNMPC:
             "fallback_kind": self.config.fallback_action if failed else None,
             "learned_policy_fallback": False,
             "initial_candidate_generation_failed": candidate_generation_failed,
+            "additional_initial_candidates_hook_used": additional_hook_used,
+            "additional_initial_candidate_generation_s": additional_generation_s,
+            "additional_initial_candidate_generation_failures": additional_generation_failures,
+            "initial_candidate_evaluations": initial_evaluations,
             "initial_candidate_source": initial_source,
+            "initial_candidate_source_semantics": "Winning INITIAL seed before CEM search, not the provenance of the final selected CEM action/plan.",
+            "model_nominal_plan_online_correction": model_plan_correction,
             "warm_start_used": warm_start_used,
             "initial_model_cost": float(initial_cost) if np.isfinite(initial_cost) else None,
             "selected_model_cost": float(best_cost) if not failed else None,

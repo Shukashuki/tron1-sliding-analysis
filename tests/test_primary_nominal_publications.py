@@ -19,6 +19,7 @@ CASES = [
     ("NMPC", "controller_primary_nmpc_nominal_pair_v1", "2026-10-16-primary-nmpc-nominal-pair.md"),
     ("NMPC", "controller_primary_nmpc_residual_nominal_pair_v1", "2026-10-16-primary-nmpc-residual-nominal-pair.md"),
     ("NMPC", "controller_primary_nmpc_residual_h30_b5_nominal_pair_v1", "2026-10-16-nmpc-progress-and-horizon.md"),
+    ("NMPC", "controller_primary_nmpc_residual_scenario3_nominal_pair_v1", "2026-10-16-nmpc-progress-and-horizon.md"),
 ]
 
 
@@ -178,3 +179,35 @@ def test_h30_b5_pair_is_unfrozen_matched_nominal_development():
         assert not core[engine]["heading_offset_is_mismatch"]
         assert not core[engine]["height_or_flight_failure_gate"]
     assert not summary["controlled_execution_success_claimed"] and not summary["hardware_ready"]
+
+
+def test_three_prediction_scenarios_are_not_a_plant_friction_grid_or_qualification():
+    _, summary, compact = publication("controller_primary_nmpc_residual_scenario3_nominal_pair_v1")
+    development = summary["development_status"]
+    assert development["actual_plant_friction"] == summary["fixed_mu"] == .7
+    assert development["fixed_prediction_mu_scenarios"] == [.3, .7, 1.6]
+    assert development["control_sequence_shared_across_prediction_scenarios"]
+    for key in ("controller_frozen", "qualified_for_friction_grid", "algorithm_ranking_claimed",
+                "plant_friction_sweep", "continuous_uncertainty_robustness_guarantee"):
+        assert development[key] is False
+    config = summary["audit"]["nmpc_controller_identity"]["effective_cem_config"]
+    assert config["horizon_steps"] == 15 and config["control_blocks"] == 5
+    assert config["scenario_reduction"] == "worst"
+    assert config["parameterization"] == "warm_start_residual_blocks"
+    core = summary["windows"]["core"]
+    for engine, rmse, peak, speed, trace_sha in (
+        ("isaac", .2744606276033881, .3759844491814193, 1.0903630038460002,
+         "111d8b86b204d6d8a3094c7b25499c722110d15b79799f76cf46707ca8fa7919"),
+        ("mujoco", .1281865061175723, .20076160959419348, .9656133635073972,
+         "650bad4dbf8c4ddc2b22e529b804f60bffae1220eb6716364e4427e134deeab3")):
+        assert core[engine]["reference_xy_rmse_m"] == pytest.approx(rmse, abs=1e-14)
+        assert core[engine]["reference_xy_peak_m"] == pytest.approx(peak, abs=1e-14)
+        assert core[engine]["mean_speed_retention_ratio"] == pytest.approx(speed, abs=1e-14)
+        assert summary["input_sha256"][f"{engine}_trace"] == trace_sha
+        assert len(compact[f"{engine}_time_s"]) == 1397
+        assert not core[engine]["heading_offset_is_mismatch"] and not core[engine]["height_or_flight_failure_gate"]
+    assert core["isaac"]["large_xy_exploratory_screen"]
+    assert not core["mujoco"]["large_xy_exploratory_screen"]
+    assert summary["posture_diagnostics"]["isaac"]["max_base_tilt_deg"] < 20.
+    assert summary["posture_diagnostics"]["mujoco"]["max_base_tilt_deg"] > 90.
+    assert not summary["controlled_execution_success_claimed"]

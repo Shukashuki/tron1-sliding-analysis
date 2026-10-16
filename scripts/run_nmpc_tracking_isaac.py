@@ -287,6 +287,8 @@ def main():
     parser.add_argument("--reference-id",default="drift_drl_traj4")
     parser.add_argument("--task-profile",type=Path,default=ROOT/"config/car_drift_height_smooth_task.json")
     parser.add_argument("--settings",type=Path,default=ROOT/"config/nmpc_height_smooth.json")
+    parser.add_argument("--model-nominal-plan",type=Path,default=None,
+                        help="Optional audited model-generated plan metadata; additive current-state/scenario-scored candidate, not action replay")
     parser.add_argument("--plant-mu",type=float,required=True)
     parser.add_argument("--prediction-mu-scenarios",type=float,nargs="+",default=None)
     parser.add_argument("--max-policy-steps",type=int,default=None)
@@ -342,7 +344,7 @@ def main():
         from training.tron1_drift import load_task_profile
         from training.tron1_runtime_device import validate_simulation_device
         from training.tron1_contact_slip import sample_raw_isaac_ground_contacts,sample_nonwheel_ground_force_norm
-        from run_nmpc_tracking import MujocoTrackingPredictor,effective_settings,_metrics
+        from run_nmpc_tracking import MujocoTrackingPredictor,effective_settings,_metrics,attach_model_nominal_plan
         from nmpc_shooting import ShootingNMPC
         from nmpc_tracking_objective import BODY_NAMES,JOINT_NAMES,HeightSmoothTrackingObjective,quaternion_rotate,quaternion_inverse
         from height_smoothness import install_height_smoothness
@@ -427,6 +429,7 @@ def main():
         controller_prediction=build_prediction_backend(prediction,backend,native_library)
         if backend=="native":
             native_prediction=controller_prediction
+        model_nominal_plan=attach_model_nominal_plan(args,controller_prediction,prediction,reference_spec)
         controller=ShootingNMPC(controller_prediction,cem,action_low=-np.ones(8),action_high=np.ones(8),mu_scenarios=scenarios)
         if native_prediction is not None:
             native_prediction.record_cem_wiring(controller)
@@ -452,6 +455,8 @@ def main():
         if backend=="native":
             source_paths.extend((Path(__file__).with_name("nmpc_batch_objective.py"),
                                  Path(__file__).with_name("nmpc_native_batch.py"),ROOT/"native/nmpc_batch.cpp"))
+        if model_nominal_plan["enabled"]:
+            source_paths.extend((Path(__file__).with_name("model_nominal_plan.py"),Path(args.model_nominal_plan)))
         for relative in ("scripts/eval_tracking_mujoco.py","scripts/eval_tracking.py","training/tron1_tracking.py",
                          "training/tron1_drift.py","training/tron1_domain_randomization.py","training/tron1_contact_slip.py",
                          "training/tron1_runtime_device.py","training/tron1_physics_clock.py"):
@@ -475,6 +480,7 @@ def main():
                       actuator_audit=actuator_audit,legacy_joint_friction_audit=legacy_friction_audit,
                       objective_contract=prediction.objective.contract(),packed_state_contract=prediction.layout.contract(),
                       action_parameterization=controller.parameterization_contract(),
+                      model_generated_nominal_plan=model_nominal_plan,
                       prediction_backend_metadata=(native_prediction.metadata if native_prediction is not None else
                           {"kind":"existing_python_scalar_predictor","population_batching":False,
                            "ipc_included_in_latency":False}),

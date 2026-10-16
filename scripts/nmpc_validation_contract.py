@@ -16,7 +16,7 @@ import re
 
 import numpy as np
 
-from analyze_controller_pair import audit_reports
+from analyze_controller_pair import audit_reports, _model_generated_nominal_plan_identity
 from controller_trace import native_trace
 from nmpc_shooting import CEMConfig
 from nmpc_tracking_objective import BODY_NAMES, JOINT_NAMES
@@ -134,12 +134,41 @@ def _native_identity(report, engine):
     return identity
 
 
+def model_nominal_plan_contract(report):
+    """Normalize absent/OFF legacy declarations; preserve complete ON identity."""
+    return _model_generated_nominal_plan_identity(report, report)
+
+
+def _plan_bindings(plan, bindings, reference_spec):
+    """Bind the optional JSON, numerical payload and actual loader source bytes."""
+    roles = ("model_nominal_plan", "model_nominal_plan_actions", "source:scripts/model_nominal_plan.py")
+    if not plan["enabled"]:
+        _require(not any(role in bindings for role in roles),
+                 "Disabled model nominal plan cannot retain enabled artifact/source bindings")
+        return
+    _require(all(_sha(bindings.get(role)) for role in roles),
+             "Enabled model nominal plan requires metadata, actions and loader source bindings")
+    metadata = plan["contract"]
+    _require(bindings["model_nominal_plan"] == plan["artifact_sha256"]
+             and metadata.get("actions_file") == "actions.npz"
+             and metadata.get("actions_file_sha256") == bindings["model_nominal_plan_actions"],
+             "Model nominal plan artifact/actions byte binding mismatch")
+    identity = metadata.get("identity", {})
+    _require(identity.get("reference_id") == reference_spec["reference_id"]
+             and identity.get("reference_spec") == reference_spec
+             and all(identity.get(name + "_sha256") == bindings[role] for name, role in (
+                 ("motion", "motion"), ("robot_reference", "reference"), ("model", "model"),
+                 ("actuator_contract", "contract"), ("task_profile", "task_profile"))),
+             "Model nominal plan deployment identity differs from frozen inputs")
+
+
 def _controller_contract(report, engine):
     """Stable per-engine declarations; exclude paths, timings and worker PIDs."""
     result = {name: _json(report.get(name)) for name in (
         "objective_contract", "packed_state_contract", "action_parameterization", "runtime_soft_joint_pos_limits",
         "contact_slip_definition", "contact_threshold_n", "action_order", "body_order",
         "mujoco_version", "prediction_mujoco_version", "torch_version")}
+    result["model_generated_nominal_plan"] = model_nominal_plan_contract(report)
     sources = report.get("source_sha256", {})
     _require(isinstance(sources, dict) and bool(sources) and all(_sha(value) for value in sources.values()),
              "Require valid reported source SHA-256 identities")
@@ -282,6 +311,8 @@ def _source_bindings(report, engine, bindings):
     sources = report.get("source_sha256", {})
     common = {"scripts/nmpc_shooting.py", "scripts/nmpc_tracking_objective.py", "scripts/classical_tracking.py",
               "scripts/controller_references.py", "scripts/height_smoothness.py"}
+    if model_nominal_plan_contract(report)["enabled"]:
+        common.add("scripts/model_nominal_plan.py")
     required = common | {"scripts/run_nmpc_tracking_isaac.py" if engine == "isaac" else "scripts/run_nmpc_tracking.py"}
     if report.get("prediction_backend") == "native":
         required |= {"scripts/nmpc_native_batch.py", "scripts/nmpc_batch_objective.py", "native/nmpc_batch.cpp"}
@@ -331,6 +362,11 @@ def make_freeze(*, reference_spec, settings_contract, bindings, nominal, pair_su
     audit = audit_reports("NMPC", reference_spec, checked["isaac"]["report"], checked["mujoco"]["report"],
                           isaac_trace_sha256=checked["isaac"]["hashes"]["trace"],
                           mujoco_trace_sha256=checked["mujoco"]["hashes"]["trace"], model_sha256=bound["model"])
+    plan = audit["nmpc_controller_identity"]["model_generated_nominal_plan"]
+    _plan_bindings(plan, bound, reference_spec)
+    if plan["enabled"]:
+        _require(all(plan["artifact_sha256"] in evidence["report"]["source_sha256"].values()
+                     for evidence in checked.values()), "Nominal reports do not bind the model plan JSON source")
     summary = pair_summary
     _require(summary.get("kind") == "offline_single_controller_fixed_mu_engine_pair" and summary.get("algorithm") == "NMPC"
              and summary.get("reference_spec") == reference_spec and summary.get("reference_id") == reference_spec["reference_id"]
@@ -362,6 +398,7 @@ def make_freeze(*, reference_spec, settings_contract, bindings, nominal, pair_su
             "nominal_pair_summary_canonical_sha256": _digest(summary), "nominal_pair_input_sha256": expected,
             "nominal_analysis_source_sha256": _json(analysis_sources),
             "nominal_pair_audit": audit, "nominal_core_diagnostics": {engine: _json(core[engine]) for engine in ENGINES},
+            "model_generated_nominal_plan": _json(plan),
             "nominal_posture_diagnostics": _json(summary.get("posture_diagnostics", {})),
             "qualification_gates": ["complete_two_engine_nominal", "matching_frozen_contract", "complete_core_xy_screen_only"],
             "height_flight_tilt_beta_or_numeric_speed_gate": False, "pooled_success_statistics": False,
@@ -379,6 +416,8 @@ def validate_freeze(freeze, reference_spec, settings_contract, bindings):
     _require(freeze.get("nominal_plant_mu") == .7 and freeze.get("height_flight_tilt_beta_or_numeric_speed_gate") is False
              and freeze.get("pooled_success_statistics") is False and set(freeze.get("nominal", {})) == set(ENGINES),
              "Freeze lacks two-engine nominal qualification")
+    plan = model_nominal_plan_contract(freeze)
+    _plan_bindings(plan, bound, reference_spec)
     for engine in ENGINES:
         evidence = freeze["nominal"][engine]
         _require(evidence.get("engine") == engine and evidence.get("plant_mu") == .7
@@ -398,6 +437,8 @@ def validate_freeze(freeze, reference_spec, settings_contract, bindings):
         identity = evidence.get("native_identity", {})
         _require(identity.get("backend") in ("python", "native") and isinstance(evidence.get("controller_contract"), dict),
                  "Missing frozen controller/backend contract")
+        _require(model_nominal_plan_contract(evidence["controller_contract"]) == plan,
+                 "Frozen engine model nominal plan differs from its bound shared identity")
         for suffix, key in (("native_library", "native_library_sha256"), ("native_build_manifest", "native_build_manifest_sha256")):
             if identity.get(key) is not None:
                 _require(bound.get(engine + "_" + suffix) == identity[key], "Frozen per-engine native identity mismatch")
@@ -411,6 +452,8 @@ def validate_freeze(freeze, reference_spec, settings_contract, bindings):
              and audit.get("integration_only") is False
              and audit.get("nmpc_controller_identity", {}).get("effective_cem_config") == settings_contract["effective_cem_config"],
              "Missing frozen matching height-free nominal pair audit")
+    _require(model_nominal_plan_contract(audit.get("nmpc_controller_identity", {})) == plan,
+             "Frozen nominal pair model plan audit differs from its bound identity")
     _require(_sha(freeze.get("nominal_pair_summary_canonical_sha256")), "Missing nominal summary identity")
 
 
@@ -418,5 +461,10 @@ def validate_case_against_nominal(case_evidence, nominal_public_evidence):
     """Compare stable per-engine controller/model declarations, never outcomes."""
     for key in ("engine", "frames", "physics_samples", "effective_cem_config", "prediction_mu_scenarios",
                 "native_identity", "controller_contract"):
-        _require(key in case_evidence and case_evidence[key] == nominal_public_evidence.get(key),
+        actual, nominal = case_evidence.get(key), nominal_public_evidence.get(key)
+        if key == "controller_contract" and isinstance(actual, dict) and isinstance(nominal, dict):
+            actual, nominal = copy.deepcopy(actual), copy.deepcopy(nominal)
+            for contract in (actual, nominal):
+                contract["model_generated_nominal_plan"] = model_nominal_plan_contract(contract)
+        _require(key in case_evidence and actual == nominal,
                  "Validation case changed nominal controller contract: " + key)

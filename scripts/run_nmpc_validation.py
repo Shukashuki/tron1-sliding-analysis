@@ -20,7 +20,7 @@ from types import SimpleNamespace
 from controller_references import DEFAULT_CATALOG, ROOT, get_reference, verify_reference_pair
 from nmpc_validation_contract import (
     episode_evidence, file_sha, input_bindings, make_freeze, settings_contract,
-    validate_case_against_nominal, validate_freeze,
+    model_nominal_plan_contract, validate_case_against_nominal, validate_freeze,
 )
 from run_car_validation import case_name, require_beyondmimic_source
 
@@ -87,6 +87,9 @@ def build_plan(args):
               "--contract", str(args.contract.resolve()), "--task-profile", str(args.task_profile.resolve()),
               "--settings", str(args.settings.resolve()), "--prediction-backend", args.prediction_backend,
               "--prediction-mu-scenarios", *map(str, config["prediction_mu_scenarios"])]
+    optional_plan = getattr(args, "model_nominal_plan", None)
+    if optional_plan is not None:
+        common += ["--model-nominal-plan", str(optional_plan.resolve())]
     cases = []
     for mu in grid_values(args.mu):
         name, directory = case_name(mu), target / case_name(mu)
@@ -106,6 +109,9 @@ def build_plan(args):
     return {"schema_version": 1, "kind": "unexecuted_nmpc_fixed_mu_plan", "execution_performed": False,
             "freeze_verified": False, "remote_permission_granted": False, "reference_spec": spec,
             "settings_contract": config, "prediction_backend": args.prediction_backend,
+            "model_nominal_plan_request": {"requested": optional_plan is not None,
+                "metadata_path": str(optional_plan.resolve()) if optional_plan is not None else None,
+                "identity_verified": False, "artifact_loaded": False},
             "output_directory": str(target), "output_already_exists": target.exists(),
             "device": args.device, "cases": cases, "engine_episodes_planned": 2*len(cases),
             "pooled_success_statistics": False, "height_or_flight_failure_gate": False,
@@ -122,6 +128,11 @@ def runtime_paths(args):
              "evaluation_protocol": EVALUATION}
     paths.update({"source:" + name: ROOT / name for name in CONTROLLER_FILES})
     paths.update({"validation_source:" + name: ROOT / name for name in VALIDATION_FILES})
+    optional_plan = getattr(args, "model_nominal_plan", None)
+    if optional_plan is not None:
+        paths.update(model_nominal_plan=optional_plan,
+                     model_nominal_plan_actions=optional_plan.parent / "actions.npz")
+        paths["source:scripts/model_nominal_plan.py"] = ROOT / "scripts/model_nominal_plan.py"
     paths.update({"source_root:" + name: args.source_root / name for name in (*MATCHED_HELPERS, *ISAAC_HELPERS)})
     for name in MATCHED_HELPERS:
         local, supplied = ROOT / "upstream/tron1-learning-from-human" / name, args.source_root / name
@@ -144,6 +155,25 @@ def runtime_paths(args):
     return paths
 
 
+def requested_model_nominal_plan(args, spec):
+    """Pure opt-in loader validation; never called by unverified plan mode."""
+    path = getattr(args, "model_nominal_plan", None)
+    if path is None:
+        return {"enabled": False}
+    from model_nominal_plan import load_model_nominal_plan
+    from nmpc_tracking_objective import HeightSmoothTrackingObjective
+    objective = HeightSmoothTrackingObjective(read_json(args.task_profile)).contract()
+    plan = load_model_nominal_plan(path, expected_reference_id=spec["reference_id"],
+        expected_motion_sha256=file_sha(args.motion), expected_robot_reference_sha256=file_sha(args.reference_file),
+        expected_model_sha256=file_sha(args.model), expected_actuator_contract_sha256=file_sha(args.contract),
+        expected_objective_contract=objective)
+    metadata = plan.report_contract()
+    require(metadata["contract"]["identity"]["reference_spec"] == spec
+            and metadata["contract"]["identity"]["task_profile_sha256"] == file_sha(args.task_profile),
+            "Model nominal plan reference/task-profile identity differs from requested inputs")
+    return model_nominal_plan_contract({"model_generated_nominal_plan": metadata})
+
+
 def qualification(args):
     require(file_sha(args.task_profile) == file_sha(MATCHED_TASK_PROFILE),
             "Matched-controller validation requires the shared height-smooth task profile")
@@ -151,11 +181,14 @@ def qualification(args):
     config = settings_contract(args.settings)
     require(config["seed"] == 42, "Matched-controller qualification requires CEM seed 42")
     bindings = input_bindings(runtime_paths(args))
+    requested_plan = requested_model_nominal_plan(args, spec)
     evidence = {engine: episode_evidence(getattr(args, "nominal_" + engine + "_dir"), engine, spec, config, .7)
                 for engine in ("isaac", "mujoco")}
     require(evidence["isaac"]["report"].get("plant_seed") == 42, "Nominal Isaac plant seed must be 42")
     require(all(item["report"].get("prediction_backend") == args.prediction_backend for item in evidence.values()),
             "Requested predictor backend differs from nominal qualification")
+    require(all(model_nominal_plan_contract(item["report"]) == requested_plan for item in evidence.values()),
+            "Requested --model-nominal-plan is missing or differs from enabled nominal artifact/contract")
     summary = read_json(args.nominal_pair_dir / "summary.json")
     for name in ("analyze_controller_pair.py", "controller_metrics.py", "controller_trace.py",
                  "controller_references.py", "nmpc_tracking_objective.py"):
@@ -295,7 +328,7 @@ def parser():
     p.add_argument("--task-profile", type=Path, default=MATCHED_TASK_PROFILE)
     p.add_argument("--prediction-backend", choices=("python", "native"), default="native")
     for name in ("native-library", "isaac-native-library", "mujoco-native-library", "nominal-isaac-dir",
-                 "nominal-mujoco-dir", "nominal-pair-dir", "freeze-output", "freeze-manifest"):
+                 "nominal-mujoco-dir", "nominal-pair-dir", "freeze-output", "freeze-manifest", "model-nominal-plan"):
         p.add_argument("--" + name, type=Path)
     p.add_argument("--isaac-python", type=Path, default=Path(sys.executable))
     p.add_argument("--mujoco-python", type=Path, default=Path(sys.executable))

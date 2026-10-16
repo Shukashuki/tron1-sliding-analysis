@@ -487,3 +487,119 @@ def test_residual_profile_changes_only_parameterization_and_notes():
     assert residual["nmpc"].pop("parameterization")=="warm_start_residual_blocks"
     residual.pop("notes");base.pop("notes")
     assert residual==base
+
+
+@pytest.mark.parametrize("mode", ["absolute_blocks", "warm_start_residual_blocks"])
+def test_additive_model_plan_is_rescored_every_solve_without_dropping_existing_candidates(mode):
+    class Predictor(RecordingRollout):
+        def __init__(self):
+            super().__init__();self.generated=[];self.states=[]
+            self.nominal=np.array([[.2],[.8],[.4],[.6],[.1]])
+        def initial_candidate(self,state,index,**kwargs):
+            return np.full((kwargs["horizon_steps"],1),.1)
+        def initial_candidates(self,state,index,**kwargs):
+            self.generated.append(index);state[:]=999  # caller must pass a copy
+            indices=np.minimum(index+np.arange(kwargs["horizon_steps"]),len(self.nominal)-1)
+            return {"model_nominal_plan":self.nominal[indices]}
+        def rollout(self,state,controls,index,**kwargs):
+            self.states.append(state.copy())
+            super().rollout(state,controls,index,**kwargs)
+            indices=np.minimum(index+np.arange(len(controls)),len(self.nominal)-1)
+            return float(np.sum((controls-self.nominal[indices])**2))
+    p=Predictor();cfg=CEMConfig(horizon_steps=4,control_blocks=2,candidates=4,iterations=1,elite_count=2,parameterization=mode)
+    c=ShootingNMPC(p,cfg,action_low=[-1.],action_high=[1.],mu_scenarios=(.3,.7))
+    x=np.array([.4,.5]);a,first=c.action(x,0,previous_action=np.array([0.]),previous_vz=.6)
+    np.testing.assert_array_equal(a,[.2]);np.testing.assert_array_equal(x,[.4,.5])
+    np.testing.assert_array_equal(c.last_plan,p.nominal[:4])
+    assert first["initial_candidate_source"]=="model_nominal_plan"
+    assert [r["source"] for r in first["initial_candidate_evaluations"]]==["bounded_previous","physics_only_initial_candidate","model_nominal_plan"]
+    assert first["initial_candidate_evaluations"][-1]["scenario_costs"]==[0.,0.]
+    assert first["initial_candidate_evaluations"][-1]["winning_initial_seed"] is True
+    assert first["model_nominal_plan_online_correction"]["selected_full_plan_minus_model_plan_linf"]==0.
+    assert "INITIAL" in first["initial_candidate_source_semantics"]
+    assert first["candidate_evaluations"]==7 and first["scenario_evaluations"]==14
+    assert first["additional_initial_candidate_generation_s"]>=0.
+    _,second=c.action(x,1,previous_action=a,previous_vz=.6)
+    assert p.generated==[0,1] and second["warm_start_used"]
+    assert [r["source"] for r in second["initial_candidate_evaluations"]]==["bounded_previous","shifted_previous_plan","physics_only_initial_candidate","model_nominal_plan"]
+    assert second["candidate_evaluations"]==8 and second["scenario_evaluations"]==16
+    assert all(np.array_equal(state,x) for state in p.states)
+    np.testing.assert_array_equal(p.nominal[:,0],[.2,.8,.4,.6,.1])
+    json.dumps(second,allow_nan=False)
+
+
+@pytest.mark.parametrize("mode", ["absolute_blocks", "warm_start_residual_blocks"])
+@pytest.mark.parametrize("reduction", ["worst","mean"])
+def test_additional_named_model_candidate_scalar_batch_scenario_and_rng_parity(mode,reduction):
+    scalar_p=RecordingRollout();batch_p=BatchRecordingRollout()
+    plan=np.array([[.25],[.65],[.15],[.8]])
+    for p in (scalar_p,batch_p):
+        p.initial_candidates=lambda state,index,**kwargs:{"model_nominal_plan":plan.copy()}
+    cfg=CEMConfig(horizon_steps=4,control_blocks=2,candidates=4,iterations=2,elite_count=2,
+                  parameterization=mode,scenario_reduction=reduction)
+    a=ShootingNMPC(scalar_p,cfg,action_low=[-1.],action_high=[1.],mu_scenarios=(.3,.7))
+    b=ShootingNMPC(batch_p,cfg,action_low=[-1.],action_high=[1.],mu_scenarios=(.3,.7))
+    for index in (0,1,3):
+        args=dict(previous_action=np.array([.1]),previous_vz=.3)
+        action,one=a.action(np.array([.2,.4]),index,**args)
+        other,two=b.action(np.array([.2,.4]),index,**args)
+        np.testing.assert_array_equal(action,other)
+        assert_same_decision_and_counts(a,b,one,two)
+        assert one["initial_candidate_evaluations"]==two["initial_candidate_evaluations"]
+        np.testing.assert_array_equal(a.rng.normal(size=3),b.rng.normal(size=3))
+
+
+@pytest.mark.parametrize("problem", ["nan","shape","collision","collision_absent_legacy","hook_exception","not_mapping"])
+def test_bad_additional_model_candidate_is_reported_and_does_not_overwrite_legacy_seed(problem):
+    p=RecordingRollout(costs={1.:2.})
+    original=np.full((4,1),.8)
+    def hook(state,index,**kwargs):
+        if problem=="hook_exception":raise RuntimeError("generation failed")
+        if problem=="not_mapping":return [original]
+        if problem=="nan":return {"model_nominal_plan":np.full((4,1),np.nan)}
+        if problem=="shape":return {"model_nominal_plan":np.zeros((3,1))}
+        if problem=="collision":return {"bounded_previous":original}
+        if problem=="collision_absent_legacy":return {"physics_only_initial_candidate":original}
+    p.initial_candidates=hook
+    cfg=CEMConfig(horizon_steps=4,control_blocks=2,candidates=4,iterations=1,elite_count=2)
+    c=ShootingNMPC(p,cfg,action_low=[-1.],action_high=[1.],mu_scenarios=(1.,))
+    action,info=c.action(np.zeros(2),0,previous_action=np.array([.23]),previous_vz=0.)
+    np.testing.assert_array_equal(action,[.23])
+    assert info["initial_candidate_source"]=="bounded_previous"
+    assert info["initial_candidate_generation_failed"]
+    assert len(info["additional_initial_candidate_generation_failures"])==1
+    assert [r["source"] for r in info["initial_candidate_evaluations"]]==["bounded_previous"]
+    assert info["candidate_evaluations"]==5
+    np.testing.assert_array_equal(original,np.full((4,1),.8))
+    json.dumps(info,allow_nan=False)
+
+
+def test_additional_model_candidate_all_rollout_failure_preserves_bounded_fallback_and_failure_scores():
+    p=RecordingRollout(costs={.3:np.inf,.7:1.})
+    p.initial_candidates=lambda state,index,**kwargs:{"model_nominal_plan":np.full((4,1),.8)}
+    cfg=CEMConfig(horizon_steps=4,control_blocks=2,candidates=4,iterations=1,elite_count=2,parameterization="warm_start_residual_blocks")
+    c=ShootingNMPC(p,cfg,action_low=[-1.],action_high=[1.],mu_scenarios=(.3,.7))
+    action,info=c.action(np.zeros(2),0,previous_action=np.array([1.5]),previous_vz=0.)
+    np.testing.assert_array_equal(action,[1.])
+    assert info["optimization_failed"] and info["fallback_used"] and c.last_plan is None
+    assert info["candidate_evaluations"]==6 and info["failed_candidates"]==6
+    nominal=info["initial_candidate_evaluations"][-1]
+    assert nominal=={"source":"model_nominal_plan","model_cost":None,"scenario_costs":[None,1.],"generation_failed":False,"winning_initial_seed":False}
+    assert info["model_nominal_plan_online_correction"]["final_action_is_optimization_fallback"]
+    assert info["model_nominal_plan_online_correction"]["selected_full_plan_minus_model_plan_l2"] is None
+    json.dumps(info,allow_nan=False)
+
+
+def test_absent_optional_hook_has_no_extra_evaluations_or_rng_changes():
+    p=RecordingRollout();other=RecordingRollout();other.initial_candidates=None
+    a=controller(p);b=controller(other)
+    for index in (0,1):
+        action,one=a.action(np.zeros(2),index,previous_action=np.array([.1]),previous_vz=0.)
+        second,two=b.action(np.zeros(2),index,previous_action=np.array([.1]),previous_vz=0.)
+        np.testing.assert_array_equal(action,second)
+        np.testing.assert_array_equal(a.last_plan,b.last_plan)
+        assert one["selected_model_cost"]==two["selected_model_cost"]
+        assert one["candidate_evaluations"]==two["candidate_evaluations"]
+        assert not one["additional_initial_candidates_hook_used"]
+        assert one["additional_initial_candidate_generation_s"] is None
+        np.testing.assert_array_equal(a.rng.normal(size=4),b.rng.normal(size=4))
