@@ -197,3 +197,133 @@ def test_absolute_plan_cem_update_does_not_double_count_displacement():
 def test_invalid_configuration_is_rejected(kwargs):
     with pytest.raises(ValueError):
         CEMConfig(**kwargs)
+
+
+class BatchRecordingRollout(RecordingRollout):
+    def __init__(self, costs=None):
+        super().__init__(costs)
+        self.batch_calls = []
+
+    def rollout_batch(self, state, plans, reference_index, **kwargs):
+        self.batch_calls.append((kwargs["mu"], plans.copy(), reference_index,
+                                 kwargs["previous_action"].copy(), kwargs["previous_vz"]))
+        return np.array([self.rollout(state, plan, reference_index, **kwargs) for plan in plans])
+
+
+def assert_same_decision_and_counts(scalar, batch, scalar_info, batch_info):
+    np.testing.assert_array_equal(scalar.last_plan, batch.last_plan)
+    for name in ("selected_model_cost", "selected_scenario_costs", "initial_model_cost",
+                 "candidate_evaluations", "finite_candidates", "failed_candidates",
+                 "scenario_evaluations", "failed_scenarios", "failed_scenarios_by_mu",
+                 "best_cost_by_iteration", "initial_candidate_source", "warm_start_used",
+                 "optimization_failed", "fallback_used", "fallback_kind"):
+        assert scalar_info[name] == batch_info[name], name
+    assert scalar_info["population_evaluation_backend"] == "scalar_candidate_loop"
+    assert scalar_info["batch_prediction_calls"] == 0
+    assert batch_info["population_evaluation_backend"] == "predictor_rollout_batch"
+
+
+@pytest.mark.parametrize("reduction", ["worst", "mean"])
+def test_optional_batch_matches_seeded_scalar_plans_actions_counts_and_warm_start(reduction):
+    config = CEMConfig(horizon_steps=6, control_blocks=3, candidates=16,
+                       iterations=3, elite_count=4, initial_std=.5,
+                       scenario_reduction=reduction, seed=712)
+    p, bp = RecordingRollout(), BatchRecordingRollout()
+    scalar = ShootingNMPC(p, config, action_low=[-1.], action_high=[1.], mu_scenarios=(.2,.7))
+    batch = ShootingNMPC(bp, config, action_low=[-1.], action_high=[1.], mu_scenarios=(.2,.7))
+    previous = np.array([.1])
+    for frame in (0, 1, 3):
+        a, info = scalar.action(np.array([.4, -.2]), frame, previous_action=previous,
+                                previous_vz=.3, seed_plan=np.full((6,1), .35))
+        b, other = batch.action(np.array([.4, -.2]), frame, previous_action=previous,
+                                previous_vz=.3, seed_plan=np.full((6,1), .35))
+        np.testing.assert_array_equal(a, b)
+        assert_same_decision_and_counts(scalar, batch, info, other)
+        assert other["failed_batch_prediction_calls"] == 0
+        assert other["batch_prediction_calls"] == 2*(2+config.iterations)
+        previous = a.copy()
+    # Entire candidate plans, initial phase and objective memory are held
+    # identically across scenarios, including singleton initial/warm plans.
+    for low, high in zip(bp.batch_calls[::2], bp.batch_calls[1::2]):
+        assert (low[0], high[0]) == (.2, .7)
+        np.testing.assert_array_equal(low[1], high[1])
+        assert low[2] == high[2]
+        np.testing.assert_array_equal(low[3], high[3])
+        assert low[4] == high[4] == .3
+    batch.reset();scalar.reset()
+    a, info = scalar.action(np.zeros(2), 0, previous_action=np.zeros(1), previous_vz=0.)
+    b, other = batch.action(np.zeros(2), 0, previous_action=np.zeros(1), previous_vz=0.)
+    np.testing.assert_array_equal(a, b)
+    assert_same_decision_and_counts(scalar, batch, info, other)
+
+
+def test_batch_per_candidate_nonfinite_scenario_costs_have_scalar_failure_accounting():
+    class FailingScalar(RecordingRollout):
+        def rollout(self, state, plan, reference_index, **kwargs):
+            if kwargs["mu"] == .2 and np.any(plan < 0.):
+                return np.nan
+            return RecordingRollout.rollout(self, state, plan, reference_index, **kwargs)
+
+    class FailingBatch(BatchRecordingRollout):
+        rollout = FailingScalar.rollout
+
+    config = CEMConfig(horizon_steps=3, control_blocks=2, candidates=12,
+                       iterations=2, elite_count=3, initial_std=.6)
+    scalar = ShootingNMPC(FailingScalar(),config,action_low=[-1.],action_high=[1.],mu_scenarios=(.2,.7))
+    batch = ShootingNMPC(FailingBatch(),config,action_low=[-1.],action_high=[1.],mu_scenarios=(.2,.7))
+    kwargs = dict(previous_action=np.array([-.5]), previous_vz=.2)
+    a, info = scalar.action(np.zeros(2), 5, **kwargs)
+    b, other = batch.action(np.zeros(2), 5, **kwargs)
+    np.testing.assert_array_equal(a,b)
+    assert_same_decision_and_counts(scalar,batch,info,other)
+    assert other["failed_scenarios_by_mu"][0] > 0
+    assert other["failed_scenarios_by_mu"][1] == 0
+    assert other["failed_batch_prediction_calls"] == 0
+
+
+@pytest.mark.parametrize("fallback, expected", [("previous", .7), ("neutral", 0.)])
+def test_batch_runtime_warning_rejects_whole_scenario_and_has_explicit_fallback(fallback, expected):
+    class BatchWarning(BatchRecordingRollout):
+        def rollout_batch(self, state, plans, reference_index, **kwargs):
+            if kwargs["mu"] == .2:
+                raise RuntimeError("Native warning: entire batch rejected")
+            return np.ones(len(plans))
+
+    config = CEMConfig(horizon_steps=3,control_blocks=1,candidates=4,
+                       iterations=2,elite_count=2,fallback_action=fallback)
+    c = ShootingNMPC(BatchWarning(),config,action_low=[-1.],action_high=[1.],mu_scenarios=(.2,.7))
+    action, info = c.action(np.zeros(2),0,previous_action=np.array([.7]),previous_vz=0.)
+    np.testing.assert_array_equal(action,[expected])
+    assert info["optimization_failed"] and info["fallback_used"]
+    assert info["failed_candidates"] == info["candidate_evaluations"] == 9
+    assert info["failed_scenarios_by_mu"] == [9,0]
+    assert info["batch_prediction_calls"] == 6
+    assert info["failed_batch_prediction_calls"] == 3
+    assert info["batch_runtime_failure_scope"] == "All candidates in the failed scenario call"
+    assert c.last_plan is None
+    json.dumps(info,allow_nan=False)
+
+
+@pytest.mark.parametrize("problem", ["shape", "value_error"])
+def test_batch_programming_errors_are_fatal_not_silent_fallback(problem):
+    class BadBatch(BatchRecordingRollout):
+        def rollout_batch(self,state,plans,reference_index,**kwargs):
+            if problem == "value_error":
+                raise ValueError("Deliberate malformed objective input")
+            return np.zeros((len(plans),1))
+
+    c = controller(BadBatch())
+    with pytest.raises(ValueError,match="shape|malformed"):
+        c.action(np.zeros(2),0,previous_action=np.zeros(1),previous_vz=0.)
+    assert c.last_plan is None
+
+
+def test_batch_constant_cost_ties_keep_first_incumbent_and_stable_candidate_order():
+    costs={1.:2.}
+    scalar, batch = controller(RecordingRollout(costs)), controller(BatchRecordingRollout(costs))
+    a, info = scalar.action(np.zeros(2),0,previous_action=np.array([.23]),previous_vz=.4,
+                            seed_plan=np.full((8,1),.9))
+    b, other = batch.action(np.zeros(2),0,previous_action=np.array([.23]),previous_vz=.4,
+                           seed_plan=np.full((8,1),.9))
+    np.testing.assert_array_equal(a,[.23]);np.testing.assert_array_equal(a,b)
+    assert_same_decision_and_counts(scalar,batch,info,other)

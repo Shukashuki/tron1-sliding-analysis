@@ -1,4 +1,5 @@
 """CPU kinematic/configuration checks; not an actual Isaac runtime claim."""
+import argparse
 import json
 from pathlib import Path
 from types import SimpleNamespace as NS
@@ -11,9 +12,55 @@ sys.path.insert(0,str(Path(__file__).parents[1]/"scripts"))
 from run_nmpc_tracking_isaac import (
     SourceModelProvider,IsaacToMujocoState,configure_fixed_evaluation,
     SubstepRecorder,scene_update_observer,audit_actuators,
+    add_prediction_backend_arguments,prediction_backend_options,build_prediction_backend,
 )
 
 ROOT=Path(__file__).parents[1]
+
+
+def test_prediction_backend_is_python_by_default_without_native_import_or_compile():
+    args=add_prediction_backend_arguments(argparse.ArgumentParser()).parse_args([])
+    assert prediction_backend_options(args)==("python",None)
+    original=object()
+    assert build_prediction_backend(original,"python",None) is original
+    # Older test/caller namespaces preserve the unchanged Python path.
+    assert prediction_backend_options(NS())==("python",None)
+
+
+def test_native_backend_requires_explicit_prebuilt_library_and_manifest(tmp_path):
+    parser=add_prediction_backend_arguments(argparse.ArgumentParser())
+    with pytest.raises(ValueError,match="explicit.*native-library"):
+        prediction_backend_options(parser.parse_args(["--prediction-backend","native"]))
+    library=tmp_path/"libtest.so"
+    with pytest.raises(FileNotFoundError,match="existing library"):
+        prediction_backend_options(NS(prediction_backend="native",native_library=library))
+    assert not library.exists()  # No implicit compiler/build output.
+    library.write_bytes(b"unit-test path only; never loaded")
+    with pytest.raises(FileNotFoundError,match="manifest"):
+        prediction_backend_options(NS(prediction_backend="native",native_library=library))
+    library.with_suffix(".json").write_text("{}")
+    assert prediction_backend_options(NS(prediction_backend="native",native_library=library))==("native",library.resolve())
+    with pytest.raises(ValueError,match="only valid"):
+        prediction_backend_options(NS(prediction_backend="python",native_library=library))
+
+
+def test_native_backend_receives_actual_runtime_objective_and_retains_close_ownership(monkeypatch,tmp_path):
+    calls=[]
+    class FakeAdapter:
+        def __init__(self,prediction,library):
+            calls.append((prediction,library,prediction.objective))
+            self.closed=False
+        def close(self):
+            self.closed=True
+    monkeypatch.setitem(sys.modules,"nmpc_batch_objective",NS(NativeBatchTrackingPredictor=FakeAdapter))
+    actual_limits=np.tile([-1.,1.],(8,1))
+    prediction=NS(objective=NS(soft_joint_limits=actual_limits))
+    library=tmp_path/"prebuilt.so"
+    adapter=build_prediction_backend(prediction,"native",library)
+    assert calls==[(prediction,library,prediction.objective)]
+    assert calls[0][2].soft_joint_limits is actual_limits
+    adapter.close()
+    assert adapter.closed is True
 
 
 def test_fixed_evaluation_removes_all_termination_types_without_mutating_misc_metadata():

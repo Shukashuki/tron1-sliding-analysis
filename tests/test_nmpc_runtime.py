@@ -1,4 +1,5 @@
 import json
+import hashlib
 from pathlib import Path
 from types import SimpleNamespace
 import sys
@@ -15,6 +16,7 @@ from run_nmpc_tracking import (
 )
 from nmpc_tracking_objective import BODY_NAMES
 from controller_references import get_reference,PRIMARY_REFERENCE_ID,SUPPLEMENT_REFERENCE_ID
+from controller_trace import native_trace,WheelKinematics
 
 ROOT=Path(__file__).parents[1]
 
@@ -163,3 +165,73 @@ def test_actual_bias_seed_never_uses_old_qr_or_tvlqr(actual_predictor):
         original=p.reference.body_names.index(name)
         for key in ("body_pos_w","body_quat_w","body_lin_vel_w","body_ang_vel_w"):
             np.testing.assert_array_equal(p.reference_frame(0)[key][i],p.reference.archive[key][0,original])
+
+
+def test_one_python_control_interval_records_native_contacts_clock_material_and_float32_action(actual_predictor,tmp_path):
+    """One authorized CPU control interval only; no timing/quality benchmark."""
+    base=ROOT/"outputs/car_failure_sideslip_20261015/raw"
+    output=tmp_path/"one_interval_python"
+    args=parser().parse_args([
+        "--model",str(base/"mujoco_model.xml"),
+        "--motion","/home/roy/tron1-learning-from-human/outputs/drift-drl-turn-reference-20261013-v2/motion.npz",
+        "--contract",str(base/"mu0p180/isaac/policy_contract.json"),
+        "--plant-mu","0.23","--output-dir",str(output),"--max-policy-steps","1",
+        "--horizon-steps","1","--control-blocks","1","--candidates","2",
+        "--iterations","1","--elite-count","1","--prediction-backend","python",
+    ])
+    report=run(args)
+    saved=json.loads((output/"report.json").read_text())
+    assert saved==json.loads(json.dumps(report))  # JSON represents tuple CEM stds as lists.
+    assert report["status"]=="smoke_completed" and report["truncated_smoke"] is True
+    assert report["completed_policy_steps"]==1 and report["duration_s"]==pytest.approx(.02)
+    assert report["reference_id"]==PRIMARY_REFERENCE_ID
+    assert report["core_coverage_complete"] is False and report["core_xy_rmse_m"] is None
+    assert report["prediction_backend"]=="python" and report["native_prediction_backend"] is None
+    assert report["prediction_mu_scenarios"]==[.7]  # Never oracle-selected from plant .23.
+    assert report["prediction_receives_plant_mu"] is False
+    assert report["plant_material_readback"]["compiled_sliding_friction_range"]==[.23,.23]
+    assert report["physics_dt_s"]==.005 and report["control_dt_s"]==.02
+    assert report["contact_threshold_n"]==5.
+    assert report["wheel_lateral_contact_slip_evidence_kind"]=="actual_ground_contact_points"
+    assert report["contact_slip_definition"]==(
+        "Per-wheel force-weighted contact-point lateral-speed RMS; >threshold normal force, ground-filtered. "
+        "Zero with no active contact is unavailable, not rolling.")
+    for field in ("learned_policy_used","tvlqr_used","old_qr_used","root_state_prescribed_after_reset",
+                  "external_root_forces_used","pose_height_failure_gate","real_time_verified"):
+        assert report[field] is False
+    for name,value in (("horizon_steps",1),("control_blocks",1),("candidates",2),("iterations",1),("elite_count",1)):
+        assert report["effective_cem_config"][name]==value
+    assert report["rollout_sha256"]==hashlib.sha256((output/"rollout.npz").read_bytes()).hexdigest()
+    assert report["solver_log_sha256"]==hashlib.sha256((output/"solver_log.json").read_bytes()).hexdigest()
+    with np.load(output/"rollout.npz",allow_pickle=False) as archive:
+        trace={name:archive[name].copy() for name in archive.files}
+    canonical=native_trace(trace,"nmpc")  # Required measured ground fields must really be present.
+    np.testing.assert_allclose(canonical["time_s"],np.arange(5)*.005,atol=1e-12,rtol=0)
+    assert canonical["physics_dt_s"]==.005 and float(trace["policy_dt_s"])==.02
+    assert canonical["joint_pos"].shape==(5,8) and canonical["joint_vel"].shape==(5,8)
+    assert canonical["contact_count"].shape==(5,2) and canonical["contact_force"].shape==(5,2,3)
+    assert np.all(canonical["contact_count"]>=0)
+    np.testing.assert_array_equal(canonical["contact_count"],np.round(canonical["contact_count"]))
+    assert np.all(canonical["contact_slip"]>=0)
+    assert trace["nonwheel_ground_contact_count"].shape==(5,)
+    assert trace["nonwheel_ground_contact_force_norm_n"].shape==(5,)
+    assert np.all(trace["nonwheel_ground_contact_count"]>=0)
+    assert np.all(trace["nonwheel_ground_contact_force_norm_n"]>=0)
+    np.testing.assert_array_equal(trace["action_was_applied"],[False,True,True,True,True])
+    np.testing.assert_array_equal(trace["reference_frame_for_action"],np.zeros(5,dtype=int))
+    np.testing.assert_array_equal(trace["held_action"][0],np.zeros(8))
+    np.testing.assert_array_equal(trace["held_action"][1:],np.tile(trace["actions"][0],(4,1)))
+    assert np.isfinite(trace["actions"]).all() and np.max(np.abs(trace["actions"]))<=1.
+    np.testing.assert_array_equal(trace["actions"],trace["actions"].astype(np.float32).astype(float))
+    decisions=json.loads((output/"solver_log.json").read_text())
+    assert len(decisions)==1 and decisions[0]["reference_frame_for_reward"]==0
+    np.testing.assert_array_equal(trace["actions"][0],np.asarray(decisions[0]["raw_cem_action"]).astype(np.float32).astype(float))
+    assert decisions[0]["solver"]["optimization_failed"] is False
+    np.testing.assert_array_equal(trace["applied_joint_torque_nm"][0],np.zeros(8))
+    for substep in range(1,5):
+        expected=actual_predictor.provider.torque(trace["held_action"][substep],trace["qpos"][substep-1],trace["qvel"][substep-1])
+        np.testing.assert_allclose(trace["applied_joint_torque_nm"][substep],expected,atol=1e-12,rtol=0)
+    # Canonical measured velocities/poses must also pass offline no-step FK.
+    audit=WheelKinematics(actual_predictor.models[.7]).reconstruct(canonical)["audit"]
+    assert audit["maximum_wheel_link_position_error_m"]<1e-10
+    assert audit["maximum_root_com_velocity_reconstruction_error"]<1e-10

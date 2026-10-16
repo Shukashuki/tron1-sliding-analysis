@@ -19,6 +19,13 @@ training. Optional ``terminal_cost(state, start_index + horizon)`` is added.
 An optional ``rollout(state, full_controls, start_index, *, mu,
 previous_action, previous_vz) -> float`` can replace that loop, but must include
 the same held-reference convention and any terminal cost itself. Optional
+``rollout_batch(state, controls[B,H,nu], start_index, *, mu,
+previous_action, previous_vz) -> costs[B]`` evaluates independent candidate
+plans in their original order. It is used for populations (and singleton
+initial plans) only when explicitly supplied. A runtime failure of that call
+rejects its entire candidate batch for that scenario; malformed shapes or
+programming ValueErrors propagate instead of becoming silent fallbacks.
+Optional
 ``initial_candidate(state, start_index, *, previous_action, previous_vz,
 horizon_steps)`` supplies a deterministic physics-only full control plan.
 
@@ -171,8 +178,49 @@ class ShootingNMPC:
         counts = {"candidate_evaluations": 0, "finite_candidates": 0, "failed_candidates": 0,
                   "scenario_evaluations": 0, "failed_scenarios": 0}
         scenario_failures = [0] * len(self.mu_scenarios)
+        batch_rollout = getattr(self.predictor, "rollout_batch", None)
+        use_batch = callable(batch_rollout)
+        batch_counts = {"batch_prediction_calls": 0, "failed_batch_prediction_calls": 0}
+
+        def score_many(plans):
+            # This branch is opt-in. Batch axis is ALWAYS candidate order, not
+            # scenario order; every scenario receives the same complete plans.
+            number = len(plans)
+            counts["candidate_evaluations"] += number
+            scenario_costs = np.empty((number, len(self.mu_scenarios)))
+            for scenario, mu in enumerate(self.mu_scenarios):
+                counts["scenario_evaluations"] += number
+                batch_counts["batch_prediction_calls"] += 1
+                try:
+                    values = np.asarray(batch_rollout(x.copy(), plans.copy(), reference_index,
+                        mu=mu, previous_action=previous.copy(), previous_vz=previous_vz), dtype=float)
+                except (FloatingPointError, OverflowError, RuntimeError):
+                    values = np.full(number, np.inf)
+                    batch_counts["failed_batch_prediction_calls"] += 1
+                if values.shape != (number,):
+                    raise ValueError(f"rollout_batch must return costs of shape {(number,)}, got {values.shape}")
+                bad = ~np.isfinite(values)
+                scenario_costs[:, scenario] = np.where(bad, np.inf, values)
+                failed = int(np.sum(bad))
+                counts["failed_scenarios"] += failed
+                scenario_failures[scenario] += failed
+            scores = np.full(number, np.inf)
+            valid = np.all(np.isfinite(scenario_costs), axis=1)
+            if np.any(valid):
+                reduced = (np.max(scenario_costs[valid], axis=1)
+                           if self.config.scenario_reduction == "worst"
+                           else np.mean(scenario_costs[valid].astype(np.longdouble), axis=1))
+                scores[valid] = reduced
+            scores[~np.isfinite(scores)] = np.inf
+            finite = int(np.sum(np.isfinite(scores)))
+            counts["finite_candidates"] += finite
+            counts["failed_candidates"] += number-finite
+            return scores, scenario_costs
 
         def score(plan):
+            if use_batch:
+                scores, costs = score_many(plan[None])
+                return float(scores[0]), costs[0].tolist()
             counts["candidate_evaluations"] += 1
             scenario_costs = []
             for scenario, mu in enumerate(self.mu_scenarios):
@@ -237,12 +285,19 @@ class ShootingNMPC:
                              self.low, self.high)
             plans = blocks[:, self.assignment].copy()
             plans[0] = best_plan
-            scores = np.empty(self.config.candidates)
-            for candidate, plan in enumerate(plans):
-                value, costs = score(plan)
-                scores[candidate] = value
-                if value < best_cost:
-                    best_plan, best_cost, best_costs = plan.copy(), value, costs
+            if use_batch:
+                scores, population_costs = score_many(plans)
+                for candidate, plan in enumerate(plans):
+                    value = float(scores[candidate])
+                    if value < best_cost:
+                        best_plan, best_cost, best_costs = plan.copy(), value, population_costs[candidate].tolist()
+            else:
+                scores = np.empty(self.config.candidates)
+                for candidate, plan in enumerate(plans):
+                    value, costs = score(plan)
+                    scores[candidate] = value
+                    if value < best_cost:
+                        best_plan, best_cost, best_costs = plan.copy(), value, costs
             finite = np.flatnonzero(np.isfinite(scores))
             if finite.size:
                 elite_indices = finite[np.argsort(scores[finite], kind="stable")[:self.config.elite_count]]
@@ -290,6 +345,9 @@ class ShootingNMPC:
             "timing_scope": "controller_including_predictor_rollouts",
             "control_deadline_enforced": False,
             "real_time_verified": False,
+            "population_evaluation_backend": "predictor_rollout_batch" if use_batch else "scalar_candidate_loop",
+            "batch_runtime_failure_scope": "All candidates in the failed scenario call" if use_batch else None,
+            **batch_counts,
             **counts,
         }
         return selected_action, info

@@ -14,7 +14,7 @@ speed loss, rather than selecting on angle alone. The
 dance turns, an alpine-skiing supplement and continuous car-drift implementations;
 it does **not** claim a newly qualified human drift or start policy training.
 
-**Current focus (2026-10-15):** compare PPO, SAC and NMPC on speed-retaining
+**Current focus (2026-10-16):** compare PPO, SAC and NMPC on speed-retaining
 turning, followed by fixed-friction Isaac↔MuJoCo validation. Human work remains
 paused. `drift_drl_traj4` is the **primary large-angle turn**;
 `doa_sa29_scale2` is a **separately reported S-avoidance supplement**, not a second
@@ -27,11 +27,34 @@ The [completed historical refinement](results/2026-10-15-car-sim2sim-boundary.md
 the sampled Isaac XY-verdict change between µ=0.16 and 0.18, versus µ=0.14 and
 0.15 in MuJoCo, and includes top-down animation plus divergence-onset timing.
 
-**New task revision (integration-tested, no full trained baseline yet):** the new
+**Height-smooth task revision:** the new
 [`car_drift_height_smooth_task.json`](config/car_drift_height_smooth_task.json)
 removes absolute-height tracking and height-based stopping from **new PPO/SAC
 training**, replacing them with vertical-acceleration smoothness. Archived
 policies/results retain their original training objectives and are not relabeled.
+
+Primary PPO and SAC training have now completed with **12,288,000 transitions
+each**, followed by the same 17-point fixed-friction validation grid. PPO has
+below-screen XY error in both engines at sampled µ=0.30–2.00; the first SAC
+configuration exceeds the XY screen throughout its grid. These are one-seed
+results, not evidence that SAC is intrinsically unsuitable. Normalization,
+optimization reuse and compute differ despite equal environment interactions.
+See the [PPO grid](results/2026-10-15-primary-ppo-height-smooth-grid.md),
+[PPO nominal pair](results/2026-10-15-primary-ppo-nominal-pair.md) and
+[SAC nominal pair](results/2026-10-16-primary-sac-nominal-pair.md).
+The [completed SAC grid](results/2026-10-16-primary-sac-height-smooth-grid.md)
+is retained even though nominal tracking is unsuccessful.
+
+**NMPC development is not frozen.** The initial full-turn nominal controller
+has core XY RMSE 0.324 m in Isaac and 0.280 m in MuJoCo at µ=0.70, with all
+solver calls exceeding 20 ms. The next step is to improve nominal tracking
+before freezing its settings and running the friction grid. Other coefficients
+are not NMPC tuning data. Keep the reference speed, nonzero sideslip target and
+height-free objective unchanged; neither leaving the ground nor heading offset
+alone is a failure gate. The initial NMPC results are diagnostics, not a final
+PPO/SAC/NMPC ranking. The
+[untuned nominal NMPC pair](results/2026-10-16-primary-nmpc-nominal-pair.md)
+includes the top-down comparison and bounded one-step model audit.
 
 The current TRON1 model is usable as a nonlinear shooting predictor: 15 qpos
 coordinates, 14 generalized velocities (28-dimensional tangent state), and
@@ -74,7 +97,7 @@ The new implementation has three distinct, not-yet-ranked paths:
   state using the same **MuJoCo predictor**; it is not action replay or an Isaac
   prediction model. Finite scenarios are not a robustness proof.
 
-Only short integration checks have completed: PPO one update iteration, SAC
+The earlier integration milestone comprised PPO one update iteration, SAC
 32 control steps/29 updates with 16 correctly captured timeout successors,
 and NMPC 0.20 s without reaching the turn core. Same-state Isaac/NumPy reward
 parity passed 16 snapshots across 15 terms (max dt-scaled reward error
@@ -86,7 +109,40 @@ export also completed both recording pipelines; 350 reconstructed Isaac
 observations had maximum absolute error `3.34e-6`. That actor loses posture:
 complete recording is not successful tracking. The sanitized
 [integration record](results/2026-10-15-controller-integration.json) separates
-these interface checks from controller performance and includes artifact hashes.
+these interface checks from the later full-turn results and includes artifact hashes.
+
+The optional native NMPC predictor is pinned to Linux MuJoCo 3.8.1 and uses
+one persistent CPU worker with process-level fatal-error isolation; it never
+automatically builds or restarts a failed worker. A MuJoCo warning rejects the
+whole affected candidate batch/scenario, stricter than the Python predictor.
+The [backend parity record](results/2026-10-15-native-backend-parity.json)
+compares only 10 control steps (0.20 s, H=3, four candidates), not a turn:
+37 non-timing trace fields are identical. Native controller-call median/P95
+were 18.73/20.92 ms, with **2/10 calls exceeding 20 ms**. These uncontrolled
+WSL measurements include worker IPC but exclude model/worker startup; they
+do not verify real-time operation, inject solve delays into the plant, or
+establish a 20 ms budget for the full H=15, 64-candidate configuration.
+Use a Python environment with `mujoco==3.8.1` and a C++17 compiler. Build
+explicitly in a new directory, then select the backend explicitly:
+
+```bash
+CUDA_VISIBLE_DEVICES='' python -c 'import sys; sys.path.insert(0,"scripts"); from nmpc_native_batch import build_native_library; print(build_native_library("outputs/NEW_native_build_directory"))'
+
+CUDA_VISIBLE_DEVICES='' python scripts/run_nmpc_tracking.py \
+  --model /path/to/tron1_model.xml \
+  --motion /path/to/drift_drl_traj4/motion.npz \
+  --contract /path/to/policy_contract.json \
+  --reference-id drift_drl_traj4 --plant-mu .18 --prediction-mu-scenarios .7 \
+  --horizon-steps 3 --control-blocks 3 --candidates 4 --iterations 1 --elite-count 2 \
+  --max-policy-steps 10 --prediction-backend native \
+  --native-library outputs/NEW_native_build_directory/libtron1_nmpc_batch.so \
+  --output-dir outputs/NEW_parity_directory/native
+```
+
+Use the same inputs and options with `--prediction-backend python`, omit
+`--native-library`, and choose a separate new output directory for the Python
+comparison. Licensed robot assets, source motion and compiled binaries are
+not included; provide the hash-locked reference and compatible local inputs.
 
 ## Experiment contract
 
@@ -142,6 +198,12 @@ these interface checks from controller performance and includes artifact hashes.
    permits the historical fixed event set and is incompatible with new CoM
    randomization. The selected compatible reward profile is
    [`config/car_drift_beyondmimic_task.json`](config/car_drift_beyondmimic_task.json).
+   The new matched-controller experiments instead use
+   [`config/car_drift_height_smooth_task.json`](config/car_drift_height_smooth_task.json),
+   retaining the same event ranges while replacing absolute-height tracking
+   with bounded vertical-acceleration smoothness. Its original description says
+   "untrained" because it records the revision's initial state, not current
+   training completion; the hash-locked file is preserved.
 5. Freeze the trained actor and evaluate single deterministic episodes per
    coefficient in Isaac/PhysX and MuJoCo. Turn off random events for validation.
    The initial grid used equal static/dynamic

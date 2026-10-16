@@ -1,0 +1,267 @@
+{
+  "schema_version": 1,
+  "kind": "sanitized_completed_primary_sac_training_and_fixed_mu_evaluation",
+  "algorithm": "SAC",
+  "training_status": "training_completed",
+  "smoke_only": false,
+  "trained_policy_claimed": true,
+  "training_seed": 42,
+  "reference_id": "drift_drl_traj4",
+  "reference_role": "primary",
+  "task_stratum": "large_angle_turn",
+  "pooled_success_statistics": false,
+  "training_manifest_sha256": "05a0f66d18f30a56695db27017abb9d65c3694f797f6c80477411eae2a3949b1",
+  "training_run_status_sha256": "6ef30df8a53d10cffa2124179390abc9be8149ae115d7cdc23331e17fb79bbcc",
+  "checkpoint_sha256": "2722b4118347e26aa7c0ce58b3ff5cc67c40194b1350c876becf38a1cd9eeeae",
+  "exported_training_actor_sha256": "5ce657d8907078065e2b6f5d9e36d97d967ee1df69eda035fc9564c348d1ed68",
+  "reference_catalog_sha256": "b2c6062ebc6c25d48d7845ffb8786971f85d7b44e37d5f6f27a9f65e395b96c1",
+  "motion_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+  "robot_reference_sha256": "afc22f19b813cf10b3e3a90affb0f26f5a7743074f98b262394c69de786e9f6e",
+  "training_asset_sha256": "327ca5080e753bbc95d8c3c797e9cd49a0f134d400cfe80494af0ba840e23a8e",
+  "task_profile_config": "config/car_drift_height_smooth_task.json",
+  "task_profile_sha256": "31de29a61eec847e0e39783f3a0d9d8f2db551acd679a1b38dfde2b24e8ae7d6",
+  "height_adapter_sha256": "e133aca58f671fc22ae1dfc97a03461e7724e4072bf8b74f58a2c14281d198b8",
+  "source_training_modules_sha256": {
+    "training/tron1_tracking.py": "0a29fa27c1d65c0b9add0886221491e549553e3529d6970f1ec5ba35e2532817",
+    "training/tron1_drift.py": "5eb40c9b3c14f5bd5c59c9861c1414ae8ac1b219ff0dd70591f2c6fe0bb5344c",
+    "training/tron1_domain_randomization.py": "3f3a0b62c85a0af496ae9e9e0d75dda85c3ec30da587e4a47969843f5b1b1dca",
+    "training/tron1_contact_slip.py": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4"
+  },
+  "comparison_modules_sha256": {
+    "sac_tracking.py": "694c0f280ff5fb89f74afa6a27992725dfb0725130e6575df8d3357b01c6b233",
+    "terminal_observation.py": "fd67d968dc46ce96d01ccec8eda196b2e1e535092ad64d035c27eb210eb2a42a",
+    "height_smoothness.py": "e133aca58f671fc22ae1dfc97a03461e7724e4072bf8b74f58a2c14281d198b8",
+    "train_beyondmimic_style.py": "880e84b6394ab99e51aa610ee9db778e113b173012a13db6e76284167983ca5d",
+    "train_sac_tracking_isaac.py": "c485b155fbffc44ba7e8147bc76358ca5978e0b8aace81cf8c1d4b495c9d83cf"
+  },
+  "training_budget": {
+    "num_envs": 512,
+    "policy_steps_requested": 24000,
+    "policy_steps_completed": 24000,
+    "environment_transitions_requested": 12288000,
+    "environment_transitions_completed": 12288000,
+    "learner_updates_completed": 23981,
+    "warmup_transitions_requested": 10000,
+    "updates_per_policy_step": 1,
+    "batch_size": 1024,
+    "replay_capacity": 500000,
+    "replay_allocated_bytes": 705000000,
+    "scope": "Includes random warmup collection; no separate smoke-episode timeout override"
+  },
+  "sac_config": {
+    "actor_dim": 51,
+    "critic_dim": 120,
+    "action_dim": 8,
+    "hidden_sizes": [
+      256,
+      128,
+      128
+    ],
+    "activation": "elu",
+    "learning_rate": 0.0003,
+    "alpha_learning_rate": 0.0003,
+    "initial_alpha": 0.004,
+    "target_entropy": null,
+    "tau": 0.005,
+    "log_std_min": -5,
+    "log_std_max": 2,
+    "max_grad_norm": 10
+  },
+  "gamma": 0.99,
+  "observation_normalization": "fixed identity affine (embedded in networks/export); PPO uses online RSL normalization",
+  "reward_scaling": "unchanged Isaac RewardManager dt-scaled rewards; no SAC-only multiplier",
+  "initial_entropy_temperature_units": "0.2 * control_dt for dt-scaled rewards; automatic entropy tuning thereafter",
+  "bootstrap": "terminated masks target; truncation uses captured pre-reset physical successor and advanced/clamped reference phase, not reset state",
+  "action_contract": {
+    "actor_dim": 51,
+    "critic_dim": 120,
+    "action_dim": 8,
+    "policy_fps": 50,
+    "decimation": 4,
+    "raw_action_clip": [
+      -1,
+      1
+    ],
+    "leg_position_scale": 1,
+    "leg_position_offset": "reference_frame_0_joint_pos",
+    "leg_kp": 500,
+    "leg_kd": 10,
+    "wheel_torque_scale_nm": 12,
+    "actuator_model": "dc_motor",
+    "root_prescribed_during_steps": false,
+    "wheel_orientation_tracking": false,
+    "hardware_ready": false,
+    "physics_dt_s": 0.005
+  },
+  "height_regularization": {
+    "mode": "vertical_acceleration_only",
+    "weight": -0.1,
+    "acceleration_scale_m_s2": 5,
+    "absolute_height_reward": false,
+    "height_termination": false,
+    "reference_vertical_velocity_reward": false,
+    "removed_termination_terms": [
+      "anchor_pos",
+      "ee_body_pos"
+    ],
+    "position_and_linear_velocity_tracking_axes": [
+      "x",
+      "y"
+    ],
+    "smoothness_signal": "base_Link COM world vz difference / control dt",
+    "reset_history": "first reward sample after each reset is unpenalized",
+    "actor_observation_layout": "unchanged; reference-height observation retained, not constrained",
+    "retained": [
+      "orientation_tracking",
+      "tilt_safety",
+      "action_rate",
+      "joint_limits",
+      "contact_rewards"
+    ]
+  },
+  "drift_reward_weights": {
+    "sideslip": 2,
+    "yaw_rate": 1,
+    "speed": 1,
+    "grounded": 0.4,
+    "tilt": -0.2
+  },
+  "training_domain_randomization": {
+    "upstream_commit": "cd65172032893724b445448818c34165846d847d",
+    "friction_static": [
+      0.3,
+      1.6
+    ],
+    "friction_dynamic": [
+      0.3,
+      1.2
+    ],
+    "restitution": [
+      0,
+      0.5
+    ],
+    "material_buckets": 64,
+    "joint_default_position_offset_rad": [
+      -0.01,
+      0.01
+    ],
+    "base_com_offset_m": {
+      "x": [
+        -0.025,
+        0.025
+      ],
+      "y": [
+        -0.05,
+        0.05
+      ],
+      "z": [
+        -0.05,
+        0.05
+      ]
+    },
+    "push_interval_s": [
+      1,
+      3
+    ],
+    "push_velocity_range": {
+      "x": [
+        -0.5,
+        0.5
+      ],
+      "y": [
+        -0.5,
+        0.5
+      ],
+      "z": [
+        -0.2,
+        0.2
+      ],
+      "roll": [
+        -0.52,
+        0.52
+      ],
+      "pitch": [
+        -0.52,
+        0.52
+      ],
+      "yaw": [
+        -0.78,
+        0.78
+      ]
+    },
+    "ground_friction": 1,
+    "robot_mapping": "G1 torso_link -> TRON1 base_Link; joint offset applies only to six position-controlled leg joints"
+  },
+  "initial_training_material_draw_audit": {
+    "shape": [
+      512,
+      9,
+      3
+    ],
+    "static_range": [
+      0.3210635185241699,
+      1.575462818145752
+    ],
+    "dynamic_range": [
+      0.35343536734580994,
+      1.1599316596984863
+    ],
+    "restitution_range": [
+      0.0014598369598388672,
+      0.49990221858024597
+    ]
+  },
+  "evaluation": {
+    "seed": 42,
+    "coefficients_static_dynamic_equal": [
+      0.01,
+      0.03,
+      0.05,
+      0.1,
+      0.15,
+      0.2,
+      0.3,
+      0.45,
+      0.6,
+      0.7,
+      0.8,
+      1,
+      1.2,
+      1.4,
+      1.6,
+      1.8,
+      2
+    ],
+    "episodes_per_coefficient_per_engine": 1,
+    "engine_runs": 34,
+    "completed_full_reference_engine_runs": 34,
+    "full_horizon_diagnostic": true,
+    "pose_predicates_recorded_not_terminating": true,
+    "domain_randomization_enabled": false,
+    "observation_noise_enabled": false,
+    "height_or_flight_failure_gate": false,
+    "heading_offset_failure_gate": false,
+    "core_interval_s": [
+      1.44,
+      4
+    ],
+    "reference_xy_rmse_screen_m": 0.15,
+    "reference_xy_peak_screen_m": 0.3,
+    "statistical_success_rate_claimed": false,
+    "controller_ranking_claimed": false,
+    "grid_manifest_sha256": "fc644e4319c6a5676210faf2f5a0bb5dd3a7edcd0f61544e8675af1b601bb090",
+    "driver_sha256": "46de51a5f53ee0fb261a23513edf883fd182f945e941031e61e96e1ac40a5107"
+  },
+  "published_artifacts_sha256": {
+    "summary.json": "e5f73fb2dc0f9738b824461d5673a965cfd0d4d17f5a9b36346078914f718dc2",
+    "xy_trace.npz": "da6113423e29fb95a3ed252f233da4d1472db0ebd5f6dd4be6a04f7a44762e51",
+    "xy_trace.provenance.json": "d973aa055d9d06fdba1716fe3e3d4e4087d46449a4a1aaa30b4edbb30f2ffd48",
+    "topdown.png": "59e2815a8e0b7a856ecc8eb894bf4729f63354b2beb888531d7f42de83aba1ab"
+  },
+  "replay": {
+    "command": "python scripts/analyze_friction_grid.py --trace results/controller_primary_sac_height_smooth_seed42_v1/xy_trace.npz --expected-summary results/controller_primary_sac_height_smooth_seed42_v1/summary.json --output-dir outputs/NEW_primary_sac_grid_replay",
+    "metrics_exact_match_verified": true,
+    "requires_simulator": false
+  },
+  "publication_scope": "Derived root XY/time arrays, metrics, top-down image and sanitized metadata only; no policy weights, robot models, raw motion or source CSV."
+}

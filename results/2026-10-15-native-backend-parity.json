@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "kind": "bounded_cpu_controller_backend_parity",
+  "status": "passed",
+  "absolute_parity_bound": 2e-8,
+  "reference_id": "drift_drl_traj4",
+  "plant_mu": 0.18,
+  "prediction_mu_scenarios": [0.7],
+  "cem": {
+    "horizon_steps": 3,
+    "control_blocks": 3,
+    "candidates": 4,
+    "iterations": 1,
+    "elite_count": 2,
+    "seed": 42
+  },
+  "coverage": {
+    "status_each_run": "smoke_completed",
+    "policy_steps_each_run": 10,
+    "physics_samples_each_run": 41,
+    "duration_s": 0.2000000000000001,
+    "physics_dt_s": 0.005,
+    "maximum_clock_error_s": 8.326672684688674e-17,
+    "core_window_s": [1.44, 4.0],
+    "core_coverage_complete": false,
+    "core_xy_rmse_m": null,
+    "full_turn_evaluated": false,
+    "isaac_app_launched": false,
+    "gpu_used": false
+  },
+  "parity": {
+    "compared_nontiming_trace_fields": 37,
+    "all_compared_trace_arrays_exactly_equal": true,
+    "qpos_qvel_contact_force_slip_torque_max_abs_error": 0.0,
+    "float32_applied_actions_exactly_equal": true,
+    "raw_cem_actions_exactly_equal": true,
+    "all_15_actual_raw_and_weighted_objective_terms_max_abs_error": 0.0,
+    "actual_objective_diagnostics_max_abs_error": 0.0,
+    "actual_stage_cost_max_abs_error": 0.0,
+    "solver_selected_initial_scenario_and_iteration_costs_max_abs_error": 1.7694179454963432e-16,
+    "all_candidate_scenario_failure_and_warmstart_counts_equal": true,
+    "candidate_evaluations_each_run": 69,
+    "solver_failures_each_run": 0,
+    "native_runtime_production_cem_wired": true,
+    "native_actual_solver_backend": "predictor_rollout_batch",
+    "native_batch_calls": 39,
+    "native_failed_batch_calls": 0,
+    "common_source_hash_differences": {}
+  },
+  "timing": {
+    "scope": "Unsubtracted complete controller.action call, including native worker IPC and solver bookkeeping. Model and worker startup excluded. Plant/physics logger excluded from solve-time quantiles but included in separate rollout wall times below.",
+    "python_compute_ms_median_p95_max": [88.80376149318181, 114.23736964061389, 122.53811600385234],
+    "native_compute_ms_median_p95_max": [18.72854953398928, 20.915219545713626, 20.9307000041008],
+    "python_fraction_above_20ms": 1.0,
+    "native_fraction_above_20ms": 0.2,
+    "python_rollout_logging_artifact_finalization_wall_s": 0.9943189269979484,
+    "native_rollout_logging_artifact_finalization_wall_s": 0.2807522930088453,
+    "timing_sample_count_each_run": 10,
+    "runs_sequential_not_concurrent": true,
+    "real_time_verified": false,
+    "deadline_enforced": false,
+    "injected_actuation_delay": false
+  },
+  "observed_window_only": {
+    "xy_rmse_m_each_run": 0.0025712700046995325,
+    "base_com_xy_speed_mean_m_s_each_run": 1.2998500228990417,
+    "total_stage_cost_each_run": 0.0329983632310136,
+    "maximum_abs_torque_nm": 31.444413042080143,
+    "maximum_wheel_ground_force_n": 144.9390487014446,
+    "positive_wheel_ground_contact_samples": 80
+  },
+  "caveats": [
+    "A short start-of-trajectory backend consistency check, not a successful large-turn controller benchmark.",
+    "A native MuJoCo warning rejects the entire affected batch/scenario; this is stricter than the Python predictor and no such warning occurred here.",
+    "Equal numerical friction coefficients are not a calibrated tire/contact model.",
+    "The simulation waits for solves; solve-time outliers are not injected as plant actuation delay.",
+    "Runtime adapter production_cem_wired=true is verified against the actual controller; nested worker build-manifest false flags describe standalone build-time provenance."
+  ],
+  "runtime": {
+    "python": "3.13.12",
+    "numpy": "2.3.5",
+    "mujoco": "3.8.1",
+    "platform": "Linux-6.6.114.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "CUDA_VISIBLE_DEVICES": ""
+  },
+  "source_sha256": {
+    "scripts/run_nmpc_tracking.py": "e5277ee4986c40ab97dbf7f46e3a80a6e78a4c03f84b933598d7aad8cf998a2f",
+    "scripts/nmpc_shooting.py": "6b5d25f6985e700043ed47dbfdb58c244a2cb708a15d0e9d35f5ddf57d7449b4",
+    "scripts/nmpc_tracking_objective.py": "ff22eebb2b22b9af7dba114c64fcd10f6b0a90822559af8f32cbe6884015b860",
+    "scripts/nmpc_batch_objective.py": "1c9da90ae66778a71ceb2e6bb9d0dcf7f0a2259fafee39b37cbe958b79178fae",
+    "scripts/nmpc_native_batch.py": "475ef6fe1712783ea11af2cae64b5ff0d61321e6edee0a596f9977a7a69da8a1",
+    "native/nmpc_batch.cpp": "deb3afe3367e11c28295e00e4a081e84968818070dcfb7044f06466761875ed2"
+  },
+  "artifacts_sha256": {
+    "python/report.json": "0e9a500a9b9d284789b6946176a3a8d59492b3e58104d0dbaecf9bd1c1d8b4eb",
+    "python/rollout.npz": "e33ee19e607317fc6fedee03bcf797277084f612fc07bc85e60744c676db6df0",
+    "python/solver_log.json": "43a00d5477f371d39581d71231363cad547c5b506fc1b3267d5706bfc510c05c",
+    "native/report.json": "3690b5c81516f4bdb1d21054b4f435268eea3bf55debc35ec2dd121323f93da3",
+    "native/rollout.npz": "4158b995d81f682d2795dc5991f69bc8850e43b9fed1944d1f3fc1dd8999286c",
+    "native/solver_log.json": "96a78870854596990db6a3315347fc2b8de0352dbcbaf1b8103be59b96a7f1ce",
+    "../native_build_20261015_v1/libtron1_nmpc_batch.so": "b13e74df3a532496449d2f6b34b6934784a6bfd4ea5f0574c90cf279048821b7",
+    "../native_build_20261015_v1/libtron1_nmpc_batch.json": "9bc3587fd421886b0d2ad866a49b02f84dbb3000098ef3a19a28043e948f68ff"
+  },
+  "reproduction": {
+    "working_directory": "<repository-root>",
+    "explicit_build": "CUDA_VISIBLE_DEVICES='' python -c 'import sys; sys.path.insert(0,\"scripts\"); from nmpc_native_batch import build_native_library; print(build_native_library(\"outputs/NEW_native_build_directory\"))'",
+    "common_command": "CUDA_VISIBLE_DEVICES='' python scripts/run_nmpc_tracking.py --model /path/to/tron1_model.xml --motion /path/to/drift_drl_traj4/motion.npz --contract /path/to/policy_contract.json --reference-id drift_drl_traj4 --plant-mu .18 --prediction-mu-scenarios .7 --horizon-steps 3 --control-blocks 3 --candidates 4 --iterations 1 --elite-count 2 --max-policy-steps 10",
+    "python_suffix": "--prediction-backend python --output-dir outputs/NEW_parity_directory/python",
+    "native_suffix": "--prediction-backend native --native-library outputs/NEW_native_build_directory/libtron1_nmpc_batch.so --output-dir outputs/NEW_parity_directory/native",
+    "preserve_previous_outputs": true
+  }
+}

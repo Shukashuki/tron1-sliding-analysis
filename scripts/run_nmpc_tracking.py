@@ -8,6 +8,7 @@ The cold-start qacc/time predictor-state limitation is explicit in the report.
 """
 from __future__ import annotations
 
+from contextlib import ExitStack
 import argparse
 from dataclasses import asdict, dataclass
 import hashlib
@@ -243,6 +244,12 @@ def _metrics(trace,reference,reference_spec=None):
 
 
 def run(args):
+    # Native workers are owned by this run and close on every failure path.
+    with ExitStack() as resources:
+        return _run(args, resources)
+
+
+def _run(args, resources):
     output=Path(args.output_dir)
     if output.exists():
         raise FileExistsError(f"Preserving existing output directory: {output}")
@@ -258,10 +265,24 @@ def run(args):
     if provider.reference.frames!=reference_spec["frames"] or not np.isclose(provider.reference.fps,reference_spec["fps"]):
         raise ValueError("Selected reference frame count/fps differs from locked catalog")
     predictor=MujocoTrackingPredictor(provider,args.model,task,scenarios)
-    controller=ShootingNMPC(predictor,cem,action_low=-np.ones(8),action_high=np.ones(8),mu_scenarios=scenarios)
+    backend=getattr(args,"prediction_backend","python")
+    library=getattr(args,"native_library",None)
+    if backend not in ("python","native") or (backend=="native") != (library is not None):
+        raise ValueError("Native prediction is explicit opt-in and requires exactly one prebuilt --native-library")
+    controller_predictor=predictor
+    native_metadata=None
+    if backend=="native":
+        from nmpc_batch_objective import NativeBatchTrackingPredictor
+        controller_predictor=resources.enter_context(NativeBatchTrackingPredictor(predictor,library))
+        native_metadata=controller_predictor.metadata
+    controller=ShootingNMPC(controller_predictor,cem,action_low=-np.ones(8),action_high=np.ones(8),mu_scenarios=scenarios)
+    if backend=="native":
+        controller_predictor.record_cem_wiring(controller)
     model,_=provider.api.load_model(args.model,no_visual_mesh=True)
     provider.api.configure_model(model,provider.contract)
     model.geom_friction[:,0]=args.plant_mu
+    if not np.allclose(model.geom_friction[:,0],args.plant_mu,atol=1e-12,rtol=0):
+        raise AssertionError("Compiled validation plant friction does not match the fixed coefficient")
     data=mujoco.MjData(model)
     physical=provider.api.MujocoState(model,data,provider.reference)
     physical.initialize()
@@ -282,6 +303,8 @@ def run(args):
                   ROOT/"upstream/whole_body_tracking/source/whole_body_tracking/whole_body_tracking/tasks/tracking/mdp/rewards.py",
                   ROOT/"upstream/whole_body_tracking/source/whole_body_tracking/whole_body_tracking/tasks/tracking/tracking_env_cfg.py",
                   ROOT/"config/classical_tracking.json",Path(args.settings),Path(args.task_profile),Path(args.contract)]
+    if backend=="native":
+        source_files.extend((ROOT/"scripts/nmpc_native_batch.py",ROOT/"scripts/nmpc_batch_objective.py",ROOT/"native/nmpc_batch.cpp"))
     report={"kind":"full_body_height_smooth_cem_nmpc","engine":"MuJoCo","mujoco_version":mujoco.__version__,
             "status":"running","model_sha256":sha(args.model),"motion_sha256":sha(args.motion),
             "reference_id":reference_spec["reference_id"],"role":reference_spec["role"],
@@ -290,8 +313,14 @@ def run(args):
             "source_sha256":{str(p.resolve()):sha(p) for p in source_files},
             "settings":settings,"effective_cem_config":asdict(cem),"plant_mu":args.plant_mu,
             "prediction_mu_scenarios":list(scenarios),"prediction_receives_plant_mu":False,
+            "prediction_backend":backend,"native_prediction_backend":native_metadata,
+            "plant_material_readback":{"compiled_sliding_friction_range":[float(model.geom_friction[:,0].min()),float(model.geom_friction[:,0].max())],
+                                       "note":"Equal numeric contact coefficient, not a calibrated tire model."},
             "packed_state_contract":predictor.layout.contract(),"objective_contract":predictor.objective.contract(),
             "physics_dt_s":model.opt.timestep,"control_dt_s":provider.dt,
+            "contact_threshold_n":5.,
+            "wheel_lateral_contact_slip_evidence_kind":"actual_ground_contact_points",
+            "contact_slip_definition":"Per-wheel force-weighted contact-point lateral-speed RMS; >threshold normal force, ground-filtered. Zero with no active contact is unavailable, not rolling.",
             "total_reference_policy_steps":provider.reference.frames,"evaluated_policy_steps":steps,
             "truncated_smoke":truncated,"pose_height_failure_gate":False,
             "learned_policy_used":False,"tvlqr_used":False,"old_qr_used":False,
@@ -303,14 +332,23 @@ def run(args):
     output.mkdir(parents=True)
     (output/"report.json").write_text(json.dumps(report,indent=2,allow_nan=False)+"\n")
     records=[];decisions=[];surrogates=set();started=time.perf_counter()
+    held_action=np.zeros(8);held_frame=0
 
     def record(current=None):
         s=extractor.extract(data,contact_force_history=history,body_net_forces_w=current)
+        contact=physical.ground_contact_slip(force_threshold_n=5.)
+        nonwheel_count,nonwheel_force=physical.nonwheel_ground_contacts()
         records.append({"time_s":float(data.time),"root_pos":s["body_pos_w"][0].copy(),
                         "root_quaternion_wxyz":s["body_quat_w"][0].copy(),
                         "base_com_velocity_w":s["body_lin_vel_w"][0].copy(),
                         "base_angular_velocity_w":s["body_ang_vel_w"][0].copy(),
                         "wheel_pos":s["body_pos_w"][-2:].copy(),"joint_pos":s["joint_pos"].copy(),
+                        "joint_vel":data.qvel[physical.vids].copy(),
+                        "applied_joint_torque_nm":data.ctrl[physical.aids].copy(),
+                        "held_action":held_action.copy(),"reference_frame_for_action":held_frame,
+                        "action_was_applied":bool(records),
+                        **contact,"nonwheel_ground_contact_count":nonwheel_count,
+                        "nonwheel_ground_contact_force_norm_n":nonwheel_force,
                         "body_net_forces_w":s["body_net_forces_w"].copy(),
                         "qpos":data.qpos.copy(),"qvel":data.qvel.copy()})
         return s
@@ -327,6 +365,11 @@ def run(args):
             elapsed=time.perf_counter()-now
             if action.shape!=(8,) or not np.isfinite(action).all() or np.max(np.abs(action))>1.+1e-9:
                 raise FloatingPointError("NMPC returned an invalid bounded action")
+            raw_action=action.copy()
+            # Same finite action interface as the Isaac plant, not extra float64
+            # actuator precision available only to the MuJoCo controller.
+            action=action.astype(np.float32).astype(float)
+            held_action=action.copy();held_frame=min(k,provider.reference.frames-1)
             for _ in range(provider.contract["decimation"]):
                 data.ctrl[physical.aids]=provider.torque(action,data.qpos,data.qvel)
                 mujoco.mj_step(model,data);mujoco.mj_forward(model,data)
@@ -340,7 +383,7 @@ def run(args):
             objective=predictor.objective.evaluate(pre,held,action,previous,previous_vz,reset_sample=k==0)
             surrogates.update(objective["surrogate_flags"])
             decisions.append({"frame":k,"reference_frame_for_reward":min(k,provider.reference.frames-1),
-                              "time_s":float(data.time),"action":action.tolist(),"compute_s":elapsed,
+                              "time_s":float(data.time),"action":action.tolist(),"raw_cem_action":raw_action.tolist(),"compute_s":elapsed,
                               "solver":info,"objective":objective})
             previous=action.copy();previous_vz=objective["base_com_vz"]
             if k%25==0:
@@ -358,6 +401,7 @@ def run(args):
                  reference_root_xy_m=provider.reference.archive["body_pos_w"][:,0,:2],
                  qpos_joint_names=np.array([model.joint(i).name for i in range(1,model.njnt)]),
                  body_names=np.array(BODY_NAMES),action_joint_names=np.array(JOINT_NAMES))
+    trace.update(physics_dt_s=np.array(model.opt.timestep),policy_dt_s=np.array(provider.dt))
     trace.update(reference_id=np.array(reference_spec["reference_id"]),
                  reference_role=np.array(reference_spec["role"]),reference_stratum=np.array(reference_spec["stratum"]),
                  reference_evaluation_core_interval_s=np.array(reference_spec["evaluation_core_interval_s"]),
@@ -394,6 +438,9 @@ def parser():
                    help="Predeclare predictor scenarios independently of plant mu")
     p.add_argument("--output-dir",type=Path,required=True)
     p.add_argument("--max-policy-steps",type=int,default=None)
+    p.add_argument("--prediction-backend",choices=("python","native"),default="python",
+                   help="Native requires explicit prebuilt, hash-verified isolated CPU worker library")
+    p.add_argument("--native-library",type=Path,default=None)
     for name in ("horizon-steps","control-blocks","candidates","iterations","elite-count"):
         p.add_argument("--"+name,type=int,default=None,help="Explicit CEM override, saved in report")
     return p

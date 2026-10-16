@@ -1,0 +1,2091 @@
+{
+  "schema_version": 1,
+  "kind": "new_beyondmimic_dr_policy_fixed_friction_xy_grid",
+  "policy_training_friction_randomization": true,
+  "planned_training_friction_randomization": true,
+  "core_interval_s": [
+    1.44,
+    4.0
+  ],
+  "screening_limits_m": {
+    "reference_core_rmse": 0.15,
+    "reference_core_peak": 0.3
+  },
+  "provenance": {
+    "training_manifest_sha256": "05a0f66d18f30a56695db27017abb9d65c3694f797f6c80477411eae2a3949b1",
+    "reference_sha256": "afc22f19b813cf10b3e3a90affb0f26f5a7743074f98b262394c69de786e9f6e",
+    "cases": {
+      "mu0p700": {
+        "mu": 0.7,
+        "isaac_trace_sha256": "64dbd6e1a463ccc28dd33a79488ad5b0608b95ebfb33ab374e0e2debfafbd6e9",
+        "mujoco_trace_sha256": "5590fcc94249b0bfa26fc1890b7c5407b51cdd9dc1326f3790bb8f23b068d599",
+        "isaac_report_sha256": "9101171323f5dd95f643ee6d91b24ea98dd34c5e7a44b69c645e669a70c08780",
+        "mujoco_report_sha256": "cb65711d3e4edfd4b90cb4a557674af6e2967a37a2f537eec6af031d6af34f94",
+        "isaac_material_readback": {
+          "expected_friction": 0.7,
+          "robot_runtime_friction_range": [
+            0.699999988079071,
+            0.699999988079071
+          ],
+          "leg_pd_gain_readback": {
+            "kp_range": [
+              500.0,
+              500.0
+            ],
+            "kd_range": [
+              10.0,
+              10.0
+            ]
+          },
+          "ground_colliders": [
+            {
+              "collider": "/World/ground/terrain/GroundPlane/CollisionPlane",
+              "material": "/World/ground/terrain/physicsMaterial",
+              "static_friction": 0.699999988079071,
+              "dynamic_friction": 0.699999988079071
+            }
+          ],
+          "ground_audit": "USD-bound material; robot materials additionally read back from live PhysX"
+        },
+        "mujoco_compiled_friction_range": [
+          0.7,
+          0.7
+        ],
+        "isaac_episode_end": {
+          "end_reason": "timeout",
+          "termination_terms": [
+            "motion_end"
+          ],
+          "completed_full_reference": true
+        },
+        "mujoco_episode_end": {
+          "termination": "motion_end",
+          "termination_terms": [],
+          "completed_full_reference": true
+        },
+        "pose_termination_diagnostics": {
+          "isaac": {
+            "anchor_pos": {
+              "active_policy_steps": 1,
+              "first_trigger_time_s": 0.64,
+              "active_fraction": 0.0028653295128939827
+            },
+            "anchor_ori": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 8,
+              "first_trigger_time_s": 0.32,
+              "active_fraction": 0.022922636103151862
+            }
+          },
+          "mujoco": {
+            "anchor_pos": {
+              "active_policy_steps": 212,
+              "first_trigger_time_s": 0.9600000000000007,
+              "active_fraction": 0.6074498567335244
+            },
+            "anchor_ori": {
+              "active_policy_steps": 205,
+              "first_trigger_time_s": 2.8999999999999604,
+              "active_fraction": 0.5873925501432665
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 55,
+              "first_trigger_time_s": 0.30000000000000016,
+              "active_fraction": 0.15759312320916904
+            }
+          }
+        }
+      },
+      "mu0p010": {
+        "mu": 0.01,
+        "isaac_trace_sha256": "9363ca111cc2e393d2804b32945618616c11a7376dd94455990569d89c6973d2",
+        "mujoco_trace_sha256": "e993ca16546c31915bb23d3be34f2450aa5ef0f751e9eea63c5c38790d76442a",
+        "isaac_report_sha256": "57f9c00ca6cfd224e2d9b37a1ad8aef80b841f836d43cc15ab85d88899e251fa",
+        "mujoco_report_sha256": "d714962b563dec4768dba49d3673fa8a641861c66e1a15be1e110c2a3f7e0e31",
+        "isaac_material_readback": {
+          "expected_friction": 0.01,
+          "robot_runtime_friction_range": [
+            0.009999999776482582,
+            0.009999999776482582
+          ],
+          "leg_pd_gain_readback": {
+            "kp_range": [
+              500.0,
+              500.0
+            ],
+            "kd_range": [
+              10.0,
+              10.0
+            ]
+          },
+          "ground_colliders": [
+            {
+              "collider": "/World/ground/terrain/GroundPlane/CollisionPlane",
+              "material": "/World/ground/terrain/physicsMaterial",
+              "static_friction": 0.009999999776482582,
+              "dynamic_friction": 0.009999999776482582
+            }
+          ],
+          "ground_audit": "USD-bound material; robot materials additionally read back from live PhysX"
+        },
+        "mujoco_compiled_friction_range": [
+          0.01,
+          0.01
+        ],
+        "isaac_episode_end": {
+          "end_reason": "timeout",
+          "termination_terms": [
+            "motion_end"
+          ],
+          "completed_full_reference": true
+        },
+        "mujoco_episode_end": {
+          "termination": "motion_end",
+          "termination_terms": [],
+          "completed_full_reference": true
+        },
+        "pose_termination_diagnostics": {
+          "isaac": {
+            "anchor_pos": {
+              "active_policy_steps": 259,
+              "first_trigger_time_s": 0.88,
+              "active_fraction": 0.7421203438395415
+            },
+            "anchor_ori": {
+              "active_policy_steps": 153,
+              "first_trigger_time_s": 0.74,
+              "active_fraction": 0.4383954154727794
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 26,
+              "first_trigger_time_s": 0.28,
+              "active_fraction": 0.07449856733524356
+            }
+          },
+          "mujoco": {
+            "anchor_pos": {
+              "active_policy_steps": 293,
+              "first_trigger_time_s": 0.8800000000000007,
+              "active_fraction": 0.839541547277937
+            },
+            "anchor_ori": {
+              "active_policy_steps": 286,
+              "first_trigger_time_s": 0.7000000000000005,
+              "active_fraction": 0.8194842406876791
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 39,
+              "first_trigger_time_s": 0.2600000000000001,
+              "active_fraction": 0.11174785100286533
+            }
+          }
+        }
+      },
+      "mu0p030": {
+        "mu": 0.03,
+        "isaac_trace_sha256": "132b4d6f66aa1134835fe933130a3b5817a5900e88edb647951c35dbaf518465",
+        "mujoco_trace_sha256": "b06e763efda73ea1a4c22bc1cd64599e3f02549091c977152f6304005166bcab",
+        "isaac_report_sha256": "6e37a6046c1e09ac31b63119b54073542e6506e91a6b2f0c7eaa236a6f1a2d40",
+        "mujoco_report_sha256": "650b769912dff9c819a9b966b59373cc574a301c70a8569297172d1dc54ca510",
+        "isaac_material_readback": {
+          "expected_friction": 0.03,
+          "robot_runtime_friction_range": [
+            0.029999999329447746,
+            0.029999999329447746
+          ],
+          "leg_pd_gain_readback": {
+            "kp_range": [
+              500.0,
+              500.0
+            ],
+            "kd_range": [
+              10.0,
+              10.0
+            ]
+          },
+          "ground_colliders": [
+            {
+              "collider": "/World/ground/terrain/GroundPlane/CollisionPlane",
+              "material": "/World/ground/terrain/physicsMaterial",
+              "static_friction": 0.029999999329447746,
+              "dynamic_friction": 0.029999999329447746
+            }
+          ],
+          "ground_audit": "USD-bound material; robot materials additionally read back from live PhysX"
+        },
+        "mujoco_compiled_friction_range": [
+          0.03,
+          0.03
+        ],
+        "isaac_episode_end": {
+          "end_reason": "timeout",
+          "termination_terms": [
+            "motion_end"
+          ],
+          "completed_full_reference": true
+        },
+        "mujoco_episode_end": {
+          "termination": "motion_end",
+          "termination_terms": [],
+          "completed_full_reference": true
+        },
+        "pose_termination_diagnostics": {
+          "isaac": {
+            "anchor_pos": {
+              "active_policy_steps": 5,
+              "first_trigger_time_s": 0.68,
+              "active_fraction": 0.014326647564469915
+            },
+            "anchor_ori": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 6,
+              "first_trigger_time_s": 0.26,
+              "active_fraction": 0.017191977077363897
+            }
+          },
+          "mujoco": {
+            "anchor_pos": {
+              "active_policy_steps": 310,
+              "first_trigger_time_s": 0.7200000000000005,
+              "active_fraction": 0.8882521489971347
+            },
+            "anchor_ori": {
+              "active_policy_steps": 35,
+              "first_trigger_time_s": 0.5800000000000004,
+              "active_fraction": 0.10028653295128939
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 39,
+              "first_trigger_time_s": 0.2600000000000001,
+              "active_fraction": 0.11174785100286533
+            }
+          }
+        }
+      },
+      "mu0p050": {
+        "mu": 0.05,
+        "isaac_trace_sha256": "885de76b2c28da054c3bb6b8124717d9ac490d1f72661d6671a1faf8d34946b1",
+        "mujoco_trace_sha256": "ecab1df8421e6388971ef5dca84ab02af205772abc255388836b60f0b08616e4",
+        "isaac_report_sha256": "6e7cefc99f310524f5677e411f928aab3413e4f3840b5d30d5876025070fe71d",
+        "mujoco_report_sha256": "1f31e5adcd2c9ebceaac45fb6ce526099fe5a8da2f02384d7da01c090339748a",
+        "isaac_material_readback": {
+          "expected_friction": 0.05,
+          "robot_runtime_friction_range": [
+            0.05000000074505806,
+            0.05000000074505806
+          ],
+          "leg_pd_gain_readback": {
+            "kp_range": [
+              500.0,
+              500.0
+            ],
+            "kd_range": [
+              10.0,
+              10.0
+            ]
+          },
+          "ground_colliders": [
+            {
+              "collider": "/World/ground/terrain/GroundPlane/CollisionPlane",
+              "material": "/World/ground/terrain/physicsMaterial",
+              "static_friction": 0.05000000074505806,
+              "dynamic_friction": 0.05000000074505806
+            }
+          ],
+          "ground_audit": "USD-bound material; robot materials additionally read back from live PhysX"
+        },
+        "mujoco_compiled_friction_range": [
+          0.05,
+          0.05
+        ],
+        "isaac_episode_end": {
+          "end_reason": "timeout",
+          "termination_terms": [
+            "motion_end"
+          ],
+          "completed_full_reference": true
+        },
+        "mujoco_episode_end": {
+          "termination": "motion_end",
+          "termination_terms": [],
+          "completed_full_reference": true
+        },
+        "pose_termination_diagnostics": {
+          "isaac": {
+            "anchor_pos": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "anchor_ori": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 5,
+              "first_trigger_time_s": 0.3,
+              "active_fraction": 0.014326647564469915
+            }
+          },
+          "mujoco": {
+            "anchor_pos": {
+              "active_policy_steps": 5,
+              "first_trigger_time_s": 0.7800000000000006,
+              "active_fraction": 0.014326647564469915
+            },
+            "anchor_ori": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 6,
+              "first_trigger_time_s": 0.28000000000000014,
+              "active_fraction": 0.017191977077363897
+            }
+          }
+        }
+      },
+      "mu0p100": {
+        "mu": 0.1,
+        "isaac_trace_sha256": "2e3c9e5cac19b463ccc8cd975d8bc955d660bba589b1891d86bcdf45fc32c893",
+        "mujoco_trace_sha256": "417f290c3db77c59b7b6629e3c5ee03beda6db49b3f6ecc578c98b97a01723fe",
+        "isaac_report_sha256": "34cfa9afba672ef8bd9f2f24fc61bbd938a5eef86816ca0aa49e06a96756129b",
+        "mujoco_report_sha256": "24875671d72fc94081e64d1aebf97b7f358ee4188eb6b39d36eda0de9e689115",
+        "isaac_material_readback": {
+          "expected_friction": 0.1,
+          "robot_runtime_friction_range": [
+            0.10000000149011612,
+            0.10000000149011612
+          ],
+          "leg_pd_gain_readback": {
+            "kp_range": [
+              500.0,
+              500.0
+            ],
+            "kd_range": [
+              10.0,
+              10.0
+            ]
+          },
+          "ground_colliders": [
+            {
+              "collider": "/World/ground/terrain/GroundPlane/CollisionPlane",
+              "material": "/World/ground/terrain/physicsMaterial",
+              "static_friction": 0.10000000149011612,
+              "dynamic_friction": 0.10000000149011612
+            }
+          ],
+          "ground_audit": "USD-bound material; robot materials additionally read back from live PhysX"
+        },
+        "mujoco_compiled_friction_range": [
+          0.1,
+          0.1
+        ],
+        "isaac_episode_end": {
+          "end_reason": "timeout",
+          "termination_terms": [
+            "motion_end"
+          ],
+          "completed_full_reference": true
+        },
+        "mujoco_episode_end": {
+          "termination": "motion_end",
+          "termination_terms": [],
+          "completed_full_reference": true
+        },
+        "pose_termination_diagnostics": {
+          "isaac": {
+            "anchor_pos": {
+              "active_policy_steps": 7,
+              "first_trigger_time_s": 0.62,
+              "active_fraction": 0.02005730659025788
+            },
+            "anchor_ori": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 1,
+              "first_trigger_time_s": 0.48,
+              "active_fraction": 0.0028653295128939827
+            }
+          },
+          "mujoco": {
+            "anchor_pos": {
+              "active_policy_steps": 20,
+              "first_trigger_time_s": 0.6200000000000004,
+              "active_fraction": 0.05730659025787966
+            },
+            "anchor_ori": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 7,
+              "first_trigger_time_s": 0.28000000000000014,
+              "active_fraction": 0.02005730659025788
+            }
+          }
+        }
+      },
+      "mu0p150": {
+        "mu": 0.15,
+        "isaac_trace_sha256": "5de8d223411d3563a1f7becae07c779079153154fb5041fa301e570a599c49bc",
+        "mujoco_trace_sha256": "e6db6130581b5d5826cf09158cc2344e1d9a23ecca01a48b4f6a78ce65b8d11a",
+        "isaac_report_sha256": "091175885bfeee2aea56c42776c30ea25e67ff3d11fb18cd4c8ade5ff9f44b2a",
+        "mujoco_report_sha256": "ffa0f6916486f2e3ea06610cc8c084f185eba7c85fdd626752eb35081801ec89",
+        "isaac_material_readback": {
+          "expected_friction": 0.15,
+          "robot_runtime_friction_range": [
+            0.15000000596046448,
+            0.15000000596046448
+          ],
+          "leg_pd_gain_readback": {
+            "kp_range": [
+              500.0,
+              500.0
+            ],
+            "kd_range": [
+              10.0,
+              10.0
+            ]
+          },
+          "ground_colliders": [
+            {
+              "collider": "/World/ground/terrain/GroundPlane/CollisionPlane",
+              "material": "/World/ground/terrain/physicsMaterial",
+              "static_friction": 0.15000000596046448,
+              "dynamic_friction": 0.15000000596046448
+            }
+          ],
+          "ground_audit": "USD-bound material; robot materials additionally read back from live PhysX"
+        },
+        "mujoco_compiled_friction_range": [
+          0.15,
+          0.15
+        ],
+        "isaac_episode_end": {
+          "end_reason": "timeout",
+          "termination_terms": [
+            "motion_end"
+          ],
+          "completed_full_reference": true
+        },
+        "mujoco_episode_end": {
+          "termination": "motion_end",
+          "termination_terms": [],
+          "completed_full_reference": true
+        },
+        "pose_termination_diagnostics": {
+          "isaac": {
+            "anchor_pos": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "anchor_ori": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 1,
+              "first_trigger_time_s": 0.48,
+              "active_fraction": 0.0028653295128939827
+            }
+          },
+          "mujoco": {
+            "anchor_pos": {
+              "active_policy_steps": 321,
+              "first_trigger_time_s": 0.5800000000000004,
+              "active_fraction": 0.9197707736389685
+            },
+            "anchor_ori": {
+              "active_policy_steps": 316,
+              "first_trigger_time_s": 0.6800000000000005,
+              "active_fraction": 0.9054441260744985
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 15,
+              "first_trigger_time_s": 0.2600000000000001,
+              "active_fraction": 0.04297994269340974
+            }
+          }
+        }
+      },
+      "mu0p200": {
+        "mu": 0.2,
+        "isaac_trace_sha256": "e617830d6fd4eb94b3e4bea0cf0194f2043ab7e630cd46a0cca612ebf5a2bf7e",
+        "mujoco_trace_sha256": "d6ddc8cbae9866475f97b89ba23d97a38bc65c00042e0a2a553db77626f1211e",
+        "isaac_report_sha256": "14f8c4ee90e1858484d3dadf29b5013cbf3c2552a43793fdd222f6fe277d5e8f",
+        "mujoco_report_sha256": "15747a46261ebfac976978fae36921d2b856bb2addb5d37cde788d3be0cbd6b9",
+        "isaac_material_readback": {
+          "expected_friction": 0.2,
+          "robot_runtime_friction_range": [
+            0.20000000298023224,
+            0.20000000298023224
+          ],
+          "leg_pd_gain_readback": {
+            "kp_range": [
+              500.0,
+              500.0
+            ],
+            "kd_range": [
+              10.0,
+              10.0
+            ]
+          },
+          "ground_colliders": [
+            {
+              "collider": "/World/ground/terrain/GroundPlane/CollisionPlane",
+              "material": "/World/ground/terrain/physicsMaterial",
+              "static_friction": 0.20000000298023224,
+              "dynamic_friction": 0.20000000298023224
+            }
+          ],
+          "ground_audit": "USD-bound material; robot materials additionally read back from live PhysX"
+        },
+        "mujoco_compiled_friction_range": [
+          0.2,
+          0.2
+        ],
+        "isaac_episode_end": {
+          "end_reason": "timeout",
+          "termination_terms": [
+            "motion_end"
+          ],
+          "completed_full_reference": true
+        },
+        "mujoco_episode_end": {
+          "termination": "motion_end",
+          "termination_terms": [],
+          "completed_full_reference": true
+        },
+        "pose_termination_diagnostics": {
+          "isaac": {
+            "anchor_pos": {
+              "active_policy_steps": 7,
+              "first_trigger_time_s": 0.62,
+              "active_fraction": 0.02005730659025788
+            },
+            "anchor_ori": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            }
+          },
+          "mujoco": {
+            "anchor_pos": {
+              "active_policy_steps": 3,
+              "first_trigger_time_s": 1.6599999999999866,
+              "active_fraction": 0.008595988538681949
+            },
+            "anchor_ori": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 10,
+              "first_trigger_time_s": 0.30000000000000016,
+              "active_fraction": 0.02865329512893983
+            }
+          }
+        }
+      },
+      "mu0p300": {
+        "mu": 0.3,
+        "isaac_trace_sha256": "027ab54a220dd3b4fc07e1da8162ee92f89813fd481495bae655848c4363b7d9",
+        "mujoco_trace_sha256": "d18b1af62daef83a5c83219c7c350ae0829505ca91191b3fa602023d0bfc8ad5",
+        "isaac_report_sha256": "0e5ca25e4f0c48a858a0371655d629699fc32e3af51c6b2e5ac91a6d86df82ca",
+        "mujoco_report_sha256": "fd693579acad77e7d592937951b739e763574838fce5f6048e5365edd862149c",
+        "isaac_material_readback": {
+          "expected_friction": 0.3,
+          "robot_runtime_friction_range": [
+            0.30000001192092896,
+            0.30000001192092896
+          ],
+          "leg_pd_gain_readback": {
+            "kp_range": [
+              500.0,
+              500.0
+            ],
+            "kd_range": [
+              10.0,
+              10.0
+            ]
+          },
+          "ground_colliders": [
+            {
+              "collider": "/World/ground/terrain/GroundPlane/CollisionPlane",
+              "material": "/World/ground/terrain/physicsMaterial",
+              "static_friction": 0.30000001192092896,
+              "dynamic_friction": 0.30000001192092896
+            }
+          ],
+          "ground_audit": "USD-bound material; robot materials additionally read back from live PhysX"
+        },
+        "mujoco_compiled_friction_range": [
+          0.3,
+          0.3
+        ],
+        "isaac_episode_end": {
+          "end_reason": "timeout",
+          "termination_terms": [
+            "motion_end"
+          ],
+          "completed_full_reference": true
+        },
+        "mujoco_episode_end": {
+          "termination": "motion_end",
+          "termination_terms": [],
+          "completed_full_reference": true
+        },
+        "pose_termination_diagnostics": {
+          "isaac": {
+            "anchor_pos": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "anchor_ori": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 7,
+              "first_trigger_time_s": 0.32,
+              "active_fraction": 0.02005730659025788
+            }
+          },
+          "mujoco": {
+            "anchor_pos": {
+              "active_policy_steps": 52,
+              "first_trigger_time_s": 0.6000000000000004,
+              "active_fraction": 0.1489971346704871
+            },
+            "anchor_ori": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 11,
+              "first_trigger_time_s": 0.3200000000000002,
+              "active_fraction": 0.03151862464183381
+            }
+          }
+        }
+      },
+      "mu0p450": {
+        "mu": 0.45,
+        "isaac_trace_sha256": "8e209d7b17a4c9c0cec64cc541073c95b9d2648dd485cb29be666ca4e2a76276",
+        "mujoco_trace_sha256": "628c0d61e9b8acb445b6dda0ca09b826c6b2986d0ded32f44ea1c622502ec124",
+        "isaac_report_sha256": "d1d9356d67e180e5f161ea9fbbe0905840dc3133407624a386d04fd34408d402",
+        "mujoco_report_sha256": "4edcfcc840544d6594b862620fe41a88834d88024e173b1076b1a422841d7f51",
+        "isaac_material_readback": {
+          "expected_friction": 0.45,
+          "robot_runtime_friction_range": [
+            0.44999998807907104,
+            0.44999998807907104
+          ],
+          "leg_pd_gain_readback": {
+            "kp_range": [
+              500.0,
+              500.0
+            ],
+            "kd_range": [
+              10.0,
+              10.0
+            ]
+          },
+          "ground_colliders": [
+            {
+              "collider": "/World/ground/terrain/GroundPlane/CollisionPlane",
+              "material": "/World/ground/terrain/physicsMaterial",
+              "static_friction": 0.44999998807907104,
+              "dynamic_friction": 0.44999998807907104
+            }
+          ],
+          "ground_audit": "USD-bound material; robot materials additionally read back from live PhysX"
+        },
+        "mujoco_compiled_friction_range": [
+          0.45,
+          0.45
+        ],
+        "isaac_episode_end": {
+          "end_reason": "timeout",
+          "termination_terms": [
+            "motion_end"
+          ],
+          "completed_full_reference": true
+        },
+        "mujoco_episode_end": {
+          "termination": "motion_end",
+          "termination_terms": [],
+          "completed_full_reference": true
+        },
+        "pose_termination_diagnostics": {
+          "isaac": {
+            "anchor_pos": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "anchor_ori": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 14,
+              "first_trigger_time_s": 0.26,
+              "active_fraction": 0.04011461318051576
+            }
+          },
+          "mujoco": {
+            "anchor_pos": {
+              "active_policy_steps": 324,
+              "first_trigger_time_s": 0.5200000000000004,
+              "active_fraction": 0.9283667621776505
+            },
+            "anchor_ori": {
+              "active_policy_steps": 325,
+              "first_trigger_time_s": 0.5000000000000003,
+              "active_fraction": 0.9312320916905444
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 15,
+              "first_trigger_time_s": 0.2600000000000001,
+              "active_fraction": 0.04297994269340974
+            }
+          }
+        }
+      },
+      "mu0p600": {
+        "mu": 0.6,
+        "isaac_trace_sha256": "d4df0e557c6576f145d9e484c74695b5f0c0bd9cb389e8f41d7d6e983b255186",
+        "mujoco_trace_sha256": "7196acb559312fe85269260069dce4983dafb9690f708751b07665594f3b7cb6",
+        "isaac_report_sha256": "8fb723bffa85b40b4a8803ea23a444fb91d6cafbc7400ee978f6377b960a6fb4",
+        "mujoco_report_sha256": "d06da5f5fb38a9e1271093862c25a0b6a3dc9e984722add4022a43dd9b8001ba",
+        "isaac_material_readback": {
+          "expected_friction": 0.6,
+          "robot_runtime_friction_range": [
+            0.6000000238418579,
+            0.6000000238418579
+          ],
+          "leg_pd_gain_readback": {
+            "kp_range": [
+              500.0,
+              500.0
+            ],
+            "kd_range": [
+              10.0,
+              10.0
+            ]
+          },
+          "ground_colliders": [
+            {
+              "collider": "/World/ground/terrain/GroundPlane/CollisionPlane",
+              "material": "/World/ground/terrain/physicsMaterial",
+              "static_friction": 0.6000000238418579,
+              "dynamic_friction": 0.6000000238418579
+            }
+          ],
+          "ground_audit": "USD-bound material; robot materials additionally read back from live PhysX"
+        },
+        "mujoco_compiled_friction_range": [
+          0.6,
+          0.6
+        ],
+        "isaac_episode_end": {
+          "end_reason": "timeout",
+          "termination_terms": [
+            "motion_end"
+          ],
+          "completed_full_reference": true
+        },
+        "mujoco_episode_end": {
+          "termination": "motion_end",
+          "termination_terms": [],
+          "completed_full_reference": true
+        },
+        "pose_termination_diagnostics": {
+          "isaac": {
+            "anchor_pos": {
+              "active_policy_steps": 4,
+              "first_trigger_time_s": 0.64,
+              "active_fraction": 0.011461318051575931
+            },
+            "anchor_ori": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 11,
+              "first_trigger_time_s": 0.28,
+              "active_fraction": 0.03151862464183381
+            }
+          },
+          "mujoco": {
+            "anchor_pos": {
+              "active_policy_steps": 320,
+              "first_trigger_time_s": 0.6000000000000004,
+              "active_fraction": 0.9169054441260746
+            },
+            "anchor_ori": {
+              "active_policy_steps": 312,
+              "first_trigger_time_s": 0.7600000000000006,
+              "active_fraction": 0.8939828080229226
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 4,
+              "first_trigger_time_s": 0.4400000000000003,
+              "active_fraction": 0.011461318051575931
+            }
+          }
+        }
+      },
+      "mu0p800": {
+        "mu": 0.8,
+        "isaac_trace_sha256": "3b0b8c70a7852a22ab07498dfddd4f1cfdf769b562cf43a9c6c5ffc332be2ea8",
+        "mujoco_trace_sha256": "3d7b8b7dbded0686a9dd46931b7f5686c4c504c0b44b52fab20658e9ceadf04e",
+        "isaac_report_sha256": "423775484ff74d1105222017e0c6243ce55b44127ee2d0d10f9af5fc40392037",
+        "mujoco_report_sha256": "dbc681f162740db040bfec6e54819dbb086e7fd343ce692b8e604bcc37ae5936",
+        "isaac_material_readback": {
+          "expected_friction": 0.8,
+          "robot_runtime_friction_range": [
+            0.800000011920929,
+            0.800000011920929
+          ],
+          "leg_pd_gain_readback": {
+            "kp_range": [
+              500.0,
+              500.0
+            ],
+            "kd_range": [
+              10.0,
+              10.0
+            ]
+          },
+          "ground_colliders": [
+            {
+              "collider": "/World/ground/terrain/GroundPlane/CollisionPlane",
+              "material": "/World/ground/terrain/physicsMaterial",
+              "static_friction": 0.800000011920929,
+              "dynamic_friction": 0.800000011920929
+            }
+          ],
+          "ground_audit": "USD-bound material; robot materials additionally read back from live PhysX"
+        },
+        "mujoco_compiled_friction_range": [
+          0.8,
+          0.8
+        ],
+        "isaac_episode_end": {
+          "end_reason": "timeout",
+          "termination_terms": [
+            "motion_end"
+          ],
+          "completed_full_reference": true
+        },
+        "mujoco_episode_end": {
+          "termination": "motion_end",
+          "termination_terms": [],
+          "completed_full_reference": true
+        },
+        "pose_termination_diagnostics": {
+          "isaac": {
+            "anchor_pos": {
+              "active_policy_steps": 14,
+              "first_trigger_time_s": 0.88,
+              "active_fraction": 0.04011461318051576
+            },
+            "anchor_ori": {
+              "active_policy_steps": 7,
+              "first_trigger_time_s": 1.0,
+              "active_fraction": 0.02005730659025788
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 12,
+              "first_trigger_time_s": 0.62,
+              "active_fraction": 0.034383954154727794
+            }
+          },
+          "mujoco": {
+            "anchor_pos": {
+              "active_policy_steps": 92,
+              "first_trigger_time_s": 2.8999999999999604,
+              "active_fraction": 0.2636103151862464
+            },
+            "anchor_ori": {
+              "active_policy_steps": 78,
+              "first_trigger_time_s": 5.439999999999906,
+              "active_fraction": 0.22349570200573066
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 13,
+              "first_trigger_time_s": 0.2600000000000001,
+              "active_fraction": 0.03724928366762178
+            }
+          }
+        }
+      },
+      "mu1p000": {
+        "mu": 1.0,
+        "isaac_trace_sha256": "769bdb5b4b42f38931a54db7f730c172d815bcb1fc502c793796f73f39894b52",
+        "mujoco_trace_sha256": "fd9d3403fed35ae9e1265f462c7e1a33a1a5ac6c51f8e58ad801ef7b94c053b4",
+        "isaac_report_sha256": "329d623d31eb7b3df70e32b950e962257b6e3db43593888a10aa59dab96791bd",
+        "mujoco_report_sha256": "e51f8efcf235187d05e35fda732f47585bf7a96a42036c62d686a911c73fa30d",
+        "isaac_material_readback": {
+          "expected_friction": 1.0,
+          "robot_runtime_friction_range": [
+            1.0,
+            1.0
+          ],
+          "leg_pd_gain_readback": {
+            "kp_range": [
+              500.0,
+              500.0
+            ],
+            "kd_range": [
+              10.0,
+              10.0
+            ]
+          },
+          "ground_colliders": [
+            {
+              "collider": "/World/ground/terrain/GroundPlane/CollisionPlane",
+              "material": "/World/ground/terrain/physicsMaterial",
+              "static_friction": 1.0,
+              "dynamic_friction": 1.0
+            }
+          ],
+          "ground_audit": "USD-bound material; robot materials additionally read back from live PhysX"
+        },
+        "mujoco_compiled_friction_range": [
+          1.0,
+          1.0
+        ],
+        "isaac_episode_end": {
+          "end_reason": "timeout",
+          "termination_terms": [
+            "motion_end"
+          ],
+          "completed_full_reference": true
+        },
+        "mujoco_episode_end": {
+          "termination": "motion_end",
+          "termination_terms": [],
+          "completed_full_reference": true
+        },
+        "pose_termination_diagnostics": {
+          "isaac": {
+            "anchor_pos": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "anchor_ori": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 4,
+              "first_trigger_time_s": 0.86,
+              "active_fraction": 0.011461318051575931
+            }
+          },
+          "mujoco": {
+            "anchor_pos": {
+              "active_policy_steps": 76,
+              "first_trigger_time_s": 0.7600000000000006,
+              "active_fraction": 0.2177650429799427
+            },
+            "anchor_ori": {
+              "active_policy_steps": 50,
+              "first_trigger_time_s": 5.999999999999894,
+              "active_fraction": 0.14326647564469913
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 8,
+              "first_trigger_time_s": 0.3200000000000002,
+              "active_fraction": 0.022922636103151862
+            }
+          }
+        }
+      },
+      "mu1p200": {
+        "mu": 1.2,
+        "isaac_trace_sha256": "6c8f34051f3e09b7c08697c87c179d3b854ddc02253fca6d4811f78d56b18e4e",
+        "mujoco_trace_sha256": "fe80143b5b38e7259e126aaa302947b5cfa85123681bd1e158f0ede0d239d825",
+        "isaac_report_sha256": "ff9cd6d1188478551e94cda7cb368991ec766943aca2b9d341ba33712780cc89",
+        "mujoco_report_sha256": "8efbe48826780719d8b716dcb1702126c3a8a651cbc81a3b7cf1f0f08d2f063d",
+        "isaac_material_readback": {
+          "expected_friction": 1.2,
+          "robot_runtime_friction_range": [
+            1.2000000476837158,
+            1.2000000476837158
+          ],
+          "leg_pd_gain_readback": {
+            "kp_range": [
+              500.0,
+              500.0
+            ],
+            "kd_range": [
+              10.0,
+              10.0
+            ]
+          },
+          "ground_colliders": [
+            {
+              "collider": "/World/ground/terrain/GroundPlane/CollisionPlane",
+              "material": "/World/ground/terrain/physicsMaterial",
+              "static_friction": 1.2000000476837158,
+              "dynamic_friction": 1.2000000476837158
+            }
+          ],
+          "ground_audit": "USD-bound material; robot materials additionally read back from live PhysX"
+        },
+        "mujoco_compiled_friction_range": [
+          1.2,
+          1.2
+        ],
+        "isaac_episode_end": {
+          "end_reason": "timeout",
+          "termination_terms": [
+            "motion_end"
+          ],
+          "completed_full_reference": true
+        },
+        "mujoco_episode_end": {
+          "termination": "motion_end",
+          "termination_terms": [],
+          "completed_full_reference": true
+        },
+        "pose_termination_diagnostics": {
+          "isaac": {
+            "anchor_pos": {
+              "active_policy_steps": 5,
+              "first_trigger_time_s": 0.64,
+              "active_fraction": 0.014326647564469915
+            },
+            "anchor_ori": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            }
+          },
+          "mujoco": {
+            "anchor_pos": {
+              "active_policy_steps": 7,
+              "first_trigger_time_s": 0.7600000000000006,
+              "active_fraction": 0.02005730659025788
+            },
+            "anchor_ori": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 9,
+              "first_trigger_time_s": 0.3800000000000002,
+              "active_fraction": 0.025787965616045846
+            }
+          }
+        }
+      },
+      "mu1p400": {
+        "mu": 1.4,
+        "isaac_trace_sha256": "01c062085a30aea5200bf065571a3a0bc89214848468c9645b9fad8b9d5d8b77",
+        "mujoco_trace_sha256": "b566a8bd631c71f9449171b9af6911ba6177e739d39c2283eb573dfaaa573464",
+        "isaac_report_sha256": "b584ddeafc14ddd1bc68170f33a91e06a0bc074b00e00a7a30e69883b65d7420",
+        "mujoco_report_sha256": "d00b6d2bd22db0cf01aad9b50e4eaa8b85c46410c539ff2da66e953f0892d6ac",
+        "isaac_material_readback": {
+          "expected_friction": 1.4,
+          "robot_runtime_friction_range": [
+            1.399999976158142,
+            1.399999976158142
+          ],
+          "leg_pd_gain_readback": {
+            "kp_range": [
+              500.0,
+              500.0
+            ],
+            "kd_range": [
+              10.0,
+              10.0
+            ]
+          },
+          "ground_colliders": [
+            {
+              "collider": "/World/ground/terrain/GroundPlane/CollisionPlane",
+              "material": "/World/ground/terrain/physicsMaterial",
+              "static_friction": 1.399999976158142,
+              "dynamic_friction": 1.399999976158142
+            }
+          ],
+          "ground_audit": "USD-bound material; robot materials additionally read back from live PhysX"
+        },
+        "mujoco_compiled_friction_range": [
+          1.4,
+          1.4
+        ],
+        "isaac_episode_end": {
+          "end_reason": "timeout",
+          "termination_terms": [
+            "motion_end"
+          ],
+          "completed_full_reference": true
+        },
+        "mujoco_episode_end": {
+          "termination": "motion_end",
+          "termination_terms": [],
+          "completed_full_reference": true
+        },
+        "pose_termination_diagnostics": {
+          "isaac": {
+            "anchor_pos": {
+              "active_policy_steps": 310,
+              "first_trigger_time_s": 0.8,
+              "active_fraction": 0.8882521489971347
+            },
+            "anchor_ori": {
+              "active_policy_steps": 24,
+              "first_trigger_time_s": 6.46,
+              "active_fraction": 0.06876790830945559
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 23,
+              "first_trigger_time_s": 0.66,
+              "active_fraction": 0.0659025787965616
+            }
+          },
+          "mujoco": {
+            "anchor_pos": {
+              "active_policy_steps": 5,
+              "first_trigger_time_s": 3.199999999999954,
+              "active_fraction": 0.014326647564469915
+            },
+            "anchor_ori": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 5,
+              "first_trigger_time_s": 0.40000000000000024,
+              "active_fraction": 0.014326647564469915
+            }
+          }
+        }
+      },
+      "mu1p600": {
+        "mu": 1.6,
+        "isaac_trace_sha256": "fa0a131586d6ad8922dd44d20c685e53669bebe50ae2edfa91427e1de247ebe5",
+        "mujoco_trace_sha256": "5507fdb9f0e4cad815ede053340514f22ac150007ccda41a88338387dcc51e8b",
+        "isaac_report_sha256": "e6eb1b96b6886a21d42a78d350dcdb1eb8c5e4bd3bf74836e7727397d23d000d",
+        "mujoco_report_sha256": "c005fb3fdec87abe501680eefa6a2149b278f46036d2695a8eca8915c00d9134",
+        "isaac_material_readback": {
+          "expected_friction": 1.6,
+          "robot_runtime_friction_range": [
+            1.600000023841858,
+            1.600000023841858
+          ],
+          "leg_pd_gain_readback": {
+            "kp_range": [
+              500.0,
+              500.0
+            ],
+            "kd_range": [
+              10.0,
+              10.0
+            ]
+          },
+          "ground_colliders": [
+            {
+              "collider": "/World/ground/terrain/GroundPlane/CollisionPlane",
+              "material": "/World/ground/terrain/physicsMaterial",
+              "static_friction": 1.600000023841858,
+              "dynamic_friction": 1.600000023841858
+            }
+          ],
+          "ground_audit": "USD-bound material; robot materials additionally read back from live PhysX"
+        },
+        "mujoco_compiled_friction_range": [
+          1.6,
+          1.6
+        ],
+        "isaac_episode_end": {
+          "end_reason": "timeout",
+          "termination_terms": [
+            "motion_end"
+          ],
+          "completed_full_reference": true
+        },
+        "mujoco_episode_end": {
+          "termination": "motion_end",
+          "termination_terms": [],
+          "completed_full_reference": true
+        },
+        "pose_termination_diagnostics": {
+          "isaac": {
+            "anchor_pos": {
+              "active_policy_steps": 6,
+              "first_trigger_time_s": 0.6,
+              "active_fraction": 0.017191977077363897
+            },
+            "anchor_ori": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            }
+          },
+          "mujoco": {
+            "anchor_pos": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "anchor_ori": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 8,
+              "first_trigger_time_s": 0.3600000000000002,
+              "active_fraction": 0.022922636103151862
+            }
+          }
+        }
+      },
+      "mu1p800": {
+        "mu": 1.8,
+        "isaac_trace_sha256": "2a75be18361c36cd486fc6acb5ee2345ebeaaccccb1295d7e3a8559b76c5e987",
+        "mujoco_trace_sha256": "8270ed85ac0351a0577e1f9135ead7eb3e8f0bb884ca6d921f34e80a3c75c67c",
+        "isaac_report_sha256": "050f92863eb7566e96f6b11dde0d03d465f66230e788ed846457da05fbc15a9c",
+        "mujoco_report_sha256": "a599e294bc6fc41fa7219d4201abec5dfbfebbeb5a9ace8485d9d4c7dc7f2798",
+        "isaac_material_readback": {
+          "expected_friction": 1.8,
+          "robot_runtime_friction_range": [
+            1.7999999523162842,
+            1.7999999523162842
+          ],
+          "leg_pd_gain_readback": {
+            "kp_range": [
+              500.0,
+              500.0
+            ],
+            "kd_range": [
+              10.0,
+              10.0
+            ]
+          },
+          "ground_colliders": [
+            {
+              "collider": "/World/ground/terrain/GroundPlane/CollisionPlane",
+              "material": "/World/ground/terrain/physicsMaterial",
+              "static_friction": 1.7999999523162842,
+              "dynamic_friction": 1.7999999523162842
+            }
+          ],
+          "ground_audit": "USD-bound material; robot materials additionally read back from live PhysX"
+        },
+        "mujoco_compiled_friction_range": [
+          1.8,
+          1.8
+        ],
+        "isaac_episode_end": {
+          "end_reason": "timeout",
+          "termination_terms": [
+            "motion_end"
+          ],
+          "completed_full_reference": true
+        },
+        "mujoco_episode_end": {
+          "termination": "motion_end",
+          "termination_terms": [],
+          "completed_full_reference": true
+        },
+        "pose_termination_diagnostics": {
+          "isaac": {
+            "anchor_pos": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "anchor_ori": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 3,
+              "first_trigger_time_s": 0.48,
+              "active_fraction": 0.008595988538681949
+            }
+          },
+          "mujoco": {
+            "anchor_pos": {
+              "active_policy_steps": 161,
+              "first_trigger_time_s": 3.7799999999999416,
+              "active_fraction": 0.46131805157593125
+            },
+            "anchor_ori": {
+              "active_policy_steps": 137,
+              "first_trigger_time_s": 4.259999999999931,
+              "active_fraction": 0.39255014326647564
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 6,
+              "first_trigger_time_s": 0.3800000000000002,
+              "active_fraction": 0.017191977077363897
+            }
+          }
+        }
+      },
+      "mu2p000": {
+        "mu": 2.0,
+        "isaac_trace_sha256": "a5cfc2a62010982ec267604aa4b4beefb47918ee4e5566f2d65769cac1143742",
+        "mujoco_trace_sha256": "e545b7383689a2ade57d2d1d738844204fa1b6e0d62ea12de1d2d2306004f9d4",
+        "isaac_report_sha256": "b943706ecca8c7dc9be81d43baa6352699215da7441d5b4cb1deff854dd93dc6",
+        "mujoco_report_sha256": "fcb1d3c57bd0da98d7e151801dbe1054f46f1958b4736a8c02d40b4e9daad852",
+        "isaac_material_readback": {
+          "expected_friction": 2.0,
+          "robot_runtime_friction_range": [
+            2.0,
+            2.0
+          ],
+          "leg_pd_gain_readback": {
+            "kp_range": [
+              500.0,
+              500.0
+            ],
+            "kd_range": [
+              10.0,
+              10.0
+            ]
+          },
+          "ground_colliders": [
+            {
+              "collider": "/World/ground/terrain/GroundPlane/CollisionPlane",
+              "material": "/World/ground/terrain/physicsMaterial",
+              "static_friction": 2.0,
+              "dynamic_friction": 2.0
+            }
+          ],
+          "ground_audit": "USD-bound material; robot materials additionally read back from live PhysX"
+        },
+        "mujoco_compiled_friction_range": [
+          2.0,
+          2.0
+        ],
+        "isaac_episode_end": {
+          "end_reason": "timeout",
+          "termination_terms": [
+            "motion_end"
+          ],
+          "completed_full_reference": true
+        },
+        "mujoco_episode_end": {
+          "termination": "motion_end",
+          "termination_terms": [],
+          "completed_full_reference": true
+        },
+        "pose_termination_diagnostics": {
+          "isaac": {
+            "anchor_pos": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "anchor_ori": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 1,
+              "first_trigger_time_s": 0.52,
+              "active_fraction": 0.0028653295128939827
+            }
+          },
+          "mujoco": {
+            "anchor_pos": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "anchor_ori": {
+              "active_policy_steps": 0,
+              "first_trigger_time_s": null,
+              "active_fraction": 0.0
+            },
+            "ee_body_pos": {
+              "active_policy_steps": 7,
+              "first_trigger_time_s": 0.40000000000000024,
+              "active_fraction": 0.02005730659025788
+            }
+          }
+        }
+      }
+    },
+    "reference_spec": {
+      "reference_id": "drift_drl_traj4",
+      "role": "primary",
+      "stratum": "large_angle_turn",
+      "source": {
+        "repository": "https://github.com/caipeide/drift_drl",
+        "commit": "9f3a125f76ac2c0415014a761a514a511553322c",
+        "csv_path": "code/ref_trajectory/traj_4.csv",
+        "csv_sha256": "eb67a507817605d9b0018bdf2196c04f58f9a9238e7e1906350a7568ab87cf27",
+        "row_interval_inclusive": [
+          1535,
+          1595
+        ],
+        "kind": "CARLA_simulation",
+        "is_physical_car_capture": false,
+        "clock": "reconstructed_estimate_not_original_timestamps"
+      },
+      "motion_npz_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+      "robot_reference_npz_sha256": "afc22f19b813cf10b3e3a90affb0f26f5a7743074f98b262394c69de786e9f6e",
+      "frames": 349,
+      "fps": 50.0,
+      "sample_span_s": 6.96,
+      "source_demo_frames": 249,
+      "source_demo_interval_s": [
+        0.0,
+        4.96
+      ],
+      "evaluation_core_interval_s": [
+        1.44,
+        4.0
+      ],
+      "supplementary_event_windows_s": [],
+      "synthetic_recovery_frames": 75,
+      "stationary_tail_frames": 25,
+      "source_demo_speed_range_m_s": [
+        0.892961323261261,
+        1.3199347257614136
+      ],
+      "source_demo_left_separation_mean_abs_deg": 11.271605282421872,
+      "source_demo_left_separation_peak_abs_deg": 27.22207119854508,
+      "core_course_turn_deg": 60.928079107816444,
+      "spatial_scale": 0.08,
+      "time_scale": 2.0,
+      "pooled_success_statistics": false,
+      "heading_separation_definition": "signed wrap(base_Link COM XY velocity course minus each retargeted wheel rolling-plane heading)",
+      "heading_separation_is_measured_contact_slip": false,
+      "wheel_heading_definition": "world(local +Y wheel axle) crossed with world +Z; independent of axle spin",
+      "motion_contract": {
+        "positions": "world Z-up meters, link origins rather than COM",
+        "linear_velocities": "world-frame original unmerged URDF link COM velocities, m/s",
+        "angular_velocities": "world-frame rad/s",
+        "quaternions": "world-from-link, wxyz",
+        "wheel_spin_observed": false,
+        "wheel_orientation_is_training_target": false,
+        "export_model_sha256": "30c8bb94b32b1804aa2f7de2425f7a8dd02be7792881255388097e2e68092e52",
+        "export_urdf_sha256": "f09c56c15acd507bba43b394e37a9abe024e0111fdde7dbf41796408895ee4c5",
+        "runtime_model_note": "Export-model hashes document kinematic provenance, not an actuator/contact contract; apply and audit the shared validation model settings separately."
+      }
+    },
+    "reference_catalog_sha256": "b2c6062ebc6c25d48d7845ffb8786971f85d7b44e37d5f6f27a9f65e395b96c1",
+    "full_horizon_diagnostic": true,
+    "checkpoint_sha256": "2722b4118347e26aa7c0ce58b3ff5cc67c40194b1350c876becf38a1cd9eeeae",
+    "motion_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+    "source_evaluator_sha256": {
+      "isaac": "76d78337d70519693bc7e8d819a6523a800e1e4889de5a0466c2d34356d2ae9d",
+      "mujoco": "2251d740d7568874a47a232556241cc8d1ee5f5b7be1351d1c657aea8fa85f87",
+      "drift_module": "5fee46238c825a2bcf474e969e93af65834aa1302ce857aa1c553e8a9fbaefaa"
+    }
+  },
+  "rows": [
+    {
+      "case": "mu0p700",
+      "evaluation_mu_static_dynamic_equal": 0.7,
+      "isaac": {
+        "last_observed_time_s": 6.98,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 0.5747731316248378,
+        "full_core_reference_xy_rmse_m": 0.5747731316248378,
+        "full_core_reference_xy_peak_m": 0.7864563659803553,
+        "observed_whole_clip_reference_xy_peak_m": 1.0347546171882513,
+        "large_reference_xy_screen": true
+      },
+      "mujoco": {
+        "last_observed_time_s": 6.979999999999873,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 0.7543466161042293,
+        "full_core_reference_xy_rmse_m": 0.7543466161042293,
+        "full_core_reference_xy_peak_m": 1.0426903158141412,
+        "observed_whole_clip_reference_xy_peak_m": 1.7400078935341954,
+        "large_reference_xy_screen": true
+      },
+      "sim2sim": {
+        "overlap_end_s": 6.979999999999873,
+        "overlap_xy_rmse_m": 1.56534688726573,
+        "overlap_xy_peak_m": 2.7438049580747905,
+        "observed_core_xy_rmse_m": 1.2557389372395986,
+        "full_core_overlap": true,
+        "full_core_xy_rmse_m": 1.2557389372395986
+      }
+    },
+    {
+      "case": "mu0p010",
+      "evaluation_mu_static_dynamic_equal": 0.01,
+      "isaac": {
+        "last_observed_time_s": 6.98,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 1.219697084029749,
+        "full_core_reference_xy_rmse_m": 1.219697084029749,
+        "full_core_reference_xy_peak_m": 2.279899357268287,
+        "observed_whole_clip_reference_xy_peak_m": 5.067981004856147,
+        "large_reference_xy_screen": true
+      },
+      "mujoco": {
+        "last_observed_time_s": 6.979999999999873,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 1.158145797202531,
+        "full_core_reference_xy_rmse_m": 1.158145797202531,
+        "full_core_reference_xy_peak_m": 2.307109430466783,
+        "observed_whole_clip_reference_xy_peak_m": 5.509954385866604,
+        "large_reference_xy_screen": true
+      },
+      "sim2sim": {
+        "overlap_end_s": 6.979999999999873,
+        "overlap_xy_rmse_m": 0.513740729798876,
+        "overlap_xy_peak_m": 0.7930634509988665,
+        "observed_core_xy_rmse_m": 0.2945536116227694,
+        "full_core_overlap": true,
+        "full_core_xy_rmse_m": 0.2945536116227694
+      }
+    },
+    {
+      "case": "mu0p030",
+      "evaluation_mu_static_dynamic_equal": 0.03,
+      "isaac": {
+        "last_observed_time_s": 6.98,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 1.0562038338037916,
+        "full_core_reference_xy_rmse_m": 1.0562038338037916,
+        "full_core_reference_xy_peak_m": 1.9524074025349176,
+        "observed_whole_clip_reference_xy_peak_m": 3.7712669693451515,
+        "large_reference_xy_screen": true
+      },
+      "mujoco": {
+        "last_observed_time_s": 6.979999999999873,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 1.0585296546957823,
+        "full_core_reference_xy_rmse_m": 1.0585296546957823,
+        "full_core_reference_xy_peak_m": 1.9653792103530918,
+        "observed_whole_clip_reference_xy_peak_m": 3.718643235470643,
+        "large_reference_xy_screen": true
+      },
+      "sim2sim": {
+        "overlap_end_s": 6.979999999999873,
+        "overlap_xy_rmse_m": 0.3889978096666472,
+        "overlap_xy_peak_m": 0.9014309873649192,
+        "observed_core_xy_rmse_m": 0.19743787430805515,
+        "full_core_overlap": true,
+        "full_core_xy_rmse_m": 0.19743787430805515
+      }
+    },
+    {
+      "case": "mu0p050",
+      "evaluation_mu_static_dynamic_equal": 0.05,
+      "isaac": {
+        "last_observed_time_s": 6.98,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 1.0288548470940952,
+        "full_core_reference_xy_rmse_m": 1.0288548470940952,
+        "full_core_reference_xy_peak_m": 1.7893398604551378,
+        "observed_whole_clip_reference_xy_peak_m": 3.0426874985418824,
+        "large_reference_xy_screen": true
+      },
+      "mujoco": {
+        "last_observed_time_s": 6.979999999999873,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 1.176012273817342,
+        "full_core_reference_xy_rmse_m": 1.176012273817342,
+        "full_core_reference_xy_peak_m": 2.114691669758283,
+        "observed_whole_clip_reference_xy_peak_m": 3.944524588047343,
+        "large_reference_xy_screen": true
+      },
+      "sim2sim": {
+        "overlap_end_s": 6.979999999999873,
+        "overlap_xy_rmse_m": 0.7613279700638352,
+        "overlap_xy_peak_m": 1.4726604120346145,
+        "observed_core_xy_rmse_m": 0.39712185865235355,
+        "full_core_overlap": true,
+        "full_core_xy_rmse_m": 0.39712185865235355
+      }
+    },
+    {
+      "case": "mu0p100",
+      "evaluation_mu_static_dynamic_equal": 0.1,
+      "isaac": {
+        "last_observed_time_s": 6.98,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 0.6122294367988772,
+        "full_core_reference_xy_rmse_m": 0.6122294367988772,
+        "full_core_reference_xy_peak_m": 0.9238225517662071,
+        "observed_whole_clip_reference_xy_peak_m": 1.8917302409467038,
+        "large_reference_xy_screen": true
+      },
+      "mujoco": {
+        "last_observed_time_s": 6.979999999999873,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 0.7194064890815052,
+        "full_core_reference_xy_rmse_m": 0.7194064890815052,
+        "full_core_reference_xy_peak_m": 1.3630595121072513,
+        "observed_whole_clip_reference_xy_peak_m": 3.2089360963594475,
+        "large_reference_xy_screen": true
+      },
+      "sim2sim": {
+        "overlap_end_s": 6.979999999999873,
+        "overlap_xy_rmse_m": 0.926872973834218,
+        "overlap_xy_peak_m": 1.641493903706145,
+        "observed_core_xy_rmse_m": 0.5462198312055768,
+        "full_core_overlap": true,
+        "full_core_xy_rmse_m": 0.5462198312055768
+      }
+    },
+    {
+      "case": "mu0p150",
+      "evaluation_mu_static_dynamic_equal": 0.15,
+      "isaac": {
+        "last_observed_time_s": 6.98,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 0.37427061252688587,
+        "full_core_reference_xy_rmse_m": 0.37427061252688587,
+        "full_core_reference_xy_peak_m": 0.4417427083951995,
+        "observed_whole_clip_reference_xy_peak_m": 1.6027807893432942,
+        "large_reference_xy_screen": true
+      },
+      "mujoco": {
+        "last_observed_time_s": 6.979999999999873,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 2.0161589443794123,
+        "full_core_reference_xy_rmse_m": 2.0161589443794123,
+        "full_core_reference_xy_peak_m": 2.8868400892801533,
+        "observed_whole_clip_reference_xy_peak_m": 4.207975811302726,
+        "large_reference_xy_screen": true
+      },
+      "sim2sim": {
+        "overlap_end_s": 6.979999999999873,
+        "overlap_xy_rmse_m": 3.1666772005598185,
+        "overlap_xy_peak_m": 5.8074114742706096,
+        "observed_core_xy_rmse_m": 2.075313341504915,
+        "full_core_overlap": true,
+        "full_core_xy_rmse_m": 2.075313341504915
+      }
+    },
+    {
+      "case": "mu0p200",
+      "evaluation_mu_static_dynamic_equal": 0.2,
+      "isaac": {
+        "last_observed_time_s": 6.98,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 0.48424549273516415,
+        "full_core_reference_xy_rmse_m": 0.48424549273516415,
+        "full_core_reference_xy_peak_m": 0.6448575400308477,
+        "observed_whole_clip_reference_xy_peak_m": 0.7945617444760076,
+        "large_reference_xy_screen": true
+      },
+      "mujoco": {
+        "last_observed_time_s": 6.979999999999873,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 1.2188888375863087,
+        "full_core_reference_xy_rmse_m": 1.2188888375863087,
+        "full_core_reference_xy_peak_m": 1.7077907378742796,
+        "observed_whole_clip_reference_xy_peak_m": 2.5452147583157996,
+        "large_reference_xy_screen": true
+      },
+      "sim2sim": {
+        "overlap_end_s": 6.979999999999873,
+        "overlap_xy_rmse_m": 1.0998148146773665,
+        "overlap_xy_peak_m": 2.07151065146833,
+        "observed_core_xy_rmse_m": 0.7578042071724647,
+        "full_core_overlap": true,
+        "full_core_xy_rmse_m": 0.7578042071724647
+      }
+    },
+    {
+      "case": "mu0p300",
+      "evaluation_mu_static_dynamic_equal": 0.3,
+      "isaac": {
+        "last_observed_time_s": 6.98,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 0.591285089134954,
+        "full_core_reference_xy_rmse_m": 0.591285089134954,
+        "full_core_reference_xy_peak_m": 0.7139182463131138,
+        "observed_whole_clip_reference_xy_peak_m": 0.7139182463131138,
+        "large_reference_xy_screen": true
+      },
+      "mujoco": {
+        "last_observed_time_s": 6.979999999999873,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 1.009303839443705,
+        "full_core_reference_xy_rmse_m": 1.009303839443705,
+        "full_core_reference_xy_peak_m": 1.478304034841044,
+        "observed_whole_clip_reference_xy_peak_m": 3.333450115797404,
+        "large_reference_xy_screen": true
+      },
+      "sim2sim": {
+        "overlap_end_s": 6.979999999999873,
+        "overlap_xy_rmse_m": 1.8495476409737657,
+        "overlap_xy_peak_m": 2.894341078340027,
+        "observed_core_xy_rmse_m": 1.5013336383165836,
+        "full_core_overlap": true,
+        "full_core_xy_rmse_m": 1.5013336383165836
+      }
+    },
+    {
+      "case": "mu0p450",
+      "evaluation_mu_static_dynamic_equal": 0.45,
+      "isaac": {
+        "last_observed_time_s": 6.98,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 0.6685283062205121,
+        "full_core_reference_xy_rmse_m": 0.6685283062205121,
+        "full_core_reference_xy_peak_m": 0.7567625470146162,
+        "observed_whole_clip_reference_xy_peak_m": 0.8767875662603981,
+        "large_reference_xy_screen": true
+      },
+      "mujoco": {
+        "last_observed_time_s": 6.979999999999873,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 2.4957726144762105,
+        "full_core_reference_xy_rmse_m": 2.4957726144762105,
+        "full_core_reference_xy_peak_m": 3.40800626542708,
+        "observed_whole_clip_reference_xy_peak_m": 4.693912325117107,
+        "large_reference_xy_screen": true
+      },
+      "sim2sim": {
+        "overlap_end_s": 6.979999999999873,
+        "overlap_xy_rmse_m": 3.0484511844313533,
+        "overlap_xy_peak_m": 5.213408547773628,
+        "observed_core_xy_rmse_m": 1.8975717812877926,
+        "full_core_overlap": true,
+        "full_core_xy_rmse_m": 1.8975717812877926
+      }
+    },
+    {
+      "case": "mu0p600",
+      "evaluation_mu_static_dynamic_equal": 0.6,
+      "isaac": {
+        "last_observed_time_s": 6.98,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 0.6933066199736976,
+        "full_core_reference_xy_rmse_m": 0.6933066199736976,
+        "full_core_reference_xy_peak_m": 0.9807514530479481,
+        "observed_whole_clip_reference_xy_peak_m": 1.188702773494318,
+        "large_reference_xy_screen": true
+      },
+      "mujoco": {
+        "last_observed_time_s": 6.979999999999873,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 2.466793733213449,
+        "full_core_reference_xy_rmse_m": 2.466793733213449,
+        "full_core_reference_xy_peak_m": 3.4730186661182003,
+        "observed_whole_clip_reference_xy_peak_m": 4.848178775673548,
+        "large_reference_xy_screen": true
+      },
+      "sim2sim": {
+        "overlap_end_s": 6.979999999999873,
+        "overlap_xy_rmse_m": 3.085966164615665,
+        "overlap_xy_peak_m": 5.6885629226779795,
+        "observed_core_xy_rmse_m": 1.9104863075286407,
+        "full_core_overlap": true,
+        "full_core_xy_rmse_m": 1.9104863075286407
+      }
+    },
+    {
+      "case": "mu0p800",
+      "evaluation_mu_static_dynamic_equal": 0.8,
+      "isaac": {
+        "last_observed_time_s": 6.98,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 0.6594780219322265,
+        "full_core_reference_xy_rmse_m": 0.6594780219322265,
+        "full_core_reference_xy_peak_m": 0.8626407682103351,
+        "observed_whole_clip_reference_xy_peak_m": 0.8626407682103351,
+        "large_reference_xy_screen": true
+      },
+      "mujoco": {
+        "last_observed_time_s": 6.979999999999873,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 1.01015112578231,
+        "full_core_reference_xy_rmse_m": 1.01015112578231,
+        "full_core_reference_xy_peak_m": 1.7994683187610756,
+        "observed_whole_clip_reference_xy_peak_m": 2.122433092896595,
+        "large_reference_xy_screen": true
+      },
+      "sim2sim": {
+        "overlap_end_s": 6.979999999999873,
+        "overlap_xy_rmse_m": 1.5835057819359144,
+        "overlap_xy_peak_m": 2.3256877762193033,
+        "observed_core_xy_rmse_m": 1.4647082231832689,
+        "full_core_overlap": true,
+        "full_core_xy_rmse_m": 1.4647082231832689
+      }
+    },
+    {
+      "case": "mu1p000",
+      "evaluation_mu_static_dynamic_equal": 1.0,
+      "isaac": {
+        "last_observed_time_s": 6.98,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 0.9167629192171501,
+        "full_core_reference_xy_rmse_m": 0.9167629192171501,
+        "full_core_reference_xy_peak_m": 1.1775081739673714,
+        "observed_whole_clip_reference_xy_peak_m": 1.2337788323201284,
+        "large_reference_xy_screen": true
+      },
+      "mujoco": {
+        "last_observed_time_s": 6.979999999999873,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 0.8023964741501513,
+        "full_core_reference_xy_rmse_m": 0.8023964741501513,
+        "full_core_reference_xy_peak_m": 1.6176385619256917,
+        "observed_whole_clip_reference_xy_peak_m": 2.4087485385152188,
+        "large_reference_xy_screen": true
+      },
+      "sim2sim": {
+        "overlap_end_s": 6.979999999999873,
+        "overlap_xy_rmse_m": 1.6494463012425682,
+        "overlap_xy_peak_m": 2.480022982537704,
+        "observed_core_xy_rmse_m": 1.4088422671562184,
+        "full_core_overlap": true,
+        "full_core_xy_rmse_m": 1.4088422671562184
+      }
+    },
+    {
+      "case": "mu1p200",
+      "evaluation_mu_static_dynamic_equal": 1.2,
+      "isaac": {
+        "last_observed_time_s": 6.98,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 1.10700325680345,
+        "full_core_reference_xy_rmse_m": 1.10700325680345,
+        "full_core_reference_xy_peak_m": 1.4118632381838594,
+        "observed_whole_clip_reference_xy_peak_m": 1.452884309031002,
+        "large_reference_xy_screen": true
+      },
+      "mujoco": {
+        "last_observed_time_s": 6.979999999999873,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 0.5335373888105667,
+        "full_core_reference_xy_rmse_m": 0.5335373888105667,
+        "full_core_reference_xy_peak_m": 0.6536172549679965,
+        "observed_whole_clip_reference_xy_peak_m": 2.5184094474489576,
+        "large_reference_xy_screen": true
+      },
+      "sim2sim": {
+        "overlap_end_s": 6.979999999999873,
+        "overlap_xy_rmse_m": 1.2205400366598107,
+        "overlap_xy_peak_m": 2.534813257849266,
+        "observed_core_xy_rmse_m": 0.681081543237898,
+        "full_core_overlap": true,
+        "full_core_xy_rmse_m": 0.681081543237898
+      }
+    },
+    {
+      "case": "mu1p400",
+      "evaluation_mu_static_dynamic_equal": 1.4,
+      "isaac": {
+        "last_observed_time_s": 6.98,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 2.1314735695317237,
+        "full_core_reference_xy_rmse_m": 2.1314735695317237,
+        "full_core_reference_xy_peak_m": 3.2057739388591706,
+        "observed_whole_clip_reference_xy_peak_m": 4.567779030966265,
+        "large_reference_xy_screen": true
+      },
+      "mujoco": {
+        "last_observed_time_s": 6.979999999999873,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 0.7782098494779943,
+        "full_core_reference_xy_rmse_m": 0.7782098494779943,
+        "full_core_reference_xy_peak_m": 1.149814353685172,
+        "observed_whole_clip_reference_xy_peak_m": 2.653297108117324,
+        "large_reference_xy_screen": true
+      },
+      "sim2sim": {
+        "overlap_end_s": 6.979999999999873,
+        "overlap_xy_rmse_m": 4.1244189380078335,
+        "overlap_xy_peak_m": 7.070728837128844,
+        "observed_core_xy_rmse_m": 2.802601374581402,
+        "full_core_overlap": true,
+        "full_core_xy_rmse_m": 2.802601374581402
+      }
+    },
+    {
+      "case": "mu1p600",
+      "evaluation_mu_static_dynamic_equal": 1.6,
+      "isaac": {
+        "last_observed_time_s": 6.98,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 1.4425163267089376,
+        "full_core_reference_xy_rmse_m": 1.4425163267089376,
+        "full_core_reference_xy_peak_m": 1.8900209716676124,
+        "observed_whole_clip_reference_xy_peak_m": 2.0131177483038054,
+        "large_reference_xy_screen": true
+      },
+      "mujoco": {
+        "last_observed_time_s": 6.979999999999873,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 0.7250165136727986,
+        "full_core_reference_xy_rmse_m": 0.7250165136727986,
+        "full_core_reference_xy_peak_m": 1.302935312881453,
+        "observed_whole_clip_reference_xy_peak_m": 2.65755199641255,
+        "large_reference_xy_screen": true
+      },
+      "sim2sim": {
+        "overlap_end_s": 6.979999999999873,
+        "overlap_xy_rmse_m": 1.9338654910535327,
+        "overlap_xy_peak_m": 3.030806872421676,
+        "observed_core_xy_rmse_m": 1.672534407781906,
+        "full_core_overlap": true,
+        "full_core_xy_rmse_m": 1.672534407781906
+      }
+    },
+    {
+      "case": "mu1p800",
+      "evaluation_mu_static_dynamic_equal": 1.8,
+      "isaac": {
+        "last_observed_time_s": 6.98,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 1.024059712367821,
+        "full_core_reference_xy_rmse_m": 1.024059712367821,
+        "full_core_reference_xy_peak_m": 1.2824492307735635,
+        "observed_whole_clip_reference_xy_peak_m": 1.2986151302191127,
+        "large_reference_xy_screen": true
+      },
+      "mujoco": {
+        "last_observed_time_s": 6.979999999999873,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 0.7095973513168391,
+        "full_core_reference_xy_rmse_m": 0.7095973513168391,
+        "full_core_reference_xy_peak_m": 1.2474181438066354,
+        "observed_whole_clip_reference_xy_peak_m": 1.2474181438066354,
+        "large_reference_xy_screen": true
+      },
+      "sim2sim": {
+        "overlap_end_s": 6.979999999999873,
+        "overlap_xy_rmse_m": 1.1931218939171222,
+        "overlap_xy_peak_m": 2.0180774533622268,
+        "observed_core_xy_rmse_m": 1.4171084794207587,
+        "full_core_overlap": true,
+        "full_core_xy_rmse_m": 1.4171084794207587
+      }
+    },
+    {
+      "case": "mu2p000",
+      "evaluation_mu_static_dynamic_equal": 2.0,
+      "isaac": {
+        "last_observed_time_s": 6.98,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 1.4231665716249513,
+        "full_core_reference_xy_rmse_m": 1.4231665716249513,
+        "full_core_reference_xy_peak_m": 1.8208488816406798,
+        "observed_whole_clip_reference_xy_peak_m": 1.9703559199507663,
+        "large_reference_xy_screen": true
+      },
+      "mujoco": {
+        "last_observed_time_s": 6.979999999999873,
+        "core_complete": true,
+        "observed_core_samples": 513,
+        "observed_core_reference_xy_rmse_m": 0.8954167747759352,
+        "full_core_reference_xy_rmse_m": 0.8954167747759352,
+        "full_core_reference_xy_peak_m": 1.3202377681573312,
+        "observed_whole_clip_reference_xy_peak_m": 2.4109034750322325,
+        "large_reference_xy_screen": true
+      },
+      "sim2sim": {
+        "overlap_end_s": 6.979999999999873,
+        "overlap_xy_rmse_m": 1.9553013334579077,
+        "overlap_xy_peak_m": 2.992166593670592,
+        "observed_core_xy_rmse_m": 1.8739194934305567,
+        "full_core_overlap": true,
+        "full_core_xy_rmse_m": 1.8739194934305567
+      }
+    }
+  ],
+  "limitations": [
+    "Early termination censors the full-core XY verdict; trajectories are never extrapolated.",
+    "Equal numerical PhysX and MuJoCo friction is not physical tire-ground calibration.",
+    "This root-XY view does not establish actual wheel-ground patch slip or human GMR feasibility.",
+    "One deterministic episode per coefficient; the friction failure boundary needs more seeds or a finer grid.",
+    "Pose predicates are recorded but do not terminate this diagnostic; full duration or small XY error alone does not demonstrate controlled upright execution.",
+    "Large-angle turning and supplementary S-avoidance are separate task strata; their success rates are not pooled."
+  ],
+  "full_horizon_diagnostic": true,
+  "reference_id": "drift_drl_traj4",
+  "task_stratum": "large_angle_turn",
+  "pooled_success_statistics": false
+}

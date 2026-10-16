@@ -244,6 +244,42 @@ def audit_actuators(robot):
     return result
 
 
+def add_prediction_backend_arguments(parser):
+    """No native compiler/import/worker is implicitly used by the default."""
+    parser.add_argument("--prediction-backend",choices=("python","native"),default="python")
+    parser.add_argument("--native-library",type=Path,default=None,
+                        help="Explicit prebuilt native library with its validated .json build manifest; no auto-build")
+    return parser
+
+
+def prediction_backend_options(args):
+    """Validate opt-in paths before opening Isaac; ABI/hash checks occur later."""
+    backend=getattr(args,"prediction_backend","python")
+    library=getattr(args,"native_library",None)
+    if backend not in ("python","native"):
+        raise ValueError("Unknown prediction backend")
+    if backend=="python":
+        if library is not None:
+            raise ValueError("--native-library is only valid with --prediction-backend native")
+        return backend,None
+    if library is None:
+        raise ValueError("Native prediction requires explicit --native-library; automatic compilation is disabled")
+    library=Path(library).resolve()
+    if not library.is_file() or not library.with_suffix(".json").is_file():
+        raise FileNotFoundError("Native prediction requires an existing library and .json build manifest")
+    return backend,library
+
+
+def build_prediction_backend(prediction,backend,library):
+    """Call AFTER installing actual Isaac soft limits on prediction.objective."""
+    if backend=="python":
+        return prediction
+    if backend!="native" or library is None:
+        raise ValueError("Invalid explicit native backend selection")
+    from nmpc_batch_objective import NativeBatchTrackingPredictor
+    return NativeBatchTrackingPredictor(prediction,library)
+
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     for name in ("source-root","motion","asset-path","mujoco-model","contract","output-dir"):
@@ -259,6 +295,7 @@ def main():
     parser.add_argument("--contact-threshold-n",type=float,default=5.)
     for name in ("horizon-steps","control-blocks","candidates","iterations","elite-count"):
         parser.add_argument("--"+name,type=int,default=None)
+    add_prediction_backend_arguments(parser)
     from isaaclab.app import AppLauncher
     AppLauncher.add_app_launcher_args(parser)
     args=parser.parse_args()
@@ -267,6 +304,7 @@ def main():
     if (not np.isfinite(args.plant_mu) or args.plant_mu<0
             or not np.isfinite(args.contact_threshold_n) or args.contact_threshold_n<0):
         parser.error("Invalid friction/contact threshold")
+    backend,native_library=prediction_backend_options(args)
     output=args.output_dir.resolve()
     if output.exists():
         raise FileExistsError("Preserving prior Isaac NMPC output: "+str(output))
@@ -289,10 +327,12 @@ def main():
             "root_state_prescribed_after_reset":False,"external_root_forces_used":False,
             "reference_spec":reference_spec,"reference_id":args.reference_id,"role":reference_spec["role"],
             "stratum":reference_spec["stratum"],"reference_catalog_sha256":sha(DEFAULT_CATALOG),
+            "prediction_backend":backend,"native_library":str(native_library) if native_library else None,
+            "native_compilation_automatic":False,
             "pooled_success_statistics":False,"robustness_certificate":False,"real_time_verified":False}
     def write_status():
         (output/"report.json").write_text(json.dumps(status,indent=2,allow_nan=False)+"\n")
-    app=env=None;original_scene_update=None;started=time.perf_counter()
+    app=env=native_prediction=None;original_scene_update=None;started=time.perf_counter()
     try:
         app=AppLauncher(args).app
         import torch
@@ -384,7 +424,12 @@ def main():
         if not np.allclose(actual_offset,conversion.com_offset,atol=2e-6,rtol=0) or not np.isclose(actual_mass,provider.model.body_mass[conversion.base],atol=2e-5,rtol=0):
             raise AssertionError("Isaac base mass/COM differs from original unmerged MuJoCo link")
         prediction.objective=HeightSmoothTrackingObjective(profile,dt=env.step_dt,soft_joint_limits=pre["soft_joint_pos_limits"])
-        controller=ShootingNMPC(prediction,cem,action_low=-np.ones(8),action_high=np.ones(8),mu_scenarios=scenarios)
+        controller_prediction=build_prediction_backend(prediction,backend,native_library)
+        if backend=="native":
+            native_prediction=controller_prediction
+        controller=ShootingNMPC(controller_prediction,cem,action_low=-np.ones(8),action_high=np.ones(8),mu_scenarios=scenarios)
+        if native_prediction is not None:
+            native_prediction.record_cem_wiring(controller)
         nonwheel_sensors=tuple(name for name in env.scene.sensors if name.startswith("nonwheel_ground_"))
         if len(nonwheel_sensors)!=7:
             raise AssertionError("Expected seven name-filtered nonwheel ground sensors")
@@ -404,6 +449,9 @@ def main():
         source_paths=[Path(__file__),DEFAULT_CATALOG,args.settings,args.task_profile,args.contract]
         for filename in ("run_nmpc_tracking.py","nmpc_shooting.py","nmpc_tracking_objective.py","classical_tracking.py","controller_references.py","height_smoothness.py"):
             source_paths.append(Path(__file__).with_name(filename))
+        if backend=="native":
+            source_paths.extend((Path(__file__).with_name("nmpc_batch_objective.py"),
+                                 Path(__file__).with_name("nmpc_native_batch.py"),ROOT/"native/nmpc_batch.cpp"))
         for relative in ("scripts/eval_tracking_mujoco.py","scripts/eval_tracking.py","training/tron1_tracking.py",
                          "training/tron1_drift.py","training/tron1_domain_randomization.py","training/tron1_contact_slip.py",
                          "training/tron1_runtime_device.py","training/tron1_physics_clock.py"):
@@ -426,6 +474,12 @@ def main():
                       device_audit=device_audit,material_audit=material_audit,
                       actuator_audit=actuator_audit,legacy_joint_friction_audit=legacy_friction_audit,
                       objective_contract=prediction.objective.contract(),packed_state_contract=prediction.layout.contract(),
+                      prediction_backend_metadata=(native_prediction.metadata if native_prediction is not None else
+                          {"kind":"existing_python_scalar_predictor","population_batching":False,
+                           "ipc_included_in_latency":False}),
+                      native_library_sha256=sha(native_library) if native_library is not None else None,
+                      native_build_manifest_sha256=sha(native_library.with_suffix(".json")) if native_library is not None else None,
+                      prediction_timing_includes_native_ipc=backend=="native",
                       privileged_state_and_reference_preview=True,action_order=list(JOINT_NAMES),body_order=list(BODY_NAMES),
                       runtime_soft_joint_pos_limits=pre["soft_joint_pos_limits"].tolist(),
                       prediction_mujoco_version=conversion.mj.__version__,torch_version=str(torch.__version__),
@@ -434,7 +488,7 @@ def main():
                       total_reference_policy_steps=provider.reference.frames,evaluated_policy_steps=steps,
                       truncated_smoke=steps<provider.reference.frames,pose_height_failure_gate=False,
                       contact_slip_definition="Per-wheel force-weighted contact-point lateral-speed RMS; >threshold normal force, ground-filtered. Zero with no active contact is unavailable, not rolling.",
-                      timing_scope="Replanning call only; CUDA extraction, logging and plant stepping additionally cost time; no real-time deadline enforced.")
+                      timing_scope="Replanning call including native worker IPC when enabled; CUDA extraction, logging and plant stepping additionally cost time; no real-time deadline enforced.")
         write_status()
         previous_action=np.zeros(8);previous_vz=float(pre["body_lin_vel_w"][0,2]);decisions=[];packed_samples=[]
         for k in range(steps):
@@ -500,13 +554,17 @@ def main():
         status.update(status="failed",error=f"{type(error).__name__}: {error}",elapsed_s=time.perf_counter()-started)
         raise
     finally:
-        write_status()
-        if env is not None:
-            if original_scene_update is not None:
-                env.scene.update=original_scene_update
-            env.close()
-        if app is not None:
-            app.close(skip_cleanup=True)
+        try:
+            if native_prediction is not None:
+                native_prediction.close()
+        finally:
+            write_status()
+            if env is not None:
+                if original_scene_update is not None:
+                    env.scene.update=original_scene_update
+                env.close()
+            if app is not None:
+                app.close(skip_cleanup=True)
 
 
 if __name__=="__main__":
