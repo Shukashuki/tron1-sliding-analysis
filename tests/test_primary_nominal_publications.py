@@ -17,6 +17,7 @@ CASES = [
     ("PPO", "controller_primary_ppo_nominal_pair_v1", "2026-10-15-primary-ppo-nominal-pair.md"),
     ("SAC", "controller_primary_sac_nominal_pair_v2", "2026-10-16-primary-sac-nominal-pair.md"),
     ("NMPC", "controller_primary_nmpc_nominal_pair_v1", "2026-10-16-primary-nmpc-nominal-pair.md"),
+    ("NMPC", "controller_primary_nmpc_residual_nominal_pair_v1", "2026-10-16-primary-nmpc-residual-nominal-pair.md"),
 ]
 
 
@@ -87,9 +88,11 @@ def test_exact_heading_and_all_window_metric_replay_from_published_vectors(algor
 
 
 def test_completed_policy_training_and_nmpc_development_remain_distinct():
-    summaries = {algorithm: publication(directory)[1] for algorithm, directory, _ in CASES}
-    for algorithm in ("PPO", "SAC"):
-        training = summaries[algorithm]["training_provenance"]
+    summaries = {directory: publication(directory)[1] for _, directory, _ in CASES}
+    for algorithm, directory, _ in CASES:
+        if algorithm not in ("PPO", "SAC"):
+            continue
+        training = summaries[directory]["training_provenance"]
         assert training["verified_formal_training"] and training["checkpoint_bytes_verified"]
         assert training["status"] == "training_completed" and training["algorithm"] == algorithm
     note = (ROOT / "results" / CASES[2][2]).read_text().lower()
@@ -97,4 +100,38 @@ def test_completed_policy_training_and_nmpc_development_remain_distinct():
     assert "not frozen" in note or "not a frozen controller" in note
     assert "not a" in note and "ranking" in note
     # Passing file/coverage audits is not project approval to freeze NMPC.
-    assert not summaries["NMPC"]["controlled_execution_success_claimed"]
+    assert not summaries[CASES[2][1]]["controlled_execution_success_claimed"]
+
+
+def test_residual_nmpc_pair_is_matched_search_ablation_but_not_qualified_for_freeze():
+    _, summary, _ = publication("controller_primary_nmpc_residual_nominal_pair_v1")
+    core = summary["windows"]["core"]
+    assert core["isaac"]["large_xy_exploratory_screen"] is True
+    assert core["mujoco"]["large_xy_exploratory_screen"] is False
+    assert core["isaac"]["reference_xy_rmse_m"] == pytest.approx(.2590232368988268)
+    assert core["mujoco"]["reference_xy_rmse_m"] == pytest.approx(.11537216667873322)
+    identity = summary["audit"]["nmpc_controller_identity"]
+    assert identity["exact_configuration_match"]
+    assert not identity["legacy_absolute_without_parameterization_contract"]
+    config = identity["effective_cem_config"]
+    assert {name: config[name] for name in ("horizon_steps", "control_blocks", "candidates", "iterations", "elite_count", "seed")} == {
+        "horizon_steps": 15, "control_blocks": 5, "candidates": 64, "iterations": 3, "elite_count": 8, "seed": 42}
+    assert identity["parameterization_mode"] == config["parameterization"] == "warm_start_residual_blocks"
+    contract = identity["action_parameterization_contract"]
+    assert contract["mode"] == "warm_start_residual_blocks"
+    assert contract["baseline_copied_and_fixed_per_solve"] is True
+    assert contract["learned_baseline"] is False
+    for engine in ("isaac", "mujoco"):
+        sources = {item["source_name"]: item["sha256"] for item in
+                   summary["reported_plant_source_provenance"][engine]["reported_source_hashes"]}
+        assert sources["nmpc_shooting.py"] == "8d2ac598d9e0e2765f9566954ba3fd0f443d939d2a5c6566125cca18668b35bd"
+        assert sources["nmpc_tracking_objective.py"] == "ff22eebb2b22b9af7dba114c64fcd10f6b0a90822559af8f32cbe6884015b860"
+        # Retain speed and nonzero heading offsets as diagnostics/features.
+        assert core[engine]["mean_speed_retention_ratio"] > .8
+        assert core[engine]["heading_geometry"]["root_directed_beta"]["mean_absolute_deg"] > 1.
+        assert core[engine]["heading_offset_is_mismatch"] is False
+        assert core[engine]["height_or_flight_failure_gate"] is False
+    assert not summary["controlled_execution_success_claimed"]
+    note = (ROOT / "results/2026-10-16-primary-nmpc-residual-nominal-pair.md").read_text().lower()
+    assert "not frozen" in note and "not an algorithm ranking" in note
+    assert "not\nqualified for a friction grid" in note

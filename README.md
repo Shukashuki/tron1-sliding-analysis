@@ -57,8 +57,12 @@ PPO/SAC/NMPC ranking. The
 includes the top-down comparison and bounded one-step model audit.
 In [nominal MuJoCo development](results/2026-10-16-nmpc-nominal-development.md),
 fixed-baseline residual search reduced core XY RMSE from 0.280 to 0.115 m
-without recorded nonwheel-ground contact. The new mode still awaits Isaac
-validation and is **not frozen**; no NMPC friction grid has started.
+without recorded nonwheel-ground contact. Its
+[new full nominal Isaac comparison](results/2026-10-16-primary-nmpc-residual-nominal-pair.md)
+records 0.259 m core XY RMSE / 0.357 m peak in Isaac, still above the
+exploratory XY limits despite 99.18% mean speed retention. The MuJoCo
+improvement therefore does not qualify this controller for freezing. It is
+**not frozen**, and no NMPC friction grid has started.
 Matching the 15 stage rewards does not match RL's discount, bootstrap and
 orientation-termination semantics; the
 [termination audit](results/2026-10-16-controller-termination-semantics.md)
@@ -156,8 +160,8 @@ not included; provide the hash-locked reference and compatible local inputs.
 
 [`run_nmpc_validation.py`](scripts/run_nmpc_validation.py) separates `plan`,
 `freeze` and `execute`. **Only orchestration/evidence unit tests have run**;
-this is not a completed NMPC grid. The residual controller still lacks its
-new Isaac nominal result, so no actual freeze artifact has been created.
+this is not a completed NMPC grid. The residual controller's new Isaac nominal
+result exceeds the XY screen, so no actual freeze artifact has been created.
 
 `plan` prints 34 proposed local commands without importing simulators,
 launching subprocesses, compiling, creating the grid directory or contacting
@@ -188,7 +192,9 @@ can be supplied explicitly; no build is automatic.
 Valid finite low-friction failures and CEM fallbacks remain results. Runtime
 failures preserve an incomplete manifest and logs; they are not physical
 passes or failures. These commands neither upload files nor grant remote-host
-permission. The new Isaac snapshot upload remains pending explicit approval.
+permission. The separate 15-file Isaac controller snapshot was explicitly
+approved and transferred; that approval does not deploy this grid driver or
+start a friction sweep.
 
 ## Experiment contract
 

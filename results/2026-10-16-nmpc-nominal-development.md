@@ -6,6 +6,10 @@ improves the observed core XY error and avoids the large tilt/nonwheel contact
 seen in the two absolute-block runs. This single episode does not establish
 robustness or approve freezing the controller.
 
+Follow-up: the [completed residual Isaac comparison](2026-10-16-primary-nmpc-residual-nominal-pair.md)
+still exceeds the nominal XY screen. The MuJoCo-only results below remain the
+original development record, not two-engine qualification.
+
 ![Shared-world reference and three MuJoCo development variants](nmpc_nominal_development_20261016_v1/topdown.png)
 
 ## What changed
@@ -108,8 +112,9 @@ CUDA_VISIBLE_DEVICES='' python scripts/run_nmpc_tracking.py \
 For the baseline, use `config/nmpc_height_smooth.json` instead. For H30, use
 that baseline file plus `--horizon-steps 30 --control-blocks 5`. Choose a new
 output directory for every run. This command generates a physics episode;
-the separate analysis command below never steps physics. The residual mode
-has not yet been evaluated in Isaac and no NMPC friction sweep has started.
+the separate analysis command below never steps physics. At this development
+milestone the residual mode had not yet been evaluated in Isaac; see the
+follow-up above for its later result. No NMPC friction sweep has started.
 
 The [sanitized summary](nmpc_nominal_development_20261016_v1/summary.json)
 preserves input/source hashes, exact objective/actuator-clock checks,
