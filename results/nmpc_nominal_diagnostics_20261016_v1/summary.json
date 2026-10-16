@@ -1,0 +1,562 @@
+{
+  "schema_version": 1,
+  "kind": "sanitized_existing_nominal_nmpc_diagnostics",
+  "reference_id": "drift_drl_traj4",
+  "plant_mu": 0.7,
+  "prediction_mu_scenarios": [
+    0.7
+  ],
+  "controller_development_only": true,
+  "frozen_controller": false,
+  "friction_grid": false,
+  "controller_ranking_claimed": false,
+  "causal_contact_engine_diagnosis": false,
+  "height_flight_or_heading_failure_gate": false,
+  "input_diagnostic_json_sha256": {
+    "isaac_one_interval_probe": "62da1211cf468a9d3a0f0dc4c02b1a6fe5a04dd52a0dad3b6c75848bc1ecbcde",
+    "xy_components": "c1677c1f408272b2174d71f6eb7ce06c7bc41f29bbc9dd0e51d6a4600836c24e"
+  },
+  "xy_components": {
+    "definitions": {
+      "error": "actual root link-origin XY minus same-time reference root-origin XY",
+      "along": "dot(error, reference origin unit tangent); negative is behind",
+      "normal": "dot(error, left normal [-tangent_y,tangent_x]); not nearest-path distance or contact slip",
+      "derivative": "np.gradient(reference origin XY, recorded 50Hz time, edge_order=2), demonstrated-only; linearly interpolate XY and derivative independently onto native physical timestamps",
+      "endpoints": "Source endpoint derivatives are one-sided three-point estimates; recovery/tail samples never enter derivative; no extrapolation beyond demonstrated interval",
+      "measured_velocity": "original base COM velocity minus world omega cross rotated original COM offset; pure rigid-body point transport, no FK",
+      "original_com_offset_m": [
+        0.04576,
+        0.00014,
+        -0.16398
+      ],
+      "speed_validity_threshold_m_s": 0.25,
+      "subwindows": "Closed descriptive intervals; shared endpoints appear in adjacent summaries and statistics are never pooled"
+    },
+    "input_pair_sha256": {
+      "baseline": {
+        "summary_sha256": "5d89a58fface8ae8fe063a77ade8af8e440aaafefc0aa1fb03762e7991d5b229",
+        "compact_trace_sha256": "44c527b6b405c2401fd42849a96074c393f31f0d9adf7553b3a270e1ee38e21f"
+      },
+      "residual": {
+        "summary_sha256": "528a81a3a9b4b874152e8a997d50430fb35568ec7d7104b4420dcea451297ab7",
+        "compact_trace_sha256": "665c63f64f86976d4c959caced61f45f5c119d0a162e5a30206cc657b51cd0c7"
+      }
+    },
+    "source_sha256": {
+      "analyze_xy_error_components.py": "ed8ee67b7051a8e92c528cf4dd6923a71cda7e921b9b3cd909977ed7fd5ce9bd",
+      "nmpc_tracking_objective.py": "ff22eebb2b22b9af7dba114c64fcd10f6b0a90822559af8f32cbe6884015b860"
+    },
+    "cases": {
+      "baseline": {
+        "isaac": {
+          "core": {
+            "samples": 513,
+            "total_xy_rmse_m": 0.3243577177346112,
+            "total_xy_peak_m": 0.5640540754108035,
+            "along_signed_mean_m": -0.14160086786870837,
+            "along_rmse_m": 0.15689263620875413,
+            "normal_signed_mean_m": -0.25970225462660274,
+            "normal_rmse_m": 0.2838884107487891,
+            "along_energy_fraction": 0.23396810029305737,
+            "normal_energy_fraction": 0.7660318997069425,
+            "behind_fraction": 1.0,
+            "maximum_squared_decomposition_residual_m2": 1.6653345369377348e-16
+          },
+          "descriptive_subwindows": [
+            {
+              "interval_s": [
+                1.44,
+                2.0
+              ],
+              "samples": 113,
+              "total_xy_rmse_m": 0.1900884238265838,
+              "total_xy_peak_m": 0.20390423232239888,
+              "along_signed_mean_m": -0.1448088374363012,
+              "along_rmse_m": 0.14692837517078716,
+              "normal_signed_mean_m": -0.11922581568131893,
+              "normal_rmse_m": 0.12060539557808912,
+              "along_energy_fraction": 0.597447863740325,
+              "normal_energy_fraction": 0.402552136259675,
+              "behind_fraction": 1.0,
+              "maximum_squared_decomposition_residual_m2": 2.42861286636753e-17
+            },
+            {
+              "interval_s": [
+                2.0,
+                3.0
+              ],
+              "samples": 201,
+              "total_xy_rmse_m": 0.2334573694452337,
+              "total_xy_peak_m": 0.3151640424848027,
+              "along_signed_mean_m": -0.07856139138500032,
+              "along_rmse_m": 0.07946747097597752,
+              "normal_signed_mean_m": -0.21392409294696774,
+              "normal_rmse_m": 0.21951597756193172,
+              "along_energy_fraction": 0.11586802613169027,
+              "normal_energy_fraction": 0.8841319738683099,
+              "behind_fraction": 1.0,
+              "maximum_squared_decomposition_residual_m2": 4.163336342344337e-17
+            },
+            {
+              "interval_s": [
+                3.0,
+                4.0
+              ],
+              "samples": 201,
+              "total_xy_rmse_m": 0.4408499419035715,
+              "total_xy_peak_m": 0.5640540754108035,
+              "along_signed_mean_m": -0.20243975194549524,
+              "along_rmse_m": 0.21089257991074017,
+              "normal_signed_mean_m": -0.3840806916950704,
+              "normal_rmse_m": 0.38713433200243874,
+              "along_energy_fraction": 0.22884478689416538,
+              "normal_energy_fraction": 0.7711552131058346,
+              "behind_fraction": 1.0,
+              "maximum_squared_decomposition_residual_m2": 1.6653345369377348e-16
+            }
+          ]
+        },
+        "mujoco": {
+          "core": {
+            "samples": 513,
+            "total_xy_rmse_m": 0.2802602925850728,
+            "total_xy_peak_m": 0.6707885229660983,
+            "along_signed_mean_m": -0.06916015960075367,
+            "along_rmse_m": 0.21975912903896117,
+            "normal_signed_mean_m": -0.08804298353341762,
+            "normal_rmse_m": 0.17393032169207245,
+            "along_energy_fraction": 0.6148521673560375,
+            "normal_energy_fraction": 0.38514783264396235,
+            "behind_fraction": 0.6881091617933723,
+            "maximum_squared_decomposition_residual_m2": 1.1102230246251565e-16
+          },
+          "descriptive_subwindows": [
+            {
+              "interval_s": [
+                1.44,
+                2.0
+              ],
+              "samples": 113,
+              "total_xy_rmse_m": 0.1998756505752643,
+              "total_xy_peak_m": 0.23479888810821348,
+              "along_signed_mean_m": -0.19572757606554148,
+              "along_rmse_m": 0.19699365514337325,
+              "normal_signed_mean_m": 0.032465292730157615,
+              "normal_rmse_m": 0.03381975053336257,
+              "along_energy_fraction": 0.9713700217006869,
+              "normal_energy_fraction": 0.02862997829931312,
+              "behind_fraction": 1.0,
+              "maximum_squared_decomposition_residual_m2": 2.4936649967166602e-17
+            },
+            {
+              "interval_s": [
+                2.0,
+                3.0
+              ],
+              "samples": 201,
+              "total_xy_rmse_m": 0.18628425391854905,
+              "total_xy_peak_m": 0.23253017293759937,
+              "along_signed_mean_m": -0.15040501950128493,
+              "along_rmse_m": 0.18069106988455774,
+              "normal_signed_mean_m": 0.015428010719557024,
+              "normal_rmse_m": 0.04530519310150127,
+              "along_energy_fraction": 0.9408515078097027,
+              "normal_energy_fraction": 0.05914849219029709,
+              "behind_fraction": 0.8805970149253731,
+              "maximum_squared_decomposition_residual_m2": 2.211772431870429e-17
+            },
+            {
+              "interval_s": [
+                3.0,
+                4.0
+              ],
+              "samples": 201,
+              "total_xy_rmse_m": 0.37916783276530003,
+              "total_xy_peak_m": 0.6707885229660983,
+              "along_signed_mean_m": 0.0836466135515911,
+              "along_rmse_m": 0.2630580321627257,
+              "normal_signed_mean_m": -0.25865084718485837,
+              "normal_rmse_m": 0.273072732286856,
+              "along_energy_fraction": 0.48132693065079185,
+              "normal_energy_fraction": 0.5186730693492084,
+              "behind_fraction": 0.31840796019900497,
+              "maximum_squared_decomposition_residual_m2": 1.1102230246251565e-16
+            }
+          ]
+        }
+      },
+      "residual": {
+        "isaac": {
+          "core": {
+            "samples": 513,
+            "total_xy_rmse_m": 0.2590232368988268,
+            "total_xy_peak_m": 0.35707933154464516,
+            "along_signed_mean_m": -0.21682778493622964,
+            "along_rmse_m": 0.22078574137446766,
+            "normal_signed_mean_m": -0.1293659101960292,
+            "normal_rmse_m": 0.13544996736534273,
+            "along_energy_fraction": 0.726548470447985,
+            "normal_energy_fraction": 0.27345152955201507,
+            "behind_fraction": 1.0,
+            "maximum_squared_decomposition_residual_m2": 5.724587470723463e-17
+          },
+          "descriptive_subwindows": [
+            {
+              "interval_s": [
+                1.44,
+                2.0
+              ],
+              "samples": 113,
+              "total_xy_rmse_m": 0.2223798890896284,
+              "total_xy_peak_m": 0.248802345745178,
+              "along_signed_mean_m": -0.18306364667676986,
+              "along_rmse_m": 0.18312868052559644,
+              "normal_signed_mean_m": -0.1239637829627124,
+              "normal_rmse_m": 0.12616141026664807,
+              "along_energy_fraction": 0.6781436725603632,
+              "normal_energy_fraction": 0.32185632743963705,
+              "behind_fraction": 1.0,
+              "maximum_squared_decomposition_residual_m2": 2.42861286636753e-17
+            },
+            {
+              "interval_s": [
+                2.0,
+                3.0
+              ],
+              "samples": 201,
+              "total_xy_rmse_m": 0.25546799382437896,
+              "total_xy_peak_m": 0.2791581311216925,
+              "along_signed_mean_m": -0.19568226171535022,
+              "along_rmse_m": 0.19607556425068606,
+              "normal_signed_mean_m": -0.163082756028201,
+              "normal_rmse_m": 0.1637628436869243,
+              "along_energy_fraction": 0.5890795574569866,
+              "normal_energy_fraction": 0.41092044254301346,
+              "behind_fraction": 1.0,
+              "maximum_squared_decomposition_residual_m2": 4.163336342344337e-17
+            },
+            {
+              "interval_s": [
+                3.0,
+                4.0
+              ],
+              "samples": 201,
+              "total_xy_rmse_m": 0.28077315800523195,
+              "total_xy_peak_m": 0.35707933154464516,
+              "along_signed_mean_m": -0.256821664140906,
+              "along_rmse_m": 0.2598621961162405,
+              "normal_signed_mean_m": -0.09896412211207224,
+              "normal_rmse_m": 0.10632593891367956,
+              "along_energy_fraction": 0.8565940141648488,
+              "normal_energy_fraction": 0.14340598583515132,
+              "behind_fraction": 1.0,
+              "maximum_squared_decomposition_residual_m2": 5.724587470723463e-17
+            }
+          ]
+        },
+        "mujoco": {
+          "core": {
+            "samples": 513,
+            "total_xy_rmse_m": 0.11537216667873322,
+            "total_xy_peak_m": 0.19569794277344035,
+            "along_signed_mean_m": -0.026592272501200113,
+            "along_rmse_m": 0.08775075372403308,
+            "normal_signed_mean_m": -0.01494962183072673,
+            "normal_rmse_m": 0.07490355175163253,
+            "along_energy_fraction": 0.5784950051448702,
+            "normal_energy_fraction": 0.4215049948551299,
+            "behind_fraction": 0.49122807017543857,
+            "maximum_squared_decomposition_residual_m2": 1.9081958235744878e-17
+          },
+          "descriptive_subwindows": [
+            {
+              "interval_s": [
+                1.44,
+                2.0
+              ],
+              "samples": 113,
+              "total_xy_rmse_m": 0.17130616351502437,
+              "total_xy_peak_m": 0.19569794277344035,
+              "along_signed_mean_m": -0.16103943545534424,
+              "along_rmse_m": 0.16283673986037597,
+              "normal_signed_mean_m": 0.051399708455711186,
+              "normal_rmse_m": 0.053197723728374904,
+              "along_energy_fraction": 0.9035637927755766,
+              "normal_energy_fraction": 0.09643620722442349,
+              "behind_fraction": 1.0,
+              "maximum_squared_decomposition_residual_m2": 1.9081958235744878e-17
+            },
+            {
+              "interval_s": [
+                2.0,
+                3.0
+              ],
+              "samples": 201,
+              "total_xy_rmse_m": 0.06651989188250063,
+              "total_xy_peak_m": 0.11134000354910187,
+              "along_signed_mean_m": -0.0028152292198397205,
+              "along_rmse_m": 0.054734849976440195,
+              "normal_signed_mean_m": 0.02635991212346468,
+              "normal_rmse_m": 0.03780201336061556,
+              "along_energy_fraction": 0.6770563174976723,
+              "normal_energy_fraction": 0.3229436825023277,
+              "behind_fraction": 0.472636815920398,
+              "maximum_squared_decomposition_residual_m2": 5.637851296924623e-18
+            },
+            {
+              "interval_s": [
+                3.0,
+                4.0
+              ],
+              "samples": 201,
+              "total_xy_rmse_m": 0.11461302881764435,
+              "total_xy_peak_m": 0.18182075719396176,
+              "along_signed_mean_m": 0.025307169575005513,
+              "along_rmse_m": 0.04270589389254411,
+              "normal_signed_mean_m": -0.09330305342946482,
+              "normal_rmse_m": 0.10635954588842947,
+              "along_energy_fraction": 0.1388377779244536,
+              "normal_energy_fraction": 0.8611622220755463,
+              "behind_fraction": 0.22388059701492538,
+              "maximum_squared_decomposition_residual_m2": 1.3877787807814457e-17
+            }
+          ]
+        }
+      }
+    }
+  },
+  "isaac_one_interval_probe": {
+    "selected_policy_frames": [
+      0,
+      14,
+      19,
+      43,
+      72,
+      73,
+      90,
+      100,
+      117,
+      125,
+      145,
+      150,
+      161,
+      175,
+      195,
+      225
+    ],
+    "selected_intervals": [
+      {
+        "kind": "fixed_clock_stratum",
+        "policy_frame": 0
+      },
+      {
+        "kind": "first_unused_measured_wheel_contact_transition",
+        "policy_frame": 14,
+        "stratum_s": [
+          0.02,
+          1.44
+        ],
+        "event_sample": 57,
+        "event_time_s": 0.28500000000000003,
+        "active_before_L_R": [
+          true,
+          true
+        ],
+        "active_after_L_R": [
+          true,
+          false
+        ]
+      },
+      {
+        "kind": "fixed_clock_stratum",
+        "policy_frame": 19
+      },
+      {
+        "kind": "fixed_clock_stratum",
+        "policy_frame": 43
+      },
+      {
+        "kind": "fixed_clock_stratum",
+        "policy_frame": 72
+      },
+      {
+        "kind": "first_unused_measured_wheel_contact_transition",
+        "policy_frame": 73,
+        "stratum_s": [
+          1.44,
+          2.3
+        ],
+        "event_sample": 293,
+        "event_time_s": 1.465,
+        "active_before_L_R": [
+          false,
+          true
+        ],
+        "active_after_L_R": [
+          false,
+          false
+        ]
+      },
+      {
+        "kind": "fixed_clock_stratum",
+        "policy_frame": 90
+      },
+      {
+        "kind": "fixed_clock_stratum",
+        "policy_frame": 100
+      },
+      {
+        "kind": "first_unused_measured_wheel_contact_transition",
+        "policy_frame": 117,
+        "stratum_s": [
+          2.3,
+          3.2
+        ],
+        "event_sample": 469,
+        "event_time_s": 2.345,
+        "active_before_L_R": [
+          true,
+          true
+        ],
+        "active_after_L_R": [
+          false,
+          true
+        ]
+      },
+      {
+        "kind": "fixed_clock_stratum",
+        "policy_frame": 125
+      },
+      {
+        "kind": "fixed_clock_stratum",
+        "policy_frame": 145
+      },
+      {
+        "kind": "fixed_clock_stratum",
+        "policy_frame": 150
+      },
+      {
+        "kind": "first_unused_measured_wheel_contact_transition",
+        "policy_frame": 161,
+        "stratum_s": [
+          3.2,
+          4.0
+        ],
+        "event_sample": 648,
+        "event_time_s": 3.24,
+        "active_before_L_R": [
+          false,
+          true
+        ],
+        "active_after_L_R": [
+          true,
+          true
+        ]
+      },
+      {
+        "kind": "fixed_clock_stratum",
+        "policy_frame": 175
+      },
+      {
+        "kind": "fixed_clock_stratum",
+        "policy_frame": 195
+      },
+      {
+        "kind": "fixed_clock_stratum",
+        "policy_frame": 225
+      }
+    ],
+    "control_intervals": 16,
+    "substeps_per_interval": 4,
+    "physics_substeps": 64,
+    "control_dt_s": 0.02,
+    "physics_dt_s": 0.005,
+    "selection_scope": "12 fixed clock frames plus earliest unused measured wheel-ground contact transition in each of four predeclared time strata; no prediction-error selection.",
+    "input_episode_sha256": {
+      "report.json": "954b8449a654219de0bd473bae330cea2ea97fa9399bde3fd5db2f2211f01980",
+      "rollout.npz": "46b4422669c3d2f915ae4492d825bbe248eef8cfc11776a6b8a583c13f15b9bc",
+      "solver_log.json": "71856b9de0f1e70986bd5265a7acfa37394feb733aaa26b5586f58d6bae1a1d4"
+    },
+    "input_file_sha256": {
+      "model_sha256": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513",
+      "motion_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+      "settings_sha256": "643262e037d766e924c5ffa165385f2f9a85d5af0257192f222d7106e2685266",
+      "task_profile_sha256": "31de29a61eec847e0e39783f3a0d9d8f2db551acd679a1b38dfde2b24e8ae7d6",
+      "actuator_contract_sha256": "6e105cbd6efe7d35117a895fa097e8ec64b6ac822a9de07c00acfaef4d09642f"
+    },
+    "source_sha256": {
+      "probe_nmpc_isaac_prediction.py": "0f4b0caac0633b0db6817a2c32b4b636ac5fde0fdaeb2895676cee92f1d52ca6",
+      "scripts/run_nmpc_tracking.py": "d121350b553c8a5622e6759a9e69b33e946e9193e01f442ebe3d333541743293",
+      "scripts/run_nmpc_tracking_isaac.py": "c498346383e3a3cea4b8446d1ec537aca85ba15bdc118a1849b1de6306efc37b",
+      "scripts/nmpc_shooting.py": "8d2ac598d9e0e2765f9566954ba3fd0f443d939d2a5c6566125cca18668b35bd",
+      "scripts/nmpc_tracking_objective.py": "ff22eebb2b22b9af7dba114c64fcd10f6b0a90822559af8f32cbe6884015b860",
+      "scripts/nmpc_batch_objective.py": "1c9da90ae66778a71ceb2e6bb9d0dcf7f0a2259fafee39b37cbe958b79178fae",
+      "scripts/nmpc_native_batch.py": "475ef6fe1712783ea11af2cae64b5ff0d61321e6edee0a596f9977a7a69da8a1",
+      "scripts/classical_tracking.py": "3fcafdb6a16058280aa1e5a0ade6113f6963ddf3085c25ebe2ed6fbb30661c57",
+      "scripts/controller_references.py": "2f2746946c37a527298ef83d6a4f07063a9d95250c49815f4f1478d5141b4bf6",
+      "scripts/height_smoothness.py": "e133aca58f671fc22ae1dfc97a03461e7724e4072bf8b74f58a2c14281d198b8",
+      "native/nmpc_batch.cpp": "deb3afe3367e11c28295e00e4a081e84968818070dcfb7044f06466761875ed2",
+      "source-root/scripts/eval_tracking_mujoco.py": "da6d1da378b5065589a49f2befaebfb0576665dbd2ad5d34a157d11b8984a3aa",
+      "source-root/scripts/eval_tracking.py": "fd90089810d3d14bfd96210723afdd3a36113a19f667ec60b2df617dd032f992",
+      "source-root/training/tron1_domain_randomization.py": "3f3a0b62c85a0af496ae9e9e0d75dda85c3ec30da587e4a47969843f5b1b1dca",
+      "source-root/training/tron1_contact_slip.py": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4",
+      "source-root/training/tron1_tracking.py": "0a29fa27c1d65c0b9add0886221491e549553e3529d6970f1ec5ba35e2532817",
+      "source-root/training/tron1_drift.py": "5eb40c9b3c14f5bd5c59c9861c1414ae8ac1b219ff0dd70591f2c6fe0bb5344c",
+      "source-root/training/tron1_runtime_device.py": "2a1460d1b48e884fc5608e0365edc43b815d1fc74c8439945d4e2cc18027f775",
+      "source-root/training/tron1_physics_clock.py": "bcd89d6a24652d4501baf6744b46944d369fd224a9ab4727fc8b6073a20cf44e"
+    },
+    "runtime_identity": {
+      "shared": {
+        "source_sha256": "deb3afe3367e11c28295e00e4a081e84968818070dcfb7044f06466761875ed2",
+        "mujoco_header_sha256": "d5ccfb227eb06586edfb4def5812a8082c1cbdf8e6dc5c3176abd9772a57fd07",
+        "mujoco_library_sha256": "8969010a8325d32b9b154159862ffe3b112277cc993983a0168f7dbe2efe0592",
+        "model_snapshot_sha256": "28ebe2555a1f7511f882c5e62e914ece71bee6855a7ab4425e6fd614bfbe4b9e",
+        "mujoco_version": "3.8.1",
+        "header_version": 3008001,
+        "abi_version": 1
+      },
+      "local_native_library_sha256": "b13e74df3a532496449d2f6b34b6934784a6bfd4ea5f0574c90cf279048821b7",
+      "original_remote_native_library_sha256": "ce676e8414d38beb0676e8529cd88ebfea980ef9d91494c052e21414c4f89ea5",
+      "local_native_build_manifest_sha256": "9bc3587fd421886b0d2ad866a49b02f84dbb3000098ef3a19a28043e948f68ff",
+      "native_binary_matches_original_remote": false
+    },
+    "all_64_substeps_maxima": {
+      "maximum_root_xy_prediction_error_m": 0.0007796869959124472,
+      "maximum_root_rotation_prediction_error_rad": 0.004307379540733559,
+      "maximum_root_COM_velocity_component_error_m_s": 0.02955203057529616,
+      "maximum_root_angular_velocity_component_error_rad_s": 0.7034134431946504,
+      "maximum_torque_prediction_error_nm": 21.277520811816558,
+      "maximum_net_body_contact_force_prediction_error_n": 456.25962302586436
+    },
+    "final_20ms_endpoints_maxima": {
+      "maximum_root_xy_prediction_error_m": 0.0007796869959124472,
+      "maximum_root_rotation_prediction_error_rad": 0.004307379540733559,
+      "maximum_root_COM_velocity_component_error_m_s": 0.02955203057529616,
+      "maximum_root_angular_velocity_component_error_rad_s": 0.5190866325506109,
+      "maximum_torque_prediction_error_nm": 15.313706208290675,
+      "maximum_net_body_contact_force_prediction_error_n": 219.32932324834164
+    },
+    "maximum_definitions": "XY is Euclidean XY-position error; rotation is SO(3) tangent norm. Velocity, torque and net-body-force maxima are absolute COMPONENT maxima, not vector magnitudes or tire-normal forces.",
+    "actuator_checks": {
+      "first_substep_torque_max_abs_error_nm": 1.5459954738616943e-05,
+      "PD_DC_on_actual_prestates_max_abs_error_nm": 1.728534698486328e-05,
+      "interpretation": "Later predicted torque differs after predicted state diverges; this is not identification of an actuator-map error."
+    },
+    "objective_and_reconstruction": {
+      "maximum_absolute_stage_cost_prediction_error": 0.0037936445851671496,
+      "maximum_FK_reconstruction_vs_logged_stage_cost_error": 2.549837546661493e-08,
+      "maximum_FK_reconstruction_vs_logged_weighted_term_error": 7.514271965769481e-07
+    },
+    "independent_converter_vs_recorded_packed_max_abs_error": 4.440892098500626e-16,
+    "FK_wheel_origin_max_abs_component_error_m": 6.608816742748047e-07,
+    "measured_channels": "Base-link pose, base original-COM twist, eight joint q/dq, two wheel-origin positions, applied torques and nine-body net contact forces are recorded.",
+    "FK_scope": "Six intermediate-link positions and eight non-root orientations/COM velocities are reconstructed, not extra measured Isaac channels; wheel-origin measurements separately check FK.",
+    "contact_history": "Exact raw newest-first PhysX history, including nonzero reset history, is supplied. Native chronological output is reversed only for array comparison; reward history-max norm is order-invariant. No unobserved solver warm-start is invented.",
+    "limits": "One observed action per selected state, not a horizon-rollout or counterfactual-policy certificate. Engine-specific net-force differences do not identify a calibrated tire-force or causal contact parameter."
+  },
+  "limitations": [
+    "Same-time along/normal projection is not nearest-path distance, contact slip or measured controller latency.",
+    "Small short-interval position error does not exclude angular/force/model errors or establish long-horizon fidelity.",
+    "Single nominal coefficient and seed; no other-friction tuning, frozen-controller qualification or causal optimization diagnosis is established."
+  ]
+}

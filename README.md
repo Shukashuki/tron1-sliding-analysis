@@ -63,6 +63,10 @@ records 0.259 m core XY RMSE / 0.357 m peak in Isaac, still above the
 exploratory XY limits despite 99.18% mean speed retention. The MuJoCo
 improvement therefore does not qualify this controller for freezing. It is
 **not frozen**, and no NMPC friction grid has started.
+The [progress/model audit and H30 follow-up](results/2026-10-16-nmpc-progress-and-horizon.md)
+separates along-track lag from normal displacement: 72.65% of residual H15
+Isaac's squared XY error is along-track. Longer look-ahead lowers core RMSE
+to 0.232 m in Isaac / 0.092 m in MuJoCo, but Isaac still exceeds the XY screen.
 Matching the 15 stage rewards does not match RL's discount, bootstrap and
 orientation-termination semantics; the
 [termination audit](results/2026-10-16-controller-termination-semantics.md)

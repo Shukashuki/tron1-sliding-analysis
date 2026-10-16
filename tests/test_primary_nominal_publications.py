@@ -18,6 +18,7 @@ CASES = [
     ("SAC", "controller_primary_sac_nominal_pair_v2", "2026-10-16-primary-sac-nominal-pair.md"),
     ("NMPC", "controller_primary_nmpc_nominal_pair_v1", "2026-10-16-primary-nmpc-nominal-pair.md"),
     ("NMPC", "controller_primary_nmpc_residual_nominal_pair_v1", "2026-10-16-primary-nmpc-residual-nominal-pair.md"),
+    ("NMPC", "controller_primary_nmpc_residual_h30_b5_nominal_pair_v1", "2026-10-16-nmpc-progress-and-horizon.md"),
 ]
 
 
@@ -135,3 +136,45 @@ def test_residual_nmpc_pair_is_matched_search_ablation_but_not_qualified_for_fre
     note = (ROOT / "results/2026-10-16-primary-nmpc-residual-nominal-pair.md").read_text().lower()
     assert "not frozen" in note and "not an algorithm ranking" in note
     assert "not\nqualified for a friction grid" in note
+
+
+def test_h30_b5_pair_is_unfrozen_matched_nominal_development():
+    _, summary, compact = publication("controller_primary_nmpc_residual_h30_b5_nominal_pair_v1")
+    development = summary["development_status"]
+    assert development["role"] == "unfrozen_nominal_residual_H30_B5_development"
+    assert not development["controller_frozen"]
+    assert not development["qualified_for_friction_grid"]
+    assert not development["algorithm_ranking_claimed"]
+    assert "block duration" in development["configuration_caveat"]
+    identity = summary["audit"]["nmpc_controller_identity"]
+    config = identity["effective_cem_config"]
+    assert identity["exact_configuration_match"]
+    assert {key: config[key] for key in ("horizon_steps", "control_blocks", "candidates", "iterations", "elite_count", "seed")} == {
+        "horizon_steps": 30, "control_blocks": 5, "candidates": 64, "iterations": 3, "elite_count": 8, "seed": 42}
+    assert identity["parameterization_mode"] == config["parameterization"] == "warm_start_residual_blocks"
+    assert identity["action_parameterization_contract"]["baseline_copied_and_fixed_per_solve"]
+    assert not identity["action_parameterization_contract"]["learned_baseline"]
+    core = summary["windows"]["core"]
+    assert core["isaac"]["large_xy_exploratory_screen"]
+    assert not core["mujoco"]["large_xy_exploratory_screen"]
+    for engine, rmse, peak, speed, trace_sha in (
+        ("isaac", .23175209041015096, .3350392853422872, .9583644008042584,
+         "93a2aea6bf0816d6d1fcf1a8e895c547a1c9f584bc66caec15dacf0b8cde0772"),
+        ("mujoco", .09163851640152391, .12520633892938793, 1.011583397598407,
+         "b5e03d9223703b8e35811862db92b955794477f4ba328c01a2a2a9e651b9fc81")):
+        assert core[engine]["reference_xy_rmse_m"] == pytest.approx(rmse, abs=1e-14)
+        assert core[engine]["reference_xy_peak_m"] == pytest.approx(peak, abs=1e-14)
+        assert core[engine]["mean_speed_retention_ratio"] == pytest.approx(speed, abs=1e-14)
+        assert summary["input_sha256"][f"{engine}_trace"] == trace_sha
+        assert len(compact[f"{engine}_time_s"]) == 1397
+        sources = {entry["source_name"]: entry["sha256"] for entry in
+                   summary["reported_plant_source_provenance"][engine]["reported_source_hashes"]}
+        assert sources["nmpc_shooting.py"] == "8d2ac598d9e0e2765f9566954ba3fd0f443d939d2a5c6566125cca18668b35bd"
+        assert sources["nmpc_tracking_objective.py"] == "ff22eebb2b22b9af7dba114c64fcd10f6b0a90822559af8f32cbe6884015b860"
+        assert summary["posture_diagnostics"][engine]["max_base_tilt_deg"] < 20.
+        assert core[engine]["ground_contact_heading_geometry"]["measured_contact_gate_applied"]
+        assert core[engine]["ground_contact_lateral_slip_m_s"] is not None
+        assert core[engine]["heading_geometry"]["root_directed_beta"]["mean_absolute_deg"] > 1.
+        assert not core[engine]["heading_offset_is_mismatch"]
+        assert not core[engine]["height_or_flight_failure_gate"]
+    assert not summary["controlled_execution_success_claimed"] and not summary["hardware_ready"]
