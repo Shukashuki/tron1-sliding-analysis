@@ -54,8 +54,45 @@ ACTUATOR_SETTINGS = {"leg_position_scale": 1., "leg_kp": 500., "leg_kd": 10.,
                      "wheel_motor_velocity_limit_rad_s": 100.}
 
 
+def _bounded_error_diagnostics(value):
+    """Detached primitive allowlist, bounded before reaching caller telemetry."""
+    if value is None:
+        return None
+    fields = {"event", "native_return_code", "child_exception_type", "ipc_exception_type",
+              "parent_stop_initiated", "timeout_s", "mujoco_log_tail", "worker", "before_stop", "after_stop"}
+    status_fields = {"alive", "closed", "pid", "exitcode"}
+    def primitive(item):
+        if item is None or type(item) in (bool, int):
+            return item
+        if type(item) is float and np.isfinite(item):
+            return item
+        if type(item) is str:
+            return item.encode("utf-8", errors="replace")[:2048].decode("utf-8", errors="ignore")
+        raise TypeError("Native diagnostics require finite built-in primitives")
+    if type(value) is not dict or any(type(k) is not str or k not in fields for k in value):
+        raise TypeError("Native diagnostics contain unsupported fields")
+    result = {}
+    for key, item in value.items():
+        if key in ("worker", "before_stop", "after_stop"):
+            if type(item) is not dict or any(type(k) is not str or k not in status_fields for k in item):
+                raise TypeError("Native worker diagnostics contain unsupported fields")
+            result[key] = {k: primitive(v) for k, v in item.items()}
+        else:
+            result[key] = primitive(item)
+    if len(json.dumps(result, allow_nan=False).encode("utf-8")) > 8192:
+        raise ValueError("Native diagnostic byte budget exceeded")
+    return result
+
+
 class NativeBatchError(RuntimeError):
-    pass
+    def __init__(self, *args, diagnostics=None):
+        # Optional, detached telemetry; preserve existing exception classes,
+        # message text and RuntimeError catch behavior.
+        super().__init__(*args)
+        try:
+            self.diagnostics = _bounded_error_diagnostics(diagnostics)
+        except Exception:
+            self.diagnostics = None
 
 
 class NativeWorkerError(NativeBatchError):
@@ -236,16 +273,19 @@ def _worker(pipe, library_path, model_blob, ids, q0, workdir, max_output_bytes):
                     q0.ctypes.data_as(real), *(value.ctypes.data_as(real) for value in inputs),
                     output.ctypes.data_as(real), output.size, error, len(error))
                 if result:
-                    pipe.send({"ok": False, "error": error.value.decode(errors="replace")})
+                    pipe.send({"ok": False, "error": error.value.decode(errors="replace"),
+                               "error_kind": "native_c_return", "native_return_code": int(result)})
                 else:
                     pipe.send({"ok": True, "output": output})
             except Exception as error:
-                pipe.send({"ok": False, "error": f"{type(error).__name__}: {error}"})
+                pipe.send({"ok": False, "error": f"{type(error).__name__}: {error}",
+                           "error_kind": "child_exception", "child_exception_type": type(error).__name__})
     except EOFError:
         return
     except Exception as error:
         try:
-            pipe.send({"ok": False, "error": f"{type(error).__name__}: {error}"})
+            pipe.send({"ok": False, "error": f"{type(error).__name__}: {error}",
+                       "error_kind": "child_outer_exception", "child_exception_type": type(error).__name__})
         except (EOFError, BrokenPipeError, OSError):
             pass
     finally:
@@ -316,31 +356,64 @@ class NativeBatchTransition:
     def worker_alive(self):
         return not self._closed and self._process.is_alive()
 
+    def _worker_status(self):
+        """Best-effort nonblocking snapshot, never a lifecycle/restart action."""
+        status = {"alive": None, "closed": bool(getattr(self, "_closed", True)),
+                  "pid": None, "exitcode": None}
+        process = getattr(self, "_process", None)
+        if process is not None:
+            for key, read in (("alive", process.is_alive),
+                              ("pid", lambda: process.pid),
+                              ("exitcode", lambda: process.exitcode)):
+                try:
+                    status[key] = read()
+                except Exception:
+                    pass
+        return status
+
     def _receive(self):
         try:
             if not self._pipe.poll(self.timeout_s):
+                before = self._worker_status()
                 self._stop()
-                raise NativeWorkerError("Native worker timeout; isolated worker stopped, no automatic restart")
+                raise NativeWorkerError("Native worker timeout; isolated worker stopped, no automatic restart",
+                    diagnostics={"event": "receive_timeout", "timeout_s": self.timeout_s,
+                                 "before_stop": before, "after_stop": self._worker_status(),
+                                 "parent_stop_initiated": True})
             response = self._pipe.recv()
         except (EOFError, BrokenPipeError, OSError) as error:
             self._process.join(timeout=1.)
             code = self._process.exitcode
             log = Path(self._workdir.name) / "MUJOCO_LOG.TXT"
             details = log.read_text(errors="replace")[-2000:] if log.is_file() else ""
+            before = self._worker_status()
             self._stop()
-            raise NativeWorkerError(f"Native worker exited (code={code}); {details}") from error
+            raise NativeWorkerError(f"Native worker exited (code={code}); {details}",
+                diagnostics={"event": "receive_ipc_error", "ipc_exception_type": type(error).__name__,
+                             "before_stop": before, "after_stop": self._worker_status(),
+                             "parent_stop_initiated": True, "mujoco_log_tail": details}) from error
         if not response.get("ok"):
-            raise NativeBatchError(response.get("error", "Unknown native worker failure"))
+            raise NativeBatchError(response.get("error", "Unknown native worker failure"),
+                diagnostics={"event": response.get("error_kind", "child_error_reply"),
+                             "native_return_code": response.get("native_return_code"),
+                             "child_exception_type": response.get("child_exception_type"),
+                             "worker": self._worker_status(), "parent_stop_initiated": False})
         return response
 
     def _request(self, message):
         if self._closed or not self._process.is_alive():
-            raise NativeWorkerError("Native worker is closed or terminal; no automatic restart")
+            raise NativeWorkerError("Native worker is closed or terminal; no automatic restart",
+                diagnostics={"event": "request_worker_unavailable", "worker": self._worker_status(),
+                             "parent_stop_initiated": False})
         try:
             self._pipe.send(message)
         except (EOFError, BrokenPipeError, OSError) as error:
+            before = self._worker_status()
             self._stop()
-            raise NativeWorkerError("Native worker connection closed") from error
+            raise NativeWorkerError("Native worker connection closed",
+                diagnostics={"event": "send_ipc_error", "ipc_exception_type": type(error).__name__,
+                             "before_stop": before, "after_stop": self._worker_status(),
+                             "parent_stop_initiated": True}) from error
         return self._receive()
 
     def rollout(self, initial_qpos, initial_qvel, actions, *, initial_history):

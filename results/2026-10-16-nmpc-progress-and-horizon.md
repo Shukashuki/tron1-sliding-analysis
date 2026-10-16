@@ -183,8 +183,66 @@ the approved CEM source `8d2ac598…`, while local MuJoCo uses `d7d50588…`, wh
 adds optional model-plan instrumentation with that feature OFF here. Effective
 configuration and objective match, and default-OFF behavior has exact golden
 regression coverage; separate source hashes are retained. This is development
-evidence, **not an identical-source frozen benchmark**. The six-iteration
-H30/B5 check remains in progress; no result from it is claimed here.
+evidence, **not an identical-source frozen benchmark**.
+
+## Six iterations: preserved runtime failure, not a valid comparison
+
+The [I6 diagnostic pair](controller_primary_nmpc_residual_h30_b5_i6_diagnostic_pair_v1/summary.json)
+preserves complete 349-decision / 1,397-sample physical traces, including the
+failed predictions and resulting fallback actions. It is **not a valid nominal
+controller comparison**, a controller ranking or qualification for freezing.
+
+The intended algorithm change from unseeded H30/B5/I3 is only three to six CEM
+iterations: the 0.60 s horizon, five 0.12 s residual-correction blocks, 40 search
+parameters, population 64, eight elites, seed 42, 20 ms actions and fixed plant
+and prediction μ=0.70 remain unchanged. This increases search computation;
+there is no model-plan or learned-policy initializer. The separate remote/local
+implementation hashes described above remain preserved.
+
+![I6 failure diagnostic: reference, Isaac with 211 fallback decisions, and MuJoCo; not a valid nominal comparison](controller_primary_nmpc_residual_h30_b5_i6_diagnostic_pair_v1/topdown.png)
+
+| H30/B5/I6 diagnostic | Isaac, including fallbacks | MuJoCo |
+| --- | ---: | ---: |
+| Core XY RMSE / peak (m) | 0.182958 / 0.480784 | 0.067312 / 0.118123 |
+| Mean COM-speed retention | 89.05% | 97.82% |
+| Maximum full-episode tilt | 107.81° | 16.45° |
+
+Isaac's first failed prediction batch is decision 137; decision 136 is the last
+without a failed batch. Decision 137 still selects a finite initial candidate.
+At decisions 138–348 all initial candidates fail, producing **211 previous-action
+fallbacks**. The saved counters contain 53,341 finite and 81,511 failed candidate
+evaluations, with 1,690 failed batch calls. MuJoCo records zero solver failures.
+The complete finite physical trace does not make the Isaac solves successful.
+
+The underlying exception was not recorded by the original controller. Its actual
+app exit code is also **unknown**: the supervisor/transport ended without a
+terminal status, while the completed report and original stale launch status
+were preserved. An absent worker after cleanup is not proof of a worker crash;
+the evidence does not establish OOM, timeout, MuJoCo warning or SSH causality.
+All original snapshot/runtime hashes match before and after the run.
+
+The approximately 8.06 ms whole-episode median mixes fast failed-prediction
+fallbacks with successful solves. It is **not normal six-iteration timing**, a
+speed advantage or evidence of 20 ms real-time control. Large tilt remains a
+posture diagnostic, not a height/flight failure gate; XY limits and nonzero
+heading-offset semantics are unchanged. Neither this diagnostic nor the earlier
+variants qualify both engines: **no controller is frozen and no NMPC friction
+grid has started**.
+
+The local diagnostic-only patch now retains the first eight caught prediction
+exceptions per solve, their total count, bounded messages and native/IPC worker
+status. It distinguishes native-return, child-exception, IPC and timeout events
+without changing the objective, candidate order, action/RNG behavior, fallback
+or automatic-restart policy. It has not been deployed; the archived episode is
+not retrofitted with new error details or an inferred failure cause.
+
+A separate [bounded observed-input probe](nmpc_i6_failed_inputs_probe_20261016_v1.json)
+uses the original hash-matched native wrapper, model and evaluator helpers,
+not the new telemetry implementation. Recorded pre-action states 136–139 and
+their future applied actions produce finite H1/B4 and H30/B4 batches: exactly
+two calls / 496 physical substeps. This is not a new closed loop or CEM search.
+It does not test the objective adapter, reproduce the unrecorded failing
+candidate population, or establish the original failure cause.
 
 ## Reproduction
 
@@ -211,11 +269,19 @@ For the optional initializer, inspect
 `python scripts/export_model_nominal_plan.py --help` and first export a local,
 hash-locked action artifact from the completed unseeded residual H30 donor.
 Add `--model-nominal-plan /path/to/NEW_artifact/plan.json` to that residual H30
-command (or set `--horizon-steps 15` for the initializer H15 case). The raw donor
-and action NPZ are not published; the public search-development summary retains
-their portable metadata, source hashes and offline generation budget.
+command (or set `--horizon-steps 15` for the initializer H15 case). Original donor
+report/trace/solver files and the standalone action NPZ are not published. The
+public compact development trace does include derived held-action samples;
+its summary retains portable donor metadata, hashes and generation budget.
 For the narrower-leg H30 case, use
 `--settings config/nmpc_height_smooth_residual_h30_low_leg_std.json` in the
 same base command, retain `--horizon-steps 30 --control-blocks 5`, and leave
 `--model-nominal-plan` unset. These commands generate new physics episodes;
 they are not asset-free replays of the public summary.
+
+The [failed-input probe](../scripts/probe_nmpc_isaac_failed_inputs.py) documents
+its required original I6 archive, hash-locked helpers and native library in
+`--help`. Its mandatory `--runtime-source-root` must contain the exact original
+native wrapper/objective/C++ files from `0e1d884`, plus their source manifest;
+the current telemetry wrapper is intentionally rejected. No build, retry,
+model normalization or replacement contact history is performed.

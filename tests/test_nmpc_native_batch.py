@@ -4,6 +4,7 @@ import json
 import os
 from pathlib import Path
 import sys
+import threading
 from types import SimpleNamespace
 
 import numpy as np
@@ -16,6 +17,208 @@ from classical_tracking import Predictor, load_pinned_evaluator
 from nmpc_tracking_objective import MujocoObjectiveState
 from nmpc_native_batch import (NativeBatchTransition, NativeBatchError, NativeWorkerError,
                                ACTUATOR_SETTINGS, BODY_NAMES, JOINT_NAMES, build_native_library)
+
+
+class DiagnosticFakeProcess:
+    """No subprocess, native library, model creation or physics in these tests."""
+    def __init__(self, *, alive=True, exitcode=None):
+        self.pid, self.exitcode, self.alive = 12345, exitcode, alive
+        self.join_calls, self.terminate_calls, self.kill_calls = [], 0, 0
+    def is_alive(self):
+        return self.alive
+    def join(self, timeout):
+        self.join_calls.append(timeout)
+    def terminate(self):
+        self.terminate_calls += 1
+        self.alive, self.exitcode = False, -15
+    def kill(self):
+        self.kill_calls += 1
+        self.alive, self.exitcode = False, -9
+
+
+class DiagnosticFakePipe:
+    def __init__(self, response=None, *, poll=True, receive_error=None, send_error=None):
+        self.response, self.poll_result = response, poll
+        self.receive_error, self.send_error = receive_error, send_error
+        self.sent, self.closed = [], False
+    def poll(self, timeout):
+        return self.poll_result
+    def recv(self):
+        if self.receive_error is not None:
+            raise self.receive_error
+        return self.response
+    def send(self, message):
+        if self.send_error is not None:
+            raise self.send_error
+        self.sent.append(message)
+    def close(self):
+        self.closed = True
+
+
+@pytest.fixture
+def diagnostic_fake_native(tmp_path):
+    instances = []
+    def make(pipe, *, alive=True, exitcode=None):
+        native = object.__new__(NativeBatchTransition)
+        native._lock, native._closed = threading.Lock(), False
+        native._process = DiagnosticFakeProcess(alive=alive, exitcode=exitcode)
+        native._pipe, native.timeout_s = pipe, 30.
+        native._workdir = SimpleNamespace(name=str(tmp_path), cleanup=lambda: None)
+        instances.append(native)
+        return native
+    yield make
+    # No real resources exist; prevent destructor requests outside assertions.
+    for native in instances:
+        native._closed = True
+
+
+def test_diagnostic_exception_optional_metadata_preserves_runtimeerror_args_and_str():
+    detail = {"worker": {"alive": True}}
+    error = NativeBatchError("same", 7, diagnostics=detail)
+    assert error.args == ("same", 7) and str(error) == str(RuntimeError("same", 7))
+    detail["worker"]["alive"] = False
+    assert error.diagnostics == {"worker": {"alive": True}}
+    assert str(NativeWorkerError("old text")) == "old text"
+    assert str(NativeBatchError()) == ""
+
+
+@pytest.mark.parametrize("bad", [object(), {"unknown": True}, {"event": np.array([1.])},
+                                  {"worker": {"alive": {"deep": True}}}, {"timeout_s": float("nan")}])
+def test_diagnostic_malformed_constructor_metadata_never_replaces_original_error(bad):
+    error = NativeBatchError("Keep original", diagnostics=bad)
+    assert str(error) == "Keep original" and error.diagnostics is None
+
+
+def test_diagnostic_constructor_never_invokes_deepcopy_hooks_and_bounds_text():
+    class BadCopy:
+        def __deepcopy__(self, memo):
+            raise AssertionError("Not a primitive")
+    error = NativeWorkerError("Original", diagnostics=BadCopy())
+    assert str(error) == "Original" and error.diagnostics is None
+    detail = NativeBatchError("Original", diagnostics={"event": "é"*10000}).diagnostics
+    assert len(detail["event"].encode("utf-8")) <= 2048
+    assert len(json.dumps(detail).encode("utf-8")) <= 8192
+
+
+@pytest.mark.parametrize("event,extra,message", [
+    ("native_c_return", {"native_return_code": 1}, "MuJoCo warning during native physics step"),
+    ("child_exception", {"child_exception_type": "ValueError"}, "ValueError: Native worker plan shape mismatch"),
+    ("child_outer_exception", {"child_exception_type": "ValueError"}, "ValueError: Unknown native worker request"),
+])
+def test_diagnostic_negative_child_reply_keeps_message_and_live_worker(diagnostic_fake_native, event, extra, message):
+    pipe = DiagnosticFakePipe({"ok": False, "error": message, "error_kind": event, **extra})
+    native = diagnostic_fake_native(pipe)
+    with pytest.raises(NativeBatchError) as caught:
+        native._request({"command": "rollout"})
+    assert type(caught.value) is NativeBatchError and str(caught.value) == message
+    diagnostic = caught.value.diagnostics
+    assert diagnostic["event"] == event
+    assert diagnostic["worker"] == {"alive": True, "closed": False, "pid": 12345, "exitcode": None}
+    for key, value in extra.items():
+        assert diagnostic[key] == value
+    assert diagnostic["parent_stop_initiated"] is False
+    assert native.worker_alive and native._process.terminate_calls == 0
+    assert native._process.join_calls == [] and not pipe.closed
+    json.dumps(diagnostic, allow_nan=False)
+
+
+def test_diagnostic_eof_retains_pre_stop_exitcode_log_and_terminal_no_restart(diagnostic_fake_native, tmp_path):
+    details = "fatal native detail"
+    (tmp_path/"MUJOCO_LOG.TXT").write_text(details)
+    pipe = DiagnosticFakePipe(receive_error=EOFError("pipe EOF"))
+    native = diagnostic_fake_native(pipe, alive=False, exitcode=-11)
+    with pytest.raises(NativeWorkerError) as caught:
+        native._receive()
+    assert str(caught.value) == "Native worker exited (code=-11); "+details
+    assert isinstance(caught.value.__cause__, EOFError)
+    diagnostic = caught.value.diagnostics
+    assert diagnostic["event"] == "receive_ipc_error"
+    assert diagnostic["before_stop"] == {"alive": False, "closed": False, "pid": 12345, "exitcode": -11}
+    assert diagnostic["after_stop"] == {"alive": False, "closed": True, "pid": 12345, "exitcode": -11}
+    assert diagnostic["mujoco_log_tail"] == details
+    assert native._process.terminate_calls == 0
+    (tmp_path/"MUJOCO_LOG.TXT").unlink()
+    assert diagnostic["mujoco_log_tail"] == details
+    with pytest.raises(NativeWorkerError, match="closed or terminal") as repeated:
+        native._request({"command": "rollout"})
+    assert repeated.value.diagnostics["event"] == "request_worker_unavailable"
+    assert repeated.value.diagnostics["worker"]["exitcode"] == -11
+    assert pipe.sent == []
+
+
+def test_diagnostic_timeout_distinguishes_parent_stop_from_prior_worker_exit(diagnostic_fake_native):
+    pipe = DiagnosticFakePipe(poll=False)
+    native = diagnostic_fake_native(pipe)
+    with pytest.raises(NativeWorkerError) as caught:
+        native._receive()
+    assert str(caught.value) == "Native worker timeout; isolated worker stopped, no automatic restart"
+    diagnostic = caught.value.diagnostics
+    assert diagnostic["event"] == "receive_timeout" and diagnostic["timeout_s"] == 30.
+    assert diagnostic["before_stop"]["exitcode"] is None and diagnostic["before_stop"]["alive"] is True
+    assert diagnostic["after_stop"]["exitcode"] == -15 and diagnostic["after_stop"]["closed"] is True
+    assert diagnostic["parent_stop_initiated"] is True
+    assert native._process.terminate_calls == 1
+    assert native._process.join_calls == [3.]
+    with pytest.raises(NativeWorkerError, match="no automatic restart"):
+        native._request({"command": "rollout"})
+    assert pipe.sent == []
+
+
+def test_diagnostic_send_failure_retains_original_str_and_before_after_stop(diagnostic_fake_native):
+    pipe = DiagnosticFakePipe(send_error=BrokenPipeError("broken"))
+    native = diagnostic_fake_native(pipe)
+    with pytest.raises(NativeWorkerError) as caught:
+        native._request({"command": "rollout"})
+    assert str(caught.value) == "Native worker connection closed"
+    diagnostic = caught.value.diagnostics
+    assert diagnostic["event"] == "send_ipc_error" and diagnostic["ipc_exception_type"] == "BrokenPipeError"
+    assert diagnostic["before_stop"]["alive"] is True
+    assert diagnostic["after_stop"]["exitcode"] == -15
+    assert native._process.terminate_calls == 1
+
+
+@pytest.mark.parametrize("native_failure", [False, True])
+def test_diagnostic_worker_protocol_tags_errors_without_native_or_physics(monkeypatch, tmp_path, native_failure):
+    import resource
+    import nmpc_native_batch as module
+    monkeypatch.setenv("CUDA_VISIBLE_DEVICES", "")
+    monkeypatch.setattr(module.os, "chdir", lambda path: None)
+    monkeypatch.setattr(resource, "setrlimit", lambda *args: None)
+    monkeypatch.setattr(module, "_validated_library", lambda path: (Path(path), {}, Path("fake_mujoco")))
+    monkeypatch.setattr(module, "_no_callbacks", lambda: None)
+    monkeypatch.setattr(module.pickle, "loads", lambda value: SimpleNamespace(_address=1))
+    addresses = iter((2, 3))
+    monkeypatch.setattr(module.mujoco, "MjData", lambda model: SimpleNamespace(_address=next(addresses)))
+    calls = []
+    def fake_c(*args):
+        calls.append(args)
+        args[-2].value = b"Original native return text"
+        return 1
+    monkeypatch.setattr(module, "_load_child_library", lambda *args: SimpleNamespace(tron1_batch=fake_c))
+    request = {"command": "rollout", "qpos": np.zeros((1,15)), "qvel": np.zeros((1,14)),
+               "history": np.zeros((1,3,9,3)), "actions": np.zeros((1,1,8) if native_failure else (1,8))}
+    messages = iter((request, {"command": "close"}))
+    class ChildPipe:
+        def __init__(self):
+            self.sent, self.closed = [], False
+        def recv(self):
+            return next(messages)
+        def send(self, response):
+            self.sent.append(response)
+        def close(self):
+            self.closed = True
+    pipe = ChildPipe()
+    module._worker(pipe, "fake_native", b"trusted_fake_model", np.zeros(33, dtype=np.int32),
+                   np.zeros(8), str(tmp_path), 512*1024**2)
+    assert pipe.closed and len(pipe.sent) == 3
+    ready, error, closed = pipe.sent
+    assert ready["ok"] and closed == {"ok": True}  # Loop remains usable after either rejection.
+    if native_failure:
+        assert len(calls) == 1
+        assert error == {"ok": False, "error": "Original native return text", "error_kind": "native_c_return", "native_return_code": 1}
+    else:
+        assert calls == []
+        assert error == {"ok": False, "error": "ValueError: Native worker plan shape mismatch", "error_kind": "child_exception", "child_exception_type": "ValueError"}
 
 
 @pytest.fixture(scope="session")

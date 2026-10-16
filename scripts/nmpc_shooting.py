@@ -36,10 +36,41 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from collections.abc import Mapping
+import json
 import time
 from typing import Literal
 
 import numpy as np
+
+
+def _bounded_native_error_diagnostics(value):
+    """Copy only bounded native-owned primitive fields, never user hooks."""
+    if value is None:
+        return None
+    fields = {"event", "native_return_code", "child_exception_type", "ipc_exception_type",
+              "parent_stop_initiated", "timeout_s", "mujoco_log_tail", "worker", "before_stop", "after_stop"}
+    status_fields = {"alive", "closed", "pid", "exitcode"}
+    def primitive(item):
+        if item is None or type(item) in (bool, int):
+            return item
+        if type(item) is float and np.isfinite(item):
+            return item
+        if type(item) is str:
+            return item.encode("utf-8", errors="replace")[:2048].decode("utf-8", errors="ignore")
+        raise TypeError("Native diagnostics require finite built-in primitives")
+    if type(value) is not dict or any(type(k) is not str or k not in fields for k in value):
+        raise TypeError("Native diagnostics contain unsupported fields")
+    result = {}
+    for key, item in value.items():
+        if key in ("worker", "before_stop", "after_stop"):
+            if type(item) is not dict or any(type(k) is not str or k not in status_fields for k in item):
+                raise TypeError("Native worker diagnostics contain unsupported fields")
+            result[key] = {k: primitive(v) for k, v in item.items()}
+        else:
+            result[key] = primitive(item)
+    if len(json.dumps(result, allow_nan=False).encode("utf-8")) > 8192:
+        raise ValueError("Native diagnostic byte budget exceeded")
+    return result
 
 
 @dataclass(frozen=True)
@@ -255,6 +286,36 @@ class ShootingNMPC:
         batch_rollout = getattr(self.predictor, "rollout_batch", None)
         use_batch = callable(batch_rollout)
         batch_counts = {"batch_prediction_calls": 0, "failed_batch_prediction_calls": 0}
+        prediction_failure_count = 0
+        prediction_failures = []
+
+        def record_prediction_failure(error, *, evaluation_mode, mu, candidate_count):
+            # Telemetry only: retain the original exception, without changing
+            # its catch policy, score, RNG, candidate order or worker lifetime.
+            nonlocal prediction_failure_count
+            prediction_failure_count += 1
+            if len(prediction_failures) >= 8:
+                return
+            try:
+                raw_message = str(error).encode("utf-8", errors="replace")
+                message = raw_message[:2048].decode("utf-8", errors="ignore")
+                message_truncated = len(raw_message) > 2048
+            except Exception:
+                message, message_truncated = "<exception message unavailable>", False
+            record = {"exception_type": type(error).__name__[:128], "message": message,
+                      "message_truncated": message_truncated,
+                      "evaluation_mode": evaluation_mode, "mu": float(mu),
+                      "reference_index": reference_index,
+                      "candidate_count": int(candidate_count),
+                      "batch_call_index": batch_counts["batch_prediction_calls"] if evaluation_mode == "batch" else None,
+                      "candidate_evaluation_index": counts["candidate_evaluations"]}
+            try:
+                record["native_diagnostics"] = _bounded_native_error_diagnostics(
+                    getattr(error, "diagnostics", None))
+            except Exception as diagnostic_error:
+                record["native_diagnostics"] = None
+                record["diagnostic_capture_error"] = type(diagnostic_error).__name__
+            prediction_failures.append(record)
 
         def score_many(plans):
             # This branch is opt-in. Batch axis is ALWAYS candidate order, not
@@ -268,7 +329,9 @@ class ShootingNMPC:
                 try:
                     values = np.asarray(batch_rollout(x.copy(), plans.copy(), reference_index,
                         mu=mu, previous_action=previous.copy(), previous_vz=previous_vz), dtype=float)
-                except (FloatingPointError, OverflowError, RuntimeError):
+                except (FloatingPointError, OverflowError, RuntimeError) as error:
+                    record_prediction_failure(error, evaluation_mode="batch", mu=mu,
+                                              candidate_count=number)
                     values = np.full(number, np.inf)
                     batch_counts["failed_batch_prediction_calls"] += 1
                 if values.shape != (number,):
@@ -302,7 +365,9 @@ class ShootingNMPC:
                 try:
                     value = self._rollout(x, plan, reference_index, mu=mu,
                                           previous_action=previous, previous_vz=previous_vz)
-                except (FloatingPointError, OverflowError, RuntimeError):
+                except (FloatingPointError, OverflowError, RuntimeError) as error:
+                    record_prediction_failure(error, evaluation_mode="scalar", mu=mu,
+                                              candidate_count=1)
                     value = np.inf
                 if not np.isfinite(value):
                     value = np.inf
@@ -522,6 +587,10 @@ class ShootingNMPC:
             "residual_selected_parameter_linf": float(np.max(np.abs(best_parameters))) if residual_mode else None,
             "population_evaluation_backend": "predictor_rollout_batch" if use_batch else "scalar_candidate_loop",
             "batch_runtime_failure_scope": "All candidates in the failed scenario call" if use_batch else None,
+            "prediction_failure_count": prediction_failure_count,
+            "prediction_failures": prediction_failures,
+            "prediction_failures_truncated": prediction_failure_count > len(prediction_failures),
+            "prediction_failure_semantics": "Caught prediction exceptions, not failed candidates; first 8 records per solve. Message <=2048 UTF-8 bytes; native primitive diagnostics <=8192 JSON bytes. Nonfinite-cost and candidate/scenario counters retain separate meanings.",
             **batch_counts,
             **counts,
         }

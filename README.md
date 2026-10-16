@@ -75,6 +75,10 @@ retain unsuccessful model-only initializer and narrower-leg-search results.
 Those cases remain MuJoCo-only; no controller freeze or NMPC friction grid is claimed.
 [H30/B10](results/2026-10-16-nmpc-progress-and-horizon.md#finer-residual-blocks-pass-the-xy-screen-in-isaac-not-in-mujoco)
 now passes Isaac's XY screen (0.067 m RMSE), but MuJoCo still fails (0.170 m); it remains unfrozen.
+The [six-iteration H30/B5 diagnostic](results/2026-10-16-nmpc-progress-and-horizon.md#six-iterations-preserved-runtime-failure-not-a-valid-comparison)
+records 211 Isaac fallback decisions after prediction failures. Its cause and
+actual app exit code are unknown; it is not a valid nominal comparison or a
+normal-timing result. No controller freeze or NMPC friction grid is claimed.
 Matching the 15 stage rewards does not match RL's discount, bootstrap and
 orientation-termination semantics; the
 [termination audit](results/2026-10-16-controller-termination-semantics.md)

@@ -346,6 +346,160 @@ def test_default_absolute_exact_prechange_plan_cost_and_random_stream_golden():
     assert info["best_cost_by_iteration"]==[2.799728496110986,1.2879915966675333,.9881224923456084]
     np.testing.assert_array_equal(c.rng.normal(size=4),[-1.2798409576400205,1.681816619300824,1.7289953408857035,1.359220600295612])
     assert info["action_parameterization"]=="absolute_blocks"
+    assert info["prediction_failure_count"] == 0
+    assert info["prediction_failures"] == []
+    assert info["prediction_failures_truncated"] is False
+
+
+@pytest.mark.parametrize("batch", [False, True])
+def test_prediction_exception_diagnostics_are_bounded_detached_and_reset_per_solve(batch):
+    class FakeNativeError(RuntimeError):
+        def __init__(self):
+            super().__init__("Original native failure text")
+            self.diagnostics = {"event": "child_exception", "worker": {
+                "alive": True, "closed": False, "pid": 123, "exitcode": None}}
+
+    error = FakeNativeError()
+    class Failing(RecordingRollout):
+        def rollout(self, state, plans, reference_index, **kwargs):
+            if kwargs["mu"] == .2:
+                raise error
+            return 1.
+    predictor = Failing()
+    if batch:
+        def rollout_batch(state, plans, reference_index, **kwargs):
+            if kwargs["mu"] == .2:
+                raise error
+            return np.ones(len(plans))
+        predictor.rollout_batch = rollout_batch
+    config = CEMConfig(horizon_steps=2, control_blocks=1, candidates=4,
+                       iterations=10, elite_count=2)
+    c = ShootingNMPC(predictor, config, action_low=[-1.], action_high=[1.], mu_scenarios=(.2,.7))
+    for frame in (12, 13):
+        action, info = c.action(np.zeros(2), frame, previous_action=np.array([.3]), previous_vz=0.)
+        np.testing.assert_array_equal(action, [.3])
+        assert info["optimization_failed"] and c.last_plan is None
+        assert info["prediction_failure_count"] == (11 if batch else 41)
+        assert len(info["prediction_failures"]) == 8
+        assert info["prediction_failures_truncated"] is True
+        first = info["prediction_failures"][0]
+        assert first["exception_type"] == "FakeNativeError"
+        assert first["message"] == str(error) == "Original native failure text"
+        assert first["evaluation_mode"] == ("batch" if batch else "scalar")
+        assert first["mu"] == .2 and first["reference_index"] == frame
+        assert first["candidate_count"] == 1
+        assert first["native_diagnostics"] == error.diagnostics
+        assert first["native_diagnostics"] is not error.diagnostics
+        assert first["native_diagnostics"]["worker"] is not error.diagnostics["worker"]
+        assert info["prediction_failures"][1]["candidate_count"] == (4 if batch else 1)
+        json.dumps(info, allow_nan=False)
+    error.diagnostics["worker"]["alive"] = False
+    assert first["native_diagnostics"]["worker"]["alive"] is True
+
+
+@pytest.mark.parametrize("batch", [False, True])
+@pytest.mark.parametrize("mode", ["absolute_blocks", "warm_start_residual_blocks"])
+@pytest.mark.parametrize("reduction", ["worst", "mean"])
+def test_exception_telemetry_has_exact_nonfinite_equivalent_decision_plan_rng_parity(batch, mode, reduction):
+    class Failures(RecordingRollout):
+        def __init__(self, raises):
+            super().__init__()
+            self.raises = raises
+        def rollout(self, state, plan, reference_index, **kwargs):
+            if kwargs["mu"] == .2 and np.any(plan < 0.):
+                if self.raises:
+                    raise RuntimeError("Same score rejection, diagnostic only")
+                return np.inf
+            return float(np.sum((plan-.4)**2))
+    def make(raises):
+        predictor = Failures(raises)
+        if batch:
+            def rollout_batch(state, plans, reference_index, **kwargs):
+                # Reject exactly the same WHOLE batch in both pipelines.
+                if kwargs["mu"] == .2 and np.any(plans < 0.):
+                    if raises:
+                        raise RuntimeError("Same whole-batch rejection, diagnostic only")
+                    return np.full(len(plans), np.inf)
+                return np.array([float(np.sum((p-.4)**2)) for p in plans])
+            predictor.rollout_batch = rollout_batch
+        cfg = CEMConfig(horizon_steps=5, control_blocks=2, candidates=12, iterations=3,
+                        elite_count=3, seed=63, initial_std=.5,
+                        parameterization=mode, scenario_reduction=reduction)
+        return ShootingNMPC(predictor, cfg, action_low=[-1.], action_high=[1.], mu_scenarios=(.2,.7))
+    recorded, equivalent = make(True), make(False)
+    previous = np.array([.2])
+    saw_failure = False
+    for frame in (0, 1, 3, 0):
+        action, info = recorded.action(np.zeros(2), frame, previous_action=previous, previous_vz=.2)
+        other_action, other = equivalent.action(np.zeros(2), frame, previous_action=previous, previous_vz=.2)
+        np.testing.assert_array_equal(action, other_action)
+        np.testing.assert_array_equal(recorded.last_plan, equivalent.last_plan)
+        for key in ("selected_model_cost", "initial_model_cost", "selected_scenario_costs",
+                    "best_cost_by_iteration", "initial_candidate_source", "warm_start_used",
+                    "candidate_evaluations", "finite_candidates", "failed_candidates",
+                    "scenario_evaluations", "failed_scenarios", "optimization_failed", "fallback_used"):
+            assert info[key] == other[key], key
+        np.testing.assert_array_equal(recorded.rng.normal(size=4), equivalent.rng.normal(size=4))
+        saw_failure |= info["prediction_failure_count"] > 0
+        assert other["prediction_failure_count"] == 0
+        previous = action.copy()
+    assert saw_failure
+
+
+def test_unserializable_exception_diagnostics_do_not_mask_existing_fallback():
+    class Failing(RecordingRollout):
+        def rollout(self, *args, **kwargs):
+            error = RuntimeError("Original failure")
+            error.diagnostics = {"not_json": np.array([1.])}
+            raise error
+    c = controller(Failing())
+    action, info = c.action(np.zeros(2), 0, previous_action=np.array([.3]), previous_vz=0.)
+    np.testing.assert_array_equal(action, [.3])
+    first = info["prediction_failures"][0]
+    assert first["message"] == "Original failure" and first["native_diagnostics"] is None
+    assert first["diagnostic_capture_error"] == "TypeError"
+    json.dumps(info, allow_nan=False)
+
+
+@pytest.mark.parametrize("problem", ["broken_str", "broken_deepcopy", "nested", "long_message", "long_diagnostics"])
+def test_malformed_or_large_failure_telemetry_cannot_change_fallback_or_rng(problem):
+    class BrokenString(RuntimeError):
+        def __str__(self):
+            raise RuntimeError("Do not replace the original solver failure")
+    class DeepcopyTrap:
+        def __deepcopy__(self, memo):
+            raise AssertionError("Telemetry must not call arbitrary deepcopy hooks")
+    class Failing(RecordingRollout):
+        def rollout(self, *args, **kwargs):
+            if problem == "broken_str":
+                raise BrokenString()
+            error = RuntimeError("é"*4000 if problem == "long_message" else "Original failure")
+            if problem == "broken_deepcopy":
+                error.diagnostics = DeepcopyTrap()
+            elif problem == "nested":
+                error.diagnostics = {"worker": {"alive": {"too_deep": True}}}
+            elif problem == "long_diagnostics":
+                error.diagnostics = {key: "é"*10000 for key in
+                    ("event", "child_exception_type", "ipc_exception_type", "mujoco_log_tail", "native_return_code")}
+            raise error
+    c = controller(Failing())
+    reference = controller(RecordingRollout(costs={1.: np.inf}))
+    action, info = c.action(np.zeros(2), 0, previous_action=np.array([.3]), previous_vz=0.)
+    other, other_info = reference.action(np.zeros(2), 0, previous_action=np.array([.3]), previous_vz=0.)
+    np.testing.assert_array_equal(action, other)
+    np.testing.assert_array_equal(c.rng.normal(size=4), reference.rng.normal(size=4))
+    assert info["optimization_failed"] == other_info["optimization_failed"] is True
+    assert info["failed_candidates"] == other_info["failed_candidates"]
+    first = info["prediction_failures"][0]
+    assert len(first["message"].encode("utf-8")) <= 2048
+    if problem == "broken_str":
+        assert first["message"] == "<exception message unavailable>"
+    elif problem == "long_message":
+        assert first["message_truncated"] is True
+    else:
+        assert first["native_diagnostics"] is None
+        assert first["diagnostic_capture_error"] in ("TypeError", "ValueError")
+    json.dumps(info, allow_nan=False)
 
 
 class PrescribedNormals:
