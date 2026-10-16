@@ -64,11 +64,16 @@ the XY screen, including isolated μ=1.40, and 11 stay below both limits. The
 [original nominal pilot](results/2026-10-16-sa29-nmpc-pilot.md) is reused unchanged.
 SA29 is not another large-angle-turn trial, and its missing PPO/SAC/Isaac work
 is not replaced by primary policies or local model-control evidence.
+The approved remote snapshot is deployed. An initial PPO run was interrupted
+after auxiliary Isaac CUDA contexts also appeared on busy GPUs; no completed
+SA29 policy is claimed, and subsequent GPU jobs are held pending isolation or
+explicit permission for those allocations. See the linked SA29 report for the
+preserved runtime evidence and completion checks.
 
 | Reference / separate stratum | PPO and SAC | Fixed NMPC |
 | --- | --- | --- |
 | traj_4 / large-angle turn | Each trained; 17 μ in both engines | 17 μ in both engines |
-| SA29 / S-avoidance supplement | Not yet trained for this reference | 17 μ in MuJoCo; Isaac missing |
+| SA29 / S-avoidance supplement | PPO interrupted; no final policy; SAC unstarted | 17 μ in MuJoCo; Isaac missing |
 
 The [completed historical refinement](results/2026-10-15-car-sim2sim-boundary.md) places
 the sampled Isaac XY-verdict change between µ=0.16 and 0.18, versus µ=0.14 and

@@ -124,6 +124,44 @@ establish physical-car dynamic similarity.
 The [completed primary three-controller paired grid](2026-10-16-primary-controller-friction-development.md)
 and [original SA29 nominal pilot](2026-10-16-sa29-nmpc-pilot.md) remain unchanged.
 Completing the original two-reference comparison still requires supplementary-
-specific PPO/SAC training and both-engine fixed-friction validation. The new
-43-file remote snapshot/work proposal remains unapproved; no SA29 remote
-upload, training or validation job is implied by this local evidence.
+specific PPO/SAC training and both-engine fixed-friction validation. The user
+subsequently approved the 43-file remote snapshot and full SA29 comparison.
+The exact archive (339,297 bytes; SHA-256
+`0065669a538f488eaaf619bc2b2c18d8d0c16cd7163d8c6788f48b2e8cba602e`)
+was uploaded, extracted and all 43 member hashes verified. Existing runtime,
+USD, XML, actuator contract and native-library identities passed preflight;
+no new native build was performed.
+
+### Approved follow-up: resource-scope interruption, not a policy result
+
+On 2026-10-16, PPO started with the fixed 512-environment, seed-42,
+1,000-iteration recipe on a freshly checked completely idle RTX GPU.
+The actual PhysX backend and environment/robot tensors agreed on the selected
+unmasked CUDA ordinal. Nevertheless, Isaac startup created approximately
+346–378 MiB auxiliary CUDA contexts on each other visible GPU, including
+GPUs with other users' work. Native/tensor ordinal consistency does **not**
+prove memory/context exclusivity.
+
+To respect the idle-GPU-only authorization, only this experiment's verified
+process group was interrupted. All its processes and GPU contexts were
+confirmed absent afterward; other users' processes were not signaled.
+The last fully logged iteration was 199/1,000, accounting for 2,457,600
+transitions. The exact post-interrupt collection total is unknown. There is
+no `model_final.pt` and no valid completed SA29 PPO checkpoint. Despite the
+interrupt, Kit returned child exit code 0 while `run_status.json` remained
+stale at `training`; the outer supervisor correctly rejected completion.
+This is an interrupted runtime attempt, **not** a physical XY failure or a
+PPO/SAC/NMPC comparison result. Logs, partial metadata and termination evidence
+are retained privately; no weights or credentials are published.
+
+SAC and all new SA29 validation jobs remain unstarted. They require either
+verified single-GPU context isolation or explicit authorization for the
+observed auxiliary allocations. The completed local MuJoCo grid above and
+all prior primary-task recordings are unchanged; all 17 local SA29 NMPC
+MuJoCo episodes can be reused without rerunning physics.
+
+The new offline [policy-grid analyzer](../scripts/analyze_sa29_policy_friction_dynamics.py)
+and [three-controller comparison adapter](../scripts/analyze_sa29_controller_comparison.py)
+are prepared, with portable synthetic evidence tests. They require complete
+reference-specific recordings and do not generate missing simulation results.
+No SA29 policy-grid or paired-controller result bundle has been published.
