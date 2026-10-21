@@ -96,6 +96,8 @@ class NumpyRslWrapper:
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--backend", choices=("mjlab", "physx"), required=True)
+    parser.add_argument("--mjlab-task-implementation", choices=("gpu", "host"), default="gpu",
+                        help="gpu keeps task tensors on CUDA; host is the frozen calibration oracle")
     parser.add_argument("--model", type=Path, required=True)
     parser.add_argument("--motion", type=Path, required=True)
     parser.add_argument("--contract", type=Path, default=ROOT/"config/nominal_actuator_contract.json")
@@ -138,13 +140,20 @@ def main():
             if actual_pin != MJLAB_PIN:
                 raise ValueError(f"mjlab checkout is not pinned v1.4.0: {actual_pin}")
             sys.path.insert(0, str(args.mjlab_source.resolve()/"src"))
-            from mjlab_tron1_env import MjlabWarpBatch
-            from mujoco_ppo_env import MujocoPPOEnv
-            env = MujocoPPOEnv(args.model, args.motion, args.contract, args.task_profile,
-                               num_envs=args.num_envs, seed=args.seed, training=True,
-                               dr_mode="mjlab_v1p4", batch_factory=lambda *a:
-                               MjlabWarpBatch(*a, device=args.device))
-            wrapped = NumpyRslWrapper(env, args.device)
+            if args.mjlab_task_implementation == "gpu":
+                from mjlab_gpu_ppo_env import GpuTron1PPOEnv, TensorRslWrapper
+                env = GpuTron1PPOEnv(args.model, args.motion, args.contract, args.task_profile,
+                                     num_envs=args.num_envs, seed=args.seed, training=True,
+                                     dr_mode="mjlab_v1p4", device=args.device)
+                wrapped = TensorRslWrapper(env)
+            else:
+                from mjlab_tron1_env import MjlabWarpBatch
+                from mujoco_ppo_env import MujocoPPOEnv
+                env = MujocoPPOEnv(args.model, args.motion, args.contract, args.task_profile,
+                                   num_envs=args.num_envs, seed=args.seed, training=True,
+                                   dr_mode="mjlab_v1p4", batch_factory=lambda *a:
+                                   MjlabWarpBatch(*a, device=args.device))
+                wrapped = NumpyRslWrapper(env, args.device)
         else:
             from isaaclab.envs import ManagerBasedRLEnv
             from isaaclab_rl.rsl_rl import RslRlVecEnvWrapper
@@ -183,6 +192,7 @@ def main():
             if len(metadata["reward_terms"]) != 15 or "height_vertical_acceleration" not in metadata["reward_terms"]:
                 raise AssertionError("PhysX must resolve the same 15-term height-smooth objective")
         manifest = {"backend": args.backend, "mjlab_commit": MJLAB_PIN,
+                    "task_implementation": args.mjlab_task_implementation if args.backend == "mjlab" else "isaaclab_gpu",
                     "algorithm": "unmodified RSL-RL3.0.1 PPO; custom task wrapper, not mjlab's RSL5 runner",
                     "seed": args.seed, "host": platform.node(), "python": sys.version,
                     "gpu": torch.cuda.get_device_name(args.device),
@@ -196,7 +206,9 @@ def main():
                     "transitions_requested": args.num_envs*24*args.iterations,
                     "source_sha256": {p.name: source_hash(p) for p in
                                       [Path(__file__), ROOT/"scripts/mujoco_ppo_env.py",
-                                       ROOT/"scripts/mjlab_tron1_env.py", ROOT/"scripts/physx_mjlab_recipe.py"]
+                                       ROOT/"scripts/mjlab_tron1_env.py", ROOT/"scripts/physx_mjlab_recipe.py",
+                                       ROOT/"scripts/mjlab_gpu_ppo_env.py", ROOT/"scripts/mjlab_tron1_gpu.py",
+                                       ROOT/"scripts/tron1_torch_task.py"]
                                       if p.is_file()},
                     "evaluation_protocol": "DR disabled; both surfaces fixed to each of17mu; XY failure only; no airborne failure"}
         manifest["height_regularization"] = {

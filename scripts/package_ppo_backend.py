@@ -11,9 +11,13 @@ ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ("train_ppo_backend", "mjlab_tron1_env", "smoke_mjlab_tron1",
            "preflight_mjlab_runtime", "mujoco_ppo_env", "mujoco_ppo_native",
            "physx_mjlab_recipe", "classical_tracking", "nmpc_tracking_objective",
-           "nmpc_batch_objective", "height_smoothness", "package_ppo_backend", "run_ppo_backend_pair")
+           "nmpc_batch_objective", "height_smoothness", "package_ppo_backend", "run_ppo_backend_pair",
+           "mjlab_gpu_ppo_env", "mjlab_tron1_gpu", "tron1_torch_task", "benchmark_mjlab_gpu_task",
+           "profile_mjlab_gpu_task")
 TESTS = ("test_train_ppo_backend", "test_mjlab_tron1_env", "test_physx_mjlab_recipe",
-         "test_mjlab_runtime_preflight", "test_mujoco_ppo_env", "test_mujoco_ppo_native", "test_run_ppo_backend_pair")
+         "test_mjlab_runtime_preflight", "test_mujoco_ppo_env", "test_mujoco_ppo_native", "test_run_ppo_backend_pair",
+         "test_mjlab_gpu_ppo_env", "test_mjlab_tron1_gpu", "test_tron1_torch_task", "test_benchmark_mjlab_gpu_task",
+         "test_profile_mjlab_gpu_task", "test_gpu_rsl_wrapper")
 
 
 def package(output):

@@ -28,7 +28,7 @@ Wheel-only material selection follows mjlab's foot selection. Nonwheel coefficie
 
 ## Backend implementation
 
-The repository pins mjlab as [a submodule](../upstream/mjlab). Its `Simulation` supplies persistent, float32 MuJoCo-Warp CUDA physics; a custom TRON1 bridge recomputes the original DC motor limits each physical step and extracts actual GPU contact forces. The verified NumPy task computes observations and rewards on the host. Host transfers limit throughput, so this first implementation is not a GPU performance benchmark.
+The repository pins mjlab as [a submodule](../upstream/mjlab). Its `Simulation` supplies persistent, float32 MuJoCo-Warp CUDA physics; a custom TRON1 bridge recomputes the original DC motor limits each physical step and extracts actual GPU contact forces. The frozen `snapshot_v7` full training uses the verified NumPy task for host observations and rewards. A subsequent [GPU-resident task and measured timing](2026-10-21-mjlab-gpu-task.md) are now available; the already-running training was not replaced. New trainer invocations default to the GPU task; use `--mjlab-task-implementation host` to explicitly select the frozen host path.
 
 The adapter intentionally does not import mjlab's RSL 5 runner or use its G1 action, noise, reward or reset defaults. The existing RSL 3 algorithm and TRON1 task are retained to reduce confounding changes. MuJoCo-Warp training and native CPU MuJoCo validation remain distinct implementations and precisions.
 
