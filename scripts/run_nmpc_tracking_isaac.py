@@ -1,6 +1,6 @@
-"""Replan the shared CEM controller on an Isaac plant using MuJoCo prediction.
+"""Replan shared CEM on an Isaac plant with an explicit prediction backend.
 
-This is NOT replay of MuJoCo actions, a learned actor, or same-engine NMPC.
+Default predictions use MuJoCo; opt-in PhysX predictions own an isolated worker.
 The controller receives privileged measured state and reference preview. Only
 the ordinary initial env.reset writes the Isaac root; subsequent root motion
 is exclusively simulated physics. Every 5 ms physical sample is recorded.
@@ -246,9 +246,11 @@ def audit_actuators(robot):
 
 def add_prediction_backend_arguments(parser):
     """No native compiler/import/worker is implicitly used by the default."""
-    parser.add_argument("--prediction-backend",choices=("python","native"),default="python")
+    parser.add_argument("--prediction-backend",choices=("python","native","physx"),default="python")
     parser.add_argument("--native-library",type=Path,default=None,
                         help="Explicit prebuilt native library with its validated .json build manifest; no auto-build")
+    parser.add_argument("--physx-prediction-config",type=Path,default=None,
+                        help="Explicit isolated Isaac/PhysX candidate-worker configuration")
     return parser
 
 
@@ -256,8 +258,15 @@ def prediction_backend_options(args):
     """Validate opt-in paths before opening Isaac; ABI/hash checks occur later."""
     backend=getattr(args,"prediction_backend","python")
     library=getattr(args,"native_library",None)
-    if backend not in ("python","native"):
+    physx_config=getattr(args,"physx_prediction_config",None)
+    if backend not in ("python","native","physx"):
         raise ValueError("Unknown prediction backend")
+    if backend=="physx":
+        if library is not None or physx_config is None or not Path(physx_config).is_file():
+            raise ValueError("PhysX prediction requires an existing config and no native library")
+        return backend,None
+    if physx_config is not None:
+        raise ValueError("--physx-prediction-config is only valid with --prediction-backend physx")
     if backend=="python":
         if library is not None:
             raise ValueError("--native-library is only valid with --prediction-backend native")
@@ -270,10 +279,15 @@ def prediction_backend_options(args):
     return backend,library
 
 
-def build_prediction_backend(prediction,backend,library):
+def build_prediction_backend(prediction,backend,library,*,physx_config=None):
     """Call AFTER installing actual Isaac soft limits on prediction.objective."""
     if backend=="python":
         return prediction
+    if backend=="physx":
+        if library is not None or physx_config is None:
+            raise ValueError("PhysX prediction needs its explicit configuration")
+        from physx_batch_predictor import PhysXBatchTrackingPredictor
+        return PhysXBatchTrackingPredictor(prediction,json.loads(Path(physx_config).read_text()))
     if backend!="native" or library is None:
         raise ValueError("Invalid explicit native backend selection")
     from nmpc_batch_objective import NativeBatchTrackingPredictor
@@ -329,8 +343,8 @@ def main():
         raise ValueError("motion_npz_sha256 mismatch for selected reference_id")
     output.mkdir(parents=True)
     status={"kind":"receding_horizon_nmpc","status":"initializing",
-            "engine":"Isaac/PhysX","prediction_engine":"MuJoCo",
-            "controller_label":"Isaac plant / MuJoCo prediction model",
+            "engine":"Isaac/PhysX","prediction_engine":"Isaac/PhysX" if backend=="physx" else "MuJoCo",
+            "controller_label":"Isaac plant / PhysX prediction model" if backend=="physx" else "Isaac plant / MuJoCo prediction model",
             "trained_policy":False,"learned_policy_used":False,"tvlqr_used":False,"action_replay":False,
             "root_state_prescribed_after_reset":False,"external_root_forces_used":False,
             "reference_spec":reference_spec,"reference_id":args.reference_id,"role":reference_spec["role"],
@@ -438,8 +452,9 @@ def main():
         if not np.allclose(actual_offset,conversion.com_offset,atol=2e-6,rtol=0) or not np.isclose(actual_mass,provider.model.body_mass[conversion.base],atol=2e-5,rtol=0):
             raise AssertionError("Isaac base mass/COM differs from original unmerged MuJoCo link")
         prediction.objective=HeightSmoothTrackingObjective(profile,dt=env.step_dt,soft_joint_limits=pre["soft_joint_pos_limits"])
-        controller_prediction=build_prediction_backend(prediction,backend,native_library)
-        if backend=="native":
+        controller_prediction=build_prediction_backend(prediction,backend,native_library,
+            physx_config=getattr(args,"physx_prediction_config",None))
+        if backend in ("native","physx"):
             native_prediction=controller_prediction
         model_nominal_plan=attach_model_nominal_plan(args,controller_prediction,prediction,reference_spec)
         if adaptation is None:
@@ -473,6 +488,10 @@ def main():
         if backend=="native":
             source_paths.extend((Path(__file__).with_name("nmpc_batch_objective.py"),
                                  Path(__file__).with_name("nmpc_native_batch.py"),ROOT/"native/nmpc_batch.cpp"))
+        elif backend=="physx":
+            source_paths.extend((args.physx_prediction_config,Path(__file__).with_name("physx_batch_predictor.py"),
+                                 Path(__file__).with_name("physx_batch_predictor_worker.py"),
+                                 Path(__file__).with_name("nmpc_batch_objective.py")))
         if model_nominal_plan["enabled"]:
             source_paths.extend((Path(__file__).with_name("model_nominal_plan.py"),Path(args.model_nominal_plan)))
         if adaptation is not None:
@@ -499,7 +518,8 @@ def main():
                       fixed_evaluation=fixed_contract,height_contract=height_contract,
                       device_audit=device_audit,material_audit=material_audit,
                       actuator_audit=actuator_audit,legacy_joint_friction_audit=legacy_friction_audit,
-                      objective_contract=prediction.objective.contract(),packed_state_contract=prediction.layout.contract(),
+                      objective_contract=prediction.objective.contract(),
+                      packed_state_contract=(controller_prediction.state_contract() if backend=="physx" else prediction.layout.contract()),
                       action_parameterization=controller.parameterization_contract(),
                       model_generated_nominal_plan=model_nominal_plan,
                       prediction_backend_metadata=(native_prediction.metadata if native_prediction is not None else
@@ -508,6 +528,7 @@ def main():
                       native_library_sha256=sha(native_library) if native_library is not None else None,
                       native_build_manifest_sha256=sha(native_library.with_suffix(".json")) if native_library is not None else None,
                       prediction_timing_includes_native_ipc=backend=="native",
+                      prediction_timing_includes_worker_ipc=backend in ("native","physx"),
                       privileged_state_and_reference_preview=True,action_order=list(JOINT_NAMES),body_order=list(BODY_NAMES),
                       runtime_soft_joint_pos_limits=pre["soft_joint_pos_limits"].tolist(),
                       prediction_mujoco_version=conversion.mj.__version__,torch_version=str(torch.__version__),
@@ -565,7 +586,7 @@ def main():
             packed_samples.append(packed)
             previous_action=action.copy();previous_vz=objective["base_com_vz"]
             if k%25==0:
-                print(f"Isaac/MuJoCo NMPC frame={k}/{steps} plant_mu={args.plant_mu} prediction={controller.mu_scenarios} compute_ms={1000*elapsed:.2f}",flush=True)
+                print(f"Isaac/{status['prediction_engine']} NMPC frame={k}/{steps} plant_mu={args.plant_mu} prediction={controller.mu_scenarios} compute_ms={1000*elapsed:.2f}",flush=True)
         env.scene.update=original_scene_update;original_scene_update=None
         trace=recorder.arrays()
         trace.update(actions=np.asarray([row["action"] for row in decisions]),

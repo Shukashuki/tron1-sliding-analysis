@@ -302,14 +302,23 @@ def _run(args, resources):
     predictor=MujocoTrackingPredictor(provider,args.model,task,scenarios)
     backend=getattr(args,"prediction_backend","python")
     library=getattr(args,"native_library",None)
-    if backend not in ("python","native") or (backend=="native") != (library is not None):
+    physx_config=getattr(args,"physx_prediction_config",None)
+    if backend not in ("python","native","physx") or (backend=="native") != (library is not None):
         raise ValueError("Native prediction is explicit opt-in and requires exactly one prebuilt --native-library")
+    if (backend=="physx") != (physx_config is not None):
+        raise ValueError("PhysX prediction requires exactly one explicit --physx-prediction-config")
     controller_predictor=predictor
     native_metadata=None
+    physx_metadata=None
     if backend=="native":
         from nmpc_batch_objective import NativeBatchTrackingPredictor
         controller_predictor=resources.enter_context(NativeBatchTrackingPredictor(predictor,library))
         native_metadata=controller_predictor.metadata
+    elif backend=="physx":
+        from physx_batch_predictor import PhysXBatchTrackingPredictor
+        controller_predictor=resources.enter_context(PhysXBatchTrackingPredictor(
+            predictor,json.loads(Path(physx_config).read_text())))
+        physx_metadata=controller_predictor.metadata
     model_nominal_plan=attach_model_nominal_plan(args,controller_predictor,predictor,reference_spec)
     if adaptation is None:
         controller=ShootingNMPC(controller_predictor,cem,action_low=-np.ones(8),action_high=np.ones(8),mu_scenarios=scenarios)
@@ -318,7 +327,7 @@ def _run(args, resources):
         from adaptive_mpc_runtime import ScalarIdentificationModel,transition_context,adaptation_summary
         controller=AdaptiveShootingNMPC(controller_predictor,cem,adaptation_config=adaptation,
             identification_model=ScalarIdentificationModel(predictor),action_low=-np.ones(8),action_high=np.ones(8))
-    if backend=="native":
+    if backend in ("native","physx"):
         controller_predictor.record_cem_wiring(controller)
     model,_=provider.api.load_model(args.model,no_visual_mesh=True)
     provider.api.configure_model(model,provider.contract)
@@ -347,6 +356,9 @@ def _run(args, resources):
                   ROOT/"config/classical_tracking.json",Path(args.settings),Path(args.task_profile),Path(args.contract)]
     if backend=="native":
         source_files.extend((ROOT/"scripts/nmpc_native_batch.py",ROOT/"scripts/nmpc_batch_objective.py",ROOT/"native/nmpc_batch.cpp"))
+    elif backend=="physx":
+        source_files.extend((Path(physx_config),ROOT/"scripts/physx_batch_predictor.py",
+                             ROOT/"scripts/physx_batch_predictor_worker.py",ROOT/"scripts/nmpc_batch_objective.py"))
     if model_nominal_plan["enabled"]:
         source_files.extend((ROOT/"scripts/model_nominal_plan.py",Path(args.model_nominal_plan)))
     if adaptation is not None:
@@ -361,11 +373,14 @@ def _run(args, resources):
             "settings":settings,"effective_cem_config":asdict(cem),"plant_mu":args.plant_mu,
             "prediction_mu_scenarios":list(scenarios),"prediction_receives_plant_mu":False,
             "prediction_backend":backend,"native_prediction_backend":native_metadata,
+            "prediction_engine":"Isaac/PhysX" if backend=="physx" else "MuJoCo",
+            "physx_prediction_backend":physx_metadata,
             "action_parameterization":controller.parameterization_contract(),
             "model_generated_nominal_plan":model_nominal_plan,
             "plant_material_readback":{"compiled_sliding_friction_range":[float(model.geom_friction[:,0].min()),float(model.geom_friction[:,0].max())],
                                        "note":"Equal numeric contact coefficient, not a calibrated tire model."},
-            "packed_state_contract":predictor.layout.contract(),"objective_contract":predictor.objective.contract(),
+            "packed_state_contract":(controller_predictor.state_contract() if backend=="physx" else predictor.layout.contract()),
+            "objective_contract":predictor.objective.contract(),
             "physics_dt_s":model.opt.timestep,"control_dt_s":provider.dt,
             "contact_threshold_n":5.,
             "wheel_lateral_contact_slip_evidence_kind":"actual_ground_contact_points",
@@ -500,9 +515,11 @@ def parser():
                    help="Predeclare predictor scenarios independently of plant mu")
     p.add_argument("--output-dir",type=Path,required=True)
     p.add_argument("--max-policy-steps",type=int,default=None)
-    p.add_argument("--prediction-backend",choices=("python","native"),default="python",
+    p.add_argument("--prediction-backend",choices=("python","native","physx"),default="python",
                    help="Native requires explicit prebuilt, hash-verified isolated CPU worker library")
     p.add_argument("--native-library",type=Path,default=None)
+    p.add_argument("--physx-prediction-config",type=Path,default=None,
+                   help="Explicit isolated Isaac/PhysX candidate-worker configuration")
     p.add_argument("--model-nominal-plan",type=Path,default=None,
                    help="Optional audited model-generated plan metadata; an extra rescored initial candidate, never applied-action replay")
     p.add_argument("--adaptive-contact-config",type=Path,default=None,

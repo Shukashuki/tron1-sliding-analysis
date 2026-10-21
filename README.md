@@ -6,6 +6,13 @@ for a high course-to-wheel/foot heading offset, at which validation contact
 frictions does the learned TRON1 wheel-foot policy develop a large horizontal
 position error? Views are top-down only. Height/flight is not a failure gate.
 
+**Physics transfer (2026-10-21):** the
+[CEM prediction-model × validation-engine comparison](results/2026-10-21-mpc-predictor-transfer.md)
+includes all four PhysX/MuJoCo combinations at μ=0.70, synchronized top-down
+video and reproducible raw recordings. The separate
+[PPO/CEM friction-grid summary](results/2026-10-21-physx-mujoco-controller-transfer.md)
+covers the existing 17 coefficients.
+
 **Candidate selection update:** lateral and crossover steps are no longer active
 drift candidates. Their old GMR/rate-sweep results remain geometric-offset controls.
 We now seek sustained turning with translational momentum and explicitly report

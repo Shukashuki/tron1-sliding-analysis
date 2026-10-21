@@ -61,8 +61,9 @@ is 0.0307 m for PPO and 0.1525 m for CEM.
 The controller family and source physics vary together in this comparison.
 The measurements establish sensitivity of these particular controllers to an
 engine change; they do not isolate a causal backend effect or rank physics
-accuracy. A same-family MPC comparison additionally needs a PhysX predictor
-evaluated in both plants. Equal numerical μ does not calibrate equivalent
+accuracy. A separate [nominal CEM prediction-physics comparison](2026-10-21-mpc-predictor-transfer.md)
+now supplies the PhysX predictor in both plants, with its implementation
+differences explicitly retained. Equal numerical μ does not calibrate equivalent
 wheel-ground traction. CEM's approximately 638 ms nominal PhysX solve median
 also places the current results in offline evaluation, with the plant waiting
 for each solution rather than enforcing the 20 ms deadline.

@@ -1,0 +1,887 @@
+{
+  "kind": "actual_physx_prediction_probe",
+  "status": "passed",
+  "physics_engine": "Isaac/PhysX",
+  "validation_plant_created": false,
+  "learned_policy_used": false,
+  "nominal_experiment_eligible": true,
+  "worker": {
+    "kind": "isolated_isaac_physx_batch_tracking_predictor",
+    "prediction_engine": "Isaac/PhysX",
+    "population_batching": true,
+    "prediction_mu_scenarios": [
+      0.7
+    ],
+    "production_cem_wired": false,
+    "learned_initialization": false,
+    "nominal_seed_source": "unchanged base predictor physics-only bias-force reference plan",
+    "mujoco_usage": "kinematic packed-state conversion and unchanged nominal seed only; no candidate transition",
+    "objective": {
+      "kind": "numpy_height_smooth_tracking_objective",
+      "body_names": [
+        "base_Link",
+        "abad_L_Link",
+        "abad_R_Link",
+        "hip_L_Link",
+        "hip_R_Link",
+        "knee_L_Link",
+        "knee_R_Link",
+        "wheel_L_Link",
+        "wheel_R_Link"
+      ],
+      "joint_names": [
+        "abad_L_Joint",
+        "abad_R_Joint",
+        "hip_L_Joint",
+        "hip_R_Joint",
+        "knee_L_Joint",
+        "knee_R_Joint",
+        "wheel_L_Joint",
+        "wheel_R_Joint"
+      ],
+      "dt_s": 0.02,
+      "weights": {
+        "motion_global_anchor_pos": 2.0,
+        "motion_global_anchor_ori": 2.0,
+        "motion_body_pos": 1.0,
+        "motion_body_ori": 1.0,
+        "motion_body_lin_vel": 1.0,
+        "motion_body_ang_vel": 1.0,
+        "action_rate_l2": -0.1,
+        "joint_limit": -10.0,
+        "undesired_contacts": -0.1,
+        "drift_sideslip": 2.0,
+        "drift_yaw_rate": 1.0,
+        "drift_speed": 1.0,
+        "drift_grounded": 0.4,
+        "drift_tilt": -0.2,
+        "height_vertical_acceleration": -0.1
+      },
+      "stds": {
+        "anchor_position_m": 0.3,
+        "anchor_orientation_rad": 0.4,
+        "body_position_m": 0.3,
+        "body_orientation_rad": 0.4,
+        "body_linear_velocity_m_s": 0.5,
+        "body_angular_velocity_rad_s": 0.8,
+        "sideslip_rad": 0.12,
+        "yaw_rate_rad_s": 0.5,
+        "speed_m_s": 0.35
+      },
+      "height_regularization": {
+        "mode": "vertical_acceleration_only",
+        "weight": -0.1,
+        "acceleration_scale_m_s2": 5.0
+      },
+      "absolute_height_target": false,
+      "reference_vertical_velocity_target": false,
+      "sideslip_target": "held reference body-frame course angle, NOT zero",
+      "reference_order": "Freeze reference[k] and relative-body targets at pre-action state; evaluate after decimation, before command advances.",
+      "pose_semantics": "World link-origin position and link wxyz quaternion",
+      "velocity_semantics": "World original-unmerged-link COM linear velocity and world angular velocity",
+      "cost": "dt * (sum_positive_reward_weights - sum(weight * raw_term)); no terminal term supplied",
+      "contact_thresholds_n": {
+        "grounded_each_wheel_net_force": 5.0,
+        "undesired_contact_body_force": 1.0
+      },
+      "joint_limit_joints": [
+        "abad_L_Joint",
+        "abad_R_Joint",
+        "hip_L_Joint",
+        "hip_R_Joint",
+        "knee_L_Joint",
+        "knee_R_Joint"
+      ],
+      "surrogate_differences": [
+        "MuJoCo net contact forces are not identical to PhysX ContactSensor forces; all contacts, including self-contact, are included.",
+        "undesired_contacts uses max norm over supplied physical-substep history; omitted history is explicitly an instantaneous surrogate.",
+        "MuJoCo-derived 0.95 joint ranges are an approximation unless replaced by Isaac runtime soft_joint_pos_limits in matching joint order.",
+        "Body COM offsets/inertias must match the original unmerged USD links; random COM offsets require the same realized model parameters.",
+        "Task tilt safety termination and policy action/observation privileges are outside this stage objective."
+      ]
+    },
+    "ipc_included_in_latency": true,
+    "worker_log": "/data/zengxiong/workspaces/tron1-physx-mpc-transfer-20261021/predictor_logs/physx_predictor_worker_2350131_1792619045064906792.log",
+    "worker_config": {
+      "schema_version": 1,
+      "source_root": "/data/zengxiong/workspaces/tron1-drift-turn-worst-load-20261014",
+      "beyondmimic_root": "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/third_party/whole_body_tracking",
+      "motion": "/data/zengxiong/workspaces/tron1-drift-turn-worst-load-20261014/motion.npz",
+      "asset_path": "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/outputs/training-asset/WF_TRON1A.usda",
+      "task_profile": "/data/zengxiong/workspaces/tron1-physx-mpc-transfer-20261021/snapshot_v5/config/car_drift_height_smooth_task.json",
+      "device": "cuda:0",
+      "python_executable": "/data/zengxiong/.conda/envs/regrind/bin/python3.11",
+      "max_candidates": 64,
+      "seed": 42,
+      "timeout_s": 180.0,
+      "startup_timeout_s": 240.0,
+      "environment_spacing_m": 0.0,
+      "log_dir": "/data/zengxiong/workspaces/tron1-physx-mpc-transfer-20261021/predictor_logs",
+      "worker_script": "/data/zengxiong/workspaces/tron1-physx-mpc-transfer-20261021/snapshot_v5/scripts/physx_batch_predictor_worker.py"
+    },
+    "motion_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+    "hidden_solver_state": "PhysX internal contact/solver caches are not serialized; repetition probe reported separately",
+    "integration_state_semantics": "Reconstruct at candidate start, then integrate continuously over the full horizon; historical MuJoCo predictor instead cold-resets each control interval",
+    "physics_dt_s": 0.005,
+    "control_dt_s": 0.02,
+    "worker_source_sha256": "ae69283e1705d3f8e0817788cadadecf5f3d646d5d426b8d12fe1f24b95fa472",
+    "adapter_source_sha256": "e5b57eae82686e9009f0f524f8ada417a37b36dfa63259d8cce1f921f2d67466",
+    "worker_runtime": {
+      "engine": "Isaac/PhysX",
+      "num_candidate_environments": 64,
+      "environment_spacing_m": 0.0,
+      "cross_environment_collision_filtering": true,
+      "coordinate_identical_candidates": true,
+      "physics_dt_s": 0.005,
+      "control_dt_s": 0.02,
+      "body_order": [
+        "base_Link",
+        "abad_L_Link",
+        "abad_R_Link",
+        "hip_L_Link",
+        "hip_R_Link",
+        "knee_L_Link",
+        "knee_R_Link",
+        "wheel_L_Link",
+        "wheel_R_Link"
+      ],
+      "action_order": [
+        "abad_L_Joint",
+        "abad_R_Joint",
+        "hip_L_Joint",
+        "hip_R_Joint",
+        "knee_L_Joint",
+        "knee_R_Joint",
+        "wheel_L_Joint",
+        "wheel_R_Joint"
+      ],
+      "device_audit": {
+        "schema_version": 1,
+        "status": "verified",
+        "requested_device": "cuda:0",
+        "environment_device": "cuda:0",
+        "physics_sim_view_frontend_device": "cuda:0",
+        "robot_native_transform_tensor_device": "cuda:0",
+        "native_physics_backend_device_ordinal": 0,
+        "torch_current_device": 0,
+        "physics_cudaDevice_setting": 0,
+        "physics_sceneMultiGPUMode_setting": 0,
+        "cuda_visible_devices": null,
+        "required_unmasked": true,
+        "device_index": 0,
+        "index_scope": "unmasked_cuda_ordinal",
+        "native_and_tensor_device_consistency_verified": true,
+        "physical_mapping_verified": false,
+        "exclusivity_verified": false
+      },
+      "app_launcher_kit_args": "--/renderer/activeGpu=0 --/renderer/multiGpu/enabled=false --/physics/cudaDevice=0 --/physics/sceneMultiGPUMode=0",
+      "material_audit": {
+        "robot_static_dynamic_range": [
+          0.699999988079071,
+          0.699999988079071
+        ],
+        "robot_restitution_range": [
+          0.0,
+          0.0
+        ],
+        "ground_bound_materials": [
+          {
+            "collider": "/World/ground/terrain/GroundPlane/CollisionPlane",
+            "material": "/World/ground/terrain/physicsMaterial",
+            "coefficients": [
+              0.699999988079071,
+              0.699999988079071,
+              0.0
+            ]
+          }
+        ],
+        "expected_mu": 0.7
+      },
+      "actuator_audit": {
+        "legs": {
+          "stiffness": [
+            500.0,
+            500.0
+          ],
+          "damping": [
+            10.0,
+            10.0
+          ],
+          "effort_limit_nm": [
+            80.0,
+            80.0
+          ],
+          "velocity_limit_rad_s": [
+            15.0,
+            15.0
+          ],
+          "saturation_effort_nm": [
+            80.0,
+            80.0
+          ],
+          "velocity_at_effort_limit_rad_s": [
+            30.0,
+            30.0
+          ]
+        },
+        "wheels": {
+          "stiffness": [
+            0.0,
+            0.0
+          ],
+          "damping": [
+            0.0,
+            0.0
+          ],
+          "effort_limit_nm": [
+            12.0,
+            12.0
+          ],
+          "velocity_limit_rad_s": [
+            100.0,
+            100.0
+          ],
+          "saturation_effort_nm": [
+            12.0,
+            12.0
+          ],
+          "velocity_at_effort_limit_rad_s": [
+            200.0,
+            200.0
+          ]
+        }
+      },
+      "legacy_joint_friction_audit": {
+        "joint_names": [
+          "abad_L_Joint",
+          "abad_R_Joint",
+          "hip_L_Joint",
+          "hip_R_Joint",
+          "knee_L_Joint",
+          "knee_R_Joint",
+          "wheel_L_Joint",
+          "wheel_R_Joint"
+        ],
+        "before_first_environment": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.009999999776482582,
+          0.009999999776482582
+        ],
+        "after_first_environment": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "all_environments_verified_zero": true
+      },
+      "fixed_evaluation": {
+        "removed_termination_terms": [
+          "time_out",
+          "anchor_ori",
+          "motion_end"
+        ],
+        "disabled_random_events": [],
+        "all_termination_terms_removed": true,
+        "static_dynamic_mu": 0.7,
+        "restitution": 0.0
+      },
+      "runtime_soft_joint_pos_limits": [
+        [
+          -0.33946412801742554,
+          1.3517541885375977
+        ],
+        [
+          -1.3517541885375977,
+          0.33946412801742554
+        ],
+        [
+          -0.9520769715309143,
+          1.3360490798950195
+        ],
+        [
+          -1.3360490798950195,
+          0.9520769715309143
+        ],
+        [
+          -0.8168144226074219,
+          1.3055064678192139
+        ],
+        [
+          -1.3055064678192139,
+          0.8168144226074219
+        ],
+        [
+          -949999.9375,
+          949999.9375
+        ],
+        [
+          -949999.9375,
+          949999.9375
+        ]
+      ],
+      "base_predictor_leg_soft_limits_verified": true,
+      "base_predictor_leg_soft_limits_max_abs_error_rad": 2.9071807858827015e-06,
+      "leg_soft_limit_import_tolerance_rad": 5e-06,
+      "objective_contract": {
+        "kind": "numpy_height_smooth_tracking_objective",
+        "body_names": [
+          "base_Link",
+          "abad_L_Link",
+          "abad_R_Link",
+          "hip_L_Link",
+          "hip_R_Link",
+          "knee_L_Link",
+          "knee_R_Link",
+          "wheel_L_Link",
+          "wheel_R_Link"
+        ],
+        "joint_names": [
+          "abad_L_Joint",
+          "abad_R_Joint",
+          "hip_L_Joint",
+          "hip_R_Joint",
+          "knee_L_Joint",
+          "knee_R_Joint",
+          "wheel_L_Joint",
+          "wheel_R_Joint"
+        ],
+        "dt_s": 0.02,
+        "weights": {
+          "motion_global_anchor_pos": 2.0,
+          "motion_global_anchor_ori": 2.0,
+          "motion_body_pos": 1.0,
+          "motion_body_ori": 1.0,
+          "motion_body_lin_vel": 1.0,
+          "motion_body_ang_vel": 1.0,
+          "action_rate_l2": -0.1,
+          "joint_limit": -10.0,
+          "undesired_contacts": -0.1,
+          "drift_sideslip": 2.0,
+          "drift_yaw_rate": 1.0,
+          "drift_speed": 1.0,
+          "drift_grounded": 0.4,
+          "drift_tilt": -0.2,
+          "height_vertical_acceleration": -0.1
+        },
+        "stds": {
+          "anchor_position_m": 0.3,
+          "anchor_orientation_rad": 0.4,
+          "body_position_m": 0.3,
+          "body_orientation_rad": 0.4,
+          "body_linear_velocity_m_s": 0.5,
+          "body_angular_velocity_rad_s": 0.8,
+          "sideslip_rad": 0.12,
+          "yaw_rate_rad_s": 0.5,
+          "speed_m_s": 0.35
+        },
+        "height_regularization": {
+          "mode": "vertical_acceleration_only",
+          "weight": -0.1,
+          "acceleration_scale_m_s2": 5.0
+        },
+        "absolute_height_target": false,
+        "reference_vertical_velocity_target": false,
+        "sideslip_target": "held reference body-frame course angle, NOT zero",
+        "reference_order": "Freeze reference[k] and relative-body targets at pre-action state; evaluate after decimation, before command advances.",
+        "pose_semantics": "World link-origin position and link wxyz quaternion",
+        "velocity_semantics": "World original-unmerged-link COM linear velocity and world angular velocity",
+        "cost": "dt * (sum_positive_reward_weights - sum(weight * raw_term)); no terminal term supplied",
+        "contact_thresholds_n": {
+          "grounded_each_wheel_net_force": 5.0,
+          "undesired_contact_body_force": 1.0
+        },
+        "joint_limit_joints": [
+          "abad_L_Joint",
+          "abad_R_Joint",
+          "hip_L_Joint",
+          "hip_R_Joint",
+          "knee_L_Joint",
+          "knee_R_Joint"
+        ],
+        "surrogate_differences": [
+          "MuJoCo net contact forces are not identical to PhysX ContactSensor forces; all contacts, including self-contact, are included.",
+          "undesired_contacts uses max norm over supplied physical-substep history; omitted history is explicitly an instantaneous surrogate.",
+          "MuJoCo-derived 0.95 joint ranges are an approximation unless replaced by Isaac runtime soft_joint_pos_limits in matching joint order.",
+          "Body COM offsets/inertias must match the original unmerged USD links; random COM offsets require the same realized model parameters.",
+          "Task tilt safety termination and policy action/observation privileges are outside this stage objective."
+        ]
+      },
+      "source_sha256": {
+        "/data/zengxiong/workspaces/tron1-physx-mpc-transfer-20261021/snapshot_v5/scripts/physx_batch_predictor_worker.py": "ae69283e1705d3f8e0817788cadadecf5f3d646d5d426b8d12fe1f24b95fa472",
+        "/data/zengxiong/workspaces/tron1-physx-mpc-transfer-20261021/snapshot_v5/scripts/physx_batch_predictor.py": "e5b57eae82686e9009f0f524f8ada417a37b36dfa63259d8cce1f921f2d67466",
+        "/data/zengxiong/workspaces/tron1-physx-mpc-transfer-20261021/snapshot_v5/scripts/nmpc_batch_objective.py": "1c9da90ae66778a71ceb2e6bb9d0dcf7f0a2259fafee39b37cbe958b79178fae",
+        "/data/zengxiong/workspaces/tron1-physx-mpc-transfer-20261021/snapshot_v5/scripts/nmpc_tracking_objective.py": "ff22eebb2b22b9af7dba114c64fcd10f6b0a90822559af8f32cbe6884015b860",
+        "/data/zengxiong/workspaces/tron1-physx-mpc-transfer-20261021/snapshot_v5/scripts/run_nmpc_tracking_isaac.py": "192ab2ad53300d237b2fdbd6833d26ea2bdbf4c86ac39bbce4bf1f54deac1637",
+        "/data/zengxiong/workspaces/tron1-physx-mpc-transfer-20261021/snapshot_v5/config/car_drift_height_smooth_task.json": "31de29a61eec847e0e39783f3a0d9d8f2db551acd679a1b38dfde2b24e8ae7d6",
+        "/data/zengxiong/workspaces/tron1-drift-turn-worst-load-20261014/training/tron1_tracking.py": "0a29fa27c1d65c0b9add0886221491e549553e3529d6970f1ec5ba35e2532817",
+        "/data/zengxiong/workspaces/tron1-drift-turn-worst-load-20261014/training/tron1_drift.py": "5eb40c9b3c14f5bd5c59c9861c1414ae8ac1b219ff0dd70591f2c6fe0bb5344c",
+        "/data/zengxiong/workspaces/tron1-drift-turn-worst-load-20261014/training/tron1_runtime_device.py": "2a1460d1b48e884fc5608e0365edc43b815d1fc74c8439945d4e2cc18027f775",
+        "/data/zengxiong/workspaces/tron1-drift-turn-worst-load-20261014/training/tron1_domain_randomization.py": "3f3a0b62c85a0af496ae9e9e0d75dda85c3ec30da587e4a47969843f5b1b1dca",
+        "/data/zengxiong/IsaacLab/source/isaaclab/isaaclab/envs/manager_based_rl_env.py": "8ec2759541c8320ed725411d49564f5617b3ab6b9d340c860bededee13d557d4",
+        "/data/zengxiong/IsaacLab/source/isaaclab/isaaclab/scene/interactive_scene.py": "4b65c78281d7f18a916527ffeb7673b6af0d2f183adc4092aded9fdb3cb6f46f",
+        "/data/zengxiong/IsaacLab/source/isaaclab/isaaclab/assets/articulation/articulation.py": "9cc03b85642c36c801ff9683e94b8ccc3fbef1178761338974b433dacc78ef75",
+        "/data/zengxiong/IsaacLab/source/isaaclab/isaaclab/sim/simulation_context.py": "340450726276d321c48b57de35f846c5a231c30a358b4922b5b7dbb8d42ec80e"
+      },
+      "motion_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+      "asset_sha256": "327ca5080e753bbc95d8c3c797e9cd49a0f134d400cfe80494af0ba840e23a8e",
+      "torch_version": "2.7.0+cu128",
+      "cuda_device_name": "NVIDIA GeForce RTX 4090 D",
+      "initialization_elapsed_s": 10.788108862936497,
+      "history": "own chronological oldest-to-newest history, sampled after every real 5 ms physics step",
+      "candidate_reset": "write LINK pose, world COM velocity, ordered joint state; clear actuator/sensor buffers; refresh FK without physics stepping",
+      "hidden_solver_state": "PhysX internal contact caches are not captured by Isaac Lab scene state APIs",
+      "phase": "reference[min(start_index+h,last)] held against pre-action candidate body state",
+      "padding": "all configured environments step; unused slots repeat the final active candidate and are excluded from returned costs",
+      "manager_history": "manual physical substeps; command/reward/observation managers do not advance or score rollouts",
+      "plant_access": false,
+      "trained_policy_used": false,
+      "root_forces_used": false
+    },
+    "plant_objective_limits_set_from_physx_runtime": true,
+    "worker_pid": 2350264,
+    "last_reset_audit": {
+      "root_link_position_max_abs_m": 1.1920928955078125e-07,
+      "root_quaternion_sign_invariant_max_abs": 1.1262443544435286e-07,
+      "root_com_velocity_max_abs_m_s": 5.870738339908144e-10,
+      "joint_position_max_abs_rad": 0.0,
+      "joint_velocity_max_abs_rad_s": 0.0,
+      "body_link_position_vs_source_max_abs_m": 2.0257774813181584e-07,
+      "body_com_velocity_vs_source_max_abs_m_s": 1.2785272007764803e-07,
+      "physics_steps_during_reset": 0
+    },
+    "completed_rollout_batches": 18,
+    "reset_repeatability_probe": {
+      "kind": "empirical_physx_reset_repeatability_probe",
+      "passed": true,
+      "candidate_count": 64,
+      "horizon_steps": 30,
+      "sequence": "A / different B / A / reverse-slot A / change one candidate",
+      "cost_repeat_max_abs": 0.0,
+      "cost_permuted_max_abs": 0.0,
+      "cross_candidate_cost_max_abs": 0.0,
+      "cost_tolerance": 0.0001,
+      "state_tolerance": 0.005,
+      "state_errors": {
+        "body_pos_w": {
+          "repeat_max_abs": 0.0,
+          "permuted_max_abs": 0.0,
+          "cross_candidate_max_abs": 0.0
+        },
+        "body_quat_w": {
+          "repeat_max_abs": 0.0,
+          "permuted_max_abs": 0.0,
+          "cross_candidate_max_abs": 0.0
+        },
+        "body_lin_vel_w": {
+          "repeat_max_abs": 0.0,
+          "permuted_max_abs": 0.0,
+          "cross_candidate_max_abs": 0.0
+        },
+        "body_ang_vel_w": {
+          "repeat_max_abs": 0.0,
+          "permuted_max_abs": 0.0,
+          "cross_candidate_max_abs": 0.0
+        },
+        "joint_pos": {
+          "repeat_max_abs": 0.0,
+          "permuted_max_abs": 0.0,
+          "cross_candidate_max_abs": 0.0
+        }
+      },
+      "scope": "tested states/plans only; internal contact caches are not serialized"
+    },
+    "worker_exitcode": 0
+  },
+  "cases": [
+    {
+      "reference_frame": 0,
+      "horizon_steps": 30,
+      "candidate_count": 64,
+      "passed": true,
+      "scalar_batch_stage_cost_max_abs_error": 5.551115123125783e-17,
+      "first_substep_torque_max_abs_error_nm": 1.633167266845703e-05,
+      "duplicate_candidate_cost_abs_error": 0.0,
+      "physical_clock_verified": true,
+      "reset_audit": {
+        "root_link_position_max_abs_m": 1.1920928955078125e-07,
+        "root_quaternion_sign_invariant_max_abs": 1.1920928955078125e-07,
+        "root_com_velocity_max_abs_m_s": 8.153977666680579e-11,
+        "joint_position_max_abs_rad": 0.0,
+        "joint_velocity_max_abs_rad_s": 0.0,
+        "body_link_position_vs_source_max_abs_m": 3.078766225850238e-07,
+        "body_com_velocity_vs_source_max_abs_m_s": 1.1203645478019553e-07,
+        "physics_steps_during_reset": 0
+      },
+      "repeatability": {
+        "kind": "empirical_physx_reset_repeatability_probe",
+        "passed": true,
+        "candidate_count": 64,
+        "horizon_steps": 30,
+        "sequence": "A / different B / A / reverse-slot A / change one candidate",
+        "cost_repeat_max_abs": 0.0,
+        "cost_permuted_max_abs": 0.0,
+        "cross_candidate_cost_max_abs": 0.0,
+        "cost_tolerance": 0.0001,
+        "state_tolerance": 0.005,
+        "state_errors": {
+          "body_pos_w": {
+            "repeat_max_abs": 0.0,
+            "permuted_max_abs": 0.0,
+            "cross_candidate_max_abs": 0.0
+          },
+          "body_quat_w": {
+            "repeat_max_abs": 0.0,
+            "permuted_max_abs": 0.0,
+            "cross_candidate_max_abs": 0.0
+          },
+          "body_lin_vel_w": {
+            "repeat_max_abs": 0.0,
+            "permuted_max_abs": 0.0,
+            "cross_candidate_max_abs": 0.0
+          },
+          "body_ang_vel_w": {
+            "repeat_max_abs": 0.0,
+            "permuted_max_abs": 0.0,
+            "cross_candidate_max_abs": 0.0
+          },
+          "joint_pos": {
+            "repeat_max_abs": 0.0,
+            "permuted_max_abs": 0.0,
+            "cross_candidate_max_abs": 0.0
+          }
+        },
+        "scope": "tested states/plans only; internal contact caches are not serialized"
+      },
+      "candidate_costs": [
+        0.9444518752823801,
+        3.6187901482982365,
+        2.5777674361545198,
+        3.1627519606614016,
+        3.3676695387376037,
+        2.99194176533223,
+        3.439221813354582,
+        4.03943711532281,
+        3.470574148845852,
+        3.502655013459683,
+        3.4761169459508148,
+        1.7521498819103087,
+        3.3468882426007966,
+        3.436668568215155,
+        2.7007531252725308,
+        1.5861203468673382,
+        3.265451206335297,
+        2.276494657863046,
+        3.334868022234572,
+        3.008408775915723,
+        3.0077291458076765,
+        3.0945210186635377,
+        2.0858459797024644,
+        2.758445350666973,
+        3.1346221203158198,
+        2.890514194998941,
+        2.984233283416821,
+        2.247265667502819,
+        4.48097126995591,
+        2.384281206003013,
+        2.1267138564423367,
+        2.5326813185882893,
+        2.3874635931197066,
+        2.180051676168436,
+        3.160276082977621,
+        2.255169211180807,
+        2.420974129662562,
+        2.9188140229978417,
+        3.1223156713526525,
+        4.41775389665684,
+        3.935620815057501,
+        3.789853858692549,
+        3.7614196435053135,
+        3.583834111764673,
+        3.2506701823042654,
+        2.862502417317435,
+        4.126642964612875,
+        2.4179989770061763,
+        3.8929268992241157,
+        2.12485896450181,
+        2.562466112487975,
+        2.668328611184121,
+        2.8489935697798017,
+        3.157059997751644,
+        3.889750638510653,
+        4.165659909044893,
+        1.90000336091486,
+        3.641089772152081,
+        2.6369253598642595,
+        2.8499379923103554,
+        3.2983798737313528,
+        2.7801593702618184,
+        3.4999714512383315,
+        0.9444518752823801
+      ]
+    },
+    {
+      "reference_frame": 100,
+      "horizon_steps": 30,
+      "candidate_count": 64,
+      "passed": true,
+      "scalar_batch_stage_cost_max_abs_error": 1.1102230246251565e-16,
+      "first_substep_torque_max_abs_error_nm": 1.633167266845703e-05,
+      "duplicate_candidate_cost_abs_error": 0.0,
+      "physical_clock_verified": true,
+      "reset_audit": {
+        "root_link_position_max_abs_m": 1.1920928955078125e-07,
+        "root_quaternion_sign_invariant_max_abs": 1.6989810924794568e-07,
+        "root_com_velocity_max_abs_m_s": 8.966223319362143e-10,
+        "joint_position_max_abs_rad": 0.0,
+        "joint_velocity_max_abs_rad_s": 0.0,
+        "body_link_position_vs_source_max_abs_m": 4.1397697936318423e-07,
+        "body_com_velocity_vs_source_max_abs_m_s": 3.87277990121504e-07,
+        "physics_steps_during_reset": 0
+      },
+      "repeatability": {
+        "kind": "empirical_physx_reset_repeatability_probe",
+        "passed": true,
+        "candidate_count": 64,
+        "horizon_steps": 30,
+        "sequence": "A / different B / A / reverse-slot A / change one candidate",
+        "cost_repeat_max_abs": 0.0,
+        "cost_permuted_max_abs": 0.0,
+        "cross_candidate_cost_max_abs": 0.0,
+        "cost_tolerance": 0.0001,
+        "state_tolerance": 0.005,
+        "state_errors": {
+          "body_pos_w": {
+            "repeat_max_abs": 0.0,
+            "permuted_max_abs": 0.0,
+            "cross_candidate_max_abs": 0.0
+          },
+          "body_quat_w": {
+            "repeat_max_abs": 0.0,
+            "permuted_max_abs": 0.0,
+            "cross_candidate_max_abs": 0.0
+          },
+          "body_lin_vel_w": {
+            "repeat_max_abs": 0.0,
+            "permuted_max_abs": 0.0,
+            "cross_candidate_max_abs": 0.0
+          },
+          "body_ang_vel_w": {
+            "repeat_max_abs": 0.0,
+            "permuted_max_abs": 0.0,
+            "cross_candidate_max_abs": 0.0
+          },
+          "joint_pos": {
+            "repeat_max_abs": 0.0,
+            "permuted_max_abs": 0.0,
+            "cross_candidate_max_abs": 0.0
+          }
+        },
+        "scope": "tested states/plans only; internal contact caches are not serialized"
+      },
+      "candidate_costs": [
+        3.5258045202153174,
+        3.1169913541534724,
+        3.9007704973071036,
+        3.186214216824332,
+        3.4122381622243303,
+        3.4479894567644003,
+        3.0391437395965686,
+        3.182854716046889,
+        3.7127029872881456,
+        3.5173555417591205,
+        4.12086894432368,
+        3.4658980577891385,
+        3.9006583015302576,
+        3.2145600751550436,
+        3.807134921214699,
+        4.132509190743757,
+        3.154747747357738,
+        3.796566149065364,
+        4.026024990933355,
+        4.161843667966312,
+        3.069299328722886,
+        4.562151292939257,
+        3.874583648238057,
+        3.205464594357906,
+        2.9028506583726257,
+        4.082524651806432,
+        4.019675330074272,
+        2.936242204244065,
+        3.8063154919491438,
+        4.173728461381868,
+        3.743674184931865,
+        3.444626088728821,
+        3.4757835331805618,
+        3.214395581522829,
+        2.664594742294763,
+        3.211968479748041,
+        3.6639025147934166,
+        3.575675642018604,
+        3.5980955780096058,
+        3.14488164539068,
+        2.9637835412821483,
+        3.8453078673977696,
+        3.7974820189706584,
+        4.029403773744072,
+        4.879897402590596,
+        2.847844155350555,
+        4.074955842340882,
+        3.8684298966230606,
+        3.5798253030144176,
+        3.6727242351470357,
+        3.5615115775153843,
+        3.915409461537912,
+        3.401441589862731,
+        3.6149433205543566,
+        3.0018193082472995,
+        3.5565041460874776,
+        3.317156881602968,
+        3.3303824101586232,
+        3.96427661725822,
+        2.805036397428369,
+        3.429230734999564,
+        4.134855852409311,
+        4.213156760623845,
+        3.5258045202153174
+      ]
+    },
+    {
+      "reference_frame": 150,
+      "horizon_steps": 30,
+      "candidate_count": 64,
+      "passed": true,
+      "scalar_batch_stage_cost_max_abs_error": 1.5265566588595902e-16,
+      "first_substep_torque_max_abs_error_nm": 1.6808509826660156e-05,
+      "duplicate_candidate_cost_abs_error": 0.0,
+      "physical_clock_verified": true,
+      "reset_audit": {
+        "root_link_position_max_abs_m": 1.1920928955078125e-07,
+        "root_quaternion_sign_invariant_max_abs": 1.1262443544435286e-07,
+        "root_com_velocity_max_abs_m_s": 5.870738339908144e-10,
+        "joint_position_max_abs_rad": 0.0,
+        "joint_velocity_max_abs_rad_s": 0.0,
+        "body_link_position_vs_source_max_abs_m": 2.0257774813181584e-07,
+        "body_com_velocity_vs_source_max_abs_m_s": 1.2785272007764803e-07,
+        "physics_steps_during_reset": 0
+      },
+      "repeatability": {
+        "kind": "empirical_physx_reset_repeatability_probe",
+        "passed": true,
+        "candidate_count": 64,
+        "horizon_steps": 30,
+        "sequence": "A / different B / A / reverse-slot A / change one candidate",
+        "cost_repeat_max_abs": 0.0,
+        "cost_permuted_max_abs": 0.0,
+        "cross_candidate_cost_max_abs": 0.0,
+        "cost_tolerance": 0.0001,
+        "state_tolerance": 0.005,
+        "state_errors": {
+          "body_pos_w": {
+            "repeat_max_abs": 0.0,
+            "permuted_max_abs": 0.0,
+            "cross_candidate_max_abs": 0.0
+          },
+          "body_quat_w": {
+            "repeat_max_abs": 0.0,
+            "permuted_max_abs": 0.0,
+            "cross_candidate_max_abs": 0.0
+          },
+          "body_lin_vel_w": {
+            "repeat_max_abs": 0.0,
+            "permuted_max_abs": 0.0,
+            "cross_candidate_max_abs": 0.0
+          },
+          "body_ang_vel_w": {
+            "repeat_max_abs": 0.0,
+            "permuted_max_abs": 0.0,
+            "cross_candidate_max_abs": 0.0
+          },
+          "joint_pos": {
+            "repeat_max_abs": 0.0,
+            "permuted_max_abs": 0.0,
+            "cross_candidate_max_abs": 0.0
+          }
+        },
+        "scope": "tested states/plans only; internal contact caches are not serialized"
+      },
+      "candidate_costs": [
+        3.239864312004694,
+        4.047265731770307,
+        3.4370234521061764,
+        4.248073267957124,
+        3.5172675037804093,
+        4.137039357290832,
+        4.069207589594055,
+        2.9593199607538407,
+        2.752651772360118,
+        3.6846152847078377,
+        3.895073752893946,
+        3.0839110530770473,
+        3.53031518578839,
+        3.4735098397688855,
+        3.956880148399472,
+        3.4131187886155585,
+        2.8943181495545036,
+        3.350268636640969,
+        4.35043904713343,
+        3.477373599514998,
+        3.393900535114381,
+        4.225019331757137,
+        3.7199599779093497,
+        3.6150850985760323,
+        3.4848477124904744,
+        3.464734059780747,
+        3.778227451313837,
+        3.5047435899545665,
+        4.005033898025533,
+        2.9959694222560542,
+        3.571277001078434,
+        2.9963762509256395,
+        3.4380958309459686,
+        3.46774760289529,
+        3.4680922962870677,
+        3.4879465830248537,
+        2.940268764972633,
+        2.6655408385606183,
+        2.9282435364605446,
+        4.385584051438756,
+        4.0522754916823205,
+        3.3990279912231296,
+        3.5527770125548344,
+        3.841464617840147,
+        2.950709622407451,
+        2.7959549372042742,
+        2.953434370754803,
+        3.8282636958623133,
+        3.3687875615659904,
+        3.0205639774275954,
+        2.7451105984947253,
+        3.7272050623630295,
+        4.378212689928286,
+        3.3174496152828725,
+        3.073538391900107,
+        4.399432775492994,
+        2.548215675165032,
+        4.309820991132693,
+        3.9156741859431086,
+        3.201412624976867,
+        3.7566897765914424,
+        4.059303015264905,
+        3.643412473537514,
+        3.239864312004694
+      ]
+    }
+  ],
+  "elapsed_s": 24.481943622231483,
+  "source_sha256": "92430d604e4d05d51c9538d02babf1fe045e23ae8f57251324d0869929108715"
+}

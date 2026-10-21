@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "kind": "recorded_remote_experiment_commands",
+  "experiment_date": "2026-10-21",
+  "hardware": "One RTX 4090 D GPU (cuda:0); jobs executed sequentially, other users' processes left untouched",
+  "executed_snapshot": {
+    "file": "executed_snapshot_v5.tar.gz",
+    "sha256": "632b6e27fc11daef82c96b9d5971804c524c7d8b2af789f40d9a6edf8dc2500e",
+    "files": 20,
+    "contents": "source/config/test only; no model, learned weights or credentials"
+  },
+  "commands": {
+    "physx_prediction_mujoco_plant": "cd /data/zengxiong/workspaces/tron1-physx-mpc-transfer-20261021/snapshot_v5 && /data/zengxiong/.conda/envs/regrind/bin/python -u scripts/run_nmpc_tracking.py --model /data/zengxiong/workspaces/tron1-sliding-analysis-20261014/mujoco_model.xml --motion /data/zengxiong/workspaces/tron1-drift-turn-worst-load-20261014/motion.npz --contract /data/zengxiong/workspaces/tron1-controller-comparison-20261015/nmpc_isaac_bridge_snapshot_v1/config/nominal_actuator_contract.json --task-profile config/car_drift_height_smooth_task.json --settings config/nmpc_height_smooth_residual.json --plant-mu 0.7 --prediction-mu-scenarios 0.7 --prediction-backend physx --physx-prediction-config config/physx_prediction_remote_20261021_v1.json --horizon-steps 30 --control-blocks 10 --candidates 64 --iterations 3 --elite-count 8 --output-dir ../mujoco_plant_mu0p7_v1",
+    "physx_prediction_calibration": "cd /data/zengxiong/workspaces/tron1-physx-mpc-transfer-20261021/snapshot_v5 && /data/zengxiong/.conda/envs/regrind/bin/python -u scripts/probe_physx_prediction.py --source-root /data/zengxiong/workspaces/tron1-drift-turn-worst-load-20261014 --model /data/zengxiong/workspaces/tron1-sliding-analysis-20261014/mujoco_model.xml --motion /data/zengxiong/workspaces/tron1-drift-turn-worst-load-20261014/motion.npz --contract /data/zengxiong/workspaces/tron1-controller-comparison-20261015/nmpc_isaac_bridge_snapshot_v1/config/nominal_actuator_contract.json --task-profile config/car_drift_height_smooth_task.json --settings config/nmpc_height_smooth_residual.json --physx-prediction-config config/physx_prediction_remote_20261021_v1.json --frames 0 100 150 --horizon-steps 30 --candidates 64 --mu 0.7 --output-dir ../probe_h30_v5",
+    "physx_prediction_physx_plant": "cd /data/zengxiong/workspaces/tron1-physx-mpc-transfer-20261021/snapshot_v5 && TRON1_BEYONDMIMIC_ROOT=/data/zengxiong/workspaces/tron1-beyondmimic-20261002/third_party/whole_body_tracking /data/zengxiong/.conda/envs/regrind/bin/python -u scripts/run_nmpc_tracking_isaac.py --source-root /data/zengxiong/workspaces/tron1-drift-turn-worst-load-20261014 --motion /data/zengxiong/workspaces/tron1-drift-turn-worst-load-20261014/motion.npz --asset-path /data/zengxiong/workspaces/tron1-beyondmimic-20261002/outputs/training-asset/WF_TRON1A.usda --mujoco-model /data/zengxiong/workspaces/tron1-sliding-analysis-20261014/mujoco_model.xml --contract /data/zengxiong/workspaces/tron1-controller-comparison-20261015/nmpc_isaac_bridge_snapshot_v1/config/nominal_actuator_contract.json --reference-id drift_drl_traj4 --task-profile config/car_drift_height_smooth_task.json --settings config/nmpc_height_smooth_residual.json --plant-mu 0.7 --prediction-mu-scenarios 0.7 --prediction-backend physx --physx-prediction-config config/physx_prediction_remote_20261021_v1.json --horizon-steps 30 --control-blocks 10 --candidates 64 --iterations 3 --elite-count 8 --num-envs 1 --seed 42 --device cuda:0 --headless --kit_args \"--/renderer/activeGpu=0 --/renderer/multiGpu/enabled=false --/physics/cudaDevice=0 --/physics/sceneMultiGPUMode=0\" --output-dir ../isaac_plant_mu0p7_v1"
+  },
+  "conditions": {
+    "reference_id": "drift_drl_traj4",
+    "plant_mu": 0.7,
+    "prediction_mu_scenarios": [
+      0.7
+    ],
+    "optimizer": "CEM",
+    "horizon_steps": 30,
+    "control_blocks": 10,
+    "candidates": 64,
+    "iterations": 3,
+    "elite_count": 8,
+    "seed": 42,
+    "physics_dt_s": 0.005,
+    "control_dt_s": 0.02,
+    "policy_steps_per_full_episode": 349,
+    "trained_policy_used": false
+  },
+  "scope": "These are the executed invocations; completion, source identity, physical counters and numerical results are established separately by the original reports and audited compact traces."
+}
