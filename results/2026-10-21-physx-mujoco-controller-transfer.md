@@ -9,6 +9,10 @@ recordings; they introduce no new policy training or physical rollouts.
 
 ## Controller origin and validation
 
+The next [paired PPO backend experiment](2026-10-21-ppo-mjlab-backend-protocol.md)
+uses the pinned mjlab tracking randomization in both training arms. It remains
+separate from the historical PhysX policy below.
+
 | Controller | Source physics | PhysX validation | MuJoCo validation |
 | --- | --- | --- | --- |
 | PPO | PhysX training, 12,288,000 transitions | Same frozen checkpoint | Same frozen checkpoint |

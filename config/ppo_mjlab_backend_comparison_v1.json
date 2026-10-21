@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "task": "traj_4_high_speed_large_turn",
+  "mjlab": {"repository": "https://github.com/mujocolab/mjlab", "tag": "v1.4.0", "commit": "4360096b49c1bcc478668c11ce7d458db747e49d"},
+  "algorithm": {"implementation": "rsl-rl-lib", "version": "3.0.1", "config_function": "scripts/train_ppo_backend.py:ppo_config", "seed": 42, "num_envs": 512, "steps_per_env": 24, "iterations": 1000, "transitions": 12288000, "seed_network_after_environment_setup": true},
+  "training_backends": ["PhysX", "mjlab MuJoCo-Warp"],
+  "validation_backends": ["PhysX", "native CPU MuJoCo"],
+  "training_randomization": {
+    "source": "mjlab v1.4.0 tracking events adapted to TRON1",
+    "sliding_friction": {"range": [0.3, 1.2], "distribution": "uniform_continuous", "sampling": "startup_once_per_environment", "shared_between_wheels": true, "scope": "colliding_wheel_shapes", "mujoco_wheel_priority": 1, "physx_static_equals_dynamic": true, "physx_floor_mu": 1.0, "physx_combine": "multiply"},
+    "encoder_position_bias_rad": [-0.01, 0.01],
+    "encoder_bias_signs": {"actor": "+b", "position_target": "-b", "critic": "unbiased"},
+    "base_com_xyz_range_m": [[-0.025, 0.025], [-0.05, 0.05], [-0.05, 0.05]],
+    "root_link_velocity_push_interval_s": [1.0, 3.0],
+    "root_link_velocity_push_ranges": {"x": [-0.5, 0.5], "y": [-0.5, 0.5], "z": [-0.2, 0.2], "roll": [-0.52, 0.52], "pitch": [-0.52, 0.52], "yaw": [-0.78, 0.78]},
+    "push_timer_reset_correction": "resample all interval timers at episode reset; do not reproduce v1.4 function-event reset bug",
+    "restitution_randomization": false,
+    "contact_law_equivalence_claimed": false
+  },
+  "task_contract": {"actor_dim": 51, "critic_dim": 120, "action_dim": 8, "physics_dt_s": 0.005, "decimation": 4, "reward_profile": "config/car_drift_height_smooth_task.json", "absolute_height_gate": false, "airborne_failure": false, "xy_training_termination": false},
+  "validation": {"friction_grid": [0.01, 0.03, 0.05, 0.1, 0.15, 0.2, 0.3, 0.45, 0.6, 0.7, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0], "randomization": false, "deterministic_start_frame": 0, "xy_failure_core_rmse_m": 0.15, "xy_failure_core_peak_m": 0.30, "failure_rule": "XY RMSE exceeds threshold OR peak exceeds threshold; retain tilt/early termination separately", "additional_metrics": ["speed_retention", "actual_course_change", "body_heading", "left_wheel_heading", "right_wheel_heading", "velocity_heading", "contact_history", "airborne_duration_diagnostic_only"]},
+  "historical_baseline": {"separate_cohort": true, "reason": "independent per-shape static/dynamic/restitution DR differs from mjlab recipe"}
+}
