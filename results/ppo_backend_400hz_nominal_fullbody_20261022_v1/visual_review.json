@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "reviewed_utc": "2026-10-22T13:35:37+00:00",
+  "status": "decoded_all_frames_and_visually_reviewed_selected_frames",
+  "visual_reviewed": true,
+  "generated_summary_left_unchanged": true,
+  "summary_sha256": "f3ca87bc684ac39f9e8a62cfa8832e50e814a5530f268256402de35ea66dbf3d",
+  "movie_sha256": "f423b9bf02bd83920a399b132648dc7b2df55d9fcfbcd063a7d9dd1f1f2a3e1e",
+  "comparison_png_sha256": "e0f243e6e99260237dbc510e3b7afe3747707f54fc1bd751c3040a1e51a021fb",
+  "decoded_video": {"codec": "h264", "pixel_format": "yuv420p", "width": 2560, "height": 720, "fps": 50.0, "duration_s": 7.0, "decoded_frames": 350, "distinct_frame_sha256_count": 350, "all_frame_sizes_verified": true},
+  "decoded_frames_visually_inspected": [0, 72, 120, 150, 200, 340, 349],
+  "physical_times_visually_inspected_s": [0.0, 1.44, 2.4, 3.0, 4.0, 6.8, 6.98],
+  "review_contact_sheet": "review_frames/contact_sheet.png",
+  "review_contact_sheet_sha256": "6b80cde3e3043c152c77be2d2837eab7d03da58f96d9cb9870ca06fe3e8ea516",
+  "geometric_camera_fit": {"frames_checked": 350, "panels_each_frame": 4, "all_original_visible_robot_mesh_bounds_inside_frustum": true, "maximum_normalized_frustum_extent": 0.904313268704908, "common_camera_for_all_four_panels": true, "independent_recenter": false},
+  "all_native_pose_fk_check": {"native_samples_each_case": 2793, "maximum_wheel_origin_error_m": 0.000001360331477081214, "tolerance_m": 0.000002, "root_position_and_orientation_copied_exactly": true},
+  "checks": [
+    "All four original opaque robots are visible with matching camera/light settings; panel headers do not cover the body.",
+    "Shared fixed-world XY maps show complete measured/reference trajectories, body heading and axial left/right rolling planes.",
+    "The MJWarp-trained to PhysX trajectory visibly departs from the reference through the turn; no path alignment hides this offset.",
+    "Original body height, joint configurations, oscillation and recorded contact telemetry are not corrected or filtered.",
+    "The last physical frame is 6.98 s; XY error is correctly marked unavailable after the real reference ends at 6.96 s.",
+    "The full friction matrix is explicitly marked partial at 46/68 and stopped_without_retry; only four nominal cells are presented.",
+    "66 focused CPU tests passed across the new packager/summary/renderer and existing native metric/full-body helpers."
+  ],
+  "limits": [
+    "Selected-frame visual review and full decode are not a frame-by-frame human assessment of all dynamics.",
+    "The video is 50 Hz sampling of native 400 Hz records; neither smooth-looking video nor upright posture establishes stable continuous contact.",
+    "Rendering is MuJoCo graphics/kinematics only, not an additional MuJoCo dynamics experiment or a replacement for PhysX simulation.",
+    "Native CPU MuJoCo validation must not be labelled GPU MJWarp validation. One episode per cell does not establish statistical significance."
+  ]
+}

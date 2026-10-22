@@ -1,0 +1,26 @@
+{
+  "scope": "Four nominal-mu PPO train/deploy cells, using the frozen new 400 Hz / action-rate -0.5 training recipe.",
+  "reference_task": "traj_4 high-speed large-heading-change turn",
+  "mu": 0.7,
+  "core_interval_s": [1.44, 4.0],
+  "sample_size_per_cell": 1,
+  "rows_in_video_order": [
+    {"training": "PhysX", "validation": "PhysX", "core_xy_rmse_m": 0.1279416909811804, "core_speed_retention_percent": 100.0753267290434},
+    {"training": "PhysX", "validation": "native CPU MuJoCo", "core_xy_rmse_m": 0.15615671129344097, "core_speed_retention_percent": 99.26996691406367},
+    {"training": "MuJoCo-Warp", "validation": "PhysX", "core_xy_rmse_m": 0.5727144217232604, "core_speed_retention_percent": 84.2199539305544},
+    {"training": "MuJoCo-Warp", "validation": "native CPU MuJoCo", "core_xy_rmse_m": 0.12020997499454095, "core_speed_retention_percent": 97.72879631770569}
+  ],
+  "video_order": ["PhysX-trained -> PhysX", "PhysX-trained -> native CPU MuJoCo", "MJWarp-trained -> PhysX", "MJWarp-trained -> native CPU MuJoCo"],
+  "interpretation": [
+    "The two native-family nominal deployments have similar core XY RMSE (0.128 m and 0.120 m), but this is not a statistical ranking or proof that contact is stable.",
+    "Transfer degradation is asymmetric for these two checkpoints. PhysX-trained to native CPU MuJoCo has 0.156 m core XY RMSE, whereas MJWarp-trained to PhysX has 0.573 m and 84.2% speed retention.",
+    "These observations include the whole closed-loop systems. They do not isolate a contact-law, actuator, integration or hidden-solver-state cause.",
+    "MuJoCo validation here is native CPU MuJoCo, not the GPU MJWarp training runtime.",
+    "The historical 200 Hz contact-reward replacement negative remains a separately labelled experiment; it is not a fifth matched cell in this new 400 Hz cohort."
+  ],
+  "remaining_comparison_work": {"formal_friction_episodes_completed": 46, "formal_friction_episodes_expected": 68, "pending": 22, "queue_status_at_retrieval": "stopped_without_retry", "reason": "GPU idle guard rejected the next episode", "new_training_or_optimization_started_for_this_request": false},
+  "metrics": "metric_table.csv",
+  "full_provenance_and_windowed_diagnostics": "summary.json",
+  "fullbody_movie": "results/ppo_backend_400hz_nominal_fullbody_20261022_v1/fullbody_comparison.mp4",
+  "reproduction": "reproduction.json"
+}

@@ -1,0 +1,91 @@
+{
+  "kind": "new400hz_nominal_four_partial_matrix_overview",
+  "sample_size_per_cell": 1,
+  "visual_reviewed": false,
+  "full_results": "summary.json",
+  "all_cells_table": "metric_table.csv",
+  "core_interval_s": [
+    1.44,
+    4.0
+  ],
+  "nominal_mu": 0.7,
+  "nominal_four_cells": [
+    {
+      "training_backend": "physx",
+      "validation_backend": "PhysX",
+      "mu": 0.7,
+      "xy_rmse_m": 0.1279416909811804,
+      "xy_peak_m": 0.1885305237191941,
+      "speed_retention": 1.000753267290434,
+      "beta_rmse_deg": 6.138879966281858,
+      "beta_valid_samples": 1025,
+      "world_angular_xy_common10_100_rms_rad_s": 1.2429810920447077,
+      "both_wheels_load_time_duty_fraction": 0.35644531249999983,
+      "neither_wheel_load_time_duty_fraction": 0.2724609375000003,
+      "first_core_tilt30_persistent_onset_s": null,
+      "large_xy_exploratory": false
+    },
+    {
+      "training_backend": "physx",
+      "validation_backend": "native CPU MuJoCo",
+      "mu": 0.7,
+      "xy_rmse_m": 0.15615671129344097,
+      "xy_peak_m": 0.23333839565188694,
+      "speed_retention": 0.9926996691406367,
+      "beta_rmse_deg": 8.215677343413374,
+      "beta_valid_samples": 1025,
+      "world_angular_xy_common10_100_rms_rad_s": 1.172303733067564,
+      "both_wheels_load_time_duty_fraction": 0.2421875,
+      "neither_wheel_load_time_duty_fraction": 0.3212890625,
+      "first_core_tilt30_persistent_onset_s": null,
+      "large_xy_exploratory": true
+    },
+    {
+      "training_backend": "mjlab",
+      "validation_backend": "PhysX",
+      "mu": 0.7,
+      "xy_rmse_m": 0.5727144217232604,
+      "xy_peak_m": 0.8442521376799715,
+      "speed_retention": 0.842199539305544,
+      "beta_rmse_deg": 28.841075132297743,
+      "beta_valid_samples": 1025,
+      "world_angular_xy_common10_100_rms_rad_s": 1.344551266489751,
+      "both_wheels_load_time_duty_fraction": 0.42285156250000033,
+      "neither_wheel_load_time_duty_fraction": 0.0849609375000001,
+      "first_core_tilt30_persistent_onset_s": null,
+      "large_xy_exploratory": true
+    },
+    {
+      "training_backend": "mjlab",
+      "validation_backend": "native CPU MuJoCo",
+      "mu": 0.7,
+      "xy_rmse_m": 0.12020997499454095,
+      "xy_peak_m": 0.17656835608252083,
+      "speed_retention": 0.9772879631770569,
+      "beta_rmse_deg": 5.846137052959785,
+      "beta_valid_samples": 1025,
+      "world_angular_xy_common10_100_rms_rad_s": 1.363588018262865,
+      "both_wheels_load_time_duty_fraction": 0.1171875,
+      "neither_wheel_load_time_duty_fraction": 0.4345703125,
+      "first_core_tilt30_persistent_onset_s": null,
+      "large_xy_exploratory": false
+    }
+  ],
+  "XY_screen": "exploratory: RMSE>0.15m OR peak>0.30m; no height/contact/tilt/beta failure gate",
+  "interpretation": "Four nominal N=1 cells only;17-mu matrix partial. No continuous feasible-range or stable-contact claim.",
+  "load_duty_definition": "native count>0 AND ground-normal Fz>5N, time-weighted ZOH; backend-specific telemetry, not flight",
+  "tilt_onset_definition": "first core-window tilt>=30deg sustained>=0.1s; diagnostic only, window censoring in full summary",
+  "nominal_only": true,
+  "full_matrix_complete": false,
+  "nominal_cells_completed": 4,
+  "matrix_status": {
+    "status": "stopped_without_retry",
+    "counts": {
+      "formal_completed": 46,
+      "formal_expected": 68,
+      "pipeline_smoke_completed": 4,
+      "pipeline_smoke_expected": 4,
+      "runtime_failed": 0
+    }
+  }
+}

@@ -1,0 +1,4432 @@
+{
+  "schema_version": 1,
+  "kind": "recorded_nominal_new400hz_ppo_four_horizontal_fullbody_replay",
+  "cohort_id": "traj4_backend_400hz_actionrate0p5_seed42_v1",
+  "nominal_mu": 0.7,
+  "nominal_only": true,
+  "full_matrix_complete": false,
+  "nominal_cells_completed": 4,
+  "matrix_status": {
+    "status": "stopped_without_retry",
+    "counts": {
+      "formal_completed": 46,
+      "formal_expected": 68,
+      "pipeline_smoke_completed": 4,
+      "pipeline_smoke_expected": 4,
+      "runtime_failed": 0
+    }
+  },
+  "rows": [
+    {
+      "id": "physx_to_physx",
+      "training_backend": "physx",
+      "engine_tag": "physx",
+      "validation_backend": "PhysX",
+      "mu": 0.7,
+      "directory": "/home/roy/tron1-sliding-analysis/outputs/ppo_backend_400hz_nominal_20261022_v1/cases/physx/physx",
+      "checkpoint_sha256": "c508dc3ba50db81f56f538bf23c550aca12f3279ddd15749d60582a487d2d8c7",
+      "actor_sha256": "ab3c486ef779deb0cff52bfb33415f5c3a779381740a2c12898506e4e80f08bc",
+      "input_hashes": {
+        "report": "893453d8c004eec65eb4d291c47f6172d2b872b05b08e17f169459ef719201fa",
+        "recording": "0194cde85053a24963f19ca9e853aefe3b21ac2f18c62d9442606467b0910b98"
+      },
+      "remote_verification": {
+        "status": "verified",
+        "native_states": 2793,
+        "policy_decisions": 349,
+        "duration_s": 6.98,
+        "physics_dt_s": 0.0025,
+        "policy_dt_s": 0.02,
+        "recording_sha256": "0194cde85053a24963f19ca9e853aefe3b21ac2f18c62d9442606467b0910b98",
+        "validation_backend": "PhysX",
+        "training_backend": "physx",
+        "smoke_only": false,
+        "report_sha256": "893453d8c004eec65eb4d291c47f6172d2b872b05b08e17f169459ef719201fa",
+        "checkpoint_sha256": "c508dc3ba50db81f56f538bf23c550aca12f3279ddd15749d60582a487d2d8c7",
+        "evaluation_contact_friction": 0.7
+      },
+      "material_mapping": {
+        "live_physx_materials_verified": true,
+        "ground_material_usd_verified": true,
+        "wheel_mu_range": [
+          0.699999988079071,
+          0.699999988079071
+        ],
+        "effective_pair_mapping": {
+          "trained_contact_friction": 1.0,
+          "evaluation_contact_friction": 0.7,
+          "meaning": "target effective pair coefficient; native material mapping, not contact-law equivalence",
+          "physx_robot_mu": 0.7,
+          "physx_ground_mu": 1.0,
+          "physx_combine": "multiply",
+          "mujoco_colliding_geom_mu": 0.7,
+          "mujoco_wheel_priority": 1,
+          "mujoco_other_priority": 0,
+          "mujoco_equal_priority_combine": "max",
+          "mu_squared": false
+        },
+        "native_mapping": {
+          "distribution": "fixed",
+          "range": [
+            0.7,
+            0.7
+          ],
+          "sampling": "startup_once_per_environment_shared_between_both_wheels",
+          "physx_static_equals_dynamic": true,
+          "physx_ground_friction": 1.0,
+          "physx_ground_friction_combine_mode": "multiply",
+          "mujoco_wheel_geom_priority": 1,
+          "mujoco_tangential_axis": 0,
+          "buckets": null
+        },
+        "native_plant_readback_in_source_report": true
+      },
+      "windows": {
+        "core": {
+          "interval_s": [
+            1.44,
+            4.0
+          ],
+          "native_samples": 1025,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 1025,
+            "xy_rmse_m": 0.1279416909811804,
+            "xy_peak_m": 0.1885305237191941,
+            "mean_speed_m_s": 1.0290374223378853,
+            "reference_mean_speed_m_s": 1.0282628655552946,
+            "speed_retention": 1.000753267290434,
+            "beta_rmse_deg": 6.138879966281858,
+            "beta_valid_samples": 1025,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 1025,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.3902439024390244,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 1.5450019951806544,
+            "common_band_rms": 1.2429810920447077,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 1.5605363266670422,
+            "native_high_frequency_rms": 1.249214283726792,
+            "at_or_above100hz_mean_square": 0.015534331486387975,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.43317073170731707,
+                "time_duty_fraction_zoh": 0.4326171874999996,
+                "state_switch_count": 52,
+                "state_switches_per_s": 20.3125
+              },
+              "right": {
+                "sample_duty_fraction": 0.6517073170731708,
+                "time_duty_fraction_zoh": 0.6513671875,
+                "state_switch_count": 44,
+                "state_switches_per_s": 17.1875
+              },
+              "both": {
+                "sample_duty_fraction": 0.3570731707317073,
+                "time_duty_fraction_zoh": 0.35644531249999983,
+                "state_switch_count": 40,
+                "state_switches_per_s": 15.625
+              },
+              "none": {
+                "sample_duty_fraction": 0.27219512195121953,
+                "time_duty_fraction_zoh": 0.2724609375000003,
+                "state_switch_count": 52,
+                "state_switches_per_s": 20.3125
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.43317073170731707,
+                "time_duty_fraction_zoh": 0.4326171874999996,
+                "state_switch_count": 52,
+                "state_switches_per_s": 20.3125
+              },
+              "right": {
+                "sample_duty_fraction": 0.6517073170731708,
+                "time_duty_fraction_zoh": 0.6513671875,
+                "state_switch_count": 44,
+                "state_switches_per_s": 17.1875
+              },
+              "both": {
+                "sample_duty_fraction": 0.3570731707317073,
+                "time_duty_fraction_zoh": 0.35644531249999983,
+                "state_switch_count": 40,
+                "state_switches_per_s": 15.625
+              },
+              "none": {
+                "sample_duty_fraction": 0.27219512195121953,
+                "time_duty_fraction_zoh": 0.2724609375000003,
+                "state_switch_count": 52,
+                "state_switches_per_s": 20.3125
+              }
+            }
+          },
+          "maximum_tilt_deg": 7.968651091819526,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "45": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "60": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        },
+        "full": {
+          "interval_s": [
+            0.0,
+            6.98
+          ],
+          "native_samples": 2793,
+          "tracking": {
+            "available": false,
+            "coverage_complete": false,
+            "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 2793,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.14321518080916576,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.8629111509004963,
+            "common_band_rms": 0.9289301108805206,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.8717336545348677,
+            "native_high_frequency_rms": 0.9336667791749194,
+            "at_or_above100hz_mean_square": 0.008822503634371317,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.7185821697099892,
+                "time_duty_fraction_zoh": 0.7184813753581665,
+                "state_switch_count": 89,
+                "state_switches_per_s": 12.750716332378223
+              },
+              "right": {
+                "sample_duty_fraction": 0.8395989974937343,
+                "time_duty_fraction_zoh": 0.8395415472779368,
+                "state_switch_count": 67,
+                "state_switches_per_s": 9.598853868194842
+              },
+              "both": {
+                "sample_duty_fraction": 0.6716791979949874,
+                "time_duty_fraction_zoh": 0.6715616045845273,
+                "state_switch_count": 83,
+                "state_switches_per_s": 11.891117478510028
+              },
+              "none": {
+                "sample_duty_fraction": 0.11349803079126387,
+                "time_duty_fraction_zoh": 0.11353868194842416,
+                "state_switch_count": 65,
+                "state_switches_per_s": 9.312320916905444
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.7185821697099892,
+                "time_duty_fraction_zoh": 0.7184813753581665,
+                "state_switch_count": 89,
+                "state_switches_per_s": 12.750716332378223
+              },
+              "right": {
+                "sample_duty_fraction": 0.8395989974937343,
+                "time_duty_fraction_zoh": 0.8395415472779368,
+                "state_switch_count": 67,
+                "state_switches_per_s": 9.598853868194842
+              },
+              "both": {
+                "sample_duty_fraction": 0.6716791979949874,
+                "time_duty_fraction_zoh": 0.6715616045845273,
+                "state_switch_count": 83,
+                "state_switches_per_s": 11.891117478510028
+              },
+              "none": {
+                "sample_duty_fraction": 0.11349803079126387,
+                "time_duty_fraction_zoh": 0.11353868194842416,
+                "state_switch_count": 65,
+                "state_switches_per_s": 9.312320916905444
+              }
+            }
+          },
+          "maximum_tilt_deg": 7.968651091819526,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "45": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "60": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        },
+        "reference_overlap": {
+          "interval_s": [
+            0.0,
+            6.96
+          ],
+          "native_samples": 2785,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 2785,
+            "xy_rmse_m": 0.095317601408176,
+            "xy_peak_m": 0.1885305237191941,
+            "mean_speed_m_s": 0.8832263070387949,
+            "reference_mean_speed_m_s": 0.8741363103669996,
+            "speed_retention": 1.0103988320402557,
+            "beta_rmse_deg": 4.257125657300081,
+            "beta_valid_samples": 2362,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 2785,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.1436265709156194,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.8679425413807564,
+            "common_band_rms": 0.9316343388802049,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.8768146675292446,
+            "native_high_frequency_rms": 0.9363838248972718,
+            "at_or_above100hz_mean_square": 0.00887212614848814,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.717773788150808,
+                "time_duty_fraction_zoh": 0.7176724137931038,
+                "state_switch_count": 89,
+                "state_switches_per_s": 12.78735632183908
+              },
+              "right": {
+                "sample_duty_fraction": 0.8391382405745063,
+                "time_duty_fraction_zoh": 0.8390804597701147,
+                "state_switch_count": 67,
+                "state_switches_per_s": 9.626436781609195
+              },
+              "both": {
+                "sample_duty_fraction": 0.6707360861759426,
+                "time_duty_fraction_zoh": 0.670617816091954,
+                "state_switch_count": 83,
+                "state_switches_per_s": 11.925287356321839
+              },
+              "none": {
+                "sample_duty_fraction": 0.11382405745062836,
+                "time_duty_fraction_zoh": 0.11386494252873573,
+                "state_switch_count": 65,
+                "state_switches_per_s": 9.339080459770114
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.717773788150808,
+                "time_duty_fraction_zoh": 0.7176724137931038,
+                "state_switch_count": 89,
+                "state_switches_per_s": 12.78735632183908
+              },
+              "right": {
+                "sample_duty_fraction": 0.8391382405745063,
+                "time_duty_fraction_zoh": 0.8390804597701147,
+                "state_switch_count": 67,
+                "state_switches_per_s": 9.626436781609195
+              },
+              "both": {
+                "sample_duty_fraction": 0.6707360861759426,
+                "time_duty_fraction_zoh": 0.670617816091954,
+                "state_switch_count": 83,
+                "state_switches_per_s": 11.925287356321839
+              },
+              "none": {
+                "sample_duty_fraction": 0.11382405745062836,
+                "time_duty_fraction_zoh": 0.11386494252873573,
+                "state_switch_count": 65,
+                "state_switches_per_s": 9.339080459770114
+              }
+            }
+          },
+          "maximum_tilt_deg": 7.968651091819526,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "45": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "60": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        }
+      },
+      "xy_screen": {
+        "kind": "exploratory_descriptive_XY_screen",
+        "rmse_threshold_m": 0.15,
+        "peak_threshold_m": 0.3,
+        "large_xy_error": false,
+        "height_contact_tilt_or_beta_used_as_failure_gate": false
+      },
+      "wheel_heading_FK_audit": {
+        "maximum_wheel_link_position_error_m": 1.205190279457149e-06,
+        "wheel_position_tolerance_m": 0.0002,
+        "maximum_root_com_velocity_reconstruction_error": 8.881784197001252e-16,
+        "dynamics_stepping": false,
+        "measured_contact_replaced": false,
+        "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+      }
+    },
+    {
+      "id": "physx_to_mujoco",
+      "training_backend": "physx",
+      "engine_tag": "mujoco",
+      "validation_backend": "native CPU MuJoCo",
+      "mu": 0.7,
+      "directory": "/home/roy/tron1-sliding-analysis/outputs/ppo_backend_400hz_nominal_20261022_v1/cases/physx/mujoco",
+      "checkpoint_sha256": "c508dc3ba50db81f56f538bf23c550aca12f3279ddd15749d60582a487d2d8c7",
+      "actor_sha256": "ab3c486ef779deb0cff52bfb33415f5c3a779381740a2c12898506e4e80f08bc",
+      "input_hashes": {
+        "report": "57b2a47935bde2f0db5eb1c3bd5f9dae1a19c26e11016f54f69c91e3dce5152d",
+        "recording": "876a459afdcbcfff2282f59fc85b21da4adac7e2235875fceb38a4f0b70660ca"
+      },
+      "remote_verification": {
+        "status": "verified",
+        "native_states": 2793,
+        "policy_decisions": 349,
+        "duration_s": 6.98,
+        "physics_dt_s": 0.0025,
+        "policy_dt_s": 0.02,
+        "recording_sha256": "876a459afdcbcfff2282f59fc85b21da4adac7e2235875fceb38a4f0b70660ca",
+        "validation_backend": "native CPU MuJoCo",
+        "training_backend": "physx",
+        "smoke_only": false,
+        "report_sha256": "57b2a47935bde2f0db5eb1c3bd5f9dae1a19c26e11016f54f69c91e3dce5152d",
+        "checkpoint_sha256": "c508dc3ba50db81f56f538bf23c550aca12f3279ddd15749d60582a487d2d8c7",
+        "evaluation_contact_friction": 0.7
+      },
+      "material_mapping": {
+        "native_mapping_verified": true,
+        "pair_coefficient": 0.7,
+        "mapping": "explicit wheel priority1 / other colliders0; all colliding sliding mu equal target; not mu squared",
+        "geom_priority": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        "explicit_contact_pair_count": 0,
+        "sliding_friction_range": [
+          0.7,
+          0.7
+        ],
+        "native_plant_readback_in_source_report": true
+      },
+      "windows": {
+        "core": {
+          "interval_s": [
+            1.44,
+            4.0
+          ],
+          "native_samples": 1025,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 1025,
+            "xy_rmse_m": 0.15615671129344097,
+            "xy_peak_m": 0.23333839565188694,
+            "mean_speed_m_s": 1.0207562064263496,
+            "reference_mean_speed_m_s": 1.0282628655553003,
+            "speed_retention": 0.9926996691406367,
+            "beta_rmse_deg": 8.215677343413374,
+            "beta_valid_samples": 1025,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 1025,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.3902439024390244,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 1.3742960425641466,
+            "common_band_rms": 1.172303733067564,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 1.39106085679903,
+            "native_high_frequency_rms": 1.179432429942059,
+            "at_or_above100hz_mean_square": 0.016764814234883067,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.288780487804878,
+                "time_duty_fraction_zoh": 0.2890625,
+                "state_switch_count": 171,
+                "state_switches_per_s": 66.79687500000142
+              },
+              "right": {
+                "sample_duty_fraction": 0.6321951219512195,
+                "time_duty_fraction_zoh": 0.6318359375,
+                "state_switch_count": 84,
+                "state_switches_per_s": 32.812500000000696
+              },
+              "both": {
+                "sample_duty_fraction": 0.24195121951219511,
+                "time_duty_fraction_zoh": 0.2421875,
+                "state_switch_count": 141,
+                "state_switches_per_s": 55.07812500000117
+              },
+              "none": {
+                "sample_duty_fraction": 0.32097560975609757,
+                "time_duty_fraction_zoh": 0.3212890625,
+                "state_switch_count": 92,
+                "state_switches_per_s": 35.93750000000077
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.288780487804878,
+                "time_duty_fraction_zoh": 0.2890625,
+                "state_switch_count": 171,
+                "state_switches_per_s": 66.79687500000142
+              },
+              "right": {
+                "sample_duty_fraction": 0.6321951219512195,
+                "time_duty_fraction_zoh": 0.6318359375,
+                "state_switch_count": 84,
+                "state_switches_per_s": 32.812500000000696
+              },
+              "both": {
+                "sample_duty_fraction": 0.24195121951219511,
+                "time_duty_fraction_zoh": 0.2421875,
+                "state_switch_count": 141,
+                "state_switches_per_s": 55.07812500000117
+              },
+              "none": {
+                "sample_duty_fraction": 0.32097560975609757,
+                "time_duty_fraction_zoh": 0.3212890625,
+                "state_switch_count": 92,
+                "state_switches_per_s": 35.93750000000077
+              }
+            }
+          },
+          "maximum_tilt_deg": 9.519761297473226,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "45": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "60": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        },
+        "full": {
+          "interval_s": [
+            0.0,
+            6.98
+          ],
+          "native_samples": 2793,
+          "tracking": {
+            "available": false,
+            "coverage_complete": false,
+            "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 2793,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.14321518080916576,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.8226707817253907,
+            "common_band_rms": 0.9070120074868858,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.833597815829217,
+            "native_high_frequency_rms": 0.9130157807120406,
+            "at_or_above100hz_mean_square": 0.010927034103826271,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.6752595775152166,
+                "time_duty_fraction_zoh": 0.6751432664756598,
+                "state_switch_count": 237,
+                "state_switches_per_s": 33.954154727791796
+              },
+              "right": {
+                "sample_duty_fraction": 0.8209810239885428,
+                "time_duty_fraction_zoh": 0.820916905444133,
+                "state_switch_count": 141,
+                "state_switches_per_s": 20.200573065901448
+              },
+              "both": {
+                "sample_duty_fraction": 0.639813820264948,
+                "time_duty_fraction_zoh": 0.6396848137535968,
+                "state_switch_count": 225,
+                "state_switches_per_s": 32.2349570200555
+              },
+              "none": {
+                "sample_duty_fraction": 0.1435732187611887,
+                "time_duty_fraction_zoh": 0.14362464183380408,
+                "state_switch_count": 119,
+                "state_switches_per_s": 17.04871060171824
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.6752595775152166,
+                "time_duty_fraction_zoh": 0.6751432664756598,
+                "state_switch_count": 237,
+                "state_switches_per_s": 33.954154727791796
+              },
+              "right": {
+                "sample_duty_fraction": 0.8209810239885428,
+                "time_duty_fraction_zoh": 0.820916905444133,
+                "state_switch_count": 141,
+                "state_switches_per_s": 20.200573065901448
+              },
+              "both": {
+                "sample_duty_fraction": 0.639813820264948,
+                "time_duty_fraction_zoh": 0.6396848137535968,
+                "state_switch_count": 225,
+                "state_switches_per_s": 32.2349570200555
+              },
+              "none": {
+                "sample_duty_fraction": 0.1435732187611887,
+                "time_duty_fraction_zoh": 0.14362464183380408,
+                "state_switch_count": 119,
+                "state_switches_per_s": 17.04871060171824
+              }
+            }
+          },
+          "maximum_tilt_deg": 9.519761297473226,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "45": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "60": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        },
+        "reference_overlap": {
+          "interval_s": [
+            0.0,
+            6.96
+          ],
+          "native_samples": 2785,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 2785,
+            "xy_rmse_m": 0.10798092488376734,
+            "xy_peak_m": 0.23333839565188694,
+            "mean_speed_m_s": 0.8782171379371551,
+            "reference_mean_speed_m_s": 0.8741363103669761,
+            "speed_retention": 1.0046684110038464,
+            "beta_rmse_deg": 5.602023291698581,
+            "beta_valid_samples": 2362,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 2785,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.1436265709156194,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.826562718063293,
+            "common_band_rms": 0.9091549472247803,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.8375366960743864,
+            "native_high_frequency_rms": 0.915170309873734,
+            "at_or_above100hz_mean_square": 0.01097397801109332,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.6750448833034112,
+                "time_duty_fraction_zoh": 0.6749281609195554,
+                "state_switch_count": 233,
+                "state_switches_per_s": 33.47701149425101
+              },
+              "right": {
+                "sample_duty_fraction": 0.8204667863554758,
+                "time_duty_fraction_zoh": 0.8204022988505816,
+                "state_switch_count": 141,
+                "state_switches_per_s": 20.25862068965404
+              },
+              "both": {
+                "sample_duty_fraction": 0.6394973070017953,
+                "time_duty_fraction_zoh": 0.6393678160919691,
+                "state_switch_count": 221,
+                "state_switches_per_s": 31.75287356321662
+              },
+              "none": {
+                "sample_duty_fraction": 0.14398563734290845,
+                "time_duty_fraction_zoh": 0.1440373563218323,
+                "state_switch_count": 119,
+                "state_switches_per_s": 17.097701149424335
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.6750448833034112,
+                "time_duty_fraction_zoh": 0.6749281609195554,
+                "state_switch_count": 233,
+                "state_switches_per_s": 33.47701149425101
+              },
+              "right": {
+                "sample_duty_fraction": 0.8204667863554758,
+                "time_duty_fraction_zoh": 0.8204022988505816,
+                "state_switch_count": 141,
+                "state_switches_per_s": 20.25862068965404
+              },
+              "both": {
+                "sample_duty_fraction": 0.6394973070017953,
+                "time_duty_fraction_zoh": 0.6393678160919691,
+                "state_switch_count": 221,
+                "state_switches_per_s": 31.75287356321662
+              },
+              "none": {
+                "sample_duty_fraction": 0.14398563734290845,
+                "time_duty_fraction_zoh": 0.1440373563218323,
+                "state_switch_count": 119,
+                "state_switches_per_s": 17.097701149424335
+              }
+            }
+          },
+          "maximum_tilt_deg": 9.519761297473226,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "45": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "60": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        }
+      },
+      "xy_screen": {
+        "kind": "exploratory_descriptive_XY_screen",
+        "rmse_threshold_m": 0.15,
+        "peak_threshold_m": 0.3,
+        "large_xy_error": true,
+        "height_contact_tilt_or_beta_used_as_failure_gate": false
+      },
+      "wheel_heading_FK_audit": {
+        "maximum_wheel_link_position_error_m": 2.210884483380985e-15,
+        "wheel_position_tolerance_m": 0.0002,
+        "maximum_root_com_velocity_reconstruction_error": 8.881784197001252e-16,
+        "dynamics_stepping": false,
+        "measured_contact_replaced": false,
+        "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+      }
+    },
+    {
+      "id": "mjlab_to_physx",
+      "training_backend": "mjlab",
+      "engine_tag": "physx",
+      "validation_backend": "PhysX",
+      "mu": 0.7,
+      "directory": "/home/roy/tron1-sliding-analysis/outputs/ppo_backend_400hz_nominal_20261022_v1/cases/mjlab/physx",
+      "checkpoint_sha256": "f1f320530d8a089f8014f073f9033ce2a52ae4ad92b82a2174a4ab1bfbf6fb37",
+      "actor_sha256": "081062a886db35740a68a6cead4579cd339cff62c311728c2f6ce71ed5a8c5f0",
+      "input_hashes": {
+        "report": "435d1a17d8c196deb9836d1fbd9f022ce9058f3e65d6e00386b4b2f92aa8cdaa",
+        "recording": "1f6d73be39c626d50755b609f3dcc60a951c41af65d0e70d83648bd49ff4856c"
+      },
+      "remote_verification": {
+        "status": "verified",
+        "native_states": 2793,
+        "policy_decisions": 349,
+        "duration_s": 6.98,
+        "physics_dt_s": 0.0025,
+        "policy_dt_s": 0.02,
+        "recording_sha256": "1f6d73be39c626d50755b609f3dcc60a951c41af65d0e70d83648bd49ff4856c",
+        "validation_backend": "PhysX",
+        "training_backend": "mjlab",
+        "smoke_only": false,
+        "report_sha256": "435d1a17d8c196deb9836d1fbd9f022ce9058f3e65d6e00386b4b2f92aa8cdaa",
+        "checkpoint_sha256": "f1f320530d8a089f8014f073f9033ce2a52ae4ad92b82a2174a4ab1bfbf6fb37",
+        "evaluation_contact_friction": 0.7
+      },
+      "material_mapping": {
+        "live_physx_materials_verified": true,
+        "ground_material_usd_verified": true,
+        "wheel_mu_range": [
+          0.699999988079071,
+          0.699999988079071
+        ],
+        "effective_pair_mapping": {
+          "trained_contact_friction": 1.0,
+          "evaluation_contact_friction": 0.7,
+          "meaning": "target effective pair coefficient; native material mapping, not contact-law equivalence",
+          "physx_robot_mu": 0.7,
+          "physx_ground_mu": 1.0,
+          "physx_combine": "multiply",
+          "mujoco_colliding_geom_mu": 0.7,
+          "mujoco_wheel_priority": 1,
+          "mujoco_other_priority": 0,
+          "mujoco_equal_priority_combine": "max",
+          "mu_squared": false
+        },
+        "native_mapping": {
+          "distribution": "fixed",
+          "range": [
+            0.7,
+            0.7
+          ],
+          "sampling": "startup_once_per_environment_shared_between_both_wheels",
+          "physx_static_equals_dynamic": true,
+          "physx_ground_friction": 1.0,
+          "physx_ground_friction_combine_mode": "multiply",
+          "mujoco_wheel_geom_priority": 1,
+          "mujoco_tangential_axis": 0,
+          "buckets": null
+        },
+        "native_plant_readback_in_source_report": true
+      },
+      "windows": {
+        "core": {
+          "interval_s": [
+            1.44,
+            4.0
+          ],
+          "native_samples": 1025,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 1025,
+            "xy_rmse_m": 0.5727144217232604,
+            "xy_peak_m": 0.8442521376799715,
+            "mean_speed_m_s": 0.8660025116556677,
+            "reference_mean_speed_m_s": 1.0282628655552946,
+            "speed_retention": 0.842199539305544,
+            "beta_rmse_deg": 28.841075132297743,
+            "beta_valid_samples": 1025,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 1025,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.3902439024390244,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 1.807818108219193,
+            "common_band_rms": 1.344551266489751,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 1.8119430931419602,
+            "native_high_frequency_rms": 1.3460843558789175,
+            "at_or_above100hz_mean_square": 0.004124984922767177,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.5726829268292682,
+                "time_duty_fraction_zoh": 0.5732421874999999,
+                "state_switch_count": 92,
+                "state_switches_per_s": 35.9375
+              },
+              "right": {
+                "sample_duty_fraction": 0.7648780487804878,
+                "time_duty_fraction_zoh": 0.7646484375000003,
+                "state_switch_count": 86,
+                "state_switches_per_s": 33.59375
+              },
+              "both": {
+                "sample_duty_fraction": 0.4224390243902439,
+                "time_duty_fraction_zoh": 0.42285156250000033,
+                "state_switch_count": 148,
+                "state_switches_per_s": 57.8125
+              },
+              "none": {
+                "sample_duty_fraction": 0.08487804878048781,
+                "time_duty_fraction_zoh": 0.0849609375000001,
+                "state_switch_count": 26,
+                "state_switches_per_s": 10.15625
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.5726829268292682,
+                "time_duty_fraction_zoh": 0.5732421874999999,
+                "state_switch_count": 92,
+                "state_switches_per_s": 35.9375
+              },
+              "right": {
+                "sample_duty_fraction": 0.7648780487804878,
+                "time_duty_fraction_zoh": 0.7646484375000003,
+                "state_switch_count": 86,
+                "state_switches_per_s": 33.59375
+              },
+              "both": {
+                "sample_duty_fraction": 0.4224390243902439,
+                "time_duty_fraction_zoh": 0.42285156250000033,
+                "state_switch_count": 148,
+                "state_switches_per_s": 57.8125
+              },
+              "none": {
+                "sample_duty_fraction": 0.08487804878048781,
+                "time_duty_fraction_zoh": 0.0849609375000001,
+                "state_switch_count": 26,
+                "state_switches_per_s": 10.15625
+              }
+            }
+          },
+          "maximum_tilt_deg": 7.1597281211625505,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "45": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "60": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        },
+        "full": {
+          "interval_s": [
+            0.0,
+            6.98
+          ],
+          "native_samples": 2793,
+          "tracking": {
+            "available": false,
+            "coverage_complete": false,
+            "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 2793,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.14321518080916576,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 1.5481904178168626,
+            "common_band_rms": 1.2442630018677172,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 1.552390270277514,
+            "native_high_frequency_rms": 1.2459495456387928,
+            "at_or_above100hz_mean_square": 0.004199852460651684,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.6981740064446831,
+                "time_duty_fraction_zoh": 0.6980659025787966,
+                "state_switch_count": 213,
+                "state_switches_per_s": 30.515759312320917
+              },
+              "right": {
+                "sample_duty_fraction": 0.8403150733977801,
+                "time_duty_fraction_zoh": 0.8402578796561607,
+                "state_switch_count": 153,
+                "state_switches_per_s": 21.919770773638966
+              },
+              "both": {
+                "sample_duty_fraction": 0.5839598997493735,
+                "time_duty_fraction_zoh": 0.5838108882521491,
+                "state_switch_count": 303,
+                "state_switches_per_s": 43.409742120343836
+              },
+              "none": {
+                "sample_duty_fraction": 0.04547081990691013,
+                "time_duty_fraction_zoh": 0.04548710601719193,
+                "state_switch_count": 55,
+                "state_switches_per_s": 7.8796561604584525
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.6981740064446831,
+                "time_duty_fraction_zoh": 0.6980659025787966,
+                "state_switch_count": 213,
+                "state_switches_per_s": 30.515759312320917
+              },
+              "right": {
+                "sample_duty_fraction": 0.8403150733977801,
+                "time_duty_fraction_zoh": 0.8402578796561607,
+                "state_switch_count": 153,
+                "state_switches_per_s": 21.919770773638966
+              },
+              "both": {
+                "sample_duty_fraction": 0.5839598997493735,
+                "time_duty_fraction_zoh": 0.5838108882521491,
+                "state_switch_count": 303,
+                "state_switches_per_s": 43.409742120343836
+              },
+              "none": {
+                "sample_duty_fraction": 0.04547081990691013,
+                "time_duty_fraction_zoh": 0.04548710601719193,
+                "state_switch_count": 55,
+                "state_switches_per_s": 7.8796561604584525
+              }
+            }
+          },
+          "maximum_tilt_deg": 11.377564324621673,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "45": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "60": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        },
+        "reference_overlap": {
+          "interval_s": [
+            0.0,
+            6.96
+          ],
+          "native_samples": 2785,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 2785,
+            "xy_rmse_m": 0.5353918852481173,
+            "xy_peak_m": 0.845547768379348,
+            "mean_speed_m_s": 0.8926228998362442,
+            "reference_mean_speed_m_s": 0.8741363103669996,
+            "speed_retention": 1.0211484058607325,
+            "beta_rmse_deg": 19.54454667400542,
+            "beta_valid_samples": 2362,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 2785,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.1436265709156194,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 1.5507982481792413,
+            "common_band_rms": 1.2453105027177926,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 1.5549982574288057,
+            "native_high_frequency_rms": 1.2469956926264043,
+            "at_or_above100hz_mean_square": 0.004200009249563962,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.6973070017953321,
+                "time_duty_fraction_zoh": 0.6975574712643678,
+                "state_switch_count": 212,
+                "state_switches_per_s": 30.45977011494253
+              },
+              "right": {
+                "sample_duty_fraction": 0.8402154398563735,
+                "time_duty_fraction_zoh": 0.8401580459770115,
+                "state_switch_count": 151,
+                "state_switches_per_s": 21.695402298850574
+              },
+              "both": {
+                "sample_duty_fraction": 0.5831238779174147,
+                "time_duty_fraction_zoh": 0.5833333333333334,
+                "state_switch_count": 302,
+                "state_switches_per_s": 43.39080459770115
+              },
+              "none": {
+                "sample_duty_fraction": 0.04560143626570916,
+                "time_duty_fraction_zoh": 0.04561781609195398,
+                "state_switch_count": 55,
+                "state_switches_per_s": 7.902298850574713
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.6973070017953321,
+                "time_duty_fraction_zoh": 0.6975574712643678,
+                "state_switch_count": 212,
+                "state_switches_per_s": 30.45977011494253
+              },
+              "right": {
+                "sample_duty_fraction": 0.8402154398563735,
+                "time_duty_fraction_zoh": 0.8401580459770115,
+                "state_switch_count": 151,
+                "state_switches_per_s": 21.695402298850574
+              },
+              "both": {
+                "sample_duty_fraction": 0.5831238779174147,
+                "time_duty_fraction_zoh": 0.5833333333333334,
+                "state_switch_count": 302,
+                "state_switches_per_s": 43.39080459770115
+              },
+              "none": {
+                "sample_duty_fraction": 0.04560143626570916,
+                "time_duty_fraction_zoh": 0.04561781609195398,
+                "state_switch_count": 55,
+                "state_switches_per_s": 7.902298850574713
+              }
+            }
+          },
+          "maximum_tilt_deg": 11.377564324621673,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "45": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "60": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        }
+      },
+      "xy_screen": {
+        "kind": "exploratory_descriptive_XY_screen",
+        "rmse_threshold_m": 0.15,
+        "peak_threshold_m": 0.3,
+        "large_xy_error": true,
+        "height_contact_tilt_or_beta_used_as_failure_gate": false
+      },
+      "wheel_heading_FK_audit": {
+        "maximum_wheel_link_position_error_m": 1.360331477081214e-06,
+        "wheel_position_tolerance_m": 0.0002,
+        "maximum_root_com_velocity_reconstruction_error": 1.7763568394002505e-15,
+        "dynamics_stepping": false,
+        "measured_contact_replaced": false,
+        "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+      }
+    },
+    {
+      "id": "mjlab_to_mujoco",
+      "training_backend": "mjlab",
+      "engine_tag": "mujoco",
+      "validation_backend": "native CPU MuJoCo",
+      "mu": 0.7,
+      "directory": "/home/roy/tron1-sliding-analysis/outputs/ppo_backend_400hz_nominal_20261022_v1/cases/mjlab/mujoco",
+      "checkpoint_sha256": "f1f320530d8a089f8014f073f9033ce2a52ae4ad92b82a2174a4ab1bfbf6fb37",
+      "actor_sha256": "081062a886db35740a68a6cead4579cd339cff62c311728c2f6ce71ed5a8c5f0",
+      "input_hashes": {
+        "report": "9489128f8eaa1dd1e866ad53db90f59ef07b8838d9c4d7b971c080b5cc2380c4",
+        "recording": "45608929c90a3336318d79d6b9531d993eccd8e02bb750b1f9d05e96576c61bc"
+      },
+      "remote_verification": {
+        "status": "verified",
+        "native_states": 2793,
+        "policy_decisions": 349,
+        "duration_s": 6.98,
+        "physics_dt_s": 0.0025,
+        "policy_dt_s": 0.02,
+        "recording_sha256": "45608929c90a3336318d79d6b9531d993eccd8e02bb750b1f9d05e96576c61bc",
+        "validation_backend": "native CPU MuJoCo",
+        "training_backend": "mjlab",
+        "smoke_only": false,
+        "report_sha256": "9489128f8eaa1dd1e866ad53db90f59ef07b8838d9c4d7b971c080b5cc2380c4",
+        "checkpoint_sha256": "f1f320530d8a089f8014f073f9033ce2a52ae4ad92b82a2174a4ab1bfbf6fb37",
+        "evaluation_contact_friction": 0.7
+      },
+      "material_mapping": {
+        "native_mapping_verified": true,
+        "pair_coefficient": 0.7,
+        "mapping": "explicit wheel priority1 / other colliders0; all colliding sliding mu equal target; not mu squared",
+        "geom_priority": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        "explicit_contact_pair_count": 0,
+        "sliding_friction_range": [
+          0.7,
+          0.7
+        ],
+        "native_plant_readback_in_source_report": true
+      },
+      "windows": {
+        "core": {
+          "interval_s": [
+            1.44,
+            4.0
+          ],
+          "native_samples": 1025,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 1025,
+            "xy_rmse_m": 0.12020997499454095,
+            "xy_peak_m": 0.17656835608252083,
+            "mean_speed_m_s": 1.0049089214891433,
+            "reference_mean_speed_m_s": 1.0282628655553003,
+            "speed_retention": 0.9772879631770569,
+            "beta_rmse_deg": 5.846137052959785,
+            "beta_valid_samples": 1025,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 1025,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.3902439024390244,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 1.8593722835500472,
+            "common_band_rms": 1.363588018262865,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 1.8735628324656384,
+            "native_high_frequency_rms": 1.368781513779916,
+            "at_or_above100hz_mean_square": 0.014190548915591676,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.3434146341463415,
+                "time_duty_fraction_zoh": 0.3427734375,
+                "state_switch_count": 189,
+                "state_switches_per_s": 73.82812500000158
+              },
+              "right": {
+                "sample_duty_fraction": 0.3404878048780488,
+                "time_duty_fraction_zoh": 0.33984375,
+                "state_switch_count": 104,
+                "state_switches_per_s": 40.62500000000087
+              },
+              "both": {
+                "sample_duty_fraction": 0.11804878048780487,
+                "time_duty_fraction_zoh": 0.1171875,
+                "state_switch_count": 101,
+                "state_switches_per_s": 39.45312500000084
+              },
+              "none": {
+                "sample_duty_fraction": 0.43414634146341463,
+                "time_duty_fraction_zoh": 0.4345703125,
+                "state_switch_count": 182,
+                "state_switches_per_s": 71.09375000000152
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.3434146341463415,
+                "time_duty_fraction_zoh": 0.3427734375,
+                "state_switch_count": 189,
+                "state_switches_per_s": 73.82812500000158
+              },
+              "right": {
+                "sample_duty_fraction": 0.3404878048780488,
+                "time_duty_fraction_zoh": 0.33984375,
+                "state_switch_count": 104,
+                "state_switches_per_s": 40.62500000000087
+              },
+              "both": {
+                "sample_duty_fraction": 0.11804878048780487,
+                "time_duty_fraction_zoh": 0.1171875,
+                "state_switch_count": 101,
+                "state_switches_per_s": 39.45312500000084
+              },
+              "none": {
+                "sample_duty_fraction": 0.43414634146341463,
+                "time_duty_fraction_zoh": 0.4345703125,
+                "state_switch_count": 182,
+                "state_switches_per_s": 71.09375000000152
+              }
+            }
+          },
+          "maximum_tilt_deg": 4.118479521246306,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "45": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "60": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        },
+        "full": {
+          "interval_s": [
+            0.0,
+            6.98
+          ],
+          "native_samples": 2793,
+          "tracking": {
+            "available": false,
+            "coverage_complete": false,
+            "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 2793,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.14321518080916576,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 1.1303927125283846,
+            "common_band_rms": 1.0631992816628426,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 1.138576269280115,
+            "native_high_frequency_rms": 1.0670408939118101,
+            "at_or_above100hz_mean_square": 0.008183556751730046,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.6906552094522019,
+                "time_duty_fraction_zoh": 0.6905444126074685,
+                "state_switch_count": 255,
+                "state_switches_per_s": 36.53295128939623
+              },
+              "right": {
+                "sample_duty_fraction": 0.6953097028284998,
+                "time_duty_fraction_zoh": 0.6952005730659182,
+                "state_switch_count": 157,
+                "state_switches_per_s": 22.492836676216506
+              },
+              "both": {
+                "sample_duty_fraction": 0.5714285714285714,
+                "time_duty_fraction_zoh": 0.571275071633261,
+                "state_switch_count": 179,
+                "state_switches_per_s": 25.64469914039971
+              },
+              "none": {
+                "sample_duty_fraction": 0.18546365914786966,
+                "time_duty_fraction_zoh": 0.18553008595987422,
+                "state_switch_count": 219,
+                "state_switches_per_s": 31.375358166187354
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.6906552094522019,
+                "time_duty_fraction_zoh": 0.6905444126074685,
+                "state_switch_count": 255,
+                "state_switches_per_s": 36.53295128939623
+              },
+              "right": {
+                "sample_duty_fraction": 0.6953097028284998,
+                "time_duty_fraction_zoh": 0.6952005730659182,
+                "state_switch_count": 157,
+                "state_switches_per_s": 22.492836676216506
+              },
+              "both": {
+                "sample_duty_fraction": 0.5714285714285714,
+                "time_duty_fraction_zoh": 0.571275071633261,
+                "state_switch_count": 179,
+                "state_switches_per_s": 25.64469914039971
+              },
+              "none": {
+                "sample_duty_fraction": 0.18546365914786966,
+                "time_duty_fraction_zoh": 0.18553008595987422,
+                "state_switch_count": 219,
+                "state_switches_per_s": 31.375358166187354
+              }
+            }
+          },
+          "maximum_tilt_deg": 4.118479521246306,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "45": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "60": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        },
+        "reference_overlap": {
+          "interval_s": [
+            0.0,
+            6.96
+          ],
+          "native_samples": 2785,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 2785,
+            "xy_rmse_m": 0.08216012778107958,
+            "xy_peak_m": 0.17656835608252083,
+            "mean_speed_m_s": 0.8716459094486309,
+            "reference_mean_speed_m_s": 0.8741363103669761,
+            "speed_retention": 0.997151015363611,
+            "beta_rmse_deg": 4.022654776033513,
+            "beta_valid_samples": 2362,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 2785,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.1436265709156194,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 1.1360052721180445,
+            "common_band_rms": 1.0658354807933748,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 1.1442305109678412,
+            "native_high_frequency_rms": 1.0696871089098163,
+            "at_or_above100hz_mean_square": 0.008225238849796809,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.6897666068222621,
+                "time_duty_fraction_zoh": 0.6896551724138117,
+                "state_switch_count": 255,
+                "state_switches_per_s": 36.637931034480715
+              },
+              "right": {
+                "sample_duty_fraction": 0.6944344703770198,
+                "time_duty_fraction_zoh": 0.6943247126436938,
+                "state_switch_count": 157,
+                "state_switches_per_s": 22.55747126436656
+              },
+              "both": {
+                "sample_duty_fraction": 0.570197486535009,
+                "time_duty_fraction_zoh": 0.5700431034482989,
+                "state_switch_count": 179,
+                "state_switches_per_s": 25.718390804596268
+              },
+              "none": {
+                "sample_duty_fraction": 0.18599640933572711,
+                "time_duty_fraction_zoh": 0.18606321839079346,
+                "state_switch_count": 219,
+                "state_switches_per_s": 31.465517241377555
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.6897666068222621,
+                "time_duty_fraction_zoh": 0.6896551724138117,
+                "state_switch_count": 255,
+                "state_switches_per_s": 36.637931034480715
+              },
+              "right": {
+                "sample_duty_fraction": 0.6944344703770198,
+                "time_duty_fraction_zoh": 0.6943247126436938,
+                "state_switch_count": 157,
+                "state_switches_per_s": 22.55747126436656
+              },
+              "both": {
+                "sample_duty_fraction": 0.570197486535009,
+                "time_duty_fraction_zoh": 0.5700431034482989,
+                "state_switch_count": 179,
+                "state_switches_per_s": 25.718390804596268
+              },
+              "none": {
+                "sample_duty_fraction": 0.18599640933572711,
+                "time_duty_fraction_zoh": 0.18606321839079346,
+                "state_switch_count": 219,
+                "state_switches_per_s": 31.465517241377555
+              }
+            }
+          },
+          "maximum_tilt_deg": 4.118479521246306,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "45": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "60": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        }
+      },
+      "xy_screen": {
+        "kind": "exploratory_descriptive_XY_screen",
+        "rmse_threshold_m": 0.15,
+        "peak_threshold_m": 0.3,
+        "large_xy_error": false,
+        "height_contact_tilt_or_beta_used_as_failure_gate": false
+      },
+      "wheel_heading_FK_audit": {
+        "maximum_wheel_link_position_error_m": 2.2164525941564737e-15,
+        "wheel_position_tolerance_m": 0.0002,
+        "maximum_root_com_velocity_reconstruction_error": 8.881784197001252e-16,
+        "dynamics_stepping": false,
+        "measured_contact_replaced": false,
+        "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+      }
+    }
+  ],
+  "observed_utc": "2026-10-22T13:20:02.228204+00:00",
+  "sample_size_per_cell": 1,
+  "physics_dt_s": 0.0025,
+  "policy_dt_s": 0.02,
+  "reference_real_last_time_s": 6.96,
+  "retrieval_manifest_sha256": "88f8f9b99c7f1f64ac054fb8a22885360fa6f64f2114192c6eec8da75de6b356",
+  "matrix_status_snapshot_sha256": "038735184e34d67808f7c4f10d2df16427c70252a6a24ece741f34ab0ddba7a5",
+  "reference_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+  "model_sha256": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513",
+  "protocol_sha256": "c54cd530884cffa22811ca2232cb2588eba3582deefc91d4d9675e4fca7fe30f",
+  "summarizer_sha256": "70fe399282cd0d841d59e75400e60bf95067a3d76ea422335c268c35f226ebb4",
+  "native_analyzer_sha256": "2645c26150b4bbca5a5631beee3d1cf1178ee365bf0a11044d7e8c618220c0a1",
+  "FK_audit": {
+    "model_sha256": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513",
+    "loader_evaluator_sha256": "2251d740d7568874a47a232556241cc8d1ee5f5b7be1351d1c657aea8fa85f87",
+    "removed_proven_noncolliding_visual_meshes": 9,
+    "isolated_FK_only": true,
+    "dynamics_stepping": false
+  },
+  "analysis_helpers_sha256": {
+    "analyze_ppo_smoothness.py": "79a1caeda4ae12ef176b14770a4beefde0f44a885052be54c6382a74368d4f3c",
+    "analyze_ppo_contact_stability.py": "34b5372d57388174a1b7896df0735f3cd3de6b5afa946d1c3093a07b1ff2e56b",
+    "analyze_ppo_contact_timestep.py": "e0110f0fb66e469922838f9a5428f7f6db54c7c2e6a8c559ad9d2f697a140bff",
+    "analyze_ppo_ground_support_failure.py": "cc0acd232a240618cd55aa5de8fcad0817b71696e0f9f285db4bd11c679c5219",
+    "controller_metrics.py": "40921dad0c268d4bd871e0910086957555116fdd07188ba7cb4f8c76ca4343de",
+    "controller_trace.py": "673d17bda4d9f6c93b76b0b963b199aef3e3abe8982cfc6cc6580184e5b0a3e6",
+    "nmpc_tracking_objective.py": "ff22eebb2b22b9af7dba114c64fcd10f6b0a90822559af8f32cbe6884015b860",
+    "height_smoothness.py": "e133aca58f671fc22ae1dfc97a03461e7724e4072bf8b74f58a2c14281d198b8",
+    "ppo_backend_400hz_contract.py": "b57b7444698e06f4d9faed6f246bb8a301b505f6c785bdbc2caafdb0b2b6f56e"
+  },
+  "remote_proofs_bound_to_local_payload": true,
+  "checkpoint_or_actor_downloaded_or_loaded": false,
+  "new_simulation": false,
+  "new_policy_inference": false,
+  "visual_reviewed": false,
+  "limitations": [
+    "Only four nominal mu=0.7 cells; the17-mu matrix is not yet complete.",
+    "Original remote validation proofs are hash-bound to copied reports/records/training metadata; weights are not locally reverified.",
+    "N=1 descriptive cell, not a statistical backend ranking or success probability.",
+    "Reference ends6.96s; native episode ends6.98s. Full tracking is unavailable without extrapolation; overlap is separate.",
+    "No alignment, root correction, smoothing or dynamics replay is applied.",
+    "Intended nonzero beta is not a failure; only reference-relative error is reported.",
+    "Height, tilt and zero measured ground load are not tracking failure gates.",
+    "Native contact measurements and equal target mu do not imply equivalent contact laws or identical measurement operators."
+  ],
+  "graphics_engine": "MuJoCo graphics/kinematics only",
+  "case_order": [
+    [
+      "physx",
+      "physx"
+    ],
+    [
+      "physx",
+      "mujoco"
+    ],
+    [
+      "mjlab",
+      "physx"
+    ],
+    [
+      "mjlab",
+      "mujoco"
+    ]
+  ],
+  "panel_titles": {
+    "physx_to_physx": "PhysX-trained \u2192 PhysX",
+    "physx_to_mujoco": "PhysX-trained \u2192 native CPU MuJoCo",
+    "mjlab_to_physx": "MJWarp-trained \u2192 PhysX",
+    "mjlab_to_mujoco": "MJWarp-trained \u2192 native CPU MuJoCo"
+  },
+  "native_samples_per_case": 2793,
+  "native_sample_stride": 8,
+  "video_frames": 350,
+  "video_fps": 50,
+  "first_original_time_s": 0.0,
+  "last_original_time_s": 6.98,
+  "encoded_duration_s": 7.0,
+  "selected_clock_max_absolute_difference_s": 3.907985046680551e-13,
+  "video_size_pixels": [
+    2560,
+    720
+  ],
+  "robot_mesh_alpha": 1.0,
+  "physical_pose_corrected": false,
+  "root_height_corrected": false,
+  "pose_alignment": false,
+  "state_interpolation": false,
+  "state_filtering": false,
+  "dynamics_stepping": false,
+  "contact_solver_called": false,
+  "new_training": false,
+  "rendering_limitations": [
+    "Four completed nominal mu=0.7 cells only. Full 17-mu matrix is partial (46/68 observed); queue status: stopped_without_retry. This replay does not restart it.",
+    "N=1 per cell. Displayed 50 Hz frames cannot establish continuous contact or resolve all 400 Hz chatter.",
+    "The common 3D camera fits all four original robot meshes, never recenters one robot independently.",
+    "Fixed world-XY maps show all four full trajectories with shared bounds; no drift or fall is removed.",
+    "Wheel glyphs are axial rolling planes from local +Y axle cross world +Z; wheel spin does not define heading.",
+    "Counts/Fz are native backend-specific telemetry. Zero count is not flight or a success/failure label.",
+    "Reference ends 6.96 s. Camera may hold the final knot for display at 6.98 s; XY error is unavailable beyond real reference.",
+    "The same opaque display meshes/light settings are used; source physical inertias/contact laws are not replaced."
+  ],
+  "camera_lookat_m": [
+    [
+      -0.00023530683408997782,
+      -0.022005146142330154,
+      0.3795542800234973
+    ],
+    [
+      0.03616552203457109,
+      -0.03097071898013586,
+      0.3908883780960099
+    ],
+    [
+      0.06576425808717616,
+      -0.03572254182900716,
+      0.40038130179638426
+    ],
+    [
+      0.08484494575385841,
+      -0.02837805000474197,
+      0.402953474256744
+    ],
+    [
+      0.1054302843738277,
+      -0.01930429414853772,
+      0.4088235841444043
+    ],
+    [
+      0.1373412671846722,
+      -0.025794388995374163,
+      0.4014968573968779
+    ],
+    [
+      0.16774487321105494,
+      -0.02750846158214692,
+      0.39914053283735257
+    ],
+    [
+      0.19900804449978832,
+      -0.030459734358066686,
+      0.40048838426903244
+    ],
+    [
+      0.225513851037383,
+      -0.031035403031639604,
+      0.402119431925395
+    ],
+    [
+      0.253397726857419,
+      -0.03342812907914625,
+      0.4097111687428063
+    ],
+    [
+      0.27413717656635433,
+      -0.02698822122933157,
+      0.40898940052885596
+    ],
+    [
+      0.29182658703169273,
+      -0.020107709617640863,
+      0.40770458625874995
+    ],
+    [
+      0.3099339975957381,
+      -0.011473689178395507,
+      0.40944775837976266
+    ],
+    [
+      0.3311254297871467,
+      -0.006840478795070241,
+      0.408579717879151
+    ],
+    [
+      0.3577703821749689,
+      -0.007983035333544747,
+      0.4023864546797778
+    ],
+    [
+      0.38467296905393283,
+      -0.008870292698788841,
+      0.39885815219979526
+    ],
+    [
+      0.4112612575790178,
+      -0.009964014259770714,
+      0.39801178563467904
+    ],
+    [
+      0.4375570474036923,
+      -0.010516811923707715,
+      0.3995064386656702
+    ],
+    [
+      0.4632905164524376,
+      -0.010773068398682693,
+      0.4032893091793813
+    ],
+    [
+      0.48754878054029793,
+      -0.010740207477977427,
+      0.4087262602101971
+    ],
+    [
+      0.5049218226958654,
+      -0.0038678267595839986,
+      0.40661932266440093
+    ],
+    [
+      0.5214495298746672,
+      0.0038821225953091713,
+      0.4059096668547461
+    ],
+    [
+      0.5384508467549876,
+      0.011133201305942914,
+      0.4067947016094192
+    ],
+    [
+      0.5628467410323196,
+      0.011026732454925206,
+      0.39968620090933216
+    ],
+    [
+      0.5869584965858543,
+      0.011235298811533264,
+      0.3955550851346339
+    ],
+    [
+      0.6123145644023126,
+      0.010246858758567422,
+      0.3923135537957653
+    ],
+    [
+      0.6376961534805753,
+      0.009304659364540058,
+      0.3917139949761081
+    ],
+    [
+      0.6629427567527109,
+      0.008577722560809903,
+      0.39392379817748235
+    ],
+    [
+      0.6878174384313431,
+      0.008327546168667701,
+      0.3986512207718527
+    ],
+    [
+      0.7114417444650213,
+      0.009437958324334183,
+      0.40418259618541574
+    ],
+    [
+      0.7280883079686754,
+      0.017648825644856262,
+      0.4022628386488537
+    ],
+    [
+      0.7488154587790561,
+      0.02192086316788977,
+      0.39688289103585517
+    ],
+    [
+      0.7725948593383766,
+      0.023288412743219654,
+      0.3908198232871656
+    ],
+    [
+      0.7969152945822792,
+      0.024274400797931937,
+      0.38697061818439643
+    ],
+    [
+      0.8215142466929131,
+      0.025145635941475286,
+      0.3858286491677359
+    ],
+    [
+      0.8457763977774084,
+      0.02655771097433909,
+      0.38828193921486187
+    ],
+    [
+      0.8709484519837473,
+      0.02724444555069319,
+      0.391844982729528
+    ],
+    [
+      0.8969414953915799,
+      0.027256634158297217,
+      0.397431052589455
+    ],
+    [
+      0.9230619448285013,
+      0.02741460818527751,
+      0.40605750273282526
+    ],
+    [
+      0.9462688830697413,
+      0.0307554976278516,
+      0.4013119459886656
+    ],
+    [
+      0.9697660731699284,
+      0.0340498242762938,
+      0.39349347633538495
+    ],
+    [
+      0.9939529869620196,
+      0.03692635672454517,
+      0.3878516634458039
+    ],
+    [
+      1.0178597622912282,
+      0.04032849196376195,
+      0.38608244112430673
+    ],
+    [
+      1.04159549401417,
+      0.04416972400389388,
+      0.3883182159904579
+    ],
+    [
+      1.066035186336869,
+      0.04753376734035944,
+      0.3935192274500771
+    ],
+    [
+      1.0928630579864658,
+      0.04877265827791914,
+      0.39929421871022824
+    ],
+    [
+      1.1209986050379468,
+      0.048952777059560644,
+      0.4070125919749345
+    ],
+    [
+      1.1492399759888035,
+      0.04930476880447997,
+      0.40363743282882464
+    ],
+    [
+      1.1728849912804398,
+      0.05450610520053718,
+      0.39531955338294805
+    ],
+    [
+      1.1963311700348964,
+      0.06018361462566247,
+      0.39108836403059216
+    ],
+    [
+      1.2197119754025223,
+      0.06615139446716993,
+      0.39113898207775816
+    ],
+    [
+      1.2431974710902374,
+      0.07229323978053515,
+      0.39553927832267133
+    ],
+    [
+      1.268782125670072,
+      0.07638781330440102,
+      0.4014413206150251
+    ],
+    [
+      1.2964662678920145,
+      0.0785317101895089,
+      0.4086908224178919
+    ],
+    [
+      1.3293663600976204,
+      0.0755926846229496,
+      0.4127481796206653
+    ],
+    [
+      1.3535588995653525,
+      0.08169538964572434,
+      0.404331245410774
+    ],
+    [
+      1.3770066763944797,
+      0.08866711550246902,
+      0.39824203944837766
+    ],
+    [
+      1.4005311396421667,
+      0.09595135919261713,
+      0.39670276328083526
+    ],
+    [
+      1.4242203306388037,
+      0.1032254100856297,
+      0.39987521252285985
+    ],
+    [
+      1.4487215200914667,
+      0.11004422340283339,
+      0.4069955056725564
+    ],
+    [
+      1.4764774428692578,
+      0.11375960399634254,
+      0.4143951058218154
+    ],
+    [
+      1.5099581908765123,
+      0.11221701355922126,
+      0.41809108935954037
+    ],
+    [
+      1.5353131287964406,
+      0.11889284953613151,
+      0.410245271230479
+    ],
+    [
+      1.5585184311095366,
+      0.12807399391670582,
+      0.4039318860875573
+    ],
+    [
+      1.5816515583128343,
+      0.1374463385445694,
+      0.40231898564297136
+    ],
+    [
+      1.6050121033636024,
+      0.1469012720326878,
+      0.4055282734284231
+    ],
+    [
+      1.6287633352562787,
+      0.15609399131799057,
+      0.4132528757193734
+    ],
+    [
+      1.6564056890597347,
+      0.16168228336886517,
+      0.4201477569922883
+    ],
+    [
+      1.689166525029212,
+      0.16226966650363234,
+      0.42078799992244154
+    ],
+    [
+      1.7136871164174812,
+      0.17133226467027274,
+      0.4138261290269381
+    ],
+    [
+      1.7355585159210236,
+      0.18318167427690601,
+      0.4075531499400259
+    ],
+    [
+      1.757523379364288,
+      0.19527267448012284,
+      0.40559689534672155
+    ],
+    [
+      1.7797969365653132,
+      0.20737683612074237,
+      0.40787769095877185
+    ],
+    [
+      1.802338058059489,
+      0.21951377865032337,
+      0.41401058630906434
+    ],
+    [
+      1.8256535030804664,
+      0.23089476706514075,
+      0.41468329889073646
+    ],
+    [
+      1.8477719996922364,
+      0.24351012925356633,
+      0.40239045433416054
+    ],
+    [
+      1.868576955516638,
+      0.25756057863396026,
+      0.3919153778662272
+    ],
+    [
+      1.8891558171965843,
+      0.27454908148873086,
+      0.3835323984773619
+    ],
+    [
+      1.9101524605791675,
+      0.29644559084582994,
+      0.37563869558508634
+    ],
+    [
+      1.9269281363824173,
+      0.31626098842751643,
+      0.369918360898272
+    ],
+    [
+      1.9373240312546722,
+      0.33181515120678323,
+      0.3651287910529895
+    ],
+    [
+      1.9517438487542191,
+      0.348983195070909,
+      0.35564244660420724
+    ],
+    [
+      1.9827581477486382,
+      0.36669794694144553,
+      0.33662925805365845
+    ],
+    [
+      2.001942441182588,
+      0.38007836799851735,
+      0.32052375810630607
+    ],
+    [
+      2.025562744301218,
+      0.38193425015105237,
+      0.31619935034302654
+    ],
+    [
+      2.037746839221744,
+      0.41127684697638844,
+      0.29222037016937813
+    ],
+    [
+      2.0605236224482795,
+      0.4180083657656728,
+      0.2856550194332534
+    ],
+    [
+      2.085633563062469,
+      0.4293397648693769,
+      0.2783349675958633
+    ],
+    [
+      2.0935843173601474,
+      0.45520233299728896,
+      0.2623917831001372
+    ],
+    [
+      2.1063586289649026,
+      0.4767350348236535,
+      0.25499264171370256
+    ],
+    [
+      2.118510217918152,
+      0.4983650331760417,
+      0.24903981687428553
+    ],
+    [
+      2.1477770262814895,
+      0.5040082655008258,
+      0.2570061121048793
+    ],
+    [
+      2.1478112720765608,
+      0.5311428450276399,
+      0.24282891789425928
+    ],
+    [
+      2.1612391628817025,
+      0.5460503397479265,
+      0.23659606036870087
+    ],
+    [
+      2.177164652393759,
+      0.5579567661331192,
+      0.2336686344805636
+    ],
+    [
+      2.2010382994148134,
+      0.5668786620699265,
+      0.2350703507638078
+    ],
+    [
+      2.2170706315194866,
+      0.5738693291424453,
+      0.23975914985248503
+    ],
+    [
+      2.2359769812777057,
+      0.5809884130181651,
+      0.253872524071369
+    ],
+    [
+      2.2656715342644596,
+      0.5759392119248455,
+      0.27265278702325607
+    ],
+    [
+      2.2881077018668186,
+      0.5855147146453382,
+      0.26721503944563896
+    ],
+    [
+      2.294687030348453,
+      0.6004709269656197,
+      0.26781079002085445
+    ],
+    [
+      2.3097206156898427,
+      0.613570962309859,
+      0.2900619541066811
+    ],
+    [
+      2.3278955539774278,
+      0.6135821076635148,
+      0.3040885268463052
+    ],
+    [
+      2.341026333878676,
+      0.6298367150268936,
+      0.2875182788662006
+    ],
+    [
+      2.3511836278645433,
+      0.6469110222224377,
+      0.28032025019432666
+    ],
+    [
+      2.36418649682159,
+      0.6579645302013685,
+      0.2881285653666942
+    ],
+    [
+      2.3763982919949074,
+      0.6699891813763126,
+      0.29064051366696353
+    ],
+    [
+      2.3922536703917503,
+      0.6799346431933337,
+      0.29762030202585166
+    ],
+    [
+      2.4085901854124594,
+      0.6961225009411225,
+      0.3058785396281015
+    ],
+    [
+      2.4229738679426918,
+      0.7078573966228842,
+      0.3016205233955204
+    ],
+    [
+      2.443678458761956,
+      0.7207332133374272,
+      0.29005453739260717
+    ],
+    [
+      2.4616881854782577,
+      0.7307874821909441,
+      0.2790710413678934
+    ],
+    [
+      2.4696788399275325,
+      0.7541245564607748,
+      0.27326650237997835
+    ],
+    [
+      2.480918582316705,
+      0.7716656600438916,
+      0.2934605292307365
+    ],
+    [
+      2.493054334518153,
+      0.7779912804285237,
+      0.2780267209280785
+    ],
+    [
+      2.5213872799635726,
+      0.7846266850925813,
+      0.2634227633809218
+    ],
+    [
+      2.5398492796096583,
+      0.8066406912525028,
+      0.2552968637693694
+    ],
+    [
+      2.5528088047877486,
+      0.8164051606174029,
+      0.2762382996789768
+    ],
+    [
+      2.545929309933753,
+      0.8367146530345683,
+      0.2616092143747395
+    ],
+    [
+      2.5741011663411433,
+      0.8444096617134924,
+      0.24735551074944204
+    ],
+    [
+      2.593783551910295,
+      0.8506955561666572,
+      0.239133168232123
+    ],
+    [
+      2.5968656129994914,
+      0.8567419694698607,
+      0.25140729078945856
+    ],
+    [
+      2.5816486129569336,
+      0.8503749210103085,
+      0.24885440589591656
+    ],
+    [
+      2.5796866412591233,
+      0.8404034745985324,
+      0.2552283050475881
+    ],
+    [
+      2.581952717498499,
+      0.8383278161848848,
+      0.2577202963722941
+    ],
+    [
+      2.5825731315667637,
+      0.8371787803949415,
+      0.26760573219559275
+    ],
+    [
+      2.5915409993013427,
+      0.8387949496113509,
+      0.2666681562382717
+    ],
+    [
+      2.6076708474354033,
+      0.837197246771454,
+      0.26250825370432757
+    ],
+    [
+      2.616079356769652,
+      0.8498624619021948,
+      0.2640611492190004
+    ],
+    [
+      2.6345655133968235,
+      0.864935866365463,
+      0.27695244964085575
+    ],
+    [
+      2.653047736541415,
+      0.8764846270053857,
+      0.27907504236382014
+    ],
+    [
+      2.6730087457469995,
+      0.8888524694668213,
+      0.2905242134909027
+    ],
+    [
+      2.667403051103528,
+      0.8996563533056624,
+      0.27788762552413365
+    ],
+    [
+      2.665374894796884,
+      0.9192541953001739,
+      0.27998455543445266
+    ],
+    [
+      2.675016437074081,
+      0.9362276718582604,
+      0.2769913775616671
+    ],
+    [
+      2.7015044705554736,
+      0.9476253632759014,
+      0.2708318331992383
+    ],
+    [
+      2.7218813219270865,
+      0.9681882739896936,
+      0.27091618453527827
+    ],
+    [
+      2.7487527560785683,
+      0.9906514833470123,
+      0.2801737743761246
+    ],
+    [
+      2.7562702560314625,
+      1.0078072505562492,
+      0.2817329829519945
+    ],
+    [
+      2.7578605006056365,
+      1.0284671236684801,
+      0.2822558054078478
+    ],
+    [
+      2.7619262290751125,
+      1.0448046121078784,
+      0.2766251810841837
+    ],
+    [
+      2.770058443805108,
+      1.0647822485519034,
+      0.27886677412435673
+    ],
+    [
+      2.7759747004599893,
+      1.0817076857115533,
+      0.2782751964431464
+    ],
+    [
+      2.7861249374078807,
+      1.0968757829909603,
+      0.2812271276027069
+    ],
+    [
+      2.802950695513423,
+      1.1013311968669302,
+      0.26812212836556953
+    ],
+    [
+      2.8121599976909484,
+      1.1169424797076546,
+      0.27072309371185316
+    ],
+    [
+      2.8219927956104875,
+      1.1266047977107905,
+      0.26711051558374543
+    ],
+    [
+      2.830906893685219,
+      1.1389361476058488,
+      0.27126872559286835
+    ],
+    [
+      2.8343829053351537,
+      1.1519871977691323,
+      0.2742806832817981
+    ],
+    [
+      2.8417644419929506,
+      1.1631613449491884,
+      0.2774578854881292
+    ],
+    [
+      2.850606463943863,
+      1.1698026417016416,
+      0.27359073522239913
+    ],
+    [
+      2.855952799041617,
+      1.1834700318032514,
+      0.28045049856163856
+    ],
+    [
+      2.8591162059613118,
+      1.1952751925552616,
+      0.2842396853605233
+    ],
+    [
+      2.8675780005190807,
+      1.2043755770463713,
+      0.2844599769302823
+    ],
+    [
+      2.8738711473912097,
+      1.2132328065673617,
+      0.28283464387766294
+    ],
+    [
+      2.8843763669088163,
+      1.2238359641136503,
+      0.28805466295487053
+    ],
+    [
+      2.8940525792882834,
+      1.2309026341950275,
+      0.2820886709896294
+    ],
+    [
+      2.906841000531558,
+      1.2396421025813937,
+      0.2805763344787055
+    ],
+    [
+      2.9115207797397242,
+      1.2547995638795733,
+      0.2837559347097271
+    ],
+    [
+      2.920570323653039,
+      1.2741277046384223,
+      0.2978323811207152
+    ],
+    [
+      2.9297652196342394,
+      1.2877773359358338,
+      0.29912910365198475
+    ],
+    [
+      2.944467235263754,
+      1.3021117222371263,
+      0.30490849405676446
+    ],
+    [
+      2.952369680405871,
+      1.3122481950620442,
+      0.30343197904840613
+    ],
+    [
+      2.955350675645922,
+      1.322635219191581,
+      0.3088441117724026
+    ],
+    [
+      2.9592801987942896,
+      1.3284949094542942,
+      0.2965634883919014
+    ],
+    [
+      2.963858649960432,
+      1.340383789908649,
+      0.2908812744133493
+    ],
+    [
+      2.9615131166244684,
+      1.3577797488216818,
+      0.29145218790791544
+    ],
+    [
+      2.96179686411902,
+      1.3762694413985623,
+      0.2970137145539169
+    ],
+    [
+      2.9681049714371195,
+      1.38415499686038,
+      0.2866361059556555
+    ],
+    [
+      2.9786333152578752,
+      1.394042353691339,
+      0.2803764577319431
+    ],
+    [
+      2.982032273363795,
+      1.4092164056701013,
+      0.27771964653356446
+    ],
+    [
+      2.9864061877072663,
+      1.4274539094433991,
+      0.28255885579935963
+    ],
+    [
+      2.988978805740372,
+      1.4433114382679495,
+      0.28311742778053106
+    ],
+    [
+      2.9903353235090986,
+      1.4649002715979311,
+      0.2916233587065373
+    ],
+    [
+      2.995511280234438,
+      1.479751438540514,
+      0.29039581567651224
+    ],
+    [
+      3.0065349638910854,
+      1.4941990473362072,
+      0.2933567948423158
+    ],
+    [
+      3.0160802399683178,
+      1.5065605490712692,
+      0.28817062770807184
+    ],
+    [
+      3.026733003896346,
+      1.523213782281959,
+      0.2900214429847622
+    ],
+    [
+      3.0349766101431817,
+      1.5393831910418176,
+      0.29028358855221287
+    ],
+    [
+      3.047898421263627,
+      1.557657054589924,
+      0.3000571086703383
+    ],
+    [
+      3.051625092798398,
+      1.572624111317368,
+      0.30157522497563677
+    ],
+    [
+      3.0578716417293412,
+      1.5819433430414005,
+      0.30009287777781507
+    ],
+    [
+      3.055357412090671,
+      1.5981306794891876,
+      0.29857737454137745
+    ],
+    [
+      3.0535246472171202,
+      1.616048453452358,
+      0.3026090887460248
+    ],
+    [
+      3.04984413057796,
+      1.6332660909689631,
+      0.3010460340400451
+    ],
+    [
+      3.0518169989874453,
+      1.6499721011911448,
+      0.2990289029282946
+    ],
+    [
+      3.06115114927682,
+      1.6577641660778901,
+      0.28634388382216874
+    ],
+    [
+      3.0661466133205253,
+      1.6737382479986627,
+      0.28750436871470963
+    ],
+    [
+      3.066948909054257,
+      1.6909627744470188,
+      0.2860264906460227
+    ],
+    [
+      3.0740581229970423,
+      1.7069030752118224,
+      0.2839456120114871
+    ],
+    [
+      3.0789089740407487,
+      1.7234256833559163,
+      0.2836516722392432
+    ],
+    [
+      3.0820627961351974,
+      1.7463055487352752,
+      0.29648399817550547
+    ],
+    [
+      3.082992171759122,
+      1.7676998799497134,
+      0.3020803975676819
+    ],
+    [
+      3.094585408921063,
+      1.7832977534751893,
+      0.30241235022254104
+    ],
+    [
+      3.1050132536114514,
+      1.7981491395048688,
+      0.30055111226502473
+    ],
+    [
+      3.118348918116872,
+      1.8153650340650145,
+      0.3067127412035019
+    ],
+    [
+      3.1325457705997186,
+      1.8271671831815355,
+      0.3010322620261118
+    ],
+    [
+      3.136471532490559,
+      1.8401052227486077,
+      0.30846097986461757
+    ],
+    [
+      3.1300692456265917,
+      1.8589293696158002,
+      0.3095414885912468
+    ],
+    [
+      3.1284525392654063,
+      1.8761166402594045,
+      0.309601259071825
+    ],
+    [
+      3.126656325869476,
+      1.8911209425880722,
+      0.3059819932972699
+    ],
+    [
+      3.1226580199920697,
+      1.9134046643248719,
+      0.31171825289075744
+    ],
+    [
+      3.1233395642302826,
+      1.9293803968133645,
+      0.3093515903772596
+    ],
+    [
+      3.133401847625172,
+      1.9398979317363212,
+      0.3015975910489177
+    ],
+    [
+      3.1385448338507254,
+      1.95299276615218,
+      0.2954574538565022
+    ],
+    [
+      3.140810802346001,
+      1.974131677016773,
+      0.30172311345380004
+    ],
+    [
+      3.1468651284311355,
+      1.990138606754187,
+      0.3013106379925759
+    ],
+    [
+      3.1563445842560554,
+      2.0073421930713233,
+      0.3035553270302607
+    ],
+    [
+      3.1614059415808216,
+      2.026073778937464,
+      0.30989767843387633
+    ],
+    [
+      3.1680737128971925,
+      2.0488692924393,
+      0.3221190531017808
+    ],
+    [
+      3.1755053479817015,
+      2.068949113033229,
+      0.3247661866190248
+    ],
+    [
+      3.196283929469868,
+      2.0806435925669042,
+      0.32598705938370864
+    ],
+    [
+      3.1982487500806265,
+      2.0892112141028503,
+      0.3232180675999701
+    ],
+    [
+      3.195103075947813,
+      2.106792144129946,
+      0.3178192053106627
+    ],
+    [
+      3.1909075527798563,
+      2.123659878343981,
+      0.31727734718601097
+    ],
+    [
+      3.194745847920549,
+      2.1366774660177406,
+      0.3133462048125329
+    ],
+    [
+      3.1956869451355345,
+      2.151276344781222,
+      0.307530005649974
+    ],
+    [
+      3.1964582083422663,
+      2.170793095374742,
+      0.30944360219128886
+    ],
+    [
+      3.2004680373174756,
+      2.186669321319287,
+      0.30605063004893046
+    ],
+    [
+      3.2066406317564033,
+      2.2041404766602612,
+      0.3076595515190324
+    ],
+    [
+      3.211196705638252,
+      2.2216495712974162,
+      0.3075018990259628
+    ],
+    [
+      3.219104815885402,
+      2.240927798723161,
+      0.3130439852960146
+    ],
+    [
+      3.2251794261814144,
+      2.259890910295518,
+      0.316288369370535
+    ],
+    [
+      3.2356628974715296,
+      2.2785060691230092,
+      0.3227643731259047
+    ],
+    [
+      3.245767998009501,
+      2.2950307320152734,
+      0.3235258011980107
+    ],
+    [
+      3.2592425065016637,
+      2.3128330360947063,
+      0.330370654718501
+    ],
+    [
+      3.256914681445091,
+      2.326110585705543,
+      0.3288291327630114
+    ],
+    [
+      3.2550090335696495,
+      2.341474029888228,
+      0.32558974383904477
+    ],
+    [
+      3.2552906964054107,
+      2.3531799428539,
+      0.3197735581843368
+    ],
+    [
+      3.2562917170961434,
+      2.3677321857918767,
+      0.3169142904061935
+    ],
+    [
+      3.2561149976710264,
+      2.3827621582266634,
+      0.311937231530381
+    ],
+    [
+      3.258826332888097,
+      2.3986327249179697,
+      0.3125597044129439
+    ],
+    [
+      3.259746560343226,
+      2.415133105504835,
+      0.31077891610257874
+    ],
+    [
+      3.263663516248841,
+      2.4334120345033927,
+      0.31387475690213695
+    ],
+    [
+      3.266650334579001,
+      2.4515381097601243,
+      0.31561298089533585
+    ],
+    [
+      3.275104311061118,
+      2.469587338380983,
+      0.32036625713817835
+    ],
+    [
+      3.2830217641914987,
+      2.487310050404328,
+      0.32132969993443916
+    ],
+    [
+      3.2957683172200296,
+      2.5066870046100522,
+      0.3286113182766021
+    ],
+    [
+      3.309379042457948,
+      2.5236647523347178,
+      0.3299296723882997
+    ],
+    [
+      3.3176795681530846,
+      2.5384943408858964,
+      0.3296644837265184
+    ],
+    [
+      3.314327928308957,
+      2.5531132903631844,
+      0.32107023587136124
+    ],
+    [
+      3.3133792416490664,
+      2.569021876594462,
+      0.31659871192216726
+    ],
+    [
+      3.3134406268279393,
+      2.5858865299692995,
+      0.31220981443055107
+    ],
+    [
+      3.3170843606110285,
+      2.6039387414095616,
+      0.31264981773247985
+    ],
+    [
+      3.3220611777389624,
+      2.623151094128641,
+      0.31348324103284664
+    ],
+    [
+      3.333230869494448,
+      2.6436321800424385,
+      0.32068295479570563
+    ],
+    [
+      3.344971929651746,
+      2.6653697470296387,
+      0.3276946310813073
+    ],
+    [
+      3.365583511260902,
+      2.688796188210478,
+      0.3423058386382299
+    ],
+    [
+      3.3721406408681687,
+      2.7099318623556674,
+      0.345284648434924
+    ],
+    [
+      3.3676522056022735,
+      2.7269017456249225,
+      0.33984680137034845
+    ],
+    [
+      3.3712373705471,
+      2.7436281134853213,
+      0.33339521171616054
+    ],
+    [
+      3.3824311256546276,
+      2.761702572554296,
+      0.33339112200401344
+    ],
+    [
+      3.399509736206807,
+      2.781956908356973,
+      0.33588240492819343
+    ],
+    [
+      3.4271372773804214,
+      2.8046655818164496,
+      0.3461865457089851
+    ],
+    [
+      3.4463580719053484,
+      2.827450217588219,
+      0.35023388577253106
+    ],
+    [
+      3.443426261888356,
+      2.846606728223753,
+      0.3425232493062432
+    ],
+    [
+      3.4479509322400843,
+      2.8668713261901484,
+      0.33890267257747175
+    ],
+    [
+      3.4616853910429644,
+      2.8895982736485837,
+      0.34108031897204616
+    ],
+    [
+      3.4825154536965015,
+      2.9127881509168905,
+      0.34780534976295163
+    ],
+    [
+      3.509691592372472,
+      2.9373527063677933,
+      0.3586197782491404
+    ],
+    [
+      3.516496622935812,
+      2.9580492970666574,
+      0.3579767609979073
+    ],
+    [
+      3.5141965617357496,
+      2.9760895705204065,
+      0.3532222334594734
+    ],
+    [
+      3.52136458201374,
+      2.99005333095532,
+      0.3457061348698302
+    ],
+    [
+      3.5336631687512785,
+      3.0046121046311653,
+      0.34120861123394436
+    ],
+    [
+      3.550546876782256,
+      3.020186334244514,
+      0.34010071653989493
+    ],
+    [
+      3.5717947848244798,
+      3.036791922474418,
+      0.3424261069273281
+    ],
+    [
+      3.597568923333529,
+      3.054161125262413,
+      0.34897812560986996
+    ],
+    [
+      3.610522507648462,
+      3.0696082584222917,
+      0.3483285037662351
+    ],
+    [
+      3.6096016687946526,
+      3.08357464803811,
+      0.34224402282328015
+    ],
+    [
+      3.613985337379996,
+      3.0981033525233173,
+      0.33908729951276156
+    ],
+    [
+      3.6209566667701027,
+      3.1156391319585097,
+      0.34127049038989754
+    ],
+    [
+      3.6349349368697745,
+      3.1328048018772683,
+      0.34552822628140184
+    ],
+    [
+      3.6530845585374756,
+      3.151612113142396,
+      0.3532513024529095
+    ],
+    [
+      3.6780374900733643,
+      3.169315132384241,
+      0.36158612214964037
+    ],
+    [
+      3.6933768415172,
+      3.1839228877823116,
+      0.3656442760212643
+    ],
+    [
+      3.6958415208527766,
+      3.200044719254923,
+      0.36001156389892797
+    ],
+    [
+      3.6999092097932933,
+      3.214412629642267,
+      0.3562144078999586
+    ],
+    [
+      3.7112118601567783,
+      3.2275501056011278,
+      0.35246937622164026
+    ],
+    [
+      3.7285425300116395,
+      3.2422811007716192,
+      0.3527042920215768
+    ],
+    [
+      3.7499035792950584,
+      3.2573951230296587,
+      0.3563990868153903
+    ],
+    [
+      3.767545146420744,
+      3.265228664405816,
+      0.3638897854222465
+    ],
+    [
+      3.7810693507257565,
+      3.276971331072665,
+      0.3662614232718175
+    ],
+    [
+      3.7878300892596397,
+      3.294384112208111,
+      0.361340819580715
+    ],
+    [
+      3.796007666517765,
+      3.312422038334774,
+      0.3573517135449041
+    ],
+    [
+      3.8059010301284597,
+      3.3254288818262947,
+      0.35938379603095555
+    ],
+    [
+      3.816053199632906,
+      3.340749251058854,
+      0.360817585226178
+    ],
+    [
+      3.828746665197657,
+      3.3503564362793448,
+      0.36226223001176366
+    ],
+    [
+      3.84150914974117,
+      3.3617211904167092,
+      0.36256935588349914
+    ],
+    [
+      3.8543819748906514,
+      3.3718279272908607,
+      0.365185344836192
+    ],
+    [
+      3.8677091243202835,
+      3.3808104922727646,
+      0.3689686052728713
+    ],
+    [
+      3.881352100784215,
+      3.3863071420379325,
+      0.37497974127058725
+    ],
+    [
+      3.8942624344885224,
+      3.3944774867841354,
+      0.38049637671957337
+    ],
+    [
+      3.903488261671573,
+      3.406946858010222,
+      0.38129025042751385
+    ],
+    [
+      3.909885703087013,
+      3.417929445211145,
+      0.37744440800250584
+    ],
+    [
+      3.9176540108179885,
+      3.429419188869644,
+      0.37391321257649807
+    ],
+    [
+      3.9253437533554534,
+      3.4419160721217716,
+      0.3705061418974437
+    ],
+    [
+      3.934104828831679,
+      3.451540626111901,
+      0.3703406122464137
+    ],
+    [
+      3.942898284759719,
+      3.4620101023493532,
+      0.36966223021492856
+    ],
+    [
+      3.9523694167616967,
+      3.4698629993328627,
+      0.3717699099251274
+    ],
+    [
+      3.9618177052944747,
+      3.4786261100451448,
+      0.3741808506695311
+    ],
+    [
+      3.971657575718213,
+      3.4857902087541692,
+      0.3782807968786379
+    ],
+    [
+      3.9818442288762808,
+      3.4927194597983133,
+      0.382711928177091
+    ],
+    [
+      3.991858435589262,
+      3.498656672599319,
+      0.38823452815712867
+    ],
+    [
+      4.001123492442505,
+      3.5054579096049934,
+      0.3930783599682471
+    ],
+    [
+      4.004437177030325,
+      3.516581449935561,
+      0.39026104604989825
+    ],
+    [
+      4.009200174100574,
+      3.5264591344554734,
+      0.38478497192434835
+    ],
+    [
+      4.014264332781621,
+      3.5347316722112794,
+      0.38111162234714513
+    ],
+    [
+      4.019225263143466,
+      3.5431726718505328,
+      0.377610995433553
+    ],
+    [
+      4.024494018467762,
+      3.5494848476866925,
+      0.3757010238392391
+    ],
+    [
+      4.027606201757751,
+      3.5542574505542426,
+      0.37356342103750395
+    ],
+    [
+      4.031076919543868,
+      3.5580905910149827,
+      0.3726767223033913
+    ],
+    [
+      4.034231379064224,
+      3.56179545148171,
+      0.37180436103913717
+    ],
+    [
+      4.038072186807274,
+      3.5643662440405617,
+      0.3720443979110022
+    ],
+    [
+      4.041131862333403,
+      3.5672702628876634,
+      0.3718340435605896
+    ],
+    [
+      4.044318347856752,
+      3.569598626230798,
+      0.37214468870547157
+    ],
+    [
+      4.047312627563324,
+      3.5716696895408684,
+      0.37244634255351866
+    ],
+    [
+      4.050481441706815,
+      3.573113997411827,
+      0.373314337313332
+    ],
+    [
+      4.05310484409209,
+      3.5746522543373267,
+      0.37396420888019033
+    ],
+    [
+      4.0560761756237245,
+      3.5753962083704796,
+      0.3752504136806933
+    ],
+    [
+      4.058229041245606,
+      3.576519143667774,
+      0.37579226017424455
+    ],
+    [
+      4.060646923621838,
+      3.576946064432762,
+      0.37688733372830885
+    ],
+    [
+      4.062433866936922,
+      3.5775815028565643,
+      0.3774287885588428
+    ],
+    [
+      4.064828072487443,
+      3.5771998417777824,
+      0.3790738211376891
+    ],
+    [
+      4.065910546917456,
+      3.5777380743861844,
+      0.37944153059138885
+    ],
+    [
+      4.067129814010965,
+      3.5777456340092764,
+      0.3797640674901674
+    ],
+    [
+      4.067808456709089,
+      3.577919811048635,
+      0.37953840907555175
+    ],
+    [
+      4.0684098379984714,
+      3.577805747337316,
+      0.3799323167168096
+    ],
+    [
+      4.068135738573577,
+      3.5782117351744485,
+      0.3790790108782686
+    ],
+    [
+      4.06908882527669,
+      3.577055115323549,
+      0.3797971495853532
+    ],
+    [
+      4.068142420420805,
+      3.577489385662104,
+      0.3789326249575974
+    ],
+    [
+      4.065914249771834,
+      3.5789145890127045,
+      0.37588391338463306
+    ],
+    [
+      4.063753564503452,
+      3.580024700648948,
+      0.3723060404037185
+    ],
+    [
+      4.060929822878362,
+      3.5815687052253558,
+      0.36977354439490845
+    ],
+    [
+      4.057596918895754,
+      3.5833810866248053,
+      0.366113022758254
+    ],
+    [
+      4.055113113920437,
+      3.584123198687406,
+      0.3626067658306873
+    ],
+    [
+      4.0520960095680465,
+      3.5852172793710304,
+      0.3601143628742448
+    ],
+    [
+      4.048239135400495,
+      3.586965066512126,
+      0.3567660091498038
+    ],
+    [
+      4.044865448248569,
+      3.588070842667653,
+      0.35288051358056055
+    ],
+    [
+      4.041441718469405,
+      3.5890822012012746,
+      0.35004326312187706
+    ],
+    [
+      4.0366977553359975,
+      3.591295302556847,
+      0.34548238558184047
+    ],
+    [
+      4.033204072203603,
+      3.5921590891360187,
+      0.34233259536737987
+    ],
+    [
+      4.028846554947175,
+      3.593890633301315,
+      0.3385957051026726
+    ],
+    [
+      4.0232540913251835,
+      3.5970281048595507,
+      0.332968855347697
+    ],
+    [
+      4.018334228233322,
+      3.599460400152012,
+      0.3267949376597783
+    ],
+    [
+      4.0143514574556765,
+      3.600943111984042,
+      0.3233734650439157
+    ],
+    [
+      4.0095462420352215,
+      3.601456722747519,
+      0.3206869646878622
+    ],
+    [
+      4.004153364661316,
+      3.5997032237121602,
+      0.31795773860486787
+    ],
+    [
+      4.000056715546299,
+      3.5987489051992756,
+      0.31463133029220713
+    ],
+    [
+      3.9987301983016197,
+      3.598879070997859,
+      0.31401381412465323
+    ],
+    [
+      3.9974773575042453,
+      3.5955458824818827,
+      0.3131141414201753
+    ]
+  ],
+  "camera_distance_m": [
+    1.36353064651319,
+    1.3452260683595934,
+    1.3475153093332732,
+    1.3475255196628082,
+    1.3316571543726745,
+    1.3664092689944267,
+    1.386019084441541,
+    1.3928362616558776,
+    1.396470666212289,
+    1.3847775415462462,
+    1.3813296584003532,
+    1.3745256090761366,
+    1.3612865880782536,
+    1.3576634309925417,
+    1.3771320307650157,
+    1.3894580271170405,
+    1.3943938420681572,
+    1.3924215915489166,
+    1.3836185943310553,
+    1.3690360484969624,
+    1.3635313395893065,
+    1.353013187348252,
+    1.339049499321698,
+    1.3572100996244176,
+    1.3671920819462091,
+    1.376782646795722,
+    1.3795524826639154,
+    1.3748274797137792,
+    1.3630060077975,
+    1.3471950356202302,
+    1.3401745529387374,
+    1.3484058902549068,
+    1.3630956826376988,
+    1.372811869504851,
+    1.3759029382565626,
+    1.3690347019383347,
+    1.3608304152016046,
+    1.3487219148274558,
+    1.3288022227389826,
+    1.3392844242714927,
+    1.3583589121037503,
+    1.3726087553199073,
+    1.3764351843815235,
+    1.3693343448600719,
+    1.355663674055441,
+    1.3438848303877304,
+    1.3293750054895705,
+    1.343898015423905,
+    1.3643438328829933,
+    1.3736867730563418,
+    1.3718675584224598,
+    1.3587073238816094,
+    1.3450905913313131,
+    1.33105754216336,
+    1.333513640709792,
+    1.3549163992856954,
+    1.3693252788621795,
+    1.3718439947570926,
+    1.3627435950219675,
+    1.3441754210175754,
+    1.3300416728040743,
+    1.3341065388581617,
+    1.3561856737739681,
+    1.3706391678652077,
+    1.3730473657345028,
+    1.363073520637272,
+    1.3420700833786727,
+    1.329002294812218,
+    1.3402881510941327,
+    1.3586258330803365,
+    1.3712147662068712,
+    1.3725393496328966,
+    1.3632158936071839,
+    1.3440340730080058,
+    1.340459309383809,
+    1.3689090760912546,
+    1.390575863710991,
+    1.4044586919322994,
+    1.41401609455647,
+    1.4165507519918055,
+    1.415066819464136,
+    1.4276644766301783,
+    1.477109750604546,
+    1.5133658039574436,
+    1.5305117254021232,
+    1.5676312621726232,
+    1.584132914287509,
+    1.6020540993372157,
+    1.617071279875428,
+    1.614757950700541,
+    1.6118832906586928,
+    1.5998530379236262,
+    1.5987589309877104,
+    1.6176381779781581,
+    1.625227078289637,
+    1.6411368263404706,
+    1.6375517789109706,
+    1.6124961835306535,
+    1.58569295174665,
+    1.6132842717880698,
+    1.6020994731984795,
+    1.5465196153754084,
+    1.5174862859670963,
+    1.5602937375371897,
+    1.5701874347251608,
+    1.5518874324105734,
+    1.5407592233576897,
+    1.528764873009421,
+    1.5059679601493943,
+    1.5192888818944998,
+    1.561414453102245,
+    1.5917592220175882,
+    1.5932851170104525,
+    1.5338033004312277,
+    1.581308313339125,
+    1.6415485681153765,
+    1.657091970187641,
+    1.6046865981606588,
+    1.630382667250113,
+    1.6927127510716515,
+    1.7229784897217189,
+    1.6877030762386829,
+    1.6957452921636207,
+    1.6928847671758795,
+    1.684830087547285,
+    1.6525296680712263,
+    1.6593673195499477,
+    1.6868181088751635,
+    1.6765860701699657,
+    1.6406049132935352,
+    1.6442595324243385,
+    1.620686521321564,
+    1.635597348034747,
+    1.6197529667263209,
+    1.621191958504906,
+    1.64341393164474,
+    1.633983644926026,
+    1.631304497666305,
+    1.6420710535241647,
+    1.653688483197831,
+    1.6887710465885715,
+    1.6992284850944581,
+    1.6790684503565354,
+    1.6903616926057417,
+    1.6608487329616846,
+    1.6831577085879668,
+    1.7057018503772061,
+    1.7120929593776304,
+    1.7192742381502297,
+    1.7638874150164825,
+    1.7796175430562122,
+    1.7803744822510268,
+    1.7783132986391612,
+    1.7875218033204796,
+    1.7507330366375633,
+    1.698191115025643,
+    1.687174623037113,
+    1.741877002425164,
+    1.7538901375237355,
+    1.762341030035533,
+    1.7925126336192883,
+    1.814390305579122,
+    1.7661423239402883,
+    1.7060724240400538,
+    1.7802909257989907,
+    1.8563179494613549,
+    1.8696044702031736,
+    1.8461329215125195,
+    1.7846449563974283,
+    1.8262674055305237,
+    1.848824953704606,
+    1.8614378842864086,
+    1.8624359660741987,
+    1.8731599702675026,
+    1.8540406642648528,
+    1.8230295938815155,
+    1.7650282908335087,
+    1.7976908937493337,
+    1.828732868224711,
+    1.8366976886539395,
+    1.8319421262445916,
+    1.8304270413426718,
+    1.8475017001749796,
+    1.8592757914313622,
+    1.8589247624330483,
+    1.86902161872411,
+    1.8129162890099757,
+    1.7887879461626206,
+    1.8128764810243991,
+    1.86812898630008,
+    1.8833846502954363,
+    1.8770477543521906,
+    1.8800069415436693,
+    1.8436662053597082,
+    1.7899294315852694,
+    1.7527463171496607,
+    1.7571592223921797,
+    1.7742669584278783,
+    1.7900697058216821,
+    1.8280512022507727,
+    1.8442695271685032,
+    1.855035696561844,
+    1.8133222737870558,
+    1.7663576805263783,
+    1.7291974104885581,
+    1.7383427079924527,
+    1.7759705854345866,
+    1.8023992684710528,
+    1.8000181955047476,
+    1.8004060298501037,
+    1.7650243396074452,
+    1.7217920547645436,
+    1.7281630380719923,
+    1.724175953634211,
+    1.7252068041451154,
+    1.7254866655859995,
+    1.7420706884945893,
+    1.7454212128953945,
+    1.7334859624368442,
+    1.7187762783428044,
+    1.7133449479206404,
+    1.7257495622184174,
+    1.7316259764286979,
+    1.7273750206100367,
+    1.7074457201569564,
+    1.6860874244502106,
+    1.671087687486333,
+    1.6568093139562008,
+    1.648947528491351,
+    1.639499618038528,
+    1.6492496784497286,
+    1.6675760649301044,
+    1.6830593378697773,
+    1.6968462822655668,
+    1.7059188049248075,
+    1.7034824269722515,
+    1.6930014775379765,
+    1.6794526635003282,
+    1.6497929122527033,
+    1.6210260526967706,
+    1.6028709601340596,
+    1.630767781458302,
+    1.6550574246372922,
+    1.6763799274256517,
+    1.6939497819125124,
+    1.7054424246780395,
+    1.7141743216510616,
+    1.7141558927119775,
+    1.7197344695300312,
+    1.7256323533001254,
+    1.712125592762602,
+    1.6914010703928526,
+    1.6904562282359443,
+    1.6907190352152126,
+    1.7100284252834854,
+    1.7338201440382093,
+    1.7546880530496238,
+    1.756865998587909,
+    1.7505283759151895,
+    1.7326845254551722,
+    1.730596924239726,
+    1.7415718166673213,
+    1.7460835219935436,
+    1.757339579557843,
+    1.762828000204965,
+    1.761098970794361,
+    1.7527429271522652,
+    1.7533879388424625,
+    1.7610059348669038,
+    1.7637419917196144,
+    1.7549649902103774,
+    1.7435616312387519,
+    1.728947340239345,
+    1.7153446313574754,
+    1.710157205314404,
+    1.7151030899795772,
+    1.7212098561196898,
+    1.7293470398704656,
+    1.7332171849530427,
+    1.7277738198250938,
+    1.7178825877041757,
+    1.712500886255849,
+    1.7190328701550779,
+    1.7222541215080602,
+    1.7171002503857098,
+    1.710141866761905,
+    1.7113664401302193,
+    1.7098094679709073,
+    1.703631686018532,
+    1.6958348350286934,
+    1.686911145673862,
+    1.674725891147426,
+    1.6708806627562063,
+    1.676043080553923,
+    1.6836908726411763,
+    1.6892504940394193,
+    1.6892704059305979,
+    1.689795647839233,
+    1.684405871483127,
+    1.6794131120827778,
+    1.669811790250251,
+    1.6601237854832458,
+    1.647777908975894,
+    1.6368638844664356,
+    1.6371769521606554,
+    1.6468100277837843,
+    1.6529164404051366,
+    1.6590792827312737,
+    1.6621051272124578,
+    1.6658233124979138,
+    1.6667491000213368,
+    1.668097438260896,
+    1.667209044129793,
+    1.6675735999970778,
+    1.665933078192981,
+    1.6650292145150971,
+    1.6626363044890138,
+    1.6612910803620398,
+    1.6582865841240626,
+    1.657174186194667,
+    1.654171648830465,
+    1.653013036494925,
+    1.6494564844400768,
+    1.6485742664989547,
+    1.646026095653144,
+    1.6459075505164065,
+    1.6437415731303031,
+    1.644007143301794,
+    1.6409322386604153,
+    1.6409252788505293,
+    1.6416690032598815,
+    1.6448553585895926,
+    1.6464274851536211,
+    1.6483088414718237,
+    1.6493595403969745,
+    1.6515118658324215,
+    1.6514364659403034,
+    1.652991105013409,
+    1.652718701369561,
+    1.6543226028121358,
+    1.652405703567634,
+    1.6522082130270173,
+    1.6494572772195006,
+    1.6483977586244973,
+    1.64119273880977,
+    1.630427948300861,
+    1.6145806734053407,
+    1.5997100953655214,
+    1.5772778862190646,
+    1.5563289817152637
+  ],
+  "world_bounds": [
+    [
+      -0.25253836655058554,
+      -0.3985073931351668
+    ],
+    [
+      4.6080469338679135,
+      4.151307106018066
+    ]
+  ],
+  "camera_settings": {
+    "azimuth_deg": 135.0,
+    "elevation_deg": -45.0,
+    "minimum_distance_m": 1.3,
+    "vertical_fov_deg": 45.0,
+    "robot_extent_margin_m": 0.03,
+    "fit_margin": 1.08
+  },
+  "camera_same_across_panels": true,
+  "camera_individual_recenter": false,
+  "camera_fit_includes_all_four_original_root_and_wheel_positions": true,
+  "camera_fit_audit": {
+    "frames_checked": 350,
+    "panels_per_frame": 4,
+    "maximum_normalized_frustum_extent": 0.904313268704908,
+    "all_visible_mesh_AABB_corners_inside": true,
+    "mesh_bounds_margin_m": 0.03,
+    "body_pose_changes": false,
+    "basis_source": "native MjvGLCamera forward/up after visual scene update"
+  },
+  "visible_robot_mesh_geoms_per_panel": 9,
+  "camera_distance_range_m": [
+    1.3288022227389826,
+    1.8833846502954363
+  ],
+  "graphics_far_clip_m": 104.50139160881761,
+  "fk_validation_by_panel": {
+    "physx_to_physx": {
+      "samples_checked": 2793,
+      "max_wheel_origin_error_m": 1.2051902795284458e-06,
+      "tolerance_m": 2e-06,
+      "physics_stepping": false,
+      "kinematic_functions": [
+        "mj_kinematics",
+        "mj_comPos",
+        "mj_camlight"
+      ],
+      "root_pose_copied_exactly": true,
+      "named_joint_qpos_addresses": [
+        7,
+        11,
+        8,
+        12,
+        9,
+        13,
+        10,
+        14
+      ]
+    },
+    "physx_to_mujoco": {
+      "samples_checked": 2793,
+      "max_wheel_origin_error_m": 0.0,
+      "tolerance_m": 2e-06,
+      "physics_stepping": false,
+      "kinematic_functions": [
+        "mj_kinematics",
+        "mj_comPos",
+        "mj_camlight"
+      ],
+      "root_pose_copied_exactly": true,
+      "named_joint_qpos_addresses": [
+        7,
+        11,
+        8,
+        12,
+        9,
+        13,
+        10,
+        14
+      ]
+    },
+    "mjlab_to_physx": {
+      "samples_checked": 2793,
+      "max_wheel_origin_error_m": 1.360331477081214e-06,
+      "tolerance_m": 2e-06,
+      "physics_stepping": false,
+      "kinematic_functions": [
+        "mj_kinematics",
+        "mj_comPos",
+        "mj_camlight"
+      ],
+      "root_pose_copied_exactly": true,
+      "named_joint_qpos_addresses": [
+        7,
+        11,
+        8,
+        12,
+        9,
+        13,
+        10,
+        14
+      ]
+    },
+    "mjlab_to_mujoco": {
+      "samples_checked": 2793,
+      "max_wheel_origin_error_m": 0.0,
+      "tolerance_m": 2e-06,
+      "physics_stepping": false,
+      "kinematic_functions": [
+        "mj_kinematics",
+        "mj_comPos",
+        "mj_camlight"
+      ],
+      "root_pose_copied_exactly": true,
+      "named_joint_qpos_addresses": [
+        7,
+        11,
+        8,
+        12,
+        9,
+        13,
+        10,
+        14
+      ]
+    }
+  },
+  "mesh_provenance": {
+    "meshes": [
+      {
+        "file": "base_Link.STL",
+        "sha256": "a0e4a75a180f51b5593220fec14cec3272ff744b289de0844f8845ca1be34548"
+      },
+      {
+        "file": "abad_L_Link.STL",
+        "sha256": "9eb73a043ef1b8f8425f422cbb9a4d7364fbe93182fe232eefed52a748acb815"
+      },
+      {
+        "file": "hip_L_Link.STL",
+        "sha256": "d9c5699d6948d2778c4206284e76531d9ed008c3d3205ba902abd4bdc9715117"
+      },
+      {
+        "file": "knee_L_Link.STL",
+        "sha256": "119f2f177a7f90475fae071d4683bcc1b6c5164a1f5c606e20fbb85264806baf"
+      },
+      {
+        "file": "wheel_L_Link.STL",
+        "sha256": "cd7687ae258efd83aa6c89ff9e7b496193c9a174787abf0d6338f95b6f621bf3"
+      },
+      {
+        "file": "abad_R_Link.STL",
+        "sha256": "fbfdd2d0801e73c71a0c514f34f5d4190c43f344c58fda108f1eae9997ca3917"
+      },
+      {
+        "file": "hip_R_Link.STL",
+        "sha256": "9f70593a70c75e68969a5e41dbabcba9dba71b8b06a45bbac8134a94a88fd39b"
+      },
+      {
+        "file": "knee_R_Link.STL",
+        "sha256": "83c4acc7127b0c6f3d51e8ea5818c78e19a5dfaf61f06a06ccdc72ea04eb385a"
+      },
+      {
+        "file": "wheel_R_Link.STL",
+        "sha256": "d816f9a69097a7c6dc2b8d3c0310183bea26514fc778a1677146f3c2d6e1ee91"
+      }
+    ],
+    "official_source": {
+      "schema_version": 1,
+      "repository": "https://github.com/limxdynamics/tron1-robot-description",
+      "revision": "5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316",
+      "license": "Apache-2.0",
+      "files": [
+        {
+          "source": "LICENSE",
+          "destination": "LICENSE.txt",
+          "size": 11357,
+          "git_blob_sha1": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/LICENSE",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/xml/robot.xml",
+          "destination": "upstream/robot.xml",
+          "size": 9315,
+          "git_blob_sha1": "245d2fc22eb01ecfcec29118daa635e6f2c3e6e1",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/xml/robot.xml",
+          "sha256": "cbe885f68bc22aea9ffc011186e67ea5080e6e99a8df3b7f1a36657d4dd68476"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/urdf/robot.urdf",
+          "destination": "upstream/robot.urdf",
+          "size": 21232,
+          "git_blob_sha1": "a558e9375dcf6dc2666825ac224cbb750032ead8",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/urdf/robot.urdf",
+          "sha256": "f09c56c15acd507bba43b394e37a9abe024e0111fdde7dbf41796408895ee4c5"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/base_Link.STL",
+          "destination": "meshes/base_Link.STL",
+          "size": 6225184,
+          "git_blob_sha1": "62a7837a98e37a784e9bd2f9f66ed4350980bc97",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/base_Link.STL",
+          "sha256": "a0e4a75a180f51b5593220fec14cec3272ff744b289de0844f8845ca1be34548"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/abad_L_Link.STL",
+          "destination": "meshes/abad_L_Link.STL",
+          "size": 1658684,
+          "git_blob_sha1": "562152a171e9344dafddb98133b757adb3e100d9",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/abad_L_Link.STL",
+          "sha256": "9eb73a043ef1b8f8425f422cbb9a4d7364fbe93182fe232eefed52a748acb815"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/hip_L_Link.STL",
+          "destination": "meshes/hip_L_Link.STL",
+          "size": 2121684,
+          "git_blob_sha1": "a88548378708be1bb8b2b27dccba292fd953eeda",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/hip_L_Link.STL",
+          "sha256": "d9c5699d6948d2778c4206284e76531d9ed008c3d3205ba902abd4bdc9715117"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/knee_L_Link.STL",
+          "destination": "meshes/knee_L_Link.STL",
+          "size": 2273084,
+          "git_blob_sha1": "bde12153f0431bec19a5248379c51177b458fbda",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/knee_L_Link.STL",
+          "sha256": "119f2f177a7f90475fae071d4683bcc1b6c5164a1f5c606e20fbb85264806baf"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/wheel_L_Link.STL",
+          "destination": "meshes/wheel_L_Link.STL",
+          "size": 1000384,
+          "git_blob_sha1": "07c39ec4a620f1b0c113ee5bbada45c5dbd8be61",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/wheel_L_Link.STL",
+          "sha256": "cd7687ae258efd83aa6c89ff9e7b496193c9a174787abf0d6338f95b6f621bf3"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/abad_R_Link.STL",
+          "destination": "meshes/abad_R_Link.STL",
+          "size": 1300984,
+          "git_blob_sha1": "5064e376232a13c1c7662f247ccf4c2e3e320193",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/abad_R_Link.STL",
+          "sha256": "fbfdd2d0801e73c71a0c514f34f5d4190c43f344c58fda108f1eae9997ca3917"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/hip_R_Link.STL",
+          "destination": "meshes/hip_R_Link.STL",
+          "size": 2125684,
+          "git_blob_sha1": "9f59b5ef4a4c0c2cd42850102be151bd53828fe9",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/hip_R_Link.STL",
+          "sha256": "9f70593a70c75e68969a5e41dbabcba9dba71b8b06a45bbac8134a94a88fd39b"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/knee_R_Link.STL",
+          "destination": "meshes/knee_R_Link.STL",
+          "size": 2372284,
+          "git_blob_sha1": "9230da6dc8b9c77d4e9f20e3f4fb8e7dc56e0af7",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/knee_R_Link.STL",
+          "sha256": "83c4acc7127b0c6f3d51e8ea5818c78e19a5dfaf61f06a06ccdc72ea04eb385a"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/wheel_R_Link.STL",
+          "destination": "meshes/wheel_R_Link.STL",
+          "size": 1000384,
+          "git_blob_sha1": "c51e99fc41a733a01ff1e9f237ed1eaffc32951e",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/wheel_R_Link.STL",
+          "sha256": "d816f9a69097a7c6dc2b8d3c0310183bea26514fc778a1677146f3c2d6e1ee91"
+        }
+      ],
+      "derived_model": "robot.xml",
+      "derived_model_sha256": "30c8bb94b32b1804aa2f7de2425f7a8dd02be7792881255388097e2e68092e52",
+      "changes_to_upstream_mjcf": [
+        "compiler meshdir ../meshes/ -> meshes",
+        "name existing free joint root",
+        "add nine IK/display sites"
+      ],
+      "notes": [
+        "Official MJCF/STL assets are preserved; generated robot.xml changes only meshdir, names the floating root joint, and adds IK/display sites.",
+        "left/right_wheel sites are wheel hinge centers, not human ankle frames; left/right_knee sites are actual knee joint centers.",
+        "left/right_contact are nominal local bottom markers: they rotate with the wheel and are NOT rolling contact points or reliable ground clearance. Compute clearance from collision geometry instead.",
+        "Official MJCF and Isaac USD share link offsets and joint axes, but are not numerically identical dynamics models. MJCF base includes fixed IMU mass; wheel collision axial width is 0.010m versus 0.050m in USD, and lateral collision offsets are +/-0.008m versus +/-0.00707m.",
+        "Official MJCF wheel motor ctrlrange is +/-40Nm, while the imported USD drive maxForce is 80. Other collision primitives also differ; no cross-engine contact or actuator equivalence is implied.",
+        "Mink IK playback does not validate contact forces, balance, jump actuation, self-collision avoidance, or dynamic feasibility. No Isaac assets or runtime are changed."
+      ],
+      "validation": {
+        "mujoco_version": "3.8.1",
+        "nq": 15,
+        "nv": 14,
+        "hinge_joint_order": [
+          "abad_L_Joint",
+          "hip_L_Joint",
+          "knee_L_Joint",
+          "wheel_L_Joint",
+          "abad_R_Joint",
+          "hip_R_Joint",
+          "knee_R_Joint",
+          "wheel_R_Joint"
+        ],
+        "qpos_hinge_addresses": [
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        "dof_hinge_addresses": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ],
+        "joint_ranges_rad": [
+          [
+            -0.38397,
+            1.39626
+          ],
+          [
+            -1.01229,
+            1.39626
+          ],
+          [
+            -0.872665,
+            1.36136
+          ],
+          [
+            -1000000.0,
+            1000000.0
+          ],
+          [
+            -1.39626,
+            0.38397
+          ],
+          [
+            -1.39626,
+            1.01229
+          ],
+          [
+            -1.36136,
+            0.872665
+          ],
+          [
+            -1000000.0,
+            1000000.0
+          ]
+        ],
+        "body_names": [
+          "world",
+          "base_Link",
+          "abad_L_Link",
+          "hip_L_Link",
+          "knee_L_Link",
+          "wheel_L_Link",
+          "abad_R_Link",
+          "hip_R_Link",
+          "knee_R_Link",
+          "wheel_R_Link"
+        ],
+        "sites": {
+          "pelvis": {
+            "body": "base_Link",
+            "pos": [
+              0,
+              0,
+              0
+            ]
+          },
+          "left_hip": {
+            "body": "hip_L_Link",
+            "pos": [
+              0,
+              0,
+              0
+            ]
+          },
+          "right_hip": {
+            "body": "hip_R_Link",
+            "pos": [
+              0,
+              0,
+              0
+            ]
+          },
+          "left_knee": {
+            "body": "knee_L_Link",
+            "pos": [
+              0,
+              0,
+              0
+            ]
+          },
+          "right_knee": {
+            "body": "knee_R_Link",
+            "pos": [
+              0,
+              0,
+              0
+            ]
+          },
+          "left_wheel": {
+            "body": "wheel_L_Link",
+            "pos": [
+              0,
+              0,
+              0
+            ]
+          },
+          "right_wheel": {
+            "body": "wheel_R_Link",
+            "pos": [
+              0,
+              0,
+              0
+            ]
+          },
+          "left_contact": {
+            "body": "wheel_L_Link",
+            "pos": [
+              0,
+              0.008,
+              -0.127
+            ]
+          },
+          "right_contact": {
+            "body": "wheel_R_Link",
+            "pos": [
+              0,
+              -0.008,
+              -0.127
+            ]
+          }
+        },
+        "mass_kg": 22.273000000000003,
+        "visual_meshes": 9,
+        "mesh_vertices": 199461,
+        "independent_urdf_fk_random_poses": 25,
+        "independent_urdf_fk_max_position_error_m": 3.3306690738754696e-16,
+        "independent_urdf_fk_max_rotation_matrix_error": 6.661338147750939e-16,
+        "wheel_radius_m": 0.127,
+        "wheel_collision_full_width_m": 0.01,
+        "zero_joint_pose_body_positions_relative_to_base_m": {
+          "base_Link": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "abad_L_Link": [
+            0.05556,
+            0.105,
+            -0.2602
+          ],
+          "hip_L_Link": [
+            -0.02144,
+            0.1255,
+            -0.2602
+          ],
+          "knee_L_Link": [
+            -0.17143999999999998,
+            0.105,
+            -0.52001
+          ],
+          "wheel_L_Link": [
+            -0.021439999999999987,
+            0.1485,
+            -0.77982
+          ],
+          "abad_R_Link": [
+            0.05556,
+            -0.105,
+            -0.2602
+          ],
+          "hip_R_Link": [
+            -0.02144,
+            -0.1255,
+            -0.2602
+          ],
+          "knee_R_Link": [
+            -0.17143999999999998,
+            -0.105,
+            -0.52001
+          ],
+          "wheel_R_Link": [
+            -0.021439999999999987,
+            -0.1485,
+            -0.77982
+          ]
+        },
+        "zero_joint_pose_sites_relative_to_base_m": {
+          "pelvis": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "left_hip": [
+            -0.02144,
+            0.1255,
+            -0.2602
+          ],
+          "right_hip": [
+            -0.02144,
+            -0.1255,
+            -0.2602
+          ],
+          "left_knee": [
+            -0.17143999999999998,
+            0.105,
+            -0.52001
+          ],
+          "right_knee": [
+            -0.17143999999999998,
+            -0.105,
+            -0.52001
+          ],
+          "left_wheel": [
+            -0.021439999999999987,
+            0.1485,
+            -0.77982
+          ],
+          "right_wheel": [
+            -0.021439999999999987,
+            -0.1485,
+            -0.77982
+          ],
+          "left_contact": [
+            -0.021439999999999987,
+            0.1565,
+            -0.90682
+          ],
+          "right_contact": [
+            -0.021439999999999987,
+            -0.1565,
+            -0.90682
+          ]
+        },
+        "zero_joint_pose_contact_base_height_m": 0.90682,
+        "seed_joint_degrees": [
+          0,
+          20,
+          40,
+          0,
+          0,
+          -20,
+          -40,
+          0
+        ],
+        "seed_sites_relative_to_base_m": {
+          "pelvis": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "left_hip": [
+            -0.02144,
+            0.1255,
+            -0.2602
+          ],
+          "right_hip": [
+            -0.02144,
+            -0.1255,
+            -0.2602
+          ],
+          "left_knee": [
+            -0.25125414655532824,
+            0.10500000000000001,
+            -0.4530385183075365
+          ],
+          "right_knee": [
+            -0.25125414655532824,
+            -0.10500000000000001,
+            -0.4530385183075365
+          ],
+          "left_wheel": [
+            -0.021440000000000015,
+            0.1485,
+            -0.645877036615073
+          ],
+          "right_wheel": [
+            -0.021440000000000015,
+            -0.1485,
+            -0.645877036615073
+          ],
+          "left_contact": [
+            0.021996558202359906,
+            0.1565,
+            -0.7652179994548833
+          ],
+          "right_contact": [
+            0.021996558202359906,
+            -0.1565,
+            -0.7652179994548833
+          ]
+        },
+        "seed_level_base_height_for_grounded_wheels_m": 0.772877036615073,
+        "seed_ground_contacts": [
+          {
+            "geom1": "floor",
+            "geom2": "wheel_L_collision",
+            "distance_m": -2.7755575615628914e-17
+          },
+          {
+            "geom1": "floor",
+            "geom2": "wheel_L_collision",
+            "distance_m": -2.7755575615628914e-17
+          },
+          {
+            "geom1": "floor",
+            "geom2": "wheel_R_collision",
+            "distance_m": -2.7755575615628914e-17
+          },
+          {
+            "geom1": "floor",
+            "geom2": "wheel_R_collision",
+            "distance_m": -2.7755575615628914e-17
+          }
+        ],
+        "note": "Geometric/FK checks only. Contacts include margin contacts and do not prove dynamically feasible balance or jumping."
+      }
+    },
+    "meshes_copied_to_output": false
+  },
+  "renderer_source_sha256": "e0dc27b3bef1c7ab84ea3fa9b0839aa314b45cb4081e8839d2f75d7a228b7411",
+  "video_generated": true,
+  "render_helpers_sha256": {
+    "summarize_ppo_backend_400hz_nominal.py": "70fe399282cd0d841d59e75400e60bf95067a3d76ea422335c268c35f226ebb4",
+    "analyze_ppo_backend_400hz_matrix.py": "2645c26150b4bbca5a5631beee3d1cf1178ee365bf0a11044d7e8c618220c0a1",
+    "render_physx_ppo_fullbody.py": "d8fb77dc22004eb244579c0c1be1155baa6069cf5b8d83a6b7ea9ce73628b4e9",
+    "controller_trace.py": "673d17bda4d9f6c93b76b0b963b199aef3e3abe8982cfc6cc6580184e5b0a3e6",
+    "controller_metrics.py": "40921dad0c268d4bd871e0910086957555116fdd07188ba7cb4f8c76ca4343de",
+    "nmpc_tracking_objective.py": "ff22eebb2b22b9af7dba114c64fcd10f6b0a90822559af8f32cbe6884015b860"
+  },
+  "artifacts": {
+    "replay_states.npz": "c05ad516c99beced60b9709e5b1e0e077e84c96d035a720214e0ef0feaba4ab9",
+    "comparison.png": "e0f243e6e99260237dbc510e3b7afe3747707f54fc1bd751c3040a1e51a021fb",
+    "fullbody_comparison.mp4": "f423b9bf02bd83920a399b132648dc7b2df55d9fcfbcd063a7d9dd1f1f2a3e1e"
+  }
+}

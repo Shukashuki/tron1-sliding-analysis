@@ -1,0 +1,28 @@
+{
+  "scope": "Offline analysis and opaque full-body replay of four already completed nominal-mu episodes; not training or a complete friction sweep.",
+  "cohort_id": "traj4_backend_400hz_actionrate0p5_seed42_v1",
+  "nominal_mu": 0.7,
+  "inputs_archive": "inputs.tar.gz",
+  "inputs_archive_sha256": "481f585f016268001bd2adbfd2704e0b644b8e2e6a00121b54eacff6cbebfc81",
+  "inputs_archive_bytes": 4732408,
+  "inputs_archive_regular_members": 23,
+  "archive_contents": "Four original JSON reports and native-state NPZ recordings, two arms' completed training metadata, original partial matrix status, frozen protocol and SHA ledger. No checkpoints, exported actors, credentials or robot meshes.",
+  "extraction": {
+    "fresh_directory": "outputs/ppo_backend_400hz_nominal_20261022_v1",
+    "command": "mkdir outputs/ppo_backend_400hz_nominal_20261022_v1 && tar -xzf results/ppo_backend_400hz_nominal_20261022_v1/inputs.tar.gz -C outputs/ppo_backend_400hz_nominal_20261022_v1 --no-same-owner",
+    "safety_checks_before_extraction": "Verify the archive SHA; all members must be regular relative JSON/NPZ files, without traversal, duplicates or links. Verify the manifest's complete size/SHA ledger. The analysis loader repeats payload hash and provenance checks."
+  },
+  "pinned_existing_resources_required": {
+    "reference": {"path": "/home/roy/tron1-learning-from-human/outputs/drift-drl-turn-reference-20261013-v2/motion.npz", "sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254"},
+    "model": {"path": "outputs/car_failure_sideslip_20261015/raw/mujoco_model.xml", "sha256": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513", "note": "The unchanged pinned MJCF points to the existing official TRON1 mesh cache. Scientific state replay does not modify its absolute mesh path."},
+    "legacy_mujoco_evaluator": {"path": "outputs/controller_evaluation_source_20261015_v2/scripts/eval_tracking_mujoco.py", "sha256": "2251d740d7568874a47a232556241cc8d1ee5f5b7be1351d1c657aea8fa85f87", "public_source_archive": "results/physx_actions_mujoco_400hz_diagnostic_20261022_v3/frozen_cpu_evaluator_source.tar.gz"},
+    "protocol": "config/ppo_backend_400hz_comparison_v1.json"
+  },
+  "environment": {"python": "3.13", "mujoco": "3.8.1", "numpy": "2.3", "additional_packages": ["matplotlib", "Pillow", "imageio-ffmpeg"], "graphics": "CPU OSMesa", "torch_required": false, "isaac_required_for_offline_replay": false},
+  "analysis_command": "MUJOCO_GL=osmesa LP_NUM_THREADS=4 OMP_NUM_THREADS=4 python scripts/summarize_ppo_backend_400hz_nominal.py --input-root outputs/ppo_backend_400hz_nominal_20261022_v1 --reference /home/roy/tron1-learning-from-human/outputs/drift-drl-turn-reference-20261013-v2/motion.npz --model outputs/car_failure_sideslip_20261015/raw/mujoco_model.xml --legacy-mujoco-evaluator outputs/controller_evaluation_source_20261015_v2/scripts/eval_tracking_mujoco.py --output-dir outputs/nominal_analysis_reproduction_v1",
+  "render_command": "MUJOCO_GL=osmesa LP_NUM_THREADS=4 OMP_NUM_THREADS=4 python scripts/render_ppo_backend_400hz_nominal.py --input-root outputs/ppo_backend_400hz_nominal_20261022_v1 --reference /home/roy/tron1-learning-from-human/outputs/drift-drl-turn-reference-20261013-v2/motion.npz --model outputs/car_failure_sideslip_20261015/raw/mujoco_model.xml --legacy-mujoco-evaluator outputs/controller_evaluation_source_20261015_v2/scripts/eval_tracking_mujoco.py --output-dir outputs/nominal_fullbody_reproduction_v1",
+  "output_guard": "Both commands require fresh output directories and do not overwrite earlier results.",
+  "time_mapping": {"native_physics_hz": 400, "policy_hz": 50, "native_rows_per_case": 2793, "policy_decisions_per_case": 349, "video_frames": 350, "video_fps": 50, "selected_native_rows": "0,8,...,2792", "physical_record_time_s": [0.0, 6.98], "real_reference_time_s": [0.0, 6.96], "encoded_video_duration_s": 7.0, "interpolation_or_time_warping": false},
+  "table_window_s": [1.44, 4.0],
+  "interpretation": "One episode per cell. MJWarp-trained to native CPU MuJoCo is a within-family deployment, not direct validation in GPU MJWarp. Equal target mu does not equate contact laws. Intended nonzero beta, absolute height, zero contact and diagnostic tilt are not XY failure gates. This is not proof of stable continuous contact or of improvement over the historical lower-jitter actor. The full friction matrix remains stopped at 46/68; it was not resumed for this rendering request."
+}
