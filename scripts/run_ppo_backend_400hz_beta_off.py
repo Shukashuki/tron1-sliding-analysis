@@ -25,6 +25,7 @@ ROOT = Path(__file__).resolve().parents[1]
 BASE_DRIVER_SHA256 = "b26c779686eed3b12e713b5a40d06ad41dcda2a962a588c51c3b77366913545d"
 BASE_CONTRACT_SHA256 = "b57b7444698e06f4d9faed6f246bb8a301b505f6c785bdbc2caafdb0b2b6f56e"
 EXPECTED_INITIAL_SHA256 = "7dcdf78ffeb61806eeefcb31c4739d707c1caef934d152f2296ba2ee488b4d5d"
+AUTHORIZED_GPU_INDICES = (3, 4, 5, 6)
 ENGINES = {"physx": "PhysX", "mujoco": "native CPU MuJoCo"}
 STATUS_FILE = "backend_400hz_beta_off_status.json"
 
@@ -75,6 +76,19 @@ def cohort_files(cohorts):
 def verify_files(files):
     require(all(sha256(path) == digest for path, digest in files.items()),
             "Frozen completed training artifact changed")
+
+
+def gpu_probe_module(base, args):
+    """Change only the private probe's authority, not any NVML safety logic.
+
+    The historical filter evaluator's card list belonged to that older task.
+    Rebinding a new namespace leaves its module and source bytes untouched.
+    The original parser still checks all compute/graphics processes, memory,
+    utilization, complete enumeration, and unmasked PCI-to-CUDA ordering.
+    """
+    probe = base._load(args.gpu_probe_source, "_beta_off_gpu", base.GPU_PROBE_SHA256)
+    probe.evaluator = SimpleNamespace(AUTHORIZED_GPU_INDICES=AUTHORIZED_GPU_INDICES)
+    return probe
 
 
 def compare_training(cohort, baseline, args):
@@ -249,6 +263,11 @@ def run_nominal(args, status, base, shared, baselines, guard, gpu_probe, child_r
 def run(args, *, base=None, shared=None, on_shared=None, wrapper=None, guard=None,
         gpu_probe=None, child_runner=None, sleep=time.sleep):
     base = base or load(ROOT / "scripts/run_ppo_backend_400hz_pair.py", "_beta_off_base_dispatcher", BASE_DRIVER_SHA256)
+    require(args.physical_gpu_index in AUTHORIZED_GPU_INDICES,
+            "Explicitly select an authorized physical GPU3/4/5/6; no automatic fallback")
+    # Private module only: the immutable baseline source remains byte-identical.
+    # GPU6 is explicitly selected under the user's idle-other-card authority.
+    base.AUTHORIZED_GPU_INDICES = AUTHORIZED_GPU_INDICES
     base._resolve(args)
     for name in ("beta_on_pair_dir", "beta_on_protocol", "legacy_source"):
         setattr(args, name, Path(getattr(args, name)).expanduser().resolve())
@@ -259,7 +278,7 @@ def run(args, *, base=None, shared=None, on_shared=None, wrapper=None, guard=Non
     on_shared = on_shared or load(ROOT / "scripts/ppo_backend_400hz_contract.py", "_beta_on_contract", BASE_CONTRACT_SHA256)
     wrapper = wrapper or load(ROOT / "scripts/train_ppo_backend_400hz_beta_off.py", "_beta_off_trainer")
     guard = guard or base._load(args.guard_source, "_beta_off_guard", base.GUARD_SHA256)
-    gpu_probe = gpu_probe or base._load(args.gpu_probe_source, "_beta_off_gpu", base.GPU_PROBE_SHA256).query_gpu
+    gpu_probe = gpu_probe or gpu_probe_module(base, args).query_gpu
     baselines = baseline_cohorts(args, on_shared)
     frozen_baseline = cohort_files(baselines)
     original_write = guard.write_json
@@ -269,7 +288,9 @@ def run(args, *, base=None, shared=None, on_shared=None, wrapper=None, guard=Non
             value.update(kind="fresh_400hz_beta_reward_off_backend_ablation", beta_reward_enabled=False,
                 beta_on_pair_dir=str(args.beta_on_pair_dir), beta_on_protocol_sha256=sha256(args.beta_on_protocol),
                 beta_on_artifacts_readonly=True, beta_on_matrix_resumed=False,
-                beta_on_checkpoint_initialization=False, tracking_success_claimed=False)
+                beta_on_checkpoint_initialization=False, tracking_success_claimed=False,
+                authorized_physical_gpu_indices=list(AUTHORIZED_GPU_INDICES),
+                gpu_selection="explicit_requested_ordinal_no_automatic_fallback")
             original_write(path, value)
             original_write(path.with_name(STATUS_FILE), value)
         else:
@@ -292,6 +313,7 @@ def run(args, *, base=None, shared=None, on_shared=None, wrapper=None, guard=Non
 
 def parser():
     base = load(ROOT / "scripts/run_ppo_backend_400hz_pair.py", "_beta_off_parser", BASE_DRIVER_SHA256)
+    base.AUTHORIZED_GPU_INDICES = AUTHORIZED_GPU_INDICES
     result = base.parser()
     result.description = __doc__
     result.set_defaults(protocol=ROOT / "config/ppo_backend_400hz_beta_off_v1.json")

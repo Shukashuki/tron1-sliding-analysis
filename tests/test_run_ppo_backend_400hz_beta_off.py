@@ -111,6 +111,73 @@ def test_preflight_runs_only_parity_and_two_beta_off_smokes(harness):
     assert not status["beta_on_checkpoint_initialization"]
 
 
+def test_explicit_gpu6_is_authorized_and_reported_without_fallback(harness):
+    harness.args.physical_gpu_index = 6
+    status = driver.run(harness.args, **harness.options)
+    assert status["physical_gpu_index"] == 6
+    assert status["requested_device"] == "cuda:6"
+    assert status["authorized_physical_gpu_indices"] == [3, 4, 5, 6]
+    assert status["automatic_gpu_fallback"] is False
+    assert status["gpu_selection"] == "explicit_requested_ordinal_no_automatic_fallback"
+    for command in harness.commands:
+        assert command[command.index("--device") + 1] == "cuda:6"
+
+
+def test_parser_authorizes_only_explicit_gpu3_4_5_6():
+    parser = driver.parser()
+    assert tuple(parser._option_string_actions["--physical-gpu-index"].choices) == (3, 4, 5, 6)
+
+
+def gpu_xml(*, process=None, swap=False, missing_processes=False, memory=7, utilization=0):
+    rows = []
+    buses = list(range(1, 9))
+    if swap:
+        buses[1], buses[6] = buses[6], buses[1]
+    for index, bus in enumerate(buses):
+        entry = (f"<process_info><pid>999</pid><type>{process}</type>"
+                 "<process_name>unrelated</process_name></process_info>" if index == 6 and process else "")
+        processes = "" if missing_processes and index == 6 else f"<processes>{entry}</processes>"
+        rows.append(f"<gpu><uuid>GPU-{index}</uuid><pci><pci_bus_id>00000000:{bus:02x}:00.0</pci_bus_id></pci>"
+            f"<fb_memory_usage><used>{memory} MiB</used></fb_memory_usage>"
+            f"<utilization><gpu_util>{utilization} %</gpu_util></utilization>{processes}</gpu>")
+    return "<nvidia_smi_log>" + "".join(rows) + "</nvidia_smi_log>"
+
+
+def test_real_private_probe_gpu6_reuses_complete_nvml_checks_without_source_mutation():
+    base = driver.load(ROOT / "scripts/run_ppo_backend_400hz_pair.py", "_probe_test_base", driver.BASE_DRIVER_SHA256)
+    path = ROOT / "scripts/run_ppo_leg_target_filter.py"
+    before = driver.sha256(path)
+    probe = driver.gpu_probe_module(base, SimpleNamespace(gpu_probe_source=path))
+    result = probe.parse_gpu_snapshot(gpu_xml(), 6)
+    assert result["physical_index"] == 6 and result["uuid"] == "GPU-6" and result["idle"] is True
+    assert result["pci_bus_id_cuda_ordinal_verified"] is True
+    assert driver.sha256(path) == before == base.GPU_PROBE_SHA256
+    original = __import__("eval_ppo_leg_target_filter")
+    assert probe.evaluator is not original
+    assert tuple(original.AUTHORIZED_GPU_INDICES) == (1, 3, 4, 5)
+    for kind in ("G", "C", "C+G"):
+        busy = probe.parse_gpu_snapshot(gpu_xml(process=kind), 6)
+        assert busy["idle"] is False
+        assert busy["all_reported_compute_and_graphics_processes"][0]["type"] == kind
+    assert not probe.parse_gpu_snapshot(gpu_xml(memory=64), 6)["idle"]
+    assert not probe.parse_gpu_snapshot(gpu_xml(utilization=1), 6)["idle"]
+    with pytest.raises(ValueError, match="CUDA ordinal"):
+        probe.parse_gpu_snapshot(gpu_xml(swap=True), 6)
+    with pytest.raises(ValueError, match="enumeration"):
+        probe.parse_gpu_snapshot(gpu_xml(missing_processes=True), 6)
+    with pytest.raises(ValueError, match="Unauthorized"):
+        probe.parse_gpu_snapshot(gpu_xml(), 0)
+
+
+@pytest.mark.parametrize("index", [0, 1, 2, 7])
+def test_unauthorized_gpu_rejected_before_any_output_or_child(harness, index):
+    harness.args.physical_gpu_index = index
+    with pytest.raises(ValueError, match="authorized physical GPU3/4/5/6"):
+        driver.run(harness.args, **harness.options)
+    assert not harness.args.output_dir.exists()
+    assert not harness.commands
+
+
 def test_formal_then_four_nominal_cells_sequential_and_cpu_has_no_gpu(harness):
     driver.run(harness.args, **harness.options)
     harness.args.stage, harness.args.preflight_dir = "formal", harness.args.output_dir
