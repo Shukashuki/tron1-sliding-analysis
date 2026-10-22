@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "kind": "sampled_visual_and_complete_decode_review",
+  "reviewed_at_utc": "2026-10-22T14:53:27Z",
+  "generated_summary_sha256": "d2cb582b469310d6a7ba9bdb338b2f4fbaf45c20f2a52a83f1a1c4e3caf4d50e",
+  "video_sha256": "ca76a559d94cccf0856fab0a37c06f615f03920665e7b3fe18e6f10cb6fe2cd8",
+  "review_contact_sheet_sha256": "252be916db091a9129314f78dfdf4cd869753f5409ce1f1d80a99f07b479ba68",
+  "all_frames_decoded": 350,
+  "video_size": [2560, 720],
+  "video_fps": 50,
+  "encoded_duration_s": 7.0,
+  "reviewed_original_times_s": [0.0, 1.44, 2.4, 3.0, 4.0, 6.8, 6.98],
+  "layout": "Four horizontal full-body panels A/B/C/D with shared world-XY map bounds",
+  "camera": {
+    "fixed_distance_m_all_frames_and_stages": 1.5179275540715538,
+    "fixed_azimuth_deg": 135.0,
+    "fixed_elevation_deg": -30.0,
+    "fixed_vertical_fov_deg": 45.0,
+    "fixed_root_relative_lookat_offset_m": [0.0, 0.0, -0.28],
+    "all_350_frames_by_4_stages_mesh_bounds_inside_frustum": true,
+    "maximum_normalized_frustum_extent": 0.9086213182741512,
+    "camera_lookat_matches_exact_native_root_plus_offset": true,
+    "time_varying_zoom": false,
+    "yaw_following": false
+  },
+  "native_samples_checked_by_FK": [1397, 1397, 2793, 2793],
+  "maximum_wheel_origin_FK_error_m": 0.0000013358317844412683,
+  "original_qpos_and_root_heights_unchanged": true,
+  "native_display_strides": [4, 4, 8, 8],
+  "all_display_times_match_exact_native_states": true,
+  "new_simulation_or_policy_inference": false,
+  "opaque_robot_meshes": true,
+  "visual_observations": [
+    "All four full bodies and wheels are visible in the sampled views, with no apparent zoom changes or cut-off robot geometry.",
+    "Titles distinguish original200, smooth200, same frozen actor deployed400 and independently retrained400; all are PhysX-to-PhysX at mu0.7 with beta reward ON.",
+    "The maps retain original absolute XY drift; the D path is visibly less accurate in the turning core than A/B/C.",
+    "Native count/Fz readouts include intermittent zero values; these are diagnostics, not geometric flight labels or tracking failure gates.",
+    "The final frame correctly marks XY unavailable after the reference ends at6.96s."
+  ],
+  "limitations": [
+    "Human visual inspection used seven selected times and the3s full-resolution preview; all350frames were decoded and their camera fit checked numerically, not individually visually reviewed.",
+    "A50fps video cannot resolve all native200/400Hz oscillations. Jitter statistics use original native signals in the common10<f<100Hz band.",
+    "No claim that jitter is resolved or continuous stable contact is achieved.",
+    "This is not a beta ON/OFF comparison or a400Hz dense-contact-reward training result."
+  ]
+}

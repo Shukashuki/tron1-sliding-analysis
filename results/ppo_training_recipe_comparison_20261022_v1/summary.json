@@ -1,0 +1,1619 @@
+{
+  "schema_version": 1,
+  "kind": "recorded_PPO_training_recipe_four_stage_comparison",
+  "stage_order": [
+    "original200",
+    "smooth200",
+    "deploy400",
+    "retrain400"
+  ],
+  "evaluation_mu": 0.7,
+  "core_interval_s": [
+    1.44,
+    4.0
+  ],
+  "reference_real_last_time_s": 6.96,
+  "native_episode_last_time_s": 6.98,
+  "sample_size_per_stage": 1,
+  "rows": [
+    {
+      "id": "original200",
+      "title": "A | original 200 Hz | action-rate \u22120.1",
+      "directory": "/home/roy/tron1-sliding-analysis/outputs/controller_primary_ppo_mu070_20261015_v1/mu0p700/isaac",
+      "checkpoint_sha256": "6ec411efeaea37fc61389285978b377aa7c5be80e326ce7f18581efc9acdf27b",
+      "report_sha256": "c4d9ab3d9b2e0e1401b78d472057968bcdbd4f36f301015443b205c5d3659e92",
+      "recording_sha256": "858a4dc5b11230d1ac5a894c9528060de90570265ebdea50f20a48005a021d61",
+      "training_physics_hz": 200,
+      "evaluation_physics_hz": 200,
+      "physics_dt_s": 0.005,
+      "policy_hz": 50,
+      "action_rate_weight": -0.1,
+      "training_DR_recipe": "historical BeyondMimic-style DR",
+      "beta_reward_weight": 2.0,
+      "sideslip_reward_weight": 2.0,
+      "grounded_reward_weight": 0.4,
+      "native_samples": 1397,
+      "native_sample_stride": 4,
+      "parent_verification": {
+        "profile_only_change_after_omitting_description": "drift_sideslip reward 2.0 -> 0.0",
+        "equal_report_fields": [
+          "contact_material_audit",
+          "legacy_joint_friction_audit",
+          "physics_recording",
+          "evaluator_source_sha256",
+          "drift_module_sha256",
+          "contact_slip_helper_sha256",
+          "runner_config_sha256"
+        ],
+        "policy_contract_identical_except_checkpoint_profile_export_roundoff": true,
+        "export_roundoff_limit": 1e-05,
+        "wheel_xy_profile_changed": false,
+        "evaluation_seed": 42,
+        "evaluation_mu": 0.7,
+        "training_recipe_parity_independently_verified_by_this_script": false,
+        "scope": "Reported evaluation/source/profile identities; training DR/budget parity requires the separate training-manifest audit"
+      },
+      "wheel_FK_audit": {
+        "maximum_wheel_link_position_error_m": 1.3358317844860852e-06,
+        "wheel_position_tolerance_m": 0.0002,
+        "maximum_root_com_velocity_reconstruction_error": 1.7763568394002505e-15,
+        "dynamics_stepping": false,
+        "measured_contact_replaced": false,
+        "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+      },
+      "windows": {
+        "core": {
+          "interval_s": [
+            1.44,
+            4.0
+          ],
+          "native_samples": 513,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 513,
+            "xy_rmse_m": 0.056502488325627764,
+            "xy_peak_m": 0.10088279892710175,
+            "mean_speed_m_s": 1.0222399004054141,
+            "reference_mean_speed_m_s": 1.0283094526778487,
+            "speed_retention": 0.9940975430531843,
+            "beta_rmse_deg": 3.646314455588084,
+            "beta_valid_samples": 513,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 513,
+            "sample_hz": 200.0,
+            "native_nyquist_hz": 100.0,
+            "frequency_resolution_hz": 0.38986354775828463,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 4.719363558321352,
+            "common_band_rms": 2.172409620288345,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 4.719363558321352,
+            "native_high_frequency_rms": 2.172409620288345,
+            "at_or_above100hz_mean_square": 0.0,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.27680311890838205,
+                "time_duty_fraction_zoh": 0.275390625,
+                "state_switch_count": 87,
+                "state_switches_per_s": 33.984375
+              },
+              "right": {
+                "sample_duty_fraction": 0.4015594541910331,
+                "time_duty_fraction_zoh": 0.40234375,
+                "state_switch_count": 83,
+                "state_switches_per_s": 32.421875
+              },
+              "both": {
+                "sample_duty_fraction": 0.0935672514619883,
+                "time_duty_fraction_zoh": 0.0937499999999999,
+                "state_switch_count": 46,
+                "state_switches_per_s": 17.96875
+              },
+              "none": {
+                "sample_duty_fraction": 0.4152046783625731,
+                "time_duty_fraction_zoh": 0.4160156249999999,
+                "state_switch_count": 112,
+                "state_switches_per_s": 43.75
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.27680311890838205,
+                "time_duty_fraction_zoh": 0.275390625,
+                "state_switch_count": 87,
+                "state_switches_per_s": 33.984375
+              },
+              "right": {
+                "sample_duty_fraction": 0.4015594541910331,
+                "time_duty_fraction_zoh": 0.40234375,
+                "state_switch_count": 83,
+                "state_switches_per_s": 32.421875
+              },
+              "both": {
+                "sample_duty_fraction": 0.0935672514619883,
+                "time_duty_fraction_zoh": 0.0937499999999999,
+                "state_switch_count": 46,
+                "state_switches_per_s": 17.96875
+              },
+              "none": {
+                "sample_duty_fraction": 0.4152046783625731,
+                "time_duty_fraction_zoh": 0.4160156249999999,
+                "state_switch_count": 112,
+                "state_switches_per_s": 43.75
+              }
+            }
+          },
+          "maximum_tilt_deg": 5.219793421070446,
+          "height_contact_tilt_or_beta_used_as_failure_gate": false
+        },
+        "full": {
+          "interval_s": [
+            0.0,
+            6.98
+          ],
+          "native_samples": 1397,
+          "tracking": {
+            "available": false,
+            "coverage_complete": false,
+            "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 1397,
+            "sample_hz": 200.0,
+            "native_nyquist_hz": 100.0,
+            "frequency_resolution_hz": 0.14316392269148173,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 3.9585292428727636,
+            "common_band_rms": 1.9896052982621362,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 3.9585292428727636,
+            "native_high_frequency_rms": 1.9896052982621362,
+            "at_or_above100hz_mean_square": 0.0,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.3364352183249821,
+                "time_duty_fraction_zoh": 0.33667621776504303,
+                "state_switch_count": 227,
+                "state_switches_per_s": 32.5214899713467
+              },
+              "right": {
+                "sample_duty_fraction": 0.3851109520400859,
+                "time_duty_fraction_zoh": 0.3846704871060162,
+                "state_switch_count": 244,
+                "state_switches_per_s": 34.957020057306586
+              },
+              "both": {
+                "sample_duty_fraction": 0.1152469577666428,
+                "time_duty_fraction_zoh": 0.11532951289398273,
+                "state_switch_count": 143,
+                "state_switches_per_s": 20.487106017191977
+              },
+              "none": {
+                "sample_duty_fraction": 0.3937007874015748,
+                "time_duty_fraction_zoh": 0.3939828080229235,
+                "state_switch_count": 296,
+                "state_switches_per_s": 42.40687679083094
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.3364352183249821,
+                "time_duty_fraction_zoh": 0.33667621776504303,
+                "state_switch_count": 227,
+                "state_switches_per_s": 32.5214899713467
+              },
+              "right": {
+                "sample_duty_fraction": 0.3851109520400859,
+                "time_duty_fraction_zoh": 0.3846704871060162,
+                "state_switch_count": 244,
+                "state_switches_per_s": 34.957020057306586
+              },
+              "both": {
+                "sample_duty_fraction": 0.1152469577666428,
+                "time_duty_fraction_zoh": 0.11532951289398273,
+                "state_switch_count": 143,
+                "state_switches_per_s": 20.487106017191977
+              },
+              "none": {
+                "sample_duty_fraction": 0.3937007874015748,
+                "time_duty_fraction_zoh": 0.3939828080229235,
+                "state_switch_count": 296,
+                "state_switches_per_s": 42.40687679083094
+              }
+            }
+          },
+          "maximum_tilt_deg": 5.219793421070446,
+          "height_contact_tilt_or_beta_used_as_failure_gate": false
+        },
+        "reference_overlap": {
+          "interval_s": [
+            0.0,
+            6.96
+          ],
+          "native_samples": 1393,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 1393,
+            "xy_rmse_m": 0.04924439965515109,
+            "xy_peak_m": 0.10088279892710175,
+            "mean_speed_m_s": 0.8749772579691313,
+            "reference_mean_speed_m_s": 0.8740571984495725,
+            "speed_retention": 1.0010526307902856,
+            "beta_rmse_deg": 3.6258596342255327,
+            "beta_valid_samples": 1181,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 1393,
+            "sample_hz": 200.0,
+            "native_nyquist_hz": 100.0,
+            "frequency_resolution_hz": 0.14357501794687724,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 3.9605710407449783,
+            "common_band_rms": 1.990118348426791,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 3.9605710407449783,
+            "native_high_frequency_rms": 1.990118348426791,
+            "at_or_above100hz_mean_square": 0.0,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.3374012921751615,
+                "time_duty_fraction_zoh": 0.3376436781609196,
+                "state_switch_count": 227,
+                "state_switches_per_s": 32.61494252873563
+              },
+              "right": {
+                "sample_duty_fraction": 0.38478104809763103,
+                "time_duty_fraction_zoh": 0.3850574712643669,
+                "state_switch_count": 243,
+                "state_switches_per_s": 34.91379310344828
+              },
+              "both": {
+                "sample_duty_fraction": 0.11557788944723618,
+                "time_duty_fraction_zoh": 0.1156609195402298,
+                "state_switch_count": 143,
+                "state_switches_per_s": 20.54597701149425
+              },
+              "none": {
+                "sample_duty_fraction": 0.39339554917444364,
+                "time_duty_fraction_zoh": 0.3929597701149433,
+                "state_switch_count": 295,
+                "state_switches_per_s": 42.38505747126437
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.3374012921751615,
+                "time_duty_fraction_zoh": 0.3376436781609196,
+                "state_switch_count": 227,
+                "state_switches_per_s": 32.61494252873563
+              },
+              "right": {
+                "sample_duty_fraction": 0.38478104809763103,
+                "time_duty_fraction_zoh": 0.3850574712643669,
+                "state_switch_count": 243,
+                "state_switches_per_s": 34.91379310344828
+              },
+              "both": {
+                "sample_duty_fraction": 0.11557788944723618,
+                "time_duty_fraction_zoh": 0.1156609195402298,
+                "state_switch_count": 143,
+                "state_switches_per_s": 20.54597701149425
+              },
+              "none": {
+                "sample_duty_fraction": 0.39339554917444364,
+                "time_duty_fraction_zoh": 0.3929597701149433,
+                "state_switch_count": 295,
+                "state_switches_per_s": 42.38505747126437
+              }
+            }
+          },
+          "maximum_tilt_deg": 5.219793421070446,
+          "height_contact_tilt_or_beta_used_as_failure_gate": false
+        }
+      }
+    },
+    {
+      "id": "smooth200",
+      "title": "B | retrained 200 Hz | action-rate \u22120.5",
+      "directory": "/home/roy/tron1-sliding-analysis/outputs/contact_damping_20261021_v2/kd10",
+      "checkpoint_sha256": "8ba4178471c757b4d09f5bb44c0a508558f1bfd5cc15103195aeba420ebe6e9a",
+      "report_sha256": "fdf3881b765276832dbbdfe0528446055a4af91a6147ca3520dc847f6906dc77",
+      "recording_sha256": "54e01f57b01da11c5b0736c572f8b2ebc81ebe2cac8f06c9b3b5be29b1637780",
+      "training_physics_hz": 200,
+      "evaluation_physics_hz": 200,
+      "physics_dt_s": 0.005,
+      "policy_hz": 50,
+      "action_rate_weight": -0.5,
+      "training_DR_recipe": "historical BeyondMimic-style DR",
+      "beta_reward_weight": 2.0,
+      "sideslip_reward_weight": 2.0,
+      "grounded_reward_weight": 0.4,
+      "native_samples": 1397,
+      "native_sample_stride": 4,
+      "parent_verification": {
+        "status": "verified",
+        "deployment_leg_kd": 10.0,
+        "report_sha256": "fdf3881b765276832dbbdfe0528446055a4af91a6147ca3520dc847f6906dc77",
+        "recording_sha256": "54e01f57b01da11c5b0736c572f8b2ebc81ebe2cac8f06c9b3b5be29b1637780"
+      },
+      "wheel_FK_audit": {
+        "maximum_wheel_link_position_error_m": 1.23302005347975e-06,
+        "wheel_position_tolerance_m": 0.0002,
+        "maximum_root_com_velocity_reconstruction_error": 8.881784197001252e-16,
+        "dynamics_stepping": false,
+        "measured_contact_replaced": false,
+        "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+      },
+      "windows": {
+        "core": {
+          "interval_s": [
+            1.44,
+            4.0
+          ],
+          "native_samples": 513,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 513,
+            "xy_rmse_m": 0.056221388688688805,
+            "xy_peak_m": 0.08731517800670277,
+            "mean_speed_m_s": 1.0111897302879886,
+            "reference_mean_speed_m_s": 1.0283094526778487,
+            "speed_retention": 0.9833515851232544,
+            "beta_rmse_deg": 1.9701889464067701,
+            "beta_valid_samples": 513,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 513,
+            "sample_hz": 200.0,
+            "native_nyquist_hz": 100.0,
+            "frequency_resolution_hz": 0.38986354775828463,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 1.3665205601659882,
+            "common_band_rms": 1.168982703108129,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 1.3665205601659882,
+            "native_high_frequency_rms": 1.168982703108129,
+            "at_or_above100hz_mean_square": 0.0,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.42300194931773877,
+                "time_duty_fraction_zoh": 0.42187499999999983,
+                "state_switch_count": 62,
+                "state_switches_per_s": 24.21875
+              },
+              "right": {
+                "sample_duty_fraction": 0.6432748538011696,
+                "time_duty_fraction_zoh": 0.6425781250000001,
+                "state_switch_count": 40,
+                "state_switches_per_s": 15.625
+              },
+              "both": {
+                "sample_duty_fraction": 0.341130604288499,
+                "time_duty_fraction_zoh": 0.33984374999999983,
+                "state_switch_count": 42,
+                "state_switches_per_s": 16.40625
+              },
+              "none": {
+                "sample_duty_fraction": 0.27485380116959063,
+                "time_duty_fraction_zoh": 0.27539062499999994,
+                "state_switch_count": 50,
+                "state_switches_per_s": 19.53125
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.42300194931773877,
+                "time_duty_fraction_zoh": 0.42187499999999983,
+                "state_switch_count": 62,
+                "state_switches_per_s": 24.21875
+              },
+              "right": {
+                "sample_duty_fraction": 0.6432748538011696,
+                "time_duty_fraction_zoh": 0.6425781250000001,
+                "state_switch_count": 40,
+                "state_switches_per_s": 15.625
+              },
+              "both": {
+                "sample_duty_fraction": 0.341130604288499,
+                "time_duty_fraction_zoh": 0.33984374999999983,
+                "state_switch_count": 42,
+                "state_switches_per_s": 16.40625
+              },
+              "none": {
+                "sample_duty_fraction": 0.27485380116959063,
+                "time_duty_fraction_zoh": 0.27539062499999994,
+                "state_switch_count": 50,
+                "state_switches_per_s": 19.53125
+              }
+            }
+          },
+          "maximum_tilt_deg": 7.1026002933798615,
+          "height_contact_tilt_or_beta_used_as_failure_gate": false
+        },
+        "full": {
+          "interval_s": [
+            0.0,
+            6.98
+          ],
+          "native_samples": 1397,
+          "tracking": {
+            "available": false,
+            "coverage_complete": false,
+            "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 1397,
+            "sample_hz": 200.0,
+            "native_nyquist_hz": 100.0,
+            "frequency_resolution_hz": 0.14316392269148173,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.7898152776890403,
+            "common_band_rms": 0.8887155212378369,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.7898152776890403,
+            "native_high_frequency_rms": 0.8887155212378369,
+            "at_or_above100hz_mean_square": 0.0,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.7451682176091625,
+                "time_duty_fraction_zoh": 0.7449856733524353,
+                "state_switch_count": 88,
+                "state_switches_per_s": 12.607449856733524
+              },
+              "right": {
+                "sample_duty_fraction": 0.8389405869720831,
+                "time_duty_fraction_zoh": 0.8388252148997135,
+                "state_switch_count": 60,
+                "state_switches_per_s": 8.595988538681947
+              },
+              "both": {
+                "sample_duty_fraction": 0.698639942734431,
+                "time_duty_fraction_zoh": 0.6984240687679082,
+                "state_switch_count": 70,
+                "state_switches_per_s": 10.028653295128938
+              },
+              "none": {
+                "sample_duty_fraction": 0.1145311381531854,
+                "time_duty_fraction_zoh": 0.1146131805157593,
+                "state_switch_count": 62,
+                "state_switches_per_s": 8.882521489971346
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.7451682176091625,
+                "time_duty_fraction_zoh": 0.7449856733524353,
+                "state_switch_count": 88,
+                "state_switches_per_s": 12.607449856733524
+              },
+              "right": {
+                "sample_duty_fraction": 0.8389405869720831,
+                "time_duty_fraction_zoh": 0.8388252148997135,
+                "state_switch_count": 60,
+                "state_switches_per_s": 8.595988538681947
+              },
+              "both": {
+                "sample_duty_fraction": 0.698639942734431,
+                "time_duty_fraction_zoh": 0.6984240687679082,
+                "state_switch_count": 70,
+                "state_switches_per_s": 10.028653295128938
+              },
+              "none": {
+                "sample_duty_fraction": 0.1145311381531854,
+                "time_duty_fraction_zoh": 0.1146131805157593,
+                "state_switch_count": 62,
+                "state_switches_per_s": 8.882521489971346
+              }
+            }
+          },
+          "maximum_tilt_deg": 7.1026002933798615,
+          "height_contact_tilt_or_beta_used_as_failure_gate": false
+        },
+        "reference_overlap": {
+          "interval_s": [
+            0.0,
+            6.96
+          ],
+          "native_samples": 1393,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 1393,
+            "xy_rmse_m": 0.03990144080859313,
+            "xy_peak_m": 0.08731517800670277,
+            "mean_speed_m_s": 0.8837846058712855,
+            "reference_mean_speed_m_s": 0.8740571984495725,
+            "speed_retention": 1.0111290284422665,
+            "beta_rmse_deg": 1.39387768020837,
+            "beta_valid_samples": 1181,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 1393,
+            "sample_hz": 200.0,
+            "native_nyquist_hz": 100.0,
+            "frequency_resolution_hz": 0.14357501794687724,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.7928943126212705,
+            "common_band_rms": 0.890446131229324,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.7928943126212705,
+            "native_high_frequency_rms": 0.890446131229324,
+            "at_or_above100hz_mean_square": 0.0,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.7444364680545585,
+                "time_duty_fraction_zoh": 0.7442528735632181,
+                "state_switch_count": 88,
+                "state_switches_per_s": 12.64367816091954
+              },
+              "right": {
+                "sample_duty_fraction": 0.8384781048097631,
+                "time_duty_fraction_zoh": 0.8383620689655173,
+                "state_switch_count": 60,
+                "state_switches_per_s": 8.620689655172415
+              },
+              "both": {
+                "sample_duty_fraction": 0.6977745872218234,
+                "time_duty_fraction_zoh": 0.6975574712643676,
+                "state_switch_count": 70,
+                "state_switches_per_s": 10.057471264367816
+              },
+              "none": {
+                "sample_duty_fraction": 0.11486001435750179,
+                "time_duty_fraction_zoh": 0.1149425287356322,
+                "state_switch_count": 62,
+                "state_switches_per_s": 8.908045977011493
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.7444364680545585,
+                "time_duty_fraction_zoh": 0.7442528735632181,
+                "state_switch_count": 88,
+                "state_switches_per_s": 12.64367816091954
+              },
+              "right": {
+                "sample_duty_fraction": 0.8384781048097631,
+                "time_duty_fraction_zoh": 0.8383620689655173,
+                "state_switch_count": 60,
+                "state_switches_per_s": 8.620689655172415
+              },
+              "both": {
+                "sample_duty_fraction": 0.6977745872218234,
+                "time_duty_fraction_zoh": 0.6975574712643676,
+                "state_switch_count": 70,
+                "state_switches_per_s": 10.057471264367816
+              },
+              "none": {
+                "sample_duty_fraction": 0.11486001435750179,
+                "time_duty_fraction_zoh": 0.1149425287356322,
+                "state_switch_count": 62,
+                "state_switches_per_s": 8.908045977011493
+              }
+            }
+          },
+          "maximum_tilt_deg": 7.1026002933798615,
+          "height_contact_tilt_or_beta_used_as_failure_gate": false
+        }
+      }
+    },
+    {
+      "id": "deploy400",
+      "title": "C | same B actor, deployed at 400 Hz",
+      "directory": "/home/roy/tron1-sliding-analysis/outputs/ppo_contact_timestep_20261022_v1/dt0p0025",
+      "checkpoint_sha256": "8ba4178471c757b4d09f5bb44c0a508558f1bfd5cc15103195aeba420ebe6e9a",
+      "report_sha256": "abe05d4ea69634e9794514fc60664cf4c67fe718ad841716d5518923671e778e",
+      "recording_sha256": "8e7fc43c181b34b9ff87fe42d3c628ab483c7a6cddfb965562df250d77e46c1e",
+      "training_physics_hz": 200,
+      "evaluation_physics_hz": 400,
+      "physics_dt_s": 0.0025,
+      "policy_hz": 50,
+      "action_rate_weight": -0.5,
+      "training_DR_recipe": "historical BeyondMimic-style DR",
+      "beta_reward_weight": 2.0,
+      "sideslip_reward_weight": 2.0,
+      "grounded_reward_weight": 0.4,
+      "native_samples": 2793,
+      "native_sample_stride": 8,
+      "parent_verification": {
+        "status": "verified",
+        "physics_dt_s": 0.0025,
+        "decimation": 8,
+        "native_states": 2793,
+        "policy_decisions": 349,
+        "duration_s": 6.98,
+        "report_sha256": "abe05d4ea69634e9794514fc60664cf4c67fe718ad841716d5518923671e778e",
+        "recording_sha256": "8e7fc43c181b34b9ff87fe42d3c628ab483c7a6cddfb965562df250d77e46c1e",
+        "physical_gpu_index_requested": 3,
+        "native_clock_and_device_verified": true
+      },
+      "wheel_FK_audit": {
+        "maximum_wheel_link_position_error_m": 1.2729768825979376e-06,
+        "wheel_position_tolerance_m": 0.0002,
+        "maximum_root_com_velocity_reconstruction_error": 8.881784197001252e-16,
+        "dynamics_stepping": false,
+        "measured_contact_replaced": false,
+        "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+      },
+      "windows": {
+        "core": {
+          "interval_s": [
+            1.44,
+            4.0
+          ],
+          "native_samples": 1025,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 1025,
+            "xy_rmse_m": 0.05522103300021738,
+            "xy_peak_m": 0.0784392501613974,
+            "mean_speed_m_s": 1.0146116317223548,
+            "reference_mean_speed_m_s": 1.0282628655552946,
+            "speed_retention": 0.9867239844107687,
+            "beta_rmse_deg": 2.983837674940969,
+            "beta_valid_samples": 1025,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 1025,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.3902439024390244,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.8980406658240807,
+            "common_band_rms": 0.9476500756207856,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.9058214065207375,
+            "native_high_frequency_rms": 0.9517465032878962,
+            "at_or_above100hz_mean_square": 0.007780740696656824,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.4029268292682927,
+                "time_duty_fraction_zoh": 0.4033203124999996,
+                "state_switch_count": 59,
+                "state_switches_per_s": 23.046875
+              },
+              "right": {
+                "sample_duty_fraction": 0.6058536585365853,
+                "time_duty_fraction_zoh": 0.6054687500000001,
+                "state_switch_count": 54,
+                "state_switches_per_s": 21.09375
+              },
+              "both": {
+                "sample_duty_fraction": 0.32682926829268294,
+                "time_duty_fraction_zoh": 0.3271484374999998,
+                "state_switch_count": 45,
+                "state_switches_per_s": 17.578125
+              },
+              "none": {
+                "sample_duty_fraction": 0.3180487804878049,
+                "time_duty_fraction_zoh": 0.31835937500000006,
+                "state_switch_count": 64,
+                "state_switches_per_s": 25.0
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.4029268292682927,
+                "time_duty_fraction_zoh": 0.4033203124999996,
+                "state_switch_count": 59,
+                "state_switches_per_s": 23.046875
+              },
+              "right": {
+                "sample_duty_fraction": 0.6058536585365853,
+                "time_duty_fraction_zoh": 0.6054687500000001,
+                "state_switch_count": 54,
+                "state_switches_per_s": 21.09375
+              },
+              "both": {
+                "sample_duty_fraction": 0.32682926829268294,
+                "time_duty_fraction_zoh": 0.3271484374999998,
+                "state_switch_count": 45,
+                "state_switches_per_s": 17.578125
+              },
+              "none": {
+                "sample_duty_fraction": 0.3180487804878049,
+                "time_duty_fraction_zoh": 0.31835937500000006,
+                "state_switch_count": 64,
+                "state_switches_per_s": 25.0
+              }
+            }
+          },
+          "maximum_tilt_deg": 7.251054127721525,
+          "height_contact_tilt_or_beta_used_as_failure_gate": false
+        },
+        "full": {
+          "interval_s": [
+            0.0,
+            6.98
+          ],
+          "native_samples": 2793,
+          "tracking": {
+            "available": false,
+            "coverage_complete": false,
+            "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 2793,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.14321518080916576,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.5529040724561229,
+            "common_band_rms": 0.7435751962351373,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.557938445968764,
+            "native_high_frequency_rms": 0.7469527735866331,
+            "at_or_above100hz_mean_square": 0.005034373512641123,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.7468671679197995,
+                "time_duty_fraction_zoh": 0.7467765042979941,
+                "state_switch_count": 79,
+                "state_switches_per_s": 11.318051575931232
+              },
+              "right": {
+                "sample_duty_fraction": 0.8335123523093448,
+                "time_duty_fraction_zoh": 0.8334527220630373,
+                "state_switch_count": 67,
+                "state_switches_per_s": 9.598853868194842
+              },
+              "both": {
+                "sample_duty_fraction": 0.7135696383816684,
+                "time_duty_fraction_zoh": 0.7134670487106017,
+                "state_switch_count": 65,
+                "state_switches_per_s": 9.312320916905444
+              },
+              "none": {
+                "sample_duty_fraction": 0.13319011815252416,
+                "time_duty_fraction_zoh": 0.1332378223495702,
+                "state_switch_count": 75,
+                "state_switches_per_s": 10.744985673352435
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.7468671679197995,
+                "time_duty_fraction_zoh": 0.7467765042979941,
+                "state_switch_count": 79,
+                "state_switches_per_s": 11.318051575931232
+              },
+              "right": {
+                "sample_duty_fraction": 0.8335123523093448,
+                "time_duty_fraction_zoh": 0.8334527220630373,
+                "state_switch_count": 67,
+                "state_switches_per_s": 9.598853868194842
+              },
+              "both": {
+                "sample_duty_fraction": 0.7135696383816684,
+                "time_duty_fraction_zoh": 0.7134670487106017,
+                "state_switch_count": 65,
+                "state_switches_per_s": 9.312320916905444
+              },
+              "none": {
+                "sample_duty_fraction": 0.13319011815252416,
+                "time_duty_fraction_zoh": 0.1332378223495702,
+                "state_switch_count": 75,
+                "state_switches_per_s": 10.744985673352435
+              }
+            }
+          },
+          "maximum_tilt_deg": 7.251054127721525,
+          "height_contact_tilt_or_beta_used_as_failure_gate": false
+        },
+        "reference_overlap": {
+          "interval_s": [
+            0.0,
+            6.96
+          ],
+          "native_samples": 2785,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 2785,
+            "xy_rmse_m": 0.03926370912185609,
+            "xy_peak_m": 0.0784392501613974,
+            "mean_speed_m_s": 0.8849685678146879,
+            "reference_mean_speed_m_s": 0.8741363103669996,
+            "speed_retention": 1.0123919545718683,
+            "beta_rmse_deg": 2.027697704574169,
+            "beta_valid_samples": 2362,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 2785,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.1436265709156194,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.5570074630080859,
+            "common_band_rms": 0.7463293261075072,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.5620781363467248,
+            "native_high_frequency_rms": 0.7497187048131617,
+            "at_or_above100hz_mean_square": 0.005070673338638879,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.7461400359066427,
+                "time_duty_fraction_zoh": 0.7460488505747125,
+                "state_switch_count": 79,
+                "state_switches_per_s": 11.350574712643677
+              },
+              "right": {
+                "sample_duty_fraction": 0.8330341113105925,
+                "time_duty_fraction_zoh": 0.8329741379310344,
+                "state_switch_count": 67,
+                "state_switches_per_s": 9.626436781609195
+              },
+              "both": {
+                "sample_duty_fraction": 0.7127468581687613,
+                "time_duty_fraction_zoh": 0.7126436781609194,
+                "state_switch_count": 65,
+                "state_switches_per_s": 9.339080459770114
+              },
+              "none": {
+                "sample_duty_fraction": 0.13357271095152604,
+                "time_duty_fraction_zoh": 0.13362068965517243,
+                "state_switch_count": 75,
+                "state_switches_per_s": 10.775862068965518
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.7461400359066427,
+                "time_duty_fraction_zoh": 0.7460488505747125,
+                "state_switch_count": 79,
+                "state_switches_per_s": 11.350574712643677
+              },
+              "right": {
+                "sample_duty_fraction": 0.8330341113105925,
+                "time_duty_fraction_zoh": 0.8329741379310344,
+                "state_switch_count": 67,
+                "state_switches_per_s": 9.626436781609195
+              },
+              "both": {
+                "sample_duty_fraction": 0.7127468581687613,
+                "time_duty_fraction_zoh": 0.7126436781609194,
+                "state_switch_count": 65,
+                "state_switches_per_s": 9.339080459770114
+              },
+              "none": {
+                "sample_duty_fraction": 0.13357271095152604,
+                "time_duty_fraction_zoh": 0.13362068965517243,
+                "state_switch_count": 75,
+                "state_switches_per_s": 10.775862068965518
+              }
+            }
+          },
+          "maximum_tilt_deg": 7.251054127721525,
+          "height_contact_tilt_or_beta_used_as_failure_gate": false
+        }
+      }
+    },
+    {
+      "id": "retrain400",
+      "title": "D | new 400 Hz training | action-rate \u22120.5",
+      "directory": "/home/roy/tron1-sliding-analysis/outputs/ppo_backend_400hz_nominal_20261022_v1/cases/physx/physx",
+      "checkpoint_sha256": "c508dc3ba50db81f56f538bf23c550aca12f3279ddd15749d60582a487d2d8c7",
+      "report_sha256": "893453d8c004eec65eb4d291c47f6172d2b872b05b08e17f169459ef719201fa",
+      "recording_sha256": "0194cde85053a24963f19ca9e853aefe3b21ac2f18c62d9442606467b0910b98",
+      "training_physics_hz": 400,
+      "evaluation_physics_hz": 400,
+      "physics_dt_s": 0.0025,
+      "policy_hz": 50,
+      "action_rate_weight": -0.5,
+      "training_DR_recipe": "shared mjlab-style backend-comparison DR",
+      "beta_reward_weight": 2.0,
+      "sideslip_reward_weight": 2.0,
+      "grounded_reward_weight": 0.4,
+      "native_samples": 2793,
+      "native_sample_stride": 8,
+      "parent_verification": {
+        "status": "verified",
+        "native_states": 2793,
+        "policy_decisions": 349,
+        "duration_s": 6.98,
+        "physics_dt_s": 0.0025,
+        "policy_dt_s": 0.02,
+        "recording_sha256": "0194cde85053a24963f19ca9e853aefe3b21ac2f18c62d9442606467b0910b98",
+        "validation_backend": "PhysX",
+        "training_backend": "physx",
+        "smoke_only": false,
+        "report_sha256": "893453d8c004eec65eb4d291c47f6172d2b872b05b08e17f169459ef719201fa",
+        "checkpoint_sha256": "c508dc3ba50db81f56f538bf23c550aca12f3279ddd15749d60582a487d2d8c7",
+        "evaluation_contact_friction": 0.7
+      },
+      "wheel_FK_audit": {
+        "maximum_wheel_link_position_error_m": 1.205190279457149e-06,
+        "wheel_position_tolerance_m": 0.0002,
+        "maximum_root_com_velocity_reconstruction_error": 8.881784197001252e-16,
+        "dynamics_stepping": false,
+        "measured_contact_replaced": false,
+        "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+      },
+      "windows": {
+        "core": {
+          "interval_s": [
+            1.44,
+            4.0
+          ],
+          "native_samples": 1025,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 1025,
+            "xy_rmse_m": 0.1279416909811804,
+            "xy_peak_m": 0.1885305237191941,
+            "mean_speed_m_s": 1.0290374223378853,
+            "reference_mean_speed_m_s": 1.0282628655552946,
+            "speed_retention": 1.000753267290434,
+            "beta_rmse_deg": 6.138879966281858,
+            "beta_valid_samples": 1025,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 1025,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.3902439024390244,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 1.5450019951806544,
+            "common_band_rms": 1.2429810920447077,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 1.5605363266670422,
+            "native_high_frequency_rms": 1.249214283726792,
+            "at_or_above100hz_mean_square": 0.015534331486387975,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.43317073170731707,
+                "time_duty_fraction_zoh": 0.4326171874999996,
+                "state_switch_count": 52,
+                "state_switches_per_s": 20.3125
+              },
+              "right": {
+                "sample_duty_fraction": 0.6517073170731708,
+                "time_duty_fraction_zoh": 0.6513671875,
+                "state_switch_count": 44,
+                "state_switches_per_s": 17.1875
+              },
+              "both": {
+                "sample_duty_fraction": 0.3570731707317073,
+                "time_duty_fraction_zoh": 0.35644531249999983,
+                "state_switch_count": 40,
+                "state_switches_per_s": 15.625
+              },
+              "none": {
+                "sample_duty_fraction": 0.27219512195121953,
+                "time_duty_fraction_zoh": 0.2724609375000003,
+                "state_switch_count": 52,
+                "state_switches_per_s": 20.3125
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.43317073170731707,
+                "time_duty_fraction_zoh": 0.4326171874999996,
+                "state_switch_count": 52,
+                "state_switches_per_s": 20.3125
+              },
+              "right": {
+                "sample_duty_fraction": 0.6517073170731708,
+                "time_duty_fraction_zoh": 0.6513671875,
+                "state_switch_count": 44,
+                "state_switches_per_s": 17.1875
+              },
+              "both": {
+                "sample_duty_fraction": 0.3570731707317073,
+                "time_duty_fraction_zoh": 0.35644531249999983,
+                "state_switch_count": 40,
+                "state_switches_per_s": 15.625
+              },
+              "none": {
+                "sample_duty_fraction": 0.27219512195121953,
+                "time_duty_fraction_zoh": 0.2724609375000003,
+                "state_switch_count": 52,
+                "state_switches_per_s": 20.3125
+              }
+            }
+          },
+          "maximum_tilt_deg": 7.968651091819526,
+          "height_contact_tilt_or_beta_used_as_failure_gate": false
+        },
+        "full": {
+          "interval_s": [
+            0.0,
+            6.98
+          ],
+          "native_samples": 2793,
+          "tracking": {
+            "available": false,
+            "coverage_complete": false,
+            "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 2793,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.14321518080916576,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.8629111509004963,
+            "common_band_rms": 0.9289301108805206,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.8717336545348677,
+            "native_high_frequency_rms": 0.9336667791749194,
+            "at_or_above100hz_mean_square": 0.008822503634371317,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.7185821697099892,
+                "time_duty_fraction_zoh": 0.7184813753581665,
+                "state_switch_count": 89,
+                "state_switches_per_s": 12.750716332378223
+              },
+              "right": {
+                "sample_duty_fraction": 0.8395989974937343,
+                "time_duty_fraction_zoh": 0.8395415472779368,
+                "state_switch_count": 67,
+                "state_switches_per_s": 9.598853868194842
+              },
+              "both": {
+                "sample_duty_fraction": 0.6716791979949874,
+                "time_duty_fraction_zoh": 0.6715616045845273,
+                "state_switch_count": 83,
+                "state_switches_per_s": 11.891117478510028
+              },
+              "none": {
+                "sample_duty_fraction": 0.11349803079126387,
+                "time_duty_fraction_zoh": 0.11353868194842416,
+                "state_switch_count": 65,
+                "state_switches_per_s": 9.312320916905444
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.7185821697099892,
+                "time_duty_fraction_zoh": 0.7184813753581665,
+                "state_switch_count": 89,
+                "state_switches_per_s": 12.750716332378223
+              },
+              "right": {
+                "sample_duty_fraction": 0.8395989974937343,
+                "time_duty_fraction_zoh": 0.8395415472779368,
+                "state_switch_count": 67,
+                "state_switches_per_s": 9.598853868194842
+              },
+              "both": {
+                "sample_duty_fraction": 0.6716791979949874,
+                "time_duty_fraction_zoh": 0.6715616045845273,
+                "state_switch_count": 83,
+                "state_switches_per_s": 11.891117478510028
+              },
+              "none": {
+                "sample_duty_fraction": 0.11349803079126387,
+                "time_duty_fraction_zoh": 0.11353868194842416,
+                "state_switch_count": 65,
+                "state_switches_per_s": 9.312320916905444
+              }
+            }
+          },
+          "maximum_tilt_deg": 7.968651091819526,
+          "height_contact_tilt_or_beta_used_as_failure_gate": false
+        },
+        "reference_overlap": {
+          "interval_s": [
+            0.0,
+            6.96
+          ],
+          "native_samples": 2785,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 2785,
+            "xy_rmse_m": 0.095317601408176,
+            "xy_peak_m": 0.1885305237191941,
+            "mean_speed_m_s": 0.8832263070387949,
+            "reference_mean_speed_m_s": 0.8741363103669996,
+            "speed_retention": 1.0103988320402557,
+            "beta_rmse_deg": 4.257125657300081,
+            "beta_valid_samples": 2362,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 2785,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.1436265709156194,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.8679425413807564,
+            "common_band_rms": 0.9316343388802049,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.8768146675292446,
+            "native_high_frequency_rms": 0.9363838248972718,
+            "at_or_above100hz_mean_square": 0.00887212614848814,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.717773788150808,
+                "time_duty_fraction_zoh": 0.7176724137931038,
+                "state_switch_count": 89,
+                "state_switches_per_s": 12.78735632183908
+              },
+              "right": {
+                "sample_duty_fraction": 0.8391382405745063,
+                "time_duty_fraction_zoh": 0.8390804597701147,
+                "state_switch_count": 67,
+                "state_switches_per_s": 9.626436781609195
+              },
+              "both": {
+                "sample_duty_fraction": 0.6707360861759426,
+                "time_duty_fraction_zoh": 0.670617816091954,
+                "state_switch_count": 83,
+                "state_switches_per_s": 11.925287356321839
+              },
+              "none": {
+                "sample_duty_fraction": 0.11382405745062836,
+                "time_duty_fraction_zoh": 0.11386494252873573,
+                "state_switch_count": 65,
+                "state_switches_per_s": 9.339080459770114
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.717773788150808,
+                "time_duty_fraction_zoh": 0.7176724137931038,
+                "state_switch_count": 89,
+                "state_switches_per_s": 12.78735632183908
+              },
+              "right": {
+                "sample_duty_fraction": 0.8391382405745063,
+                "time_duty_fraction_zoh": 0.8390804597701147,
+                "state_switch_count": 67,
+                "state_switches_per_s": 9.626436781609195
+              },
+              "both": {
+                "sample_duty_fraction": 0.6707360861759426,
+                "time_duty_fraction_zoh": 0.670617816091954,
+                "state_switch_count": 83,
+                "state_switches_per_s": 11.925287356321839
+              },
+              "none": {
+                "sample_duty_fraction": 0.11382405745062836,
+                "time_duty_fraction_zoh": 0.11386494252873573,
+                "state_switch_count": 65,
+                "state_switches_per_s": 9.339080459770114
+              }
+            }
+          },
+          "maximum_tilt_deg": 7.968651091819526,
+          "height_contact_tilt_or_beta_used_as_failure_gate": false
+        }
+      }
+    }
+  ],
+  "loader_provenance": {
+    "schema_version": 1,
+    "kind": "recorded_ppo_staged_training_recipe_fullbody_comparison",
+    "stage_order": [
+      "original200",
+      "smooth200",
+      "deploy400",
+      "retrain400"
+    ],
+    "rows": [
+      {
+        "id": "original200",
+        "title": "A | original 200 Hz | action-rate \u22120.1",
+        "directory": "/home/roy/tron1-sliding-analysis/outputs/controller_primary_ppo_mu070_20261015_v1/mu0p700/isaac",
+        "checkpoint_sha256": "6ec411efeaea37fc61389285978b377aa7c5be80e326ce7f18581efc9acdf27b",
+        "report_sha256": "c4d9ab3d9b2e0e1401b78d472057968bcdbd4f36f301015443b205c5d3659e92",
+        "recording_sha256": "858a4dc5b11230d1ac5a894c9528060de90570265ebdea50f20a48005a021d61",
+        "training_physics_hz": 200,
+        "evaluation_physics_hz": 200,
+        "physics_dt_s": 0.005,
+        "policy_hz": 50,
+        "action_rate_weight": -0.1,
+        "training_DR_recipe": "historical BeyondMimic-style DR",
+        "beta_reward_weight": 2.0,
+        "sideslip_reward_weight": 2.0,
+        "grounded_reward_weight": 0.4,
+        "native_samples": 1397,
+        "native_sample_stride": 4,
+        "parent_verification": {
+          "profile_only_change_after_omitting_description": "drift_sideslip reward 2.0 -> 0.0",
+          "equal_report_fields": [
+            "contact_material_audit",
+            "legacy_joint_friction_audit",
+            "physics_recording",
+            "evaluator_source_sha256",
+            "drift_module_sha256",
+            "contact_slip_helper_sha256",
+            "runner_config_sha256"
+          ],
+          "policy_contract_identical_except_checkpoint_profile_export_roundoff": true,
+          "export_roundoff_limit": 1e-05,
+          "wheel_xy_profile_changed": false,
+          "evaluation_seed": 42,
+          "evaluation_mu": 0.7,
+          "training_recipe_parity_independently_verified_by_this_script": false,
+          "scope": "Reported evaluation/source/profile identities; training DR/budget parity requires the separate training-manifest audit"
+        },
+        "wheel_FK_audit": {
+          "maximum_wheel_link_position_error_m": 1.3358317844860852e-06,
+          "wheel_position_tolerance_m": 0.0002,
+          "maximum_root_com_velocity_reconstruction_error": 1.7763568394002505e-15,
+          "dynamics_stepping": false,
+          "measured_contact_replaced": false,
+          "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+        }
+      },
+      {
+        "id": "smooth200",
+        "title": "B | retrained 200 Hz | action-rate \u22120.5",
+        "directory": "/home/roy/tron1-sliding-analysis/outputs/contact_damping_20261021_v2/kd10",
+        "checkpoint_sha256": "8ba4178471c757b4d09f5bb44c0a508558f1bfd5cc15103195aeba420ebe6e9a",
+        "report_sha256": "fdf3881b765276832dbbdfe0528446055a4af91a6147ca3520dc847f6906dc77",
+        "recording_sha256": "54e01f57b01da11c5b0736c572f8b2ebc81ebe2cac8f06c9b3b5be29b1637780",
+        "training_physics_hz": 200,
+        "evaluation_physics_hz": 200,
+        "physics_dt_s": 0.005,
+        "policy_hz": 50,
+        "action_rate_weight": -0.5,
+        "training_DR_recipe": "historical BeyondMimic-style DR",
+        "beta_reward_weight": 2.0,
+        "sideslip_reward_weight": 2.0,
+        "grounded_reward_weight": 0.4,
+        "native_samples": 1397,
+        "native_sample_stride": 4,
+        "parent_verification": {
+          "status": "verified",
+          "deployment_leg_kd": 10.0,
+          "report_sha256": "fdf3881b765276832dbbdfe0528446055a4af91a6147ca3520dc847f6906dc77",
+          "recording_sha256": "54e01f57b01da11c5b0736c572f8b2ebc81ebe2cac8f06c9b3b5be29b1637780"
+        },
+        "wheel_FK_audit": {
+          "maximum_wheel_link_position_error_m": 1.23302005347975e-06,
+          "wheel_position_tolerance_m": 0.0002,
+          "maximum_root_com_velocity_reconstruction_error": 8.881784197001252e-16,
+          "dynamics_stepping": false,
+          "measured_contact_replaced": false,
+          "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+        }
+      },
+      {
+        "id": "deploy400",
+        "title": "C | same B actor, deployed at 400 Hz",
+        "directory": "/home/roy/tron1-sliding-analysis/outputs/ppo_contact_timestep_20261022_v1/dt0p0025",
+        "checkpoint_sha256": "8ba4178471c757b4d09f5bb44c0a508558f1bfd5cc15103195aeba420ebe6e9a",
+        "report_sha256": "abe05d4ea69634e9794514fc60664cf4c67fe718ad841716d5518923671e778e",
+        "recording_sha256": "8e7fc43c181b34b9ff87fe42d3c628ab483c7a6cddfb965562df250d77e46c1e",
+        "training_physics_hz": 200,
+        "evaluation_physics_hz": 400,
+        "physics_dt_s": 0.0025,
+        "policy_hz": 50,
+        "action_rate_weight": -0.5,
+        "training_DR_recipe": "historical BeyondMimic-style DR",
+        "beta_reward_weight": 2.0,
+        "sideslip_reward_weight": 2.0,
+        "grounded_reward_weight": 0.4,
+        "native_samples": 2793,
+        "native_sample_stride": 8,
+        "parent_verification": {
+          "status": "verified",
+          "physics_dt_s": 0.0025,
+          "decimation": 8,
+          "native_states": 2793,
+          "policy_decisions": 349,
+          "duration_s": 6.98,
+          "report_sha256": "abe05d4ea69634e9794514fc60664cf4c67fe718ad841716d5518923671e778e",
+          "recording_sha256": "8e7fc43c181b34b9ff87fe42d3c628ab483c7a6cddfb965562df250d77e46c1e",
+          "physical_gpu_index_requested": 3,
+          "native_clock_and_device_verified": true
+        },
+        "wheel_FK_audit": {
+          "maximum_wheel_link_position_error_m": 1.2729768825979376e-06,
+          "wheel_position_tolerance_m": 0.0002,
+          "maximum_root_com_velocity_reconstruction_error": 8.881784197001252e-16,
+          "dynamics_stepping": false,
+          "measured_contact_replaced": false,
+          "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+        }
+      },
+      {
+        "id": "retrain400",
+        "title": "D | new 400 Hz training | action-rate \u22120.5",
+        "directory": "/home/roy/tron1-sliding-analysis/outputs/ppo_backend_400hz_nominal_20261022_v1/cases/physx/physx",
+        "checkpoint_sha256": "c508dc3ba50db81f56f538bf23c550aca12f3279ddd15749d60582a487d2d8c7",
+        "report_sha256": "893453d8c004eec65eb4d291c47f6172d2b872b05b08e17f169459ef719201fa",
+        "recording_sha256": "0194cde85053a24963f19ca9e853aefe3b21ac2f18c62d9442606467b0910b98",
+        "training_physics_hz": 400,
+        "evaluation_physics_hz": 400,
+        "physics_dt_s": 0.0025,
+        "policy_hz": 50,
+        "action_rate_weight": -0.5,
+        "training_DR_recipe": "shared mjlab-style backend-comparison DR",
+        "beta_reward_weight": 2.0,
+        "sideslip_reward_weight": 2.0,
+        "grounded_reward_weight": 0.4,
+        "native_samples": 2793,
+        "native_sample_stride": 8,
+        "parent_verification": {
+          "status": "verified",
+          "native_states": 2793,
+          "policy_decisions": 349,
+          "duration_s": 6.98,
+          "physics_dt_s": 0.0025,
+          "policy_dt_s": 0.02,
+          "recording_sha256": "0194cde85053a24963f19ca9e853aefe3b21ac2f18c62d9442606467b0910b98",
+          "validation_backend": "PhysX",
+          "training_backend": "physx",
+          "smoke_only": false,
+          "report_sha256": "893453d8c004eec65eb4d291c47f6172d2b872b05b08e17f169459ef719201fa",
+          "checkpoint_sha256": "c508dc3ba50db81f56f538bf23c550aca12f3279ddd15749d60582a487d2d8c7",
+          "evaluation_contact_friction": 0.7
+        },
+        "wheel_FK_audit": {
+          "maximum_wheel_link_position_error_m": 1.205190279457149e-06,
+          "wheel_position_tolerance_m": 0.0002,
+          "maximum_root_com_velocity_reconstruction_error": 8.881784197001252e-16,
+          "dynamics_stepping": false,
+          "measured_contact_replaced": false,
+          "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+        }
+      }
+    ],
+    "mu": 0.7,
+    "training_backend": "PhysX",
+    "validation_backend": "PhysX",
+    "reference_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+    "model_sha256": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513",
+    "FK_provenance": {
+      "model_sha256": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513",
+      "loader_evaluator_sha256": "2251d740d7568874a47a232556241cc8d1ee5f5b7be1351d1c657aea8fa85f87",
+      "removed_proven_noncolliding_visual_meshes": 9,
+      "isolated_FK_only": true,
+      "dynamics_stepping": false
+    },
+    "historical_auxiliary_off_report_sha256": "3dd5893e11533b4408fd2269e1cabb006ce0b90e20efecd26984f4ac1a190e62",
+    "new400_retrieval_manifest_sha256": "88f8f9b99c7f1f64ac054fb8a22885360fa6f64f2114192c6eec8da75de6b356",
+    "new400_protocol_sha256": "c54cd530884cffa22811ca2232cb2588eba3582deefc91d4d9675e4fca7fe30f",
+    "B_C_actual_training_override_provenance": {
+      "directory": "/home/roy/tron1-sliding-analysis/outputs/ppo_smoothness_20261021_v2/action_rate_0p5/training",
+      "sha256": {
+        "manifest.json": "066ddaeb5a23ff44dfca79e785520c57d8786cdc3a2d7b30d118e3a955a94d63",
+        "ablation_manifest.json": "4cf22f9c4e6b5f28aa1711f2e093516522046d259e0322b740e7cad5da05905e"
+      },
+      "reward_override": {
+        "term": "action_rate_l2",
+        "baseline_weight": -0.1,
+        "weight": -0.5,
+        "function": "isaaclab.envs.mdp.rewards.action_rate_l2",
+        "raw_term": "sum((clipped_normalized_action - previous_clipped_normalized_action)^2)",
+        "divided_by_control_dt": false,
+        "applied_before_environment_creation": true
+      },
+      "training_reward_overrides": {
+        "action_rate_l2": -0.5
+      },
+      "checkpoint_sha256": "8ba4178471c757b4d09f5bb44c0a508558f1bfd5cc15103195aeba420ebe6e9a",
+      "environment_transitions": 12288000,
+      "profile_alone_does_not_include_action_rate_override": true
+    },
+    "grounded_reward_weight_all": 0.4,
+    "grounded_reward_function": "original last-policy-substep drift_grounded",
+    "all_main_stages_sideslip_reward_weight": 2.0,
+    "reward_implementation_evaluation_sha256_all": "5fee46238c825a2bcf474e969e93af65834aa1302ce857aa1c553e8a9fbaefaa",
+    "dense_ground_support_reward_used": false,
+    "additional_torque_reward_used": false,
+    "leg_target_filter_used": false,
+    "B_C_same_checkpoint": true,
+    "D_from_scratch_retrained": true,
+    "causal_hz_only_ablation_claimed": false,
+    "sample_size_per_stage": 1,
+    "video_frames": 350,
+    "video_fps": 50,
+    "encoded_duration_s": 7.0,
+    "last_original_time_s": 6.98,
+    "reference_real_last_time_s": 6.96,
+    "actor_weights_loaded": false,
+    "new_simulation": false,
+    "new_training": false,
+    "new_policy_inference": false,
+    "state_interpolation": false,
+    "pose_alignment": false,
+    "root_height_corrected": false,
+    "height_or_flight_failure_gate": false,
+    "stable_contact_claimed": false,
+    "visual_reviewed": false,
+    "limitations": [
+      "Staged recipes, not a pure timestep causal comparison. A/B use different independently trained actors and action-rate weights.",
+      "B\u2192C is the same frozen actor: both integration and explicit PD update rate change200\u2192400Hz; policy remains50Hz.",
+      "D is a new from-scratch400Hz cohort with a shared mjlab-style DR recipe, unlike the historical BeyondMimic-style DR in A/B/C.",
+      "Original grounded+0.4 is unchanged in all four stages. No dense-contact reward, target low-pass filter or extra torque-rate reward is included.",
+      "One seed/episode per stage; no statistical or hardware-stability claim.50Hz video cannot resolve all native200/400Hz jitter.",
+      "Native poses/heights/falls are unchanged. Native contact counts/Fz are diagnostics; zero does not establish geometric flight.",
+      "One camera distance for all350frames/allfourcases, fixed root-relative offset and world orientation. Fixed world maps retain XY drift.",
+      "Reference ends6.96s; XY tracking is unavailable beyond it, with no endpoint extrapolation."
+    ]
+  },
+  "original_grounded_reward_weight_all": 0.4,
+  "dense400Hz_contact_training_exists": false,
+  "all_main_stages_sideslip_reward_weight": 2.0,
+  "beta_on_off_ablation": false,
+  "new_training": false,
+  "new_simulation": false,
+  "new_policy_inference": false,
+  "state_resampling_filtering_or_alignment": false,
+  "visual_reviewed": false,
+  "causal_frequency_effect_claimed": false,
+  "continuous_contact_certified": false,
+  "definitions": {
+    "beta": "COM course minus projected body+X; wrapped error against intended nonzero reference; speed/axis validity retained",
+    "jitter": "World angular X/Y channel-mean RMS, linear detrend/Hann/Parseval, strictly10<f<100Hz at each actual native rate",
+    "load_eligibility": "Recorded ground-contact count>0 AND world ground-normal Fz>5N, separately per wheel",
+    "duty": "Time-weighted native zero-order hold, sum(mask[:-1]*diff(time))/(last-first); not sample mean",
+    "failure_gates": "No height, tilt, zero-load or nonzero-beta failure gate; contact is diagnostic only"
+  },
+  "limitations": [
+    "A/B are independently retrained historical200Hz checkpoints; one seed is not a statistical causal action-weight effect.",
+    "B/C reuse one frozen200Hz-trained actor and change deployment physics AND explicitPD rate; policy stays50Hz and closed-loop actions can differ.",
+    "D is retrained400Hz with shared representable MJLab-style DR and setup/reseed ordering, unlike historicalDR/setup. It does not isolate training frequency or contact handling.",
+    "All four keep the ORIGINAL last-substep grounded+0.4 reward. No trained400Hz dense-contact replacement is available.",
+    "Equal nominalmu does not calibrate different material mappings/contact laws; contact sample/history horizons also change with native rate.",
+    "Full6.98s tracking is unavailable beyond the6.96s reference; reference_overlap is separate and no extrapolation is used.",
+    "Similar XY does not establish equivalent dynamics, low jitter or stable continuous contact. Zero measured load is not a flight label."
+  ],
+  "historical_contact_negative": {
+    "file": "historical_ground_reward_negative.json",
+    "scope": "Separate200Hz reward-function replacement at unchanged+0.4; never a fifth main400Hz stage"
+  },
+  "analysis_sources_sha256": {
+    "summarize_ppo_training_recipe_comparison.py": "0aafd13405e3199afd25c230fa1680a5f513fd47c101202604050573c8b9e4ce",
+    "render_ppo_training_recipe_comparison.py": "a946ae5edc969ed6c6680bcdbbb10ac075e51467ac3461f57deb7b4be25cb6d0",
+    "analyze_ppo_smoothness.py": "79a1caeda4ae12ef176b14770a4beefde0f44a885052be54c6382a74368d4f3c",
+    "analyze_ppo_contact_timestep.py": "e0110f0fb66e469922838f9a5428f7f6db54c7c2e6a8c559ad9d2f697a140bff",
+    "analyze_ppo_contact_stability.py": "34b5372d57388174a1b7896df0735f3cd3de6b5afa946d1c3093a07b1ff2e56b",
+    "analyze_ppo_ground_support_failure.py": "cc0acd232a240618cd55aa5de8fcad0817b71696e0f9f285db4bd11c679c5219",
+    "controller_trace.py": "673d17bda4d9f6c93b76b0b963b199aef3e3abe8982cfc6cc6580184e5b0a3e6",
+    "controller_metrics.py": "40921dad0c268d4bd871e0910086957555116fdd07188ba7cb4f8c76ca4343de",
+    "nmpc_tracking_objective.py": "ff22eebb2b22b9af7dba114c64fcd10f6b0a90822559af8f32cbe6884015b860"
+  },
+  "inputs_sha256": {
+    "reference": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+    "model": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513",
+    "legacy_mujoco_evaluator": "2251d740d7568874a47a232556241cc8d1ee5f5b7be1351d1c657aea8fa85f87"
+  },
+  "compact_signal_bundle": {
+    "format": "NPZ; allow_pickle=False",
+    "native_fields_per_stage": [
+      "time_s",
+      "position",
+      "quaternion",
+      "com_velocity",
+      "angular_velocity",
+      "contact_count",
+      "contact_force",
+      "physics_dt_s"
+    ],
+    "reference_fields": [
+      "time_s",
+      "position",
+      "quaternion",
+      "velocity"
+    ],
+    "sample_counts": {
+      "original200": 1397,
+      "smooth200": 1397,
+      "deploy400": 2793,
+      "retrain400": 2793
+    },
+    "reference_samples": 349,
+    "native_states_copied_without_resampling": true,
+    "checkpoint_actor_or_mesh_included": false,
+    "scope": "Compact original numeric signals permit metric review, not independent reproduction of the strict source/metadata verification.",
+    "recomputed_metrics": {
+      "status": "verified",
+      "stages_checked": 4,
+      "windows_per_stage": 3,
+      "uses_original_native_clocks": true,
+      "new_physics_or_inference": false,
+      "strict_training_metadata_verification_replaced": false
+    }
+  },
+  "artifacts": {
+    "metric_table.csv": "4f461539a335b76425dc1c6d995b02ba86a5ca33f63ca7f6ee5ccdffe6772dbe",
+    "recipe_comparison.png": "863b05c8f99e3bb6162d3efc2737b231f6628d0a53f76060e33d13ff5ebfc3fb",
+    "historical_ground_reward_negative.json": "a8017f0800b5155f1f45798b071090a7c903c665194e1f7072808e54cb90acc7",
+    "comparison_signals.npz": "375dab55119f03a9ca565e718997466fc8a446136a66ec66e538c0623e5e5671"
+  }
+}

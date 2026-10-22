@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "kind": "offline_existing_PPO_recipe_comparison_reproduction",
+  "summary_sha256": "2b95931f8b99bbdaffb7ce463f0f209501cf5f1c0f0c66f72ccf16e3ce7f359f",
+  "compact_signal_bundle_sha256": "375dab55119f03a9ca565e718997466fc8a446136a66ec66e538c0623e5e5671",
+  "summarizer_sha256": "0aafd13405e3199afd25c230fa1680a5f513fd47c101202604050573c8b9e4ce",
+  "renderer_sha256": "a946ae5edc969ed6c6680bcdbbb10ac075e51467ac3461f57deb7b4be25cb6d0",
+  "python_used": "3.13.12",
+  "mujoco_used_for_FK_and_graphics_only": "3.8.1",
+  "working_directory": "repository root",
+  "new_training": false,
+  "new_simulation": false,
+  "strict_source_reproduction_requires": [
+    "Original hash-pinned local native recordings, reports and completed-training metadata referenced by the loader; these are not replaced by the compact numeric bundle.",
+    "Locked reference motion da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254.",
+    "Original MJCF bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513 and local official visual meshes for video; no robot models or actor weights are included in this result.",
+    "Legacy mesh-free FK loader2251d740d7568874a47a232556241cc8d1ee5f5b7be1351d1c657aea8fa85f87."
+  ],
+  "strict_summary_command": "MUJOCO_GL=osmesa LP_NUM_THREADS=4 OMP_NUM_THREADS=4 python scripts/summarize_ppo_training_recipe_comparison.py --reference /home/roy/tron1-learning-from-human/outputs/drift-drl-turn-reference-20261013-v2/motion.npz --model outputs/car_failure_sideslip_20261015/raw/mujoco_model.xml --legacy-mujoco-evaluator outputs/controller_evaluation_source_20261015_v2/scripts/eval_tracking_mujoco.py --output-dir results/ppo_training_recipe_comparison_REPRO_FRESH",
+  "strict_video_command": "MUJOCO_GL=osmesa LP_NUM_THREADS=4 OMP_NUM_THREADS=4 python scripts/render_ppo_training_recipe_comparison.py --output-dir results/ppo_training_recipe_fullbody_REPRO_FRESH",
+  "portable_numeric_review_command": "python -c 'import sys,json;from pathlib import Path;sys.path.insert(0,\"scripts\");import summarize_ppo_training_recipe_comparison as m;p=Path(\"results/ppo_training_recipe_comparison_20261022_v1\");print(m.verify_bundle_metrics(p/\"comparison_signals.npz\",json.loads((p/\"summary.json\").read_text())))'",
+  "portable_numeric_review_scope": "Recomputes native-window XY/peak/speed/beta/HF/load duties from published exact numeric signals; does not independently reconstruct the original training/source metadata verification.",
+  "tests_run": "MUJOCO_GL=osmesa python -m pytest -q tests/test_render_ppo_training_recipe_comparison.py tests/test_summarize_ppo_training_recipe_comparison.py tests/test_render_ppo_fixed_follow.py tests/test_render_ppo_beta_nominal.py tests/test_render_ppo_backend_400hz_nominal.py tests/test_summarize_ppo_backend_400hz_nominal.py tests/test_analyze_ppo_contact_timestep.py tests/test_analyze_ppo_ground_support_failure.py",
+  "tests_passed": 105,
+  "all_four_stages": "mu0.7; PhysX-trained to PhysX validation; beta reward2; original grounded reward+0.4;50Hz policy",
+  "important_distinctions": [
+    "200/400Hz describes physics and explicit low-level PD updates, not PPO policy decision frequency.",
+    "B/C reuse one frozen200Hz-trained actor. D is a new400Hz-trained actor and also changes training DR and setup ordering; the four-stage comparison is descriptive, not an isolated frequency/contact experiment.",
+    "The changed dense ground-support reward remains a separately labeled200Hz historical negative example in historical_ground_reward_negative.json; its weight stayed+0.4 rather than increasing.",
+    "No400Hz dense-contact-reward arm exists in this comparison. No height, contact, tilt or nonzero-beta failure gate is imposed."
+  ],
+  "video_directory": "../ppo_training_recipe_fullbody_20261022_v1",
+  "visual_review_file": "../ppo_training_recipe_fullbody_20261022_v1/visual_review.json"
+}
