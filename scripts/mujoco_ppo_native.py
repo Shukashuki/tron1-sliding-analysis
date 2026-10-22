@@ -35,6 +35,37 @@ ERROR_CODES = {0: "ok", 1: "preexisting_warning", 2: "physics_warning",
                3: "external_force", 4: "nonfinite_state", 5: "clock_discontinuity"}
 
 
+def ppo_clock_from_contract(contract):
+    """Resolve the two declared native clocks, retaining the 50 Hz policy.
+
+    The C++ batch ABI remains four-substep-only. This helper also serves the
+    Python/Warp plants, whose decimation is explicit rather than an ABI field.
+    Missing clock fields retain the historical 5 ms/four-substep defaults.
+    """
+    physics_dt = contract.get("physics_dt", .005)
+    decimation = contract.get("decimation", 4)
+    if (isinstance(physics_dt, (bool, np.bool_)) or
+            not isinstance(physics_dt, (int, float, np.integer, np.floating)) or
+            not np.isfinite(physics_dt) or
+            isinstance(decimation, (bool, np.bool_)) or
+            not isinstance(decimation, (int, np.integer))):
+        raise ValueError("PPO clock requires a finite physics_dt and integer decimation")
+    physics_dt, decimation = float(physics_dt), int(decimation)
+    if not any(decimation == n and np.isclose(physics_dt, dt, rtol=0., atol=1.e-15)
+               for dt, n in ((.005, 4), (.0025, 8))):
+        raise ValueError("PPO clock must be 5 ms x4 or 2.5 ms x8, with a 50 Hz policy")
+    for key, expected in (("physics_dt_s", physics_dt), ("control_dt_s", .02),
+                          ("policy_dt_s", .02), ("policy_fps", 50.)):
+        if key in contract:
+            value = contract[key]
+            if (isinstance(value, (bool, np.bool_)) or
+                    not isinstance(value, (int, float, np.integer, np.floating)) or
+                    not np.isfinite(value) or
+                    not np.isclose(value, expected, rtol=0., atol=1.e-12)):
+                raise ValueError(f"PPO clock alias {key} disagrees with the declared clock")
+    return physics_dt, decimation, .02
+
+
 def _sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
@@ -105,17 +136,24 @@ def _no_callbacks(installed):
         raise RuntimeError("Native PPO requires callback-free physics")
 
 
-def _model_indices(model, data):
+def _model_indices(model, data, *, physics_dt=.005):
     if not isinstance(model, mujoco.MjModel) or not isinstance(data, mujoco.MjData):
         raise TypeError("Pass live Python-owned MjModel/MjData objects, never raw pointers")
     if data.model is not model or data.threadpool:
         raise ValueError("Data must belong to its paired model without a nested MuJoCo threadpool")
+    # NativePPOBatch deliberately calls this with the historical default. The
+    # Warp bridge declares its contract clock explicitly and has no C++ ABI.
+    is_refined = (not isinstance(physics_dt, (bool, np.bool_)) and
+                  isinstance(physics_dt, (int, float, np.integer, np.floating)) and
+                  np.isclose(physics_dt, .0025, rtol=0., atol=1.e-15))
+    declared_dt, _, _ = ppo_clock_from_contract({
+        "physics_dt": physics_dt, "decimation": 8 if is_refined else 4})
     if (model.nq != 15 or model.nv != 14 or model.nu != 8 or
             any(getattr(model, name) for name in
                 ("na", "nmocap", "nuserdata", "nplugin", "nhistory", "nflex", "neq", "ntendon")) or
             model.opt.integrator != mujoco.mjtIntegrator.mjINT_IMPLICITFAST or
             model.opt.solver != mujoco.mjtSolver.mjSOL_NEWTON or
-            not np.isclose(model.opt.timestep, .005, rtol=0, atol=1e-15) or
+            not np.isclose(model.opt.timestep, declared_dt, rtol=0, atol=1e-15) or
             data.qpos.shape != (15,) or data.qvel.shape != (14,)):
         raise ValueError("Unsupported PPO model size, hidden state or clock/integrator")
     if (model.jnt_type[0] != mujoco.mjtJoint.mjJNT_FREE or model.jnt_qposadr[0] != 0

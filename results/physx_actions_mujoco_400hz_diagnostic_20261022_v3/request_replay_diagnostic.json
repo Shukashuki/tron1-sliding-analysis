@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "kind": "same_normalized_requests_native_physx_mujoco_open_loop_diagnostic",
+  "requested_prefix_completed": true,
+  "prefix_policy_steps": 349,
+  "prefix_duration_s": 6.98,
+  "is_full_reference": true,
+  "physics_dt_s": 0.0025,
+  "policy_dt_s": 0.02,
+  "actor_calls": 0,
+  "torch_imported": false,
+  "same_normalized_requests": true,
+  "same_leg_position_and_wheel_effort_requests": true,
+  "same_applied_leg_torques_claimed": false,
+  "closed_loop_policy_transfer_claimed": false,
+  "contact_cache_or_warmstart_equality_claimed": false,
+  "root_state_corrections_after_initialization": 0,
+  "contact_sensor_scope": "Existing aggregate wheel ground-normal force/count/contact-point lateral slip; no new point sensor",
+  "prefix_termination_interpretation": "evaluation_step_limit means the requested prefix ended, NOT a physical failure",
+  "source_inputs_sha256": {
+    "physx_physics": "8e7fc43c181b34b9ff87fe42d3c628ab483c7a6cddfb965562df250d77e46c1e",
+    "physx_report": "abe05d4ea69634e9794514fc60664cf4c67fe718ad841716d5518923671e778e",
+    "motion": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+    "model": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513"
+  },
+  "source_files_sha256": {
+    "scripts/eval_tracking_mujoco.py": "2251d740d7568874a47a232556241cc8d1ee5f5b7be1351d1c657aea8fa85f87",
+    "scripts/eval_tracking.py": "fd90089810d3d14bfd96210723afdd3a36113a19f667ec60b2df617dd032f992",
+    "training/tron1_tracking.py": "0a29fa27c1d65c0b9add0886221491e549553e3529d6970f1ec5ba35e2532817",
+    "training/tron1_domain_randomization.py": "3f3a0b62c85a0af496ae9e9e0d75dda85c3ec30da587e4a47969843f5b1b1dca",
+    "training/tron1_contact_slip.py": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4",
+    "training/tron1_drift.py": "5fee46238c825a2bcf474e969e93af65834aa1302ce857aa1c553e8a9fbaefaa",
+    "training/tron1_physics_clock.py": "bcd89d6a24652d4501baf6744b46944d369fd224a9ab4727fc8b6073a20cf44e",
+    "training/tron1_full_horizon_diagnostic.py": "2b30ac0f27af5b0e702c464392d9a74d1a34c35a92fc0e9643ceca46b5a1522d",
+    "training/tron1_terrain.py": "dec819a3c3c526fce706fb6a5a6491388298884b32bfe73a5c331b166f976ebf"
+  },
+  "runtime_source_modules": {
+    "_pinned_request_replay_evaluator": {
+      "relative_path": "scripts/eval_tracking_mujoco.py",
+      "sha256": "2251d740d7568874a47a232556241cc8d1ee5f5b7be1351d1c657aea8fa85f87"
+    },
+    "eval_tracking": {
+      "relative_path": "scripts/eval_tracking.py",
+      "sha256": "fd90089810d3d14bfd96210723afdd3a36113a19f667ec60b2df617dd032f992"
+    },
+    "training.tron1_domain_randomization": {
+      "relative_path": "training/tron1_domain_randomization.py",
+      "sha256": "3f3a0b62c85a0af496ae9e9e0d75dda85c3ec30da587e4a47969843f5b1b1dca"
+    },
+    "training.tron1_contact_slip": {
+      "relative_path": "training/tron1_contact_slip.py",
+      "sha256": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4"
+    },
+    "training.tron1_physics_clock": {
+      "relative_path": "training/tron1_physics_clock.py",
+      "sha256": "bcd89d6a24652d4501baf6744b46944d369fd224a9ab4727fc8b6073a20cf44e"
+    },
+    "training.tron1_drift": {
+      "relative_path": "training/tron1_drift.py",
+      "sha256": "5fee46238c825a2bcf474e969e93af65834aa1302ce857aa1c553e8a9fbaefaa"
+    },
+    "training.tron1_full_horizon_diagnostic": {
+      "relative_path": "training/tron1_full_horizon_diagnostic.py",
+      "sha256": "2b30ac0f27af5b0e702c464392d9a74d1a34c35a92fc0e9643ceca46b5a1522d"
+    }
+  },
+  "adapter_sha256": "22a6d025b6fb7e1159a5bdf611a5eac876cc072b12afa479f2217e167fbd1096",
+  "initial_observable_max_abs_difference": {
+    "root_position_m": 0.0,
+    "root_quaternion_wxyz": 0.0,
+    "root_linear_velocity_w_m_s": 0.0,
+    "root_angular_velocity_w_rad_s": 0.0,
+    "joint_position_rad": 0.0,
+    "joint_velocity_rad_s": 0.0
+  },
+  "same_time_interengine_xy_rmse_m": 2.6500176457779148,
+  "same_time_interengine_xy_peak_m": 4.150496492877348,
+  "initial_contact_force_difference_max_abs_n": 0.0,
+  "requests_equal_recorded_source_prefix": true,
+  "native_states": 2793,
+  "artifacts_sha256": {
+    "recorded_deployment_contract.json": "6cf971bbe7b3ebf46dce603f5a430a76c5490cf5bbad5dd628a56c2d718b95fa",
+    "mujoco/rollout.npz": "4b5ceb4662d02cd921d62dc55c7ea6b8c67340cf5d99983d3373b0897dbdfb72",
+    "mujoco/report.json": "6360e18f2f65f962398887a64b4c717e924f84f31bc95362e561f166973d1085",
+    "same_time_comparison.npz": "b2812e3a83ddb1abd10f7d4c9df4e0342fe140ed20023b033bbe05c1bd2f1a6f"
+  },
+  "limitations": [
+    "Initial observable q, orientation, joint velocities and COM velocities are checked, but solver/contact hidden states are backend-specific.",
+    "Explicit PD is recalculated in each plant; identical requests do not imply identical actual torques.",
+    "Equal numeric friction is not calibrated contact-law equivalence.",
+    "Open-loop divergence is a diagnostic, not a controller success rate or causal isolation of contact alone."
+  ]
+}

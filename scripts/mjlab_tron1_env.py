@@ -90,6 +90,7 @@ class MjlabWarpBatch:
     through mjlab after COM changes. Solver state persists across actions.
     """
     implementation = "mjlab_simulation_custom_tron1_task"
+    physics_dt, decimation, step_dt = .005, 4, .02
 
     def __init__(self, models, datas, q0s, contract, api, *, device="cuda:0"):
         import mujoco
@@ -98,7 +99,7 @@ class MjlabWarpBatch:
         import warp as wp
         from mjlab.managers.event_manager import RecomputeLevel
         from mjlab.sim import Simulation
-        from mujoco_ppo_native import _model_indices
+        from mujoco_ppo_native import _model_indices, ppo_clock_from_contract
 
         if not str(device).startswith("cuda:") or not torch.cuda.is_available():
             raise RuntimeError("mjlab TRON1 adapter requires an available CUDA device; no CPU fallback")
@@ -112,10 +113,11 @@ class MjlabWarpBatch:
         self.num_envs, self.device = len(models), str(device)
         self.torch, self.wp, self.mjwarp = torch, wp, mjwarp
         self.contract, self.api = copy.deepcopy(contract), api
+        self.physics_dt, self.decimation, self.step_dt = ppo_clock_from_contract(contract)
         self._closed = False
         self._failed = None
         model = models[0]
-        packed = _model_indices(model, datas[0])
+        packed = _model_indices(model, datas[0], physics_dt=self.physics_dt)
         self.qids, self.vids, self.aids, self.bids = np.split(packed, [8, 16, 24])
         self.base_id = int(self.bids[0])
         self.q0s = np.asarray(q0s, dtype=np.float32)
@@ -127,7 +129,7 @@ class MjlabWarpBatch:
                             "geom_solref", "geom_solimp", "geom_size", "geom_pos",
                             "dof_armature", "dof_damping", "dof_frictionloss")
         for candidate, data in zip(models, datas):
-            _model_indices(candidate, data)
+            _model_indices(candidate, data, physics_dt=self.physics_dt)
             for field in invariant_fields:
                 if not np.array_equal(getattr(candidate, field), getattr(model, field)):
                     raise ValueError(f"Unsupported per-world difference in {field}")
@@ -178,8 +180,9 @@ class MjlabWarpBatch:
                          "physics": "MuJoCo-Warp CUDA, not CPU MuJoCo or PhysX",
                          "device": self.device, "installed_versions": installed,
                          "precision": "MuJoCo-Warp float32",
-                         "num_worlds": self.num_envs, "physics_dt_s": .005,
-                         "decimation": 4, "state_continuity": "persistent between control intervals",
+                         "num_worlds": self.num_envs, "physics_dt_s": self.physics_dt,
+                         "decimation": self.decimation, "policy_dt_s": self.step_dt,
+                         "state_continuity": "persistent between control intervals",
                          "expanded_model_fields": list(EXPANDED_MODEL_FIELDS),
                          "contact_forces": "mjwarp.contact_force world-frame, signed net sum by original body",
                          "host_task_adapter": True,
@@ -292,7 +295,7 @@ class MjlabWarpBatch:
         with torch.cuda.stream(self.stream), wp.ScopedDevice(self.sim.wp_device):
             action = torch.as_tensor(np.clip(actions, -1., 1.), device=self.device, dtype=torch.float32)
             torques, contacts, times = [], [], []
-            for _ in range(4):
+            for _ in range(self.decimation):
                 torque = self._motor_torques(action)
                 self.sim.data.ctrl[:, self._aids] = torque
                 self.sim.step()

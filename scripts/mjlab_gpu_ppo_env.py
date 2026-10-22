@@ -1,7 +1,8 @@
 """GPU-resident TRON1 task; NumPy is used only during asset/startup loading.
 
-The frozen host implementation remains the oracle. Physics clocks, motor law,
-four post-step forwards, reward clock and termination rules are unchanged.
+The host implementation remains the oracle. The declared clock controls the
+number of paired step/post-step forwards; motor/reward/termination rules remain
+unchanged and policy decisions stay at 50 Hz.
 Only tiny event flags cross to the host in the task loop; bulk state, rewards,
 actions, observations, resets and pushes stay on the selected CUDA device.
 """
@@ -76,6 +77,7 @@ class GpuTron1PPOEnv:
             batch_factory=lambda *a: GpuMjlabBatch(*a, device=str(self.device)))
         boot = self._startup
         self.batch = boot.batch
+        self.physics_dt, self.decimation, self.step_dt = boot.physics_dt, boot.decimation, boot.step_dt
         self.num_envs, self.seed, self.training = boot.num_envs, boot.seed, boot.training
         self.frames, self.max_episode_length = boot.frames, boot.max_episode_length
         self.dr_mode, self.profile, self.contract = dr_mode, boot.profile, boot.contract
@@ -233,7 +235,8 @@ class GpuTron1PPOEnv:
                       task_arrays_device=str(self.device), host_task_adapter=False,
                       random_stream="private per-device Torch generator; startup draws unchanged, subsequent distributions unchanged but not NumPy draw-for-draw",
                       task_event_host_transfer="one 3-byte reset/push/fault payload per interval; no bulk tensors",
-                      physics_forward_schedule="unchanged: 4 step + 4 forward, conditional reset and push forwards",
+                      physics_forward_schedule=(f"unchanged pairing: {self.decimation} step + "
+                                                f"{self.decimation} forward, conditional reset and push forwards"),
                       physical_counters={"environment_transitions": self.total_transitions,
                                          "physical_environment_substeps": self.total_physical_steps,
                                          "environment_resets": int(self.total_resets.item()),

@@ -1,0 +1,1063 @@
+{
+  "schema_version": 1,
+  "kind": "recorded_ground_support_reward_replacement_negative_example",
+  "status": "descriptive_negative_example_requires_visual_review",
+  "case_order": [
+    "baseline200",
+    "ground200",
+    "torque200",
+    "baseline400"
+  ],
+  "cases": {
+    "baseline200": {
+      "label": "Original grounded+0.4, action-rate-0.5 (200Hz)",
+      "role": "matched_reward_baseline",
+      "source_folder": "/home/roy/tron1-sliding-analysis/outputs/contact_damping_20261021_v2/kd10",
+      "checkpoint_sha256": "8ba4178471c757b4d09f5bb44c0a508558f1bfd5cc15103195aeba420ebe6e9a",
+      "input_sha256": {
+        "physics_trajectory.npz": "54e01f57b01da11c5b0736c572f8b2ebc81ebe2cac8f06c9b3b5be29b1637780",
+        "report.json": "fdf3881b765276832dbbdfe0528446055a4af91a6147ca3520dc847f6906dc77"
+      },
+      "physics_dt_s": 0.005,
+      "native_hz": 200.0,
+      "policy_hz": 50.0,
+      "native_samples": 1397,
+      "control_decisions": 349,
+      "initial_row_is_pre_action_snapshot": true,
+      "initial_nonwheel_ground_force_n": 0.0,
+      "initial_load_eligibility_left_right": [
+        true,
+        true
+      ],
+      "windows": {
+        "core": {
+          "interval_s": [
+            1.44,
+            4.0
+          ],
+          "native_samples": 513,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 513,
+            "xy_rmse_m": 0.056221388688688805,
+            "xy_peak_m": 0.08731517800670277,
+            "mean_speed_m_s": 1.0111897302879886,
+            "reference_mean_speed_m_s": 1.0283094526778487,
+            "speed_retention": 0.9833515851232544,
+            "beta_rmse_deg": 1.9701889464067701,
+            "beta_valid_samples": 513,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "both_load_eligible_fraction": 0.341130604288499,
+          "neither_load_eligible_fraction": 0.27485380116959063,
+          "tilt_rms_deg": 1.846314565216037,
+          "tilt_max_deg": 7.102600144435877,
+          "nonwheel_ground_gt1N_fraction": 0.0,
+          "nonwheel_ground_force_peak_n": 0.0,
+          "world_angular_xy_common10to100hz_rms_rad_s": 1.168982703108129
+        },
+        "full": {
+          "interval_s": [
+            0.0,
+            6.98
+          ],
+          "native_samples": 1397,
+          "tracking": {
+            "available": false,
+            "coverage_complete": false,
+            "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+          },
+          "both_load_eligible_fraction": 0.698639942734431,
+          "neither_load_eligible_fraction": 0.1145311381531854,
+          "tilt_rms_deg": 1.4517666835023824,
+          "tilt_max_deg": 7.102600144435877,
+          "nonwheel_ground_gt1N_fraction": 0.0,
+          "nonwheel_ground_force_peak_n": 0.0,
+          "world_angular_xy_common10to100hz_rms_rad_s": 0.8887155212378369
+        }
+      },
+      "events_full": {
+        "tilt_ge_30_deg": {
+          "minimum_persistence_s": 0.1,
+          "first_true_sample_s": null,
+          "first_persistent_event": null,
+          "persistent_event_count": 0,
+          "longest_observed_run_s": 0.0,
+          "events": []
+        },
+        "tilt_ge_45_deg": {
+          "minimum_persistence_s": 0.1,
+          "first_true_sample_s": null,
+          "first_persistent_event": null,
+          "persistent_event_count": 0,
+          "longest_observed_run_s": 0.0,
+          "events": []
+        },
+        "tilt_ge_60_deg": {
+          "minimum_persistence_s": 0.1,
+          "first_true_sample_s": null,
+          "first_persistent_event": null,
+          "persistent_event_count": 0,
+          "longest_observed_run_s": 0.0,
+          "events": []
+        },
+        "nonwheel_ground_normal_force_gt1N": {
+          "minimum_persistence_s": 0.1,
+          "first_true_sample_s": null,
+          "first_persistent_event": null,
+          "persistent_event_count": 0,
+          "longest_observed_run_s": 0.0,
+          "events": []
+        },
+        "both_wheels_load_eligible": {
+          "minimum_persistence_s": 0.1,
+          "first_true_sample_s": 0.0,
+          "first_persistent_event": {
+            "onset_s": 0.29,
+            "confirmation_s": 0.39,
+            "end_s": 1.5050000000000001,
+            "observed_duration_s": 1.215,
+            "native_samples": 243,
+            "left_window_censored": false,
+            "right_window_censored": false,
+            "duration_is_lower_bound": false
+          },
+          "persistent_event_count": 3,
+          "longest_observed_run_s": 2.4350000000000005,
+          "events": [
+            {
+              "onset_s": 0.29,
+              "confirmation_s": 0.39,
+              "end_s": 1.5050000000000001,
+              "observed_duration_s": 1.215,
+              "native_samples": 243,
+              "left_window_censored": false,
+              "right_window_censored": false,
+              "duration_is_lower_bound": false
+            },
+            {
+              "onset_s": 3.62,
+              "confirmation_s": 3.72,
+              "end_s": 4.105,
+              "observed_duration_s": 0.4850000000000003,
+              "native_samples": 97,
+              "left_window_censored": false,
+              "right_window_censored": false,
+              "duration_is_lower_bound": false
+            },
+            {
+              "onset_s": 4.545,
+              "confirmation_s": 4.645,
+              "end_s": 6.98,
+              "observed_duration_s": 2.4350000000000005,
+              "native_samples": 488,
+              "left_window_censored": false,
+              "right_window_censored": true,
+              "duration_is_lower_bound": true
+            }
+          ]
+        },
+        "neither_wheel_load_eligible": {
+          "minimum_persistence_s": 0.1,
+          "first_true_sample_s": 0.105,
+          "first_persistent_event": null,
+          "persistent_event_count": 0,
+          "longest_observed_run_s": 0.06000000000000005,
+          "events": []
+        },
+        "at_least_one_wheel_not_load_eligible": {
+          "minimum_persistence_s": 0.1,
+          "first_true_sample_s": 0.05,
+          "first_persistent_event": {
+            "onset_s": 2.005,
+            "confirmation_s": 2.105,
+            "end_s": 2.1350000000000002,
+            "observed_duration_s": 0.13000000000000034,
+            "native_samples": 26,
+            "left_window_censored": false,
+            "right_window_censored": false,
+            "duration_is_lower_bound": false
+          },
+          "persistent_event_count": 5,
+          "longest_observed_run_s": 0.2749999999999999,
+          "events": [
+            {
+              "onset_s": 2.005,
+              "confirmation_s": 2.105,
+              "end_s": 2.1350000000000002,
+              "observed_duration_s": 0.13000000000000034,
+              "native_samples": 26,
+              "left_window_censored": false,
+              "right_window_censored": false,
+              "duration_is_lower_bound": false
+            },
+            {
+              "onset_s": 2.145,
+              "confirmation_s": 2.245,
+              "end_s": 2.275,
+              "observed_duration_s": 0.1299999999999999,
+              "native_samples": 26,
+              "left_window_censored": false,
+              "right_window_censored": false,
+              "duration_is_lower_bound": false
+            },
+            {
+              "onset_s": 2.645,
+              "confirmation_s": 2.745,
+              "end_s": 2.83,
+              "observed_duration_s": 0.18500000000000005,
+              "native_samples": 37,
+              "left_window_censored": false,
+              "right_window_censored": false,
+              "duration_is_lower_bound": false
+            },
+            {
+              "onset_s": 2.845,
+              "confirmation_s": 2.9450000000000003,
+              "end_s": 3.0300000000000002,
+              "observed_duration_s": 0.18500000000000005,
+              "native_samples": 37,
+              "left_window_censored": false,
+              "right_window_censored": false,
+              "duration_is_lower_bound": false
+            },
+            {
+              "onset_s": 3.345,
+              "confirmation_s": 3.4450000000000003,
+              "end_s": 3.62,
+              "observed_duration_s": 0.2749999999999999,
+              "native_samples": 55,
+              "left_window_censored": false,
+              "right_window_censored": false,
+              "duration_is_lower_bound": false
+            }
+          ]
+        }
+      }
+    },
+    "ground200": {
+      "label": "Dense grounded replacement+0.4 (200Hz)",
+      "role": "matched_reward_negative_candidate",
+      "source_folder": "/home/roy/tron1-sliding-analysis/outputs/ppo_ground_support_20261021_v1/ground_support_sequence_seed42_v1/validation/mu0p700/isaac",
+      "checkpoint_sha256": "a42523048800ede9225429ec889d30bfa949499b134251a473048470d007fe9b",
+      "input_sha256": {
+        "physics_trajectory.npz": "1c302cab2be79e02895fc013b957a4df2f3f17e2f100c86569639f15018954e9",
+        "report.json": "bac42f3063ad1e46a0650239f9db54607c045cc97e4baf09d5e8c170f5d5e7f6"
+      },
+      "physics_dt_s": 0.005,
+      "native_hz": 200.0,
+      "policy_hz": 50.0,
+      "native_samples": 1397,
+      "control_decisions": 349,
+      "initial_row_is_pre_action_snapshot": true,
+      "initial_nonwheel_ground_force_n": 0.0,
+      "initial_load_eligibility_left_right": [
+        true,
+        true
+      ],
+      "windows": {
+        "core": {
+          "interval_s": [
+            1.44,
+            4.0
+          ],
+          "native_samples": 513,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 513,
+            "xy_rmse_m": 0.9443547141010037,
+            "xy_peak_m": 1.810276965458796,
+            "mean_speed_m_s": 0.7004467615384383,
+            "reference_mean_speed_m_s": 1.0283094526778487,
+            "speed_retention": 0.681163398541544,
+            "beta_rmse_deg": 73.64402731814724,
+            "beta_valid_samples": 335,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "both_load_eligible_fraction": 0.10526315789473684,
+          "neither_load_eligible_fraction": 0.645224171539961,
+          "tilt_rms_deg": 70.59568324839539,
+          "tilt_max_deg": 96.16156018102345,
+          "nonwheel_ground_gt1N_fraction": 0.4191033138401559,
+          "nonwheel_ground_force_peak_n": 7965.998046875,
+          "world_angular_xy_common10to100hz_rms_rad_s": 1.251679830318973
+        },
+        "full": {
+          "interval_s": [
+            0.0,
+            6.98
+          ],
+          "native_samples": 1397,
+          "tracking": {
+            "available": false,
+            "coverage_complete": false,
+            "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+          },
+          "both_load_eligible_fraction": 0.2290622763063708,
+          "neither_load_eligible_fraction": 0.6270579813886901,
+          "tilt_rms_deg": 72.20977538685618,
+          "tilt_max_deg": 101.08002499049205,
+          "nonwheel_ground_gt1N_fraction": 0.5182534001431639,
+          "nonwheel_ground_force_peak_n": 7965.998046875,
+          "world_angular_xy_common10to100hz_rms_rad_s": 0.8669817308785053
+        }
+      },
+      "events_full": {
+        "tilt_ge_30_deg": {
+          "minimum_persistence_s": 0.1,
+          "first_true_sample_s": 2.335,
+          "first_persistent_event": {
+            "onset_s": 2.335,
+            "confirmation_s": 2.435,
+            "end_s": 6.98,
+            "observed_duration_s": 4.6450000000000005,
+            "native_samples": 930,
+            "left_window_censored": false,
+            "right_window_censored": true,
+            "duration_is_lower_bound": true
+          },
+          "persistent_event_count": 1,
+          "longest_observed_run_s": 4.6450000000000005,
+          "events": [
+            {
+              "onset_s": 2.335,
+              "confirmation_s": 2.435,
+              "end_s": 6.98,
+              "observed_duration_s": 4.6450000000000005,
+              "native_samples": 930,
+              "left_window_censored": false,
+              "right_window_censored": true,
+              "duration_is_lower_bound": true
+            }
+          ]
+        },
+        "tilt_ge_45_deg": {
+          "minimum_persistence_s": 0.1,
+          "first_true_sample_s": 2.4250000000000003,
+          "first_persistent_event": {
+            "onset_s": 2.4250000000000003,
+            "confirmation_s": 2.5250000000000004,
+            "end_s": 6.98,
+            "observed_duration_s": 4.555,
+            "native_samples": 912,
+            "left_window_censored": false,
+            "right_window_censored": true,
+            "duration_is_lower_bound": true
+          },
+          "persistent_event_count": 1,
+          "longest_observed_run_s": 4.555,
+          "events": [
+            {
+              "onset_s": 2.4250000000000003,
+              "confirmation_s": 2.5250000000000004,
+              "end_s": 6.98,
+              "observed_duration_s": 4.555,
+              "native_samples": 912,
+              "left_window_censored": false,
+              "right_window_censored": true,
+              "duration_is_lower_bound": true
+            }
+          ]
+        },
+        "tilt_ge_60_deg": {
+          "minimum_persistence_s": 0.1,
+          "first_true_sample_s": 2.485,
+          "first_persistent_event": {
+            "onset_s": 2.485,
+            "confirmation_s": 2.585,
+            "end_s": 6.98,
+            "observed_duration_s": 4.495000000000001,
+            "native_samples": 900,
+            "left_window_censored": false,
+            "right_window_censored": true,
+            "duration_is_lower_bound": true
+          },
+          "persistent_event_count": 1,
+          "longest_observed_run_s": 4.495000000000001,
+          "events": [
+            {
+              "onset_s": 2.485,
+              "confirmation_s": 2.585,
+              "end_s": 6.98,
+              "observed_duration_s": 4.495000000000001,
+              "native_samples": 900,
+              "left_window_censored": false,
+              "right_window_censored": true,
+              "duration_is_lower_bound": true
+            }
+          ]
+        },
+        "nonwheel_ground_normal_force_gt1N": {
+          "minimum_persistence_s": 0.1,
+          "first_true_sample_s": 2.54,
+          "first_persistent_event": {
+            "onset_s": 3.3000000000000003,
+            "confirmation_s": 3.4000000000000004,
+            "end_s": 5.565,
+            "observed_duration_s": 2.265,
+            "native_samples": 453,
+            "left_window_censored": false,
+            "right_window_censored": false,
+            "duration_is_lower_bound": false
+          },
+          "persistent_event_count": 3,
+          "longest_observed_run_s": 2.265,
+          "events": [
+            {
+              "onset_s": 3.3000000000000003,
+              "confirmation_s": 3.4000000000000004,
+              "end_s": 5.565,
+              "observed_duration_s": 2.265,
+              "native_samples": 453,
+              "left_window_censored": false,
+              "right_window_censored": false,
+              "duration_is_lower_bound": false
+            },
+            {
+              "onset_s": 6.390000000000001,
+              "confirmation_s": 6.49,
+              "end_s": 6.72,
+              "observed_duration_s": 0.3299999999999992,
+              "native_samples": 66,
+              "left_window_censored": false,
+              "right_window_censored": false,
+              "duration_is_lower_bound": false
+            },
+            {
+              "onset_s": 6.7250000000000005,
+              "confirmation_s": 6.825,
+              "end_s": 6.98,
+              "observed_duration_s": 0.2549999999999999,
+              "native_samples": 52,
+              "left_window_censored": false,
+              "right_window_censored": true,
+              "duration_is_lower_bound": true
+            }
+          ]
+        },
+        "both_wheels_load_eligible": {
+          "minimum_persistence_s": 0.1,
+          "first_true_sample_s": 0.0,
+          "first_persistent_event": {
+            "onset_s": 0.145,
+            "confirmation_s": 0.245,
+            "end_s": 1.705,
+            "observed_duration_s": 1.56,
+            "native_samples": 312,
+            "left_window_censored": false,
+            "right_window_censored": false,
+            "duration_is_lower_bound": false
+          },
+          "persistent_event_count": 1,
+          "longest_observed_run_s": 1.56,
+          "events": [
+            {
+              "onset_s": 0.145,
+              "confirmation_s": 0.245,
+              "end_s": 1.705,
+              "observed_duration_s": 1.56,
+              "native_samples": 312,
+              "left_window_censored": false,
+              "right_window_censored": false,
+              "duration_is_lower_bound": false
+            }
+          ]
+        },
+        "neither_wheel_load_eligible": {
+          "minimum_persistence_s": 0.1,
+          "first_true_sample_s": 0.045,
+          "first_persistent_event": {
+            "onset_s": 2.73,
+            "confirmation_s": 2.83,
+            "end_s": 5.96,
+            "observed_duration_s": 3.23,
+            "native_samples": 646,
+            "left_window_censored": false,
+            "right_window_censored": false,
+            "duration_is_lower_bound": false
+          },
+          "persistent_event_count": 2,
+          "longest_observed_run_s": 3.23,
+          "events": [
+            {
+              "onset_s": 2.73,
+              "confirmation_s": 2.83,
+              "end_s": 5.96,
+              "observed_duration_s": 3.23,
+              "native_samples": 646,
+              "left_window_censored": false,
+              "right_window_censored": false,
+              "duration_is_lower_bound": false
+            },
+            {
+              "onset_s": 6.2700000000000005,
+              "confirmation_s": 6.37,
+              "end_s": 6.98,
+              "observed_duration_s": 0.71,
+              "native_samples": 143,
+              "left_window_censored": false,
+              "right_window_censored": true,
+              "duration_is_lower_bound": true
+            }
+          ]
+        },
+        "at_least_one_wheel_not_load_eligible": {
+          "minimum_persistence_s": 0.1,
+          "first_true_sample_s": 0.025,
+          "first_persistent_event": {
+            "onset_s": 0.025,
+            "confirmation_s": 0.125,
+            "end_s": 0.145,
+            "observed_duration_s": 0.12,
+            "native_samples": 24,
+            "left_window_censored": false,
+            "right_window_censored": false,
+            "duration_is_lower_bound": false
+          },
+          "persistent_event_count": 3,
+          "longest_observed_run_s": 4.5200000000000005,
+          "events": [
+            {
+              "onset_s": 0.025,
+              "confirmation_s": 0.125,
+              "end_s": 0.145,
+              "observed_duration_s": 0.12,
+              "native_samples": 24,
+              "left_window_censored": false,
+              "right_window_censored": false,
+              "duration_is_lower_bound": false
+            },
+            {
+              "onset_s": 1.715,
+              "confirmation_s": 1.8150000000000002,
+              "end_s": 6.235,
+              "observed_duration_s": 4.5200000000000005,
+              "native_samples": 904,
+              "left_window_censored": false,
+              "right_window_censored": false,
+              "duration_is_lower_bound": false
+            },
+            {
+              "onset_s": 6.245,
+              "confirmation_s": 6.345,
+              "end_s": 6.98,
+              "observed_duration_s": 0.7350000000000003,
+              "native_samples": 148,
+              "left_window_censored": false,
+              "right_window_censored": true,
+              "duration_is_lower_bound": true
+            }
+          ]
+        }
+      }
+    },
+    "torque200": {
+      "label": "Added leg torque-rate-0.05 (200Hz, context)",
+      "role": "different_reward_policy_context",
+      "source_folder": "/home/roy/tron1-sliding-analysis/outputs/ppo_torque_control_v2_20261021_v1/torque_control_sequence_seed42_v1/validation/mu0p700/isaac",
+      "checkpoint_sha256": "d8530c5730b404ba1a5580ef52a9a51e3ceade91d0c56ceb13794d20ad8b1ff8",
+      "input_sha256": {
+        "physics_trajectory.npz": "f1a5ae3e3a23b9262a0caf1a3769530c240a341df571c30d10d53dcd031ef2fc",
+        "report.json": "bb89b39a558b42942eb810724411f71de17124cff0421dc4e2e68a9ede69d69b"
+      },
+      "physics_dt_s": 0.005,
+      "native_hz": 200.0,
+      "policy_hz": 50.0,
+      "native_samples": 1397,
+      "control_decisions": 349,
+      "initial_row_is_pre_action_snapshot": true,
+      "initial_nonwheel_ground_force_n": 0.0,
+      "initial_load_eligibility_left_right": [
+        true,
+        true
+      ],
+      "windows": {
+        "core": {
+          "interval_s": [
+            1.44,
+            4.0
+          ],
+          "native_samples": 513,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 513,
+            "xy_rmse_m": 0.043295805421747505,
+            "xy_peak_m": 0.06388857668661224,
+            "mean_speed_m_s": 1.0235962530792688,
+            "reference_mean_speed_m_s": 1.0283094526778487,
+            "speed_retention": 0.9954165552146719,
+            "beta_rmse_deg": 2.4636369695374736,
+            "beta_valid_samples": 513,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "both_load_eligible_fraction": 0.33723196881091616,
+          "neither_load_eligible_fraction": 0.37816764132553604,
+          "tilt_rms_deg": 2.3682499417201583,
+          "tilt_max_deg": 6.823070421023464,
+          "nonwheel_ground_gt1N_fraction": 0.0,
+          "nonwheel_ground_force_peak_n": 0.0,
+          "world_angular_xy_common10to100hz_rms_rad_s": 1.0666417090456672
+        },
+        "full": {
+          "interval_s": [
+            0.0,
+            6.98
+          ],
+          "native_samples": 1397,
+          "tracking": {
+            "available": false,
+            "coverage_complete": false,
+            "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+          },
+          "both_load_eligible_fraction": 0.7279885468861846,
+          "neither_load_eligible_fraction": 0.15891195418754475,
+          "tilt_rms_deg": 1.6983474742729108,
+          "tilt_max_deg": 6.823070421023464,
+          "nonwheel_ground_gt1N_fraction": 0.0,
+          "nonwheel_ground_force_peak_n": 0.0,
+          "world_angular_xy_common10to100hz_rms_rad_s": 0.799862321305601
+        }
+      },
+      "events_full": {
+        "tilt_ge_30_deg": {
+          "minimum_persistence_s": 0.1,
+          "first_true_sample_s": null,
+          "first_persistent_event": null,
+          "persistent_event_count": 0,
+          "longest_observed_run_s": 0.0,
+          "events": []
+        },
+        "tilt_ge_45_deg": {
+          "minimum_persistence_s": 0.1,
+          "first_true_sample_s": null,
+          "first_persistent_event": null,
+          "persistent_event_count": 0,
+          "longest_observed_run_s": 0.0,
+          "events": []
+        },
+        "tilt_ge_60_deg": {
+          "minimum_persistence_s": 0.1,
+          "first_true_sample_s": null,
+          "first_persistent_event": null,
+          "persistent_event_count": 0,
+          "longest_observed_run_s": 0.0,
+          "events": []
+        },
+        "nonwheel_ground_normal_force_gt1N": {
+          "minimum_persistence_s": 0.1,
+          "first_true_sample_s": null,
+          "first_persistent_event": null,
+          "persistent_event_count": 0,
+          "longest_observed_run_s": 0.0,
+          "events": []
+        },
+        "both_wheels_load_eligible": {
+          "minimum_persistence_s": 0.1,
+          "first_true_sample_s": 0.0,
+          "first_persistent_event": {
+            "onset_s": 0.03,
+            "confirmation_s": 0.13,
+            "end_s": 1.725,
+            "observed_duration_s": 1.695,
+            "native_samples": 339,
+            "left_window_censored": false,
+            "right_window_censored": false,
+            "duration_is_lower_bound": false
+          },
+          "persistent_event_count": 2,
+          "longest_observed_run_s": 2.58,
+          "events": [
+            {
+              "onset_s": 0.03,
+              "confirmation_s": 0.13,
+              "end_s": 1.725,
+              "observed_duration_s": 1.695,
+              "native_samples": 339,
+              "left_window_censored": false,
+              "right_window_censored": false,
+              "duration_is_lower_bound": false
+            },
+            {
+              "onset_s": 4.4,
+              "confirmation_s": 4.5,
+              "end_s": 6.98,
+              "observed_duration_s": 2.58,
+              "native_samples": 517,
+              "left_window_censored": false,
+              "right_window_censored": true,
+              "duration_is_lower_bound": true
+            }
+          ]
+        },
+        "neither_wheel_load_eligible": {
+          "minimum_persistence_s": 0.1,
+          "first_true_sample_s": 0.005,
+          "first_persistent_event": null,
+          "persistent_event_count": 0,
+          "longest_observed_run_s": 0.07500000000000018,
+          "events": []
+        },
+        "at_least_one_wheel_not_load_eligible": {
+          "minimum_persistence_s": 0.1,
+          "first_true_sample_s": 0.005,
+          "first_persistent_event": {
+            "onset_s": 1.885,
+            "confirmation_s": 1.985,
+            "end_s": 2.0300000000000002,
+            "observed_duration_s": 0.14500000000000024,
+            "native_samples": 29,
+            "left_window_censored": false,
+            "right_window_censored": false,
+            "duration_is_lower_bound": false
+          },
+          "persistent_event_count": 2,
+          "longest_observed_run_s": 0.16000000000000014,
+          "events": [
+            {
+              "onset_s": 1.885,
+              "confirmation_s": 1.985,
+              "end_s": 2.0300000000000002,
+              "observed_duration_s": 0.14500000000000024,
+              "native_samples": 29,
+              "left_window_censored": false,
+              "right_window_censored": false,
+              "duration_is_lower_bound": false
+            },
+            {
+              "onset_s": 2.045,
+              "confirmation_s": 2.145,
+              "end_s": 2.205,
+              "observed_duration_s": 0.16000000000000014,
+              "native_samples": 32,
+              "left_window_censored": false,
+              "right_window_censored": false,
+              "duration_is_lower_bound": false
+            }
+          ]
+        }
+      }
+    },
+    "baseline400": {
+      "label": "Original actor, refined physics/PD400Hz (context)",
+      "role": "different_native_clock_context",
+      "source_folder": "/home/roy/tron1-sliding-analysis/outputs/ppo_contact_timestep_20261022_v1/dt0p0025",
+      "checkpoint_sha256": "8ba4178471c757b4d09f5bb44c0a508558f1bfd5cc15103195aeba420ebe6e9a",
+      "input_sha256": {
+        "physics_trajectory.npz": "8e7fc43c181b34b9ff87fe42d3c628ab483c7a6cddfb965562df250d77e46c1e",
+        "report.json": "abe05d4ea69634e9794514fc60664cf4c67fe718ad841716d5518923671e778e"
+      },
+      "physics_dt_s": 0.0025,
+      "native_hz": 400.0,
+      "policy_hz": 50.0,
+      "native_samples": 2793,
+      "control_decisions": 349,
+      "initial_row_is_pre_action_snapshot": true,
+      "initial_nonwheel_ground_force_n": 58.41178321838379,
+      "initial_load_eligibility_left_right": [
+        false,
+        false
+      ],
+      "windows": {
+        "core": {
+          "interval_s": [
+            1.44,
+            4.0
+          ],
+          "native_samples": 1025,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 1025,
+            "xy_rmse_m": 0.05522103300021738,
+            "xy_peak_m": 0.0784392501613974,
+            "mean_speed_m_s": 1.0146116317223548,
+            "reference_mean_speed_m_s": 1.0282628655552946,
+            "speed_retention": 0.9867239844107687,
+            "beta_rmse_deg": 2.983837674940969,
+            "beta_valid_samples": 1025,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "both_load_eligible_fraction": 0.32682926829268294,
+          "neither_load_eligible_fraction": 0.3180487804878049,
+          "tilt_rms_deg": 2.0102694092774875,
+          "tilt_max_deg": 7.251053646257123,
+          "nonwheel_ground_gt1N_fraction": 0.0,
+          "nonwheel_ground_force_peak_n": 0.0,
+          "world_angular_xy_common10to100hz_rms_rad_s": 0.9476500756207856
+        },
+        "full": {
+          "interval_s": [
+            0.0,
+            6.98
+          ],
+          "native_samples": 2793,
+          "tracking": {
+            "available": false,
+            "coverage_complete": false,
+            "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+          },
+          "both_load_eligible_fraction": 0.7135696383816684,
+          "neither_load_eligible_fraction": 0.13319011815252416,
+          "tilt_rms_deg": 1.512173101765391,
+          "tilt_max_deg": 7.251053646257123,
+          "nonwheel_ground_gt1N_fraction": 0.00035803795202291446,
+          "nonwheel_ground_force_peak_n": 58.41178321838379,
+          "world_angular_xy_common10to100hz_rms_rad_s": 0.7435751962351373
+        }
+      },
+      "events_full": {
+        "tilt_ge_30_deg": {
+          "minimum_persistence_s": 0.1,
+          "first_true_sample_s": null,
+          "first_persistent_event": null,
+          "persistent_event_count": 0,
+          "longest_observed_run_s": 0.0,
+          "events": []
+        },
+        "tilt_ge_45_deg": {
+          "minimum_persistence_s": 0.1,
+          "first_true_sample_s": null,
+          "first_persistent_event": null,
+          "persistent_event_count": 0,
+          "longest_observed_run_s": 0.0,
+          "events": []
+        },
+        "tilt_ge_60_deg": {
+          "minimum_persistence_s": 0.1,
+          "first_true_sample_s": null,
+          "first_persistent_event": null,
+          "persistent_event_count": 0,
+          "longest_observed_run_s": 0.0,
+          "events": []
+        },
+        "nonwheel_ground_normal_force_gt1N": {
+          "minimum_persistence_s": 0.1,
+          "first_true_sample_s": 0.0,
+          "first_persistent_event": null,
+          "persistent_event_count": 0,
+          "longest_observed_run_s": 0.0025,
+          "events": []
+        },
+        "both_wheels_load_eligible": {
+          "minimum_persistence_s": 0.1,
+          "first_true_sample_s": 0.0025,
+          "first_persistent_event": {
+            "onset_s": 0.225,
+            "confirmation_s": 0.325,
+            "end_s": 1.57,
+            "observed_duration_s": 1.345,
+            "native_samples": 538,
+            "left_window_censored": false,
+            "right_window_censored": false,
+            "duration_is_lower_bound": false
+          },
+          "persistent_event_count": 3,
+          "longest_observed_run_s": 2.6050000000000004,
+          "events": [
+            {
+              "onset_s": 0.225,
+              "confirmation_s": 0.325,
+              "end_s": 1.57,
+              "observed_duration_s": 1.345,
+              "native_samples": 538,
+              "left_window_censored": false,
+              "right_window_censored": false,
+              "duration_is_lower_bound": false
+            },
+            {
+              "onset_s": 3.71,
+              "confirmation_s": 3.81,
+              "end_s": 3.9825,
+              "observed_duration_s": 0.27249999999999996,
+              "native_samples": 109,
+              "left_window_censored": false,
+              "right_window_censored": false,
+              "duration_is_lower_bound": false
+            },
+            {
+              "onset_s": 4.375,
+              "confirmation_s": 4.475,
+              "end_s": 6.98,
+              "observed_duration_s": 2.6050000000000004,
+              "native_samples": 1043,
+              "left_window_censored": false,
+              "right_window_censored": true,
+              "duration_is_lower_bound": true
+            }
+          ]
+        },
+        "neither_wheel_load_eligible": {
+          "minimum_persistence_s": 0.1,
+          "first_true_sample_s": 0.0,
+          "first_persistent_event": null,
+          "persistent_event_count": 0,
+          "longest_observed_run_s": 0.0674999999999999,
+          "events": []
+        },
+        "at_least_one_wheel_not_load_eligible": {
+          "minimum_persistence_s": 0.1,
+          "first_true_sample_s": 0.0,
+          "first_persistent_event": {
+            "onset_s": 1.6825,
+            "confirmation_s": 1.7825000000000002,
+            "end_s": 1.8075,
+            "observed_duration_s": 0.125,
+            "native_samples": 50,
+            "left_window_censored": false,
+            "right_window_censored": false,
+            "duration_is_lower_bound": false
+          },
+          "persistent_event_count": 6,
+          "longest_observed_run_s": 0.2625000000000002,
+          "events": [
+            {
+              "onset_s": 1.6825,
+              "confirmation_s": 1.7825000000000002,
+              "end_s": 1.8075,
+              "observed_duration_s": 0.125,
+              "native_samples": 50,
+              "left_window_censored": false,
+              "right_window_censored": false,
+              "duration_is_lower_bound": false
+            },
+            {
+              "onset_s": 1.8225,
+              "confirmation_s": 1.9225,
+              "end_s": 1.9925,
+              "observed_duration_s": 0.16999999999999993,
+              "native_samples": 68,
+              "left_window_censored": false,
+              "right_window_censored": false,
+              "duration_is_lower_bound": false
+            },
+            {
+              "onset_s": 2.0025,
+              "confirmation_s": 2.1025,
+              "end_s": 2.14,
+              "observed_duration_s": 0.13750000000000018,
+              "native_samples": 55,
+              "left_window_censored": false,
+              "right_window_censored": false,
+              "duration_is_lower_bound": false
+            },
+            {
+              "onset_s": 2.4625,
+              "confirmation_s": 2.5625,
+              "end_s": 2.725,
+              "observed_duration_s": 0.2625000000000002,
+              "native_samples": 105,
+              "left_window_censored": false,
+              "right_window_censored": false,
+              "duration_is_lower_bound": false
+            },
+            {
+              "onset_s": 2.99,
+              "confirmation_s": 3.0900000000000003,
+              "end_s": 3.16,
+              "observed_duration_s": 0.16999999999999993,
+              "native_samples": 68,
+              "left_window_censored": false,
+              "right_window_censored": false,
+              "duration_is_lower_bound": false
+            },
+            {
+              "onset_s": 3.4425,
+              "confirmation_s": 3.5425,
+              "end_s": 3.645,
+              "observed_duration_s": 0.20250000000000012,
+              "native_samples": 81,
+              "left_window_censored": false,
+              "right_window_censored": false,
+              "duration_is_lower_bound": false
+            }
+          ]
+        }
+      }
+    }
+  },
+  "primary_matched_pair": [
+    "baseline200",
+    "ground200"
+  ],
+  "context_only_cases": [
+    "torque200",
+    "baseline400"
+  ],
+  "matched_training": {
+    "input_sha256": {
+      "outputs/ppo_smoothness_20261021_v2/action_rate_0p5/training/manifest.json": "066ddaeb5a23ff44dfca79e785520c57d8786cdc3a2d7b30d118e3a955a94d63",
+      "outputs/ppo_smoothness_20261021_v2/action_rate_0p5/training/ablation_manifest.json": "4cf22f9c4e6b5f28aa1711f2e093516522046d259e0322b740e7cad5da05905e",
+      "outputs/ppo_ground_support_20261021_v1/ground_support_sequence_seed42_v1/training/manifest.json": "630c40cf13f44e7b5f2bbd4b729abd3ee5a4f2df6fe6da9014bb70d6abff6d78",
+      "outputs/ppo_ground_support_20261021_v1/ground_support_sequence_seed42_v1/training/ablation_manifest.json": "ba7d01f78ca5c0d3e732bb793e1f21bb970e1b4cbc8c9937322abcc4c59dfedb"
+    },
+    "seed": 42,
+    "transitions_each": 12288000,
+    "independent_from_scratch_policies": true,
+    "both_native_training_hz": 200,
+    "baseline_action_rate_weight": -0.5,
+    "original_grounded_weight": 0.4,
+    "candidate_grounded_weight": 0.4,
+    "reward_weight_increased": false,
+    "reward_replacement": {
+      "term": "drift_grounded",
+      "weight": 0.4,
+      "scale_fraction": 0.2,
+      "original_function": "training.tron1_drift.grounded_reward",
+      "original_sampling": "last_substep_50Hz",
+      "original_formula": "both_wheel_net_force_norms_above_5N_binary",
+      "new_function": "ppo_substep_ground_support.make_reward_term(...).GroundSupportReward",
+      "raw_reward_function": "ppo_substep_ground_support.substep_ground_support_reward",
+      "new_formula": "1-mean_4_substeps(mean_2_wheels(exp(-clamp(ground_Fz_N,min=0)/(.20*mg_N))))",
+      "raw_reward_bounds": [
+        0.0,
+        1.0
+      ],
+      "additional_reward_term": false,
+      "reward_manager_dt_factor_applied_once": 0.02,
+      "sensor_source": "two_single_wheel_actual_ground_filtered_force_matrix_w",
+      "mass_cache": "poststartupDR_live_total_mass_and_gravity"
+    },
+    "extra_sensor_collector_implementation": true,
+    "single_seed_causal_proof": false
+  },
+  "reference_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+  "task_profile_sha256": "31de29a61eec847e0e39783f3a0d9d8f2db551acd679a1b38dfde2b24e8ae7d6",
+  "evaluation_mu": 0.7,
+  "event_persistence_s": 0.1,
+  "new_simulation": false,
+  "new_inference": false,
+  "new_training": false,
+  "height_or_contact_absence_failure_gate": false,
+  "zero_contact_is_flight": false,
+  "nonzero_sideslip_target_preserved": true,
+  "absolute_height_constraint_added": false,
+  "source_sha256": {
+    "analyze_ppo_ground_support_failure.py": "cc0acd232a240618cd55aa5de8fcad0817b71696e0f9f285db4bd11c679c5219",
+    "analyze_ppo_contact_timestep.py": "e0110f0fb66e469922838f9a5428f7f6db54c7c2e6a8c559ad9d2f697a140bff",
+    "analyze_ppo_contact_stability.py": "34b5372d57388174a1b7896df0735f3cd3de6b5afa946d1c3093a07b1ff2e56b",
+    "analyze_ppo_smoothness.py": "79a1caeda4ae12ef176b14770a4beefde0f44a885052be54c6382a74368d4f3c"
+  },
+  "limitations": [
+    "Grounded reward function/sampling was replaced at unchanged+0.4; it was NOT a weight increase or an additional reward term.",
+    "The primary200Hz pair shares declared training recipe, seed42,12.288M transitions andPD500/10 but contains independent trained checkpoints and extra sensor/collector implementation; one seed is not statistical causal proof.",
+    "Torque200 has another reward/checkpoint. Baseline400 changes native physics AND explicitPD rate. Comparing either directly with ground200 is context, not a single-factor matched reward ablation.",
+    "Pose events describe observed tilt persistence, not simulator terminations. Thresholded load/contact absence does not prove flight or task failure.",
+    "Onsets are post-hoc. Confirmation occurs0.1s later; boundary durations are censored lower bounds and never extended beyond6.98s.",
+    "The initial row is a pre-action sensor snapshot, not a newly observed physical impact; brief startup transients are reported but not persistent events.",
+    "A fallen policy can have lower full-horizon HF after settling. Do not rank fullHF as improvement without posture, contact, XY/speed/beta and pre/post-event context.",
+    "HF uses shared10<f<100Hz band on each original native clock, without state resampling. Full6.98s tracking is unavailable beyond the6.96s reference; no endpoint extrapolation."
+  ],
+  "artifacts": {
+    "event_timeline.png": {
+      "file": "event_timeline.png",
+      "sha256": "6d42ae853c9a73c1192d2a66f800d8e73efaf67a6cfe44b68acc338bc5a5f3f6"
+    },
+    "events.csv": {
+      "file": "events.csv",
+      "sha256": "a7d3df3725a9e97a5b60efb0fb8b7b1d87bd2afb6cb4e2cd951a473ab205ac5f"
+    }
+  }
+}

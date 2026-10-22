@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "kind": "matched_ppo_backend_400hz_action_rate_cohort",
+  "cohort_id": "traj4_backend_400hz_actionrate0p5_seed42_v1",
+  "task": "traj_4_high_speed_large_turn",
+  "base_trainer_sha256": "65367115de9b5608dc2ef57cab701bea31c152c6af576bdb43a5cef025cc6878",
+  "training_backends": ["physx", "mjlab"],
+  "validation_backends": ["PhysX", "native CPU MuJoCo"],
+  "physics_dt_s": 0.0025,
+  "decimation": 8,
+  "policy_dt_s": 0.02,
+  "policy_fps": 50,
+  "action_rate_weight": -0.5,
+  "grounded_reward_weight": 0.4,
+  "shared_dr_recipe": "tron1_mjlab_tracking_dr_v1",
+  "mjlab_commit": "4360096b49c1bcc478668c11ce7d458db747e49d",
+  "mjlab_task_implementation": "gpu",
+  "algorithm": {
+    "implementation": "rsl-rl-lib",
+    "version": "3.0.1",
+    "seed": 42,
+    "num_envs": 512,
+    "steps_per_env": 24,
+    "iterations": 1000,
+    "transitions": 12288000,
+    "seed_network_after_environment_setup": true
+  },
+  "smoke": {"num_envs": 32, "iterations": 2, "transitions": 1536, "setup_smoke_steps": 8},
+  "training_randomization": {
+    "source": "mjlab v1.4.0 tracking events adapted to TRON1",
+    "sliding_friction": {"range": [0.3, 1.2], "distribution": "uniform_continuous", "sampling": "startup_once_per_environment", "shared_between_wheels": true, "scope": "colliding_wheel_shapes", "mujoco_wheel_priority": 1, "physx_static_equals_dynamic": true, "physx_floor_mu": 1.0, "physx_combine": "multiply"},
+    "encoder_position_bias_rad": [-0.01, 0.01],
+    "encoder_bias_signs": {"actor": "+b", "position_target": "-b", "critic": "unbiased"},
+    "base_com_xyz_range_m": [[-0.025, 0.025], [-0.05, 0.05], [-0.05, 0.05]],
+    "root_link_velocity_push_interval_s": [1.0, 3.0],
+    "root_link_velocity_push_ranges": {"x": [-0.5, 0.5], "y": [-0.5, 0.5], "z": [-0.2, 0.2], "roll": [-0.52, 0.52], "pitch": [-0.52, 0.52], "yaw": [-0.78, 0.78]},
+    "push_timer_reset_correction": "resample all interval timers at episode reset; do not reproduce v1.4 function-event reset bug",
+    "restitution_randomization": false,
+    "contact_law_equivalence_claimed": false
+  },
+  "validation": {
+    "friction_grid": [0.01, 0.03, 0.05, 0.1, 0.15, 0.2, 0.3, 0.45, 0.6, 0.7, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0],
+    "randomization": false,
+    "observation_noise": false,
+    "deterministic_start_frame": 0,
+    "mu_semantics": "target_effective_pair_coefficient_native_material_mapping_not_law_equivalence",
+    "physx_material_mapping": "robot_mu_times_unit_ground_mu_multiply",
+    "mujoco_material_mapping": "fixed_mu_all_colliding_geoms_with_native_priority_and_max_rules",
+    "xy_failure_core_rmse_m": 0.15,
+    "xy_failure_core_peak_m": 0.30,
+    "failure_rule": "XY RMSE exceeds threshold OR peak exceeds threshold; tilt/contact are separate diagnostics, not flight/height gates",
+    "full_horizon_s": 6.98,
+    "turn_core_s": [1.44, 4.0],
+    "absolute_height_gate": false,
+    "airborne_failure": false,
+    "additional_metrics": ["speed_retention", "actual_course_change", "body_heading", "left_wheel_heading", "right_wheel_heading", "velocity_heading", "contact_history", "tilt", "world_angular_xy_common10to100hz_rms"]
+  },
+  "backend_diagnostic": {
+    "same_observable_initial_state_and_actions": true,
+    "same_hidden_contact_solver_state_claimed": false,
+    "same_actual_joint_torque_claimed": false,
+    "closed_loop_transfer_result": false
+  },
+  "historical_cohorts": {
+    "old_matched_200hz_actionrate0p1": "completed; separate cohort, not part of new four-cell matrix",
+    "best_historical_actor_refined_to400hz": "trained at200Hz with action-rate-0.5 and historical DR; diagnostic only",
+    "dense_grounded_replacement": "historical200Hz negative example at unchanged+0.4 weight, not a weight-increase ablation"
+  }
+}

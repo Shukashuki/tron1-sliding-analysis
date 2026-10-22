@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "cohort_id": "traj4_backend_400hz_actionrate0p5_seed42_v1",
+  "status": "preparing_new_paired_training_not_yet_launched",
+  "user_selected_new_training": true,
+  "protocol": "config/ppo_backend_400hz_comparison_v1.json",
+  "training_arms": {
+    "physx": {"status": "pending_native400hz_preflight", "transitions_requested": 12288000},
+    "mjlab_mujoco_warp": {"status": "pending_native400hz_preflight", "transitions_requested": 12288000}
+  },
+  "new_closed_loop_matrix": {"status": "not_started", "episodes_requested": 68, "dimensions": "2 independently trained actors x2 evaluation engines x17 effective-pair friction coefficients", "nominal_mu": 0.7},
+  "historical_diagnostics": {
+    "contact_reward_negative_example": {"status": "analyzed_and_plot_visually_reviewed", "summary": "results/ppo_ground_support_failure_comparison_20261022_v1/summary.json", "event_timeline": "results/ppo_ground_support_failure_comparison_20261022_v1/event_timeline.png", "negative_actor_persistent_tilt30_onset_s": 2.335, "baseline_core_xy_rmse_m": 0.056221388688688805, "candidate_core_xy_rmse_m": 0.9443547141010037, "same_reward_weight_plus0p4": true, "reward_form_changed": true, "native_training_hz": 200, "part_of_new400hz_matrix": false},
+    "same_request_backend_replay": {"status": "completed_native_mujoco3p8p1", "summary": "results/physx_actions_mujoco_400hz_diagnostic_20261022_v3/summary.json", "is_closed_loop_transfer_result": false, "same_observable_initial_state": true, "same_hidden_contact_solver_state_claimed": false, "same_applied_leg_torque_claimed": false, "prefix0p2s_interengine_xy_rmse_m": 0.0006397676079588639, "full6p98s_interengine_xy_rmse_m": 2.6500176457779148}
+  },
+  "limitations": [
+    "The previous matched200Hz/action-rate-0.1 pair completed training, but is not interchangeable with this new400Hz/action-rate-0.5 cohort.",
+    "The historical low-jitter400Hz rollout used an actor trained at200Hz; new native400Hz training may behave differently.",
+    "Historical grounded-reward replacement is not a400Hz matched ablation or evidence that every contact reward causes falling.",
+    "A single training seed supplies descriptive checkpoint comparisons, not statistical success probabilities.",
+    "Equal target scalar friction is not equivalent contact law or identical hidden solver state."
+  ]
+}

@@ -177,11 +177,11 @@ class GpuMjlabBatch(MjlabWarpBatch):
         with self._physics_scope():
             self._error_flags = torch.zeros(1, dtype=torch.int32, device=self.device)
             self._error_flags_wp = wp.from_torch(self._error_flags, dtype=wp.int32)
-            self._contacts = torch.zeros((self.num_envs, 4, len(self.bids), 3),
+            self._contacts = torch.zeros((self.num_envs, self.decimation, len(self.bids), 3),
                                          device=self.device, dtype=torch.float32)
             self._contacts_wp = wp.from_torch(self._contacts, dtype=wp.vec3)
-            self._torques = torch.empty((self.num_envs, 4, 8), device=self.device)
-            self._times = torch.empty((self.num_envs, 4), device=self.device)
+            self._torques = torch.empty((self.num_envs, self.decimation, 8), device=self.device)
+            self._times = torch.empty((self.num_envs, self.decimation), device=self.device)
             self._reset_mask_tensor = torch.zeros(self.num_envs, dtype=torch.bool, device=self.device)
             self._reset_mask_wp = wp.from_torch(self._reset_mask_tensor, dtype=wp.bool)
             self._geom_body_i32 = self._geom_bodyid.to(torch.int32)
@@ -206,7 +206,7 @@ class GpuMjlabBatch(MjlabWarpBatch):
             "fatal_status_host_scalars_per_control_interval": 1,
             "contact_reduction": "fixed-capacity Warp kernel, no Torch boolean indexing",
             "stream_handoff": "bidirectional CUDA events; no host stream synchronization",
-            "physics_semantics": "unchanged four step+full-forward pairs per control interval",
+            "physics_semantics": f"unchanged step+full-forward pairing, {self.decimation} pairs per control interval",
             "gpu_bridge_source_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
         })
 
@@ -285,7 +285,7 @@ class GpuMjlabBatch(MjlabWarpBatch):
             # sanitized to avoid launching a solver with NaN actuator torques.
             action = torch.nan_to_num(actions).clamp(-1.0, 1.0)
             self._contacts.zero_()
-            for substep in range(4):
+            for substep in range(self.decimation):
                 torque = self._motor_torques(action)
                 self._flag_nonfinite(torque, 256)
                 self.sim.data.ctrl[:, self._aids] = torque

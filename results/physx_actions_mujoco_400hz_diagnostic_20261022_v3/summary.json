@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "kind": "open_loop_request_replay_summary",
+  "source_replay_report_sha256": "b0cfb329c8210b3a244cc3edbaaef2823c0cb2b169d675d764c251c38ae45b56",
+  "source_arrays_sha256": "b2812e3a83ddb1abd10f7d4c9df4e0342fe140ed20023b033bbe05c1bd2f1a6f",
+  "analysis_script_sha256": "5bc4c3b94ab07babcb62813d628f6c2a823dd8fe86ad1b783b8506c2913693bf",
+  "sample_count": 2793,
+  "native_physics_dt_s": 0.0025,
+  "same_time_xy_gap_first_observed_above_m": {
+    "0.01": 0.52,
+    "0.05": 0.655,
+    "0.1": 0.765,
+    "0.3": 1.3725,
+    "1.0": 1.995
+  },
+  "windows": {
+    "0.2": {
+      "interval_s": [
+        0.0,
+        0.2
+      ],
+      "samples": 81,
+      "post_action_force_torque_samples": 80,
+      "initial_pre_action_sensor_row_excluded_from_force_torque_metrics": true,
+      "interengine_xy_rmse_m": 0.0006397676079588639,
+      "interengine_xy_peak_m": 0.0009642433388805119,
+      "leg_actual_torque_interengine_rms_nm": 3.7695434028104615,
+      "physx": {
+        "both_wheels_load_eligible_fraction": 0.5375,
+        "neither_wheel_load_eligible_fraction": 0.1375
+      },
+      "mujoco": {
+        "both_wheels_load_eligible_fraction": 0.35,
+        "neither_wheel_load_eligible_fraction": 0.1625
+      }
+    },
+    "0.5": {
+      "interval_s": [
+        0.0,
+        0.5
+      ],
+      "samples": 201,
+      "post_action_force_torque_samples": 200,
+      "initial_pre_action_sensor_row_excluded_from_force_torque_metrics": true,
+      "interengine_xy_rmse_m": 0.001639770125093482,
+      "interengine_xy_peak_m": 0.006866086960082528,
+      "leg_actual_torque_interengine_rms_nm": 4.70223228910242,
+      "physx": {
+        "both_wheels_load_eligible_fraction": 0.81,
+        "neither_wheel_load_eligible_fraction": 0.055
+      },
+      "mujoco": {
+        "both_wheels_load_eligible_fraction": 0.635,
+        "neither_wheel_load_eligible_fraction": 0.065
+      }
+    },
+    "1.0": {
+      "interval_s": [
+        0.0,
+        1.0
+      ],
+      "samples": 401,
+      "post_action_force_torque_samples": 400,
+      "initial_pre_action_sensor_row_excluded_from_force_torque_metrics": true,
+      "interengine_xy_rmse_m": 0.07497157760451709,
+      "interengine_xy_peak_m": 0.16265169827095324,
+      "leg_actual_torque_interengine_rms_nm": 12.62541862706124,
+      "physx": {
+        "both_wheels_load_eligible_fraction": 0.905,
+        "neither_wheel_load_eligible_fraction": 0.0275
+      },
+      "mujoco": {
+        "both_wheels_load_eligible_fraction": 0.4275,
+        "neither_wheel_load_eligible_fraction": 0.2
+      }
+    },
+    "2.0": {
+      "interval_s": [
+        0.0,
+        2.0
+      ],
+      "samples": 801,
+      "post_action_force_torque_samples": 800,
+      "initial_pre_action_sensor_row_excluded_from_force_torque_metrics": true,
+      "interengine_xy_rmse_m": 0.3960103466231331,
+      "interengine_xy_peak_m": 1.0089136543161397,
+      "leg_actual_torque_interengine_rms_nm": 17.91319099017426,
+      "physx": {
+        "both_wheels_load_eligible_fraction": 0.7725,
+        "neither_wheel_load_eligible_fraction": 0.05625
+      },
+      "mujoco": {
+        "both_wheels_load_eligible_fraction": 0.21375,
+        "neither_wheel_load_eligible_fraction": 0.6
+      }
+    },
+    "6.98": {
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "samples": 2793,
+      "post_action_force_torque_samples": 2792,
+      "initial_pre_action_sensor_row_excluded_from_force_torque_metrics": true,
+      "interengine_xy_rmse_m": 2.6500176457779148,
+      "interengine_xy_peak_m": 4.150496492877348,
+      "leg_actual_torque_interengine_rms_nm": 18.806162014950335,
+      "physx": {
+        "both_wheels_load_eligible_fraction": 0.7138252148997135,
+        "neither_wheel_load_eligible_fraction": 0.13287965616045846
+      },
+      "mujoco": {
+        "both_wheels_load_eligible_fraction": 0.061246418338108885,
+        "neither_wheel_load_eligible_fraction": 0.8853868194842407
+      }
+    }
+  },
+  "policy_transfer_result": false,
+  "hidden_state_equivalence_claimed": false,
+  "actual_torque_equivalence_claimed": false,
+  "zero_load_is_airborne_or_failure": false,
+  "limitations": [
+    "Initial observable q, orientation, joint velocities and COM velocities are checked, but solver/contact hidden states are backend-specific.",
+    "Explicit PD is recalculated in each plant; identical requests do not imply identical actual torques.",
+    "Equal numeric friction is not calibrated contact-law equivalence.",
+    "Open-loop divergence is a diagnostic, not a controller success rate or causal isolation of contact alone."
+  ],
+  "plot_sha256": "111a4a7357e965ea2598204f8e4777a84133bcc3711152623c2fe4cd2d28e8f9"
+}

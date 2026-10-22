@@ -18,6 +18,7 @@ import mujoco
 import numpy as np
 
 from classical_tracking import load_pinned_evaluator
+from mujoco_ppo_native import ppo_clock_from_contract
 from nmpc_batch_objective import BatchHeightSmoothTrackingObjective
 from nmpc_tracking_objective import (BODY_NAMES, JOINT_NAMES, quaternion_inverse,
                                      quaternion_multiply, quaternion_rotate)
@@ -112,6 +113,7 @@ class _PythonBatch:
     """Explicit slow verification backend; production training uses native."""
     def __init__(self, models, datas, q0s, contract, api):
         self.models, self.datas, self.q0s, self.contract, self.api = models, datas, q0s, contract, api
+        self.physics_dt, self.decimation, self.step_dt = ppo_clock_from_contract(contract)
         self.qids = np.array([models[0].joint(name).qposadr[0] for name in JOINT_NAMES])
         self.vids = np.array([models[0].joint(name).dofadr[0] for name in JOINT_NAMES])
         self.aids = np.array([models[0].actuator(name).id for name in JOINT_NAMES])
@@ -144,10 +146,11 @@ class _PythonBatch:
 
     def step(self, actions):
         batch = len(self.models)
-        forces = np.zeros((batch, 4, 9, 3))
-        torques, times = np.zeros((batch, 4, 8)), np.zeros((batch, 4))
+        forces = np.zeros((batch, self.decimation, 9, 3))
+        torques = np.zeros((batch, self.decimation, 8))
+        times = np.zeros((batch, self.decimation))
         for index, (model, data) in enumerate(zip(self.models, self.datas)):
-            for step in range(4):
+            for step in range(self.decimation):
                 torque = self.api.action_torques(actions[index], data.qpos[self.qids],
                                                   data.qvel[self.vids], self.q0s[index], self.contract)
                 data.ctrl[self.aids] = torque
@@ -191,6 +194,9 @@ class MujocoPPOEnv:
         self.rng = np.random.default_rng(seed)
         self.api = load_pinned_evaluator()
         self.contract = self.api.read_contract(contract_path)
+        self.physics_dt, self.decimation, self.step_dt = ppo_clock_from_contract(self.contract)
+        if native_library is not None and self.decimation != 4:
+            raise ValueError("Native C++ PPO batch ABI only supports 5 ms x4; use Python or Warp for 2.5 ms x8")
         self.profile = (json.loads(Path(task_profile).read_text())
                         if isinstance(task_profile, (str, Path)) else copy.deepcopy(task_profile))
         if self.contract.get("domain_parameters") is not None:
@@ -212,8 +218,8 @@ class MujocoPPOEnv:
             raise ValueError("Invalid explicitly declared friction coefficients")
         model, self.removed_visual_meshes = self.api.load_model(model_path, no_visual_mesh=True)
         self.api.configure_model(model, self.contract)
-        if not np.isclose(model.opt.timestep, self.physics_dt) or self.contract["decimation"] != 4:
-            raise ValueError("PPO task requires four continuous 5ms physical steps")
+        if not np.isclose(model.opt.timestep, self.physics_dt, rtol=0., atol=1.e-15):
+            raise ValueError("Configured MuJoCo model timestep disagrees with the PPO contract")
         if "mujoco_contact_solref" in self.profile:
             colliding = (model.geom_contype != 0) | (model.geom_conaffinity != 0)
             model.geom_solref[colliding] = self.profile["mujoco_contact_solref"]
@@ -392,7 +398,7 @@ class MujocoPPOEnv:
                                      +str(np.asarray(physical.get("error_codes")).tolist()))
         state = self._state(physical)
         forces = np.asarray(physical.get("contact_substeps", physical.get("body_net_forces_w")))
-        if forces.shape != (self.num_envs, 4, 9, 3):
+        if forces.shape != (self.num_envs, self.decimation, 9, 3):
             raise AssertionError("Native physical contact force layout changed")
         post = {key: state[key][:, None] for key in BODY_FIELDS}
         post.update(joint_pos=state["joint_pos"][:, None],
