@@ -1,0 +1,47 @@
+{
+  "scope": "Separate the historical beta-reward comparison, deployment timestep sensitivity, and the newly requested matched 400 Hz beta-off training.",
+  "beta_off_definition": "Set reward_weights.sideslip from 2.0 to exactly 0.0. Do not set the reference beta to zero, remove turning/speed/yaw targets, or remove wheel XY tracking.",
+  "existing_beta_pair": {
+    "training_backend": "PhysX",
+    "physics_hz": 200,
+    "policy_hz": 50,
+    "action_rate_weight": -0.1,
+    "evaluation_mu": 0.7,
+    "video": "results/ppo_beta_nominal_fixed_follow_20261022_v1/beta_fullbody_comparison.mp4",
+    "summary": "results/ppo_beta_nominal_fixed_follow_20261022_v1/summary.json",
+    "initial_evaluation_states_identical_per_backend": true,
+    "training_initialization_strictly_matched": false,
+    "training_confound": "ON had no setup-smoke steps and used GPU 2; OFF had eight zero-action setup steps and used GPU 7. One seed per arm; descriptive comparison, not a causal beta-only estimate."
+  },
+  "same_checkpoint_timestep_diagnostic": {
+    "checkpoint_sha256": "8ba4178471c757b4d09f5bb44c0a508558f1bfd5cc15103195aeba420ebe6e9a",
+    "source_summary": "results/ppo_contact_timestep_mu0p7_20261022_v1/summary.json",
+    "source_summary_sha256": "cfdf9ea916940a427963d1ba4ccc09079517dbf0987a1e8cce3c840c517e03b0",
+    "intervention": "Same frozen 200 Hz-trained actor deployed at physics/explicit-PD 200 versus 400 Hz; policy remains 50 Hz. Closed-loop actions may differ. No training-frequency intervention or beta ablation.",
+    "core_interval_s": [1.44, 4.0],
+    "mu": 0.7,
+    "native_200hz": {"xy_rmse_m": 0.056221388688688805, "speed_retention": 0.9833515851232544, "body_common10_100_rms_rad_s": 1.168982703108129, "both_load_time_duty": 0.33984374999999983, "neither_load_time_duty": 0.27539062499999994},
+    "native_400hz": {"xy_rmse_m": 0.05522103300021738, "speed_retention": 0.9867239844107687, "body_common10_100_rms_rad_s": 0.9476500756207856, "both_load_time_duty": 0.3271484374999998, "neither_load_time_duty": 0.31835937500000006},
+    "interpretation": "Nominal XY RMSE changes by about 1 mm, but common-band body jitter changes by -18.9% and neither-wheel measured load duty increases by 4.30 percentage points. Similar XY tracking does not establish contact/dynamics equivalence or a negligible training-frequency effect."
+  },
+  "cross_recipe_comparison": {
+    "allowed": "Show measured performance side by side with physics/training clocks, action-rate and DR labelled.",
+    "not_allowed": "Attribute old-200 beta-off versus new-400 beta-on differences to beta alone.",
+    "additional_confounds": ["action-rate weight -0.1 versus -0.5", "historical BeyondMimic static/dynamic DR versus shared representable MJLab-style DR", "different training integration/PD rate and trained checkpoints"]
+  },
+  "approved_new_beta_off_scope": {
+    "backends": ["PhysX", "MuJoCo-Warp GPU"],
+    "transitions_per_arm": 12288000,
+    "physics_hz": 400,
+    "policy_hz": 50,
+    "action_rate_weight": -0.5,
+    "grounded_reward_weight": 0.4,
+    "from_scratch": true,
+    "baseline_checkpoints_unchanged": true,
+    "common_initial_network_sha256": "7dcdf78ffeb61806eeefcb31c4739d707c1caef934d152f2296ba2ee488b4d5d",
+    "initial_validation": "Each completed beta-off actor at mu=0.7 in PhysX and native CPU MuJoCo; no claim of direct GPU MJWarp validation.",
+    "initialization_and_task_profile_difference_must_be_verified": true,
+    "existing_beta_on_friction_queue_resumed": false
+  },
+  "camera_user_choice": "For all new animations use one fixed distance, fixed world orientation/FOV and fixed root-relative translation offset throughout each video. No per-frame zoom. Fixed-world XY maps preserve trajectory offsets."
+}

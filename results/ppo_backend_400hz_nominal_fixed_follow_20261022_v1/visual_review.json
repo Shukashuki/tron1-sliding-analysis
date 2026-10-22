@@ -1,0 +1,14 @@
+{
+  "status": "all_frames_decoded_selected_frames_visually_reviewed",
+  "visual_reviewed": true,
+  "generated_summary_unchanged": true,
+  "summary_sha256": "202447da2616c9bca54dba930c100e8f3aecedfc7fb49f659abaa1fa3d8ca1bc",
+  "movie_sha256": "34af1b9bf11b013472999cdf96d4e5fc3b8dea9baf18105db5bfd6ef17e1d2dc",
+  "review_contact_sheet_sha256": "6fed61c3f4c19294d7fb7d79ebf56f538f1c6882b822a17b5edfc3de986729b7",
+  "video": {"width": 2560, "height": 720, "fps": 50, "duration_s": 7.0, "decoded_frames": 350},
+  "frames_inspected": [0, 72, 120, 150, 200, 340, 349],
+  "camera": {"fixed_distance_m": 1.7639356599481175, "distance_changes_with_time": false, "same_distance_all_panels": true, "fixed_root_relative_lookat_offset_m": [0, 0, -0.28], "azimuth_deg": 135, "elevation_deg": -30, "vertical_fov_deg": 45, "world_orientation_fixed": true, "follows_root_translation_only": true, "camera_follows_body_yaw": false, "all350frames_four_original_mesh_bounds_fit": true, "maximum_normalized_frustum_extent": 0.9060866696283282},
+  "checks": ["All four complete opaque robots remain visible without changing scale through the turn.", "Following changes camera translation only; fixed-world XY maps preserve original offsets and wheel/body headings.", "The same original recordings, reference and tracking metrics as the previous nominal render are retained, without simulation, filtering, height correction or pose alignment.", "Four mu=0.7 cells only; full friction matrix still partial46/68. Native CPU MuJoCo is not GPU MJWarp validation."],
+  "reproduction": "Use scripts/render_ppo_backend_400hz_fixed_follow.py with the same pinned inputs and CLI arguments as results/ppo_backend_400hz_nominal_20261022_v1/reproduction.json, choosing a fresh output directory.",
+  "limitation": "50 Hz display cannot resolve all 400 Hz contact chatter; camera following does not establish tracking success or stable contact."
+}

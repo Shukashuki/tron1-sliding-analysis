@@ -1,0 +1,16 @@
+{
+  "status": "all_frames_decoded_selected_frames_visually_reviewed",
+  "visual_reviewed": true,
+  "generated_summary_unchanged": true,
+  "summary_sha256": "1f74150e60350d2c7b10c9754e6ab997065b7ba5c2fff3d3feb9b6c8a80c3c14",
+  "movie_sha256": "d6f3d302eef287f82c540938b21ce31b1d8bc9abd927b75f4d3456498b75bcf0",
+  "review_contact_sheet_sha256": "9c3efc8cd5481f25b81a3d8bb20be0fcbffa4b76968bb2e2c33e77f6c4956fbc",
+  "video": {"width": 2560, "height": 720, "fps": 50, "duration_s": 7.0, "decoded_frames": 350},
+  "frames_inspected": [0, 72, 120, 150, 200, 340, 349],
+  "camera": {"fixed_distance_m": 1.5179275540715538, "distance_changes_with_time": false, "same_distance_all_panels": true, "fixed_root_relative_lookat_offset_m": [0, 0, -0.28], "azimuth_deg": 135, "elevation_deg": -30, "vertical_fov_deg": 45, "world_orientation_fixed": true, "follows_root_translation_only": true, "camera_follows_body_yaw": false, "all350frames_four_original_mesh_bounds_fit": true, "maximum_normalized_frustum_extent": 0.9086213182741512},
+  "checks": ["Four opaque original robots visible, including the full turn and final state.", "Order: beta-on PhysX, beta-off PhysX, beta-on native CPU MuJoCo, beta-off native CPU MuJoCo.", "Historical200Hz/action-rate-0.1, N=1, setup0vs8 and different training GPUs are visibly labelled; not falsely grouped into the new400Hz cohort.", "World-XY maps, original height, body/wheel headings and native contact telemetry remain visible.", "The final physical6.98s frame correctly marks XY error unavailable after the reference ends6.96s."],
+  "input_archive": {"file": "inputs.tar.gz", "sha256": "b329881ba710230fbd6a3d5fa4fe8ff70734937208edcc99d825dd988bd66058", "bytes": 2266910, "regular_json_npz_members": 9, "weights_or_credentials": false},
+  "reproduction": "Safely extract inputs.tar.gz to a fresh directory after checking relative regular members and manifest hashes; run scripts/render_ppo_beta_nominal.py --on-root EXTRACT/beta_on --off-root EXTRACT/beta_off --output-dir FRESH. Requires the pinned reference, unchanged model/official mesh cache and frozen CPU-evaluator source identified in summary.json; no Torch or policy inference.",
+  "interpretation": "Historical beta-on has lower XY and reference-relative beta RMSE in both deployments, but angular jitter does not improve consistently across engines. Different training initialization histories and one checkpoint per condition prevent a causal beta-only claim.",
+  "limitation": "Reward-off is not a zero-beta reference, feature ablation or measured tire-slip experiment. No flight, height or contact failure gate is introduced."
+}

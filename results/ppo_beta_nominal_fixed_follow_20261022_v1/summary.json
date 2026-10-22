@@ -1,0 +1,897 @@
+{
+  "kind": "historical200hz_physx_trained_beta_nominal_four_horizontal_replay",
+  "rows": [
+    {
+      "beta_reward": "beta_on",
+      "validation_engine": "PhysX",
+      "checkpoint_sha256": "6ec411efeaea37fc61389285978b377aa7c5be80e326ce7f18581efc9acdf27b",
+      "recording_sha256": "858a4dc5b11230d1ac5a894c9528060de90570265ebdea50f20a48005a021d61",
+      "report_sha256": "c4d9ab3d9b2e0e1401b78d472057968bcdbd4f36f301015443b205c5d3659e92",
+      "directory": "/home/roy/tron1-sliding-analysis/outputs/controller_primary_ppo_mu070_20261015_v1/mu0p700/isaac",
+      "core_tracking": {
+        "available": true,
+        "coverage_complete": true,
+        "samples": 513,
+        "xy_rmse_m": 0.056502488325627764,
+        "xy_peak_m": 0.10088279892710175,
+        "mean_speed_m_s": 1.0222399004054141,
+        "reference_mean_speed_m_s": 1.0283094526778487,
+        "speed_retention": 0.9940975430531843,
+        "beta_rmse_deg": 3.646314455588084,
+        "beta_valid_samples": 513,
+        "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+      },
+      "core_world_angular_xy_common10_100": {
+        "samples": 513,
+        "sample_hz": 200.0,
+        "native_nyquist_hz": 100.0,
+        "frequency_resolution_hz": 0.38986354775828463,
+        "common_band_hz_exclusive": [
+          10.0,
+          100.0
+        ],
+        "common_band_mean_square": 4.719363558321352,
+        "common_band_rms": 2.172409620288345,
+        "native_high_frequency_cutoff_hz_exclusive": 10.0,
+        "native_high_frequency_mean_square": 4.719363558321352,
+        "native_high_frequency_rms": 2.172409620288345,
+        "at_or_above100hz_mean_square": 0.0,
+        "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+        "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+      },
+      "wheel_FK_audit": {
+        "maximum_wheel_link_position_error_m": 1.3358317844860852e-06,
+        "wheel_position_tolerance_m": 0.0002,
+        "maximum_root_com_velocity_reconstruction_error": 1.7763568394002505e-15,
+        "dynamics_stepping": false,
+        "measured_contact_replaced": false,
+        "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+      }
+    },
+    {
+      "beta_reward": "beta_off",
+      "validation_engine": "PhysX",
+      "checkpoint_sha256": "cb336fa90a44ba73056fd6a1b4f5247a8a90fdcd636f0d05945ec973a24ec87f",
+      "recording_sha256": "31dc01848e19623831c7754b6b9f8070cf8dd6a56d46222506cd278a5d9c1327",
+      "report_sha256": "3dd5893e11533b4408fd2269e1cabb006ce0b90e20efecd26984f4ac1a190e62",
+      "directory": "/home/roy/tron1-sliding-analysis/outputs/no_sideslip_ppo_mu0p7_validation_20261016_v1/isaac",
+      "core_tracking": {
+        "available": true,
+        "coverage_complete": true,
+        "samples": 513,
+        "xy_rmse_m": 0.07182016600002523,
+        "xy_peak_m": 0.11696762551570047,
+        "mean_speed_m_s": 1.015442815406896,
+        "reference_mean_speed_m_s": 1.0283094526778487,
+        "speed_retention": 0.9874875824223474,
+        "beta_rmse_deg": 6.015115630428982,
+        "beta_valid_samples": 513,
+        "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+      },
+      "core_world_angular_xy_common10_100": {
+        "samples": 513,
+        "sample_hz": 200.0,
+        "native_nyquist_hz": 100.0,
+        "frequency_resolution_hz": 0.38986354775828463,
+        "common_band_hz_exclusive": [
+          10.0,
+          100.0
+        ],
+        "common_band_mean_square": 3.495330547809639,
+        "common_band_rms": 1.86958031328147,
+        "native_high_frequency_cutoff_hz_exclusive": 10.0,
+        "native_high_frequency_mean_square": 3.495330547809639,
+        "native_high_frequency_rms": 1.86958031328147,
+        "at_or_above100hz_mean_square": 0.0,
+        "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+        "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+      },
+      "wheel_FK_audit": {
+        "maximum_wheel_link_position_error_m": 1.1686577272159832e-06,
+        "wheel_position_tolerance_m": 0.0002,
+        "maximum_root_com_velocity_reconstruction_error": 2.6645352591003757e-15,
+        "dynamics_stepping": false,
+        "measured_contact_replaced": false,
+        "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+      }
+    },
+    {
+      "beta_reward": "beta_on",
+      "validation_engine": "native CPU MuJoCo",
+      "checkpoint_sha256": "6ec411efeaea37fc61389285978b377aa7c5be80e326ce7f18581efc9acdf27b",
+      "recording_sha256": "6db6516fd0d2bc5446a38c7787793ba6ff86fa3238a3b354543905149a3cd027",
+      "report_sha256": "5f79ac1f8296277b5c65d028a344a5ad5a4bdbed920bbf56848ee6f8e6c7910b",
+      "directory": "/home/roy/tron1-sliding-analysis/outputs/controller_primary_ppo_mu070_20261015_v1/mu0p700/mujoco",
+      "core_tracking": {
+        "available": true,
+        "coverage_complete": true,
+        "samples": 513,
+        "xy_rmse_m": 0.04981995819442936,
+        "xy_peak_m": 0.07791011097869188,
+        "mean_speed_m_s": 1.0256475369411517,
+        "reference_mean_speed_m_s": 1.0283094526778527,
+        "speed_retention": 0.9974113670454269,
+        "beta_rmse_deg": 3.248183111847575,
+        "beta_valid_samples": 513,
+        "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+      },
+      "core_world_angular_xy_common10_100": {
+        "samples": 513,
+        "sample_hz": 200.0,
+        "native_nyquist_hz": 100.0,
+        "frequency_resolution_hz": 0.38986354775828463,
+        "common_band_hz_exclusive": [
+          10.0,
+          100.0
+        ],
+        "common_band_mean_square": 5.789609624720877,
+        "common_band_rms": 2.4061607645211236,
+        "native_high_frequency_cutoff_hz_exclusive": 10.0,
+        "native_high_frequency_mean_square": 5.789609624720877,
+        "native_high_frequency_rms": 2.4061607645211236,
+        "at_or_above100hz_mean_square": 0.0,
+        "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+        "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+      },
+      "wheel_FK_audit": {
+        "maximum_wheel_link_position_error_m": 1.9681032249736315e-15,
+        "wheel_position_tolerance_m": 0.0002,
+        "maximum_root_com_velocity_reconstruction_error": 1.7763568394002505e-15,
+        "dynamics_stepping": false,
+        "measured_contact_replaced": false,
+        "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+      }
+    },
+    {
+      "beta_reward": "beta_off",
+      "validation_engine": "native CPU MuJoCo",
+      "checkpoint_sha256": "cb336fa90a44ba73056fd6a1b4f5247a8a90fdcd636f0d05945ec973a24ec87f",
+      "recording_sha256": "a7c9e6ab2081f5ec5f6fe194ae0bf9eb6ee191f39669adaee0b1c0d4e4b88da5",
+      "report_sha256": "517d6bd04172b03024247d0fe1e1ad019a64a4b418a3b0de91078f37c205834e",
+      "directory": "/home/roy/tron1-sliding-analysis/outputs/no_sideslip_ppo_mu0p7_validation_20261016_v1/mujoco",
+      "core_tracking": {
+        "available": true,
+        "coverage_complete": true,
+        "samples": 513,
+        "xy_rmse_m": 0.06420337517360278,
+        "xy_peak_m": 0.1026311967894755,
+        "mean_speed_m_s": 1.0167678206386752,
+        "reference_mean_speed_m_s": 1.0283094526778527,
+        "speed_retention": 0.9887761101396846,
+        "beta_rmse_deg": 4.823978676158873,
+        "beta_valid_samples": 513,
+        "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+      },
+      "core_world_angular_xy_common10_100": {
+        "samples": 513,
+        "sample_hz": 200.0,
+        "native_nyquist_hz": 100.0,
+        "frequency_resolution_hz": 0.38986354775828463,
+        "common_band_hz_exclusive": [
+          10.0,
+          100.0
+        ],
+        "common_band_mean_square": 7.624053161117891,
+        "common_band_rms": 2.761168803445,
+        "native_high_frequency_cutoff_hz_exclusive": 10.0,
+        "native_high_frequency_mean_square": 7.624053161117891,
+        "native_high_frequency_rms": 2.761168803445,
+        "at_or_above100hz_mean_square": 0.0,
+        "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+        "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+      },
+      "wheel_FK_audit": {
+        "maximum_wheel_link_position_error_m": 1.9984014443252818e-15,
+        "wheel_position_tolerance_m": 0.0002,
+        "maximum_root_com_velocity_reconstruction_error": 2.6645352591003757e-15,
+        "dynamics_stepping": false,
+        "measured_contact_replaced": false,
+        "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+      }
+    }
+  ],
+  "training_backend": "PhysX",
+  "training_physics_hz": 200,
+  "validation_physics_hz": 200,
+  "policy_hz": 50,
+  "video_fps": 50,
+  "video_frames": 350,
+  "native_sample_stride": 4,
+  "action_rate_weight": -0.1,
+  "beta_reward_weights": {
+    "beta_on": 2.0,
+    "beta_off": 0.0
+  },
+  "mu": 0.7,
+  "reference_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+  "model_sha256": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513",
+  "FK_provenance": {
+    "model_sha256": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513",
+    "loader_evaluator_sha256": "2251d740d7568874a47a232556241cc8d1ee5f5b7be1351d1c657aea8fa85f87",
+    "removed_proven_noncolliding_visual_meshes": 9,
+    "isolated_FK_only": true,
+    "dynamics_stepping": false
+  },
+  "evaluation_profile_parity": {
+    "profile_only_change_after_omitting_description": "drift_sideslip reward 2.0 -> 0.0",
+    "equal_report_fields": [
+      "contact_material_audit",
+      "legacy_joint_friction_audit",
+      "physics_recording",
+      "evaluator_source_sha256",
+      "drift_module_sha256",
+      "contact_slip_helper_sha256",
+      "runner_config_sha256"
+    ],
+    "policy_contract_identical_except_checkpoint_profile_export_roundoff": true,
+    "export_roundoff_limit": 1e-05,
+    "wheel_xy_profile_changed": false,
+    "evaluation_seed": 42,
+    "evaluation_mu": 0.7,
+    "training_recipe_parity_independently_verified_by_this_script": false,
+    "scope": "Reported evaluation/source/profile identities; training DR/budget parity requires the separate training-manifest audit"
+  },
+  "same_initial_state_ON_OFF_per_engine": true,
+  "new400hz_cohort": false,
+  "causal_beta_only_intervention_claimed": false,
+  "sample_size_per_cell": 1,
+  "setup_smoke_steps": {
+    "beta_on": 0,
+    "beta_off": 8
+  },
+  "training_GPU": {
+    "beta_on": "cuda:2",
+    "beta_off": "cuda:7"
+  },
+  "actor_weights_loaded": false,
+  "new_simulation": false,
+  "new_training": false,
+  "visual_reviewed": false,
+  "limitations": [
+    "Historical200Hz cohort, action-rate-0.1, not the new400Hz/action-rate-0.5 comparison.",
+    "ON/OFF training setup differed:0vs8 zero-action smoke steps and GPUs2vs7; not a strict causal beta-only intervention.",
+    "Same full native evaluation/source profiles except beta reward, but one seed/actor per condition is descriptive only.",
+    "Nonzero sideslip remains a valid intended motion feature. No zero-beta, height, contact or flight success gate is imposed.",
+    "The moving camera has a fixed root-relative translation offset, fixed world orientation and ONE distance for all frames/cases.",
+    "Fixed world-XY maps retain absolute drift; camera following does not mean trajectory error was removed."
+  ],
+  "world_bounds": [
+    [
+      -0.25253836655058554,
+      -0.4077870461372608
+    ],
+    [
+      4.640765857300653,
+      3.820602364443784
+    ]
+  ],
+  "fixed_follow_camera": {
+    "distance_m": 1.5179275540715538,
+    "azimuth_deg": 135.0,
+    "elevation_deg": -30.0,
+    "vertical_fov_deg": 45.0,
+    "fit_audit": {
+      "all_mesh_bounds_inside": true,
+      "maximum_normalized_frustum_extent": 0.9086213182741512,
+      "minimum_depth_m": 1.1719708459221772,
+      "distance_changed_with_time": false,
+      "distance_differs_between_cases": false,
+      "margin_m": 0.03,
+      "frames_per_case": 350,
+      "cases": 4,
+      "visible_mesh_geoms_per_case": 9,
+      "fixed_root_relative_offset_m": [
+        0.0,
+        0.0,
+        -0.28
+      ],
+      "orientation_follows_yaw": false,
+      "original_root_pose_changed": false,
+      "basis_source": "native MjvGLCamera forward/up",
+      "physics_stepping": false
+    }
+  },
+  "mesh_provenance": {
+    "meshes": [
+      {
+        "file": "base_Link.STL",
+        "sha256": "a0e4a75a180f51b5593220fec14cec3272ff744b289de0844f8845ca1be34548"
+      },
+      {
+        "file": "abad_L_Link.STL",
+        "sha256": "9eb73a043ef1b8f8425f422cbb9a4d7364fbe93182fe232eefed52a748acb815"
+      },
+      {
+        "file": "hip_L_Link.STL",
+        "sha256": "d9c5699d6948d2778c4206284e76531d9ed008c3d3205ba902abd4bdc9715117"
+      },
+      {
+        "file": "knee_L_Link.STL",
+        "sha256": "119f2f177a7f90475fae071d4683bcc1b6c5164a1f5c606e20fbb85264806baf"
+      },
+      {
+        "file": "wheel_L_Link.STL",
+        "sha256": "cd7687ae258efd83aa6c89ff9e7b496193c9a174787abf0d6338f95b6f621bf3"
+      },
+      {
+        "file": "abad_R_Link.STL",
+        "sha256": "fbfdd2d0801e73c71a0c514f34f5d4190c43f344c58fda108f1eae9997ca3917"
+      },
+      {
+        "file": "hip_R_Link.STL",
+        "sha256": "9f70593a70c75e68969a5e41dbabcba9dba71b8b06a45bbac8134a94a88fd39b"
+      },
+      {
+        "file": "knee_R_Link.STL",
+        "sha256": "83c4acc7127b0c6f3d51e8ea5818c78e19a5dfaf61f06a06ccdc72ea04eb385a"
+      },
+      {
+        "file": "wheel_R_Link.STL",
+        "sha256": "d816f9a69097a7c6dc2b8d3c0310183bea26514fc778a1677146f3c2d6e1ee91"
+      }
+    ],
+    "official_source": {
+      "schema_version": 1,
+      "repository": "https://github.com/limxdynamics/tron1-robot-description",
+      "revision": "5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316",
+      "license": "Apache-2.0",
+      "files": [
+        {
+          "source": "LICENSE",
+          "destination": "LICENSE.txt",
+          "size": 11357,
+          "git_blob_sha1": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/LICENSE",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/xml/robot.xml",
+          "destination": "upstream/robot.xml",
+          "size": 9315,
+          "git_blob_sha1": "245d2fc22eb01ecfcec29118daa635e6f2c3e6e1",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/xml/robot.xml",
+          "sha256": "cbe885f68bc22aea9ffc011186e67ea5080e6e99a8df3b7f1a36657d4dd68476"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/urdf/robot.urdf",
+          "destination": "upstream/robot.urdf",
+          "size": 21232,
+          "git_blob_sha1": "a558e9375dcf6dc2666825ac224cbb750032ead8",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/urdf/robot.urdf",
+          "sha256": "f09c56c15acd507bba43b394e37a9abe024e0111fdde7dbf41796408895ee4c5"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/base_Link.STL",
+          "destination": "meshes/base_Link.STL",
+          "size": 6225184,
+          "git_blob_sha1": "62a7837a98e37a784e9bd2f9f66ed4350980bc97",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/base_Link.STL",
+          "sha256": "a0e4a75a180f51b5593220fec14cec3272ff744b289de0844f8845ca1be34548"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/abad_L_Link.STL",
+          "destination": "meshes/abad_L_Link.STL",
+          "size": 1658684,
+          "git_blob_sha1": "562152a171e9344dafddb98133b757adb3e100d9",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/abad_L_Link.STL",
+          "sha256": "9eb73a043ef1b8f8425f422cbb9a4d7364fbe93182fe232eefed52a748acb815"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/hip_L_Link.STL",
+          "destination": "meshes/hip_L_Link.STL",
+          "size": 2121684,
+          "git_blob_sha1": "a88548378708be1bb8b2b27dccba292fd953eeda",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/hip_L_Link.STL",
+          "sha256": "d9c5699d6948d2778c4206284e76531d9ed008c3d3205ba902abd4bdc9715117"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/knee_L_Link.STL",
+          "destination": "meshes/knee_L_Link.STL",
+          "size": 2273084,
+          "git_blob_sha1": "bde12153f0431bec19a5248379c51177b458fbda",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/knee_L_Link.STL",
+          "sha256": "119f2f177a7f90475fae071d4683bcc1b6c5164a1f5c606e20fbb85264806baf"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/wheel_L_Link.STL",
+          "destination": "meshes/wheel_L_Link.STL",
+          "size": 1000384,
+          "git_blob_sha1": "07c39ec4a620f1b0c113ee5bbada45c5dbd8be61",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/wheel_L_Link.STL",
+          "sha256": "cd7687ae258efd83aa6c89ff9e7b496193c9a174787abf0d6338f95b6f621bf3"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/abad_R_Link.STL",
+          "destination": "meshes/abad_R_Link.STL",
+          "size": 1300984,
+          "git_blob_sha1": "5064e376232a13c1c7662f247ccf4c2e3e320193",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/abad_R_Link.STL",
+          "sha256": "fbfdd2d0801e73c71a0c514f34f5d4190c43f344c58fda108f1eae9997ca3917"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/hip_R_Link.STL",
+          "destination": "meshes/hip_R_Link.STL",
+          "size": 2125684,
+          "git_blob_sha1": "9f59b5ef4a4c0c2cd42850102be151bd53828fe9",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/hip_R_Link.STL",
+          "sha256": "9f70593a70c75e68969a5e41dbabcba9dba71b8b06a45bbac8134a94a88fd39b"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/knee_R_Link.STL",
+          "destination": "meshes/knee_R_Link.STL",
+          "size": 2372284,
+          "git_blob_sha1": "9230da6dc8b9c77d4e9f20e3f4fb8e7dc56e0af7",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/knee_R_Link.STL",
+          "sha256": "83c4acc7127b0c6f3d51e8ea5818c78e19a5dfaf61f06a06ccdc72ea04eb385a"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/wheel_R_Link.STL",
+          "destination": "meshes/wheel_R_Link.STL",
+          "size": 1000384,
+          "git_blob_sha1": "c51e99fc41a733a01ff1e9f237ed1eaffc32951e",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/wheel_R_Link.STL",
+          "sha256": "d816f9a69097a7c6dc2b8d3c0310183bea26514fc778a1677146f3c2d6e1ee91"
+        }
+      ],
+      "derived_model": "robot.xml",
+      "derived_model_sha256": "30c8bb94b32b1804aa2f7de2425f7a8dd02be7792881255388097e2e68092e52",
+      "changes_to_upstream_mjcf": [
+        "compiler meshdir ../meshes/ -> meshes",
+        "name existing free joint root",
+        "add nine IK/display sites"
+      ],
+      "notes": [
+        "Official MJCF/STL assets are preserved; generated robot.xml changes only meshdir, names the floating root joint, and adds IK/display sites.",
+        "left/right_wheel sites are wheel hinge centers, not human ankle frames; left/right_knee sites are actual knee joint centers.",
+        "left/right_contact are nominal local bottom markers: they rotate with the wheel and are NOT rolling contact points or reliable ground clearance. Compute clearance from collision geometry instead.",
+        "Official MJCF and Isaac USD share link offsets and joint axes, but are not numerically identical dynamics models. MJCF base includes fixed IMU mass; wheel collision axial width is 0.010m versus 0.050m in USD, and lateral collision offsets are +/-0.008m versus +/-0.00707m.",
+        "Official MJCF wheel motor ctrlrange is +/-40Nm, while the imported USD drive maxForce is 80. Other collision primitives also differ; no cross-engine contact or actuator equivalence is implied.",
+        "Mink IK playback does not validate contact forces, balance, jump actuation, self-collision avoidance, or dynamic feasibility. No Isaac assets or runtime are changed."
+      ],
+      "validation": {
+        "mujoco_version": "3.8.1",
+        "nq": 15,
+        "nv": 14,
+        "hinge_joint_order": [
+          "abad_L_Joint",
+          "hip_L_Joint",
+          "knee_L_Joint",
+          "wheel_L_Joint",
+          "abad_R_Joint",
+          "hip_R_Joint",
+          "knee_R_Joint",
+          "wheel_R_Joint"
+        ],
+        "qpos_hinge_addresses": [
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        "dof_hinge_addresses": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ],
+        "joint_ranges_rad": [
+          [
+            -0.38397,
+            1.39626
+          ],
+          [
+            -1.01229,
+            1.39626
+          ],
+          [
+            -0.872665,
+            1.36136
+          ],
+          [
+            -1000000.0,
+            1000000.0
+          ],
+          [
+            -1.39626,
+            0.38397
+          ],
+          [
+            -1.39626,
+            1.01229
+          ],
+          [
+            -1.36136,
+            0.872665
+          ],
+          [
+            -1000000.0,
+            1000000.0
+          ]
+        ],
+        "body_names": [
+          "world",
+          "base_Link",
+          "abad_L_Link",
+          "hip_L_Link",
+          "knee_L_Link",
+          "wheel_L_Link",
+          "abad_R_Link",
+          "hip_R_Link",
+          "knee_R_Link",
+          "wheel_R_Link"
+        ],
+        "sites": {
+          "pelvis": {
+            "body": "base_Link",
+            "pos": [
+              0,
+              0,
+              0
+            ]
+          },
+          "left_hip": {
+            "body": "hip_L_Link",
+            "pos": [
+              0,
+              0,
+              0
+            ]
+          },
+          "right_hip": {
+            "body": "hip_R_Link",
+            "pos": [
+              0,
+              0,
+              0
+            ]
+          },
+          "left_knee": {
+            "body": "knee_L_Link",
+            "pos": [
+              0,
+              0,
+              0
+            ]
+          },
+          "right_knee": {
+            "body": "knee_R_Link",
+            "pos": [
+              0,
+              0,
+              0
+            ]
+          },
+          "left_wheel": {
+            "body": "wheel_L_Link",
+            "pos": [
+              0,
+              0,
+              0
+            ]
+          },
+          "right_wheel": {
+            "body": "wheel_R_Link",
+            "pos": [
+              0,
+              0,
+              0
+            ]
+          },
+          "left_contact": {
+            "body": "wheel_L_Link",
+            "pos": [
+              0,
+              0.008,
+              -0.127
+            ]
+          },
+          "right_contact": {
+            "body": "wheel_R_Link",
+            "pos": [
+              0,
+              -0.008,
+              -0.127
+            ]
+          }
+        },
+        "mass_kg": 22.273000000000003,
+        "visual_meshes": 9,
+        "mesh_vertices": 199461,
+        "independent_urdf_fk_random_poses": 25,
+        "independent_urdf_fk_max_position_error_m": 3.3306690738754696e-16,
+        "independent_urdf_fk_max_rotation_matrix_error": 6.661338147750939e-16,
+        "wheel_radius_m": 0.127,
+        "wheel_collision_full_width_m": 0.01,
+        "zero_joint_pose_body_positions_relative_to_base_m": {
+          "base_Link": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "abad_L_Link": [
+            0.05556,
+            0.105,
+            -0.2602
+          ],
+          "hip_L_Link": [
+            -0.02144,
+            0.1255,
+            -0.2602
+          ],
+          "knee_L_Link": [
+            -0.17143999999999998,
+            0.105,
+            -0.52001
+          ],
+          "wheel_L_Link": [
+            -0.021439999999999987,
+            0.1485,
+            -0.77982
+          ],
+          "abad_R_Link": [
+            0.05556,
+            -0.105,
+            -0.2602
+          ],
+          "hip_R_Link": [
+            -0.02144,
+            -0.1255,
+            -0.2602
+          ],
+          "knee_R_Link": [
+            -0.17143999999999998,
+            -0.105,
+            -0.52001
+          ],
+          "wheel_R_Link": [
+            -0.021439999999999987,
+            -0.1485,
+            -0.77982
+          ]
+        },
+        "zero_joint_pose_sites_relative_to_base_m": {
+          "pelvis": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "left_hip": [
+            -0.02144,
+            0.1255,
+            -0.2602
+          ],
+          "right_hip": [
+            -0.02144,
+            -0.1255,
+            -0.2602
+          ],
+          "left_knee": [
+            -0.17143999999999998,
+            0.105,
+            -0.52001
+          ],
+          "right_knee": [
+            -0.17143999999999998,
+            -0.105,
+            -0.52001
+          ],
+          "left_wheel": [
+            -0.021439999999999987,
+            0.1485,
+            -0.77982
+          ],
+          "right_wheel": [
+            -0.021439999999999987,
+            -0.1485,
+            -0.77982
+          ],
+          "left_contact": [
+            -0.021439999999999987,
+            0.1565,
+            -0.90682
+          ],
+          "right_contact": [
+            -0.021439999999999987,
+            -0.1565,
+            -0.90682
+          ]
+        },
+        "zero_joint_pose_contact_base_height_m": 0.90682,
+        "seed_joint_degrees": [
+          0,
+          20,
+          40,
+          0,
+          0,
+          -20,
+          -40,
+          0
+        ],
+        "seed_sites_relative_to_base_m": {
+          "pelvis": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "left_hip": [
+            -0.02144,
+            0.1255,
+            -0.2602
+          ],
+          "right_hip": [
+            -0.02144,
+            -0.1255,
+            -0.2602
+          ],
+          "left_knee": [
+            -0.25125414655532824,
+            0.10500000000000001,
+            -0.4530385183075365
+          ],
+          "right_knee": [
+            -0.25125414655532824,
+            -0.10500000000000001,
+            -0.4530385183075365
+          ],
+          "left_wheel": [
+            -0.021440000000000015,
+            0.1485,
+            -0.645877036615073
+          ],
+          "right_wheel": [
+            -0.021440000000000015,
+            -0.1485,
+            -0.645877036615073
+          ],
+          "left_contact": [
+            0.021996558202359906,
+            0.1565,
+            -0.7652179994548833
+          ],
+          "right_contact": [
+            0.021996558202359906,
+            -0.1565,
+            -0.7652179994548833
+          ]
+        },
+        "seed_level_base_height_for_grounded_wheels_m": 0.772877036615073,
+        "seed_ground_contacts": [
+          {
+            "geom1": "floor",
+            "geom2": "wheel_L_collision",
+            "distance_m": -2.7755575615628914e-17
+          },
+          {
+            "geom1": "floor",
+            "geom2": "wheel_L_collision",
+            "distance_m": -2.7755575615628914e-17
+          },
+          {
+            "geom1": "floor",
+            "geom2": "wheel_R_collision",
+            "distance_m": -2.7755575615628914e-17
+          },
+          {
+            "geom1": "floor",
+            "geom2": "wheel_R_collision",
+            "distance_m": -2.7755575615628914e-17
+          }
+        ],
+        "note": "Geometric/FK checks only. Contacts include margin contacts and do not prove dynamically feasible balance or jumping."
+      }
+    },
+    "meshes_copied_to_output": false
+  },
+  "fk_audits": {
+    "beta_on_physx": {
+      "samples_checked": 1397,
+      "max_wheel_origin_error_m": 1.3358317844412683e-06,
+      "tolerance_m": 2e-06,
+      "physics_stepping": false,
+      "kinematic_functions": [
+        "mj_kinematics",
+        "mj_comPos",
+        "mj_camlight"
+      ],
+      "root_pose_copied_exactly": true,
+      "named_joint_qpos_addresses": [
+        7,
+        11,
+        8,
+        12,
+        9,
+        13,
+        10,
+        14
+      ]
+    },
+    "beta_off_physx": {
+      "samples_checked": 1397,
+      "max_wheel_origin_error_m": 1.1686577272159832e-06,
+      "tolerance_m": 2e-06,
+      "physics_stepping": false,
+      "kinematic_functions": [
+        "mj_kinematics",
+        "mj_comPos",
+        "mj_camlight"
+      ],
+      "root_pose_copied_exactly": true,
+      "named_joint_qpos_addresses": [
+        7,
+        11,
+        8,
+        12,
+        9,
+        13,
+        10,
+        14
+      ]
+    },
+    "beta_on_mujoco": {
+      "samples_checked": 1397,
+      "max_wheel_origin_error_m": 0.0,
+      "tolerance_m": 2e-06,
+      "physics_stepping": false,
+      "kinematic_functions": [
+        "mj_kinematics",
+        "mj_comPos",
+        "mj_camlight"
+      ],
+      "root_pose_copied_exactly": true,
+      "named_joint_qpos_addresses": [
+        7,
+        11,
+        8,
+        12,
+        9,
+        13,
+        10,
+        14
+      ]
+    },
+    "beta_off_mujoco": {
+      "samples_checked": 1397,
+      "max_wheel_origin_error_m": 0.0,
+      "tolerance_m": 2e-06,
+      "physics_stepping": false,
+      "kinematic_functions": [
+        "mj_kinematics",
+        "mj_comPos",
+        "mj_camlight"
+      ],
+      "root_pose_copied_exactly": true,
+      "named_joint_qpos_addresses": [
+        7,
+        11,
+        8,
+        12,
+        9,
+        13,
+        10,
+        14
+      ]
+    }
+  },
+  "renderer_sha256": "2631655642a84c34256f0d849ea6e0052c7cfab388d6be9c9c88e619d3cd9901",
+  "video_generated": true,
+  "helpers_sha256": {
+    "render_ppo_fixed_follow.py": "829d2055c03e73503924a493155e605e07066cede8eb9dd72c110bd54a9d3bba",
+    "render_ppo_backend_400hz_nominal.py": "e0dc27b3bef1c7ab84ea3fa9b0839aa314b45cb4081e8839d2f75d7a228b7411",
+    "render_physx_ppo_fullbody.py": "d8fb77dc22004eb244579c0c1be1155baa6069cf5b8d83a6b7ea9ce73628b4e9",
+    "analyze_ppo_beta_jitter.py": "6a806c84e23d8b1c6656b2b3bbb1baa49e38df0db668877a79c4ac05652129cd",
+    "controller_trace.py": "673d17bda4d9f6c93b76b0b963b199aef3e3abe8982cfc6cc6580184e5b0a3e6"
+  },
+  "artifacts": {
+    "replay_states.npz": "72aa561b79ce69340fcbbcb76808794df53921d7d56e3632bd48f25b05a1c5e4",
+    "comparison.png": "b4cb3faf634b02529f5676778620a6b492b91ca9e883d5a0e7ad8b6d25f71740",
+    "beta_fullbody_comparison.mp4": "d6f3d302eef287f82c540938b21ce31b1d8bc9abd927b75f4d3456498b75bcf0"
+  }
+}
