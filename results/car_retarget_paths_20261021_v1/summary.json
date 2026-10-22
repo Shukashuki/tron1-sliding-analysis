@@ -1,0 +1,178 @@
+{
+  "schema_version": 1,
+  "kind": "locked_source_car_vs_existing_retarget_2d_paths",
+  "reference_id": "drift_drl_traj4",
+  "frames": 249,
+  "fps": 50,
+  "display_interval_s": [
+    0.0,
+    4.96
+  ],
+  "evaluation_core_interval_s": [
+    1.44,
+    4.0
+  ],
+  "excluded_synthetic_recovery_and_tail_frames": 100,
+  "source_row_interval_inclusive": [
+    1535,
+    1595
+  ],
+  "source_repository": "https://github.com/caipeide/drift_drl",
+  "source_commit": "9f3a125f76ac2c0415014a761a514a511553322c",
+  "source_clock": "estimated from displacement/velocity, not original timestamps",
+  "source_is_physical_car_capture": false,
+  "source_selection_evidence": {
+    "drift_rows_inclusive": [
+      1553,
+      1584
+    ],
+    "car_turn_course_deg": 60.40917463007787,
+    "car_speed_start_m_s": 31.70287220972069,
+    "car_speed_min_m_s": 22.30459563181169,
+    "car_peak_abs_sideslip_deg": 26.69029788343402,
+    "car_min_abs_sideslip_deg": 8.07899242311498,
+    "car_min_throttle": 1.0,
+    "car_max_brake": 0.0,
+    "car_handbrake_rows": 0,
+    "source_window_duration_s_estimated": 2.4817813599128016,
+    "drift_duration_s_estimated": 1.2877769071239342,
+    "full_source_max_clock_displacement_residual_m": 0.05887902047623452
+  },
+  "input_sha256": {
+    "robot_reference.npz": "afc22f19b813cf10b3e3a90affb0f26f5a7743074f98b262394c69de786e9f6e",
+    "motion.npz": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+    "source_csv": "eb67a507817605d9b0018bdf2196c04f58f9a9238e7e1906350a7568ab87cf27",
+    "source_config": "5a2130b616f4d800934a21fa775877c0f38459d4cd07bf22532578fd39f0904d",
+    "source_license": "be777598b7950cc62840b25519d998f9d4cc18533647a40c4a6f8e79f2c88aa4"
+  },
+  "pinned_decoder_source_sha256": {
+    "scripts/capture_car_drift.py": "c54779a2754f308e9e63f3079ddf80c9650fc297ea525da09c1bafbf10870adc",
+    "scripts/prepare_car_drift_reference.py": "04fab9f4178b66e302702563ba4cf30001dfb8dbbea9f2a58f9e1a6f0a155f0e",
+    "scripts/prepare_drift_drl_turn_reference.py": "3c89ed739b5bc7ad7acba33fc82abc61ca94246d17b2705e920e865336719ac9",
+    "scripts/export_tracking_motion.py": "f959db0b0c0080b8a9ee2b20e3b274003dbfbea4c81907c9ab7e69fde61662ca",
+    "config/drift_sources.json": "d2fbbb27b96e57b7208c1a6f588d0dee64b290fc480f845a82bfc87d5a13e0fb",
+    "config/drift_turn_source.json": "5a2130b616f4d800934a21fa775877c0f38459d4cd07bf22532578fd39f0904d"
+  },
+  "mapping": {
+    "source_handedness": "CARLA (x,y) -> Z-up planar (x,-y); yaw -> -yaw",
+    "spatial_scale": 0.08,
+    "time_scale": 2.0,
+    "velocity_scale": 0.04,
+    "initial_position_subtracted_m": [
+      -244.3119354248047,
+      -502.21917724609375
+    ],
+    "initial_source_yaw_rad": -3.093872268964989,
+    "initial_heading_rotation_matrix": [
+      [
+        -0.9988615985042184,
+        -0.04770227493105026
+      ],
+      [
+        0.04770227493105026,
+        -0.9988615985042184
+      ]
+    ],
+    "query_source_time": "task_time / 2",
+    "additional_alignment_or_time_warp": false
+  },
+  "mapping_audit": {
+    "source_common_vs_locked_root_target_max_abs_m": 4.440892098500626e-16,
+    "source_common_vs_export_float32_max_abs_m": 1.172548382832872e-07,
+    "float64_tolerance_m": 1e-12,
+    "float32_tolerance_m": 2e-07
+  },
+  "plot_settings": {
+    "colors": {
+      "path": "#0072B2",
+      "body": "#161616",
+      "velocity": "#009E73",
+      "left": "#D55E00",
+      "right": "#8B4BA6"
+    },
+    "figure_size_inches": [
+      12.0,
+      5.5
+    ],
+    "common_arrow_length_m": 0.18,
+    "native_arrow_length_axis_span_fraction": 0.04,
+    "wheel_half_length_m": 0.065,
+    "aspect": "equal",
+    "grid_alpha": 0.18,
+    "common_axes_shared": true,
+    "shared_common_bounds": {
+      "xlim": [
+        -0.3025383697357027,
+        4.3411462783813475
+      ],
+      "ylim": [
+        -1.0008913987083359,
+        3.6427932494087143
+      ]
+    },
+    "native_axes_shared": false,
+    "native_car_bounds": {
+      "xlim": [
+        -291.71732238018336,
+        -244.01193542480468
+      ],
+      "ylim": [
+        -544.3404755667024,
+        -496.63508861132374
+      ]
+    },
+    "native_robot_bounds": {
+      "xlim": [
+        -0.3025383697357027,
+        4.3411462783813475
+      ],
+      "ylim": [
+        -1.0008913987083359,
+        3.6427932494087143
+      ]
+    }
+  },
+  "car_wheel_orientation_available": false,
+  "source_steer_is_normalized_control_not_wheel_angle": true,
+  "robot_wheel_heading_definition": "world wheel +Y axle crossed with world +Z, independent of axle spin",
+  "robot_velocity_definition": "Existing exported original-link COM world XY velocity; not root-position differentiation",
+  "no_new_retarget": true,
+  "ik_solver_called": false,
+  "dynamics_stepping": false,
+  "new_training": false,
+  "new_policy_inference": false,
+  "contact_measurement_available": false,
+  "heading_offset_is_mismatch": false,
+  "limitations": [
+    "The source car is a CARLA simulation; clock reconstruction is estimated.",
+    "Car wheel headings/contact patches are absent: normalized steer is not converted to tire angle.",
+    "Main panels share robot-scale world axes; source translation/rotation, spatial x0.08 and time x2 are the existing locked mapping, not a new alignment.",
+    "Native-scale panels intentionally use separate axis limits and units remain source meters versus robot meters.",
+    "The same source-root XY path is preserved by design; this is kinematic retarget playback, not evidence of physical tracking or contact slip."
+  ],
+  "video": {
+    "fps": 50,
+    "frames": 249,
+    "last_sample_time_s": 4.96,
+    "encoded_duration_s": 4.98
+  },
+  "analysis_source_sha256": "3d1dce0bfd0f235ac78ef88223e133472f1218ec8154339af685a51c5afaec8f",
+  "artifacts": {
+    "derived_paths.npz": {
+      "file": "derived_paths.npz",
+      "sha256": "4b2b3c7a8fec9060c495b48e8c5f5259d71d6b1a9fe00463120ed87b95a32e37"
+    },
+    "comparison.png": {
+      "file": "comparison.png",
+      "sha256": "aa9141e886fd243d7847afbc20056bb5633df3b18d0ec04dfc503de54b02c4df"
+    },
+    "native_scale.png": {
+      "file": "native_scale.png",
+      "sha256": "f1fd8345cb32c0362b51bf5506e6325e245864c9b8f6721396a571576361cdd7"
+    },
+    "comparison.mp4": {
+      "file": "comparison.mp4",
+      "sha256": "339f7f87ca00097532ab39e60c3a72ce5f14b2b89fbed6d3f1e03f1588c0fd16"
+    }
+  }
+}
