@@ -1,0 +1,1560 @@
+{
+  "schema_version": 1,
+  "kind": "recorded_physx_ppo_smoothness_publication",
+  "training_engine": "PhysX",
+  "evaluation_engine": "PhysX",
+  "reference_id": "drift_drl_traj4",
+  "baseline_checkpoint_sha256": "6ec411efeaea37fc61389285978b377aa7c5be80e326ce7f18581efc9acdf27b",
+  "candidate_training": {
+    "action_rate_weight": -0.3,
+    "checkpoint_sha256": "060afb10b61a6cc6d494c70c8506475ffc6e4f0ac62885dd376f54701521dabb",
+    "training_budget": {
+      "num_envs": 512,
+      "iterations": 1000,
+      "steps_per_iteration": 24,
+      "environment_transitions": 12288000,
+      "seed": 42
+    },
+    "initialization": "from_scratch_no_checkpoint_resume",
+    "checkpoint_bytes_verified_locally": false,
+    "checkpoint_evidence_scope": "Remote-computed SHA declared in copied ablation metadata and matched to recorded evaluator reports; local weight bytes are not opened or independently verified",
+    "input_sha256": {
+      "run_status.json": "aafd8459ca402778af48448fbe34829114a084e509b359cbea65ee457e929437",
+      "manifest.json": "ea5e6ecc8a9b60a7525c6c47cfe906726a900116c6dea64723fcfd9a10654ffe",
+      "ablation_manifest.json": "0d08f0e862742ed4a25a84f9cebe618ab94420427ff563d37fbad70047d5c9c4",
+      "runner_config.json": "67b8f0a98e072027d66a54c58b43595d7e41abc75a9292e30f6a6eeb5fe512ba"
+    }
+  },
+  "coefficients": [
+    0.7,
+    0.15
+  ],
+  "table": [
+    {
+      "mu": 0.7,
+      "cohort": "baseline",
+      "action_rate_weight": -0.1,
+      "leg_action_delta_rms": 0.29700924844197624,
+      "body_world_xy_hf_rms_rad_s": 2.172409620288345,
+      "hf_rms_reduction_percent": 0.0,
+      "leg_action_delta_reduction_percent": 0.0,
+      "xy_rmse_m": 0.056502488325627764,
+      "xy_peak_m": 0.10088279892710175,
+      "speed_retention": 0.9940975430531843,
+      "beta_rmse_deg": 3.646314455588084,
+      "full_max_tilt_deg": 5.219793275247316,
+      "full_fraction_tilt_over_60_deg": 0.0,
+      "screen_status": "baseline_reference"
+    },
+    {
+      "mu": 0.7,
+      "cohort": "candidate",
+      "action_rate_weight": -0.3,
+      "leg_action_delta_rms": 0.15493804482600348,
+      "body_world_xy_hf_rms_rad_s": 1.3891180302527821,
+      "hf_rms_reduction_percent": 36.056348799062874,
+      "leg_action_delta_reduction_percent": 47.83393256648969,
+      "xy_rmse_m": 0.06914185554018025,
+      "xy_peak_m": 0.09422081063935113,
+      "speed_retention": 0.9795410266475777,
+      "beta_rmse_deg": 1.8451752391422185,
+      "full_max_tilt_deg": 7.43162240016993,
+      "full_fraction_tilt_over_60_deg": 0.0,
+      "screen_status": "fails_unvalidated_screen"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "baseline",
+      "action_rate_weight": -0.1,
+      "leg_action_delta_rms": 0.4046927883103126,
+      "body_world_xy_hf_rms_rad_s": 2.8127128863806172,
+      "hf_rms_reduction_percent": 0.0,
+      "leg_action_delta_reduction_percent": 0.0,
+      "xy_rmse_m": 0.044498596170893585,
+      "xy_peak_m": 0.06951376927794424,
+      "speed_retention": 1.021069632982122,
+      "beta_rmse_deg": 3.1247406976956085,
+      "full_max_tilt_deg": 7.883524606213631,
+      "full_fraction_tilt_over_60_deg": 0.0,
+      "screen_status": "baseline_reference"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "candidate",
+      "action_rate_weight": -0.3,
+      "leg_action_delta_rms": 0.1262776982224454,
+      "body_world_xy_hf_rms_rad_s": 1.4067233706486908,
+      "hf_rms_reduction_percent": 49.98695467780736,
+      "leg_action_delta_reduction_percent": 68.79665220878178,
+      "xy_rmse_m": 0.0987830815723231,
+      "xy_peak_m": 0.13763803583240478,
+      "speed_retention": 0.9682165816907607,
+      "beta_rmse_deg": 4.2862802751251845,
+      "full_max_tilt_deg": 9.95596268611715,
+      "full_fraction_tilt_over_60_deg": 0.0,
+      "screen_status": "fails_unvalidated_screen"
+    }
+  ],
+  "cases": {
+    "mu0p700": {
+      "baseline": {
+        "trajectory_file_name": "physics_trajectory.npz",
+        "trajectory_sha256": "858a4dc5b11230d1ac5a894c9528060de90570265ebdea50f20a48005a021d61",
+        "report_sha256": "c4d9ab3d9b2e0e1401b78d472057968bcdbd4f36f301015443b205c5d3659e92",
+        "report_to_trajectory_sha_verified": true,
+        "reference_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+        "checkpoint_sha256": "6ec411efeaea37fc61389285978b377aa7c5be80e326ce7f18581efc9acdf27b",
+        "evaluation_mu": 0.7,
+        "high_frequency_hz": 10.0,
+        "physical_dt_s": 0.004999999999999893,
+        "policy_dt_s": 0.02,
+        "physical_samples": 1397,
+        "recorded_samples": 1397,
+        "excluded_invalid_tail_samples": 0,
+        "control_decisions": 349,
+        "held_action_records": 1396,
+        "joint_names": [
+          "abad_L_Joint",
+          "abad_R_Joint",
+          "hip_L_Joint",
+          "hip_R_Joint",
+          "knee_L_Joint",
+          "knee_R_Joint",
+          "wheel_L_Joint",
+          "wheel_R_Joint"
+        ],
+        "leg_action_scale_rad": 1.0,
+        "action_record_semantics": "Recorded actions_clipped only; if filtering exists, logger must specify whether these are pre/post-filter. No unrecorded actuator target is invented.",
+        "windows": {
+          "full": {
+            "interval_s": [
+              0.0,
+              6.98
+            ],
+            "coverage_complete": true,
+            "physical_samples": 1397,
+            "control_decisions": 349,
+            "action": {
+              "leg_delta_rms": 0.28388999987543373,
+              "wheel_delta_rms": 0.1493042864513539,
+              "leg_target_delta_rms_rad": 0.28388999987543373,
+              "leg_delta_abs_peak": 0.9408882558345795,
+              "leg_raw_outside_clip_fraction": 0.0,
+              "wheel_raw_outside_clip_fraction": 0.0,
+              "leg_spectrum": {
+                "samples": 349,
+                "sample_hz": 50.0,
+                "frequency_resolution_hz": 0.14326647564469913,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 23.925501432664756,
+                "total_mean_square": 0.03046163525232555,
+                "high_frequency_mean_square": 0.02454085794574886,
+                "high_frequency_rms": 0.15665521997606355,
+                "high_frequency_power_fraction": 0.8056316656170099,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              }
+            },
+            "legs": {
+              "joint_position_step_rms_rad": 0.016861186996344008,
+              "joint_velocity_rms_rad_s": 3.326238849421782,
+              "joint_velocity_component_rms_rad_s": [
+                2.185690622704361,
+                2.5179112311679517,
+                3.9171693772092104,
+                4.014807380606871,
+                3.37537495679714,
+                3.5227856168240863
+              ],
+              "joint_velocity_abs_peak_rad_s": 14.100038528442383,
+              "finite_difference_joint_acceleration_rms_rad_s2": 550.3396507302856,
+              "acceleration_note": "Finite difference of recorded joint velocity; not a measured accelerometer or separate actuator state"
+            },
+            "torque": {
+              "leg_rms_nm": 52.31928818198697,
+              "wheel_rms_nm": 1.5876402790088726,
+              "leg_step_rms_nm": 50.06276400391605,
+              "leg_abs_peak_nm": 80.0,
+              "leg_near_80nm_fraction": 0.20448580291099977,
+              "near_limit_definition": "abs(applied leg torque)>=79.2 Nm; sample fraction, NOT inferred motor saturation on a speed-torque curve",
+              "leg_spectrum": {
+                "samples": 1397,
+                "sample_hz": 200.00000000000426,
+                "frequency_resolution_hz": 0.14316392269148479,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 25.053686471009836,
+                "total_mean_square": 2585.031880261153,
+                "high_frequency_mean_square": 2483.8118890492724,
+                "high_frequency_rms": 49.83785598367241,
+                "high_frequency_power_fraction": 0.9608438131905533,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              }
+            },
+            "body": {
+              "angular_xy_rms_rad_s": 2.0311840270629404,
+              "angular_component_rms_rad_s": [
+                2.0756815157054915,
+                1.9856896406412057,
+                0.5779368649254302
+              ],
+              "angular_xy_abs_peak_rad_s": 6.729583740234375,
+              "angular_xy_spectrum": {
+                "samples": 1397,
+                "sample_hz": 200.00000000000426,
+                "frequency_resolution_hz": 0.14316392269148479,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 26.05583392985023,
+                "total_mean_square": 4.101424598112259,
+                "high_frequency_mean_square": 3.9585292428727636,
+                "high_frequency_rms": 1.9896052982621362,
+                "high_frequency_power_fraction": 0.9651595800870593,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              },
+              "angular_body_xy_rms_rad_s": 2.032059493464206,
+              "angular_body_component_rms_rad_s": [
+                1.4911844539964174,
+                2.456603446654632,
+                0.5717486803439721
+              ],
+              "angular_body_xy_spectrum": {
+                "samples": 1397,
+                "sample_hz": 200.00000000000426,
+                "frequency_resolution_hz": 0.14316392269148479,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 26.91481746599914,
+                "total_mean_square": 4.105407389588397,
+                "high_frequency_mean_square": 3.961851705491438,
+                "high_frequency_rms": 1.9904400783473584,
+                "high_frequency_power_fraction": 0.9650325362445086,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              },
+              "vertical_com_velocity_rms_m_s": 0.1743339740568682,
+              "com_xy_velocity_step_rms_m_s": 0.03459002342192844,
+              "angular_velocity_definition": "Recorded world-frame XY components, not differentiated quaternions or exact body roll/pitch rates"
+            },
+            "pose_at_policy_fps": {
+              "sample_hz": 50.0,
+              "samples": 350,
+              "roll_pitch_step_rms_deg": 2.155118239324703,
+              "roll_pitch_step_abs_peak_deg": 5.620110823318264,
+              "note": "Original native poses subsampled at policy rate; frequencies above its Nyquist can alias. No interpolation or smoothing."
+            },
+            "tracking": {
+              "available": false,
+              "coverage_complete": false,
+              "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+            }
+          },
+          "core": {
+            "interval_s": [
+              1.44,
+              4.0
+            ],
+            "coverage_complete": true,
+            "physical_samples": 513,
+            "control_decisions": 129,
+            "action": {
+              "leg_delta_rms": 0.29700924844197624,
+              "wheel_delta_rms": 0.1504945982318727,
+              "leg_target_delta_rms_rad": 0.29700924844197624,
+              "leg_delta_abs_peak": 0.9408882558345795,
+              "leg_raw_outside_clip_fraction": 0.0,
+              "wheel_raw_outside_clip_fraction": 0.0,
+              "leg_spectrum": {
+                "samples": 129,
+                "sample_hz": 50.0,
+                "frequency_resolution_hz": 0.38759689922480617,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 24.03100775193798,
+                "total_mean_square": 0.0339914297841445,
+                "high_frequency_mean_square": 0.027997693389362113,
+                "high_frequency_rms": 0.16732511284730128,
+                "high_frequency_power_fraction": 0.8236691885912312,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              }
+            },
+            "legs": {
+              "joint_position_step_rms_rad": 0.017968613197425546,
+              "joint_velocity_rms_rad_s": 3.532349249236344,
+              "joint_velocity_component_rms_rad_s": [
+                2.2197704009613144,
+                2.8029466286806346,
+                3.955871573532065,
+                4.197122978745241,
+                3.594236911744417,
+                3.9871991036980936
+              ],
+              "joint_velocity_abs_peak_rad_s": 14.100038528442383,
+              "finite_difference_joint_acceleration_rms_rad_s2": 569.2742576102021,
+              "acceleration_note": "Finite difference of recorded joint velocity; not a measured accelerometer or separate actuator state"
+            },
+            "torque": {
+              "leg_rms_nm": 53.398661329305575,
+              "wheel_rms_nm": 1.5138683957042651,
+              "leg_step_rms_nm": 50.637723212195965,
+              "leg_abs_peak_nm": 80.0,
+              "leg_near_80nm_fraction": 0.2235217673814165,
+              "near_limit_definition": "abs(applied leg torque)>=79.2 Nm; sample fraction, NOT inferred motor saturation on a speed-torque curve",
+              "leg_spectrum": {
+                "samples": 513,
+                "sample_hz": 200.00000000000426,
+                "frequency_resolution_hz": 0.3898635477582929,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 24.951267056530746,
+                "total_mean_square": 2705.119762954923,
+                "high_frequency_mean_square": 2596.849800293792,
+                "high_frequency_rms": 50.95929552391587,
+                "high_frequency_power_fraction": 0.9599759078530178,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              }
+            },
+            "body": {
+              "angular_xy_rms_rad_s": 2.079266478617777,
+              "angular_component_rms_rad_s": [
+                2.3009446935093996,
+                1.8309428433509543,
+                0.7112716827987663
+              ],
+              "angular_xy_abs_peak_rad_s": 6.729583740234375,
+              "angular_xy_spectrum": {
+                "samples": 513,
+                "sample_hz": 200.00000000000426,
+                "frequency_resolution_hz": 0.3898635477582929,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 26.90058479532221,
+                "total_mean_square": 4.951405471854478,
+                "high_frequency_mean_square": 4.719363558321352,
+                "high_frequency_rms": 2.172409620288345,
+                "high_frequency_power_fraction": 0.9531361519770227,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              },
+              "angular_body_xy_rms_rad_s": 2.0811475592767867,
+              "angular_body_component_rms_rad_s": [
+                1.5340345691605075,
+                2.5117898533890104,
+                0.7001823033975371
+              ],
+              "angular_body_xy_spectrum": {
+                "samples": 513,
+                "sample_hz": 200.00000000000426,
+                "frequency_resolution_hz": 0.3898635477582929,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 26.90058479532221,
+                "total_mean_square": 4.9539710110011415,
+                "high_frequency_mean_square": 4.721207717434302,
+                "high_frequency_rms": 2.172834028966387,
+                "high_frequency_power_fraction": 0.95301480508264,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              },
+              "vertical_com_velocity_rms_m_s": 0.18082316566095638,
+              "com_xy_velocity_step_rms_m_s": 0.035345162014755974,
+              "angular_velocity_definition": "Recorded world-frame XY components, not differentiated quaternions or exact body roll/pitch rates"
+            },
+            "pose_at_policy_fps": {
+              "sample_hz": 50.0,
+              "samples": 129,
+              "roll_pitch_step_rms_deg": 2.1829884931100563,
+              "roll_pitch_step_abs_peak_deg": 5.620110823318264,
+              "note": "Original native poses subsampled at policy rate; frequencies above its Nyquist can alias. No interpolation or smoothing."
+            },
+            "tracking": {
+              "available": true,
+              "coverage_complete": true,
+              "samples": 513,
+              "xy_rmse_m": 0.056502488325627764,
+              "xy_peak_m": 0.10088279892710175,
+              "mean_speed_m_s": 1.0222399004054141,
+              "reference_mean_speed_m_s": 1.0283094526778487,
+              "speed_retention": 0.9940975430531843,
+              "beta_rmse_deg": 3.646314455588084,
+              "beta_valid_samples": 513,
+              "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+            }
+          }
+        },
+        "new_simulation": false,
+        "new_inference": false,
+        "posture_diagnostics": {
+          "full": {
+            "samples": 1397,
+            "max_tilt_deg": 5.219793275247316,
+            "max_tilt_time_s": 1.96,
+            "fraction_tilt_over_60_deg": 0.0,
+            "height_range_m": [
+              0.7254801988601685,
+              0.804409921169281
+            ],
+            "height_or_flight_failure_gate": false,
+            "posture_failure_gate": false,
+            "eligible_wheel_contact_fraction_left_right": [
+              0.3364352183249821,
+              0.3851109520400859
+            ],
+            "both_wheels_eligible_fraction": 0.1152469577666428,
+            "neither_wheel_eligible_fraction": 0.3937007874015748,
+            "contact_note": "Actual ground-contact count>0 AND upward force>5N; ineligibility alone is not flight"
+          },
+          "core": {
+            "samples": 513,
+            "max_tilt_deg": 5.219793275247316,
+            "max_tilt_time_s": 1.96,
+            "fraction_tilt_over_60_deg": 0.0,
+            "height_range_m": [
+              0.7544681429862976,
+              0.804409921169281
+            ],
+            "height_or_flight_failure_gate": false,
+            "posture_failure_gate": false,
+            "eligible_wheel_contact_fraction_left_right": [
+              0.27680311890838205,
+              0.4015594541910331
+            ],
+            "both_wheels_eligible_fraction": 0.0935672514619883,
+            "neither_wheel_eligible_fraction": 0.4152046783625731,
+            "contact_note": "Actual ground-contact count>0 AND upward force>5N; ineligibility alone is not flight"
+          }
+        }
+      },
+      "candidate": {
+        "trajectory_file_name": "physics_trajectory.npz",
+        "trajectory_sha256": "342b637767b65c1c23d3a90e11bcc6ea67cad89f199c48cd8b18b1b51de72da2",
+        "report_sha256": "d4231d3e7019bd13e217a9191eeb0d1cc7b3b76fdf0fcd27746e5105e7e79689",
+        "report_to_trajectory_sha_verified": true,
+        "reference_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+        "checkpoint_sha256": "060afb10b61a6cc6d494c70c8506475ffc6e4f0ac62885dd376f54701521dabb",
+        "evaluation_mu": 0.7,
+        "high_frequency_hz": 10.0,
+        "physical_dt_s": 0.004999999999999893,
+        "policy_dt_s": 0.02,
+        "physical_samples": 1397,
+        "recorded_samples": 1397,
+        "excluded_invalid_tail_samples": 0,
+        "control_decisions": 349,
+        "held_action_records": 1396,
+        "joint_names": [
+          "abad_L_Joint",
+          "abad_R_Joint",
+          "hip_L_Joint",
+          "hip_R_Joint",
+          "knee_L_Joint",
+          "knee_R_Joint",
+          "wheel_L_Joint",
+          "wheel_R_Joint"
+        ],
+        "leg_action_scale_rad": 1.0,
+        "action_record_semantics": "Recorded actions_clipped only; if filtering exists, logger must specify whether these are pre/post-filter. No unrecorded actuator target is invented.",
+        "windows": {
+          "full": {
+            "interval_s": [
+              0.0,
+              6.98
+            ],
+            "coverage_complete": true,
+            "physical_samples": 1397,
+            "control_decisions": 349,
+            "action": {
+              "leg_delta_rms": 0.09688236910146006,
+              "wheel_delta_rms": 0.04522139590462389,
+              "leg_target_delta_rms_rad": 0.09688236910146006,
+              "leg_delta_abs_peak": 0.8043809533119202,
+              "leg_raw_outside_clip_fraction": 0.0,
+              "wheel_raw_outside_clip_fraction": 0.0,
+              "leg_spectrum": {
+                "samples": 349,
+                "sample_hz": 50.0,
+                "frequency_resolution_hz": 0.14326647564469913,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 0.14326647564469913,
+                "total_mean_square": 0.010945326152910903,
+                "high_frequency_mean_square": 0.005424035545004097,
+                "high_frequency_rms": 0.07364805187514532,
+                "high_frequency_power_fraction": 0.49555723321790446,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              }
+            },
+            "legs": {
+              "joint_position_step_rms_rad": 0.00795182556871813,
+              "joint_velocity_rms_rad_s": 1.5692828727293087,
+              "joint_velocity_component_rms_rad_s": [
+                1.030726706999795,
+                1.28036078224725,
+                1.6335369337873547,
+                1.5835965036055886,
+                1.959917364525652,
+                1.7483347089620638
+              ],
+              "joint_velocity_abs_peak_rad_s": 11.508915901184082,
+              "finite_difference_joint_acceleration_rms_rad_s2": 276.5918792634309,
+              "acceleration_note": "Finite difference of recorded joint velocity; not a measured accelerometer or separate actuator state"
+            },
+            "torque": {
+              "leg_rms_nm": 26.598173453598992,
+              "wheel_rms_nm": 1.1256775659669558,
+              "leg_step_rms_nm": 22.54297385359366,
+              "leg_abs_peak_nm": 80.0,
+              "leg_near_80nm_fraction": 0.02910999761393462,
+              "near_limit_definition": "abs(applied leg torque)>=79.2 Nm; sample fraction, NOT inferred motor saturation on a speed-torque curve",
+              "leg_spectrum": {
+                "samples": 1397,
+                "sample_hz": 200.00000000000426,
+                "frequency_resolution_hz": 0.14316392269148479,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 17.036506800286688,
+                "total_mean_square": 874.6027822817331,
+                "high_frequency_mean_square": 774.3949785563802,
+                "high_frequency_rms": 27.827953186614,
+                "high_frequency_power_fraction": 0.885424782820925,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              }
+            },
+            "body": {
+              "angular_xy_rms_rad_s": 0.7952266468993566,
+              "angular_component_rms_rad_s": [
+                0.9501533940337228,
+                0.6016472119803968,
+                0.3984445186724794
+              ],
+              "angular_xy_abs_peak_rad_s": 5.639976501464844,
+              "angular_xy_spectrum": {
+                "samples": 1397,
+                "sample_hz": 200.00000000000426,
+                "frequency_resolution_hz": 0.14316392269148479,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 17.036506800286688,
+                "total_mean_square": 1.131516599125933,
+                "high_frequency_mean_square": 1.0876305413306664,
+                "high_frequency_rms": 1.0428952686299169,
+                "high_frequency_power_fraction": 0.9612148351785846,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              },
+              "angular_body_xy_rms_rad_s": 0.7971854216791281,
+              "angular_body_component_rms_rad_s": [
+                0.6773004001303348,
+                0.90126209343273,
+                0.39053768225649205
+              ],
+              "angular_body_xy_spectrum": {
+                "samples": 1397,
+                "sample_hz": 200.00000000000426,
+                "frequency_resolution_hz": 0.14316392269148479,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 17.036506800286688,
+                "total_mean_square": 1.1374354920313485,
+                "high_frequency_mean_square": 1.0936502969309818,
+                "high_frequency_rms": 1.0457773648970328,
+                "high_frequency_power_fraction": 0.9615053377469603,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              },
+              "vertical_com_velocity_rms_m_s": 0.11997484653228895,
+              "com_xy_velocity_step_rms_m_s": 0.01778940972698314,
+              "angular_velocity_definition": "Recorded world-frame XY components, not differentiated quaternions or exact body roll/pitch rates"
+            },
+            "pose_at_policy_fps": {
+              "sample_hz": 50.0,
+              "samples": 350,
+              "roll_pitch_step_rms_deg": 0.8042316472100847,
+              "roll_pitch_step_abs_peak_deg": 4.974341379597544,
+              "note": "Original native poses subsampled at policy rate; frequencies above its Nyquist can alias. No interpolation or smoothing."
+            },
+            "tracking": {
+              "available": false,
+              "coverage_complete": false,
+              "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+            }
+          },
+          "core": {
+            "interval_s": [
+              1.44,
+              4.0
+            ],
+            "coverage_complete": true,
+            "physical_samples": 513,
+            "control_decisions": 129,
+            "action": {
+              "leg_delta_rms": 0.15493804482600348,
+              "wheel_delta_rms": 0.06443052468716795,
+              "leg_target_delta_rms_rad": 0.15493804482600348,
+              "leg_delta_abs_peak": 0.8043809533119202,
+              "leg_raw_outside_clip_fraction": 0.0,
+              "wheel_raw_outside_clip_fraction": 0.0,
+              "leg_spectrum": {
+                "samples": 129,
+                "sample_hz": 50.0,
+                "frequency_resolution_hz": 0.38759689922480617,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 17.05426356589147,
+                "total_mean_square": 0.014365715020081767,
+                "high_frequency_mean_square": 0.010840816492539006,
+                "high_frequency_rms": 0.10411924170170951,
+                "high_frequency_power_fraction": 0.7546311810713687,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              }
+            },
+            "legs": {
+              "joint_position_step_rms_rad": 0.012701187966958521,
+              "joint_velocity_rms_rad_s": 2.504021587223591,
+              "joint_velocity_component_rms_rad_s": [
+                1.6467382202276022,
+                2.067625537978005,
+                2.5357862597045293,
+                2.5008782731641888,
+                3.1853428842882945,
+                2.793368780139182
+              ],
+              "joint_velocity_abs_peak_rad_s": 11.508915901184082,
+              "finite_difference_joint_acceleration_rms_rad_s2": 435.4612979801654,
+              "acceleration_note": "Finite difference of recorded joint velocity; not a measured accelerometer or separate actuator state"
+            },
+            "torque": {
+              "leg_rms_nm": 37.26029588770673,
+              "wheel_rms_nm": 0.929988996566626,
+              "leg_step_rms_nm": 34.95230422846003,
+              "leg_abs_peak_nm": 80.0,
+              "leg_near_80nm_fraction": 0.0737491877842755,
+              "near_limit_definition": "abs(applied leg torque)>=79.2 Nm; sample fraction, NOT inferred motor saturation on a speed-torque curve",
+              "leg_spectrum": {
+                "samples": 513,
+                "sample_hz": 200.00000000000426,
+                "frequency_resolution_hz": 0.3898635477582929,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 17.15399610136489,
+                "total_mean_square": 1344.646850987146,
+                "high_frequency_mean_square": 1261.7420700408693,
+                "high_frequency_rms": 35.52100885449158,
+                "high_frequency_power_fraction": 0.9383445691443714,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              }
+            },
+            "body": {
+              "angular_xy_rms_rad_s": 1.2585891680197494,
+              "angular_component_rms_rad_s": [
+                1.5293643334629914,
+                0.9105702187336181,
+                0.5472049560592891
+              ],
+              "angular_xy_abs_peak_rad_s": 5.639976501464844,
+              "angular_xy_spectrum": {
+                "samples": 513,
+                "sample_hz": 200.00000000000426,
+                "frequency_resolution_hz": 0.3898635477582929,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 17.15399610136489,
+                "total_mean_square": 2.0340290423041933,
+                "high_frequency_mean_square": 1.9296489019733694,
+                "high_frequency_rms": 1.3891180302527821,
+                "high_frequency_power_fraction": 0.9486830629455616,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              },
+              "angular_body_xy_rms_rad_s": 1.2617230349397286,
+              "angular_body_component_rms_rad_s": [
+                1.090505378443147,
+                1.4123342569595938,
+                0.5325754574274888
+              ],
+              "angular_body_xy_spectrum": {
+                "samples": 513,
+                "sample_hz": 200.00000000000426,
+                "frequency_resolution_hz": 0.3898635477582929,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 17.15399610136489,
+                "total_mean_square": 2.04328754804724,
+                "high_frequency_mean_square": 1.9395947563639628,
+                "high_frequency_rms": 1.3926933461332982,
+                "high_frequency_power_fraction": 0.9492519827753192,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              },
+              "vertical_com_velocity_rms_m_s": 0.1823522895226048,
+              "com_xy_velocity_step_rms_m_s": 0.02763758509867427,
+              "angular_velocity_definition": "Recorded world-frame XY components, not differentiated quaternions or exact body roll/pitch rates"
+            },
+            "pose_at_policy_fps": {
+              "sample_hz": 50.0,
+              "samples": 129,
+              "roll_pitch_step_rms_deg": 1.2718804922232942,
+              "roll_pitch_step_abs_peak_deg": 4.974341379597544,
+              "note": "Original native poses subsampled at policy rate; frequencies above its Nyquist can alias. No interpolation or smoothing."
+            },
+            "tracking": {
+              "available": true,
+              "coverage_complete": true,
+              "samples": 513,
+              "xy_rmse_m": 0.06914185554018025,
+              "xy_peak_m": 0.09422081063935113,
+              "mean_speed_m_s": 1.0072712969874686,
+              "reference_mean_speed_m_s": 1.0283094526778487,
+              "speed_retention": 0.9795410266475777,
+              "beta_rmse_deg": 1.8451752391422185,
+              "beta_valid_samples": 513,
+              "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+            }
+          }
+        },
+        "new_simulation": false,
+        "new_inference": false,
+        "posture_diagnostics": {
+          "full": {
+            "samples": 1397,
+            "max_tilt_deg": 7.43162240016993,
+            "max_tilt_time_s": 2.44,
+            "fraction_tilt_over_60_deg": 0.0,
+            "height_range_m": [
+              0.697356104850769,
+              0.8062832951545715
+            ],
+            "height_or_flight_failure_gate": false,
+            "posture_failure_gate": false,
+            "eligible_wheel_contact_fraction_left_right": [
+              0.7158196134574087,
+              0.854688618468146
+            ],
+            "both_wheels_eligible_fraction": 0.6907659269863994,
+            "neither_wheel_eligible_fraction": 0.12025769506084466,
+            "contact_note": "Actual ground-contact count>0 AND upward force>5N; ineligibility alone is not flight"
+          },
+          "core": {
+            "samples": 513,
+            "max_tilt_deg": 7.43162240016993,
+            "max_tilt_time_s": 2.44,
+            "fraction_tilt_over_60_deg": 0.0,
+            "height_range_m": [
+              0.7727562189102173,
+              0.8062832951545715
+            ],
+            "height_or_flight_failure_gate": false,
+            "posture_failure_gate": false,
+            "eligible_wheel_contact_fraction_left_right": [
+              0.2962962962962963,
+              0.6900584795321637
+            ],
+            "both_wheels_eligible_fraction": 0.27485380116959063,
+            "neither_wheel_eligible_fraction": 0.2884990253411306,
+            "contact_note": "Actual ground-contact count>0 AND upward force>5N; ineligibility alone is not flight"
+          }
+        }
+      },
+      "comparison": {
+        "kind": "unvalidated_smoothing_engineering_screen",
+        "window": "core",
+        "status": "fails_unvalidated_screen",
+        "passes": false,
+        "criteria": {
+          "absolute_hf_body_angular_xy_rms_ratio": {
+            "value": 0.6394365120093712,
+            "maximum": 0.5,
+            "evaluable": true,
+            "passes": false,
+            "note": "Absolute band RMS, not just fraction of spectral power"
+          },
+          "leg_action_delta_rms_ratio": {
+            "value": 0.5216606743351031,
+            "maximum": 0.5,
+            "evaluable": true,
+            "passes": false
+          },
+          "xy_rmse_m": {
+            "value": 0.06914185554018025,
+            "maximum": 0.08650248832562776,
+            "evaluable": true,
+            "passes": true
+          },
+          "nominal_speed_retention": {
+            "value": 0.9795410266475777,
+            "minimum": 0.9,
+            "evaluable": true,
+            "passes": true,
+            "note": "Intended for nominal-condition screening; low-friction robustness must be evaluated separately"
+          },
+          "beta_rmse_deg": {
+            "value": 1.8451752391422185,
+            "maximum": 8.646314455588083,
+            "evaluable": true,
+            "passes": true,
+            "note": "Error against intended reference beta; nonzero sideslip is not itself a mismatch"
+          }
+        },
+        "baseline_trajectory_sha256": "858a4dc5b11230d1ac5a894c9528060de90570265ebdea50f20a48005a021d61",
+        "candidate_trajectory_sha256": "342b637767b65c1c23d3a90e11bcc6ea67cad89f199c48cd8b18b1b51de72da2",
+        "statistical_success_claimed": false,
+        "safety_qualification_claimed": false,
+        "causal_improvement_claimed": false,
+        "thresholds": {
+          "required_reduction_fraction": 0.5,
+          "xy_max_rmse_m": 0.15,
+          "xy_allowed_increase_m": 0.03,
+          "nominal_speed_retention_min": 0.9,
+          "beta_allowed_increase_deg": 5.0
+        }
+      }
+    },
+    "mu0p150": {
+      "baseline": {
+        "trajectory_file_name": "physics_trajectory.npz",
+        "trajectory_sha256": "2006dc375886bb72d91fceadce402c2daaccbef8244ce3e80e671a59e33cedee",
+        "report_sha256": "bc1a7452b5693ec4e2bb9ed075f9c46131776f61243965bb216c674fe34ecf4f",
+        "report_to_trajectory_sha_verified": true,
+        "reference_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+        "checkpoint_sha256": "6ec411efeaea37fc61389285978b377aa7c5be80e326ce7f18581efc9acdf27b",
+        "evaluation_mu": 0.15,
+        "high_frequency_hz": 10.0,
+        "physical_dt_s": 0.004999999999999893,
+        "policy_dt_s": 0.02,
+        "physical_samples": 1397,
+        "recorded_samples": 1397,
+        "excluded_invalid_tail_samples": 0,
+        "control_decisions": 349,
+        "held_action_records": 1396,
+        "joint_names": [
+          "abad_L_Joint",
+          "abad_R_Joint",
+          "hip_L_Joint",
+          "hip_R_Joint",
+          "knee_L_Joint",
+          "knee_R_Joint",
+          "wheel_L_Joint",
+          "wheel_R_Joint"
+        ],
+        "leg_action_scale_rad": 1.0,
+        "action_record_semantics": "Recorded actions_clipped only; if filtering exists, logger must specify whether these are pre/post-filter. No unrecorded actuator target is invented.",
+        "windows": {
+          "full": {
+            "interval_s": [
+              0.0,
+              6.98
+            ],
+            "coverage_complete": true,
+            "physical_samples": 1397,
+            "control_decisions": 349,
+            "action": {
+              "leg_delta_rms": 0.4069311129988381,
+              "wheel_delta_rms": 0.2584797353745208,
+              "leg_target_delta_rms_rad": 0.4069311129988381,
+              "leg_delta_abs_peak": 1.0157462656497955,
+              "leg_raw_outside_clip_fraction": 0.0,
+              "wheel_raw_outside_clip_fraction": 0.0,
+              "leg_spectrum": {
+                "samples": 349,
+                "sample_hz": 50.0,
+                "frequency_resolution_hz": 0.14326647564469913,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 24.92836676217765,
+                "total_mean_square": 0.045586116656667765,
+                "high_frequency_mean_square": 0.04177569096293838,
+                "high_frequency_rms": 0.20439102466336034,
+                "high_frequency_power_fraction": 0.9164125840674774,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              }
+            },
+            "legs": {
+              "joint_position_step_rms_rad": 0.01898438362470304,
+              "joint_velocity_rms_rad_s": 3.7626251115968365,
+              "joint_velocity_component_rms_rad_s": [
+                1.5550654833934243,
+                1.9792368141931467,
+                5.614406662375142,
+                5.395436625693688,
+                2.6880689905711774,
+                3.278790311646349
+              ],
+              "joint_velocity_abs_peak_rad_s": 12.357518196105957,
+              "finite_difference_joint_acceleration_rms_rad_s2": 602.0905536989831,
+              "acceleration_note": "Finite difference of recorded joint velocity; not a measured accelerometer or separate actuator state"
+            },
+            "torque": {
+              "leg_rms_nm": 62.479810130649795,
+              "wheel_rms_nm": 1.906917116247435,
+              "leg_step_rms_nm": 58.87262010774885,
+              "leg_abs_peak_nm": 80.0,
+              "leg_near_80nm_fraction": 0.3520639465521355,
+              "near_limit_definition": "abs(applied leg torque)>=79.2 Nm; sample fraction, NOT inferred motor saturation on a speed-torque curve",
+              "leg_spectrum": {
+                "samples": 1397,
+                "sample_hz": 200.00000000000426,
+                "frequency_resolution_hz": 0.14316392269148479,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 25.053686471009836,
+                "total_mean_square": 3708.4022061908277,
+                "high_frequency_mean_square": 3633.0311938381838,
+                "high_frequency_rms": 60.274631428472325,
+                "high_frequency_power_fraction": 0.9796756100978424,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              }
+            },
+            "body": {
+              "angular_xy_rms_rad_s": 2.711153476459396,
+              "angular_component_rms_rad_s": [
+                2.9192547843625434,
+                2.485690618281393,
+                0.6717155395894598
+              ],
+              "angular_xy_abs_peak_rad_s": 7.647217273712158,
+              "angular_xy_spectrum": {
+                "samples": 1397,
+                "sample_hz": 200.00000000000426,
+                "frequency_resolution_hz": 0.14316392269148479,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 25.053686471009836,
+                "total_mean_square": 8.24431823249482,
+                "high_frequency_mean_square": 8.181441685290174,
+                "high_frequency_rms": 2.860321954831339,
+                "high_frequency_power_fraction": 0.9923733478704377,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              },
+              "angular_body_xy_rms_rad_s": 2.7190808269638667,
+              "angular_body_component_rms_rad_s": [
+                0.8520772647339042,
+                3.749768715807496,
+                0.6042408665728273
+              ],
+              "angular_body_xy_spectrum": {
+                "samples": 1397,
+                "sample_hz": 200.00000000000426,
+                "frequency_resolution_hz": 0.14316392269148479,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 25.053686471009836,
+                "total_mean_square": 8.311457658744786,
+                "high_frequency_mean_square": 8.248342443245692,
+                "high_frequency_rms": 2.8719927651799004,
+                "high_frequency_power_fraction": 0.9924062399051401,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              },
+              "vertical_com_velocity_rms_m_s": 0.2316168959800161,
+              "com_xy_velocity_step_rms_m_s": 0.04372004212331704,
+              "angular_velocity_definition": "Recorded world-frame XY components, not differentiated quaternions or exact body roll/pitch rates"
+            },
+            "pose_at_policy_fps": {
+              "sample_hz": 50.0,
+              "samples": 350,
+              "roll_pitch_step_rms_deg": 2.8029500718411895,
+              "roll_pitch_step_abs_peak_deg": 5.429346625729538,
+              "note": "Original native poses subsampled at policy rate; frequencies above its Nyquist can alias. No interpolation or smoothing."
+            },
+            "tracking": {
+              "available": false,
+              "coverage_complete": false,
+              "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+            }
+          },
+          "core": {
+            "interval_s": [
+              1.44,
+              4.0
+            ],
+            "coverage_complete": true,
+            "physical_samples": 513,
+            "control_decisions": 129,
+            "action": {
+              "leg_delta_rms": 0.4046927883103126,
+              "wheel_delta_rms": 0.28095597913043524,
+              "leg_target_delta_rms_rad": 0.4046927883103126,
+              "leg_delta_abs_peak": 0.8695803135633469,
+              "leg_raw_outside_clip_fraction": 0.0,
+              "wheel_raw_outside_clip_fraction": 0.0,
+              "leg_spectrum": {
+                "samples": 129,
+                "sample_hz": 50.0,
+                "frequency_resolution_hz": 0.38759689922480617,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 24.806201550387595,
+                "total_mean_square": 0.04095280341772866,
+                "high_frequency_mean_square": 0.03907476818188193,
+                "high_frequency_rms": 0.19767338764204434,
+                "high_frequency_power_fraction": 0.9541414731321246,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              }
+            },
+            "legs": {
+              "joint_position_step_rms_rad": 0.019801290153065646,
+              "joint_velocity_rms_rad_s": 3.9384308354725275,
+              "joint_velocity_component_rms_rad_s": [
+                1.466168956063856,
+                1.8198830048499834,
+                6.058078587629761,
+                5.7487909946360665,
+                2.6137303728710903,
+                3.3204365044014983
+              ],
+              "joint_velocity_abs_peak_rad_s": 11.341874122619629,
+              "finite_difference_joint_acceleration_rms_rad_s2": 626.3451843283588,
+              "acceleration_note": "Finite difference of recorded joint velocity; not a measured accelerometer or separate actuator state"
+            },
+            "torque": {
+              "leg_rms_nm": 62.423866364253456,
+              "wheel_rms_nm": 1.8632370651639396,
+              "leg_step_rms_nm": 58.554134752964785,
+              "leg_abs_peak_nm": 80.0,
+              "leg_near_80nm_fraction": 0.35185185185185186,
+              "near_limit_definition": "abs(applied leg torque)>=79.2 Nm; sample fraction, NOT inferred motor saturation on a speed-torque curve",
+              "leg_spectrum": {
+                "samples": 513,
+                "sample_hz": 200.00000000000426,
+                "frequency_resolution_hz": 0.3898635477582929,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 24.951267056530746,
+                "total_mean_square": 3616.588258119021,
+                "high_frequency_mean_square": 3552.655508896666,
+                "high_frequency_rms": 59.60415680887253,
+                "high_frequency_power_fraction": 0.9823223589030823,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              }
+            },
+            "body": {
+              "angular_xy_rms_rad_s": 2.9252813400373148,
+              "angular_component_rms_rad_s": [
+                3.5258267713455216,
+                2.1640442267209394,
+                0.8215950737811087
+              ],
+              "angular_xy_abs_peak_rad_s": 7.647217273712158,
+              "angular_xy_spectrum": {
+                "samples": 513,
+                "sample_hz": 200.00000000000426,
+                "frequency_resolution_hz": 0.3898635477582929,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 24.951267056530746,
+                "total_mean_square": 7.951588438076881,
+                "high_frequency_mean_square": 7.911353781211583,
+                "high_frequency_rms": 2.8127128863806172,
+                "high_frequency_power_fraction": 0.9949400478685956,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              },
+              "angular_body_xy_rms_rad_s": 2.940912818642747,
+              "angular_body_component_rms_rad_s": [
+                0.8335902345457044,
+                4.07468572218576,
+                0.7011589607841808
+              ],
+              "angular_body_xy_spectrum": {
+                "samples": 513,
+                "sample_hz": 200.00000000000426,
+                "frequency_resolution_hz": 0.3898635477582929,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 24.951267056530746,
+                "total_mean_square": 8.077799264505453,
+                "high_frequency_mean_square": 8.036220293260376,
+                "high_frequency_rms": 2.8348227975061113,
+                "high_frequency_power_fraction": 0.9948526857521975,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              },
+              "vertical_com_velocity_rms_m_s": 0.23015593670961343,
+              "com_xy_velocity_step_rms_m_s": 0.0497734694631835,
+              "angular_velocity_definition": "Recorded world-frame XY components, not differentiated quaternions or exact body roll/pitch rates"
+            },
+            "pose_at_policy_fps": {
+              "sample_hz": 50.0,
+              "samples": 129,
+              "roll_pitch_step_rms_deg": 2.9723568164755854,
+              "roll_pitch_step_abs_peak_deg": 5.429346625729538,
+              "note": "Original native poses subsampled at policy rate; frequencies above its Nyquist can alias. No interpolation or smoothing."
+            },
+            "tracking": {
+              "available": true,
+              "coverage_complete": true,
+              "samples": 513,
+              "xy_rmse_m": 0.044498596170893585,
+              "xy_peak_m": 0.06951376927794424,
+              "mean_speed_m_s": 1.0499755554378178,
+              "reference_mean_speed_m_s": 1.0283094526778487,
+              "speed_retention": 1.021069632982122,
+              "beta_rmse_deg": 3.1247406976956085,
+              "beta_valid_samples": 513,
+              "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+            }
+          }
+        },
+        "new_simulation": false,
+        "new_inference": false,
+        "posture_diagnostics": {
+          "full": {
+            "samples": 1397,
+            "max_tilt_deg": 7.883524606213631,
+            "max_tilt_time_s": 2.68,
+            "fraction_tilt_over_60_deg": 0.0,
+            "height_range_m": [
+              0.717231810092926,
+              0.776012122631073
+            ],
+            "height_or_flight_failure_gate": false,
+            "posture_failure_gate": false,
+            "eligible_wheel_contact_fraction_left_right": [
+              0.4767358625626342,
+              0.23979957050823192
+            ],
+            "both_wheels_eligible_fraction": 0.12741589119541877,
+            "neither_wheel_eligible_fraction": 0.4108804581245526,
+            "contact_note": "Actual ground-contact count>0 AND upward force>5N; ineligibility alone is not flight"
+          },
+          "core": {
+            "samples": 513,
+            "max_tilt_deg": 7.883524606213631,
+            "max_tilt_time_s": 2.68,
+            "fraction_tilt_over_60_deg": 0.0,
+            "height_range_m": [
+              0.7313743233680725,
+              0.776012122631073
+            ],
+            "height_or_flight_failure_gate": false,
+            "posture_failure_gate": false,
+            "eligible_wheel_contact_fraction_left_right": [
+              0.5107212475633528,
+              0.2202729044834308
+            ],
+            "both_wheels_eligible_fraction": 0.11695906432748537,
+            "neither_wheel_eligible_fraction": 0.38596491228070173,
+            "contact_note": "Actual ground-contact count>0 AND upward force>5N; ineligibility alone is not flight"
+          }
+        }
+      },
+      "candidate": {
+        "trajectory_file_name": "physics_trajectory.npz",
+        "trajectory_sha256": "e4943a8c95740257e03d73affa47a13e282f7c8d418264d425d2a23c4ee6912d",
+        "report_sha256": "38322f7c0238b2e952d71b7e586ffd819f0de4fa47d2a25304f16dcfe10863f0",
+        "report_to_trajectory_sha_verified": true,
+        "reference_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+        "checkpoint_sha256": "060afb10b61a6cc6d494c70c8506475ffc6e4f0ac62885dd376f54701521dabb",
+        "evaluation_mu": 0.15,
+        "high_frequency_hz": 10.0,
+        "physical_dt_s": 0.004999999999999893,
+        "policy_dt_s": 0.02,
+        "physical_samples": 1397,
+        "recorded_samples": 1397,
+        "excluded_invalid_tail_samples": 0,
+        "control_decisions": 349,
+        "held_action_records": 1396,
+        "joint_names": [
+          "abad_L_Joint",
+          "abad_R_Joint",
+          "hip_L_Joint",
+          "hip_R_Joint",
+          "knee_L_Joint",
+          "knee_R_Joint",
+          "wheel_L_Joint",
+          "wheel_R_Joint"
+        ],
+        "leg_action_scale_rad": 1.0,
+        "action_record_semantics": "Recorded actions_clipped only; if filtering exists, logger must specify whether these are pre/post-filter. No unrecorded actuator target is invented.",
+        "windows": {
+          "full": {
+            "interval_s": [
+              0.0,
+              6.98
+            ],
+            "coverage_complete": true,
+            "physical_samples": 1397,
+            "control_decisions": 349,
+            "action": {
+              "leg_delta_rms": 0.07977376171969275,
+              "wheel_delta_rms": 0.044628070397062895,
+              "leg_target_delta_rms_rad": 0.07977376171969275,
+              "leg_delta_abs_peak": 0.4879474937915802,
+              "leg_raw_outside_clip_fraction": 0.0,
+              "wheel_raw_outside_clip_fraction": 0.0,
+              "leg_spectrum": {
+                "samples": 349,
+                "sample_hz": 50.0,
+                "frequency_resolution_hz": 0.14326647564469913,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 0.14326647564469913,
+                "total_mean_square": 0.012332460891373874,
+                "high_frequency_mean_square": 0.0037467316243291688,
+                "high_frequency_rms": 0.06121055157674344,
+                "high_frequency_power_fraction": 0.3038105417346084,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              }
+            },
+            "legs": {
+              "joint_position_step_rms_rad": 0.007139686159254517,
+              "joint_velocity_rms_rad_s": 1.402475577930603,
+              "joint_velocity_component_rms_rad_s": [
+                0.8088638551948013,
+                1.0310385397359254,
+                1.5836767350965644,
+                1.5153856309591853,
+                1.816524340141347,
+                1.4071741126668194
+              ],
+              "joint_velocity_abs_peak_rad_s": 10.670412063598633,
+              "finite_difference_joint_acceleration_rms_rad_s2": 257.77737047701976,
+              "acceleration_note": "Finite difference of recorded joint velocity; not a measured accelerometer or separate actuator state"
+            },
+            "torque": {
+              "leg_rms_nm": 24.50825616227096,
+              "wheel_rms_nm": 0.9560978914442847,
+              "leg_step_rms_nm": 21.01595340863252,
+              "leg_abs_peak_nm": 80.0,
+              "leg_near_80nm_fraction": 0.024099260319732762,
+              "near_limit_definition": "abs(applied leg torque)>=79.2 Nm; sample fraction, NOT inferred motor saturation on a speed-torque curve",
+              "leg_spectrum": {
+                "samples": 1397,
+                "sample_hz": 200.00000000000426,
+                "frequency_resolution_hz": 0.14316392269148479,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 16.75017895490372,
+                "total_mean_square": 746.3950681958815,
+                "high_frequency_mean_square": 691.1933821455195,
+                "high_frequency_rms": 26.290556900634865,
+                "high_frequency_power_fraction": 0.9260422684948997,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              }
+            },
+            "body": {
+              "angular_xy_rms_rad_s": 0.7126682046436742,
+              "angular_component_rms_rad_s": [
+                0.9049892169972751,
+                0.44360619578488136,
+                0.4101722613257501
+              ],
+              "angular_xy_abs_peak_rad_s": 4.7575225830078125,
+              "angular_xy_spectrum": {
+                "samples": 1397,
+                "sample_hz": 200.00000000000426,
+                "frequency_resolution_hz": 0.14316392269148479,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 17.60916249105263,
+                "total_mean_square": 0.941314347443435,
+                "high_frequency_mean_square": 0.9216799430099369,
+                "high_frequency_rms": 0.9600416360814447,
+                "high_frequency_power_fraction": 0.9791415009376792,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              },
+              "angular_body_xy_rms_rad_s": 0.7173087277179329,
+              "angular_body_component_rms_rad_s": [
+                0.48586696256296164,
+                0.8905037430637115,
+                0.39366178638587207
+              ],
+              "angular_body_xy_spectrum": {
+                "samples": 1397,
+                "sample_hz": 200.00000000000426,
+                "frequency_resolution_hz": 0.14316392269148479,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 33.21403006442447,
+                "total_mean_square": 0.9528656264717728,
+                "high_frequency_mean_square": 0.9323728870981987,
+                "high_frequency_rms": 0.9655945769825961,
+                "high_frequency_power_fraction": 0.9784935684484142,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              },
+              "vertical_com_velocity_rms_m_s": 0.10891953415314874,
+              "com_xy_velocity_step_rms_m_s": 0.018854310150763196,
+              "angular_velocity_definition": "Recorded world-frame XY components, not differentiated quaternions or exact body roll/pitch rates"
+            },
+            "pose_at_policy_fps": {
+              "sample_hz": 50.0,
+              "samples": 350,
+              "roll_pitch_step_rms_deg": 0.72942255298831,
+              "roll_pitch_step_abs_peak_deg": 4.277827990728104,
+              "note": "Original native poses subsampled at policy rate; frequencies above its Nyquist can alias. No interpolation or smoothing."
+            },
+            "tracking": {
+              "available": false,
+              "coverage_complete": false,
+              "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+            }
+          },
+          "core": {
+            "interval_s": [
+              1.44,
+              4.0
+            ],
+            "coverage_complete": true,
+            "physical_samples": 513,
+            "control_decisions": 129,
+            "action": {
+              "leg_delta_rms": 0.1262776982224454,
+              "wheel_delta_rms": 0.06313609294064977,
+              "leg_target_delta_rms_rad": 0.1262776982224454,
+              "leg_delta_abs_peak": 0.4879474937915802,
+              "leg_raw_outside_clip_fraction": 0.0,
+              "wheel_raw_outside_clip_fraction": 0.0,
+              "leg_spectrum": {
+                "samples": 129,
+                "sample_hz": 50.0,
+                "frequency_resolution_hz": 0.38759689922480617,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 0.7751937984496123,
+                "total_mean_square": 0.017558282864465674,
+                "high_frequency_mean_square": 0.008456101586133849,
+                "high_frequency_rms": 0.09195706381857703,
+                "high_frequency_power_fraction": 0.4816018543161328,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              }
+            },
+            "legs": {
+              "joint_position_step_rms_rad": 0.011399260223795595,
+              "joint_velocity_rms_rad_s": 2.2367098260988363,
+              "joint_velocity_component_rms_rad_s": [
+                1.2618719590326553,
+                1.6673103993535066,
+                2.4797183410433083,
+                2.399904680168738,
+                2.942540580922458,
+                2.2534173321955713
+              ],
+              "joint_velocity_abs_peak_rad_s": 10.670412063598633,
+              "finite_difference_joint_acceleration_rms_rad_s2": 409.83468276407535,
+              "acceleration_note": "Finite difference of recorded joint velocity; not a measured accelerometer or separate actuator state"
+            },
+            "torque": {
+              "leg_rms_nm": 34.599463994271495,
+              "wheel_rms_nm": 0.8034998780864464,
+              "leg_step_rms_nm": 32.59364849047912,
+              "leg_abs_peak_nm": 80.0,
+              "leg_near_80nm_fraction": 0.0627030539311241,
+              "near_limit_definition": "abs(applied leg torque)>=79.2 Nm; sample fraction, NOT inferred motor saturation on a speed-torque curve",
+              "leg_spectrum": {
+                "samples": 513,
+                "sample_hz": 200.00000000000426,
+                "frequency_resolution_hz": 0.3898635477582929,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 16.764132553606593,
+                "total_mean_square": 1515.7615162075904,
+                "high_frequency_mean_square": 1424.0442825605467,
+                "high_frequency_rms": 37.73651126641872,
+                "high_frequency_power_fraction": 0.9394909867638553,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              }
+            },
+            "body": {
+              "angular_xy_rms_rad_s": 1.1274308764555094,
+              "angular_component_rms_rad_s": [
+                1.4622154863610684,
+                0.6357095514591088,
+                0.5608559170527125
+              ],
+              "angular_xy_abs_peak_rad_s": 4.7575225830078125,
+              "angular_xy_spectrum": {
+                "samples": 513,
+                "sample_hz": 200.00000000000426,
+                "frequency_resolution_hz": 0.3898635477582929,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 33.52826510721319,
+                "total_mean_square": 2.0219515061406934,
+                "high_frequency_mean_square": 1.9788706415292139,
+                "high_frequency_rms": 1.4067233706486908,
+                "high_frequency_power_fraction": 0.978693423417603,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              },
+              "angular_body_xy_rms_rad_s": 1.135143306878733,
+              "angular_body_component_rms_rad_s": [
+                0.7732855799014391,
+                1.4068155764774808,
+                0.5288283915982045
+              ],
+              "angular_body_xy_spectrum": {
+                "samples": 513,
+                "sample_hz": 200.00000000000426,
+                "frequency_resolution_hz": 0.3898635477582929,
+                "cutoff_hz_exclusive": 10.0,
+                "dominant_frequency_hz": 33.52826510721319,
+                "total_mean_square": 2.045497360839018,
+                "high_frequency_mean_square": 2.0016981874533073,
+                "high_frequency_rms": 1.4148138349102002,
+                "high_frequency_power_fraction": 0.978587518994527,
+                "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+              },
+              "vertical_com_velocity_rms_m_s": 0.1642880681939631,
+              "com_xy_velocity_step_rms_m_s": 0.029815368656393504,
+              "angular_velocity_definition": "Recorded world-frame XY components, not differentiated quaternions or exact body roll/pitch rates"
+            },
+            "pose_at_policy_fps": {
+              "sample_hz": 50.0,
+              "samples": 129,
+              "roll_pitch_step_rms_deg": 1.154571954668706,
+              "roll_pitch_step_abs_peak_deg": 4.277827990728104,
+              "note": "Original native poses subsampled at policy rate; frequencies above its Nyquist can alias. No interpolation or smoothing."
+            },
+            "tracking": {
+              "available": true,
+              "coverage_complete": true,
+              "samples": 513,
+              "xy_rmse_m": 0.0987830815723231,
+              "xy_peak_m": 0.13763803583240478,
+              "mean_speed_m_s": 0.9956262631920437,
+              "reference_mean_speed_m_s": 1.0283094526778487,
+              "speed_retention": 0.9682165816907607,
+              "beta_rmse_deg": 4.2862802751251845,
+              "beta_valid_samples": 513,
+              "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+            }
+          }
+        },
+        "new_simulation": false,
+        "new_inference": false,
+        "posture_diagnostics": {
+          "full": {
+            "samples": 1397,
+            "max_tilt_deg": 9.95596268611715,
+            "max_tilt_time_s": 2.34,
+            "fraction_tilt_over_60_deg": 0.0,
+            "height_range_m": [
+              0.7063978314399719,
+              0.8121961355209351
+            ],
+            "height_or_flight_failure_gate": false,
+            "posture_failure_gate": false,
+            "eligible_wheel_contact_fraction_left_right": [
+              0.725125268432355,
+              0.9033643521832498
+            ],
+            "both_wheels_eligible_fraction": 0.7093772369362921,
+            "neither_wheel_eligible_fraction": 0.08088761632068718,
+            "contact_note": "Actual ground-contact count>0 AND upward force>5N; ineligibility alone is not flight"
+          },
+          "core": {
+            "samples": 513,
+            "max_tilt_deg": 9.95596268611715,
+            "max_tilt_time_s": 2.34,
+            "fraction_tilt_over_60_deg": 0.0,
+            "height_range_m": [
+              0.7661672830581665,
+              0.8121961355209351
+            ],
+            "height_or_flight_failure_gate": false,
+            "posture_failure_gate": false,
+            "eligible_wheel_contact_fraction_left_right": [
+              0.4269005847953216,
+              0.7953216374269005
+            ],
+            "both_wheels_eligible_fraction": 0.4191033138401559,
+            "neither_wheel_eligible_fraction": 0.1968810916179337,
+            "contact_note": "Actual ground-contact count>0 AND upward force>5N; ineligibility alone is not flight"
+          }
+        }
+      },
+      "comparison": {
+        "kind": "unvalidated_smoothing_engineering_screen",
+        "window": "core",
+        "status": "fails_unvalidated_screen",
+        "passes": false,
+        "criteria": {
+          "absolute_hf_body_angular_xy_rms_ratio": {
+            "value": 0.5001304532219264,
+            "maximum": 0.5,
+            "evaluable": true,
+            "passes": false,
+            "note": "Absolute band RMS, not just fraction of spectral power"
+          },
+          "leg_action_delta_rms_ratio": {
+            "value": 0.3120334779121823,
+            "maximum": 0.5,
+            "evaluable": true,
+            "passes": true
+          },
+          "xy_rmse_m": {
+            "value": 0.0987830815723231,
+            "maximum": 0.07449859617089358,
+            "evaluable": true,
+            "passes": false
+          },
+          "nominal_speed_retention": {
+            "value": 0.9682165816907607,
+            "minimum": 0.9,
+            "evaluable": true,
+            "passes": true,
+            "note": "Intended for nominal-condition screening; low-friction robustness must be evaluated separately"
+          },
+          "beta_rmse_deg": {
+            "value": 4.2862802751251845,
+            "maximum": 8.124740697695609,
+            "evaluable": true,
+            "passes": true,
+            "note": "Error against intended reference beta; nonzero sideslip is not itself a mismatch"
+          }
+        },
+        "baseline_trajectory_sha256": "2006dc375886bb72d91fceadce402c2daaccbef8244ce3e80e671a59e33cedee",
+        "candidate_trajectory_sha256": "e4943a8c95740257e03d73affa47a13e282f7c8d418264d425d2a23c4ee6912d",
+        "statistical_success_claimed": false,
+        "safety_qualification_claimed": false,
+        "causal_improvement_claimed": false,
+        "thresholds": {
+          "required_reduction_fraction": 0.5,
+          "xy_max_rmse_m": 0.15,
+          "xy_allowed_increase_m": 0.03,
+          "nominal_speed_retention_min": 0.9,
+          "beta_allowed_increase_deg": 5.0
+        }
+      }
+    }
+  },
+  "input_sha256": {
+    "baseline_public_summary.json": "476623073f062f0c285d763ffe6cfc32ca423bd666e0a40791852721ca48f1cb",
+    "baseline_training_metadata.json": "aa130ce51ca5228ead5a422a9883b3634bd704716428cbe7ea756c10c3d0e6d2",
+    "reference_motion.npz": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+    "candidate/training/run_status.json": "aafd8459ca402778af48448fbe34829114a084e509b359cbea65ee457e929437",
+    "candidate/training/manifest.json": "ea5e6ecc8a9b60a7525c6c47cfe906726a900116c6dea64723fcfd9a10654ffe",
+    "candidate/training/ablation_manifest.json": "0d08f0e862742ed4a25a84f9cebe618ab94420427ff563d37fbad70047d5c9c4",
+    "candidate/training/runner_config.json": "67b8f0a98e072027d66a54c58b43595d7e41abc75a9292e30f6a6eeb5fe512ba",
+    "baseline/mu0p700/isaac/physics_trajectory.npz": "858a4dc5b11230d1ac5a894c9528060de90570265ebdea50f20a48005a021d61",
+    "baseline/mu0p700/isaac/report.json": "c4d9ab3d9b2e0e1401b78d472057968bcdbd4f36f301015443b205c5d3659e92",
+    "candidate/mu0p700/isaac/physics_trajectory.npz": "342b637767b65c1c23d3a90e11bcc6ea67cad89f199c48cd8b18b1b51de72da2",
+    "candidate/mu0p700/isaac/report.json": "d4231d3e7019bd13e217a9191eeb0d1cc7b3b76fdf0fcd27746e5105e7e79689",
+    "baseline/mu0p150/isaac/physics_trajectory.npz": "2006dc375886bb72d91fceadce402c2daaccbef8244ce3e80e671a59e33cedee",
+    "baseline/mu0p150/isaac/report.json": "bc1a7452b5693ec4e2bb9ed075f9c46131776f61243965bb216c674fe34ecf4f",
+    "candidate/mu0p150/isaac/physics_trajectory.npz": "e4943a8c95740257e03d73affa47a13e282f7c8d418264d425d2a23c4ee6912d",
+    "candidate/mu0p150/isaac/report.json": "38322f7c0238b2e952d71b7e586ffd819f0de4fa47d2a25304f16dcfe10863f0"
+  },
+  "engineering_screen_passes_both_conditions": false,
+  "status": "screen_not_passed_requires_review",
+  "requires_fullbody_visual_review": true,
+  "jitter_resolved_claimed": false,
+  "statistical_success_claimed": false,
+  "causal_improvement_claimed": false,
+  "new_training": false,
+  "new_simulation": false,
+  "new_policy_inference": false,
+  "plot_settings": {
+    "layout": [
+      3,
+      2
+    ],
+    "row_order": [
+      "signed world omega X at 200 Hz",
+      "hip L clipped normalized action at 50 Hz",
+      "core world omega XY channel-mean PSD"
+    ],
+    "column_mu": [
+      0.7,
+      0.15
+    ],
+    "colors": {
+      "baseline": "#0072B2",
+      "candidate": "#D55E00"
+    },
+    "core_interval_s": [
+      1.44,
+      4.0
+    ],
+    "high_frequency_cutoff_hz": 10.0,
+    "highlighted_frequency_band_hz": [
+      22.5,
+      27.5
+    ]
+  },
+  "limitations": [
+    "One seed and one deterministic recorded episode per condition; no statistical or safety qualification.",
+    "The screen uses only core 1.44--4.00s. Full-horizon posture/contact diagnostics and full-body visual review remain mandatory before interpreting execution quality.",
+    "No height, flight, pose or zero-sideslip failure gate is introduced; posture diagnostics do not become screen criteria.",
+    "Absolute HF RMS uses Hann-windowed, linear-detrended, channel-mean Parseval power above 10Hz, not the fraction of spectral power.",
+    "Near-80-Nm sample fraction is not a measurement of speed-dependent motor saturation.",
+    "Copied training declarations and matching evaluator hashes bind checkpoint identity, not independently verified local weight bytes.",
+    "Shared source hashes do not alone prove identical driver/library versions or causal attribution to the changed weight.",
+    "MuJoCo transfer recordings are not included or pooled into this PhysX smoothing screen."
+  ],
+  "analysis_source_sha256": {
+    "summarize_ppo_smoothness.py": "611dec09e37400be6d789ff9e9ff33ef9cad53ab803ca8d564abbe0f3f32d597",
+    "analyze_ppo_smoothness.py": "79a1caeda4ae12ef176b14770a4beefde0f44a885052be54c6382a74368d4f3c"
+  },
+  "artifacts": {
+    "derived_traces.npz": {
+      "file": "derived_traces.npz",
+      "sha256": "f8b80bd8fb30554f81b25cfb96ef5edcaba272beea0cfc52a5e69c6c9055b95b"
+    },
+    "metrics.csv": {
+      "file": "metrics.csv",
+      "sha256": "3c226ee76ed5b0373eb937638e66124cfdd7e544d4a355415a555764ef6f3f5e"
+    },
+    "diagnostics.png": {
+      "file": "diagnostics.png",
+      "sha256": "6a0fee8e3df27957bba49bcf612c46f97a10cc362b70197a14b1895e1458b040"
+    }
+  }
+}
