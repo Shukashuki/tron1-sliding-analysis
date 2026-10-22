@@ -1,0 +1,20 @@
+{
+  "decision": "retain_tracking_improvement_but_stable_contact_goal_not_met",
+  "candidate_checkpoint_sha256": "d8530c5730b404ba1a5580ef52a9a51e3ceade91d0c56ceb13794d20ad8b1ff8",
+  "baseline_checkpoint_sha256": "8ba4178471c757b4d09f5bb44c0a508558f1bfd5cc15103195aeba420ebe6e9a",
+  "mu": 0.7,
+  "core_interval_s": [1.44, 4.0],
+  "displayed_values_rounded": true,
+  "core_metrics": {
+    "baseline_PhysX": {"xy_rmse_m": 0.056221, "speed_retention": 0.983352, "both_wheel_load_eligibility_fraction": 0.341131, "base_angular_xy_hf_rms_rad_s": 1.168983, "native_leg_torque_change_rms_nm": 27.712165},
+    "candidate_PhysX": {"xy_rmse_m": 0.043296, "speed_retention": 0.995417, "both_wheel_load_eligibility_fraction": 0.337232, "base_angular_xy_hf_rms_rad_s": 1.066642, "native_leg_torque_change_rms_nm": 23.881482},
+    "baseline_MuJoCo": {"xy_rmse_m": 0.069023, "both_wheel_load_eligibility_fraction": 0.282651},
+    "candidate_MuJoCo": {"xy_rmse_m": 0.057981, "both_wheel_load_eligibility_fraction": 0.325536}
+  },
+  "interpretation": "Adding the leg applied-torque-rate penalty improves nominal tracking and reduces measured torque changes, but does not establish continuous two-wheel support. PhysX core support-load eligibility remains about one third and force jumps remain large.",
+  "load_eligibility_definition": "Each wheel requires recorded ground point count >0 and aggregate upward normal Fz >5N; both requires both wheels. This is a force-bearing diagnostic, not geometric flight.",
+  "absolute_height_or_airborne_failure_gate_used": false,
+  "reference_speed_or_beta_target_relaxed": false,
+  "evidence": ["summary.json", "transfer_contact_comparison.json", "../ppo_torque_control_v2_mu0p7_fullbody_20261021_v1/fullbodycomparison.mp4"],
+  "next_isolated_diagnostic": "Original fixed -0.5 actor, only six leg processed position targets filtered at 50Hz: exact alpha=1 bypass versus alpha=0.5. Wheel action channels, requested-action observations, PD, physics and reference remain unchanged. This is untrained actuator-state/delay sensitivity, not another PPO training run."
+}
