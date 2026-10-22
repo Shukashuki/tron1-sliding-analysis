@@ -1,6 +1,7 @@
 {
   "task": "Fast turning with stable wheel-ground support, nominal mu=0.7 first",
   "status": "stable_contact_goal_not_yet_met",
+  "work_status": "stopped_at_user_request_no_new_training_or_experiments",
   "reference": "drift_drl_traj4",
   "core_interval_s": [1.44, 4.0],
   "native_physics_hz": 200,
@@ -69,9 +70,21 @@
       "core_leg_torque_change_rms_nm": 64.074473,
       "assessment": "Reject; unretrained actuator-state/delay loses balance. Lower world-XY HF while falling is not stable contact",
       "evidence": "../ppo_leg_target_filter_mu0p7_20261022_v3/decision.json"
+    },
+    {
+      "method": "Original fixed baseline actor, physics5ms/PD200Hz to2.5ms/PD400Hz; policy remains50Hz",
+      "core_xy_rmse_m": 0.055221,
+      "core_both_support_fraction": 0.326829,
+      "core_angular_xy_common_band_10_to_100hz_rms_rad_s": 0.947650,
+      "baseline_core_angular_xy_common_band_10_to_100hz_rms_rad_s": 1.168983,
+      "core_ground_fz_common_band_10_to_100hz_rms_n": 180.114695,
+      "baseline_core_ground_fz_common_band_10_to_100hz_rms_n": 160.203465,
+      "assessment": "About19% less shared-band angular jitter, but no stable-support improvement; not a sufficient fix or numerical-convergence proof",
+      "evidence": "../ppo_contact_timestep_mu0p7_20261022_v1/decision.json"
     }
   ],
-  "next_diagnostic": "Original fixed baseline actor without filtering: native physics5ms/PD200Hz versus2.5ms/PD400Hz, keeping policy50Hz",
+  "next_diagnostic": null,
+  "further_training_proposal": {"description": "Fine-tune existing PPO with core substep bilateral support reward gated by tracking", "executed": false, "user_choice": "stop_at_current_diagnostic_results"},
   "contact_threshold_sensitivity": {"baseline_core_samples": 513, "wheel_samples_with_0_lt_Fz_le_5N": [0, 0], "positive_Fz_duty_fraction_left_right": [0.423002, 0.643275], "assessment": "The5N load threshold is not the main source of baseline core load switching; this still does not establish geometric flight"},
   "absolute_height_or_airborne_failure_gate": false,
   "reference_speed_or_nonzero_beta_target_relaxed": false,

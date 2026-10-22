@@ -1,0 +1,31 @@
+{
+  "decision": "retain_numerical_sensitivity_evidence_but_stable_contact_goal_not_met",
+  "work_status": "stopped_at_user_request_no_new_training_or_experiments",
+  "evaluation_mu": 0.7,
+  "core_interval_s": [1.44, 4.0],
+  "checkpoint_sha256": "8ba4178471c757b4d09f5bb44c0a508558f1bfd5cc15103195aeba420ebe6e9a",
+  "policy_hz_in_both_cases": 50,
+  "leg_kp_kd_in_both_cases": [500, 10],
+  "additional_training_updates": 0,
+  "intervention": "Native physics5ms/decimation4/explicitPD200Hz versus physics2.5ms/decimation8/explicitPD400Hz. Not a contact-solver-only intervention; no target filtering.",
+  "rounded_core_metrics": {
+    "baseline_5ms": {"native_states": 513, "xy_rmse_m": 0.056221, "speed_retention": 0.983352, "beta_rmse_deg": 1.970189, "both_wheel_load_eligibility_fraction": 0.341131, "neither_wheel_load_eligibility_fraction": 0.274854, "world_angular_xy_common_band_rms_rad_s": 1.168983, "wheel_ground_fz_common_band_rms_n": 160.203465, "maximum_tilt_deg": 7.102600},
+    "candidate_2p5ms": {"native_states": 1025, "xy_rmse_m": 0.055221, "speed_retention": 0.986724, "beta_rmse_deg": 2.983838, "both_wheel_load_eligibility_fraction": 0.326829, "neither_wheel_load_eligibility_fraction": 0.318049, "world_angular_xy_common_band_rms_rad_s": 0.947650, "wheel_ground_fz_common_band_rms_n": 180.114695, "maximum_tilt_deg": 7.251054}
+  },
+  "shared_spectral_band_hz_exclusive": [10, 100],
+  "core_body_common_band_rms_relative_change": -0.1893378121839245,
+  "core_ground_force_common_band_rms_relative_change": 0.1242871335330722,
+  "interpretation": "The finer timestep reduces shared-band body angular jitter by about19% while retaining nominal XY tracking, but force-bearing two-wheel support is not improved and measured common-band normal-force fluctuations remain large. Do not adopt this as a stable-contact fix or claim numerical convergence/root-cause identification from one refinement.",
+  "baseline_physics_trace_sha256": "54e01f57b01da11c5b0736c572f8b2ebc81ebe2cac8f06c9b3b5be29b1637780",
+  "candidate_physics_trace_sha256": "8e7fc43c181b34b9ff87fe42d3c628ab483c7a6cddfb965562df250d77e46c1e",
+  "source_archive_sha256": "b4a6cf35fe23fb45c4960799927531ae6814776e5388b4a53c4bbe116fba1685",
+  "diagnostics_archive_sha256": "42289cca78c427d6bf4c1d69a9539e3d456f7cd2de4a9c3957856237442db67e",
+  "physical_gpu_index": 3,
+  "full_episode_native_states": [1397, 2793],
+  "control_decisions_in_both_cases": 349,
+  "full_episode_duration_s": 6.98,
+  "support_definition": "Each wheel requires recorded ground point count>0 AND upward Fz>5N. The fractions are descriptive native sample fractions, not geometric-flight or statistical success rates.",
+  "comparison_limitations": ["Native sampling rates and physical integration differ; native adjacent force/torque differences cannot be ranked as equal-bandwidth rates.", "The plotted common10<f<100Hz band avoids comparing200Hz and400Hz signals over unequal Nyquist bands.", "Only one fixed checkpoint/seed/episode per setting; no new training or MuJoCo transfer test.", "Absolute height and airborne conditions were not added as failure gates; speed and intended nonzero beta targets were preserved."],
+  "further_training_proposal_executed": false,
+  "evidence": ["summary.json", "contact_comparison.png", "../ppo_contact_timestep_mu0p7_fullbody_20261022_v1/fullbodycomparison.mp4"]
+}
