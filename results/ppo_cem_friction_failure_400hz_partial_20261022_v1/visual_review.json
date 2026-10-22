@@ -1,0 +1,22 @@
+{
+  "status": "reviewed_actual_rendered_images",
+  "reviewed_files": [
+    "friction_curves.png",
+    "xy_screen_matrix.png",
+    "selected_topdown.png",
+    "low_mu_topdown/ppo_beta_on_low_mu_topdown.png"
+  ],
+  "summary_sha256": "cdb07d056e0ae9ae26d6d4698a11a70e62cb921005603c80976b533afcaeb397",
+  "review": [
+    "Friction curves show missing CEM cells as gaps, not fabricated values or passes. Single-cell data are descriptive, not a continuous robust interval.",
+    "Screen matrix P is only a core XY screen, never whole-task success. Nominal PPO-beta fails after4s despite core P; the plot states this distinction.",
+    "Selected topdowns retain shared absolute world limits and original timestamps. Pending panels are explicitly unavailable, not simulated or replayed as successful.",
+    "Additional low-mu strip has four horizontal panels, identical absolute scales/ticks/aspect, original0–6.98s paths and4s markers. Body/velocity directions and L/R axial wheel marks use a common legend.",
+    "Low-mu .01 nearly-straight trajectory is accompanied by max tilt124deg; it is not evidence of pure stable-contact understeer. Slow .05/.10 paths are distinguished from successful .15.",
+    "Faint wheel ticks indicate insufficient measured force-bearing contact at the displayed sample, not confirmed flight. Invalid projected wheel planes are skipped.",
+    "Height, flight, tilt, contact and beta do not gate failure. Desired beta is nonzero; beta error is against the reference and eligibility is disclosed.",
+    "No image is a new physics rollout, pose alignment, IK, path correction or policy training. Full38-case metric recomputation from compact native data exactly agrees."
+  ],
+  "partial_result_not_full_matrix": true,
+  "simulation_or_statistical_success_claimed": false
+}

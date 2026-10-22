@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "kind": "frozen400hz_matched_reward_CEM_friction_failure_validation",
+  "reference_id": "drift_drl_traj4",
+  "validation_backend": "native CPU MuJoCo",
+  "physics_dt_s": 0.0025,
+  "decimation": 8,
+  "policy_dt_s": 0.02,
+  "mu_grid": [
+    0.01,
+    0.03,
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.3,
+    0.45,
+    0.6,
+    0.7,
+    0.8,
+    1,
+    1.2,
+    1.4,
+    1.6,
+    1.8,
+    2
+  ],
+  "representative_first": [
+    0.15,
+    0.3,
+    1.2
+  ],
+  "beta_conditions": [
+    "beta_on",
+    "beta_off"
+  ],
+  "action_rate_weight": -0.5,
+  "grounded_reward_weight": 0.4,
+  "discount_factor": 0.99,
+  "prediction_friction_known": true,
+  "new_training": false,
+  "concurrent_local_CPU_episodes": 2,
+  "nmpc": {
+    "horizon_steps": 30,
+    "control_blocks": 10,
+    "candidates": 64,
+    "iterations": 3,
+    "elite_count": 8,
+    "initial_std": [
+      0.04,
+      0.04,
+      0.04,
+      0.04,
+      0.04,
+      0.04,
+      0.35,
+      0.35
+    ],
+    "min_std": [
+      0.005,
+      0.005,
+      0.005,
+      0.005,
+      0.005,
+      0.005,
+      0.03,
+      0.03
+    ],
+    "smoothing": 0,
+    "seed": 42,
+    "scenario_reduction": "worst",
+    "fallback_action": "previous",
+    "reference_convention": "held_pre_action",
+    "parameterization": "warm_start_residual_blocks"
+  },
+  "scope": [
+    "Frozen nominal400Hz CEM hyperparameters and15-term PPO-matched stage reward; only native sliding mu and explicit predictor mu change.",
+    "No new policy training, model tuning, GPU or remote job. Existing PhysX-trained betaON/OFF actors remain fixed in companion PPO validations.",
+    "All17 pair coefficients are validated, not sampled for additional training. MPC receives exact plant mu as a privileged friction oracle.",
+    "No height/contact/airborne/tilt early gate; preserve continuous full6.98s native rollout and diagnose XY displacement.",
+    "Per-episode seed42, fresh model/history/controller/RNG; completed nominal0.7 is SHA-bound reuse, N remains one.",
+    "Failed numerical or interrupted jobs preserve prefixes and are never silently retried; strict explicit resume only."
+  ]
+}
