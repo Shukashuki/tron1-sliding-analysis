@@ -1,0 +1,790 @@
+{
+  "backend": "mjlab",
+  "mjlab_commit": "4360096b49c1bcc478668c11ce7d458db747e49d",
+  "task_implementation": "gpu",
+  "algorithm": "unmodified RSL-RL3.0.1 PPO; custom task wrapper, not mjlab's RSL5 runner",
+  "seed": 42,
+  "host": "iv-ydqobidj40qbxys4nk24",
+  "python": "3.11.15 (main, Jun 11 2026, 15:20:16) [GCC 14.3.0]",
+  "gpu": "NVIDIA GeForce RTX 4090 D",
+  "versions": {
+    "torch": "2.7.0+cu128",
+    "rsl-rl-lib": "3.0.1",
+    "mujoco": "3.8.1",
+    "mujoco-warp": "3.8.1",
+    "warp-lang": "1.12.1"
+  },
+  "environment": {
+    "physics_engine": "MuJoCo",
+    "mujoco_version": "3.8.1",
+    "implementation": "mjlab_gpu_resident_tron1_task",
+    "native_backend": {
+      "implementation": "mjlab_simulation_custom_tron1_gpu_task",
+      "mjlab_version": "1.4.0",
+      "mjlab_source_commit": "4360096b49c1bcc478668c11ce7d458db747e49d",
+      "physics": "MuJoCo-Warp CUDA, not CPU MuJoCo or PhysX",
+      "device": "cuda:4",
+      "installed_versions": {
+        "mujoco": "3.8.1",
+        "mujoco-warp": "3.8.1",
+        "warp-lang": "1.12.1",
+        "torch": "2.7.0+cu128"
+      },
+      "precision": "MuJoCo-Warp float32",
+      "num_worlds": 32,
+      "physics_dt_s": 0.0025,
+      "decimation": 8,
+      "policy_dt_s": 0.02,
+      "state_continuity": "persistent between control intervals",
+      "expanded_model_fields": [
+        "geom_friction",
+        "body_ipos",
+        "body_subtreemass",
+        "dof_invweight0",
+        "body_invweight0",
+        "tendon_length0",
+        "tendon_invweight0"
+      ],
+      "contact_forces": "mjwarp.contact_force world-frame, signed net sum by original body",
+      "host_task_adapter": false,
+      "performance_caveat": "CUDA Graph availability remains determined by the pinned mjlab/driver",
+      "cuda_graphs": false,
+      "overflow_checks": {
+        "global_contact_capacity": 2048,
+        "per_world_constraint_capacity": 256,
+        "sparse_jacobian_nnz_capacity": 3584,
+        "latched_fatal_failure": true
+      },
+      "source_sha256": "bc88f6919f3c4bfa57a362bc52d411b6a6871ee01a99e3d0954100bb7596a410",
+      "device_resident_tensor_api": true,
+      "state_cpu_readbacks_per_control_interval": 0,
+      "fatal_status_host_scalars_per_control_interval": 1,
+      "contact_reduction": "fixed-capacity Warp kernel, no Torch boolean indexing",
+      "stream_handoff": "bidirectional CUDA events; no host stream synchronization",
+      "physics_semantics": "unchanged step+full-forward pairing, 8 pairs per control interval",
+      "gpu_bridge_source_sha256": "57c23780e8da39e124acf491dfa339d66410ebf0df774334a768e8029cbf02e2"
+    },
+    "num_envs": 32,
+    "seed": 42,
+    "physics_dt_s": 0.0025,
+    "decimation": 8,
+    "policy_dt_s": 0.02,
+    "state_continuity": "No cold reset between control intervals; reset only on episode boundaries",
+    "actor_dim": 51,
+    "critic_dim": 120,
+    "actor_observation_corruption": false,
+    "critic_order": "policy_layout51 (unbiased leg positions for mjlab_v1p4), robot_body_pos_b27, nonwheel_body_ori_b42",
+    "reference_state_initialization": {
+      "adaptive_bin_seconds": 0.2,
+      "adaptive_alpha": 0.001,
+      "adaptive_uniform_ratio": 0.1,
+      "adaptive_kernel_size": 1,
+      "full_clip_start_fraction": 0.2,
+      "pose_noise": false,
+      "velocity_noise": false,
+      "joint_reset_noise": false
+    },
+    "reward_contract": {
+      "kind": "torch_device_exact_height_smooth_tracking_objective",
+      "body_names": [
+        "base_Link",
+        "abad_L_Link",
+        "abad_R_Link",
+        "hip_L_Link",
+        "hip_R_Link",
+        "knee_L_Link",
+        "knee_R_Link",
+        "wheel_L_Link",
+        "wheel_R_Link"
+      ],
+      "joint_names": [
+        "abad_L_Joint",
+        "abad_R_Joint",
+        "hip_L_Joint",
+        "hip_R_Joint",
+        "knee_L_Joint",
+        "knee_R_Joint",
+        "wheel_L_Joint",
+        "wheel_R_Joint"
+      ],
+      "dt_s": 0.02,
+      "weights": {
+        "motion_global_anchor_pos": 2.0,
+        "motion_global_anchor_ori": 2.0,
+        "motion_body_pos": 1.0,
+        "motion_body_ori": 1.0,
+        "motion_body_lin_vel": 1.0,
+        "motion_body_ang_vel": 1.0,
+        "action_rate_l2": -0.5,
+        "joint_limit": -10.0,
+        "undesired_contacts": -0.1,
+        "drift_sideslip": 2.0,
+        "drift_yaw_rate": 1.0,
+        "drift_speed": 1.0,
+        "drift_grounded": 0.4,
+        "drift_tilt": -0.2,
+        "height_vertical_acceleration": -0.1
+      },
+      "stds": {
+        "anchor_position_m": 0.3,
+        "anchor_orientation_rad": 0.4,
+        "body_position_m": 0.3,
+        "body_orientation_rad": 0.4,
+        "body_linear_velocity_m_s": 0.5,
+        "body_angular_velocity_rad_s": 0.8,
+        "sideslip_rad": 0.12,
+        "yaw_rate_rad_s": 0.5,
+        "speed_m_s": 0.35
+      },
+      "height_regularization": {
+        "mode": "vertical_acceleration_only",
+        "weight": -0.1,
+        "acceleration_scale_m_s2": 5.0
+      },
+      "absolute_height_target": false,
+      "reference_vertical_velocity_target": false,
+      "sideslip_target": "held reference body-frame course angle, NOT zero",
+      "reference_order": "Freeze reference[k] and relative-body targets at pre-action state; evaluate after decimation, before command advances.",
+      "pose_semantics": "World link-origin position and link wxyz quaternion",
+      "velocity_semantics": "World original-unmerged-link COM linear velocity and world angular velocity",
+      "cost": "dt * (sum_positive_reward_weights - sum(weight * raw_term)); no terminal term supplied",
+      "contact_thresholds_n": {
+        "grounded_each_wheel_net_force": 5.0,
+        "undesired_contact_body_force": 1.0
+      },
+      "joint_limit_joints": [
+        "abad_L_Joint",
+        "abad_R_Joint",
+        "hip_L_Joint",
+        "hip_R_Joint",
+        "knee_L_Joint",
+        "knee_R_Joint"
+      ],
+      "surrogate_differences": [
+        "MuJoCo net contact forces are not identical to PhysX ContactSensor forces; all contacts, including self-contact, are included.",
+        "undesired_contacts uses max norm over supplied physical-substep history; omitted history is explicitly an instantaneous surrogate.",
+        "MuJoCo-derived 0.95 joint ranges are an approximation unless replaced by Isaac runtime soft_joint_pos_limits in matching joint order.",
+        "Body COM offsets/inertias must match the original unmerged USD links; random COM offsets require the same realized model parameters.",
+        "Task tilt safety termination and policy action/observation privileges are outside this stage objective."
+      ],
+      "array_axes": "candidate, horizon, then body/history/vector axes",
+      "scalar_objective_term_names": [
+        "motion_global_anchor_pos",
+        "motion_global_anchor_ori",
+        "motion_body_pos",
+        "motion_body_ori",
+        "motion_body_lin_vel",
+        "motion_body_ang_vel",
+        "action_rate_l2",
+        "joint_limit",
+        "undesired_contacts",
+        "drift_sideslip",
+        "drift_yaw_rate",
+        "drift_speed",
+        "drift_grounded",
+        "drift_tilt",
+        "height_vertical_acceleration"
+      ],
+      "per_term_cost": "dt * (max(weight,0) - weighted_term); sums to stage_cost",
+      "reference_phase": "reference[min(start_index+h,last_frame)] held BEFORE each action",
+      "nonfinite_policy": "Raise; never silently replace invalid samples with finite scores",
+      "production_cem_wired": false
+    },
+    "reward_scale": "sum(weighted_terms)*.02",
+    "absolute_height_termination": false,
+    "absolute_xy_termination": false,
+    "tilt_termination": "abs(reference_projected_gravity_z - actual_projected_gravity_z) > .6",
+    "motion_end_timeout": "held reference phase >= last frame, checked before phase advance",
+    "terminal_observation": "postphysics, held command, before autoreset; diagnostic only, official RSL timeout bootstrap is unchanged",
+    "dr": {
+      "mode": "mjlab_v1p4",
+      "startup_once_not_resampled_on_reset": true,
+      "robot_single_sliding_mu_range": [
+        0.3,
+        1.2
+      ],
+      "ground_mu": 1.0,
+      "robot_mu_realized": [
+        0.996560443700367,
+        0.694990595776847,
+        1.0727381279202441,
+        0.9276312261534274,
+        0.38475961309888457,
+        1.1780601164730802,
+        0.9850257317913176,
+        1.0074578747492584,
+        0.41530226940799125,
+        0.7053473441060103,
+        0.6337182218093231,
+        1.1340884899637416,
+        0.879478608072598,
+        1.040485451943747,
+        0.699072778944598,
+        0.5045148496062992,
+        0.7991263083142512,
+        0.35743553049375776,
+        1.0448680547933238,
+        0.8684979592098583,
+        0.9822789660768363,
+        0.6190733713168814,
+        1.1736282219554128,
+        1.1038090091899777,
+        1.0005451473663856,
+        0.47517483706677077,
+        0.7200489033543307,
+        0.3394233892085059,
+        0.438860542860793,
+        0.9147440579182091,
+        0.9702859403170354,
+        1.1707587591907889
+      ],
+      "joint_default_offset_range_rad": [
+        0.0,
+        0.0
+      ],
+      "encoder_bias_range_rad": [
+        -0.01,
+        0.01
+      ],
+      "encoder_bias_semantics": "observation +b, position target -b; wheel angles not observed",
+      "friction_scope": "two colliding wheel geoms, shared per environment",
+      "friction_wheel_priority": 1,
+      "base_com_offset_range_m": [
+        [
+          -0.025,
+          -0.05,
+          -0.05
+        ],
+        [
+          0.025,
+          0.05,
+          0.05
+        ]
+      ],
+      "push_interval_s": [
+        1.0,
+        3.0
+      ],
+      "push_velocity_frame": "root link world, additive",
+      "push_timer_correction": "resample on all episode resets, including function-based interval event",
+      "static_dynamic_distinction": false,
+      "restitution": "MuJoCo existing solver-default contact law; no restitution-coefficient equivalence claimed",
+      "material_combine": "MuJoCo geom/pair priority/friction rules; NOT PhysX arithmetic average",
+      "beyondmimic_full_material_recipe_equivalent": false
+    },
+    "sources": {
+      "model": {
+        "path": "/data/zengxiong/workspaces/tron1-sliding-analysis-20261014/mujoco_model.xml",
+        "sha256": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513"
+      },
+      "motion": {
+        "path": "/data/zengxiong/workspaces/tron1-drift-turn-worst-load-20261014/motion.npz",
+        "sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254"
+      },
+      "contract": {
+        "path": "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/preflight_seed42_gpu4_v2/mjlab_smoke_declared_inputs/contract.json",
+        "sha256": "2736c38f8dbaf2f0db7ac66379787219ee7ca3f0840996d9ccc8786099e970e0"
+      }
+    },
+    "physical_counters": {
+      "environment_transitions": 256,
+      "physical_environment_substeps": 2048,
+      "environment_resets": 96,
+      "interval_pushes": 0
+    },
+    "task_arrays_device": "cuda:4",
+    "host_task_adapter": false,
+    "random_stream": "private per-device Torch generator; startup draws unchanged, subsequent distributions unchanged but not NumPy draw-for-draw",
+    "task_event_host_transfer": "one 3-byte reset/push/fault payload per interval; no bulk tensors",
+    "physics_forward_schedule": "unchanged pairing: 8 step + 8 forward, conditional reset and push forwards"
+  },
+  "smoke_steps": 8,
+  "inputs": {
+    "model": {
+      "path": "/data/zengxiong/workspaces/tron1-sliding-analysis-20261014/mujoco_model.xml",
+      "sha256": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513"
+    },
+    "motion": {
+      "path": "/data/zengxiong/workspaces/tron1-drift-turn-worst-load-20261014/motion.npz",
+      "sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254"
+    },
+    "contract": {
+      "path": "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/preflight_seed42_gpu4_v2/mjlab_smoke_declared_inputs/contract.json",
+      "sha256": "2736c38f8dbaf2f0db7ac66379787219ee7ca3f0840996d9ccc8786099e970e0"
+    },
+    "task": {
+      "path": "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/preflight_seed42_gpu4_v2/mjlab_smoke_declared_inputs/task_profile.json",
+      "sha256": "f9de41d1b2f1a32b6ff0c5b105358eeaa348c607352ecb5f825e70b3791e893d"
+    }
+  },
+  "iterations": 2,
+  "num_envs": 32,
+  "transitions_requested": 1536,
+  "source_sha256": {
+    "train_ppo_backend.py": "65367115de9b5608dc2ef57cab701bea31c152c6af576bdb43a5cef025cc6878",
+    "mujoco_ppo_env.py": "aa82be7322d7ab21dd17f6ba6d2462bcd13de7b368c89c903eb7aed1a52871c5",
+    "mjlab_tron1_env.py": "bc88f6919f3c4bfa57a362bc52d411b6a6871ee01a99e3d0954100bb7596a410",
+    "physx_mjlab_recipe.py": "1365f4eecc6129bef4738e05a491763a2884407d8cf00a3a7d0faffbc24fa699",
+    "mjlab_gpu_ppo_env.py": "d45526f3af6d1689856285cebbdbd1943e96d0da570d078d54d9d8ba17aab3bf",
+    "mjlab_tron1_gpu.py": "57c23780e8da39e124acf491dfa339d66410ebf0df774334a768e8029cbf02e2",
+    "tron1_torch_task.py": "48d0b0506900f008bf9c32f95d4c1f688e3bdb983129a43106f7896df625fd9f"
+  },
+  "evaluation_protocol": {
+    "friction_grid": [
+      0.01,
+      0.03,
+      0.05,
+      0.1,
+      0.15,
+      0.2,
+      0.3,
+      0.45,
+      0.6,
+      0.7,
+      0.8,
+      1.0,
+      1.2,
+      1.4,
+      1.6,
+      1.8,
+      2.0
+    ],
+    "randomization": false,
+    "observation_noise": false,
+    "deterministic_start_frame": 0,
+    "mu_semantics": "target_effective_pair_coefficient_native_material_mapping_not_law_equivalence",
+    "physx_material_mapping": "robot_mu_times_unit_ground_mu_multiply",
+    "mujoco_material_mapping": "fixed_mu_all_colliding_geoms_with_native_priority_and_max_rules",
+    "xy_failure_core_rmse_m": 0.15,
+    "xy_failure_core_peak_m": 0.3,
+    "failure_rule": "XY RMSE exceeds threshold OR peak exceeds threshold; tilt/contact are separate diagnostics, not flight/height gates",
+    "full_horizon_s": 6.98,
+    "turn_core_s": [
+      1.44,
+      4.0
+    ],
+    "absolute_height_gate": false,
+    "airborne_failure": false,
+    "additional_metrics": [
+      "speed_retention",
+      "actual_course_change",
+      "body_heading",
+      "left_wheel_heading",
+      "right_wheel_heading",
+      "velocity_heading",
+      "contact_history",
+      "tilt",
+      "world_angular_xy_common10to100hz_rms"
+    ]
+  },
+  "height_regularization": {
+    "mode": "vertical_acceleration_only",
+    "weight": -0.1,
+    "acceleration_scale_m_s2": 5.0,
+    "absolute_height_reward": false,
+    "height_termination": false
+  },
+  "height_adapter_sha256": "e133aca58f671fc22ae1dfc97a03461e7724e4072bf8b74f58a2c14281d198b8",
+  "task_profile": {
+    "schema_version": 1,
+    "task": "car_drift",
+    "contact_friction": 1.0,
+    "env_spacing_m": 8.0,
+    "reward_weights": {
+      "sideslip": 2.0,
+      "yaw_rate": 1.0,
+      "speed": 1.0,
+      "grounded": 0.4,
+      "tilt": -0.2
+    },
+    "height_regularization": {
+      "mode": "vertical_acceleration_only",
+      "weight": -0.1,
+      "acceleration_scale_m_s2": 5.0
+    },
+    "description": "New matched-backend native400Hz training cohort; action-rate weight -0.5, original last-substep grounded reward +0.4, free absolute height, shared mjlab-style DR. Training is from scratch; no historical checkpoint initializes either arm.",
+    "action_rate_weight": -0.5
+  },
+  "contract": {
+    "policy_fps": 50.0,
+    "physics_dt": 0.0025,
+    "decimation": 8,
+    "actor_dim": 51,
+    "critic_dim": 120,
+    "action_dim": 8,
+    "leg_joint_names": [
+      "abad_L_Joint",
+      "abad_R_Joint",
+      "hip_L_Joint",
+      "hip_R_Joint",
+      "knee_L_Joint",
+      "knee_R_Joint"
+    ],
+    "wheel_joint_names": [
+      "wheel_L_Joint",
+      "wheel_R_Joint"
+    ],
+    "observed_joint_velocity_order": [
+      "abad_L_Joint",
+      "abad_R_Joint",
+      "hip_L_Joint",
+      "hip_R_Joint",
+      "knee_L_Joint",
+      "knee_R_Joint",
+      "wheel_L_Joint",
+      "wheel_R_Joint"
+    ],
+    "body_names": [
+      "base_Link",
+      "abad_L_Link",
+      "abad_R_Link",
+      "hip_L_Link",
+      "hip_R_Link",
+      "knee_L_Link",
+      "knee_R_Link",
+      "wheel_L_Link",
+      "wheel_R_Link"
+    ],
+    "orientation_body_names": [
+      "base_Link",
+      "abad_L_Link",
+      "abad_R_Link",
+      "hip_L_Link",
+      "hip_R_Link",
+      "knee_L_Link",
+      "knee_R_Link"
+    ],
+    "actor_terms": [
+      [
+        "ref_leg_q_ref_leg_dq_phase_sin_cos",
+        14
+      ],
+      [
+        "motion_anchor_pos_b",
+        3
+      ],
+      [
+        "motion_anchor_ori_b_6d_first_two_columns_row_major",
+        6
+      ],
+      [
+        "base_lin_vel_b",
+        3
+      ],
+      [
+        "base_ang_vel_b",
+        3
+      ],
+      [
+        "leg_joint_pos_rel",
+        6
+      ],
+      [
+        "joint_velocities",
+        8
+      ],
+      [
+        "previous_clipped_actions",
+        8
+      ]
+    ],
+    "raw_action_clip": [
+      -1.0,
+      1.0
+    ],
+    "leg_position_scale": 1.0,
+    "leg_position_offset": "reference_frame_0_joint_pos",
+    "wheel_torque_scale_nm": 12.0,
+    "leg_kp": 500.0,
+    "leg_kd": 10.0,
+    "leg_torque_limit_nm": 80.0,
+    "wheel_torque_limit_nm": 12.0,
+    "actuator_model": "dc_motor",
+    "leg_saturation_effort_nm": 80.0,
+    "wheel_saturation_effort_nm": 12.0,
+    "leg_motor_velocity_limit_rad_s": 15.0,
+    "wheel_motor_velocity_limit_rad_s": 100.0,
+    "solver_joint_velocity_limit_rad_s": 1000.0,
+    "motor_velocity_limit_semantics": "no_load_speed_for_torque_speed_curve_not_hard_qvel_clip",
+    "legacy_joint_friction_coefficient": 0.0,
+    "legacy_joint_friction_startup_readback_required": true,
+    "rigid_body_max_angular_speed_rad_s": 100.0,
+    "rigid_body_angular_speed_config_units": "degrees_per_second",
+    "quaternion_order": "wxyz",
+    "root_prescribed_during_steps": false,
+    "wheel_orientation_tracking": false,
+    "wheel_angle_observation": false,
+    "reference_state_initialization_training_only": true,
+    "training_full_clip_start_fraction": 0.2,
+    "deterministic_evaluation_start_frame": 0,
+    "motion_end_hidden_teleport": false,
+    "domain_randomization": "tron1_mjlab_tracking_dr_v1",
+    "actuator_limits_provenance": "project sim2sim baseline settings; NOT verified manufacturer hardware ratings",
+    "hardware_ready": false,
+    "task_profile": {
+      "schema_version": 1,
+      "task": "car_drift",
+      "contact_friction": 1.0,
+      "env_spacing_m": 8.0,
+      "reward_weights": {
+        "sideslip": 2.0,
+        "yaw_rate": 1.0,
+        "speed": 1.0,
+        "grounded": 0.4,
+        "tilt": -0.2
+      },
+      "height_regularization": {
+        "mode": "vertical_acceleration_only",
+        "weight": -0.1,
+        "acceleration_scale_m_s2": 5.0
+      },
+      "description": "New matched-backend native400Hz training cohort; action-rate weight -0.5, original last-substep grounded reward +0.4, free absolute height, shared mjlab-style DR. Training is from scratch; no historical checkpoint initializes either arm.",
+      "action_rate_weight": -0.5
+    },
+    "reference_file_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+    "default_joint_position_rad": [
+      0.0,
+      0.0,
+      0.3447771668434143,
+      -0.3447771668434143,
+      0.7936588525772095,
+      -0.7936588525772095,
+      0.0,
+      0.0
+    ],
+    "trained_task_profile": {
+      "schema_version": 1,
+      "task": "car_drift",
+      "contact_friction": 1.0,
+      "env_spacing_m": 8.0,
+      "reward_weights": {
+        "sideslip": 2.0,
+        "yaw_rate": 1.0,
+        "speed": 1.0,
+        "grounded": 0.4,
+        "tilt": -0.2
+      },
+      "height_regularization": {
+        "mode": "vertical_acceleration_only",
+        "weight": -0.1,
+        "acceleration_scale_m_s2": 5.0
+      },
+      "description": "New matched-backend native400Hz training cohort; action-rate weight -0.5, original last-substep grounded reward +0.4, free absolute height, shared mjlab-style DR. Training is from scratch; no historical checkpoint initializes either arm.",
+      "action_rate_weight": -0.5
+    },
+    "training_domain_randomization": {
+      "source": "mjlab v1.4.0 tracking events adapted to TRON1",
+      "sliding_friction": {
+        "range": [
+          0.3,
+          1.2
+        ],
+        "distribution": "uniform_continuous",
+        "sampling": "startup_once_per_environment",
+        "shared_between_wheels": true,
+        "scope": "colliding_wheel_shapes",
+        "mujoco_wheel_priority": 1,
+        "physx_static_equals_dynamic": true,
+        "physx_floor_mu": 1.0,
+        "physx_combine": "multiply"
+      },
+      "encoder_position_bias_rad": [
+        -0.01,
+        0.01
+      ],
+      "encoder_bias_signs": {
+        "actor": "+b",
+        "position_target": "-b",
+        "critic": "unbiased"
+      },
+      "base_com_xyz_range_m": [
+        [
+          -0.025,
+          0.025
+        ],
+        [
+          -0.05,
+          0.05
+        ],
+        [
+          -0.05,
+          0.05
+        ]
+      ],
+      "root_link_velocity_push_interval_s": [
+        1.0,
+        3.0
+      ],
+      "root_link_velocity_push_ranges": {
+        "x": [
+          -0.5,
+          0.5
+        ],
+        "y": [
+          -0.5,
+          0.5
+        ],
+        "z": [
+          -0.2,
+          0.2
+        ],
+        "roll": [
+          -0.52,
+          0.52
+        ],
+        "pitch": [
+          -0.52,
+          0.52
+        ],
+        "yaw": [
+          -0.78,
+          0.78
+        ]
+      },
+      "push_timer_reset_correction": "resample all interval timers at episode reset; do not reproduce v1.4 function-event reset bug",
+      "restitution_randomization": false,
+      "contact_law_equivalence_claimed": false
+    },
+    "cohort_id": "traj4_backend_400hz_actionrate0p5_seed42_v1",
+    "contract_status": "smoke_completed_normalized_actor_not_formal_policy",
+    "physics_clock_origin": "trained_at_native400Hz_not_evaluation_only_refinement",
+    "smoke_only": true,
+    "trained_policy_claimed": false,
+    "run_kind": "smoke",
+    "policy_algorithm": "PPO",
+    "policy_training_backend": "mjlab",
+    "checkpoint_sha256": "ecb4681a0e4ff1b4097d5a59dc80f9fb1d94be5c519bdd93f94fc5080bff7a39",
+    "checkpoint_file": "model_final.pt",
+    "exported_policy_sha256": "12aee2df638f5afa0f3e4a3227d5297c926ccdafa86373438eefc842b4c4cea8",
+    "actor_file": "policy.pt",
+    "actor_includes_observation_normalizer": true,
+    "actor_output_is_unclipped": true,
+    "actor_observation_groups": [
+      "policy"
+    ],
+    "export_validation_max_abs_error": 1.430511474609375e-06,
+    "training_cohort_protocol_sha256": "c54cd530884cffa22811ca2232cb2588eba3582deefc91d4d9675e4fca7fe30f",
+    "training_environment_transitions": 1536,
+    "runtime_clock_and_interface_verified": true
+  },
+  "algorithm_source_sha256": {
+    "runner": "e51e4dd49664ccc8743a16b71d2971d392f40a6988136f10fe8c5f03ab6a83b5",
+    "ppo": "deafc8c947eba4df3e91b393869426cdab8d7b71e05974c3734125d2331d7d1c"
+  },
+  "initial_policy_state_sha256": "7dcdf78ffeb61806eeefcb31c4739d707c1caef934d152f2296ba2ee488b4d5d",
+  "smoke_only": true,
+  "trained_policy_claimed": false,
+  "cohort": {
+    "id": "traj4_backend_400hz_actionrate0p5_seed42_v1",
+    "run_kind": "smoke",
+    "protocol_sha256": "c54cd530884cffa22811ca2232cb2588eba3582deefc91d4d9675e4fca7fe30f",
+    "wrapper_sha256": "5234070be219e59c61e6c4e4435e0dd0b2ab71df60d9c23886e507ed73692390",
+    "base_trainer_sha256": "65367115de9b5608dc2ef57cab701bea31c152c6af576bdb43a5cef025cc6878",
+    "counted_generated_source_sha256": "4b238c22bc3e5497452e9b579305d516ef03c6439d42d3d95257c7c1f9f14488",
+    "source_files_sha256": {
+      "scripts/train_ppo_backend.py": "65367115de9b5608dc2ef57cab701bea31c152c6af576bdb43a5cef025cc6878",
+      "scripts/train_ppo_backend_400hz.py": "5234070be219e59c61e6c4e4435e0dd0b2ab71df60d9c23886e507ed73692390",
+      "scripts/mujoco_ppo_env.py": "aa82be7322d7ab21dd17f6ba6d2462bcd13de7b368c89c903eb7aed1a52871c5",
+      "scripts/mjlab_tron1_env.py": "bc88f6919f3c4bfa57a362bc52d411b6a6871ee01a99e3d0954100bb7596a410",
+      "scripts/mjlab_gpu_ppo_env.py": "d45526f3af6d1689856285cebbdbd1943e96d0da570d078d54d9d8ba17aab3bf",
+      "scripts/mjlab_tron1_gpu.py": "57c23780e8da39e124acf491dfa339d66410ebf0df774334a768e8029cbf02e2",
+      "scripts/tron1_torch_task.py": "48d0b0506900f008bf9c32f95d4c1f688e3bdb983129a43106f7896df625fd9f",
+      "scripts/physx_mjlab_recipe.py": "1365f4eecc6129bef4738e05a491763a2884407d8cf00a3a7d0faffbc24fa699",
+      "scripts/height_smoothness.py": "e133aca58f671fc22ae1dfc97a03461e7724e4072bf8b74f58a2c14281d198b8",
+      "scripts/nmpc_batch_objective.py": "1c9da90ae66778a71ceb2e6bb9d0dcf7f0a2259fafee39b37cbe958b79178fae",
+      "scripts/nmpc_tracking_objective.py": "ff22eebb2b22b9af7dba114c64fcd10f6b0a90822559af8f32cbe6884015b860",
+      "scripts/mujoco_ppo_native.py": "f1b79830fac22623c861de2eba0c77bc3832f634ff2a494cf0a45481864886c4",
+      "scripts/classical_tracking.py": "3fcafdb6a16058280aa1e5a0ade6113f6963ddf3085c25ebe2ed6fbb30661c57"
+    },
+    "original_input_sha256": {
+      "contract": "6e105cbd6efe7d35117a895fa097e8ec64b6ac822a9de07c00acfaef4d09642f",
+      "task_profile": "31de29a61eec847e0e39783f3a0d9d8f2db551acd679a1b38dfde2b24e8ae7d6"
+    },
+    "derived_input_sha256": {
+      "contract": "2736c38f8dbaf2f0db7ac66379787219ee7ca3f0840996d9ccc8786099e970e0",
+      "task_profile": "f9de41d1b2f1a32b6ff0c5b105358eeaa348c607352ecb5f825e70b3791e893d"
+    },
+    "runtime": {
+      "status": "verified",
+      "fields": {
+        "physics_dt_s": 0.0025,
+        "decimation": 8,
+        "policy_dt_s": 0.02,
+        "actor_dim": 51,
+        "critic_dim": 120,
+        "action_dim": 8,
+        "action_rate_weight": -0.5,
+        "grounded_reward_weight": 0.4,
+        "reward_term_count": 15,
+        "leg_kp": 500.0,
+        "leg_kd": 10.0,
+        "absolute_height_termination": false,
+        "absolute_xy_termination": false
+      },
+      "device": {
+        "requested_device": "cuda:4",
+        "torch_current_device": 4,
+        "task_arrays_device": "cuda:4",
+        "native_backend": {
+          "implementation": "mjlab_simulation_custom_tron1_gpu_task",
+          "mjlab_version": "1.4.0",
+          "mjlab_source_commit": "4360096b49c1bcc478668c11ce7d458db747e49d",
+          "physics": "MuJoCo-Warp CUDA, not CPU MuJoCo or PhysX",
+          "device": "cuda:4",
+          "installed_versions": {
+            "mujoco": "3.8.1",
+            "mujoco-warp": "3.8.1",
+            "warp-lang": "1.12.1",
+            "torch": "2.7.0+cu128"
+          },
+          "precision": "MuJoCo-Warp float32",
+          "num_worlds": 32,
+          "physics_dt_s": 0.0025,
+          "decimation": 8,
+          "policy_dt_s": 0.02,
+          "state_continuity": "persistent between control intervals",
+          "expanded_model_fields": [
+            "geom_friction",
+            "body_ipos",
+            "body_subtreemass",
+            "dof_invweight0",
+            "body_invweight0",
+            "tendon_length0",
+            "tendon_invweight0"
+          ],
+          "contact_forces": "mjwarp.contact_force world-frame, signed net sum by original body",
+          "host_task_adapter": false,
+          "performance_caveat": "CUDA Graph availability remains determined by the pinned mjlab/driver",
+          "cuda_graphs": false,
+          "overflow_checks": {
+            "global_contact_capacity": 2048,
+            "per_world_constraint_capacity": 256,
+            "sparse_jacobian_nnz_capacity": 3584,
+            "latched_fatal_failure": true
+          },
+          "source_sha256": "bc88f6919f3c4bfa57a362bc52d411b6a6871ee01a99e3d0954100bb7596a410",
+          "device_resident_tensor_api": true,
+          "state_cpu_readbacks_per_control_interval": 0,
+          "fatal_status_host_scalars_per_control_interval": 1,
+          "contact_reduction": "fixed-capacity Warp kernel, no Torch boolean indexing",
+          "stream_handoff": "bidirectional CUDA events; no host stream synchronization",
+          "physics_semantics": "unchanged step+full-forward pairing, 8 pairs per control interval",
+          "gpu_bridge_source_sha256": "57c23780e8da39e124acf491dfa339d66410ebf0df774334a768e8029cbf02e2"
+        },
+        "cuda_visible_devices": null,
+        "native_PhysX_device_audit_applicable": false
+      },
+      "shared_DR_recipe": "tron1_mjlab_tracking_dr_v1",
+      "no_extra_environment_steps": true
+    },
+    "from_scratch": true,
+    "historical_checkpoint_used": false,
+    "smoke_only": true,
+    "trained_policy_claimed": false,
+    "network_seed_after_environment_setup_and_smoke": true,
+    "initial_policy_state_sha256": "7dcdf78ffeb61806eeefcb31c4739d707c1caef934d152f2296ba2ee488b4d5d",
+    "physical_substeps_per_environment_transition": 8,
+    "normalized_actor_export_verified": true,
+    "export_validation_max_abs_error": 1.430511474609375e-06
+  }
+}

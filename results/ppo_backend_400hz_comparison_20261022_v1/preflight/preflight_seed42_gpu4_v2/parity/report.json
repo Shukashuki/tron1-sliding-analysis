@@ -1,0 +1,1004 @@
+{
+  "status": "passed_parity_and_measured_environment_timing",
+  "performance_claimed": true,
+  "training_speedup_claimed": false,
+  "device": "cuda:4",
+  "seed": 42,
+  "parity_fixed_mu": 0.7,
+  "same_physics_both_branches": "Pinned mjlab MuJoCo-Warp CUDA",
+  "order": "host parity, GPU parity, host timing, GPU timing; one environment alive at a time",
+  "input_sha256": {
+    "model": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513",
+    "motion": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+    "contract": "2736c38f8dbaf2f0db7ac66379787219ee7ca3f0840996d9ccc8786099e970e0",
+    "task_profile": "f9de41d1b2f1a32b6ff0c5b105358eeaa348c607352ecb5f825e70b3791e893d"
+  },
+  "source_sha256": {
+    "benchmark_mjlab_gpu_task.py": "00919a4c8bd33c118a5b2efd3fc75663d1296b808ccee3b55b549a6de5e863c5",
+    "mjlab_gpu_ppo_env.py": "d45526f3af6d1689856285cebbdbd1943e96d0da570d078d54d9d8ba17aab3bf",
+    "mjlab_tron1_env.py": "bc88f6919f3c4bfa57a362bc52d411b6a6871ee01a99e3d0954100bb7596a410",
+    "mujoco_ppo_env.py": "aa82be7322d7ab21dd17f6ba6d2462bcd13de7b368c89c903eb7aed1a52871c5"
+  },
+  "runtime": {
+    "gpu_name": "NVIDIA GeForce RTX 4090 D",
+    "torch_intraop_threads": 4,
+    "torch_interop_threads": 90,
+    "cpu_affinity_count": 180,
+    "environment_threads": {
+      "OMP_NUM_THREADS": "4",
+      "MKL_NUM_THREADS": "4",
+      "OPENBLAS_NUM_THREADS": "4"
+    },
+    "packages": {
+      "torch": "2.7.0+cu128",
+      "mujoco": "3.8.1",
+      "mujoco-warp": "3.8.1",
+      "warp-lang": "1.12.1"
+    }
+  },
+  "host_metadata": {
+    "physics_engine": "MuJoCo",
+    "mujoco_version": "3.8.1",
+    "implementation": "mjlab_simulation_custom_tron1_task",
+    "native_backend": {
+      "implementation": "mjlab_simulation_custom_tron1_task",
+      "mjlab_version": "1.4.0",
+      "mjlab_source_commit": "4360096b49c1bcc478668c11ce7d458db747e49d",
+      "physics": "MuJoCo-Warp CUDA, not CPU MuJoCo or PhysX",
+      "device": "cuda:4",
+      "installed_versions": {
+        "mujoco": "3.8.1",
+        "mujoco-warp": "3.8.1",
+        "warp-lang": "1.12.1",
+        "torch": "2.7.0+cu128"
+      },
+      "precision": "MuJoCo-Warp float32",
+      "num_worlds": 4,
+      "physics_dt_s": 0.0025,
+      "decimation": 8,
+      "policy_dt_s": 0.02,
+      "state_continuity": "persistent between control intervals",
+      "expanded_model_fields": [
+        "geom_friction",
+        "body_ipos",
+        "body_subtreemass",
+        "dof_invweight0",
+        "body_invweight0",
+        "tendon_length0",
+        "tendon_invweight0"
+      ],
+      "contact_forces": "mjwarp.contact_force world-frame, signed net sum by original body",
+      "host_task_adapter": true,
+      "performance_caveat": "NumPy task reward and observations require host/device state transfers",
+      "cuda_graphs": false,
+      "overflow_checks": {
+        "global_contact_capacity": 256,
+        "per_world_constraint_capacity": 256,
+        "sparse_jacobian_nnz_capacity": 3584,
+        "latched_fatal_failure": true
+      },
+      "source_sha256": "bc88f6919f3c4bfa57a362bc52d411b6a6871ee01a99e3d0954100bb7596a410"
+    },
+    "num_envs": 4,
+    "seed": 42,
+    "physics_dt_s": 0.0025,
+    "decimation": 8,
+    "policy_dt_s": 0.02,
+    "state_continuity": "No cold reset between control intervals; reset only on episode boundaries",
+    "actor_dim": 51,
+    "critic_dim": 120,
+    "actor_observation_corruption": false,
+    "critic_order": "policy_layout51 (unbiased leg positions for mjlab_v1p4), robot_body_pos_b27, nonwheel_body_ori_b42",
+    "reference_state_initialization": {
+      "adaptive_bin_seconds": 0.2,
+      "adaptive_alpha": 0.001,
+      "adaptive_uniform_ratio": 0.1,
+      "adaptive_kernel_size": 1,
+      "full_clip_start_fraction": 0.2,
+      "pose_noise": false,
+      "velocity_noise": false,
+      "joint_reset_noise": false
+    },
+    "reward_contract": {
+      "kind": "numpy_vectorized_exact_height_smooth_tracking_objective",
+      "body_names": [
+        "base_Link",
+        "abad_L_Link",
+        "abad_R_Link",
+        "hip_L_Link",
+        "hip_R_Link",
+        "knee_L_Link",
+        "knee_R_Link",
+        "wheel_L_Link",
+        "wheel_R_Link"
+      ],
+      "joint_names": [
+        "abad_L_Joint",
+        "abad_R_Joint",
+        "hip_L_Joint",
+        "hip_R_Joint",
+        "knee_L_Joint",
+        "knee_R_Joint",
+        "wheel_L_Joint",
+        "wheel_R_Joint"
+      ],
+      "dt_s": 0.02,
+      "weights": {
+        "motion_global_anchor_pos": 2.0,
+        "motion_global_anchor_ori": 2.0,
+        "motion_body_pos": 1.0,
+        "motion_body_ori": 1.0,
+        "motion_body_lin_vel": 1.0,
+        "motion_body_ang_vel": 1.0,
+        "action_rate_l2": -0.5,
+        "joint_limit": -10.0,
+        "undesired_contacts": -0.1,
+        "drift_sideslip": 2.0,
+        "drift_yaw_rate": 1.0,
+        "drift_speed": 1.0,
+        "drift_grounded": 0.4,
+        "drift_tilt": -0.2,
+        "height_vertical_acceleration": -0.1
+      },
+      "stds": {
+        "anchor_position_m": 0.3,
+        "anchor_orientation_rad": 0.4,
+        "body_position_m": 0.3,
+        "body_orientation_rad": 0.4,
+        "body_linear_velocity_m_s": 0.5,
+        "body_angular_velocity_rad_s": 0.8,
+        "sideslip_rad": 0.12,
+        "yaw_rate_rad_s": 0.5,
+        "speed_m_s": 0.35
+      },
+      "height_regularization": {
+        "mode": "vertical_acceleration_only",
+        "weight": -0.1,
+        "acceleration_scale_m_s2": 5.0
+      },
+      "absolute_height_target": false,
+      "reference_vertical_velocity_target": false,
+      "sideslip_target": "held reference body-frame course angle, NOT zero",
+      "reference_order": "Freeze reference[k] and relative-body targets at pre-action state; evaluate after decimation, before command advances.",
+      "pose_semantics": "World link-origin position and link wxyz quaternion",
+      "velocity_semantics": "World original-unmerged-link COM linear velocity and world angular velocity",
+      "cost": "dt * (sum_positive_reward_weights - sum(weight * raw_term)); no terminal term supplied",
+      "contact_thresholds_n": {
+        "grounded_each_wheel_net_force": 5.0,
+        "undesired_contact_body_force": 1.0
+      },
+      "joint_limit_joints": [
+        "abad_L_Joint",
+        "abad_R_Joint",
+        "hip_L_Joint",
+        "hip_R_Joint",
+        "knee_L_Joint",
+        "knee_R_Joint"
+      ],
+      "surrogate_differences": [
+        "MuJoCo net contact forces are not identical to PhysX ContactSensor forces; all contacts, including self-contact, are included.",
+        "undesired_contacts uses max norm over supplied physical-substep history; omitted history is explicitly an instantaneous surrogate.",
+        "MuJoCo-derived 0.95 joint ranges are an approximation unless replaced by Isaac runtime soft_joint_pos_limits in matching joint order.",
+        "Body COM offsets/inertias must match the original unmerged USD links; random COM offsets require the same realized model parameters.",
+        "Task tilt safety termination and policy action/observation privileges are outside this stage objective."
+      ],
+      "array_axes": "candidate, horizon, then body/history/vector axes",
+      "scalar_objective_term_names": [
+        "motion_global_anchor_pos",
+        "motion_global_anchor_ori",
+        "motion_body_pos",
+        "motion_body_ori",
+        "motion_body_lin_vel",
+        "motion_body_ang_vel",
+        "action_rate_l2",
+        "joint_limit",
+        "undesired_contacts",
+        "drift_sideslip",
+        "drift_yaw_rate",
+        "drift_speed",
+        "drift_grounded",
+        "drift_tilt",
+        "height_vertical_acceleration"
+      ],
+      "per_term_cost": "dt * (max(weight,0) - weighted_term); sums to stage_cost",
+      "reference_phase": "reference[min(start_index+h,last_frame)] held BEFORE each action",
+      "nonfinite_policy": "Raise; never silently replace invalid samples with finite scores",
+      "production_cem_wired": false
+    },
+    "reward_scale": "sum(weighted_terms)*.02",
+    "absolute_height_termination": false,
+    "absolute_xy_termination": false,
+    "tilt_termination": "abs(reference_projected_gravity_z - actual_projected_gravity_z) > .6",
+    "motion_end_timeout": "held reference phase >= last frame, checked before phase advance",
+    "terminal_observation": "postphysics, held command, before autoreset; diagnostic only, official RSL timeout bootstrap is unchanged",
+    "dr": {
+      "mode": "none",
+      "startup_once_not_resampled_on_reset": true,
+      "robot_single_sliding_mu_range": [
+        0.7,
+        0.7
+      ],
+      "ground_mu": 0.7,
+      "robot_mu_realized": [
+        0.7,
+        0.7,
+        0.7,
+        0.7
+      ],
+      "joint_default_offset_range_rad": [
+        0.0,
+        0.0
+      ],
+      "encoder_bias_range_rad": [
+        0.0,
+        0.0
+      ],
+      "encoder_bias_semantics": null,
+      "friction_scope": "all robot geoms",
+      "friction_wheel_priority": 0,
+      "base_com_offset_range_m": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "push_interval_s": null,
+      "push_velocity_frame": "root COM world, additive",
+      "push_timer_correction": null,
+      "static_dynamic_distinction": false,
+      "restitution": "MuJoCo existing solver-default contact law; no restitution-coefficient equivalence claimed",
+      "material_combine": "MuJoCo geom/pair priority/friction rules; NOT PhysX arithmetic average",
+      "beyondmimic_full_material_recipe_equivalent": false
+    },
+    "sources": {
+      "model": {
+        "path": "/data/zengxiong/workspaces/tron1-sliding-analysis-20261014/mujoco_model.xml",
+        "sha256": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513"
+      },
+      "motion": {
+        "path": "/data/zengxiong/workspaces/tron1-drift-turn-worst-load-20261014/motion.npz",
+        "sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254"
+      },
+      "contract": {
+        "path": "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/preflight_seed42_gpu4_v2/parity_declared_inputs/contract.json",
+        "sha256": "2736c38f8dbaf2f0db7ac66379787219ee7ca3f0840996d9ccc8786099e970e0"
+      }
+    },
+    "physical_counters": {
+      "environment_transitions": 32,
+      "physical_environment_substeps": 256,
+      "environment_resets": 4,
+      "interval_pushes": 0
+    }
+  },
+  "gpu_metadata": {
+    "physics_engine": "MuJoCo",
+    "mujoco_version": "3.8.1",
+    "implementation": "mjlab_gpu_resident_tron1_task",
+    "native_backend": {
+      "implementation": "mjlab_simulation_custom_tron1_gpu_task",
+      "mjlab_version": "1.4.0",
+      "mjlab_source_commit": "4360096b49c1bcc478668c11ce7d458db747e49d",
+      "physics": "MuJoCo-Warp CUDA, not CPU MuJoCo or PhysX",
+      "device": "cuda:4",
+      "installed_versions": {
+        "mujoco": "3.8.1",
+        "mujoco-warp": "3.8.1",
+        "warp-lang": "1.12.1",
+        "torch": "2.7.0+cu128"
+      },
+      "precision": "MuJoCo-Warp float32",
+      "num_worlds": 4,
+      "physics_dt_s": 0.0025,
+      "decimation": 8,
+      "policy_dt_s": 0.02,
+      "state_continuity": "persistent between control intervals",
+      "expanded_model_fields": [
+        "geom_friction",
+        "body_ipos",
+        "body_subtreemass",
+        "dof_invweight0",
+        "body_invweight0",
+        "tendon_length0",
+        "tendon_invweight0"
+      ],
+      "contact_forces": "mjwarp.contact_force world-frame, signed net sum by original body",
+      "host_task_adapter": false,
+      "performance_caveat": "CUDA Graph availability remains determined by the pinned mjlab/driver",
+      "cuda_graphs": false,
+      "overflow_checks": {
+        "global_contact_capacity": 256,
+        "per_world_constraint_capacity": 256,
+        "sparse_jacobian_nnz_capacity": 3584,
+        "latched_fatal_failure": true
+      },
+      "source_sha256": "bc88f6919f3c4bfa57a362bc52d411b6a6871ee01a99e3d0954100bb7596a410",
+      "device_resident_tensor_api": true,
+      "state_cpu_readbacks_per_control_interval": 0,
+      "fatal_status_host_scalars_per_control_interval": 1,
+      "contact_reduction": "fixed-capacity Warp kernel, no Torch boolean indexing",
+      "stream_handoff": "bidirectional CUDA events; no host stream synchronization",
+      "physics_semantics": "unchanged step+full-forward pairing, 8 pairs per control interval",
+      "gpu_bridge_source_sha256": "57c23780e8da39e124acf491dfa339d66410ebf0df774334a768e8029cbf02e2"
+    },
+    "num_envs": 4,
+    "seed": 42,
+    "physics_dt_s": 0.0025,
+    "decimation": 8,
+    "policy_dt_s": 0.02,
+    "state_continuity": "No cold reset between control intervals; reset only on episode boundaries",
+    "actor_dim": 51,
+    "critic_dim": 120,
+    "actor_observation_corruption": false,
+    "critic_order": "policy_layout51 (unbiased leg positions for mjlab_v1p4), robot_body_pos_b27, nonwheel_body_ori_b42",
+    "reference_state_initialization": {
+      "adaptive_bin_seconds": 0.2,
+      "adaptive_alpha": 0.001,
+      "adaptive_uniform_ratio": 0.1,
+      "adaptive_kernel_size": 1,
+      "full_clip_start_fraction": 0.2,
+      "pose_noise": false,
+      "velocity_noise": false,
+      "joint_reset_noise": false
+    },
+    "reward_contract": {
+      "kind": "torch_device_exact_height_smooth_tracking_objective",
+      "body_names": [
+        "base_Link",
+        "abad_L_Link",
+        "abad_R_Link",
+        "hip_L_Link",
+        "hip_R_Link",
+        "knee_L_Link",
+        "knee_R_Link",
+        "wheel_L_Link",
+        "wheel_R_Link"
+      ],
+      "joint_names": [
+        "abad_L_Joint",
+        "abad_R_Joint",
+        "hip_L_Joint",
+        "hip_R_Joint",
+        "knee_L_Joint",
+        "knee_R_Joint",
+        "wheel_L_Joint",
+        "wheel_R_Joint"
+      ],
+      "dt_s": 0.02,
+      "weights": {
+        "motion_global_anchor_pos": 2.0,
+        "motion_global_anchor_ori": 2.0,
+        "motion_body_pos": 1.0,
+        "motion_body_ori": 1.0,
+        "motion_body_lin_vel": 1.0,
+        "motion_body_ang_vel": 1.0,
+        "action_rate_l2": -0.5,
+        "joint_limit": -10.0,
+        "undesired_contacts": -0.1,
+        "drift_sideslip": 2.0,
+        "drift_yaw_rate": 1.0,
+        "drift_speed": 1.0,
+        "drift_grounded": 0.4,
+        "drift_tilt": -0.2,
+        "height_vertical_acceleration": -0.1
+      },
+      "stds": {
+        "anchor_position_m": 0.3,
+        "anchor_orientation_rad": 0.4,
+        "body_position_m": 0.3,
+        "body_orientation_rad": 0.4,
+        "body_linear_velocity_m_s": 0.5,
+        "body_angular_velocity_rad_s": 0.8,
+        "sideslip_rad": 0.12,
+        "yaw_rate_rad_s": 0.5,
+        "speed_m_s": 0.35
+      },
+      "height_regularization": {
+        "mode": "vertical_acceleration_only",
+        "weight": -0.1,
+        "acceleration_scale_m_s2": 5.0
+      },
+      "absolute_height_target": false,
+      "reference_vertical_velocity_target": false,
+      "sideslip_target": "held reference body-frame course angle, NOT zero",
+      "reference_order": "Freeze reference[k] and relative-body targets at pre-action state; evaluate after decimation, before command advances.",
+      "pose_semantics": "World link-origin position and link wxyz quaternion",
+      "velocity_semantics": "World original-unmerged-link COM linear velocity and world angular velocity",
+      "cost": "dt * (sum_positive_reward_weights - sum(weight * raw_term)); no terminal term supplied",
+      "contact_thresholds_n": {
+        "grounded_each_wheel_net_force": 5.0,
+        "undesired_contact_body_force": 1.0
+      },
+      "joint_limit_joints": [
+        "abad_L_Joint",
+        "abad_R_Joint",
+        "hip_L_Joint",
+        "hip_R_Joint",
+        "knee_L_Joint",
+        "knee_R_Joint"
+      ],
+      "surrogate_differences": [
+        "MuJoCo net contact forces are not identical to PhysX ContactSensor forces; all contacts, including self-contact, are included.",
+        "undesired_contacts uses max norm over supplied physical-substep history; omitted history is explicitly an instantaneous surrogate.",
+        "MuJoCo-derived 0.95 joint ranges are an approximation unless replaced by Isaac runtime soft_joint_pos_limits in matching joint order.",
+        "Body COM offsets/inertias must match the original unmerged USD links; random COM offsets require the same realized model parameters.",
+        "Task tilt safety termination and policy action/observation privileges are outside this stage objective."
+      ],
+      "array_axes": "candidate, horizon, then body/history/vector axes",
+      "scalar_objective_term_names": [
+        "motion_global_anchor_pos",
+        "motion_global_anchor_ori",
+        "motion_body_pos",
+        "motion_body_ori",
+        "motion_body_lin_vel",
+        "motion_body_ang_vel",
+        "action_rate_l2",
+        "joint_limit",
+        "undesired_contacts",
+        "drift_sideslip",
+        "drift_yaw_rate",
+        "drift_speed",
+        "drift_grounded",
+        "drift_tilt",
+        "height_vertical_acceleration"
+      ],
+      "per_term_cost": "dt * (max(weight,0) - weighted_term); sums to stage_cost",
+      "reference_phase": "reference[min(start_index+h,last_frame)] held BEFORE each action",
+      "nonfinite_policy": "Raise; never silently replace invalid samples with finite scores",
+      "production_cem_wired": false
+    },
+    "reward_scale": "sum(weighted_terms)*.02",
+    "absolute_height_termination": false,
+    "absolute_xy_termination": false,
+    "tilt_termination": "abs(reference_projected_gravity_z - actual_projected_gravity_z) > .6",
+    "motion_end_timeout": "held reference phase >= last frame, checked before phase advance",
+    "terminal_observation": "postphysics, held command, before autoreset; diagnostic only, official RSL timeout bootstrap is unchanged",
+    "dr": {
+      "mode": "none",
+      "startup_once_not_resampled_on_reset": true,
+      "robot_single_sliding_mu_range": [
+        0.7,
+        0.7
+      ],
+      "ground_mu": 0.7,
+      "robot_mu_realized": [
+        0.7,
+        0.7,
+        0.7,
+        0.7
+      ],
+      "joint_default_offset_range_rad": [
+        0.0,
+        0.0
+      ],
+      "encoder_bias_range_rad": [
+        0.0,
+        0.0
+      ],
+      "encoder_bias_semantics": null,
+      "friction_scope": "all robot geoms",
+      "friction_wheel_priority": 0,
+      "base_com_offset_range_m": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "push_interval_s": null,
+      "push_velocity_frame": "root COM world, additive",
+      "push_timer_correction": null,
+      "static_dynamic_distinction": false,
+      "restitution": "MuJoCo existing solver-default contact law; no restitution-coefficient equivalence claimed",
+      "material_combine": "MuJoCo geom/pair priority/friction rules; NOT PhysX arithmetic average",
+      "beyondmimic_full_material_recipe_equivalent": false
+    },
+    "sources": {
+      "model": {
+        "path": "/data/zengxiong/workspaces/tron1-sliding-analysis-20261014/mujoco_model.xml",
+        "sha256": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513"
+      },
+      "motion": {
+        "path": "/data/zengxiong/workspaces/tron1-drift-turn-worst-load-20261014/motion.npz",
+        "sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254"
+      },
+      "contract": {
+        "path": "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/preflight_seed42_gpu4_v2/parity_declared_inputs/contract.json",
+        "sha256": "2736c38f8dbaf2f0db7ac66379787219ee7ca3f0840996d9ccc8786099e970e0"
+      }
+    },
+    "physical_counters": {
+      "environment_transitions": 32,
+      "physical_environment_substeps": 256,
+      "environment_resets": 4,
+      "interval_pushes": 0
+    },
+    "task_arrays_device": "cuda:4",
+    "host_task_adapter": false,
+    "random_stream": "private per-device Torch generator; startup draws unchanged, subsequent distributions unchanged but not NumPy draw-for-draw",
+    "task_event_host_transfer": "one 3-byte reset/push/fault payload per interval; no bulk tensors",
+    "physics_forward_schedule": "unchanged pairing: 8 step + 8 forward, conditional reset and push forwards"
+  },
+  "parity": {
+    "passed": true,
+    "same_recorded_fields": true,
+    "missing_from_gpu": [],
+    "extra_from_gpu": [],
+    "uninterrupted_no_auto_resets": true,
+    "host_auto_reset_steps": [],
+    "gpu_auto_reset_steps": [],
+    "complete_requested_trace": true,
+    "comparisons": {
+      "initial/qpos": {
+        "expected_shape": [
+          4,
+          15
+        ],
+        "actual_shape": [
+          4,
+          15
+        ],
+        "atol": 0.0,
+        "rtol": 0.0,
+        "passed": true,
+        "max_abs_error": 0.0,
+        "rms_error": 0.0,
+        "elements_outside_tolerance": 0
+      },
+      "initial/qvel": {
+        "expected_shape": [
+          4,
+          14
+        ],
+        "actual_shape": [
+          4,
+          14
+        ],
+        "atol": 0.0,
+        "rtol": 0.0,
+        "passed": true,
+        "max_abs_error": 0.0,
+        "rms_error": 0.0,
+        "elements_outside_tolerance": 0
+      },
+      "initial/policy": {
+        "expected_shape": [
+          4,
+          51
+        ],
+        "actual_shape": [
+          4,
+          51
+        ],
+        "atol": 0.0005,
+        "rtol": 1e-05,
+        "passed": true,
+        "max_abs_error": 0.0,
+        "rms_error": 0.0,
+        "elements_outside_tolerance": 0
+      },
+      "initial/critic": {
+        "expected_shape": [
+          4,
+          120
+        ],
+        "actual_shape": [
+          4,
+          120
+        ],
+        "atol": 0.0005,
+        "rtol": 1e-05,
+        "passed": true,
+        "max_abs_error": 0.0,
+        "rms_error": 0.0,
+        "elements_outside_tolerance": 0
+      },
+      "critic": {
+        "expected_shape": [
+          8,
+          4,
+          120
+        ],
+        "actual_shape": [
+          8,
+          4,
+          120
+        ],
+        "atol": 0.0005,
+        "rtol": 1e-05,
+        "passed": true,
+        "max_abs_error": 1.1920928955078125e-07,
+        "rms_error": 1.0923692729612934e-08,
+        "elements_outside_tolerance": 0
+      },
+      "policy": {
+        "expected_shape": [
+          8,
+          4,
+          51
+        ],
+        "actual_shape": [
+          8,
+          4,
+          51
+        ],
+        "atol": 0.0005,
+        "rtol": 1e-05,
+        "passed": true,
+        "max_abs_error": 1.1920928955078125e-07,
+        "rms_error": 8.542322164595478e-09,
+        "elements_outside_tolerance": 0
+      },
+      "qpos": {
+        "expected_shape": [
+          8,
+          4,
+          15
+        ],
+        "actual_shape": [
+          8,
+          4,
+          15
+        ],
+        "atol": 2e-05,
+        "rtol": 1e-05,
+        "passed": true,
+        "max_abs_error": 0.0,
+        "rms_error": 0.0,
+        "elements_outside_tolerance": 0
+      },
+      "qvel": {
+        "expected_shape": [
+          8,
+          4,
+          14
+        ],
+        "actual_shape": [
+          8,
+          4,
+          14
+        ],
+        "atol": 0.0002,
+        "rtol": 1e-05,
+        "passed": true,
+        "max_abs_error": 0.0,
+        "rms_error": 0.0,
+        "elements_outside_tolerance": 0
+      },
+      "raw/action_rate_l2": {
+        "expected_shape": [
+          8,
+          4
+        ],
+        "actual_shape": [
+          8,
+          4
+        ],
+        "atol": 0.004,
+        "rtol": 1e-05,
+        "passed": true,
+        "max_abs_error": 1.5997527044384063e-10,
+        "rms_error": 6.129363541737773e-11,
+        "elements_outside_tolerance": 0
+      },
+      "raw/drift_grounded": {
+        "expected_shape": [
+          8,
+          4
+        ],
+        "actual_shape": [
+          8,
+          4
+        ],
+        "atol": 0.004,
+        "rtol": 1e-05,
+        "passed": true,
+        "max_abs_error": 0.0,
+        "rms_error": 0.0,
+        "elements_outside_tolerance": 0
+      },
+      "raw/drift_sideslip": {
+        "expected_shape": [
+          8,
+          4
+        ],
+        "actual_shape": [
+          8,
+          4
+        ],
+        "atol": 0.004,
+        "rtol": 1e-05,
+        "passed": true,
+        "max_abs_error": 5.503535227546763e-08,
+        "rms_error": 2.5472686217926862e-08,
+        "elements_outside_tolerance": 0
+      },
+      "raw/drift_speed": {
+        "expected_shape": [
+          8,
+          4
+        ],
+        "actual_shape": [
+          8,
+          4
+        ],
+        "atol": 0.004,
+        "rtol": 1e-05,
+        "passed": true,
+        "max_abs_error": 6.362038540430603e-08,
+        "rms_error": 2.7492745808516e-08,
+        "elements_outside_tolerance": 0
+      },
+      "raw/drift_tilt": {
+        "expected_shape": [
+          8,
+          4
+        ],
+        "actual_shape": [
+          8,
+          4
+        ],
+        "atol": 0.004,
+        "rtol": 1e-05,
+        "passed": true,
+        "max_abs_error": 1.0175042427541803e-10,
+        "rms_error": 5.0178815878911915e-11,
+        "elements_outside_tolerance": 0
+      },
+      "raw/drift_yaw_rate": {
+        "expected_shape": [
+          8,
+          4
+        ],
+        "actual_shape": [
+          8,
+          4
+        ],
+        "atol": 0.004,
+        "rtol": 1e-05,
+        "passed": true,
+        "max_abs_error": 6.626668613840536e-08,
+        "rms_error": 3.1576867765509255e-08,
+        "elements_outside_tolerance": 0
+      },
+      "raw/height_vertical_acceleration": {
+        "expected_shape": [
+          8,
+          4
+        ],
+        "actual_shape": [
+          8,
+          4
+        ],
+        "atol": 0.004,
+        "rtol": 1e-05,
+        "passed": true,
+        "max_abs_error": 4.244561646604694e-08,
+        "rms_error": 2.074093958976902e-08,
+        "elements_outside_tolerance": 0
+      },
+      "raw/joint_limit": {
+        "expected_shape": [
+          8,
+          4
+        ],
+        "actual_shape": [
+          8,
+          4
+        ],
+        "atol": 0.004,
+        "rtol": 1e-05,
+        "passed": true,
+        "max_abs_error": 0.0,
+        "rms_error": 0.0,
+        "elements_outside_tolerance": 0
+      },
+      "raw/motion_body_ang_vel": {
+        "expected_shape": [
+          8,
+          4
+        ],
+        "actual_shape": [
+          8,
+          4
+        ],
+        "atol": 0.004,
+        "rtol": 1e-05,
+        "passed": true,
+        "max_abs_error": 6.719871437077529e-08,
+        "rms_error": 3.357739317920741e-08,
+        "elements_outside_tolerance": 0
+      },
+      "raw/motion_body_lin_vel": {
+        "expected_shape": [
+          8,
+          4
+        ],
+        "actual_shape": [
+          8,
+          4
+        ],
+        "atol": 0.004,
+        "rtol": 1e-05,
+        "passed": true,
+        "max_abs_error": 6.609165803528327e-08,
+        "rms_error": 2.8950570804865884e-08,
+        "elements_outside_tolerance": 0
+      },
+      "raw/motion_body_ori": {
+        "expected_shape": [
+          8,
+          4
+        ],
+        "actual_shape": [
+          8,
+          4
+        ],
+        "atol": 0.004,
+        "rtol": 1e-05,
+        "passed": true,
+        "max_abs_error": 7.434003979067683e-08,
+        "rms_error": 3.0703388387529615e-08,
+        "elements_outside_tolerance": 0
+      },
+      "raw/motion_body_pos": {
+        "expected_shape": [
+          8,
+          4
+        ],
+        "actual_shape": [
+          8,
+          4
+        ],
+        "atol": 0.004,
+        "rtol": 1e-05,
+        "passed": true,
+        "max_abs_error": 7.061023810095435e-08,
+        "rms_error": 3.393872266217639e-08,
+        "elements_outside_tolerance": 0
+      },
+      "raw/motion_global_anchor_ori": {
+        "expected_shape": [
+          8,
+          4
+        ],
+        "actual_shape": [
+          8,
+          4
+        ],
+        "atol": 0.004,
+        "rtol": 1e-05,
+        "passed": true,
+        "max_abs_error": 7.256929757115671e-08,
+        "rms_error": 3.3705905569734646e-08,
+        "elements_outside_tolerance": 0
+      },
+      "raw/motion_global_anchor_pos": {
+        "expected_shape": [
+          8,
+          4
+        ],
+        "actual_shape": [
+          8,
+          4
+        ],
+        "atol": 0.004,
+        "rtol": 1e-05,
+        "passed": true,
+        "max_abs_error": 5.6873370568588655e-08,
+        "rms_error": 3.053649061354622e-08,
+        "elements_outside_tolerance": 0
+      },
+      "raw/undesired_contacts": {
+        "expected_shape": [
+          8,
+          4
+        ],
+        "actual_shape": [
+          8,
+          4
+        ],
+        "atol": 0.004,
+        "rtol": 1e-05,
+        "passed": true,
+        "max_abs_error": 0.0,
+        "rms_error": 0.0,
+        "elements_outside_tolerance": 0
+      },
+      "reward": {
+        "expected_shape": [
+          8,
+          4
+        ],
+        "actual_shape": [
+          8,
+          4
+        ],
+        "atol": 0.0001,
+        "rtol": 1e-05,
+        "passed": true,
+        "max_abs_error": 4.470348358154297e-08,
+        "rms_error": 1.580506819158526e-08,
+        "elements_outside_tolerance": 0
+      },
+      "terminated": {
+        "expected_shape": [
+          8,
+          4
+        ],
+        "actual_shape": [
+          8,
+          4
+        ],
+        "atol": 0.0,
+        "rtol": 0.0,
+        "passed": true,
+        "max_abs_error": 0.0,
+        "rms_error": 0.0,
+        "elements_outside_tolerance": 0
+      },
+      "truncated": {
+        "expected_shape": [
+          8,
+          4
+        ],
+        "actual_shape": [
+          8,
+          4
+        ],
+        "atol": 0.0,
+        "rtol": 0.0,
+        "passed": true,
+        "max_abs_error": 0.0,
+        "rms_error": 0.0,
+        "elements_outside_tolerance": 0
+      }
+    },
+    "precision_note": "Host task float64 vs GPU task float32; physics is MuJoCo-Warp float32 in BOTH branches"
+  },
+  "environment_timing": {
+    "host": {
+      "seconds_per_window": [
+        0.6681483127176762
+      ],
+      "median_window_s": 0.6681483127176762,
+      "environment_steps_per_window": 1,
+      "num_envs": 4,
+      "transitions_per_window": 4,
+      "median_environment_step_ms": 668.1483127176762,
+      "median_transitions_per_s": 5.986694756034184,
+      "warmup_environment_steps_excluded": 0,
+      "cuda_synchronizations_in_timing_harness": 2,
+      "step_internal_synchronizations": "Implementation dependent; included in elapsed time"
+    },
+    "gpu": {
+      "seconds_per_window": [
+        0.6692831851541996
+      ],
+      "median_window_s": 0.6692831851541996,
+      "environment_steps_per_window": 1,
+      "num_envs": 4,
+      "transitions_per_window": 4,
+      "median_environment_step_ms": 669.2831851541996,
+      "median_transitions_per_s": 5.976543395570919,
+      "warmup_environment_steps_excluded": 0,
+      "cuda_synchronizations_in_timing_harness": 2,
+      "step_internal_synchronizations": "Implementation dependent; included in elapsed time"
+    }
+  },
+  "measured_environment_step_speedup": 0.99830434640867,
+  "timing_scope": "Same shaped step traces; no PPO, no initialization/JIT, no diagnostic device-to-host trace copies",
+  "timing_dr_mode": "none",
+  "timing_task_trace_parity_claimed": false
+}

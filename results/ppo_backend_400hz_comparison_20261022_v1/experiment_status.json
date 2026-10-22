@@ -1,12 +1,17 @@
 {
   "schema_version": 1,
   "cohort_id": "traj4_backend_400hz_actionrate0p5_seed42_v1",
-  "status": "preparing_new_paired_training_not_yet_launched",
+  "status": "formal_pair_training_running_physx_first_then_mujoco_warp",
   "user_selected_new_training": true,
   "protocol": "config/ppo_backend_400hz_comparison_v1.json",
+  "remote_workspace": "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022",
+  "immutable_source_archive_sha256": "2353a8f8dd8943bc4417500504256285eb3ca0ef773b5345cb5d3384574838bf",
+  "source_files": 81,
+  "preflight": {"status": "all_three_stages_completed_verified", "physical_gpu_index": 4, "dispatcher_pid": 2535790, "output_directory": "preflight_seed42_gpu4_v2", "stages": ["host_gpu_400hz_parity", "physx_smoke", "mjlab_smoke"], "formal_training_automatic_after_preflight": false, "transitions_per_smoke_arm": 1536, "gpu_physics_parity_qpos_qvel_max_abs_difference": 0.0, "prior_gpu3_attempt": "stopped_before_any_child_because_foreign_jobs_occupied_card"},
+  "formal_dispatcher": {"pid": 2538645, "physical_gpu_index": 4, "output_directory": "pair_seed42_gpu4_v1", "job_order": ["physx_formal", "mjlab_formal"], "one_child_at_a_time": true, "initial_policy_state_sha256": "7dcdf78ffeb61806eeefcb31c4739d707c1caef934d152f2296ba2ee488b4d5d"},
   "training_arms": {
-    "physx": {"status": "pending_native400hz_preflight", "transitions_requested": 12288000},
-    "mjlab_mujoco_warp": {"status": "pending_native400hz_preflight", "transitions_requested": 12288000}
+    "physx": {"status": "training", "transitions_requested": 12288000},
+    "mjlab_mujoco_warp": {"status": "queued_after_physx_and_fresh_idle_gpu_check", "transitions_requested": 12288000}
   },
   "new_closed_loop_matrix": {"status": "not_started", "episodes_requested": 68, "dimensions": "2 independently trained actors x2 evaluation engines x17 effective-pair friction coefficients", "nominal_mu": 0.7},
   "historical_diagnostics": {
@@ -18,6 +23,9 @@
     "The historical low-jitter400Hz rollout used an actor trained at200Hz; new native400Hz training may behave differently.",
     "Historical grounded-reward replacement is not a400Hz matched ablation or evidence that every contact reward causes falling.",
     "A single training seed supplies descriptive checkpoint comparisons, not statistical success probabilities.",
-    "Equal target scalar friction is not equivalent contact law or identical hidden solver state."
+    "Equal target scalar friction is not equivalent contact law or identical hidden solver state.",
+    "Shared DR matches distributions and semantics, not per-sample random draws or subsequent PPO exploration RNG consumption.",
+    "Original grounded+0.4 is a last-substep wheel-body net-contact-force binary reward, not continuous ground-normal support; three-native-step contact history spans7.5ms at400Hz.",
+    "The fixed-mu short host/GPU parity test is not proof of long randomized reset/push/COM rollout equivalence."
   ]
 }

@@ -1,0 +1,86 @@
+{
+  "automatic_gpu_fallback": false,
+  "automatic_retry": false,
+  "children": [],
+  "dispatcher_argv": [
+    "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/source_snapshot_v2/scripts/run_ppo_backend_400hz_pair.py",
+    "--snapshot",
+    "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/source_snapshot_v2",
+    "--stage",
+    "preflight",
+    "--physical-gpu-index",
+    "3",
+    "--python",
+    "/data/zengxiong/.conda/envs/regrind/bin/python",
+    "--model",
+    "/data/zengxiong/workspaces/tron1-sliding-analysis-20261014/mujoco_model.xml",
+    "--motion",
+    "/data/zengxiong/workspaces/tron1-drift-turn-worst-load-20261014/motion.npz",
+    "--asset-path",
+    "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/outputs/training-asset/WF_TRON1A.usda",
+    "--tron1-source",
+    "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/source_snapshot_v2/upstream/tron1-learning-from-human",
+    "--beyondmimic-source",
+    "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/third_party/whole_body_tracking",
+    "--mjlab-source",
+    "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261021/upstream/mjlab",
+    "--isaac-device-audit-source",
+    "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/source_snapshot_v2/upstream/tron1-learning-from-human/training/tron1_runtime_device.py",
+    "--output-dir",
+    "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/preflight_seed42_gpu3_v1"
+  ],
+  "error": "ValueError: Selected GPU is not freshly fully idle; no child/fallback/retry",
+  "exclusive_gpu_reservation_claimed": false,
+  "finished_unix_time": 1792645962.542948,
+  "hardware_ready": false,
+  "kind": "fresh_matched_400hz_ppo_backend_training_pair",
+  "last_gpu_preflight": {
+    "all_reported_compute_and_graphics_processes": [
+      {
+        "compute_instance_id": "N/A",
+        "gpu_instance_id": "N/A",
+        "pid": "2532193",
+        "process_name": "/data/ChenZihan/miniforge3/envs/hilserl/bin/python",
+        "type": "C",
+        "used_memory": "2738 MiB"
+      },
+      {
+        "compute_instance_id": "N/A",
+        "gpu_instance_id": "N/A",
+        "pid": "2533291",
+        "process_name": "/data/ChenZihan/miniforge3/envs/hilserl/bin/python",
+        "type": "C+G",
+        "used_memory": "1635 MiB"
+      }
+    ],
+    "idle": false,
+    "memory_used_mib": 4391,
+    "observed_unix_time": 1792645962.5424483,
+    "pci_bus_id": "00000000:65:04.0",
+    "pci_bus_id_cuda_ordinal_verified": true,
+    "physical_index": 3,
+    "reservation_claimed": false,
+    "source": "read-only nvidia-smi -q -x (NVML-derived full process snapshot)",
+    "utilization_percent": 87,
+    "uuid": "GPU-b4d62527-06da-c4d8-85c6-6cf86db11ff1"
+  },
+  "parity_declared_inputs": {
+    "directory": "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/preflight_seed42_gpu3_v1/parity_declared_inputs",
+    "sha256": {
+      "contract": "2736c38f8dbaf2f0db7ac66379787219ee7ca3f0840996d9ccc8786099e970e0",
+      "task_profile": "f9de41d1b2f1a32b6ff0c5b105358eeaa348c607352ecb5f825e70b3791e893d"
+    }
+  },
+  "physical_gpu_index": 3,
+  "pid": 2535018,
+  "requested_device": "cuda:3",
+  "stage": "preflight",
+  "stages_in_order": [
+    "parity",
+    "physx_smoke",
+    "mjlab_smoke"
+  ],
+  "started_unix_time": 1792645961.792339,
+  "status": "stopped_without_retry",
+  "validation_matrix_status": "pending_not_evaluated"
+}
