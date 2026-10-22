@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "kind": "sampled_fullbody_review_and_complete_video_decode_audit",
+  "reviewed_at_utc": "2026-10-22T15:42:55Z",
+  "reviewed_at_new_york": "2026-10-22T11:42:55-04:00",
+  "generated_summary_sha256": "96effcc40c8e8e11efa12a9dc338160fe896fba3b7a283dee85e0ac7574b011f",
+  "video_sha256": "2280aac67c59ecb3c8b445bb45b1e0b2e0578206dbb8d140b1cd58bffdbef61d",
+  "review_contact_sheet_sha256": "1bdf0f434d52411cf5d9c7c4022d9be013fa5836cc097b5a6c0eb3d5e557fa71",
+  "video_size_pixels": [1280, 750],
+  "all_frames_decoded": 350,
+  "video_fps": 50,
+  "encoded_duration_s": 7.0,
+  "sampled_original_times_s": [0.0, 1.44, 3.0, 4.0, 4.2, 4.5, 5.0, 6.0, 6.98],
+  "full_resolution_stills_reviewed_s": [3.0, 5.0],
+  "camera": {
+    "fixed_distance_m_all_cases_and_frames": 1.6953047794244371,
+    "fixed_world_azimuth_deg": 135.0,
+    "fixed_world_elevation_deg": -30.0,
+    "fixed_vertical_fov_deg": 45.0,
+    "fixed_root_relative_lookat_offset_m": [0.0, 0.0, -0.28],
+    "all_350_frames_by_2_cases_mesh_bounds_inside_frustum": true,
+    "maximum_normalized_frustum_extent": 0.914952294645384,
+    "time_varying_zoom_or_case_specific_distance": false,
+    "camera_lookat_matches_original_root_plus_fixed_offset": true
+  },
+  "native_FK_samples_checked_per_case": 2793,
+  "maximum_wheel_origin_FK_error_m": 0.0,
+  "selected_native_stride": 8,
+  "original_native_qpos_and_root_height_preserved": true,
+  "original_native_cumulative_clock_preserved": true,
+  "new_simulation_or_inference_during_rendering": false,
+  "observations": [
+    "Both panels show the actual new400Hz PhysX-trained actors in native CPU MuJoCo; there is no200Hz or MJWarp substitution.",
+    "At3s both bodies remain upright. The OFF body visibly tips after4s and is approximately sideways by4.5s; its original fallen pose remains through the final frame.",
+    "The OFF world-XY path diverges after the predefined core ends; fixed world-map scale preserves this rather than aligning it away.",
+    "All robot meshes remain opaque and visible in the sampled frames; the fixed camera never zooms to hide the fall.",
+    "The final6.98s frame correctly marks XY error unavailable beyond the6.96s reference."
+  ],
+  "limitations": [
+    "All350frames were decoded and their camera fit checked numerically. Human visual review used selected frames, not individual inspection of every encoded frame.",
+    "A50fps movie cannot resolve all400Hz physical oscillation; spectra use original native angular velocity.",
+    "Tilt, zero wheel force and height remain diagnostics rather than new tracking-failure or geometric-flight gates.",
+    "The lower OFF high-frequency angular RMS is not evidence of task stability or successful contact control."
+  ]
+}
