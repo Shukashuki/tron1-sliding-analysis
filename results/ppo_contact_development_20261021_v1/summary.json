@@ -1,0 +1,86 @@
+{
+  "task": "Fast turning with stable wheel-ground support, nominal mu=0.7 first",
+  "status": "stable_contact_goal_not_yet_met",
+  "reference": "drift_drl_traj4",
+  "core_interval_s": [1.44, 4.0],
+  "native_physics_hz": 200,
+  "policy_hz": 50,
+  "rounded_metrics": true,
+  "support_definition": "Fraction of native core samples where BOTH wheels have a ground point above the measurement threshold and aggregate upward normal Fz>5N. Not a geometric-flight classifier.",
+  "methods": [
+    {
+      "method": "PPO action-rate -0.5 baseline",
+      "checkpoint_sha256": "8ba4178471c757b4d09f5bb44c0a508558f1bfd5cc15103195aeba420ebe6e9a",
+      "core_xy_rmse_m": 0.056221,
+      "core_both_support_fraction": 0.341131,
+      "core_angular_xy_hf_rms_rad_s": 1.168983,
+      "assessment": "Tracks the turn but contact chatters",
+      "evidence": "../ppo_contact_stability_mu0p7_20261021_v1/summary.json"
+    },
+    {
+      "method": "Fixed baseline actor, leg Kd10->5",
+      "core_xy_rmse_m": 0.048504,
+      "core_both_support_fraction": 0.341131,
+      "core_angular_xy_hf_rms_rad_s": 1.517957,
+      "assessment": "Do not adopt; jitter and force jumps worsen",
+      "evidence": "../ppo_contact_damping_mu0p7_20261021_v2/summary.json"
+    },
+    {
+      "method": "Fixed baseline actor, leg Kp500->250",
+      "core_xy_rmse_m": 0.737353,
+      "core_both_support_fraction": 0.167641,
+      "core_angular_xy_hf_rms_rad_s": 0.702840,
+      "assessment": "Do not adopt; nominal tracking lost and later tips over",
+      "evidence": "../ppo_contact_stiffness_mu0p7_20261021_v1/summary.json"
+    },
+    {
+      "method": "New PPO replacing grounded reward with dense four-substep support (+0.4)",
+      "core_xy_rmse_m": 0.944355,
+      "core_both_support_fraction": 0.105263,
+      "core_angular_xy_hf_rms_rad_s": 1.251680,
+      "assessment": "Reject; body orientation, contact and tracking degrade in both engines",
+      "evidence": "../ppo_ground_support_mu0p7_20261021_v1/decision.json"
+    },
+    {
+      "method": "Fixed baseline actor, configured solver velocity iterations4->8",
+      "core_xy_rmse_m": 0.057667,
+      "core_both_support_fraction": 0.317739,
+      "core_angular_xy_hf_rms_rad_s": 1.177771,
+      "assessment": "Do not adopt as a contact fix; no useful improvement",
+      "evidence": "../ppo_contact_numerics_mu0p7_20261021_v1/decision.json"
+    },
+    {
+      "method": "New PPO with added six-leg applied-torque-rate penalty -0.05",
+      "checkpoint_sha256": "d8530c5730b404ba1a5580ef52a9a51e3ceade91d0c56ceb13794d20ad8b1ff8",
+      "core_xy_rmse_m": 0.043296,
+      "core_both_support_fraction": 0.337232,
+      "core_angular_xy_hf_rms_rad_s": 1.066642,
+      "core_leg_torque_change_rms_nm": 23.881482,
+      "baseline_core_leg_torque_change_rms_nm": 27.712165,
+      "assessment": "Retain tracking improvement, but stable-contact goal is not met",
+      "evidence": "../ppo_torque_control_v2_mu0p7_20261021_v1/decision.json"
+    },
+    {
+      "method": "Original fixed baseline actor, six-leg processed position-target low-pass alpha0.5",
+      "core_xy_rmse_m": 0.705075,
+      "core_both_support_fraction": 0.138402,
+      "core_angular_xy_hf_rms_rad_s": 0.605977,
+      "core_body_frame_angular_xy_hf_rms_rad_s": 1.387092,
+      "core_leg_torque_change_rms_nm": 64.074473,
+      "assessment": "Reject; unretrained actuator-state/delay loses balance. Lower world-XY HF while falling is not stable contact",
+      "evidence": "../ppo_leg_target_filter_mu0p7_20261022_v3/decision.json"
+    }
+  ],
+  "next_diagnostic": "Original fixed baseline actor without filtering: native physics5ms/PD200Hz versus2.5ms/PD400Hz, keeping policy50Hz",
+  "contact_threshold_sensitivity": {"baseline_core_samples": 513, "wheel_samples_with_0_lt_Fz_le_5N": [0, 0], "positive_Fz_duty_fraction_left_right": [0.423002, 0.643275], "assessment": "The5N load threshold is not the main source of baseline core load switching; this still does not establish geometric flight"},
+  "absolute_height_or_airborne_failure_gate": false,
+  "reference_speed_or_nonzero_beta_target_relaxed": false,
+  "limitations": [
+    "All metrics above are nominal PhysX core diagnostics, not full-clip averages or statistical success rates.",
+    "PD and solver changes are fixed-policy deployment sensitivity tests; they do not rule out retraining under those settings.",
+    "Both new PPO candidates use the same 12,288,000-transition from-scratch budget, one seed, historical DR and PD500/10.",
+    "Loaded USD-authored solver settings are not native backend solver-count readback; more iterations do not establish ground truth.",
+    "HF means frequencies strictly above10Hz with the declared detrend/Hann/Parseval normalization. Raw poses are not smoothed.",
+    "No weights, robot assets, original reference data or credentials are published by this summary."
+  ]
+}

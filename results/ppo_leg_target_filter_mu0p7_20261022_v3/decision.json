@@ -1,0 +1,26 @@
+{
+  "decision": "reject_zero_shot_leg_target_filter",
+  "stable_contact_goal_met": false,
+  "evaluation_mu": 0.7,
+  "core_interval_s": [1.44, 4.0],
+  "same_frozen_checkpoint_sha256": "8ba4178471c757b4d09f5bb44c0a508558f1bfd5cc15103195aeba420ebe6e9a",
+  "intervention": "Only six processed leg position targets low-pass filtered at 50Hz, alpha0.5 versus exact alpha1 bypass; wheels and requested-action observation semantics unchanged",
+  "rounded_core_metrics": {
+    "baseline_alpha1": {"xy_rmse_m": 0.056221, "speed_retention": 0.983352, "beta_rmse_deg": 1.970189, "both_wheel_load_eligibility_fraction": 0.341131, "world_angular_xy_hf_rms_rad_s": 1.168983, "body_angular_xy_hf_rms_rad_s": 1.169170, "applied_leg_torque_step_rms_nm": 27.712165},
+    "candidate_alpha0p5": {"xy_rmse_m": 0.705075, "speed_retention": 0.668544, "beta_rmse_deg": 46.930104, "both_wheel_load_eligibility_fraction": 0.138402, "world_angular_xy_hf_rms_rad_s": 0.605977, "body_angular_xy_hf_rms_rad_s": 1.387092, "applied_leg_torque_step_rms_nm": 64.074473}
+  },
+  "candidate_full_episode_peak_tilt_deg": 113.020218,
+  "video_visibility_limitation": "The same reference-following camera is used for both panels. The failed candidate partially leaves view around4s and is fully out of view at6.98s (XY error2.777m); no pose correction or candidate-following camera was used.",
+  "interpretation": "Filtering the unretrained actor's leg targets introduces unobserved actuator state/delay and loses balance/tracking. A lower world-XY HF metric while falling is not stable contact; body-frame HF and physical torque changes worsen. Do not deploy this external filter or claim its actor export includes the filter.",
+  "baseline_identity": {"physical_gpu_index": 3, "same_hook_original_physics_trace_sha256": "54e01f57b01da11c5b0736c572f8b2ebc81ebe2cac8f06c9b3b5be29b1637780", "exact_original_trace_reproduced": true},
+  "candidate_physics_trace_sha256": "0753382250fdac6ed7d82fa973c8aa21b065101f8653abad5f0cf69dde846abf",
+  "source_archive_sha256": "695ae794f354c0b8a69ad86608a2f65b38fc939907553dd32e794bd1cea84c78",
+  "diagnostics_archive_sha256": "6e5919d22e2af9274ef52d8bf8f35ed238bf27dfb0f8b903668de12b027b5a34",
+  "clock_validation": {"control_decisions": 349, "physical_applies": 1396, "integer_counters_and_native_indices_exact": true, "measured_max_native_time_deviation_from_nominal_s": 1.5590339952353816e-7, "residual_against_float32_step_grid_s": 0.0, "original_float_timestamps_preserved": true},
+  "support_definition": "Both wheels have recorded ground point count>0 AND aggregate upward Fz>5N. This is measured force-bearing support, not proof of geometric flight.",
+  "absolute_height_or_airborne_failure_gate": false,
+  "reference_speed_or_nonzero_beta_target_relaxed": false,
+  "additional_training_updates": 0,
+  "next_diagnostic": "Same original actor, no filter: physics5ms/decimation4 versus physics2.5ms/decimation8, keeping policy50Hz; changes both native physics resolution and explicit PD update rate, not only the contact solver",
+  "evidence": ["summary.json", "contact_comparison.png", "../ppo_leg_target_filter_mu0p7_fullbody_20261022_v3/fullbodycomparison.mp4"]
+}
