@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "experiment": "sequential_physx_ppo_action_rate_smoothness",
+  "reference_id": "drift_drl_traj4",
+  "backend": "physx",
+  "baseline_checkpoint_sha256": "6ec411efeaea37fc61389285978b377aa7c5be80e326ce7f18581efc9acdf27b",
+  "baseline_task_profile_sha256": "31de29a61eec847e0e39783f3a0d9d8f2db551acd679a1b38dfde2b24e8ae7d6",
+  "method": "action_rate_l2_weight_only",
+  "baseline_action_rate_weight": -0.1,
+  "candidate_action_rate_weights_in_order": [-0.3, -0.5, -1.0],
+  "one_training_or_validation_job_at_a_time": true,
+  "from_scratch_per_candidate": true,
+  "seed": 42,
+  "num_envs": 512,
+  "iterations": 1000,
+  "steps_per_environment_per_iteration": 24,
+  "environment_transitions_per_candidate": 12288000,
+  "setup_smoke_control_steps": 0,
+  "validation_mu_in_order": [0.7, 0.15],
+  "validation_episodes_per_mu_per_engine": 1,
+  "validation_engines": ["isaac_physx", "mujoco"],
+  "physics_dt_s": 0.005,
+  "policy_dt_s": 0.02,
+  "core_interval_s": [1.44, 4.0],
+  "spectrum_cutoff_hz": 10.0,
+  "screening": {
+    "status": "engineering_screen_not_statistically_validated",
+    "required_reduction_of_high_frequency_base_world_xy_angular_velocity_rms": 0.5,
+    "required_reduction_of_leg_action_step_rms": 0.5,
+    "maximum_core_xy_rmse_m": 0.15,
+    "maximum_core_xy_rmse_increase_over_matched_mu_baseline_m": 0.03,
+    "minimum_reference_speed_retention": 0.9,
+    "maximum_beta_rmse_increase_over_matched_mu_baseline_deg": 5.0,
+    "must_pass_both_physx_friction_cases": true,
+    "height_or_airborne_failure_gate": false,
+    "sideslip_zero_target": false,
+    "visual_review_required_before_claiming_jitter_resolved": true
+  },
+  "preserved": [
+    "locked_reference_bytes", "historical_beyondmimic_domain_randomization",
+    "height_smoothness_recipe", "reward_terms_other_than_action_rate_weight",
+    "actor_and_critic_observations", "network_architecture", "ppo_hyperparameters",
+    "nominal_actuator_pd_and_limits", "action_scale", "policy_frequency", "physics_frequency"
+  ],
+  "stop_rules": {
+    "first_candidate_passing_both_physx_cases": "stop_action_rate_sweep_for_visual_review",
+    "all_candidates_fail_screen": "needs_next_method_not_experiment_complete",
+    "runtime_failure_or_gpu_becomes_busy": "stop_without_retry_or_process_preemption"
+  },
+  "limitations": [
+    "One seed and one deterministic validation episode do not establish robustness or statistical success rates.",
+    "The baseline may have trained on a different physical GPU; this is not a bitwise training reproduction.",
+    "No policy weights, robot assets, private motion data or credentials belong in the source upload.",
+    "The MuJoCo replay is a transfer diagnostic, not interchangeable with the PhysX smoothness screen."
+  ]
+}
