@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "kind": "independent_beta_ablation_metric_and_reward_profile_audit",
+  "summary_sha256": "cdb07d056e0ae9ae26d6d4698a11a70e62cb921005603c80976b533afcaeb397",
+  "all8_window_and_failure_metrics_exactly_recomputed_from_native_compact_arrays": true,
+  "actual_reward_profile_checks": [
+    {
+      "mu": 0.7,
+      "controller": "ppo",
+      "task_profile_only_changed_sideslip_reward_weight": [
+        2.0,
+        0.0
+      ],
+      "PPO_training_DR_or_CEM_config_unchanged": true
+    },
+    {
+      "mu": 0.7,
+      "controller": "cem",
+      "task_profile_only_changed_sideslip_reward_weight": [
+        2.0,
+        0.0
+      ],
+      "PPO_training_DR_or_CEM_config_unchanged": true
+    },
+    {
+      "mu": 0.15,
+      "controller": "ppo",
+      "task_profile_only_changed_sideslip_reward_weight": [
+        2.0,
+        0.0
+      ],
+      "PPO_training_DR_or_CEM_config_unchanged": true
+    },
+    {
+      "mu": 0.15,
+      "controller": "cem",
+      "task_profile_only_changed_sideslip_reward_weight": [
+        2.0,
+        0.0
+      ],
+      "PPO_training_DR_or_CEM_config_unchanged": true
+    }
+  ],
+  "additional_native_diagnostics": [
+    {
+      "id": "ppo_beta_on/mu0p150",
+      "core_world_angular_XY_10_100Hz_band_RMS_rad_s": 1.33660838299023,
+      "core_dual_wheel_measured_force_bearing_ZOH_fraction": 0.3173828125,
+      "first_persistent_XY_over0p30m_onset_s": null,
+      "whole_maximum_tilt_deg_diagnostic": 6.282570286341269
+    },
+    {
+      "id": "ppo_beta_on/mu0p700",
+      "core_world_angular_XY_10_100Hz_band_RMS_rad_s": 1.172303733067564,
+      "core_dual_wheel_measured_force_bearing_ZOH_fraction": 0.2421875,
+      "first_persistent_XY_over0p30m_onset_s": null,
+      "whole_maximum_tilt_deg_diagnostic": 9.519761297473226
+    },
+    {
+      "id": "cem_beta_on/mu0p150",
+      "core_world_angular_XY_10_100Hz_band_RMS_rad_s": 0.9707381981768408,
+      "core_dual_wheel_measured_force_bearing_ZOH_fraction": 0.0595703125,
+      "first_persistent_XY_over0p30m_onset_s": 4.0199999999999285,
+      "whole_maximum_tilt_deg_diagnostic": 16.04561095652305
+    },
+    {
+      "id": "cem_beta_on/mu0p700",
+      "core_world_angular_XY_10_100Hz_band_RMS_rad_s": 1.299505513640725,
+      "core_dual_wheel_measured_force_bearing_ZOH_fraction": 0.1669921875,
+      "first_persistent_XY_over0p30m_onset_s": 6.500000000000316,
+      "whole_maximum_tilt_deg_diagnostic": 11.012637332701809
+    },
+    {
+      "id": "ppo_beta_off/mu0p150",
+      "core_world_angular_XY_10_100Hz_band_RMS_rad_s": 0.7732142140762106,
+      "core_dual_wheel_measured_force_bearing_ZOH_fraction": 0.1767578125,
+      "first_persistent_XY_over0p30m_onset_s": 2.8999999999999493,
+      "whole_maximum_tilt_deg_diagnostic": 116.61887099848364
+    },
+    {
+      "id": "ppo_beta_off/mu0p700",
+      "core_world_angular_XY_10_100Hz_band_RMS_rad_s": 0.43281640117550635,
+      "core_dual_wheel_measured_force_bearing_ZOH_fraction": 0.2470703125,
+      "first_persistent_XY_over0p30m_onset_s": 4.112499999999943,
+      "whole_maximum_tilt_deg_diagnostic": 94.85760812379654
+    },
+    {
+      "id": "cem_beta_off/mu0p150",
+      "core_world_angular_XY_10_100Hz_band_RMS_rad_s": 0.7806186637594109,
+      "core_dual_wheel_measured_force_bearing_ZOH_fraction": 0.126953125,
+      "first_persistent_XY_over0p30m_onset_s": 6.120000000000257,
+      "whole_maximum_tilt_deg_diagnostic": 11.339798539456343
+    },
+    {
+      "id": "cem_beta_off/mu0p700",
+      "core_world_angular_XY_10_100Hz_band_RMS_rad_s": 0.8914552309337677,
+      "core_dual_wheel_measured_force_bearing_ZOH_fraction": 0.392578125,
+      "first_persistent_XY_over0p30m_onset_s": 3.4499999999999376,
+      "whole_maximum_tilt_deg_diagnostic": 10.730490964439827
+    }
+  ],
+  "paired_ratios": [
+    {
+      "mu": 0.7,
+      "controller": "ppo",
+      "whole_XY_RMSE_OFF_over_ON": 6.837510710242848,
+      "whole_XY_peak_OFF_over_ON": 6.020785638918439,
+      "core_HF_angular_RMS_percent_change_OFF_vs_ON": -63.07984108837077
+    },
+    {
+      "mu": 0.7,
+      "controller": "cem",
+      "whole_XY_RMSE_OFF_over_ON": 2.8177079261500495,
+      "whole_XY_peak_OFF_over_ON": 1.3314937221985954,
+      "core_HF_angular_RMS_percent_change_OFF_vs_ON": -31.40042719509163
+    },
+    {
+      "mu": 0.15,
+      "controller": "ppo",
+      "whole_XY_RMSE_OFF_over_ON": 14.14535521805091,
+      "whole_XY_peak_OFF_over_ON": 13.46251084202576,
+      "core_HF_angular_RMS_percent_change_OFF_vs_ON": -42.15102763710091
+    },
+    {
+      "mu": 0.15,
+      "controller": "cem",
+      "whole_XY_RMSE_OFF_over_ON": 0.9227448320772811,
+      "whole_XY_peak_OFF_over_ON": 2.1532594083275667,
+      "core_HF_angular_RMS_percent_change_OFF_vs_ON": -19.585047211956475
+    }
+  ],
+  "PPO_beta_OFF_is_a_separately_trained_actor_not_evaluation_reward_toggle": true,
+  "beta_OFF_is_not_zero_slip_target_or_suppression_of_all_orientation_tracking": true,
+  "no_total_reward_comparison": true,
+  "initial_states": "Within each controller ON/OFF initial recorded states are identical. AcrossPPO/CEM, poses/joints/wheels are exactly equal; derived initial COMvelocity differs by at most1.5129e-10m/s.",
+  "HF_band_definition": "Core1.44\u20134s;10<f<100Hz worldXY angular-velocity channel-mean Parseval RMS. Lower band power is not proof of balance, task success or stable contact.",
+  "wheel_bearing_gate": "Measured wheel contact count>0 AND upward Fz>5N. Duty fraction is not continuous-contact or flight classification.",
+  "failure_gate": "XY only; height/contact/tilt/beta are diagnostics, not failure gates",
+  "actual_figures_visually_reviewed": true,
+  "N_per_condition": 1,
+  "causal_general_friction_robustness_or_statistical_superiority_claimed": false
+}
