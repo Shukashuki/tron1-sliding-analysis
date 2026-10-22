@@ -1,7 +1,10 @@
 {
   "schema_version": 1,
   "cohort_id": "traj4_backend_400hz_actionrate0p5_seed42_v1",
-  "status": "formal_pair_training_running_physx_first_then_mujoco_warp",
+  "status": "physx_training_completed_mujoco_warp_training_ongoing_validation_queued",
+  "snapshot_utc": "2026-10-22T05:41:55.279412+00:00",
+  "runtime_evidence": "runtime_handoff.json",
+  "local_scoped_tests": {"passed": 199, "skipped": 6, "additional_torch_cpu_evaluator_and_trainer_tests_passed": 70},
   "user_selected_new_training": true,
   "protocol": "config/ppo_backend_400hz_comparison_v1.json",
   "remote_workspace": "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022",
@@ -10,8 +13,8 @@
   "preflight": {"status": "all_three_stages_completed_verified", "physical_gpu_index": 4, "dispatcher_pid": 2535790, "output_directory": "preflight_seed42_gpu4_v2", "stages": ["host_gpu_400hz_parity", "physx_smoke", "mjlab_smoke"], "formal_training_automatic_after_preflight": false, "transitions_per_smoke_arm": 1536, "gpu_physics_parity_qpos_qvel_max_abs_difference": 0.0, "prior_gpu3_attempt": "stopped_before_any_child_because_foreign_jobs_occupied_card"},
   "formal_dispatcher": {"pid": 2538645, "physical_gpu_index": 4, "output_directory": "pair_seed42_gpu4_v1", "job_order": ["physx_formal", "mjlab_formal"], "one_child_at_a_time": true, "initial_policy_state_sha256": "7dcdf78ffeb61806eeefcb31c4739d707c1caef934d152f2296ba2ee488b4d5d"},
   "training_arms": {
-    "physx": {"status": "training", "transitions_requested": 12288000},
-    "mjlab_mujoco_warp": {"status": "queued_after_physx_and_fresh_idle_gpu_check", "transitions_requested": 12288000}
+    "physx": {"status": "completed_verified", "transitions_requested": 12288000, "transitions_completed": 12288000, "elapsed_seconds": 1223.615, "checkpoint_sha256": "c508dc3ba50db81f56f538bf23c550aca12f3279ddd15749d60582a487d2d8c7", "exported_policy_sha256": "ab3c486ef779deb0cff52bfb33415f5c3a779381740a2c12898506e4e80f08bc", "closed_loop_validation_completed": false},
+    "mjlab_mujoco_warp": {"status": "training", "transitions_requested": 12288000, "first_formal512env_batches_transitions_per_second_approx": 695, "first_batch_logger_eta_hours_approx": 5, "eta_is_guaranteed": false, "native_and_task_device": "cuda:4", "cuda_graphs": false}
   },
   "new_closed_loop_matrix": {"status": "queued_waiting_for_both_training_arms", "dispatcher_pid": 2559306, "output_directory": "matrix_seed42_gpu4_v1", "immutable_source_archive_sha256": "175936ff88ee2b17554eb9336345d578efe3ad5fcf051c8f380b182c6d1d0a3d", "pipeline_smoke_episodes_requested": 4, "episodes_requested": 68, "dimensions": "2 independently trained actors x2 evaluation engines x17 effective-pair friction coefficients", "nominal_mu": 0.7, "no_gpu_allocation_while_waiting": true, "completed_formal_episodes_at_launch": 0, "planned_artifacts": ["analysis/overview.json", "analysis/metric_table.csv", "analysis/nominal_2x2_topview.png", "analysis/friction_grid_curves.png", "analysis/summary.json"]},
   "historical_diagnostics": {

@@ -1,0 +1,342 @@
+{
+  "schema_version": 1,
+  "observed_utc": "2026-10-22T05:41:55.279412+00:00",
+  "completed_cohort_actual_verifier_checks": {
+    "physx_formal": {
+      "status": "completed_metadata_and_actor_hashes_verified_without_inference",
+      "training_backend": "physx",
+      "smoke_only": false,
+      "checkpoint_sha256": "c508dc3ba50db81f56f538bf23c550aca12f3279ddd15749d60582a487d2d8c7",
+      "exported_policy_sha256": "ab3c486ef779deb0cff52bfb33415f5c3a779381740a2c12898506e4e80f08bc"
+    },
+    "physx_smoke": {
+      "status": "completed_metadata_and_actor_hashes_verified_without_inference",
+      "training_backend": "physx",
+      "smoke_only": true,
+      "checkpoint_sha256": "d8f65d61b7b5acfe4bee2f94ba0c2d9e32bcd92985abd3c65dff10ea3a9a3f0c",
+      "exported_policy_sha256": "18e04e382ac17dce38a79dc9f1ded4d6e76e752f7195b458d4a8f240f30ef747"
+    },
+    "mjlab_smoke": {
+      "status": "completed_metadata_and_actor_hashes_verified_without_inference",
+      "training_backend": "mjlab",
+      "smoke_only": true,
+      "checkpoint_sha256": "ecb4681a0e4ff1b4097d5a59dc80f9fb1d94be5c519bdd93f94fc5080bff7a39",
+      "exported_policy_sha256": "12aee2df638f5afa0f3e4a3227d5297c926ccdafa86373438eefc842b4c4cea8"
+    }
+  },
+  "torch_imported_by_readonly_audit": false,
+  "formal_launch": {
+    "kind": "explicit_formal_paired_backend_training_launch_after_verified_preflight",
+    "pid": 2538645,
+    "command": [
+      "/data/zengxiong/.conda/envs/regrind/bin/python",
+      "-u",
+      "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/source_snapshot_v2/scripts/run_ppo_backend_400hz_pair.py",
+      "--snapshot",
+      "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/source_snapshot_v2",
+      "--stage",
+      "formal",
+      "--physical-gpu-index",
+      "4",
+      "--python",
+      "/data/zengxiong/.conda/envs/regrind/bin/python",
+      "--model",
+      "/data/zengxiong/workspaces/tron1-sliding-analysis-20261014/mujoco_model.xml",
+      "--motion",
+      "/data/zengxiong/workspaces/tron1-drift-turn-worst-load-20261014/motion.npz",
+      "--asset-path",
+      "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/outputs/training-asset/WF_TRON1A.usda",
+      "--tron1-source",
+      "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/source_snapshot_v2/upstream/tron1-learning-from-human",
+      "--beyondmimic-source",
+      "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/third_party/whole_body_tracking",
+      "--mjlab-source",
+      "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261021/upstream/mjlab",
+      "--isaac-device-audit-source",
+      "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/source_snapshot_v2/upstream/tron1-learning-from-human/training/tron1_runtime_device.py",
+      "--output-dir",
+      "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/pair_seed42_gpu4_v1",
+      "--preflight-dir",
+      "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/preflight_seed42_gpu4_v2"
+    ],
+    "physical_gpu_index": 4,
+    "transitions_requested_each": 12288000,
+    "initial_policy_state_sha256": "7dcdf78ffeb61806eeefcb31c4739d707c1caef934d152f2296ba2ee488b4d5d",
+    "source_archive_sha256": "2353a8f8dd8943bc4417500504256285eb3ca0ef773b5345cb5d3384574838bf",
+    "preflight_status": "preflight_completed_requires_formal_authorization",
+    "started_unix_time": 1792646273.045388,
+    "all_matrix_validations_pending": true
+  },
+  "matrix_launch": {
+    "kind": "post_training_sequential_validation_and_analysis_queue",
+    "pid": 2559306,
+    "command": [
+      "/data/zengxiong/.conda/envs/regrind/bin/python",
+      "-u",
+      "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/validation_source_v1/scripts/run_ppo_backend_400hz_matrix.py",
+      "--training-pair-dir",
+      "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/pair_seed42_gpu4_v1",
+      "--training-dispatcher-pid",
+      "2538645",
+      "--preflight-dir",
+      "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/preflight_seed42_gpu4_v2",
+      "--source-snapshot",
+      "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/validation_source_v1",
+      "--legacy-source",
+      "/data/zengxiong/workspaces/tron1-controller-comparison-20261015/controller_evaluation_source_v2",
+      "--model",
+      "/data/zengxiong/workspaces/tron1-sliding-analysis-20261014/mujoco_model.xml",
+      "--motion",
+      "/data/zengxiong/workspaces/tron1-drift-turn-worst-load-20261014/motion.npz",
+      "--asset-path",
+      "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/outputs/training-asset/WF_TRON1A.usda",
+      "--beyondmimic-source",
+      "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/third_party/whole_body_tracking",
+      "--python",
+      "/data/zengxiong/.conda/envs/regrind/bin/python",
+      "--gpu-probe-source",
+      "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/source_snapshot_v2/scripts/run_ppo_leg_target_filter.py",
+      "--guard-source",
+      "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/source_snapshot_v2/scripts/run_ppo_smoothness_sequence.py",
+      "--physical-gpu-index",
+      "4",
+      "--output-dir",
+      "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/matrix_seed42_gpu4_v1"
+    ],
+    "source_archive_sha256": "175936ff88ee2b17554eb9336345d578efe3ad5fcf051c8f380b182c6d1d0a3d",
+    "source_files": 99,
+    "physical_gpu_index": 4,
+    "waits_for_owned_training_dispatcher_pid": 2538645,
+    "pipeline_smoke_episodes_requested": 4,
+    "formal_episodes_requested": 68,
+    "training_snapshot_modified": false,
+    "concurrent_gpu_validation_with_training": false,
+    "started_unix_time": 1792647328.4975808
+  },
+  "pair_status": {
+    "status": "running_mjlab_formal",
+    "pid": 2538645,
+    "physical_gpu_index": 4,
+    "selected_gpu_identity": {
+      "pci_bus_id": "00000000:67:01.0",
+      "uuid": "GPU-901b3cb3-840c-254b-7d4c-a961d061d3ee"
+    },
+    "children": [
+      {
+        "stage": "physx_formal",
+        "status": "completed_verified",
+        "pid": 2538662,
+        "returncode": 0,
+        "verification": {
+          "backend": "physx",
+          "checkpoint_sha256": "c508dc3ba50db81f56f538bf23c550aca12f3279ddd15749d60582a487d2d8c7",
+          "cohort_completion_audit_sha256": "dbcd5f592b4cf1de642f6e0fa4c1fde59fc2805ef2ba9d221988634fbd2aa3da",
+          "exported_policy_sha256": "ab3c486ef779deb0cff52bfb33415f5c3a779381740a2c12898506e4e80f08bc",
+          "initial_policy_state_sha256": "7dcdf78ffeb61806eeefcb31c4739d707c1caef934d152f2296ba2ee488b4d5d",
+          "manifest_sha256": "f0e2c804e6234b5c4d80e96977f9de9145bf5ba456e099406c835d042564dc05",
+          "run_kind": "formal",
+          "status": "verified",
+          "training_environment_steps": 12288000,
+          "validation_matrix_status": "pending_not_evaluated"
+        }
+      },
+      {
+        "stage": "mjlab_formal",
+        "status": "running",
+        "pid": 2561899
+      }
+    ]
+  },
+  "matrix_status": {
+    "status": "waiting_for_training_pair",
+    "pid": 2559306,
+    "counts": {
+      "formal_completed": 0,
+      "formal_expected": 68,
+      "pipeline_smoke_completed": 0,
+      "pipeline_smoke_expected": 4,
+      "runtime_failed": 0
+    },
+    "training_pair_last_status": "running_mjlab_formal",
+    "wait_observations": 13,
+    "no_gpu_allocation_while_waiting": true
+  },
+  "physx_formal": {
+    "run_status": {
+      "status": "training_completed",
+      "backend": "physx",
+      "performance_claimed": false,
+      "requested_iterations": 1000,
+      "smoke_steps_passed": 8,
+      "initial_policy_state_sha256": "7dcdf78ffeb61806eeefcb31c4739d707c1caef934d152f2296ba2ee488b4d5d",
+      "elapsed_seconds": 1223.6152622364461,
+      "training_environment_steps": 12288000,
+      "checkpoint_sha256": "c508dc3ba50db81f56f538bf23c550aca12f3279ddd15749d60582a487d2d8c7",
+      "exported_policy_sha256": "ab3c486ef779deb0cff52bfb33415f5c3a779381740a2c12898506e4e80f08bc",
+      "cohort_id": "traj4_backend_400hz_actionrate0p5_seed42_v1",
+      "run_kind": "formal",
+      "smoke_only": false,
+      "trained_policy_claimed": true,
+      "protocol_sha256": "c54cd530884cffa22811ca2232cb2588eba3582deefc91d4d9675e4fca7fe30f"
+    },
+    "runtime": {
+      "fields": {
+        "physics_dt_s": 0.0025,
+        "decimation": 8,
+        "policy_dt_s": 0.02,
+        "actor_dim": 51,
+        "critic_dim": 120,
+        "action_dim": 8,
+        "action_rate_weight": -0.5,
+        "grounded_reward_weight": 0.4,
+        "reward_term_count": 15,
+        "absolute_height_termination": false,
+        "absolute_xy_termination": false
+      },
+      "leg_PD_verified_by_strict_wrapper": [
+        500,
+        10
+      ],
+      "device": {
+        "schema_version": 1,
+        "status": "verified",
+        "requested_device": "cuda:4",
+        "environment_device": "cuda:4",
+        "physics_sim_view_frontend_device": "cuda:4",
+        "robot_native_transform_tensor_device": "cuda:4",
+        "native_physics_backend_device_ordinal": 4,
+        "torch_current_device": 4,
+        "physics_cudaDevice_setting": 4,
+        "physics_sceneMultiGPUMode_setting": 0,
+        "cuda_visible_devices": null,
+        "required_unmasked": true,
+        "device_index": 4,
+        "index_scope": "unmasked_cuda_ordinal",
+        "native_and_tensor_device_consistency_verified": true,
+        "physical_mapping_verified": false,
+        "exclusivity_verified": false
+      }
+    },
+    "initial_policy_state_sha256": "7dcdf78ffeb61806eeefcb31c4739d707c1caef934d152f2296ba2ee488b4d5d",
+    "metadata_sha256": {
+      "manifest.json": "f0e2c804e6234b5c4d80e96977f9de9145bf5ba456e099406c835d042564dc05",
+      "cohort_startup_audit.json": "857de18a4af0fc3c4683977161723c398c60f772ca05d06197138e1cbae1d3aa"
+    },
+    "completion_audit": {
+      "status": "completed_verified",
+      "cohort_id": "traj4_backend_400hz_actionrate0p5_seed42_v1",
+      "run_kind": "formal",
+      "backend": "physx",
+      "training_environment_steps": 12288000,
+      "smoke_only": false,
+      "trained_policy_claimed": true,
+      "seed": 42,
+      "protocol_sha256": "c54cd530884cffa22811ca2232cb2588eba3582deefc91d4d9675e4fca7fe30f",
+      "physics_dt_s": 0.0025,
+      "decimation": 8,
+      "policy_dt_s": 0.02,
+      "action_rate_weight": -0.5,
+      "grounded_reward_weight": 0.4,
+      "checkpoint_sha256": "c508dc3ba50db81f56f538bf23c550aca12f3279ddd15749d60582a487d2d8c7",
+      "exported_policy_sha256": "ab3c486ef779deb0cff52bfb33415f5c3a779381740a2c12898506e4e80f08bc",
+      "manifest_sha256": "f0e2c804e6234b5c4d80e96977f9de9145bf5ba456e099406c835d042564dc05",
+      "policy_contract_sha256": "bb0d44d6c7a3bab047af5d1f259ae1f34ed5bf2eb57225168557e27bdffcaee6",
+      "final_policy_contract_sha256": "bb0d44d6c7a3bab047af5d1f259ae1f34ed5bf2eb57225168557e27bdffcaee6",
+      "checkpoint_file": "model_final.pt",
+      "actor_file": "policy.pt",
+      "final_policy_contract_file": "final_policy_contract.json",
+      "startup_audit_sha256": "857de18a4af0fc3c4683977161723c398c60f772ca05d06197138e1cbae1d3aa",
+      "initial_policy_state_sha256": "7dcdf78ffeb61806eeefcb31c4739d707c1caef934d152f2296ba2ee488b4d5d",
+      "source_files_unchanged": true,
+      "additional_reward_terms": false,
+      "historical_checkpoint_used": false
+    }
+  },
+  "mjlab_formal": {
+    "run_status": {
+      "status": "training",
+      "backend": "mjlab",
+      "performance_claimed": false,
+      "requested_iterations": 1000,
+      "smoke_steps_passed": 8,
+      "initial_policy_state_sha256": "7dcdf78ffeb61806eeefcb31c4739d707c1caef934d152f2296ba2ee488b4d5d"
+    },
+    "runtime": {
+      "fields": {
+        "physics_dt_s": 0.0025,
+        "decimation": 8,
+        "policy_dt_s": 0.02,
+        "actor_dim": 51,
+        "critic_dim": 120,
+        "action_dim": 8,
+        "action_rate_weight": -0.5,
+        "grounded_reward_weight": 0.4,
+        "reward_term_count": 15,
+        "absolute_height_termination": false,
+        "absolute_xy_termination": false
+      },
+      "leg_PD_verified_by_strict_wrapper": [
+        500,
+        10
+      ],
+      "device": {
+        "requested_device": "cuda:4",
+        "torch_current_device": 4,
+        "task_arrays_device": "cuda:4",
+        "native_backend": {
+          "implementation": "mjlab_simulation_custom_tron1_gpu_task",
+          "mjlab_version": "1.4.0",
+          "mjlab_source_commit": "4360096b49c1bcc478668c11ce7d458db747e49d",
+          "physics": "MuJoCo-Warp CUDA, not CPU MuJoCo or PhysX",
+          "device": "cuda:4",
+          "installed_versions": {
+            "mujoco": "3.8.1",
+            "mujoco-warp": "3.8.1",
+            "warp-lang": "1.12.1",
+            "torch": "2.7.0+cu128"
+          },
+          "precision": "MuJoCo-Warp float32",
+          "num_worlds": 512,
+          "physics_dt_s": 0.0025,
+          "decimation": 8,
+          "policy_dt_s": 0.02,
+          "state_continuity": "persistent between control intervals",
+          "expanded_model_fields": [
+            "geom_friction",
+            "body_ipos",
+            "body_subtreemass",
+            "dof_invweight0",
+            "body_invweight0",
+            "tendon_length0",
+            "tendon_invweight0"
+          ],
+          "contact_forces": "mjwarp.contact_force world-frame, signed net sum by original body",
+          "host_task_adapter": false,
+          "performance_caveat": "CUDA Graph availability remains determined by the pinned mjlab/driver",
+          "cuda_graphs": false,
+          "overflow_checks": {
+            "global_contact_capacity": 32768,
+            "per_world_constraint_capacity": 256,
+            "sparse_jacobian_nnz_capacity": 3584,
+            "latched_fatal_failure": true
+          },
+          "source_sha256": "bc88f6919f3c4bfa57a362bc52d411b6a6871ee01a99e3d0954100bb7596a410",
+          "device_resident_tensor_api": true,
+          "state_cpu_readbacks_per_control_interval": 0,
+          "fatal_status_host_scalars_per_control_interval": 1,
+          "contact_reduction": "fixed-capacity Warp kernel, no Torch boolean indexing",
+          "stream_handoff": "bidirectional CUDA events; no host stream synchronization",
+          "physics_semantics": "unchanged step+full-forward pairing, 8 pairs per control interval",
+          "gpu_bridge_source_sha256": "57c23780e8da39e124acf491dfa339d66410ebf0df774334a768e8029cbf02e2"
+        },
+        "cuda_visible_devices": null,
+        "native_PhysX_device_audit_applicable": false
+      }
+    },
+    "initial_policy_state_sha256": "7dcdf78ffeb61806eeefcb31c4739d707c1caef934d152f2296ba2ee488b4d5d",
+    "metadata_sha256": {
+      "manifest.json": "6c25ccdf9be27d183ccd47c309625c51ad10ac67a4e61f41510b35d2cafad1e4",
+      "cohort_startup_audit.json": "7e7b8ee67088c323cb55bfdb20ad96dc82d374d24e78674b0e6e5dfc4e9de6dd"
+    }
+  }
+}
