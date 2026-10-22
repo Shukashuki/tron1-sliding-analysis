@@ -1,0 +1,171 @@
+"""Recorded PhysX PPO replay: original contact reward versus its replacement.
+
+These are independently trained policies with different checkpoints, not two
+gains of the same actor. Meshes remain opaque; MuJoCo performs FK/graphics only.
+"""
+from __future__ import annotations
+
+import argparse
+import json
+from pathlib import Path
+
+import numpy as np
+
+from controller_trace import native_trace
+from nmpc_tracking_objective import quaternion_rotate
+from render_physx_ppo_fullbody import DEFAULT_MODEL, build_qpos, create_runtime, mesh_provenance, validate_fk, _pose
+from render_ppo_smoothness_comparison import MODEL_SHA256, load_reference, common_camera_target
+from analyze_ppo_smoothness import sha256
+
+ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_BASELINE = ROOT/"outputs/ppo_smoothness_20261021_v2/action_rate_0p5/validation/mu0p700/isaac"
+DEFAULT_REFERENCE = Path("/home/roy/tron1-learning-from-human/outputs/drift-drl-turn-reference-20261013-v2/motion.npz")
+BASELINE_CHECKPOINT_SHA256 = "8ba4178471c757b4d09f5bb44c0a508558f1bfd5cc15103195aeba420ebe6e9a"
+ORDER = ("baseline", "candidate")
+CANVAS_SIZE = (1280, 506)
+TITLES = {"baseline": "Baseline: original contact reward +0.4", "candidate": "Candidate: all-substep ground-support replacement +0.4"}
+
+
+def require(condition, message):
+    if not condition:
+        raise ValueError(message)
+
+
+def load_data(candidate_dir, candidate_training_dir, reference=DEFAULT_REFERENCE, baseline_dir=DEFAULT_BASELINE,
+              *, candidate_status=None, model=DEFAULT_MODEL):
+    """Delegate policy/runtime/source audit, then validate immutable replay inputs."""
+    from analyze_ppo_ground_support_comparison import load_comparison
+    raw, summary = load_comparison(candidate_dir, candidate_training_dir, reference,
+        baseline_dir=baseline_dir, candidate_status=candidate_status)
+    require(set(raw) == set(ORDER) and summary["case_order"] == list(ORDER), "Require audited baseline/candidate pair")
+    checkpoints = {label: summary["cases"][label]["checkpoint_sha256"] for label in ORDER}
+    require(checkpoints["baseline"] == BASELINE_CHECKPOINT_SHA256 and checkpoints["candidate"] != checkpoints["baseline"],
+        "Independent baseline/new-policy checkpoint identities differ from declared cohort")
+    require(all(isinstance(value, str) and len(value) == 64 and all(c in "0123456789abcdef" for c in value)
+                for value in checkpoints.values()), "Invalid audited checkpoint SHA")
+    require(sha256(model) == MODEL_SHA256, "Original opaque display-model SHA differs")
+    traces = {label: native_trace(current, "policy_isaac") for label, current in raw.items()}
+    expected = np.arange(1397)*.005
+    for label in ORDER:
+        require(np.array_equal(traces[label]["time_s"], expected) and raw[label]["valid_mask"].shape == (1397, 1)
+            and raw[label]["valid_mask"].dtype.kind == "b" and raw[label]["valid_mask"].all(),
+            "Require complete original200Hz first episode; no alignment/reset splice")
+    reference_arrays = load_reference(reference)
+    summary["audited_analysis_kind"] = summary["kind"]
+    summary.update({"kind": "independently_trained_ppo_ground_support_fullbody_replay",
+        "checkpoint_sha256_by_panel": checkpoints, "same_actor_comparison": False,
+        "graphics_engine": "MuJoCo FK and graphics only", "model_sha256": MODEL_SHA256,
+        "native_physical_hz": 200, "video_fps": 50, "video_frames": 350, "native_sample_stride": 4,
+        "first_native_time_s": 0., "last_native_time_s": 6.98, "encoded_duration_s": 7.,
+        "video_width": CANVAS_SIZE[0], "video_height": CANVAS_SIZE[1],
+        "camera": {"azimuth_deg": 135., "elevation_deg": -24., "distance_m": 2.15,
+            "lookat": "Same locked reference root position + [0,0,-0.24] for both panels; hold last knot after6.96s",
+            "follows_actual_robot": False, "follows_actual_orientation": False},
+        "panel_titles": TITLES, "robot_mesh_alpha": 1., "root_height_corrected": False,
+        "pose_alignment": False, "time_alignment": False, "state_filtering": False,
+        "dynamics_stepping": False, "contact_solver_called": False, "new_policy_inference": False,
+        "continuous_contact_claimed_by_renderer": False,
+        "rendering_limitations": ["Video is50Hz sampling of native200Hz recorded states; it cannot establish uninterrupted contact between displayed frames.",
+            "Counts refer to recorded ground points above the measurement threshold. Zero count is not proof of flight.",
+            "Eligibility is count>0 AND aggregate upward Fz>5N, not an imposed flight or success gate.",
+            "Both panels retain their original world poses; robots are not individually recentered if they leave the shared camera.",
+            "Policies are separately trained, with source/runtime audits preserved from the analyzer; visual replay alone does not establish causality or success."]})
+    return traces, reference_arrays, summary
+
+
+def frame_diagnostics(trace, reference, index):
+    time = float(trace["time_s"][index]); position = trace["position"][index]
+    target = common_camera_target(reference, time)+np.array([0., 0., .24])
+    up = quaternion_rotate(trace["quaternion"][index], np.array([0., 0., 1.]))
+    counts = trace["contact_count"][index]; force_z = trace["contact_force"][index, :, 2]
+    return {"time_s": time, "xy_error_m": float(np.linalg.norm(position[:2]-target[:2])),
+        "com_speed_m_s": float(np.linalg.norm(trace["com_velocity"][index, :2])),
+        "tilt_deg": float(np.degrees(np.arccos(np.clip(up[2], -1., 1.)))),
+        "height_m": float(position[2]), "count": counts, "force_z_n": force_z,
+        "eligible": (counts > 0) & (force_z > 5.)}
+
+
+def render_frame(runtime, traces, qposes, reference, summary, index):
+    from PIL import Image, ImageDraw
+    w, h = runtime.width, runtime.height
+    require((2*w, h+146) == CANVAS_SIZE, "Exact even canvas required; video must not be auto-resized")
+    image = Image.new("RGB", CANVAS_SIZE, "#fafafa"); draw = ImageDraw.Draw(image)
+    time = float(traces["baseline"]["time_s"][index])
+    draw.text((12, 6), f"PhysX PPO | mu=0.7 | action-rate -0.5 | Kp500/Kd10 | original t={time:.2f}s", font=runtime.font, fill="black")
+    camera = runtime.cameras[0]; camera.lookat[:] = common_camera_target(reference, time)
+    for column, label in enumerate(ORDER):
+        trace = traces[label]; x, y = column*w, 35
+        _pose(runtime.model, runtime.data, qposes[label][index])
+        runtime.renderer.update_scene(runtime.data, camera=camera, scene_option=runtime.option)
+        image.paste(Image.fromarray(runtime.renderer.render().copy()), (x, y))
+        draw.rectangle((x, y, x+w, y+27), fill="#f5f5f5")
+        draw.text((x+10, y+3), TITLES[label], font=runtime.font, fill="black")
+        value = frame_diagnostics(trace, reference, index)
+        draw.text((x+10, y+h+4), f"XY error {value['xy_error_m']:.3f}m | COM speed {value['com_speed_m_s']:.2f}m/s | tilt {value['tilt_deg']:.2f}deg", font=runtime.font, fill="#111111")
+        draw.text((x+10, y+h+26), f"Original height {value['height_m']:.3f}m | L/R count {int(value['count'][0])}/{int(value['count'][1])}", font=runtime.font, fill="#111111")
+        draw.text((x+10, y+h+48), f"Ground Fz L/R {value['force_z_n'][0]:.0f}/{value['force_z_n'][1]:.0f}N | eligible L/R {int(value['eligible'][0])}/{int(value['eligible'][1])}", font=runtime.font, fill="#111111")
+        draw.text((x+10, y+h+70), f"Checkpoint {summary['checkpoint_sha256_by_panel'][label][:12]}... | count>0 AND Fz>5N eligibility", font=runtime.small, fill="#333333")
+    draw.text((12, image.height-20), "Recorded200Hz / video50Hz; opaque meshes; MuJoCo graphics only. Zero contact count is not a flight label. No pose correction.", font=runtime.small, fill="#333333")
+    return image
+
+
+def run(args):
+    output = Path(args.output_dir)
+    require(not output.exists(), "Preserve existing artifacts: choose a fresh output directory")
+    traces, reference, summary = load_data(args.candidate_dir, args.candidate_training_dir, args.reference, args.baseline_dir,
+        candidate_status=args.candidate_status, model=args.model)
+    runtime = create_runtime(args.model, width=640, height=360)
+    try:
+        qposes = {}
+        for label in ORDER:
+            qposes[label], mapping = build_qpos(runtime.model, traces[label])
+            summary["cases"][label]["fk_validation"] = validate_fk(runtime.model, traces[label], qposes[label])
+            summary["cases"][label]["named_joint_qpos_addresses"] = mapping.tolist()
+        summary["mesh_provenance"] = mesh_provenance(args.model)
+        output.mkdir(parents=True)
+        arrays = {"time_s": traces["baseline"]["time_s"]}
+        for label in ORDER:
+            arrays.update({label+"_qpos": qposes[label], label+"_original_root_position_m": traces[label]["position"],
+                label+"_recorded_contact_count": traces[label]["contact_count"], label+"_recorded_ground_force_w_n": traces[label]["contact_force"]})
+        np.savez_compressed(output/"replay_states.npz", **arrays)
+        render_frame(runtime, traces, qposes, reference, summary, 480).save(output/"comparison.png")
+        artifacts = ["replay_states.npz", "comparison.png"]
+        if not args.skip_video:
+            import imageio_ffmpeg
+            first = render_frame(runtime, traces, qposes, reference, summary, 0)
+            require(first.size == CANVAS_SIZE, "Unexpected video geometry")
+            stream = imageio_ffmpeg.write_frames(str(output/"fullbodycomparison.mp4"), first.size, fps=50,
+                codec="libx264", quality=7, macro_block_size=2, output_params=["-pix_fmt", "yuv420p", "-movflags", "+faststart"])
+            stream.send(None)
+            try:
+                for index in range(0, 1397, 4):
+                    stream.send(np.asarray(render_frame(runtime, traces, qposes, reference, summary, index)))
+            finally:
+                stream.close()
+            artifacts.append("fullbodycomparison.mp4")
+        summary["video_generated"] = not args.skip_video; summary["renderer_source_sha256"] = sha256(__file__)
+        summary["rendering_helper_source_sha256"] = {name: sha256(ROOT/"scripts"/name) for name in
+            ("analyze_ppo_ground_support_comparison.py", "render_physx_ppo_fullbody.py", "render_ppo_smoothness_comparison.py", "controller_trace.py", "nmpc_tracking_objective.py")}
+        summary["artifacts"] = {name: {"file": name, "sha256": sha256(output/name)} for name in artifacts}
+        (output/"summary.json").write_text(json.dumps(summary, indent=2, allow_nan=False)+"\n")
+        return summary
+    finally:
+        runtime.renderer.close()
+
+
+def parser():
+    result = argparse.ArgumentParser(description=__doc__)
+    result.add_argument("--candidate-dir", type=Path, required=True)
+    result.add_argument("--candidate-training-dir", type=Path, required=True)
+    result.add_argument("--candidate-status", type=Path)
+    result.add_argument("--baseline-dir", type=Path, default=DEFAULT_BASELINE)
+    result.add_argument("--reference", type=Path, default=DEFAULT_REFERENCE)
+    result.add_argument("--model", type=Path, default=DEFAULT_MODEL)
+    result.add_argument("--output-dir", type=Path, required=True)
+    result.add_argument("--skip-video", action="store_true")
+    return result
+
+
+if __name__ == "__main__":
+    summary = run(parser().parse_args())
+    print(json.dumps({"status": "rendered_existing_ground_support_comparison", "same_actor": False, "dynamics_stepping": False}))

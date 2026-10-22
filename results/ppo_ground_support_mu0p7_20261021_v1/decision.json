@@ -1,0 +1,27 @@
+{
+  "kind": "nominal_development_decision",
+  "decision": "reject_candidate_restore_original_contact_reward",
+  "mu": 0.7,
+  "core_interval_s": [1.44, 4.0],
+  "candidate_checkpoint_sha256": "a42523048800ede9225429ec889d30bfa949499b134251a473048470d007fe9b",
+  "baseline_checkpoint_sha256": "8ba4178471c757b4d09f5bb44c0a508558f1bfd5cc15103195aeba420ebe6e9a",
+  "displayed_values_rounded": true,
+  "core_metrics": {
+    "PhysX": {
+      "baseline": {"xy_rmse_m": 0.056221, "both_wheel_load_eligibility_fraction": 0.341131, "base_angular_xy_hf_rms_rad_s": 1.168983},
+      "candidate": {"xy_rmse_m": 0.944355, "both_wheel_load_eligibility_fraction": 0.105263, "base_angular_xy_hf_rms_rad_s": 1.251680}
+    },
+    "MuJoCo": {
+      "baseline": {"xy_rmse_m": 0.069023, "both_wheel_load_eligibility_fraction": 0.282651},
+      "candidate": {"xy_rmse_m": 0.783878, "both_wheel_load_eligibility_fraction": 0.101365}
+    }
+  },
+  "candidate_full_PhysX_peak_tilt_deg": 101.080017,
+  "load_eligibility_definition": "Per wheel: recorded ground point count > 0 AND aggregate upward ground Fz > 5 N. Both requires both wheels. This is not a geometric-flight classifier.",
+  "reason": "The candidate loses body orientation, nominal XY tracking, and measured two-wheel support. Smaller force jumps during loss of support are not a valid stability improvement.",
+  "absolute_height_or_airborne_failure_gate_used": false,
+  "reference_beta_target_changed": false,
+  "evidence": ["summary.json", "transfer_contact_comparison.json", "../ppo_ground_support_mu0p7_fullbody_20261021_v1/fullbodycomparison.mp4"],
+  "causal_or_statistical_generalization_claimed": false,
+  "next_isolated_diagnostic": "Fixed successful baseline actor, configured contact solver velocity iterations 4 versus 8; keep position iterations 8, PD500/10, reference and mu unchanged. This is numerical sensitivity, not proof of converged physical truth."
+}

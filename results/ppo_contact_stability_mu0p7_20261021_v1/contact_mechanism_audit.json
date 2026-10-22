@@ -1,0 +1,363 @@
+{
+  "schema_version": 1,
+  "kind": "recorded_nominal_physx_contact_chatter_mechanism_and_static_configuration_audit",
+  "audit_date": "2026-10-21",
+  "evidence_scope": [
+    "Offline calculations from an existing native 200 Hz PhysX recording.",
+    "Read-only static source/configuration inspection.",
+    "No newly executed simulation, inference, training, native readback or controller tuning."
+  ],
+  "new_simulator_steps": 0,
+  "new_policy_inference_calls": 0,
+  "new_gpu_jobs": 0,
+  "new_native_runtime_readback": false,
+  "causal_identification_claimed": false,
+  "baseline": {
+    "algorithm": "PPO",
+    "training_engine": "PhysX",
+    "evaluation_engine": "PhysX",
+    "evaluation_mu": 0.7,
+    "trained_action_rate_weight": -0.5,
+    "leg_kp_nm_rad": 500,
+    "leg_kd_nm_s_rad": 10,
+    "checkpoint_sha256": "8ba4178471c757b4d09f5bb44c0a508558f1bfd5cc15103195aeba420ebe6e9a",
+    "training_manifest": {
+      "path": "outputs/ppo_smoothness_20261021_v2/action_rate_0p5/training/manifest.json",
+      "sha256": "066ddaeb5a23ff44dfca79e785520c57d8786cdc3a2d7b30d118e3a955a94d63"
+    },
+    "recording": {
+      "path": "outputs/contact_damping_20261021_v2/kd10/physics_trajectory.npz",
+      "sha256": "54e01f57b01da11c5b0736c572f8b2ebc81ebe2cac8f06c9b3b5be29b1637780"
+    },
+    "report": {
+      "path": "outputs/contact_damping_20261021_v2/kd10/report.json",
+      "sha256": "fdf3881b765276832dbbdfe0528446055a4af91a6147ca3520dc847f6906dc77"
+    },
+    "byte_identical_recording_alias": {
+      "path": "outputs/ppo_smoothness_20261021_v2/action_rate_0p5/validation/mu0p700/isaac/physics_trajectory.npz",
+      "sha256": "54e01f57b01da11c5b0736c572f8b2ebc81ebe2cac8f06c9b3b5be29b1637780"
+    },
+    "total_physical_samples": 1397,
+    "physical_dt_s": 0.005,
+    "policy_dt_s": 0.02,
+    "sampling_note": "Four held physical action rows per policy decision. action_was_applied is true for all four held substeps; it must not be counted as four independent decisions."
+  },
+  "sources": {
+    "smoothness_analyzer": {
+      "path": "scripts/analyze_ppo_smoothness.py",
+      "sha256": "79a1caeda4ae12ef176b14770a4beefde0f44a885052be54c6382a74368d4f3c",
+      "used_api": "analyze_trajectory(recording, reference=locked_motion, report=report)"
+    },
+    "contact_stability_analyzer": {
+      "path": "scripts/analyze_ppo_contact_stability.py",
+      "sha256": "34b5372d57388174a1b7896df0735f3cd3de6b5afa946d1c3093a07b1ff2e56b",
+      "scope": "Definitions of force-bearing contact and censored contact runs. Additional native-phase/torque-edge statistics are direct NumPy calculations described in this audit."
+    },
+    "height_adapter": {
+      "path": "scripts/height_smoothness.py",
+      "sha256": "e133aca58f671fc22ae1dfc97a03461e7724e4072bf8b74f58a2c14281d198b8",
+      "lines": {
+        "xy_only_error": 28,
+        "bounded_control_interval_acceleration_cost": 33,
+        "install_adapter": 100,
+        "disable_optional_wheel_vz": 118,
+        "remove_absolute_z_terminations": 120
+      }
+    },
+    "historical_trainer": {
+      "path": "scripts/train_beyondmimic_style.py",
+      "sha256": "880e84b6394ab99e51aa610ee9db778e113b173012a13db6e76284167983ca5d"
+    },
+    "evaluation_tracking": {
+      "path": "outputs/controller_evaluation_source_20261015_v2/training/tron1_tracking.py",
+      "sha256": "0a29fa27c1d65c0b9add0886221491e549553e3529d6970f1ec5ba35e2532817",
+      "lines": {
+        "physics_dt": 397,
+        "material_combine_modes": 402,
+        "rigid_properties": 414,
+        "articulation_properties": 421,
+        "leg_explicit_dc_motor": 431,
+        "wheel_explicit_dc_motor": 437
+      }
+    },
+    "evaluation_drift": {
+      "path": "outputs/controller_evaluation_source_20261015_v2/training/tron1_drift.py",
+      "sha256": "5fee46238c825a2bcf474e969e93af65834aa1302ce857aa1c553e8a9fbaefaa",
+      "lines": {
+        "sideslip_tracking": 93,
+        "speed_tracking": 100,
+        "yaw_rate_tracking": 106,
+        "grounded_reward": 114
+      }
+    },
+    "full_horizon_evaluation_predicates": {
+      "path": "outputs/controller_evaluation_source_20261015_v2/training/tron1_full_horizon_diagnostic.py",
+      "sha256": "2b30ac0f27af5b0e702c464392d9a74d1a34c35a92fc0e9643ceca46b5a1522d"
+    },
+    "contact_measurement": {
+      "path": "outputs/controller_evaluation_source_20261015_v2/training/tron1_contact_slip.py",
+      "sha256": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4",
+      "lines": {
+        "aggregate_ground_contacts": 86,
+        "sample_raw_isaac_ground_contacts": 198
+      }
+    },
+    "ground_support_collector": {
+      "path": "scripts/ppo_substep_ground_support.py",
+      "sha256": "4b8c7e1e34487cee8576e660eccb20dafd2cf599aecb7c64a59707c0a789e62f",
+      "lines": {
+        "formula_in_audit": 308,
+        "clocks_in_audit": 315
+      }
+    },
+    "ground_support_training_wrapper": {
+      "path": "scripts/train_ppo_ground_support.py",
+      "sha256": "a834e864689c77d622808f2a2190879af3fb757016645b219c48a316fb4c32cb"
+    },
+    "task_profile": {
+      "path": "config/car_drift_height_smooth_task.json",
+      "sha256": "31de29a61eec847e0e39783f3a0d9d8f2db551acd679a1b38dfde2b24e8ae7d6"
+    },
+    "usd_asset": {
+      "path": "/home/roy/tron1-learning-from-human/outputs/training-asset/WF_TRON1A.usda",
+      "sha256": "327ca5080e753bbc95d8c3c797e9cd49a0f134d400cfe80494af0ba840e23a8e",
+      "lines": {
+        "authored_articulation_solver_settings": 227,
+        "wheel_left_cylinder_radius": 399,
+        "wheel_left_cylinder_width": 398
+      }
+    },
+    "upstream_configuration_reference": {
+      "path": "/home/roy/tron1-learning-from-human/third_party/whole_body_tracking/source/whole_body_tracking/whole_body_tracking/tasks/tracking/tracking_env_cfg.py",
+      "sha256": "30a4c688bacf1bb411f1516121c21630880bb64b7889ca2ae56f738375f856c8",
+      "scope": "Local upstream configuration source used to trace inherited rewards; not a native runtime readback."
+    }
+  },
+  "recorded_core_diagnostics": {
+    "interval_s": [
+      1.44,
+      4
+    ],
+    "physical_samples": 513,
+    "bearing_contact_definition": "Each wheel has at least one actual ground point with normal force >5 N. In this recording, both-wheel count and both-wheel aggregate Fz>5 N masks are identical.",
+    "both_wheels_bearing_sample_fraction": 0.341130604288499,
+    "neither_wheel_bearing_sample_fraction": 0.27485380116959063,
+    "exact_zero_aggregate_ground_force_fraction_left_right": [
+      0.5769980506822612,
+      0.3567251461988304
+    ],
+    "maximum_nonwheel_ground_force_n": 0,
+    "nonwheel_ground_samples_above_1n": 0,
+    "maximum_norm_difference_net_wheel_force_minus_ground_normal_force_n": 0.00024414063796030167,
+    "root_link_origin_z_range_m": [
+      0.75296545,
+      0.7899035
+    ],
+    "com_vertical_velocity_rms_m_s": 0.16873276858385547,
+    "per_wheel_peak_aggregate_ground_normal_force_n": [
+      993.4335937499911,
+      1467.483398437487
+    ],
+    "dominant_world_angular_xy_frequency_hz": 14.035087719298545,
+    "world_angular_xy_high_frequency_rms_rad_s": 1.168982703108129,
+    "high_frequency_definition": ">10 Hz; one-sided Parseval normalization, linear detrend, Hann window, channel-mean world-angular-XY power.",
+    "leg_action_delta_rms_rad": 0.12413589249440775,
+    "leg_action_dominant_frequency_hz": 13.953488372093021,
+    "leg_applied_torque_rms_nm": 31.26961983124659,
+    "leg_near_80nm_sample_fraction": 0.03898635477582846,
+    "near_80nm_definition": "abs(applied_torque)>=79.2 Nm; this is NOT the true saturation fraction of the speed-dependent motor envelope.",
+    "leg_velocity_abs_peak_rad_s": 13.419676780700684,
+    "xy_rmse_m": 0.056221388688688805,
+    "speed_retention": 0.9833515851232544,
+    "beta_rmse_deg": 1.9701889464067701,
+    "reference_beta_target": "The intended nonzero reference; not a zero-slip objective.",
+    "last_substep_sampling_comparison": [
+      {
+        "physical_phase_ms": 5,
+        "samples": 128,
+        "old_binary_grounded_sample_fraction": 0.28125
+      },
+      {
+        "physical_phase_ms": 10,
+        "samples": 128,
+        "old_binary_grounded_sample_fraction": 0.3125
+      },
+      {
+        "physical_phase_ms": 15,
+        "samples": 128,
+        "old_binary_grounded_sample_fraction": 0.359375
+      },
+      {
+        "physical_phase_ms": 20,
+        "samples": 129,
+        "old_binary_grounded_sample_fraction": 0.4108527131782946
+      }
+    ],
+    "phase_comparison_note": "Native clock phases within the inclusive core window, including its two phase-zero boundaries. This is descriptive sampling evidence, not a causal attribution or an exact decomposition of logged PPO reward.",
+    "torque_edge_diagnostics": {
+      "within_held_action": {
+        "native_edges": 384,
+        "leg_torque_delta_rms_nm": 19.493898,
+        "leg_torque_sign_flip_fraction": 0.1484375,
+        "maximum_normalized_leg_action_change": 0
+      },
+      "at_new_policy_decision": {
+        "native_edges": 128,
+        "leg_torque_delta_rms_nm": 43.952477,
+        "leg_torque_sign_flip_fraction": 0.4479166666666667
+      },
+      "calculation": "Adjacent native rows both inside the core window; a new-decision edge has new-row index modulo4 equal1, other edges are held-action edges. RMS pools all6legs; sign flips use tau_old*tau_new<0 without an added magnitude threshold.",
+      "interpretation": "Action changes coincide with larger torque discontinuities, while nonzero torque changes remain inside unchanged-action windows. Both explicit feedback/contact dynamics and command changes are present; no sole cause is identified."
+    }
+  },
+  "height_and_existing_reward_findings": {
+    "direct_absolute_height_target": false,
+    "direct_wheel_z_target": false,
+    "height_termination_in_training": false,
+    "xy_only_tracking_terms": [
+      "motion_global_anchor_pos",
+      "motion_body_pos",
+      "motion_body_lin_vel"
+    ],
+    "removed_training_termination_terms": [
+      "anchor_pos",
+      "ee_body_pos"
+    ],
+    "optional_zero_wheel_vertical_velocity_reward_removed": true,
+    "original_height_smoothness": {
+      "weight": -0.1,
+      "acceleration_scale_m_s2": 5,
+      "formula": "1-exp(-((COM_vz_k-COM_vz_previous)/(0.02*5))^2)",
+      "sampling": "One bounded control-interval mean acceleration cost; not all-substep acceleration, jerk, force-rate or torque-rate."
+    },
+    "indirect_posture_preferences_retained": [
+      "Nonwheel body orientation tracking",
+      "Body angular velocity tracking",
+      "Tilt regularization and orientation safety predicate",
+      "Soft joint-position limits",
+      "Reference-height observations remain available to the actor"
+    ],
+    "original_grounded_reward": {
+      "weight": 0.4,
+      "formula": "all(norm(wheel net contact force)>5N)",
+      "sampling": "Last native substep, evaluated at the 50 Hz reward clock.",
+      "ground_filtered": false
+    },
+    "original_task_weights": {
+      "sideslip": 2,
+      "yaw_rate": 1,
+      "speed": 1,
+      "grounded": 0.4,
+      "tilt": -0.2
+    },
+    "evaluation_caveat": "The frozen full-horizon evaluator retains the historical pose-predicate functions but wraps their returned flags with false. The report logs zero triggers here. Evaluation reward computation does not optimize or retrain the frozen actor.",
+    "physics_ground_constraint_note": "Rigid ground collision and remaining orientation/XY/leg-geometry preferences can influence height indirectly; absence of an absolute Z reward is not absence of physical vertical dynamics."
+  },
+  "introduced_dense_ground_support_method": {
+    "status_in_this_audit": "Method definition only; no success outcome is inferred from preparation or the training launch.",
+    "replaces_existing_term": "drift_grounded",
+    "added_reward_term": false,
+    "weight": 0.4,
+    "raw_bounds": [
+      0,
+      1
+    ],
+    "action_rate_weight": -0.5,
+    "formula": "1-mean_{four actual physical substeps,two wheels}(exp(-max(F_ground_world_z,0)/(0.20*live_total_mass*abs(gravity_z))))",
+    "clocks": {
+      "physics_hz": 200,
+      "policy_and_reward_hz": 50,
+      "physical_samples_per_reward": 4
+    },
+    "fixes_in_the_objective": [
+      "Every actual physical substep contributes rather than only the final substep.",
+      "The reward responds smoothly to low wheel normal load before a binary 5 N transition.",
+      "Each wheel contributes separately, avoiding one highly loaded wheel directly substituting for an unloaded partner.",
+      "Only the actual ground-filtered normal-force channels contribute; robot self-contact is not a source of grounded reward."
+    ],
+    "does_not_fix_or_guarantee": [
+      "No hard continuous-contact condition or minimum normal-force constraint.",
+      "The 0.20 mg scale is not a required load and does not impose a 50:50 load split.",
+      "Mean aggregation still permits brief unloading within a control interval.",
+      "No new torque-rate, contact-force-rate, wheel-normal-velocity or all-substep vertical-acceleration penalty.",
+      "No increase of the 50 Hz policy control rate.",
+      "No new contact-force observation for the actor.",
+      "No change to rigid wheel shape, tire compliance, solver, offsets, PD gains or motor envelope.",
+      "No absolute height target, zero-yaw target or zero-sideslip target."
+    ]
+  },
+  "configured_physics_not_new_native_readback": {
+    "physics_dt_s": 0.005,
+    "decimation": 4,
+    "explicit_leg_motor": {
+      "kp": 500,
+      "kd": 10,
+      "torque_limit_nm": 80,
+      "no_load_speed_rad_s": 15,
+      "armature": 0,
+      "passive_friction": 0
+    },
+    "wheel_motor": {
+      "torque_limit_nm": 12,
+      "no_load_speed_rad_s": 100,
+      "stiffness": 0,
+      "damping": 0
+    },
+    "rigid_properties": {
+      "linear_damping": 0,
+      "angular_damping": 0,
+      "max_depenetration_velocity_m_s": 1,
+      "max_linear_velocity_m_s": 100,
+      "max_angular_velocity_rad_s": 100
+    },
+    "articulation_configuration": {
+      "position_iterations": 8,
+      "velocity_iterations": 4,
+      "self_collision_enabled": true
+    },
+    "authored_asset_settings_before_spawn_overrides": {
+      "position_iterations": 32,
+      "velocity_iterations": 1,
+      "self_collision_enabled": false
+    },
+    "native_solver_iterations_read_back": false,
+    "contact_offset_m": null,
+    "rest_offset_m": null,
+    "offset_status": "Not explicitly authored in the inspected current source/asset. Effective inherited native values are unknown in this audit.",
+    "wheel_collision": {
+      "type": "rigid cylinder",
+      "radius_m": 0.127,
+      "width_m": 0.05,
+      "tire_compliance_model": false
+    },
+    "friction": {
+      "configured_robot_and_ground": 0.7,
+      "recorded_robot_and_ground": 0.699999988079071,
+      "combine_mode": "average"
+    },
+    "restitution": {
+      "configured_nominal": 0,
+      "combine_mode": "average",
+      "runtime_readback_in_baseline_report": false
+    },
+    "legacy_wheel_joint_friction": {
+      "asset_value": 0.01,
+      "recorded_runtime_after_startup": 0,
+      "all_environments_verified_zero": true
+    }
+  },
+  "interpretation_and_possible_later_work": {
+    "observed": "Large physical torque/body oscillations and frequent loss of measured bearing load coexist with good nominal XY/speed/beta tracking.",
+    "not_observed_in_this_recording": "No nonwheel ground impact; wheel net and ground-normal force channels agree to approximately 2.44e-4 N. This does not exclude nonwheel robot self-collisions, which are not fully recorded.",
+    "no_universal_25hz_claim": "The audited -0.5 recording is dominated near14 Hz. Older policies'25 Hz signatures must not be assigned to every replay.",
+    "precondition_for_any_future_contact_numerics_test": "Obtain separately labeled authored/native readback of solver counts and contact/rest offsets, using installed_contact_api_audit.json. Do not add a physics step or change an active locked run to obtain it.",
+    "possible_single_factor_not_executed": "If chatter persists after the dense-reward policy is evaluated, a separately authorized fixed-actor solver-velocity-iteration change could probe numerical sensitivity. A timestep change would also change the explicit motor feedback sampling and must be labeled accordingly.",
+    "lower_gain_interpretation": "An unsuccessful zero-shot Kp250 or Kd5 deployment does not disprove a newly trained policy using lower gains.",
+    "limitations": [
+      "One deterministic policy/reference/friction recording; no causal identification or statistical robustness.",
+      "A missing >5N bearing point is not a geometric separation/flight certificate.",
+      "No new native solver/offset readback was performed.",
+      "No controller, reward, asset, physics setting or existing result was modified by this audit."
+    ]
+  }
+}

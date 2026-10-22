@@ -1,0 +1,23 @@
+{
+  "decision": "do_not_adopt_velocity_iteration8_as_contact_stability_fix",
+  "mu": 0.7,
+  "same_fixed_policy": true,
+  "additional_training_updates": 0,
+  "configured_position_iterations": 8,
+  "core_interval_s": [1.44, 4.0],
+  "rounded_core_metrics": {
+    "configured_velocity4": {"xy_rmse_m": 0.056221, "both_wheel_load_eligibility_fraction": 0.341131, "base_angular_xy_hf_rms_rad_s": 1.168983},
+    "configured_velocity8": {"xy_rmse_m": 0.057667, "both_wheel_load_eligibility_fraction": 0.317739, "base_angular_xy_hf_rms_rad_s": 1.177771}
+  },
+  "baseline_velocity4_recording_exactly_reproduced": true,
+  "native_offsets_and_materials_identical_between_cases": true,
+  "native_robot_shape_contact_offset_range_m_rounded": [0.0006, 0.0038],
+  "native_robot_shape_rest_offset_m": 0.0,
+  "native_robot_shape_restitution": 0.0,
+  "native_shape_columns_mapped_to_wheels": false,
+  "solver_counts_evidence": "Requested configuration and loaded USD-authored attributes; no native solver-count readback.",
+  "interpretation": "No useful nominal contact or high-frequency jitter improvement was observed. This is a fixed-policy numerical sensitivity experiment, not a numerical-convergence or physical-ground-truth result.",
+  "absolute_height_or_airborne_failure_gate_used": false,
+  "evidence": ["summary.json", "contact_comparison.png"],
+  "next_prepared_learning_method": "Restore original grounded reward and configured velocity4; add a leg applied-torque-rate penalty while retaining action-rate -0.5, PD500/10, intended sideslip, and historical domain randomization. Actual Isaac smoke is required before formal adoption."
+}

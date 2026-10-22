@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "kind": "installed_physx_contact_readback_api_source_audit",
+  "audit_date": "2026-10-21",
+  "evidence_scope": "Read-only inspection of installed Python sources, native interface headers, tests and documentation; no simulator imports or runtime API calls.",
+  "host": "14.103.233.29",
+  "python_environment": "/data/zengxiong/.conda/envs/regrind",
+  "new_simulator_steps": 0,
+  "new_policy_inference_calls": 0,
+  "new_gpu_jobs": 0,
+  "new_native_runtime_readback": false,
+  "frozen_source_files_modified": false,
+  "installed_sources": {
+    "isaaclab_articulation": {
+      "path": "/data/zengxiong/IsaacLab/source/isaaclab/isaaclab/assets/articulation/articulation.py",
+      "sha256": "9cc03b85642c36c801ff9683e94b8ccc3fbef1178761338974b433dacc78ef75",
+      "lines": {
+        "root_physx_view_property": 160
+      },
+      "finding": "robot.root_physx_view exposes the omni.physics.tensors ArticulationView."
+    },
+    "physics_tensor_api": {
+      "path": "/data/zengxiong/.conda/envs/regrind/lib/python3.11/site-packages/isaacsim/extscache/omni.physics.tensors-107.3.26+107.3.3.lx64.r.cp311.u353/omni/physics/tensors/impl/api.py",
+      "sha256": "5dd16f8a37eccc94ac82338d6c1127e785cccf761cae1f6f18ef03d55b0f325f",
+      "lines": {
+        "ArticulationView": 629,
+        "max_shapes": 678,
+        "prim_paths": 756,
+        "link_paths": 771,
+        "get_material_properties": 2695,
+        "get_contact_offsets": 2727,
+        "get_rest_offsets": 2753,
+        "RigidBodyView": 3296,
+        "rigid_body_get_contact_offsets": 3999,
+        "rigid_body_get_rest_offsets": 4024
+      }
+    },
+    "high_level_articulation": {
+      "path": "/data/zengxiong/.conda/envs/regrind/lib/python3.11/site-packages/isaacsim/exts/isaacsim.core.prims/isaacsim/core/prims/impl/articulation.py",
+      "sha256": "65901a45bd1852c0e126581ed2bb75105b6e221128e24f2202d138c822b119a5",
+      "lines": {
+        "get_solver_position_iteration_counts": 3471,
+        "position_read_usd_get_prim_property": 3505,
+        "get_solver_velocity_iteration_counts": 3550,
+        "velocity_read_usd_get_prim_property": 3584
+      },
+      "finding": "Both high-level solver getters read USD properties with get_prim_property; they are not demonstrated native solver-state readback."
+    },
+    "dynamic_control_interface": {
+      "path": "/data/zengxiong/.conda/envs/regrind/lib/python3.11/site-packages/isaacsim/extsDeprecated/omni.isaac.dynamic_control/include/omni/isaac/dynamic_control/DynamicControl.h",
+      "sha256": "4c4170a259eb942b52372f7c02e33e90c4770ec2035c00eab6280d8721d06ac6",
+      "lines": {
+        "getArticulationProperties_native_interface": 226
+      },
+      "signature": "bool getArticulationProperties(DcHandle artHandle, DcArticulationProperties* properties)"
+    },
+    "dynamic_control_types": {
+      "path": "/data/zengxiong/.conda/envs/regrind/lib/python3.11/site-packages/isaacsim/extsDeprecated/omni.isaac.dynamic_control/include/omni/isaac/dynamic_control/DynamicControlTypes.h",
+      "sha256": "c1787d62e115863a5cbe1226b6e154b2d94f6d52af75bbe5a7564fae4288d8ed",
+      "lines": {
+        "DcArticulationProperties": 211,
+        "solverPositionIterationCount": 216,
+        "solverVelocityIterationCount": 217
+      },
+      "field_types": "Two uint32_t counts and one boolean self-collision setting. Header default values are not measured live values."
+    },
+    "dynamic_control_python_test": {
+      "path": "/data/zengxiong/.conda/envs/regrind/lib/python3.11/site-packages/isaacsim/extsDeprecated/omni.isaac.dynamic_control/omni/isaac/dynamic_control/tests/test_articulation_simple.py",
+      "sha256": "5d296fe82fb805aac78e8a2e81bd87a363c8954c0401da00ca84cd0997f6a93c",
+      "lines": {
+        "get_articulation_properties_python_call": 162
+      }
+    },
+    "dynamic_control_field_test": {
+      "path": "/data/zengxiong/.conda/envs/regrind/lib/python3.11/site-packages/isaacsim/extsDeprecated/omni.isaac.dynamic_control/omni/isaac/dynamic_control/tests/test_pickles.py",
+      "sha256": "e4d2169500fe89ba84306a513c253d92e9a6f3c791cb7340fe9a911d6a7b1403",
+      "lines": {
+        "solver_position_iteration_count_python_field": 159,
+        "solver_velocity_iteration_count_python_field": 160
+      }
+    },
+    "dynamic_control_usage": {
+      "path": "/data/zengxiong/.conda/envs/regrind/lib/python3.11/site-packages/isaacsim/extsDeprecated/omni.isaac.dynamic_control/docs/usage.rst",
+      "sha256": "b08ee9004909b51de9fbd9574893e7240c4a1d1c8542021a2bbddd77d9eb6ca4",
+      "lines": {
+        "at_least_one_existing_physics_frame_required": 4
+      }
+    },
+    "dynamic_control_extension": {
+      "path": "/data/zengxiong/.conda/envs/regrind/lib/python3.11/site-packages/isaacsim/extsDeprecated/omni.isaac.dynamic_control/config/extension.toml",
+      "sha256": "22cffe44f46561f7ce0d91de2d04518a50c1b391d8f60544e9d8054a8e9d95e5",
+      "lines": {
+        "deprecated_since_isaac_sim_4p5": 16
+      }
+    }
+  },
+  "read_only_api_candidates": [
+    {
+      "quantity": "robot collision-shape contact offset",
+      "call": "robot.root_physx_view.get_contact_offsets()",
+      "units": "m",
+      "return_shape": [
+        "articulation_count",
+        "max_shapes"
+      ],
+      "dtype": "float32",
+      "allocation": "Host buffer: frontend.create_tensor((count,max_shapes), float32, -1).",
+      "implementation": "Calls the native view backend get_contact_offsets.",
+      "source": "physics_tensor_api",
+      "line": 2727,
+      "runtime_verified": false
+    },
+    {
+      "quantity": "robot collision-shape rest offset",
+      "call": "robot.root_physx_view.get_rest_offsets()",
+      "units": "m",
+      "return_shape": [
+        "articulation_count",
+        "max_shapes"
+      ],
+      "dtype": "float32",
+      "allocation": "Host buffer: frontend.create_tensor((count,max_shapes), float32, -1).",
+      "implementation": "Calls the native view backend get_rest_offsets.",
+      "source": "physics_tensor_api",
+      "line": 2753,
+      "runtime_verified": false
+    },
+    {
+      "quantity": "robot collision-shape material",
+      "call": "robot.root_physx_view.get_material_properties()",
+      "return_shape": [
+        "articulation_count",
+        "max_shapes",
+        3
+      ],
+      "channels": [
+        "static_friction",
+        "dynamic_friction",
+        "restitution"
+      ],
+      "dtype": "float32",
+      "source": "physics_tensor_api",
+      "line": 2695,
+      "runtime_verified_by_this_audit": false
+    },
+    {
+      "quantity": "named rigid-body shape offsets",
+      "calls": [
+        "rigid_body_view.get_contact_offsets()",
+        "rigid_body_view.get_rest_offsets()"
+      ],
+      "return_shape": [
+        "rigid_body_count",
+        "max_shapes"
+      ],
+      "source": "physics_tensor_api",
+      "lines": [
+        3999,
+        4024
+      ],
+      "runtime_verified": false,
+      "note": "A named wheel RigidBodyView may aid mapping, but view creation and exact collision-shape order require verification in an authorized initialized environment."
+    },
+    {
+      "quantity": "articulation solver iteration counts, native-handle interface candidate",
+      "import": "from omni.isaac.dynamic_control import _dynamic_control",
+      "read_only_sequence": [
+        "dc = _dynamic_control.acquire_dynamic_control_interface()",
+        "handle = dc.get_articulation(actual_articulation_root_prim_path)",
+        "properties = dc.get_articulation_properties(handle)",
+        "properties.solver_position_iteration_count",
+        "properties.solver_velocity_iteration_count"
+      ],
+      "return_shape": "One property struct per articulation handle; each count is a scalar integer.",
+      "source_evidence": [
+        "dynamic_control_interface",
+        "dynamic_control_types",
+        "dynamic_control_python_test",
+        "dynamic_control_field_test"
+      ],
+      "runtime_verified": false,
+      "deprecated": true,
+      "fail_closed": "If the extension/interface/handle is unavailable, record native solver iteration counts as unknown; do not replace them with authored USD values and call that native readback."
+    },
+    {
+      "quantity": "articulation solver iteration counts, authored USD",
+      "calls": [
+        "isaacsim.core.prims.Articulation.get_solver_position_iteration_counts()",
+        "isaacsim.core.prims.Articulation.get_solver_velocity_iteration_counts()"
+      ],
+      "return_shape": [
+        "selected_articulation_count"
+      ],
+      "dtype": "int32",
+      "backend": "get_prim_property of physxArticulation:solverPositionIterationCount / solverVelocityIterationCount",
+      "native_backend_readback": false,
+      "source": "high_level_articulation",
+      "lines": [
+        3471,
+        3505,
+        3550,
+        3584
+      ]
+    }
+  ],
+  "limitations": [
+    "No live contact/rest offset or solver-count values were obtained in this audit.",
+    "The installed tensor ArticulationView Python API has no get_solver_position_iteration_counts/get_solver_velocity_iteration_counts methods.",
+    "Shape columns are collision shapes, not robot.body_names indices. Do not select a wheel column using a wheel body ID without proving the shape mapping.",
+    "The static ground plane's native shape-offset readback was not established; USD schema values must be labeled authored/default metadata rather than native runtime evidence.",
+    "Dynamic Control is deprecated and requires a valid already-active articulation after at least one existing physics frame; compatibility with this GPU configuration has not been exercised.",
+    "Do not enable a new extension, create a simulator, advance physics, or add a warm-up frame to the current locked run merely to obtain a readback.",
+    "Header defaults and high-level USD reads do not prove effective native runtime solver settings.",
+    "These APIs prepare a possible later single-factor numerical diagnostic; no such diagnostic was authorized or executed by this audit."
+  ]
+}
