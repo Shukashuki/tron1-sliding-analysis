@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "kind": "sampled_four_horizontal_panels_plus_full_decode_camera_audit",
+  "reviewed_at_utc": "2026-10-22T16:39:11Z",
+  "reviewed_at_new_york": "2026-10-22T12:39:11-04:00",
+  "generated_summary_sha256": "4cfa8cb34d2213908c2e90183275974ae5ae6bb2de49ac449849ab0cea605a7f",
+  "video_sha256": "120498c4077980b4e41c3340589d4c5271bb7fb796119588c363847a4d3b2ab1",
+  "contact_sheet_sha256": "bba209040f4561f379223ee83b90ba4dc85a7c3d64d74d355f17550bb9fd020f",
+  "case_order": ["ppo_beta_on", "cem_beta_on", "ppo_beta_off", "cem_beta_off"],
+  "video_size_pixels": [2560, 750],
+  "all_frames_decoded": 350, "fps": 50, "encoded_duration_s": 7.0,
+  "sampled_original_times_s": [0.0, 1.44, 2.8, 3.0, 3.3, 4.0, 4.2, 4.5, 5.0, 6.0, 6.98],
+  "full_resolution_stills_reviewed_s": [3.0, 5.0],
+  "camera": {"fixed_distance_m": 1.6953047794244371, "fixed_world_azimuth_deg": 135.0,
+    "fixed_world_elevation_deg": -30.0, "fixed_vertical_fov_deg": 45.0,
+    "fixed_root_relative_lookat_offset_m": [0.0, 0.0, -0.28],
+    "all_350frames_x4cases_mesh_bounds_inside": true, "maximum_normalized_frustum_extent": 0.914952294645384,
+    "time_varying_zoom_or_case_specific_distance": false, "original_root_positions_preserved_exactly": true},
+  "native_FK_samples_checked_per_case": 2793,
+  "maximum_wheel_origin_FK_error_m_all_cases": 0.0,
+  "original_native_clock_retained": true,
+  "native_sampling_stride_for_video": 8,
+  "meshes_opaque": true,
+  "new_physics_or_policy_inference_during_rendering": false,
+  "observations": [
+    "All four panels are the actual nativeCPU-MuJoCo400Hz episodes. PPO is PhysX-trained; CEM has native model prediction. No200Hz or alternate-training-origin substitution.",
+    "Fixed shared camera distance/orientation and root-relative translation are retained over the entire movie; no zoom, pose filtering or heading alignment hides instability.",
+    "The PPO-beta body tips after4s and remains fallen after4.5s. The original fall is visible through6.98s. Both CEM bodies stay upright in sampled full-horizon frames, but CEM-beta worldXY path deviates substantially.",
+    "Shared worldXY maps retain bodyheading and both wheel rolling-plane axes. The CEM+beta path follows the turn more closely in the core; the tail shows more overshoot than PPO+beta.",
+    "The final6.98s frame correctly reports XY error unavailable because the locked reference ends6.96s.",
+    "Four horizontal diagnostic plots show native XY, trackingerror, tilt and high-frequency motion. The lower PPO-beta HF during a fall is not labeled successful stability."
+  ],
+  "limitations": [
+    "All350encoded frames and1400camera fits were checked numerically; visualinspection used selectedframes, not every encodedframe individually.",
+    "A50fps movie cannot resolve every400Hz contact/jitter event. Native spectra/contact statistics are required.",
+    "Wheel-force/count zero is not geometricflight or failure. Tilt/height/contact remain diagnostics, not added termination gates.",
+    "The figure does not establish exact PPO episode-return parity, optimizer-only causality, realtime feasibility or statistical superiority."
+  ]
+}

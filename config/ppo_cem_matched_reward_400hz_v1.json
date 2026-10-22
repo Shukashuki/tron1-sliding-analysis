@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "kind": "same_stage_reward_400hz_ppo_cem_nominal_comparison",
+  "reference_id": "drift_drl_traj4",
+  "validation_backend": "native CPU MuJoCo",
+  "physics_dt_s": 0.0025,
+  "decimation": 8,
+  "policy_dt_s": 0.02,
+  "plant_mu": 0.7,
+  "prediction_mu_scenarios": [0.7],
+  "beta_conditions": ["beta_on", "beta_off"],
+  "action_rate_weight": -0.5,
+  "grounded_reward_weight": 0.4,
+  "discount_factor": 0.99,
+  "concurrent_local_CPU_episodes": 2,
+  "nmpc": {
+    "horizon_steps": 30,
+    "control_blocks": 10,
+    "candidates": 64,
+    "iterations": 3,
+    "elite_count": 8,
+    "initial_std": [0.04, 0.04, 0.04, 0.04, 0.04, 0.04, 0.35, 0.35],
+    "min_std": [0.005, 0.005, 0.005, 0.005, 0.005, 0.005, 0.03, 0.03],
+    "smoothing": 0.0,
+    "seed": 42,
+    "scenario_reduction": "worst",
+    "fallback_action": "previous",
+    "reference_convention": "held_pre_action",
+    "parameterization": "warm_start_residual_blocks"
+  },
+  "scope": [
+    "Copy the completed400Hz PhysX-trained PPO evaluation contract/task profile, not the old200Hz default.",
+    "Same15-term stage reward, standards, action-rate-0.5, grounded+0.4, free absoluteheight,50Hz decisions and400Hz native physics.",
+    "MPC uses gamma0.99, matching PPO's discount; no learned terminal value. Its fixed0.60s preview is not PPO's long-horizon training objective.",
+    "Prediction mu0.7 is explicitly known for this nominal-only experiment; there is no friction sweep or hidden identification.",
+    "Reuse prior full PPO nativeCPU-MuJoCo validations; run new CEM episodes only, without trained-policy action warm starts.",
+    "No new GPU job, remote upload, policy training, absoluteheight/contact/airborne gate or controller tuning."
+  ]
+}
