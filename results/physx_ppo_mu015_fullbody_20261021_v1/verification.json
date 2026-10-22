@@ -1,0 +1,27 @@
+{
+  "kind": "recorded_physx_fullbody_render_verification",
+  "training_engine": "PhysX",
+  "evaluation_engine": "PhysX",
+  "graphics_engine_only": "MuJoCo OSMesa",
+  "mu": 0.15,
+  "test_command": "MUJOCO_GL=osmesa python -m pytest -q tests/test_render_physx_ppo_fullbody.py tests/test_render_physx_ppo_low_friction_horizontal.py tests/test_compare_physx_ppo_low_friction.py tests/test_controller_friction_publication.py tests/test_nmpc_pair_publication.py",
+  "tests_passed": 47,
+  "tests_failed": 0,
+  "maximum_wheel_origin_fk_error_m": 0.000001224273354826457,
+  "original_pose_and_height_preserved": true,
+  "video_decode": {
+    "file": "fullbody.mp4",
+    "codec": "h264",
+    "pixel_format": "yuv420p",
+    "size_pixels": [1280, 622],
+    "fps": 50,
+    "decoded_frames": 350,
+    "duration_s": 7.0,
+    "preview_inspected_at_native_time_s": 3.36
+  },
+  "new_training": false,
+  "new_policy_inference": false,
+  "new_physics_simulation": false,
+  "new_contact_solver_result": false,
+  "remote_jobs_modified": false
+}
