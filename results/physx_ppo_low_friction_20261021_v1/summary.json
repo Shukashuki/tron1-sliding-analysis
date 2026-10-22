@@ -1,0 +1,3059 @@
+{
+  "schema_version": 1,
+  "kind": "existing_physx_trained_physx_evaluated_ppo_low_friction_comparison",
+  "reference_id": "drift_drl_traj4",
+  "reference_spec": {
+    "reference_id": "drift_drl_traj4",
+    "role": "primary",
+    "stratum": "large_angle_turn",
+    "source": {
+      "repository": "https://github.com/caipeide/drift_drl",
+      "commit": "9f3a125f76ac2c0415014a761a514a511553322c",
+      "csv_path": "code/ref_trajectory/traj_4.csv",
+      "csv_sha256": "eb67a507817605d9b0018bdf2196c04f58f9a9238e7e1906350a7568ab87cf27",
+      "row_interval_inclusive": [
+        1535,
+        1595
+      ],
+      "kind": "CARLA_simulation",
+      "is_physical_car_capture": false,
+      "clock": "reconstructed_estimate_not_original_timestamps"
+    },
+    "motion_npz_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+    "robot_reference_npz_sha256": "afc22f19b813cf10b3e3a90affb0f26f5a7743074f98b262394c69de786e9f6e",
+    "frames": 349,
+    "fps": 50.0,
+    "sample_span_s": 6.96,
+    "source_demo_frames": 249,
+    "source_demo_interval_s": [
+      0.0,
+      4.96
+    ],
+    "evaluation_core_interval_s": [
+      1.44,
+      4.0
+    ],
+    "supplementary_event_windows_s": [],
+    "synthetic_recovery_frames": 75,
+    "stationary_tail_frames": 25,
+    "source_demo_speed_range_m_s": [
+      0.892961323261261,
+      1.3199347257614136
+    ],
+    "source_demo_left_separation_mean_abs_deg": 11.271605282421872,
+    "source_demo_left_separation_peak_abs_deg": 27.22207119854508,
+    "core_course_turn_deg": 60.928079107816444,
+    "spatial_scale": 0.08,
+    "time_scale": 2.0,
+    "pooled_success_statistics": false,
+    "heading_separation_definition": "signed wrap(base_Link COM XY velocity course minus each retargeted wheel rolling-plane heading)",
+    "heading_separation_is_measured_contact_slip": false,
+    "wheel_heading_definition": "world(local +Y wheel axle) crossed with world +Z; independent of axle spin",
+    "motion_contract": {
+      "positions": "world Z-up meters, link origins rather than COM",
+      "linear_velocities": "world-frame original unmerged URDF link COM velocities, m/s",
+      "angular_velocities": "world-frame rad/s",
+      "quaternions": "world-from-link, wxyz",
+      "wheel_spin_observed": false,
+      "wheel_orientation_is_training_target": false,
+      "export_model_sha256": "30c8bb94b32b1804aa2f7de2425f7a8dd02be7792881255388097e2e68092e52",
+      "export_urdf_sha256": "f09c56c15acd507bba43b394e37a9abe024e0111fdde7dbf41796408895ee4c5",
+      "runtime_model_note": "Export-model hashes document kinematic provenance, not an actuator/contact contract; apply and audit the shared validation model settings separately."
+    }
+  },
+  "historical_cohort": "primary_ppo_height_smooth_seed42_v1_not_new_matched_backend_pair",
+  "training_engine": "PhysX",
+  "evaluation_engine": "PhysX",
+  "algorithm": "PPO",
+  "training_seed": 42,
+  "checkpoint_sha256": "6ec411efeaea37fc61389285978b377aa7c5be80e326ce7f18581efc9acdf27b",
+  "task_profile_sha256": "31de29a61eec847e0e39783f3a0d9d8f2db551acd679a1b38dfde2b24e8ae7d6",
+  "training_manifest_sha256": "497aa9d35fad3a64744f86ceedaa35beed74ea127ef5b7c4b52dbb7978b682df",
+  "training_budget": {
+    "num_envs": 512,
+    "iterations_requested": 1000,
+    "learning_iteration_index_completed": 999,
+    "num_steps_per_env": 24,
+    "policy_steps_requested": 24000,
+    "policy_steps_completed": 24000,
+    "environment_transitions_requested": 12288000,
+    "environment_transitions_completed": 12288000,
+    "setup_smoke_control_steps": 0,
+    "scope": "PPO rollout collection only, excluding setup smoke/reset checks"
+  },
+  "training_domain_randomization": {
+    "upstream_commit": "cd65172032893724b445448818c34165846d847d",
+    "friction_static": [
+      0.3,
+      1.6
+    ],
+    "friction_dynamic": [
+      0.3,
+      1.2
+    ],
+    "restitution": [
+      0.0,
+      0.5
+    ],
+    "material_buckets": 64,
+    "joint_default_position_offset_rad": [
+      -0.01,
+      0.01
+    ],
+    "base_com_offset_m": {
+      "x": [
+        -0.025,
+        0.025
+      ],
+      "y": [
+        -0.05,
+        0.05
+      ],
+      "z": [
+        -0.05,
+        0.05
+      ]
+    },
+    "push_interval_s": [
+      1.0,
+      3.0
+    ],
+    "push_velocity_range": {
+      "x": [
+        -0.5,
+        0.5
+      ],
+      "y": [
+        -0.5,
+        0.5
+      ],
+      "z": [
+        -0.2,
+        0.2
+      ],
+      "roll": [
+        -0.52,
+        0.52
+      ],
+      "pitch": [
+        -0.52,
+        0.52
+      ],
+      "yaw": [
+        -0.78,
+        0.78
+      ]
+    },
+    "ground_friction": 1.0,
+    "robot_mapping": "G1 torso_link -> TRON1 base_Link; joint offset applies only to six position-controlled leg joints"
+  },
+  "validation_material_interpretation": {
+    "robot_static_and_dynamic_friction": "Both overridden to each recorded mu",
+    "ground_static_and_dynamic_friction": "Both overridden to each recorded mu",
+    "friction_combine_mode": "average",
+    "combine_mode_evidence": "Source-configured average; not an independent runtime combine-flag readback",
+    "equal_pair_effective_mu": "(mu + mu) / 2 = mu; not mu squared",
+    "road_only_perturbation": false,
+    "training_ground_friction_fixed": 1.0,
+    "training_ideal_pair_bounds_static": [
+      0.65,
+      1.3
+    ],
+    "training_ideal_pair_bounds_dynamic": [
+      0.65,
+      1.1
+    ],
+    "bounds_note": "Ideal configured average-combine bounds, not independently measured coefficients or exact sampled bucket extrema"
+  },
+  "training_source_sha256": {
+    "scripts/train_tracking.py": "ea9e4cd14f25ff3ba5202b9ba43ac0f08320418e2311cbae205c8449f3a1da9c",
+    "training/tron1_tracking.py": "0a29fa27c1d65c0b9add0886221491e549553e3529d6970f1ec5ba35e2532817",
+    "training/tron1_drift.py": "5eb40c9b3c14f5bd5c59c9861c1414ae8ac1b219ff0dd70591f2c6fe0bb5344c",
+    "training/tron1_domain_randomization.py": "3f3a0b62c85a0af496ae9e9e0d75dda85c3ec30da587e4a47969843f5b1b1dca",
+    "training/tron1_contact_slip.py": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4"
+  },
+  "evaluation_mu": [
+    0.01,
+    0.03,
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.3,
+    0.45,
+    0.6,
+    0.7,
+    0.8,
+    1.0,
+    1.2,
+    1.4,
+    1.6,
+    1.8,
+    2.0
+  ],
+  "selected_mu": [
+    0.7,
+    0.15,
+    0.1,
+    0.05
+  ],
+  "runs": [
+    {
+      "mu": 0.01,
+      "label": "PPO_mu0p010_isaac",
+      "engine": "PhysX",
+      "training_engine": "PhysX",
+      "window_s": [
+        1.44,
+        4.0
+      ],
+      "coverage_complete": true,
+      "samples_in_window": 513,
+      "reference_xy_rmse_m": 1.047922152581536,
+      "reference_xy_peak_m": 1.908806468294334,
+      "large_xy_exploratory_screen": true,
+      "mean_speed_m_s": 1.04773046662311,
+      "reference_mean_speed_m_s": 1.0283094526778487,
+      "mean_speed_retention_ratio": 1.0188863516665012,
+      "fraction_below_80pct_reference_speed": 0.0,
+      "net_course_change_deg": 6.447622292705235,
+      "heading_geometry": {
+        "root_directed_beta": {
+          "valid_samples": 513,
+          "eligible_samples": 513,
+          "valid_fraction": 1.0,
+          "signed_circular_mean_deg": -72.54363656475854,
+          "mean_absolute_deg": 72.57417654360849,
+          "absolute_p95_deg": 89.60592742792977
+        },
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -17.221260812662752,
+              "mean_absolute_deg": 30.472041290634472,
+              "absolute_p95_deg": 61.281215799859325
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -31.018684081875396,
+              "mean_absolute_deg": 36.190413956067374,
+              "absolute_p95_deg": 61.59787113047819
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": 50.70676092687479,
+              "mean_absolute_deg": 50.41975077588151,
+              "absolute_p95_deg": 67.15929093490006
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": 45.90543292857755,
+              "mean_absolute_deg": 46.12335148856328,
+              "absolute_p95_deg": 80.30557554553492
+            }
+          }
+        },
+        "measured_contact_gate_applied": false
+      },
+      "ground_contact_heading_geometry": {
+        "threshold_upward_force_n": 5.0,
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 0,
+              "eligible_samples": 513,
+              "valid_fraction": 0.0,
+              "signed_circular_mean_deg": null,
+              "mean_absolute_deg": null,
+              "absolute_p95_deg": null
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 0,
+              "eligible_samples": 513,
+              "valid_fraction": 0.0,
+              "signed_circular_mean_deg": null,
+              "mean_absolute_deg": null,
+              "absolute_p95_deg": null
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 0,
+              "eligible_samples": 513,
+              "valid_fraction": 0.0,
+              "signed_circular_mean_deg": null,
+              "mean_absolute_deg": null,
+              "absolute_p95_deg": null
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 0,
+              "eligible_samples": 513,
+              "valid_fraction": 0.0,
+              "signed_circular_mean_deg": null,
+              "mean_absolute_deg": null,
+              "absolute_p95_deg": null
+            }
+          }
+        },
+        "measured_contact_gate_applied": true,
+        "contact_fraction_left_right": [
+          0.0,
+          0.0
+        ]
+      },
+      "ground_contact_lateral_slip_m_s": {
+        "left": null,
+        "right": null
+      },
+      "heading_offset_is_mismatch": false,
+      "height_or_flight_failure_gate": false,
+      "xy_screen_limits_m": {
+        "rmse": 0.15,
+        "peak": 0.3
+      },
+      "canonical_metrics_recomputed_exactly": true,
+      "source_physical_trace_sha256": "950ce362a42eace590be9964761f488f1d1eaf3aa58883ad8c6868d6bf30c10b",
+      "source_physical_report_sha256": "9e13ca4270b15b39cee6f74ddd769f3988efa794abc69b00b392a43c4b4b5a49",
+      "posture_diagnostics_not_failure_gate": {
+        "max_base_tilt_deg": 120.48946614834622,
+        "fraction_tilt_over_60_deg": 0.889763779527559,
+        "interval": "entire recorded first episode, not only the declared core",
+        "role": "Posture diagnostic, not a height/flight failure gate or controlled-execution certificate",
+        "heading_geometry_caveat": "World-XY projected beta/gamma are not reward body-frame beta under pitch/roll; interpret large-tilt geometry cautiously"
+      },
+      "reported_source_provenance": {
+        "evaluator_source_sha256": "76d78337d70519693bc7e8d819a6523a800e1e4889de5a0466c2d34356d2ae9d",
+        "drift_module_sha256": "5fee46238c825a2bcf474e969e93af65834aa1302ce857aa1c553e8a9fbaefaa",
+        "contact_slip_helper_sha256": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4"
+      },
+      "original_float64_reference_replay": {
+        "legacy_robot_reference_float64_metrics": {
+          "reference_xy_rmse_m": 1.047922150464609,
+          "reference_xy_peak_m": 1.908806470618888
+        },
+        "canonical_motion_float32_metrics": {
+          "reference_xy_rmse_m": 1.047922152581536,
+          "reference_xy_peak_m": 1.908806468294334
+        },
+        "absolute_metric_changes_m": {
+          "reference_xy_rmse_m": 2.116927078077424e-09,
+          "reference_xy_peak_m": 2.324554104760068e-09
+        },
+        "analytic_reference_bound_m": 2.395130692124446e-07,
+        "float64_roundoff_allowance_m": 9.888378063980675e-11,
+        "combined_metric_change_bound_m": 2.396119529930844e-07,
+        "roundoff_rule": "8 * gamma_(16*N+64) * max(1, maximum absolute measured/reference XY coordinate), binary64 epsilon; not fitted to metric differences",
+        "xy_screen_unchanged": true,
+        "legacy_xy_screen": true,
+        "canonical_xy_screen": true,
+        "historical_metrics_overwritten": false,
+        "raw_xy_translation_rotation_or_time_warp_applied": false
+      }
+    },
+    {
+      "mu": 0.03,
+      "label": "PPO_mu0p030_isaac",
+      "engine": "PhysX",
+      "training_engine": "PhysX",
+      "window_s": [
+        1.44,
+        4.0
+      ],
+      "coverage_complete": true,
+      "samples_in_window": 513,
+      "reference_xy_rmse_m": 1.1700801000803536,
+      "reference_xy_peak_m": 1.8650903342207503,
+      "large_xy_exploratory_screen": true,
+      "mean_speed_m_s": 0.6192939251594507,
+      "reference_mean_speed_m_s": 1.0283094526778487,
+      "mean_speed_retention_ratio": 0.6022447071226764,
+      "fraction_below_80pct_reference_speed": 1.0,
+      "net_course_change_deg": 5.296732591355678,
+      "heading_geometry": {
+        "root_directed_beta": {
+          "valid_samples": 513,
+          "eligible_samples": 513,
+          "valid_fraction": 1.0,
+          "signed_circular_mean_deg": -60.853787624329165,
+          "mean_absolute_deg": 60.83680211862689,
+          "absolute_p95_deg": 73.75184134882984
+        },
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -20.95987481945681,
+              "mean_absolute_deg": 30.626222349135652,
+              "absolute_p95_deg": 57.367620197613384
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 509,
+              "eligible_samples": 513,
+              "valid_fraction": 0.9922027290448343,
+              "signed_circular_mean_deg": -44.249624566565615,
+              "mean_absolute_deg": 43.48581601720573,
+              "absolute_p95_deg": 61.046002156892484
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": 59.26527126711261,
+              "mean_absolute_deg": 55.23591177808631,
+              "absolute_p95_deg": 72.8778578749314
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 510,
+              "eligible_samples": 513,
+              "valid_fraction": 0.9941520467836257,
+              "signed_circular_mean_deg": 57.62476258237842,
+              "mean_absolute_deg": 55.54860160086745,
+              "absolute_p95_deg": 77.20171340176677
+            }
+          }
+        },
+        "measured_contact_gate_applied": false
+      },
+      "ground_contact_heading_geometry": {
+        "threshold_upward_force_n": 5.0,
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 22,
+              "eligible_samples": 513,
+              "valid_fraction": 0.042884990253411304,
+              "signed_circular_mean_deg": 46.46654408327934,
+              "mean_absolute_deg": 47.27973929626817,
+              "absolute_p95_deg": 77.14128469781014
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 21,
+              "eligible_samples": 513,
+              "valid_fraction": 0.04093567251461988,
+              "signed_circular_mean_deg": -3.0141080742747866,
+              "mean_absolute_deg": 26.853273365287937,
+              "absolute_p95_deg": 77.6368269159799
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 68,
+              "eligible_samples": 513,
+              "valid_fraction": 0.13255360623781676,
+              "signed_circular_mean_deg": 29.740196431569192,
+              "mean_absolute_deg": 29.656659330532005,
+              "absolute_p95_deg": 44.18214361688153
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 68,
+              "eligible_samples": 513,
+              "valid_fraction": 0.13255360623781676,
+              "signed_circular_mean_deg": 43.83693553931588,
+              "mean_absolute_deg": 44.26546555051784,
+              "absolute_p95_deg": 73.83942084362282
+            }
+          }
+        },
+        "measured_contact_gate_applied": true,
+        "contact_fraction_left_right": [
+          0.042884990253411304,
+          0.13255360623781676
+        ]
+      },
+      "ground_contact_lateral_slip_m_s": {
+        "left": 2.2223571380845333,
+        "right": 0.8363950383155191
+      },
+      "heading_offset_is_mismatch": false,
+      "height_or_flight_failure_gate": false,
+      "xy_screen_limits_m": {
+        "rmse": 0.15,
+        "peak": 0.3
+      },
+      "canonical_metrics_recomputed_exactly": true,
+      "source_physical_trace_sha256": "89ce31d92c642d0e8f49f55233f02b92b214b8a7b701516e9c18db294747dc85",
+      "source_physical_report_sha256": "9608b30f02a3a4967969fe6e09ab680e61e7bf8483e1d64f7bdbe368f7c30ca0",
+      "posture_diagnostics_not_failure_gate": {
+        "max_base_tilt_deg": 136.74027176711743,
+        "fraction_tilt_over_60_deg": 0.8854688618468146,
+        "interval": "entire recorded first episode, not only the declared core",
+        "role": "Posture diagnostic, not a height/flight failure gate or controlled-execution certificate",
+        "heading_geometry_caveat": "World-XY projected beta/gamma are not reward body-frame beta under pitch/roll; interpret large-tilt geometry cautiously"
+      },
+      "reported_source_provenance": {
+        "evaluator_source_sha256": "76d78337d70519693bc7e8d819a6523a800e1e4889de5a0466c2d34356d2ae9d",
+        "drift_module_sha256": "5fee46238c825a2bcf474e969e93af65834aa1302ce857aa1c553e8a9fbaefaa",
+        "contact_slip_helper_sha256": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4"
+      },
+      "original_float64_reference_replay": {
+        "legacy_robot_reference_float64_metrics": {
+          "reference_xy_rmse_m": 1.1700800981714008,
+          "reference_xy_peak_m": 1.8650903862959858
+        },
+        "canonical_motion_float32_metrics": {
+          "reference_xy_rmse_m": 1.1700801000803536,
+          "reference_xy_peak_m": 1.8650903342207503
+        },
+        "absolute_metric_changes_m": {
+          "reference_xy_rmse_m": 1.9089527736326772e-09,
+          "reference_xy_peak_m": 5.207523545713855e-08
+        },
+        "analytic_reference_bound_m": 2.395130692124446e-07,
+        "float64_roundoff_allowance_m": 6.176873120536446e-11,
+        "combined_metric_change_bound_m": 2.3957483794364996e-07,
+        "roundoff_rule": "8 * gamma_(16*N+64) * max(1, maximum absolute measured/reference XY coordinate), binary64 epsilon; not fitted to metric differences",
+        "xy_screen_unchanged": true,
+        "legacy_xy_screen": true,
+        "canonical_xy_screen": true,
+        "historical_metrics_overwritten": false,
+        "raw_xy_translation_rotation_or_time_warp_applied": false
+      }
+    },
+    {
+      "mu": 0.05,
+      "label": "PPO_mu0p050_isaac",
+      "engine": "PhysX",
+      "training_engine": "PhysX",
+      "window_s": [
+        1.44,
+        4.0
+      ],
+      "coverage_complete": true,
+      "samples_in_window": 513,
+      "reference_xy_rmse_m": 1.6158560149959964,
+      "reference_xy_peak_m": 2.528672603554171,
+      "large_xy_exploratory_screen": true,
+      "mean_speed_m_s": 0.25900386745131015,
+      "reference_mean_speed_m_s": 1.0283094526778487,
+      "mean_speed_retention_ratio": 0.2518734674439014,
+      "fraction_below_80pct_reference_speed": 1.0,
+      "net_course_change_deg": null,
+      "heading_geometry": {
+        "root_directed_beta": {
+          "valid_samples": 235,
+          "eligible_samples": 513,
+          "valid_fraction": 0.4580896686159844,
+          "signed_circular_mean_deg": -74.06762565759115,
+          "mean_absolute_deg": 74.0997546312225,
+          "absolute_p95_deg": 85.78755964840961
+        },
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 235,
+              "eligible_samples": 513,
+              "valid_fraction": 0.4580896686159844,
+              "signed_circular_mean_deg": -46.31190988478454,
+              "mean_absolute_deg": 46.521909425187,
+              "absolute_p95_deg": 64.85236316045382
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 256,
+              "eligible_samples": 513,
+              "valid_fraction": 0.49902534113060426,
+              "signed_circular_mean_deg": -47.73173478694987,
+              "mean_absolute_deg": 47.52239602426867,
+              "absolute_p95_deg": 54.590606008597454
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 235,
+              "eligible_samples": 513,
+              "valid_fraction": 0.4580896686159844,
+              "signed_circular_mean_deg": 70.81358279281832,
+              "mean_absolute_deg": 70.597180371385,
+              "absolute_p95_deg": 80.35457074325498
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 218,
+              "eligible_samples": 513,
+              "valid_fraction": 0.4249512670565302,
+              "signed_circular_mean_deg": 40.37497028953646,
+              "mean_absolute_deg": 41.13646439161315,
+              "absolute_p95_deg": 76.95065258613621
+            }
+          }
+        },
+        "measured_contact_gate_applied": false
+      },
+      "ground_contact_heading_geometry": {
+        "threshold_upward_force_n": 5.0,
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 0,
+              "eligible_samples": 513,
+              "valid_fraction": 0.0,
+              "signed_circular_mean_deg": null,
+              "mean_absolute_deg": null,
+              "absolute_p95_deg": null
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 0,
+              "eligible_samples": 513,
+              "valid_fraction": 0.0,
+              "signed_circular_mean_deg": null,
+              "mean_absolute_deg": null,
+              "absolute_p95_deg": null
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 0,
+              "eligible_samples": 513,
+              "valid_fraction": 0.0,
+              "signed_circular_mean_deg": null,
+              "mean_absolute_deg": null,
+              "absolute_p95_deg": null
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 0,
+              "eligible_samples": 513,
+              "valid_fraction": 0.0,
+              "signed_circular_mean_deg": null,
+              "mean_absolute_deg": null,
+              "absolute_p95_deg": null
+            }
+          }
+        },
+        "measured_contact_gate_applied": true,
+        "contact_fraction_left_right": [
+          0.0,
+          0.0
+        ]
+      },
+      "ground_contact_lateral_slip_m_s": {
+        "left": null,
+        "right": null
+      },
+      "heading_offset_is_mismatch": false,
+      "height_or_flight_failure_gate": false,
+      "xy_screen_limits_m": {
+        "rmse": 0.15,
+        "peak": 0.3
+      },
+      "canonical_metrics_recomputed_exactly": true,
+      "source_physical_trace_sha256": "e9830edc554c8075dbea013993fd65fa38b18b47ae0aefcaa96b2d9c6ba751de",
+      "source_physical_report_sha256": "238098c15e0c32f6e365ba12022b31c59a2312281444dde2fc5a3c3973844a01",
+      "posture_diagnostics_not_failure_gate": {
+        "max_base_tilt_deg": 118.05524511795379,
+        "fraction_tilt_over_60_deg": 0.8732999284180386,
+        "interval": "entire recorded first episode, not only the declared core",
+        "role": "Posture diagnostic, not a height/flight failure gate or controlled-execution certificate",
+        "heading_geometry_caveat": "World-XY projected beta/gamma are not reward body-frame beta under pitch/roll; interpret large-tilt geometry cautiously"
+      },
+      "reported_source_provenance": {
+        "evaluator_source_sha256": "76d78337d70519693bc7e8d819a6523a800e1e4889de5a0466c2d34356d2ae9d",
+        "drift_module_sha256": "5fee46238c825a2bcf474e969e93af65834aa1302ce857aa1c553e8a9fbaefaa",
+        "contact_slip_helper_sha256": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4"
+      },
+      "original_float64_reference_replay": {
+        "legacy_robot_reference_float64_metrics": {
+          "reference_xy_rmse_m": 1.6158560134212265,
+          "reference_xy_peak_m": 2.528672675850232
+        },
+        "canonical_motion_float32_metrics": {
+          "reference_xy_rmse_m": 1.6158560149959964,
+          "reference_xy_peak_m": 2.528672603554171
+        },
+        "absolute_metric_changes_m": {
+          "reference_xy_rmse_m": 1.574769870060777e-09,
+          "reference_xy_peak_m": 7.229606113767773e-08
+        },
+        "analytic_reference_bound_m": 2.395130692124446e-07,
+        "float64_roundoff_allowance_m": 6.176873120536446e-11,
+        "combined_metric_change_bound_m": 2.3957483794364996e-07,
+        "roundoff_rule": "8 * gamma_(16*N+64) * max(1, maximum absolute measured/reference XY coordinate), binary64 epsilon; not fitted to metric differences",
+        "xy_screen_unchanged": true,
+        "legacy_xy_screen": true,
+        "canonical_xy_screen": true,
+        "historical_metrics_overwritten": false,
+        "raw_xy_translation_rotation_or_time_warp_applied": false
+      }
+    },
+    {
+      "mu": 0.1,
+      "label": "PPO_mu0p100_isaac",
+      "engine": "PhysX",
+      "training_engine": "PhysX",
+      "window_s": [
+        1.44,
+        4.0
+      ],
+      "coverage_complete": true,
+      "samples_in_window": 513,
+      "reference_xy_rmse_m": 1.0949574632729846,
+      "reference_xy_peak_m": 1.9113046806266398,
+      "large_xy_exploratory_screen": true,
+      "mean_speed_m_s": 0.4408399470037889,
+      "reference_mean_speed_m_s": 1.0283094526778487,
+      "mean_speed_retention_ratio": 0.4287035832022993,
+      "fraction_below_80pct_reference_speed": 0.8908382066276803,
+      "net_course_change_deg": null,
+      "heading_geometry": {
+        "root_directed_beta": {
+          "valid_samples": 317,
+          "eligible_samples": 513,
+          "valid_fraction": 0.6179337231968811,
+          "signed_circular_mean_deg": -51.329640553754324,
+          "mean_absolute_deg": 64.25192533266062,
+          "absolute_p95_deg": 174.84660044497625
+        },
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 317,
+              "eligible_samples": 513,
+              "valid_fraction": 0.6179337231968811,
+              "signed_circular_mean_deg": -6.7547200233660885,
+              "mean_absolute_deg": 17.599555876765326,
+              "absolute_p95_deg": 35.328777383966695
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 499,
+              "eligible_samples": 513,
+              "valid_fraction": 0.9727095516569201,
+              "signed_circular_mean_deg": 2.0354034607539173,
+              "mean_absolute_deg": 42.90712302864387,
+              "absolute_p95_deg": 83.82968106428638
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 317,
+              "eligible_samples": 513,
+              "valid_fraction": 0.6179337231968811,
+              "signed_circular_mean_deg": -75.55987282606836,
+              "mean_absolute_deg": 69.52644140775624,
+              "absolute_p95_deg": 88.74420174618298
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 460,
+              "eligible_samples": 513,
+              "valid_fraction": 0.8966861598440545,
+              "signed_circular_mean_deg": -84.29650029461212,
+              "mean_absolute_deg": 73.43875656910288,
+              "absolute_p95_deg": 88.11709775819558
+            }
+          }
+        },
+        "measured_contact_gate_applied": false
+      },
+      "ground_contact_heading_geometry": {
+        "threshold_upward_force_n": 5.0,
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 121,
+              "eligible_samples": 513,
+              "valid_fraction": 0.23586744639376217,
+              "signed_circular_mean_deg": 1.5136815782713808,
+              "mean_absolute_deg": 17.489354523110116,
+              "absolute_p95_deg": 32.939605867354096
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 176,
+              "eligible_samples": 513,
+              "valid_fraction": 0.34307992202729043,
+              "signed_circular_mean_deg": -65.37695898344299,
+              "mean_absolute_deg": 46.430900233472926,
+              "absolute_p95_deg": 82.55468811275925
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 75,
+              "eligible_samples": 513,
+              "valid_fraction": 0.14619883040935672,
+              "signed_circular_mean_deg": -87.03177742897448,
+              "mean_absolute_deg": 62.61158564805133,
+              "absolute_p95_deg": 81.48709403921823
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 173,
+              "eligible_samples": 513,
+              "valid_fraction": 0.33723196881091616,
+              "signed_circular_mean_deg": -89.71095337982271,
+              "mean_absolute_deg": 73.84690516920116,
+              "absolute_p95_deg": 88.40751719772591
+            }
+          }
+        },
+        "measured_contact_gate_applied": true,
+        "contact_fraction_left_right": [
+          0.35282651072124754,
+          0.35477582846003897
+        ]
+      },
+      "ground_contact_lateral_slip_m_s": {
+        "left": 0.7084526571718953,
+        "right": 0.5944717850907075
+      },
+      "heading_offset_is_mismatch": false,
+      "height_or_flight_failure_gate": false,
+      "xy_screen_limits_m": {
+        "rmse": 0.15,
+        "peak": 0.3
+      },
+      "canonical_metrics_recomputed_exactly": true,
+      "source_physical_trace_sha256": "a27f65d1c7701bb257bd136f99d901860a9df38209ff58865747fe5363ef5a1f",
+      "source_physical_report_sha256": "8949d606b53c38aef26bc139badb224cc4abb3a92507a8a56ef46c2495a334be",
+      "posture_diagnostics_not_failure_gate": {
+        "max_base_tilt_deg": 121.06978929750716,
+        "fraction_tilt_over_60_deg": 0.6213314244810307,
+        "interval": "entire recorded first episode, not only the declared core",
+        "role": "Posture diagnostic, not a height/flight failure gate or controlled-execution certificate",
+        "heading_geometry_caveat": "World-XY projected beta/gamma are not reward body-frame beta under pitch/roll; interpret large-tilt geometry cautiously"
+      },
+      "reported_source_provenance": {
+        "evaluator_source_sha256": "76d78337d70519693bc7e8d819a6523a800e1e4889de5a0466c2d34356d2ae9d",
+        "drift_module_sha256": "5fee46238c825a2bcf474e969e93af65834aa1302ce857aa1c553e8a9fbaefaa",
+        "contact_slip_helper_sha256": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4"
+      },
+      "original_float64_reference_replay": {
+        "legacy_robot_reference_float64_metrics": {
+          "reference_xy_rmse_m": 1.094957462634583,
+          "reference_xy_peak_m": 1.9113047558792342
+        },
+        "canonical_motion_float32_metrics": {
+          "reference_xy_rmse_m": 1.0949574632729846,
+          "reference_xy_peak_m": 1.9113046806266398
+        },
+        "absolute_metric_changes_m": {
+          "reference_xy_rmse_m": 6.384015538429821e-10,
+          "reference_xy_peak_m": 7.525259437812792e-08
+        },
+        "analytic_reference_bound_m": 2.395130692124446e-07,
+        "float64_roundoff_allowance_m": 6.176873120536446e-11,
+        "combined_metric_change_bound_m": 2.3957483794364996e-07,
+        "roundoff_rule": "8 * gamma_(16*N+64) * max(1, maximum absolute measured/reference XY coordinate), binary64 epsilon; not fitted to metric differences",
+        "xy_screen_unchanged": true,
+        "legacy_xy_screen": true,
+        "canonical_xy_screen": true,
+        "historical_metrics_overwritten": false,
+        "raw_xy_translation_rotation_or_time_warp_applied": false
+      }
+    },
+    {
+      "mu": 0.15,
+      "label": "PPO_mu0p150_isaac",
+      "engine": "PhysX",
+      "training_engine": "PhysX",
+      "window_s": [
+        1.44,
+        4.0
+      ],
+      "coverage_complete": true,
+      "samples_in_window": 513,
+      "reference_xy_rmse_m": 0.044498596170893585,
+      "reference_xy_peak_m": 0.06951376927794424,
+      "large_xy_exploratory_screen": false,
+      "mean_speed_m_s": 1.0499755554378178,
+      "reference_mean_speed_m_s": 1.0283094526778487,
+      "mean_speed_retention_ratio": 1.021069632982122,
+      "fraction_below_80pct_reference_speed": 0.0,
+      "net_course_change_deg": 56.94782271243688,
+      "heading_geometry": {
+        "root_directed_beta": {
+          "valid_samples": 513,
+          "eligible_samples": 513,
+          "valid_fraction": 1.0,
+          "signed_circular_mean_deg": -19.414207694706235,
+          "mean_absolute_deg": 19.411874336672046,
+          "absolute_p95_deg": 26.348436138759457
+        },
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -19.00482970701084,
+              "mean_absolute_deg": 18.995438865431527,
+              "absolute_p95_deg": 26.20461677242375
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -19.84049948900459,
+              "mean_absolute_deg": 29.29010196982352,
+              "absolute_p95_deg": 75.38785114917013
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -19.21511107745514,
+              "mean_absolute_deg": 19.206202432889622,
+              "absolute_p95_deg": 26.27138677843293
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 512,
+              "eligible_samples": 513,
+              "valid_fraction": 0.9980506822612085,
+              "signed_circular_mean_deg": -15.995916417821476,
+              "mean_absolute_deg": 21.116141812810003,
+              "absolute_p95_deg": 43.591957667128476
+            }
+          }
+        },
+        "measured_contact_gate_applied": false
+      },
+      "ground_contact_heading_geometry": {
+        "threshold_upward_force_n": 5.0,
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 262,
+              "eligible_samples": 513,
+              "valid_fraction": 0.5107212475633528,
+              "signed_circular_mean_deg": -18.939090593741373,
+              "mean_absolute_deg": 18.928414476214144,
+              "absolute_p95_deg": 27.302468465552874
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 262,
+              "eligible_samples": 513,
+              "valid_fraction": 0.5107212475633528,
+              "signed_circular_mean_deg": -27.03349898350338,
+              "mean_absolute_deg": 30.995086301547055,
+              "absolute_p95_deg": 75.55269455551608
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 113,
+              "eligible_samples": 513,
+              "valid_fraction": 0.2202729044834308,
+              "signed_circular_mean_deg": -18.6175904912504,
+              "mean_absolute_deg": 18.604462976174435,
+              "absolute_p95_deg": 25.390481698934554
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 113,
+              "eligible_samples": 513,
+              "valid_fraction": 0.2202729044834308,
+              "signed_circular_mean_deg": -9.93691310186059,
+              "mean_absolute_deg": 14.395879101977739,
+              "absolute_p95_deg": 35.83155301061402
+            }
+          }
+        },
+        "measured_contact_gate_applied": true,
+        "contact_fraction_left_right": [
+          0.5107212475633528,
+          0.2202729044834308
+        ]
+      },
+      "ground_contact_lateral_slip_m_s": {
+        "left": 0.8233510604730916,
+        "right": 0.35665117220848014
+      },
+      "heading_offset_is_mismatch": false,
+      "height_or_flight_failure_gate": false,
+      "xy_screen_limits_m": {
+        "rmse": 0.15,
+        "peak": 0.3
+      },
+      "canonical_metrics_recomputed_exactly": true,
+      "source_physical_trace_sha256": "2006dc375886bb72d91fceadce402c2daaccbef8244ce3e80e671a59e33cedee",
+      "source_physical_report_sha256": "bc1a7452b5693ec4e2bb9ed075f9c46131776f61243965bb216c674fe34ecf4f",
+      "posture_diagnostics_not_failure_gate": {
+        "max_base_tilt_deg": 7.883524606213631,
+        "fraction_tilt_over_60_deg": 0.0,
+        "interval": "entire recorded first episode, not only the declared core",
+        "role": "Posture diagnostic, not a height/flight failure gate or controlled-execution certificate",
+        "heading_geometry_caveat": "World-XY projected beta/gamma are not reward body-frame beta under pitch/roll; interpret large-tilt geometry cautiously"
+      },
+      "reported_source_provenance": {
+        "evaluator_source_sha256": "76d78337d70519693bc7e8d819a6523a800e1e4889de5a0466c2d34356d2ae9d",
+        "drift_module_sha256": "5fee46238c825a2bcf474e969e93af65834aa1302ce857aa1c553e8a9fbaefaa",
+        "contact_slip_helper_sha256": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4"
+      },
+      "original_float64_reference_replay": {
+        "legacy_robot_reference_float64_metrics": {
+          "reference_xy_rmse_m": 0.04449860121180168,
+          "reference_xy_peak_m": 0.06951376297118331
+        },
+        "canonical_motion_float32_metrics": {
+          "reference_xy_rmse_m": 0.044498596170893585,
+          "reference_xy_peak_m": 0.06951376927794424
+        },
+        "absolute_metric_changes_m": {
+          "reference_xy_rmse_m": 5.04090809372304e-09,
+          "reference_xy_peak_m": 6.306760932939248e-09
+        },
+        "analytic_reference_bound_m": 2.395130692124446e-07,
+        "float64_roundoff_allowance_m": 6.223328453871974e-11,
+        "combined_metric_change_bound_m": 2.3957530249698333e-07,
+        "roundoff_rule": "8 * gamma_(16*N+64) * max(1, maximum absolute measured/reference XY coordinate), binary64 epsilon; not fitted to metric differences",
+        "xy_screen_unchanged": true,
+        "legacy_xy_screen": false,
+        "canonical_xy_screen": false,
+        "historical_metrics_overwritten": false,
+        "raw_xy_translation_rotation_or_time_warp_applied": false
+      }
+    },
+    {
+      "mu": 0.2,
+      "label": "PPO_mu0p200_isaac",
+      "engine": "PhysX",
+      "training_engine": "PhysX",
+      "window_s": [
+        1.44,
+        4.0
+      ],
+      "coverage_complete": true,
+      "samples_in_window": 513,
+      "reference_xy_rmse_m": 0.027496620754728696,
+      "reference_xy_peak_m": 0.04721848289706446,
+      "large_xy_exploratory_screen": false,
+      "mean_speed_m_s": 1.0418563069729168,
+      "reference_mean_speed_m_s": 1.0283094526778487,
+      "mean_speed_retention_ratio": 1.0131739081652806,
+      "fraction_below_80pct_reference_speed": 0.0,
+      "net_course_change_deg": 59.80491201290738,
+      "heading_geometry": {
+        "root_directed_beta": {
+          "valid_samples": 513,
+          "eligible_samples": 513,
+          "valid_fraction": 1.0,
+          "signed_circular_mean_deg": -18.987688992621283,
+          "mean_absolute_deg": 18.98615677261798,
+          "absolute_p95_deg": 26.432858492553066
+        },
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -18.70598744504867,
+              "mean_absolute_deg": 18.70107127953552,
+              "absolute_p95_deg": 26.104581611920793
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -17.39367507973906,
+              "mean_absolute_deg": 25.64908036202355,
+              "absolute_p95_deg": 65.17994693696551
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -18.871132795688066,
+              "mean_absolute_deg": 18.865551840960634,
+              "absolute_p95_deg": 26.36408116010607
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 511,
+              "eligible_samples": 513,
+              "valid_fraction": 0.9961013645224172,
+              "signed_circular_mean_deg": -15.124544677984895,
+              "mean_absolute_deg": 20.99937653762953,
+              "absolute_p95_deg": 49.65369609156397
+            }
+          }
+        },
+        "measured_contact_gate_applied": false
+      },
+      "ground_contact_heading_geometry": {
+        "threshold_upward_force_n": 5.0,
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 235,
+              "eligible_samples": 513,
+              "valid_fraction": 0.4580896686159844,
+              "signed_circular_mean_deg": -19.189523605998573,
+              "mean_absolute_deg": 19.184985448588034,
+              "absolute_p95_deg": 26.280402788181128
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 235,
+              "eligible_samples": 513,
+              "valid_fraction": 0.4580896686159844,
+              "signed_circular_mean_deg": -17.557018189302983,
+              "mean_absolute_deg": 22.978300397170603,
+              "absolute_p95_deg": 64.52949677850238
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 124,
+              "eligible_samples": 513,
+              "valid_fraction": 0.24171539961013644,
+              "signed_circular_mean_deg": -17.449626527115548,
+              "mean_absolute_deg": 17.44749628074445,
+              "absolute_p95_deg": 26.67775292235936
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 124,
+              "eligible_samples": 513,
+              "valid_fraction": 0.24171539961013644,
+              "signed_circular_mean_deg": -8.566693088786538,
+              "mean_absolute_deg": 13.439884341324015,
+              "absolute_p95_deg": 37.993082961304594
+            }
+          }
+        },
+        "measured_contact_gate_applied": true,
+        "contact_fraction_left_right": [
+          0.4580896686159844,
+          0.24171539961013644
+        ]
+      },
+      "ground_contact_lateral_slip_m_s": {
+        "left": 0.7089656622879319,
+        "right": 0.3931173256832741
+      },
+      "heading_offset_is_mismatch": false,
+      "height_or_flight_failure_gate": false,
+      "xy_screen_limits_m": {
+        "rmse": 0.15,
+        "peak": 0.3
+      },
+      "canonical_metrics_recomputed_exactly": true,
+      "source_physical_trace_sha256": "e70b1b618deed46712685d2dec91e2117b908bbf76637889e2aed60184fe5138",
+      "source_physical_report_sha256": "a2582421f98aa91a3162be61a62a2cf76c418270c3e4b225fa085aa3159da04b",
+      "posture_diagnostics_not_failure_gate": {
+        "max_base_tilt_deg": 7.5727061222075145,
+        "fraction_tilt_over_60_deg": 0.0,
+        "interval": "entire recorded first episode, not only the declared core",
+        "role": "Posture diagnostic, not a height/flight failure gate or controlled-execution certificate",
+        "heading_geometry_caveat": "World-XY projected beta/gamma are not reward body-frame beta under pitch/roll; interpret large-tilt geometry cautiously"
+      },
+      "reported_source_provenance": {
+        "evaluator_source_sha256": "76d78337d70519693bc7e8d819a6523a800e1e4889de5a0466c2d34356d2ae9d",
+        "drift_module_sha256": "5fee46238c825a2bcf474e969e93af65834aa1302ce857aa1c553e8a9fbaefaa",
+        "contact_slip_helper_sha256": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4"
+      },
+      "original_float64_reference_replay": {
+        "legacy_robot_reference_float64_metrics": {
+          "reference_xy_rmse_m": 0.027496626450022654,
+          "reference_xy_peak_m": 0.047218496781522415
+        },
+        "canonical_motion_float32_metrics": {
+          "reference_xy_rmse_m": 0.027496620754728696,
+          "reference_xy_peak_m": 0.04721848289706446
+        },
+        "absolute_metric_changes_m": {
+          "reference_xy_rmse_m": 5.6952939586629725e-09,
+          "reference_xy_peak_m": 1.3884457958357466e-08
+        },
+        "analytic_reference_bound_m": 2.395130692124446e-07,
+        "float64_roundoff_allowance_m": 6.252112499602717e-11,
+        "combined_metric_change_bound_m": 2.3957559033744064e-07,
+        "roundoff_rule": "8 * gamma_(16*N+64) * max(1, maximum absolute measured/reference XY coordinate), binary64 epsilon; not fitted to metric differences",
+        "xy_screen_unchanged": true,
+        "legacy_xy_screen": false,
+        "canonical_xy_screen": false,
+        "historical_metrics_overwritten": false,
+        "raw_xy_translation_rotation_or_time_warp_applied": false
+      }
+    },
+    {
+      "mu": 0.3,
+      "label": "PPO_mu0p300_isaac",
+      "engine": "PhysX",
+      "training_engine": "PhysX",
+      "window_s": [
+        1.44,
+        4.0
+      ],
+      "coverage_complete": true,
+      "samples_in_window": 513,
+      "reference_xy_rmse_m": 0.020955607784267707,
+      "reference_xy_peak_m": 0.04159285889817459,
+      "large_xy_exploratory_screen": false,
+      "mean_speed_m_s": 1.0416560766198,
+      "reference_mean_speed_m_s": 1.0283094526778487,
+      "mean_speed_retention_ratio": 1.012979190171981,
+      "fraction_below_80pct_reference_speed": 0.0,
+      "net_course_change_deg": 68.73605390015102,
+      "heading_geometry": {
+        "root_directed_beta": {
+          "valid_samples": 513,
+          "eligible_samples": 513,
+          "valid_fraction": 1.0,
+          "signed_circular_mean_deg": -19.421978629535825,
+          "mean_absolute_deg": 19.415994119443564,
+          "absolute_p95_deg": 28.232333702341524
+        },
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -19.338426940866345,
+              "mean_absolute_deg": 19.31508521154117,
+              "absolute_p95_deg": 28.286755344422254
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 511,
+              "eligible_samples": 513,
+              "valid_fraction": 0.9961013645224172,
+              "signed_circular_mean_deg": -18.54809659734123,
+              "mean_absolute_deg": 26.648402925645847,
+              "absolute_p95_deg": 70.36498336041602
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -19.411273525395973,
+              "mean_absolute_deg": 19.387441835967582,
+              "absolute_p95_deg": 28.209431086545656
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 512,
+              "eligible_samples": 513,
+              "valid_fraction": 0.9980506822612085,
+              "signed_circular_mean_deg": -14.578197875532366,
+              "mean_absolute_deg": 21.58585068266673,
+              "absolute_p95_deg": 53.73614742566054
+            }
+          }
+        },
+        "measured_contact_gate_applied": false
+      },
+      "ground_contact_heading_geometry": {
+        "threshold_upward_force_n": 5.0,
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 172,
+              "eligible_samples": 513,
+              "valid_fraction": 0.33528265107212474,
+              "signed_circular_mean_deg": -21.598300624487464,
+              "mean_absolute_deg": 21.565415679943783,
+              "absolute_p95_deg": 29.85073172907363
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 171,
+              "eligible_samples": 513,
+              "valid_fraction": 0.3333333333333333,
+              "signed_circular_mean_deg": -21.15805225959795,
+              "mean_absolute_deg": 24.02538587955877,
+              "absolute_p95_deg": 63.79519428167481
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 151,
+              "eligible_samples": 513,
+              "valid_fraction": 0.29434697855750486,
+              "signed_circular_mean_deg": -18.219247369451075,
+              "mean_absolute_deg": 18.199729113631562,
+              "absolute_p95_deg": 27.64524462414946
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 151,
+              "eligible_samples": 513,
+              "valid_fraction": 0.29434697855750486,
+              "signed_circular_mean_deg": -8.505157957679053,
+              "mean_absolute_deg": 11.866837757785635,
+              "absolute_p95_deg": 33.990197459586845
+            }
+          }
+        },
+        "measured_contact_gate_applied": true,
+        "contact_fraction_left_right": [
+          0.33528265107212474,
+          0.29434697855750486
+        ]
+      },
+      "ground_contact_lateral_slip_m_s": {
+        "left": 0.5991093966355223,
+        "right": 0.37431158078083493
+      },
+      "heading_offset_is_mismatch": false,
+      "height_or_flight_failure_gate": false,
+      "xy_screen_limits_m": {
+        "rmse": 0.15,
+        "peak": 0.3
+      },
+      "canonical_metrics_recomputed_exactly": true,
+      "source_physical_trace_sha256": "0aadb6d088544bc1f68341a80f1813d74ee785f5580b6200992ed0d20772fdc2",
+      "source_physical_report_sha256": "5a57e4a06c9ecedc08cdc98e2d5604dcfc04b9cdece326ec452a74c37b2c18d1",
+      "posture_diagnostics_not_failure_gate": {
+        "max_base_tilt_deg": 5.777726183488055,
+        "fraction_tilt_over_60_deg": 0.0,
+        "interval": "entire recorded first episode, not only the declared core",
+        "role": "Posture diagnostic, not a height/flight failure gate or controlled-execution certificate",
+        "heading_geometry_caveat": "World-XY projected beta/gamma are not reward body-frame beta under pitch/roll; interpret large-tilt geometry cautiously"
+      },
+      "reported_source_provenance": {
+        "evaluator_source_sha256": "76d78337d70519693bc7e8d819a6523a800e1e4889de5a0466c2d34356d2ae9d",
+        "drift_module_sha256": "5fee46238c825a2bcf474e969e93af65834aa1302ce857aa1c553e8a9fbaefaa",
+        "contact_slip_helper_sha256": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4"
+      },
+      "original_float64_reference_replay": {
+        "legacy_robot_reference_float64_metrics": {
+          "reference_xy_rmse_m": 0.020955610117975445,
+          "reference_xy_peak_m": 0.041592901618630544
+        },
+        "canonical_motion_float32_metrics": {
+          "reference_xy_rmse_m": 0.020955607784267707,
+          "reference_xy_peak_m": 0.04159285889817459
+        },
+        "absolute_metric_changes_m": {
+          "reference_xy_rmse_m": 2.3337077374729898e-09,
+          "reference_xy_peak_m": 4.272045595749008e-08
+        },
+        "analytic_reference_bound_m": 2.395130692124446e-07,
+        "float64_roundoff_allowance_m": 6.176873120536446e-11,
+        "combined_metric_change_bound_m": 2.3957483794364996e-07,
+        "roundoff_rule": "8 * gamma_(16*N+64) * max(1, maximum absolute measured/reference XY coordinate), binary64 epsilon; not fitted to metric differences",
+        "xy_screen_unchanged": true,
+        "legacy_xy_screen": false,
+        "canonical_xy_screen": false,
+        "historical_metrics_overwritten": false,
+        "raw_xy_translation_rotation_or_time_warp_applied": false
+      }
+    },
+    {
+      "mu": 0.45,
+      "label": "PPO_mu0p450_isaac",
+      "engine": "PhysX",
+      "training_engine": "PhysX",
+      "window_s": [
+        1.44,
+        4.0
+      ],
+      "coverage_complete": true,
+      "samples_in_window": 513,
+      "reference_xy_rmse_m": 0.04634124202770292,
+      "reference_xy_peak_m": 0.07519824183612767,
+      "large_xy_exploratory_screen": false,
+      "mean_speed_m_s": 1.028475880645944,
+      "reference_mean_speed_m_s": 1.0283094526778487,
+      "mean_speed_retention_ratio": 1.0001618461910098,
+      "fraction_below_80pct_reference_speed": 0.0,
+      "net_course_change_deg": 60.235343930536104,
+      "heading_geometry": {
+        "root_directed_beta": {
+          "valid_samples": 513,
+          "eligible_samples": 513,
+          "valid_fraction": 1.0,
+          "signed_circular_mean_deg": -19.492316150926648,
+          "mean_absolute_deg": 19.4884248356334,
+          "absolute_p95_deg": 27.64461966619496
+        },
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -19.500775893730548,
+              "mean_absolute_deg": 19.485774980876474,
+              "absolute_p95_deg": 27.779584865648868
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 506,
+              "eligible_samples": 513,
+              "valid_fraction": 0.98635477582846,
+              "signed_circular_mean_deg": -18.261872897257167,
+              "mean_absolute_deg": 23.520527702942548,
+              "absolute_p95_deg": 61.35069076015713
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -19.484095003828394,
+              "mean_absolute_deg": 19.468119313141255,
+              "absolute_p95_deg": 27.659961277415245
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 510,
+              "eligible_samples": 513,
+              "valid_fraction": 0.9941520467836257,
+              "signed_circular_mean_deg": -16.572317597847587,
+              "mean_absolute_deg": 22.952797503726703,
+              "absolute_p95_deg": 57.987042121658995
+            }
+          }
+        },
+        "measured_contact_gate_applied": false
+      },
+      "ground_contact_heading_geometry": {
+        "threshold_upward_force_n": 5.0,
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 181,
+              "eligible_samples": 513,
+              "valid_fraction": 0.35282651072124754,
+              "signed_circular_mean_deg": -21.71893273368091,
+              "mean_absolute_deg": 21.698222017952354,
+              "absolute_p95_deg": 28.266600325542083
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 175,
+              "eligible_samples": 513,
+              "valid_fraction": 0.341130604288499,
+              "signed_circular_mean_deg": -14.183099035702057,
+              "mean_absolute_deg": 17.485013466397955,
+              "absolute_p95_deg": 54.69525364597289
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 188,
+              "eligible_samples": 513,
+              "valid_fraction": 0.3664717348927875,
+              "signed_circular_mean_deg": -17.858762682976696,
+              "mean_absolute_deg": 17.85150293307165,
+              "absolute_p95_deg": 25.702533666258116
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 188,
+              "eligible_samples": 513,
+              "valid_fraction": 0.3664717348927875,
+              "signed_circular_mean_deg": -4.6028085771121185,
+              "mean_absolute_deg": 10.457382381684946,
+              "absolute_p95_deg": 32.186667920837024
+            }
+          }
+        },
+        "measured_contact_gate_applied": true,
+        "contact_fraction_left_right": [
+          0.35282651072124754,
+          0.3664717348927875
+        ]
+      },
+      "ground_contact_lateral_slip_m_s": {
+        "left": 0.43406120634725365,
+        "right": 0.3590331342260607
+      },
+      "heading_offset_is_mismatch": false,
+      "height_or_flight_failure_gate": false,
+      "xy_screen_limits_m": {
+        "rmse": 0.15,
+        "peak": 0.3
+      },
+      "canonical_metrics_recomputed_exactly": true,
+      "source_physical_trace_sha256": "379d5216f59e45ec177ec5667d0c272499518968ef59dd81f59045b28427367d",
+      "source_physical_report_sha256": "d241337cde7e208848b6ab6374a942eccc459b763084d6a048fec217876c1251",
+      "posture_diagnostics_not_failure_gate": {
+        "max_base_tilt_deg": 5.834020560282804,
+        "fraction_tilt_over_60_deg": 0.0,
+        "interval": "entire recorded first episode, not only the declared core",
+        "role": "Posture diagnostic, not a height/flight failure gate or controlled-execution certificate",
+        "heading_geometry_caveat": "World-XY projected beta/gamma are not reward body-frame beta under pitch/roll; interpret large-tilt geometry cautiously"
+      },
+      "reported_source_provenance": {
+        "evaluator_source_sha256": "76d78337d70519693bc7e8d819a6523a800e1e4889de5a0466c2d34356d2ae9d",
+        "drift_module_sha256": "5fee46238c825a2bcf474e969e93af65834aa1302ce857aa1c553e8a9fbaefaa",
+        "contact_slip_helper_sha256": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4"
+      },
+      "original_float64_reference_replay": {
+        "legacy_robot_reference_float64_metrics": {
+          "reference_xy_rmse_m": 0.046341240118936824,
+          "reference_xy_peak_m": 0.07519828112122783
+        },
+        "canonical_motion_float32_metrics": {
+          "reference_xy_rmse_m": 0.04634124202770292,
+          "reference_xy_peak_m": 0.07519824183612767
+        },
+        "absolute_metric_changes_m": {
+          "reference_xy_rmse_m": 1.9087660965699804e-09,
+          "reference_xy_peak_m": 3.9285100159047737e-08
+        },
+        "analytic_reference_bound_m": 2.395130692124446e-07,
+        "float64_roundoff_allowance_m": 6.181504319655194e-11,
+        "combined_metric_change_bound_m": 2.3957488425564116e-07,
+        "roundoff_rule": "8 * gamma_(16*N+64) * max(1, maximum absolute measured/reference XY coordinate), binary64 epsilon; not fitted to metric differences",
+        "xy_screen_unchanged": true,
+        "legacy_xy_screen": false,
+        "canonical_xy_screen": false,
+        "historical_metrics_overwritten": false,
+        "raw_xy_translation_rotation_or_time_warp_applied": false
+      }
+    },
+    {
+      "mu": 0.6,
+      "label": "PPO_mu0p600_isaac",
+      "engine": "PhysX",
+      "training_engine": "PhysX",
+      "window_s": [
+        1.44,
+        4.0
+      ],
+      "coverage_complete": true,
+      "samples_in_window": 513,
+      "reference_xy_rmse_m": 0.04256053131755787,
+      "reference_xy_peak_m": 0.07068521524680765,
+      "large_xy_exploratory_screen": false,
+      "mean_speed_m_s": 1.028111746909921,
+      "reference_mean_speed_m_s": 1.0283094526778487,
+      "mean_speed_retention_ratio": 0.9998077370898295,
+      "fraction_below_80pct_reference_speed": 0.0,
+      "net_course_change_deg": 61.18961499047611,
+      "heading_geometry": {
+        "root_directed_beta": {
+          "valid_samples": 513,
+          "eligible_samples": 513,
+          "valid_fraction": 1.0,
+          "signed_circular_mean_deg": -18.69483009172769,
+          "mean_absolute_deg": 18.693950848473555,
+          "absolute_p95_deg": 28.246941848595416
+        },
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -18.685683165572893,
+              "mean_absolute_deg": 18.682971951922177,
+              "absolute_p95_deg": 28.25528018624557
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 504,
+              "eligible_samples": 513,
+              "valid_fraction": 0.9824561403508771,
+              "signed_circular_mean_deg": -18.58791022051107,
+              "mean_absolute_deg": 23.561242022375207,
+              "absolute_p95_deg": 62.467432388655595
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -18.66987057619113,
+              "mean_absolute_deg": 18.667358890088654,
+              "absolute_p95_deg": 28.25541907073403
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 509,
+              "eligible_samples": 513,
+              "valid_fraction": 0.9922027290448343,
+              "signed_circular_mean_deg": -15.924193675351956,
+              "mean_absolute_deg": 21.756825027644087,
+              "absolute_p95_deg": 58.285101838087044
+            }
+          }
+        },
+        "measured_contact_gate_applied": false
+      },
+      "ground_contact_heading_geometry": {
+        "threshold_upward_force_n": 5.0,
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 189,
+              "eligible_samples": 513,
+              "valid_fraction": 0.3684210526315789,
+              "signed_circular_mean_deg": -20.196524971052654,
+              "mean_absolute_deg": 20.190705383353386,
+              "absolute_p95_deg": 29.017600621733077
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 183,
+              "eligible_samples": 513,
+              "valid_fraction": 0.3567251461988304,
+              "signed_circular_mean_deg": -13.20515324842104,
+              "mean_absolute_deg": 17.433569876717563,
+              "absolute_p95_deg": 54.7146088548897
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 164,
+              "eligible_samples": 513,
+              "valid_fraction": 0.31968810916179335,
+              "signed_circular_mean_deg": -17.077716139308137,
+              "mean_absolute_deg": 17.07336431291502,
+              "absolute_p95_deg": 25.85607357476859
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 163,
+              "eligible_samples": 513,
+              "valid_fraction": 0.31773879142300193,
+              "signed_circular_mean_deg": -5.415672269101438,
+              "mean_absolute_deg": 6.519348496919231,
+              "absolute_p95_deg": 18.3230441202508
+            }
+          }
+        },
+        "measured_contact_gate_applied": true,
+        "contact_fraction_left_right": [
+          0.3684210526315789,
+          0.31968810916179335
+        ]
+      },
+      "ground_contact_lateral_slip_m_s": {
+        "left": 0.39777999140173803,
+        "right": 0.19433843454714225
+      },
+      "heading_offset_is_mismatch": false,
+      "height_or_flight_failure_gate": false,
+      "xy_screen_limits_m": {
+        "rmse": 0.15,
+        "peak": 0.3
+      },
+      "canonical_metrics_recomputed_exactly": true,
+      "source_physical_trace_sha256": "87d5da1a609580a8722dd6d9e1002bcfc966d37330a6d383ae30f09a9c975128",
+      "source_physical_report_sha256": "bb2841f62e9e1f5953c7255a2d719d6e9410195ca557a7eb702a9922938ea7f2",
+      "posture_diagnostics_not_failure_gate": {
+        "max_base_tilt_deg": 5.17394090117621,
+        "fraction_tilt_over_60_deg": 0.0,
+        "interval": "entire recorded first episode, not only the declared core",
+        "role": "Posture diagnostic, not a height/flight failure gate or controlled-execution certificate",
+        "heading_geometry_caveat": "World-XY projected beta/gamma are not reward body-frame beta under pitch/roll; interpret large-tilt geometry cautiously"
+      },
+      "reported_source_provenance": {
+        "evaluator_source_sha256": "76d78337d70519693bc7e8d819a6523a800e1e4889de5a0466c2d34356d2ae9d",
+        "drift_module_sha256": "5fee46238c825a2bcf474e969e93af65834aa1302ce857aa1c553e8a9fbaefaa",
+        "contact_slip_helper_sha256": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4"
+      },
+      "original_float64_reference_replay": {
+        "legacy_robot_reference_float64_metrics": {
+          "reference_xy_rmse_m": 0.04256053135647588,
+          "reference_xy_peak_m": 0.07068530080146589
+        },
+        "canonical_motion_float32_metrics": {
+          "reference_xy_rmse_m": 0.04256053131755787,
+          "reference_xy_peak_m": 0.07068521524680765
+        },
+        "absolute_metric_changes_m": {
+          "reference_xy_rmse_m": 3.891801464428468e-11,
+          "reference_xy_peak_m": 8.555465823290032e-08
+        },
+        "analytic_reference_bound_m": 2.395130692124446e-07,
+        "float64_roundoff_allowance_m": 6.211330255213391e-11,
+        "combined_metric_change_bound_m": 2.3957518251499674e-07,
+        "roundoff_rule": "8 * gamma_(16*N+64) * max(1, maximum absolute measured/reference XY coordinate), binary64 epsilon; not fitted to metric differences",
+        "xy_screen_unchanged": true,
+        "legacy_xy_screen": false,
+        "canonical_xy_screen": false,
+        "historical_metrics_overwritten": false,
+        "raw_xy_translation_rotation_or_time_warp_applied": false
+      }
+    },
+    {
+      "mu": 0.7,
+      "label": "PPO_mu0p700_isaac",
+      "engine": "PhysX",
+      "training_engine": "PhysX",
+      "window_s": [
+        1.44,
+        4.0
+      ],
+      "coverage_complete": true,
+      "samples_in_window": 513,
+      "reference_xy_rmse_m": 0.056502488325627764,
+      "reference_xy_peak_m": 0.10088279892710175,
+      "large_xy_exploratory_screen": false,
+      "mean_speed_m_s": 1.0222399004054141,
+      "reference_mean_speed_m_s": 1.0283094526778487,
+      "mean_speed_retention_ratio": 0.9940975430531843,
+      "fraction_below_80pct_reference_speed": 0.001949317738791423,
+      "net_course_change_deg": 52.048337958576724,
+      "heading_geometry": {
+        "root_directed_beta": {
+          "valid_samples": 513,
+          "eligible_samples": 513,
+          "valid_fraction": 1.0,
+          "signed_circular_mean_deg": -18.694439680473707,
+          "mean_absolute_deg": 18.692341602253716,
+          "absolute_p95_deg": 26.498425410660463
+        },
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -18.697030283805375,
+              "mean_absolute_deg": 18.689261492932648,
+              "absolute_p95_deg": 26.565445053874733
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 512,
+              "eligible_samples": 513,
+              "valid_fraction": 0.9980506822612085,
+              "signed_circular_mean_deg": -17.619403921341917,
+              "mean_absolute_deg": 23.67864789676286,
+              "absolute_p95_deg": 60.68701046406971
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -18.647922468732883,
+              "mean_absolute_deg": 18.639386021177614,
+              "absolute_p95_deg": 26.41848126241437
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 512,
+              "eligible_samples": 513,
+              "valid_fraction": 0.9980506822612085,
+              "signed_circular_mean_deg": -15.403220424148067,
+              "mean_absolute_deg": 22.681663127993346,
+              "absolute_p95_deg": 58.541302124783456
+            }
+          }
+        },
+        "measured_contact_gate_applied": false
+      },
+      "ground_contact_heading_geometry": {
+        "threshold_upward_force_n": 5.0,
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 142,
+              "eligible_samples": 513,
+              "valid_fraction": 0.27680311890838205,
+              "signed_circular_mean_deg": -18.986254811790783,
+              "mean_absolute_deg": 18.9792970928657,
+              "absolute_p95_deg": 26.159981852512075
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 142,
+              "eligible_samples": 513,
+              "valid_fraction": 0.27680311890838205,
+              "signed_circular_mean_deg": -8.663927929306247,
+              "mean_absolute_deg": 12.188026963005122,
+              "absolute_p95_deg": 35.15198692120805
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 206,
+              "eligible_samples": 513,
+              "valid_fraction": 0.4015594541910331,
+              "signed_circular_mean_deg": -17.529327710489028,
+              "mean_absolute_deg": 17.517548542899984,
+              "absolute_p95_deg": 25.342091467989214
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 206,
+              "eligible_samples": 513,
+              "valid_fraction": 0.4015594541910331,
+              "signed_circular_mean_deg": -5.20492747609116,
+              "mean_absolute_deg": 8.690845929440087,
+              "absolute_p95_deg": 28.911922467908962
+            }
+          }
+        },
+        "measured_contact_gate_applied": true,
+        "contact_fraction_left_right": [
+          0.27680311890838205,
+          0.4015594541910331
+        ]
+      },
+      "ground_contact_lateral_slip_m_s": {
+        "left": 0.3795039396256472,
+        "right": 0.2648455463576729
+      },
+      "heading_offset_is_mismatch": false,
+      "height_or_flight_failure_gate": false,
+      "xy_screen_limits_m": {
+        "rmse": 0.15,
+        "peak": 0.3
+      },
+      "canonical_metrics_recomputed_exactly": true,
+      "source_physical_trace_sha256": "858a4dc5b11230d1ac5a894c9528060de90570265ebdea50f20a48005a021d61",
+      "source_physical_report_sha256": "c4d9ab3d9b2e0e1401b78d472057968bcdbd4f36f301015443b205c5d3659e92",
+      "posture_diagnostics_not_failure_gate": {
+        "max_base_tilt_deg": 5.219793275247316,
+        "fraction_tilt_over_60_deg": 0.0,
+        "interval": "entire recorded first episode, not only the declared core",
+        "role": "Posture diagnostic, not a height/flight failure gate or controlled-execution certificate",
+        "heading_geometry_caveat": "World-XY projected beta/gamma are not reward body-frame beta under pitch/roll; interpret large-tilt geometry cautiously"
+      },
+      "reported_source_provenance": {
+        "evaluator_source_sha256": "76d78337d70519693bc7e8d819a6523a800e1e4889de5a0466c2d34356d2ae9d",
+        "drift_module_sha256": "5fee46238c825a2bcf474e969e93af65834aa1302ce857aa1c553e8a9fbaefaa",
+        "contact_slip_helper_sha256": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4"
+      },
+      "original_float64_reference_replay": {
+        "legacy_robot_reference_float64_metrics": {
+          "reference_xy_rmse_m": 0.05650248871327423,
+          "reference_xy_peak_m": 0.10088289791211602
+        },
+        "canonical_motion_float32_metrics": {
+          "reference_xy_rmse_m": 0.056502488325627764,
+          "reference_xy_peak_m": 0.10088279892710175
+        },
+        "absolute_metric_changes_m": {
+          "reference_xy_rmse_m": 3.876464635399479e-10,
+          "reference_xy_peak_m": 9.898501426852668e-08
+        },
+        "analytic_reference_bound_m": 2.395130692124446e-07,
+        "float64_roundoff_allowance_m": 6.176873120536446e-11,
+        "combined_metric_change_bound_m": 2.3957483794364996e-07,
+        "roundoff_rule": "8 * gamma_(16*N+64) * max(1, maximum absolute measured/reference XY coordinate), binary64 epsilon; not fitted to metric differences",
+        "xy_screen_unchanged": true,
+        "legacy_xy_screen": false,
+        "canonical_xy_screen": false,
+        "historical_metrics_overwritten": false,
+        "raw_xy_translation_rotation_or_time_warp_applied": false
+      }
+    },
+    {
+      "mu": 0.8,
+      "label": "PPO_mu0p800_isaac",
+      "engine": "PhysX",
+      "training_engine": "PhysX",
+      "window_s": [
+        1.44,
+        4.0
+      ],
+      "coverage_complete": true,
+      "samples_in_window": 513,
+      "reference_xy_rmse_m": 0.042151284486223274,
+      "reference_xy_peak_m": 0.07222786327387073,
+      "large_xy_exploratory_screen": false,
+      "mean_speed_m_s": 1.025345870020992,
+      "reference_mean_speed_m_s": 1.0283094526778487,
+      "mean_speed_retention_ratio": 0.9971180050429965,
+      "fraction_below_80pct_reference_speed": 0.0,
+      "net_course_change_deg": 50.185075303400225,
+      "heading_geometry": {
+        "root_directed_beta": {
+          "valid_samples": 513,
+          "eligible_samples": 513,
+          "valid_fraction": 1.0,
+          "signed_circular_mean_deg": -18.621642928981956,
+          "mean_absolute_deg": 18.618538488019638,
+          "absolute_p95_deg": 27.439861959538668
+        },
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -18.62107344676878,
+              "mean_absolute_deg": 18.608622692422397,
+              "absolute_p95_deg": 27.401200579726332
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -17.11547353248309,
+              "mean_absolute_deg": 22.506198115940318,
+              "absolute_p95_deg": 60.50818568186566
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -18.617509025513097,
+              "mean_absolute_deg": 18.605009197782394,
+              "absolute_p95_deg": 27.437566563534123
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 512,
+              "eligible_samples": 513,
+              "valid_fraction": 0.9980506822612085,
+              "signed_circular_mean_deg": -16.991066811404057,
+              "mean_absolute_deg": 22.61280627432786,
+              "absolute_p95_deg": 61.89236856695861
+            }
+          }
+        },
+        "measured_contact_gate_applied": false
+      },
+      "ground_contact_heading_geometry": {
+        "threshold_upward_force_n": 5.0,
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 170,
+              "eligible_samples": 513,
+              "valid_fraction": 0.3313840155945419,
+              "signed_circular_mean_deg": -20.138422788445208,
+              "mean_absolute_deg": 20.121548643589033,
+              "absolute_p95_deg": 27.674553904287766
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 170,
+              "eligible_samples": 513,
+              "valid_fraction": 0.3313840155945419,
+              "signed_circular_mean_deg": -8.449836163095028,
+              "mean_absolute_deg": 12.764549377121293,
+              "absolute_p95_deg": 40.23853560669856
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 155,
+              "eligible_samples": 513,
+              "valid_fraction": 0.30214424951267055,
+              "signed_circular_mean_deg": -16.76490503686187,
+              "mean_absolute_deg": 16.762185769420597,
+              "absolute_p95_deg": 27.210217410585035
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 155,
+              "eligible_samples": 513,
+              "valid_fraction": 0.30214424951267055,
+              "signed_circular_mean_deg": -6.087715128385081,
+              "mean_absolute_deg": 8.891918693621847,
+              "absolute_p95_deg": 35.00870828558966
+            }
+          }
+        },
+        "measured_contact_gate_applied": true,
+        "contact_fraction_left_right": [
+          0.3313840155945419,
+          0.30214424951267055
+        ]
+      },
+      "ground_contact_lateral_slip_m_s": {
+        "left": 0.3183644762237864,
+        "right": 0.30369048611573884
+      },
+      "heading_offset_is_mismatch": false,
+      "height_or_flight_failure_gate": false,
+      "xy_screen_limits_m": {
+        "rmse": 0.15,
+        "peak": 0.3
+      },
+      "canonical_metrics_recomputed_exactly": true,
+      "source_physical_trace_sha256": "e1b1d2894366b43b493b047d3f979dc7fe76a8bcdfb2c5e032aaba036f14b89b",
+      "source_physical_report_sha256": "462aa49bbac858b56619696ed988d8ab39c60146d1b3ab2a77e566b90b268b92",
+      "posture_diagnostics_not_failure_gate": {
+        "max_base_tilt_deg": 5.3143668774168304,
+        "fraction_tilt_over_60_deg": 0.0,
+        "interval": "entire recorded first episode, not only the declared core",
+        "role": "Posture diagnostic, not a height/flight failure gate or controlled-execution certificate",
+        "heading_geometry_caveat": "World-XY projected beta/gamma are not reward body-frame beta under pitch/roll; interpret large-tilt geometry cautiously"
+      },
+      "reported_source_provenance": {
+        "evaluator_source_sha256": "76d78337d70519693bc7e8d819a6523a800e1e4889de5a0466c2d34356d2ae9d",
+        "drift_module_sha256": "5fee46238c825a2bcf474e969e93af65834aa1302ce857aa1c553e8a9fbaefaa",
+        "contact_slip_helper_sha256": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4"
+      },
+      "original_float64_reference_replay": {
+        "legacy_robot_reference_float64_metrics": {
+          "reference_xy_rmse_m": 0.04215128401538477,
+          "reference_xy_peak_m": 0.07222791352543878
+        },
+        "canonical_motion_float32_metrics": {
+          "reference_xy_rmse_m": 0.042151284486223274,
+          "reference_xy_peak_m": 0.07222786327387073
+        },
+        "absolute_metric_changes_m": {
+          "reference_xy_rmse_m": 4.708385070717469e-10,
+          "reference_xy_peak_m": 5.0251568045611705e-08
+        },
+        "analytic_reference_bound_m": 2.395130692124446e-07,
+        "float64_roundoff_allowance_m": 6.17839406481722e-11,
+        "combined_metric_change_bound_m": 2.395748531530928e-07,
+        "roundoff_rule": "8 * gamma_(16*N+64) * max(1, maximum absolute measured/reference XY coordinate), binary64 epsilon; not fitted to metric differences",
+        "xy_screen_unchanged": true,
+        "legacy_xy_screen": false,
+        "canonical_xy_screen": false,
+        "historical_metrics_overwritten": false,
+        "raw_xy_translation_rotation_or_time_warp_applied": false
+      }
+    },
+    {
+      "mu": 1.0,
+      "label": "PPO_mu1p000_isaac",
+      "engine": "PhysX",
+      "training_engine": "PhysX",
+      "window_s": [
+        1.44,
+        4.0
+      ],
+      "coverage_complete": true,
+      "samples_in_window": 513,
+      "reference_xy_rmse_m": 0.041821855065658387,
+      "reference_xy_peak_m": 0.06281772752847951,
+      "large_xy_exploratory_screen": false,
+      "mean_speed_m_s": 1.030356691367684,
+      "reference_mean_speed_m_s": 1.0283094526778487,
+      "mean_speed_retention_ratio": 1.0019908780226654,
+      "fraction_below_80pct_reference_speed": 0.0,
+      "net_course_change_deg": 71.57407572141291,
+      "heading_geometry": {
+        "root_directed_beta": {
+          "valid_samples": 513,
+          "eligible_samples": 513,
+          "valid_fraction": 1.0,
+          "signed_circular_mean_deg": -18.935516892196706,
+          "mean_absolute_deg": 18.935953278866787,
+          "absolute_p95_deg": 28.665075616111654
+        },
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -18.938152313353015,
+              "mean_absolute_deg": 18.940075397713663,
+              "absolute_p95_deg": 28.556040545126386
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 503,
+              "eligible_samples": 513,
+              "valid_fraction": 0.9805068226120858,
+              "signed_circular_mean_deg": -18.901068223979554,
+              "mean_absolute_deg": 25.530604729754913,
+              "absolute_p95_deg": 64.13623887262263
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -18.917144623216366,
+              "mean_absolute_deg": 18.91890810542869,
+              "absolute_p95_deg": 28.653958498780725
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -17.415311946657404,
+              "mean_absolute_deg": 22.9878074350413,
+              "absolute_p95_deg": 56.62378717652542
+            }
+          }
+        },
+        "measured_contact_gate_applied": false
+      },
+      "ground_contact_heading_geometry": {
+        "threshold_upward_force_n": 5.0,
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 139,
+              "eligible_samples": 513,
+              "valid_fraction": 0.2709551656920078,
+              "signed_circular_mean_deg": -20.60249404985523,
+              "mean_absolute_deg": 20.605782967029157,
+              "absolute_p95_deg": 29.933468964719804
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 136,
+              "eligible_samples": 513,
+              "valid_fraction": 0.2651072124756335,
+              "signed_circular_mean_deg": -10.189980593955386,
+              "mean_absolute_deg": 14.863022049814004,
+              "absolute_p95_deg": 44.96566122851022
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 189,
+              "eligible_samples": 513,
+              "valid_fraction": 0.3684210526315789,
+              "signed_circular_mean_deg": -17.40492586454075,
+              "mean_absolute_deg": 17.408101702258257,
+              "absolute_p95_deg": 28.283052856764613
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 189,
+              "eligible_samples": 513,
+              "valid_fraction": 0.3684210526315789,
+              "signed_circular_mean_deg": -6.083714381548811,
+              "mean_absolute_deg": 7.6281479283571265,
+              "absolute_p95_deg": 27.902611328661873
+            }
+          }
+        },
+        "measured_contact_gate_applied": true,
+        "contact_fraction_left_right": [
+          0.2709551656920078,
+          0.3684210526315789
+        ]
+      },
+      "ground_contact_lateral_slip_m_s": {
+        "left": 0.4108532168672851,
+        "right": 0.2869656798259408
+      },
+      "heading_offset_is_mismatch": false,
+      "height_or_flight_failure_gate": false,
+      "xy_screen_limits_m": {
+        "rmse": 0.15,
+        "peak": 0.3
+      },
+      "canonical_metrics_recomputed_exactly": true,
+      "source_physical_trace_sha256": "97263fd278a7bdad418a4f79f2f4482e3dfdcd141f6585102df5b9c1b3f5125d",
+      "source_physical_report_sha256": "3a3906d470d48ffcf26a373a5746629244b0d8b2f60f138ff4615771278e45a9",
+      "posture_diagnostics_not_failure_gate": {
+        "max_base_tilt_deg": 5.422961161525315,
+        "fraction_tilt_over_60_deg": 0.0,
+        "interval": "entire recorded first episode, not only the declared core",
+        "role": "Posture diagnostic, not a height/flight failure gate or controlled-execution certificate",
+        "heading_geometry_caveat": "World-XY projected beta/gamma are not reward body-frame beta under pitch/roll; interpret large-tilt geometry cautiously"
+      },
+      "reported_source_provenance": {
+        "evaluator_source_sha256": "76d78337d70519693bc7e8d819a6523a800e1e4889de5a0466c2d34356d2ae9d",
+        "drift_module_sha256": "5fee46238c825a2bcf474e969e93af65834aa1302ce857aa1c553e8a9fbaefaa",
+        "contact_slip_helper_sha256": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4"
+      },
+      "original_float64_reference_replay": {
+        "legacy_robot_reference_float64_metrics": {
+          "reference_xy_rmse_m": 0.041821853239752786,
+          "reference_xy_peak_m": 0.06281765096304467
+        },
+        "canonical_motion_float32_metrics": {
+          "reference_xy_rmse_m": 0.041821855065658387,
+          "reference_xy_peak_m": 0.06281772752847951
+        },
+        "absolute_metric_changes_m": {
+          "reference_xy_rmse_m": 1.825905600327804e-09,
+          "reference_xy_peak_m": 7.656543483947065e-08
+        },
+        "analytic_reference_bound_m": 2.395130692124446e-07,
+        "float64_roundoff_allowance_m": 6.176873120536446e-11,
+        "combined_metric_change_bound_m": 2.3957483794364996e-07,
+        "roundoff_rule": "8 * gamma_(16*N+64) * max(1, maximum absolute measured/reference XY coordinate), binary64 epsilon; not fitted to metric differences",
+        "xy_screen_unchanged": true,
+        "legacy_xy_screen": false,
+        "canonical_xy_screen": false,
+        "historical_metrics_overwritten": false,
+        "raw_xy_translation_rotation_or_time_warp_applied": false
+      }
+    },
+    {
+      "mu": 1.2,
+      "label": "PPO_mu1p200_isaac",
+      "engine": "PhysX",
+      "training_engine": "PhysX",
+      "window_s": [
+        1.44,
+        4.0
+      ],
+      "coverage_complete": true,
+      "samples_in_window": 513,
+      "reference_xy_rmse_m": 0.03874317397924482,
+      "reference_xy_peak_m": 0.06452576775125625,
+      "large_xy_exploratory_screen": false,
+      "mean_speed_m_s": 1.0265580009746234,
+      "reference_mean_speed_m_s": 1.0283094526778487,
+      "mean_speed_retention_ratio": 0.9982967659213242,
+      "fraction_below_80pct_reference_speed": 0.0,
+      "net_course_change_deg": 57.94117352835928,
+      "heading_geometry": {
+        "root_directed_beta": {
+          "valid_samples": 513,
+          "eligible_samples": 513,
+          "valid_fraction": 1.0,
+          "signed_circular_mean_deg": -18.931872966792042,
+          "mean_absolute_deg": 18.927123574368345,
+          "absolute_p95_deg": 29.76991895978617
+        },
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -18.923148700756567,
+              "mean_absolute_deg": 18.903476171092084,
+              "absolute_p95_deg": 29.705700505651052
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 510,
+              "eligible_samples": 513,
+              "valid_fraction": 0.9941520467836257,
+              "signed_circular_mean_deg": -17.84318739066591,
+              "mean_absolute_deg": 25.636470271739356,
+              "absolute_p95_deg": 71.74250210971653
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -18.931596657414538,
+              "mean_absolute_deg": 18.91209431377388,
+              "absolute_p95_deg": 29.770696129444662
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 511,
+              "eligible_samples": 513,
+              "valid_fraction": 0.9961013645224172,
+              "signed_circular_mean_deg": -17.336193990744285,
+              "mean_absolute_deg": 24.03515096524446,
+              "absolute_p95_deg": 56.22953049196191
+            }
+          }
+        },
+        "measured_contact_gate_applied": false
+      },
+      "ground_contact_heading_geometry": {
+        "threshold_upward_force_n": 5.0,
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 148,
+              "eligible_samples": 513,
+              "valid_fraction": 0.2884990253411306,
+              "signed_circular_mean_deg": -20.412736929527316,
+              "mean_absolute_deg": 20.38391456176566,
+              "absolute_p95_deg": 31.055439168682437
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 146,
+              "eligible_samples": 513,
+              "valid_fraction": 0.28460038986354774,
+              "signed_circular_mean_deg": -7.39683223053198,
+              "mean_absolute_deg": 12.301321316950062,
+              "absolute_p95_deg": 46.346709455290316
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 162,
+              "eligible_samples": 513,
+              "valid_fraction": 0.3157894736842105,
+              "signed_circular_mean_deg": -17.248769921547698,
+              "mean_absolute_deg": 17.222621129689355,
+              "absolute_p95_deg": 28.012934906723952
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 162,
+              "eligible_samples": 513,
+              "valid_fraction": 0.3157894736842105,
+              "signed_circular_mean_deg": -6.590506377514883,
+              "mean_absolute_deg": 10.102044410365886,
+              "absolute_p95_deg": 36.47636712883442
+            }
+          }
+        },
+        "measured_contact_gate_applied": true,
+        "contact_fraction_left_right": [
+          0.2884990253411306,
+          0.3157894736842105
+        ]
+      },
+      "ground_contact_lateral_slip_m_s": {
+        "left": 0.3499083281202013,
+        "right": 0.4935959794900164
+      },
+      "heading_offset_is_mismatch": false,
+      "height_or_flight_failure_gate": false,
+      "xy_screen_limits_m": {
+        "rmse": 0.15,
+        "peak": 0.3
+      },
+      "canonical_metrics_recomputed_exactly": true,
+      "source_physical_trace_sha256": "e3f0b10f763781dd67225d29dc4c159a2fe5945b126b9fd40ff0cbc5a0d0c337",
+      "source_physical_report_sha256": "bab25bb4654ae76a7b7849f805c984d7e4117a5ffd91e8e9aba00a25b5352f00",
+      "posture_diagnostics_not_failure_gate": {
+        "max_base_tilt_deg": 5.384367031202751,
+        "fraction_tilt_over_60_deg": 0.0,
+        "interval": "entire recorded first episode, not only the declared core",
+        "role": "Posture diagnostic, not a height/flight failure gate or controlled-execution certificate",
+        "heading_geometry_caveat": "World-XY projected beta/gamma are not reward body-frame beta under pitch/roll; interpret large-tilt geometry cautiously"
+      },
+      "reported_source_provenance": {
+        "evaluator_source_sha256": "76d78337d70519693bc7e8d819a6523a800e1e4889de5a0466c2d34356d2ae9d",
+        "drift_module_sha256": "5fee46238c825a2bcf474e969e93af65834aa1302ce857aa1c553e8a9fbaefaa",
+        "contact_slip_helper_sha256": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4"
+      },
+      "original_float64_reference_replay": {
+        "legacy_robot_reference_float64_metrics": {
+          "reference_xy_rmse_m": 0.038743173518562615,
+          "reference_xy_peak_m": 0.06452584196049799
+        },
+        "canonical_motion_float32_metrics": {
+          "reference_xy_rmse_m": 0.03874317397924482,
+          "reference_xy_peak_m": 0.06452576775125625
+        },
+        "absolute_metric_changes_m": {
+          "reference_xy_rmse_m": 4.606822076591577e-10,
+          "reference_xy_peak_m": 7.420924173773269e-08
+        },
+        "analytic_reference_bound_m": 2.395130692124446e-07,
+        "float64_roundoff_allowance_m": 6.176873120536446e-11,
+        "combined_metric_change_bound_m": 2.3957483794364996e-07,
+        "roundoff_rule": "8 * gamma_(16*N+64) * max(1, maximum absolute measured/reference XY coordinate), binary64 epsilon; not fitted to metric differences",
+        "xy_screen_unchanged": true,
+        "legacy_xy_screen": false,
+        "canonical_xy_screen": false,
+        "historical_metrics_overwritten": false,
+        "raw_xy_translation_rotation_or_time_warp_applied": false
+      }
+    },
+    {
+      "mu": 1.4,
+      "label": "PPO_mu1p400_isaac",
+      "engine": "PhysX",
+      "training_engine": "PhysX",
+      "window_s": [
+        1.44,
+        4.0
+      ],
+      "coverage_complete": true,
+      "samples_in_window": 513,
+      "reference_xy_rmse_m": 0.03206782252845862,
+      "reference_xy_peak_m": 0.054882626146205225,
+      "large_xy_exploratory_screen": false,
+      "mean_speed_m_s": 1.0329092039928591,
+      "reference_mean_speed_m_s": 1.0283094526778487,
+      "mean_speed_retention_ratio": 1.0044731197433148,
+      "fraction_below_80pct_reference_speed": 0.0,
+      "net_course_change_deg": 62.80408791891273,
+      "heading_geometry": {
+        "root_directed_beta": {
+          "valid_samples": 513,
+          "eligible_samples": 513,
+          "valid_fraction": 1.0,
+          "signed_circular_mean_deg": -18.34246475409276,
+          "mean_absolute_deg": 18.34038617374407,
+          "absolute_p95_deg": 28.38199841319329
+        },
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -18.30952051531067,
+              "mean_absolute_deg": 18.30138637577028,
+              "absolute_p95_deg": 28.249126160441193
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 511,
+              "eligible_samples": 513,
+              "valid_fraction": 0.9961013645224172,
+              "signed_circular_mean_deg": -16.775183520950385,
+              "mean_absolute_deg": 23.970382033301725,
+              "absolute_p95_deg": 66.82292114930523
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -18.324158392830387,
+              "mean_absolute_deg": 18.315749640072017,
+              "absolute_p95_deg": 28.351294763118563
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 511,
+              "eligible_samples": 513,
+              "valid_fraction": 0.9961013645224172,
+              "signed_circular_mean_deg": -16.112372217276693,
+              "mean_absolute_deg": 21.683355879202907,
+              "absolute_p95_deg": 57.62593400499719
+            }
+          }
+        },
+        "measured_contact_gate_applied": false
+      },
+      "ground_contact_heading_geometry": {
+        "threshold_upward_force_n": 5.0,
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 166,
+              "eligible_samples": 513,
+              "valid_fraction": 0.3235867446393762,
+              "signed_circular_mean_deg": -19.381421007785463,
+              "mean_absolute_deg": 19.3780582992862,
+              "absolute_p95_deg": 27.35186798222578
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 165,
+              "eligible_samples": 513,
+              "valid_fraction": 0.3216374269005848,
+              "signed_circular_mean_deg": -7.425350180732011,
+              "mean_absolute_deg": 11.824166092892419,
+              "absolute_p95_deg": 45.3737293577986
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 190,
+              "eligible_samples": 513,
+              "valid_fraction": 0.37037037037037035,
+              "signed_circular_mean_deg": -16.87020879902888,
+              "mean_absolute_deg": 16.856624994883806,
+              "absolute_p95_deg": 25.508287014861246
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 189,
+              "eligible_samples": 513,
+              "valid_fraction": 0.3684210526315789,
+              "signed_circular_mean_deg": -6.19838005133224,
+              "mean_absolute_deg": 7.962344999918379,
+              "absolute_p95_deg": 23.38704320440713
+            }
+          }
+        },
+        "measured_contact_gate_applied": true,
+        "contact_fraction_left_right": [
+          0.3235867446393762,
+          0.37037037037037035
+        ]
+      },
+      "ground_contact_lateral_slip_m_s": {
+        "left": 0.3919715140129588,
+        "right": 0.22007959688513434
+      },
+      "heading_offset_is_mismatch": false,
+      "height_or_flight_failure_gate": false,
+      "xy_screen_limits_m": {
+        "rmse": 0.15,
+        "peak": 0.3
+      },
+      "canonical_metrics_recomputed_exactly": true,
+      "source_physical_trace_sha256": "31e8f4d94d7682ef96a5e416b4224b4d1a1849f63cdb7afd28f6089f2e350656",
+      "source_physical_report_sha256": "0a55c5a9e7dd80ee04b57a0e52c81769b23773a603842ad1ed860439056d2fd8",
+      "posture_diagnostics_not_failure_gate": {
+        "max_base_tilt_deg": 5.513167239789261,
+        "fraction_tilt_over_60_deg": 0.0,
+        "interval": "entire recorded first episode, not only the declared core",
+        "role": "Posture diagnostic, not a height/flight failure gate or controlled-execution certificate",
+        "heading_geometry_caveat": "World-XY projected beta/gamma are not reward body-frame beta under pitch/roll; interpret large-tilt geometry cautiously"
+      },
+      "reported_source_provenance": {
+        "evaluator_source_sha256": "76d78337d70519693bc7e8d819a6523a800e1e4889de5a0466c2d34356d2ae9d",
+        "drift_module_sha256": "5fee46238c825a2bcf474e969e93af65834aa1302ce857aa1c553e8a9fbaefaa",
+        "contact_slip_helper_sha256": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4"
+      },
+      "original_float64_reference_replay": {
+        "legacy_robot_reference_float64_metrics": {
+          "reference_xy_rmse_m": 0.03206782399777527,
+          "reference_xy_peak_m": 0.0548827290397476
+        },
+        "canonical_motion_float32_metrics": {
+          "reference_xy_rmse_m": 0.03206782252845862,
+          "reference_xy_peak_m": 0.054882626146205225
+        },
+        "absolute_metric_changes_m": {
+          "reference_xy_rmse_m": 1.4693166475177044e-09,
+          "reference_xy_peak_m": 1.0289354237386084e-07
+        },
+        "analytic_reference_bound_m": 2.395130692124446e-07,
+        "float64_roundoff_allowance_m": 6.176873120536446e-11,
+        "combined_metric_change_bound_m": 2.3957483794364996e-07,
+        "roundoff_rule": "8 * gamma_(16*N+64) * max(1, maximum absolute measured/reference XY coordinate), binary64 epsilon; not fitted to metric differences",
+        "xy_screen_unchanged": true,
+        "legacy_xy_screen": false,
+        "canonical_xy_screen": false,
+        "historical_metrics_overwritten": false,
+        "raw_xy_translation_rotation_or_time_warp_applied": false
+      }
+    },
+    {
+      "mu": 1.6,
+      "label": "PPO_mu1p600_isaac",
+      "engine": "PhysX",
+      "training_engine": "PhysX",
+      "window_s": [
+        1.44,
+        4.0
+      ],
+      "coverage_complete": true,
+      "samples_in_window": 513,
+      "reference_xy_rmse_m": 0.03912950920714751,
+      "reference_xy_peak_m": 0.07042483963331933,
+      "large_xy_exploratory_screen": false,
+      "mean_speed_m_s": 1.0307855188020039,
+      "reference_mean_speed_m_s": 1.0283094526778487,
+      "mean_speed_retention_ratio": 1.0024078997987496,
+      "fraction_below_80pct_reference_speed": 0.0,
+      "net_course_change_deg": 62.00504793480603,
+      "heading_geometry": {
+        "root_directed_beta": {
+          "valid_samples": 513,
+          "eligible_samples": 513,
+          "valid_fraction": 1.0,
+          "signed_circular_mean_deg": -18.135079659588733,
+          "mean_absolute_deg": 18.133271758209847,
+          "absolute_p95_deg": 27.269668662527287
+        },
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -18.123094017133653,
+              "mean_absolute_deg": 18.116270244846437,
+              "absolute_p95_deg": 27.360653035968355
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 509,
+              "eligible_samples": 513,
+              "valid_fraction": 0.9922027290448343,
+              "signed_circular_mean_deg": -16.638134469333853,
+              "mean_absolute_deg": 23.082991748922417,
+              "absolute_p95_deg": 64.94287315977004
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -18.135264087983092,
+              "mean_absolute_deg": 18.127938954482087,
+              "absolute_p95_deg": 27.246111481270212
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 511,
+              "eligible_samples": 513,
+              "valid_fraction": 0.9961013645224172,
+              "signed_circular_mean_deg": -16.072177933578093,
+              "mean_absolute_deg": 22.08142662388708,
+              "absolute_p95_deg": 56.33636692865815
+            }
+          }
+        },
+        "measured_contact_gate_applied": false
+      },
+      "ground_contact_heading_geometry": {
+        "threshold_upward_force_n": 5.0,
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 160,
+              "eligible_samples": 513,
+              "valid_fraction": 0.31189083820662766,
+              "signed_circular_mean_deg": -19.069201078133187,
+              "mean_absolute_deg": 19.062616819317174,
+              "absolute_p95_deg": 27.00619122705941
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 157,
+              "eligible_samples": 513,
+              "valid_fraction": 0.3060428849902534,
+              "signed_circular_mean_deg": -5.984809604899159,
+              "mean_absolute_deg": 10.913263739766641,
+              "absolute_p95_deg": 38.240726691159736
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 183,
+              "eligible_samples": 513,
+              "valid_fraction": 0.3567251461988304,
+              "signed_circular_mean_deg": -16.29236317154147,
+              "mean_absolute_deg": 16.291247531305565,
+              "absolute_p95_deg": 25.446577337923447
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 183,
+              "eligible_samples": 513,
+              "valid_fraction": 0.3567251461988304,
+              "signed_circular_mean_deg": -5.960429587560915,
+              "mean_absolute_deg": 7.85479140955364,
+              "absolute_p95_deg": 19.58622343538228
+            }
+          }
+        },
+        "measured_contact_gate_applied": true,
+        "contact_fraction_left_right": [
+          0.31189083820662766,
+          0.3567251461988304
+        ]
+      },
+      "ground_contact_lateral_slip_m_s": {
+        "left": 0.5690627668310798,
+        "right": 0.47269106527460386
+      },
+      "heading_offset_is_mismatch": false,
+      "height_or_flight_failure_gate": false,
+      "xy_screen_limits_m": {
+        "rmse": 0.15,
+        "peak": 0.3
+      },
+      "canonical_metrics_recomputed_exactly": true,
+      "source_physical_trace_sha256": "88a7f10bbaa15f7d3b3b714320bda93197d07ae537e3e0e2a4308eecf3b96ddb",
+      "source_physical_report_sha256": "c0c0120cb3883cf196904a6ec520b9102577a37db0ce7551574e8d5c8cdb20fe",
+      "posture_diagnostics_not_failure_gate": {
+        "max_base_tilt_deg": 5.766015838959218,
+        "fraction_tilt_over_60_deg": 0.0,
+        "interval": "entire recorded first episode, not only the declared core",
+        "role": "Posture diagnostic, not a height/flight failure gate or controlled-execution certificate",
+        "heading_geometry_caveat": "World-XY projected beta/gamma are not reward body-frame beta under pitch/roll; interpret large-tilt geometry cautiously"
+      },
+      "reported_source_provenance": {
+        "evaluator_source_sha256": "76d78337d70519693bc7e8d819a6523a800e1e4889de5a0466c2d34356d2ae9d",
+        "drift_module_sha256": "5fee46238c825a2bcf474e969e93af65834aa1302ce857aa1c553e8a9fbaefaa",
+        "contact_slip_helper_sha256": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4"
+      },
+      "original_float64_reference_replay": {
+        "legacy_robot_reference_float64_metrics": {
+          "reference_xy_rmse_m": 0.03912950947679492,
+          "reference_xy_peak_m": 0.07042479249145281
+        },
+        "canonical_motion_float32_metrics": {
+          "reference_xy_rmse_m": 0.03912950920714751,
+          "reference_xy_peak_m": 0.07042483963331933
+        },
+        "absolute_metric_changes_m": {
+          "reference_xy_rmse_m": 2.696474155072792e-10,
+          "reference_xy_peak_m": 4.71418665215495e-08
+        },
+        "analytic_reference_bound_m": 2.395130692124446e-07,
+        "float64_roundoff_allowance_m": 6.176873120536446e-11,
+        "combined_metric_change_bound_m": 2.3957483794364996e-07,
+        "roundoff_rule": "8 * gamma_(16*N+64) * max(1, maximum absolute measured/reference XY coordinate), binary64 epsilon; not fitted to metric differences",
+        "xy_screen_unchanged": true,
+        "legacy_xy_screen": false,
+        "canonical_xy_screen": false,
+        "historical_metrics_overwritten": false,
+        "raw_xy_translation_rotation_or_time_warp_applied": false
+      }
+    },
+    {
+      "mu": 1.8,
+      "label": "PPO_mu1p800_isaac",
+      "engine": "PhysX",
+      "training_engine": "PhysX",
+      "window_s": [
+        1.44,
+        4.0
+      ],
+      "coverage_complete": true,
+      "samples_in_window": 513,
+      "reference_xy_rmse_m": 0.034370815261975315,
+      "reference_xy_peak_m": 0.05678481204694758,
+      "large_xy_exploratory_screen": false,
+      "mean_speed_m_s": 1.0379552371811427,
+      "reference_mean_speed_m_s": 1.0283094526778487,
+      "mean_speed_retention_ratio": 1.0093802351793764,
+      "fraction_below_80pct_reference_speed": 0.0,
+      "net_course_change_deg": 68.05309207082882,
+      "heading_geometry": {
+        "root_directed_beta": {
+          "valid_samples": 513,
+          "eligible_samples": 513,
+          "valid_fraction": 1.0,
+          "signed_circular_mean_deg": -17.719919769586767,
+          "mean_absolute_deg": 17.72003432864946,
+          "absolute_p95_deg": 27.995272069796304
+        },
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -17.727985982473157,
+              "mean_absolute_deg": 17.72909271455298,
+              "absolute_p95_deg": 28.040255774794417
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 506,
+              "eligible_samples": 513,
+              "valid_fraction": 0.98635477582846,
+              "signed_circular_mean_deg": -16.075212156952624,
+              "mean_absolute_deg": 22.7128078835561,
+              "absolute_p95_deg": 64.2947414896141
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -17.707856818061977,
+              "mean_absolute_deg": 17.70811065906964,
+              "absolute_p95_deg": 27.99371451846274
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 510,
+              "eligible_samples": 513,
+              "valid_fraction": 0.9941520467836257,
+              "signed_circular_mean_deg": -13.52540998605979,
+              "mean_absolute_deg": 21.373208868546097,
+              "absolute_p95_deg": 59.75298053669409
+            }
+          }
+        },
+        "measured_contact_gate_applied": false
+      },
+      "ground_contact_heading_geometry": {
+        "threshold_upward_force_n": 5.0,
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 169,
+              "eligible_samples": 513,
+              "valid_fraction": 0.32943469785575047,
+              "signed_circular_mean_deg": -19.093412730215835,
+              "mean_absolute_deg": 19.096739945676998,
+              "absolute_p95_deg": 29.009149541002557
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 167,
+              "eligible_samples": 513,
+              "valid_fraction": 0.3255360623781676,
+              "signed_circular_mean_deg": -6.52249068469756,
+              "mean_absolute_deg": 13.037456802737951,
+              "absolute_p95_deg": 55.853917356415046
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 167,
+              "eligible_samples": 513,
+              "valid_fraction": 0.3255360623781676,
+              "signed_circular_mean_deg": -16.126024461778076,
+              "mean_absolute_deg": 16.13496216309742,
+              "absolute_p95_deg": 26.42774718447558
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 167,
+              "eligible_samples": 513,
+              "valid_fraction": 0.3255360623781676,
+              "signed_circular_mean_deg": -3.9048339262226035,
+              "mean_absolute_deg": 7.0779529846222,
+              "absolute_p95_deg": 19.85809076282943
+            }
+          }
+        },
+        "measured_contact_gate_applied": true,
+        "contact_fraction_left_right": [
+          0.32943469785575047,
+          0.3255360623781676
+        ]
+      },
+      "ground_contact_lateral_slip_m_s": {
+        "left": 0.5914585897639382,
+        "right": 0.5359907284418088
+      },
+      "heading_offset_is_mismatch": false,
+      "height_or_flight_failure_gate": false,
+      "xy_screen_limits_m": {
+        "rmse": 0.15,
+        "peak": 0.3
+      },
+      "canonical_metrics_recomputed_exactly": true,
+      "source_physical_trace_sha256": "33cfc4480e61e134781cc5a0942955af88877da77d489df527ad44599c9bb254",
+      "source_physical_report_sha256": "7c2d61acc7ec89fa94703b522fcf3276dc03b9566fb5ca1500b83b69f96d1013",
+      "posture_diagnostics_not_failure_gate": {
+        "max_base_tilt_deg": 6.401851958988196,
+        "fraction_tilt_over_60_deg": 0.0,
+        "interval": "entire recorded first episode, not only the declared core",
+        "role": "Posture diagnostic, not a height/flight failure gate or controlled-execution certificate",
+        "heading_geometry_caveat": "World-XY projected beta/gamma are not reward body-frame beta under pitch/roll; interpret large-tilt geometry cautiously"
+      },
+      "reported_source_provenance": {
+        "evaluator_source_sha256": "76d78337d70519693bc7e8d819a6523a800e1e4889de5a0466c2d34356d2ae9d",
+        "drift_module_sha256": "5fee46238c825a2bcf474e969e93af65834aa1302ce857aa1c553e8a9fbaefaa",
+        "contact_slip_helper_sha256": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4"
+      },
+      "original_float64_reference_replay": {
+        "legacy_robot_reference_float64_metrics": {
+          "reference_xy_rmse_m": 0.03437081505227521,
+          "reference_xy_peak_m": 0.05678490671514533
+        },
+        "canonical_motion_float32_metrics": {
+          "reference_xy_rmse_m": 0.034370815261975315,
+          "reference_xy_peak_m": 0.05678481204694758
+        },
+        "absolute_metric_changes_m": {
+          "reference_xy_rmse_m": 2.0970010450316323e-10,
+          "reference_xy_peak_m": 9.466819774622826e-08
+        },
+        "analytic_reference_bound_m": 2.395130692124446e-07,
+        "float64_roundoff_allowance_m": 6.18568799427505e-11,
+        "combined_metric_change_bound_m": 2.3957492609238736e-07,
+        "roundoff_rule": "8 * gamma_(16*N+64) * max(1, maximum absolute measured/reference XY coordinate), binary64 epsilon; not fitted to metric differences",
+        "xy_screen_unchanged": true,
+        "legacy_xy_screen": false,
+        "canonical_xy_screen": false,
+        "historical_metrics_overwritten": false,
+        "raw_xy_translation_rotation_or_time_warp_applied": false
+      }
+    },
+    {
+      "mu": 2.0,
+      "label": "PPO_mu2p000_isaac",
+      "engine": "PhysX",
+      "training_engine": "PhysX",
+      "window_s": [
+        1.44,
+        4.0
+      ],
+      "coverage_complete": true,
+      "samples_in_window": 513,
+      "reference_xy_rmse_m": 0.03289868882717244,
+      "reference_xy_peak_m": 0.058404100952269174,
+      "large_xy_exploratory_screen": false,
+      "mean_speed_m_s": 1.0382500917155313,
+      "reference_mean_speed_m_s": 1.0283094526778487,
+      "mean_speed_retention_ratio": 1.009666972341639,
+      "fraction_below_80pct_reference_speed": 0.0,
+      "net_course_change_deg": 53.145565591129596,
+      "heading_geometry": {
+        "root_directed_beta": {
+          "valid_samples": 513,
+          "eligible_samples": 513,
+          "valid_fraction": 1.0,
+          "signed_circular_mean_deg": -18.761211870532307,
+          "mean_absolute_deg": 18.759219818534106,
+          "absolute_p95_deg": 26.698632463777002
+        },
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -18.73708087222375,
+              "mean_absolute_deg": 18.728919816367643,
+              "absolute_p95_deg": 26.675168752856212
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 505,
+              "eligible_samples": 513,
+              "valid_fraction": 0.9844054580896686,
+              "signed_circular_mean_deg": -18.635122650511796,
+              "mean_absolute_deg": 27.168788933327825,
+              "absolute_p95_deg": 74.21711240584602
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 513,
+              "eligible_samples": 513,
+              "valid_fraction": 1.0,
+              "signed_circular_mean_deg": -18.75273994596099,
+              "mean_absolute_deg": 18.744800407186045,
+              "absolute_p95_deg": 26.70139383767102
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 511,
+              "eligible_samples": 513,
+              "valid_fraction": 0.9961013645224172,
+              "signed_circular_mean_deg": -16.82013052224475,
+              "mean_absolute_deg": 23.244161989168898,
+              "absolute_p95_deg": 59.30775832105905
+            }
+          }
+        },
+        "measured_contact_gate_applied": false
+      },
+      "ground_contact_heading_geometry": {
+        "threshold_upward_force_n": 5.0,
+        "per_wheel": {
+          "left": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 154,
+              "eligible_samples": 513,
+              "valid_fraction": 0.3001949317738791,
+              "signed_circular_mean_deg": -20.13771597468823,
+              "mean_absolute_deg": 20.12890705796191,
+              "absolute_p95_deg": 27.365018658787022
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 149,
+              "eligible_samples": 513,
+              "valid_fraction": 0.290448343079922,
+              "signed_circular_mean_deg": -8.20311048749869,
+              "mean_absolute_deg": 14.542785042718307,
+              "absolute_p95_deg": 59.05134874188186
+            }
+          },
+          "right": {
+            "root_course_to_wheel_gamma": {
+              "valid_samples": 153,
+              "eligible_samples": 513,
+              "valid_fraction": 0.2982456140350877,
+              "signed_circular_mean_deg": -17.273801911819113,
+              "mean_absolute_deg": 17.284781712388956,
+              "absolute_p95_deg": 28.134182158629425
+            },
+            "wheel_center_course_to_wheel_gamma": {
+              "valid_samples": 153,
+              "eligible_samples": 513,
+              "valid_fraction": 0.2982456140350877,
+              "signed_circular_mean_deg": -5.11903583744752,
+              "mean_absolute_deg": 7.2739566868325225,
+              "absolute_p95_deg": 22.783731136608527
+            }
+          }
+        },
+        "measured_contact_gate_applied": true,
+        "contact_fraction_left_right": [
+          0.3001949317738791,
+          0.2982456140350877
+        ]
+      },
+      "ground_contact_lateral_slip_m_s": {
+        "left": 0.6267066532102122,
+        "right": 0.5663460452632996
+      },
+      "heading_offset_is_mismatch": false,
+      "height_or_flight_failure_gate": false,
+      "xy_screen_limits_m": {
+        "rmse": 0.15,
+        "peak": 0.3
+      },
+      "canonical_metrics_recomputed_exactly": true,
+      "source_physical_trace_sha256": "cb2f94fa201fe60bcbfb697e2a487eb0d2a16ea4ce885932d7e4580d8bbc7458",
+      "source_physical_report_sha256": "338b7a5f26608d0f320f845e54ab9520859e4f9cd32ef1cf6dd126597b1d5c49",
+      "posture_diagnostics_not_failure_gate": {
+        "max_base_tilt_deg": 5.866194752788009,
+        "fraction_tilt_over_60_deg": 0.0,
+        "interval": "entire recorded first episode, not only the declared core",
+        "role": "Posture diagnostic, not a height/flight failure gate or controlled-execution certificate",
+        "heading_geometry_caveat": "World-XY projected beta/gamma are not reward body-frame beta under pitch/roll; interpret large-tilt geometry cautiously"
+      },
+      "reported_source_provenance": {
+        "evaluator_source_sha256": "76d78337d70519693bc7e8d819a6523a800e1e4889de5a0466c2d34356d2ae9d",
+        "drift_module_sha256": "5fee46238c825a2bcf474e969e93af65834aa1302ce857aa1c553e8a9fbaefaa",
+        "contact_slip_helper_sha256": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4"
+      },
+      "original_float64_reference_replay": {
+        "legacy_robot_reference_float64_metrics": {
+          "reference_xy_rmse_m": 0.03289868962827902,
+          "reference_xy_peak_m": 0.0584041734301894
+        },
+        "canonical_motion_float32_metrics": {
+          "reference_xy_rmse_m": 0.03289868882717244,
+          "reference_xy_peak_m": 0.058404100952269174
+        },
+        "absolute_metric_changes_m": {
+          "reference_xy_rmse_m": 8.011065838475773e-10,
+          "reference_xy_peak_m": 7.247792022796462e-08
+        },
+        "analytic_reference_bound_m": 2.395130692124446e-07,
+        "float64_roundoff_allowance_m": 6.176873120536446e-11,
+        "combined_metric_change_bound_m": 2.3957483794364996e-07,
+        "roundoff_rule": "8 * gamma_(16*N+64) * max(1, maximum absolute measured/reference XY coordinate), binary64 epsilon; not fitted to metric differences",
+        "xy_screen_unchanged": true,
+        "legacy_xy_screen": false,
+        "canonical_xy_screen": false,
+        "historical_metrics_overwritten": false,
+        "raw_xy_translation_rotation_or_time_warp_applied": false
+      }
+    }
+  ],
+  "large_xy_mu": [
+    0.01,
+    0.03,
+    0.05,
+    0.1
+  ],
+  "xy_screen_limits_m": {
+    "rmse": 0.15,
+    "peak": 0.3
+  },
+  "full_physical_interval_s": [
+    0.0,
+    6.98
+  ],
+  "native_physics_sample_count": 1397,
+  "reference_interval_s": [
+    0.0,
+    6.96
+  ],
+  "input_sha256": {
+    "summary.json": "476623073f062f0c285d763ffe6cfc32ca423bd666e0a40791852721ca48f1cb",
+    "policy_dynamics_trace.npz": "1b757d06696ad6aea47d6c4f1be584005670d2b3274b82daa9a690a3e3e43a8d",
+    "training_metadata.json": "aa130ce51ca5228ead5a422a9883b3634bd704716428cbe7ea756c10c3d0e6d2"
+  },
+  "com_speed_source": "Recorded original-link COM world XY velocity; no position differentiation",
+  "wheel_heading_source": "Recorded audited kinematic reconstruction: wheel world +Y axle crossed with world +Z; not wheel spin",
+  "ground_contact_mark_gate": {
+    "contact_count_greater_than": 0,
+    "upward_force_greater_than_n": 5.0
+  },
+  "reference_after_final_knot": "Hold last reference knot for pointwise display through t=6.98 s; reference archive itself ends at 6.96 s",
+  "new_training": false,
+  "new_policy_evaluation": false,
+  "dynamics_stepping": false,
+  "learned_inference": false,
+  "pose_alignment": false,
+  "time_warp": false,
+  "height_or_flight_failure_gate": false,
+  "heading_offset_is_mismatch": false,
+  "statistical_success_rate_claimed": false,
+  "causal_friction_threshold_claimed": false,
+  "limitations": [
+    "One historical checkpoint, seed and episode per coefficient; descriptive sensitivity, not a statistical failure probability.",
+    "Only PhysX training and PhysX evaluation are shown; this is not a sim2sim gap or new matched-DR backend comparison.",
+    "Coefficient mu is the recorded validation setting; do not infer an independently measured tire-road effective coefficient.",
+    "Low-mu behavior is not strictly monotonic; show all 17 coefficients, not a fitted universal friction threshold.",
+    "Speed, headings and contact diagnostics after posture loss do not imply successful upright turning.",
+    "The low-mu recordings include posture loss; wheel markings are projected rolling-plane headings, not proof of controlled grounded drifting.",
+    "No height, flight, beta or wheel-heading failure gate is used; the XY screen is RMSE > 0.15 m OR peak > 0.30 m over 1.44--4.00 s."
+  ],
+  "video": {
+    "fps": 50,
+    "frames": 350,
+    "native_sample_stride": 4,
+    "first_native_time_s": 0.0,
+    "last_native_time_s": 6.98,
+    "encoded_duration_s": 7.0,
+    "final_sample_display_duration_s": 0.02,
+    "physics_or_reference_time_warp": false
+  },
+  "analysis_source_sha256": {
+    "compare_physx_ppo_low_friction.py": "ca82cabf7e2a6c63148d205475d08de82f650639b2b47a5aef4283b0aa3b7b6f",
+    "controller_metrics.py": "40921dad0c268d4bd871e0910086957555116fdd07188ba7cb4f8c76ca4343de"
+  },
+  "artifacts": {
+    "selected_physx_trace.npz": {
+      "file": "selected_physx_trace.npz",
+      "sha256": "40c5278c2314ae04a67a6232681f0fa48b52cd8da515e4b61b7524c3061fa477"
+    },
+    "metrics.csv": {
+      "file": "metrics.csv",
+      "sha256": "3449499105c8980d5ae02c584d0b573ec98a8ec3d88e9c8aa723bf21933fd6b7"
+    },
+    "topdown.png": {
+      "file": "topdown.png",
+      "sha256": "6118ccccdc9970315c89d21c7bae144b2d01a7b1272d06844b749a70e07b83b7"
+    },
+    "friction_sensitivity.png": {
+      "file": "friction_sensitivity.png",
+      "sha256": "44a08f4aa0b124dbd49c0616ea0aa295a06df9b3802e4148e4a9551c38246b9c"
+    },
+    "topdown.mp4": {
+      "file": "topdown.mp4",
+      "sha256": "b0d5afae7ffe71a60c8c106333fb774ac8215d7aa75200cabccbf3d19d930f80"
+    }
+  }
+}
