@@ -1,0 +1,3554 @@
+{
+  "rows": [
+    {
+      "id": "cem_beta_on/mu0p010",
+      "group": "cem_beta_on",
+      "controller": "MPC-CEM",
+      "condition": "beta_on",
+      "mu": 0.01,
+      "status": "completed",
+      "evaluated": true,
+      "core_large_xy_screen": true,
+      "overlap_large_xy_screen": true,
+      "reused_nominal": false,
+      "sample_size": 1,
+      "PPO_coefficient_outside_training_DR_range": null,
+      "windows": {
+        "core": {
+          "interval_s": [
+            1.44,
+            4.0
+          ],
+          "native_samples": 1025,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 1025,
+            "xy_rmse_m": 1.138920224915142,
+            "xy_peak_m": 2.1906390010091643,
+            "mean_speed_m_s": 1.2101477206254974,
+            "reference_mean_speed_m_s": 1.0282628655553003,
+            "speed_retention": 1.1768855622068706,
+            "beta_rmse_deg": 49.12536385918755,
+            "beta_valid_samples": 1025,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 1025,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.3902439024390244,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.052606542160339005,
+            "common_band_rms": 0.22936116096745543,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.05441011805668865,
+            "native_high_frequency_rms": 0.23325976519041738,
+            "at_or_above100hz_mean_square": 0.0018035758963496414,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.5239024390243903,
+                "time_duty_fraction_zoh": 0.5244140625,
+                "state_switch_count": 732,
+                "state_switches_per_s": 285.9375000000061
+              },
+              "right": {
+                "sample_duty_fraction": 0.5804878048780487,
+                "time_duty_fraction_zoh": 0.580078125,
+                "state_switch_count": 567,
+                "state_switches_per_s": 221.48437500000472
+              },
+              "both": {
+                "sample_duty_fraction": 0.3102439024390244,
+                "time_duty_fraction_zoh": 0.310546875,
+                "state_switch_count": 550,
+                "state_switches_per_s": 214.84375000000458
+              },
+              "none": {
+                "sample_duty_fraction": 0.20585365853658535,
+                "time_duty_fraction_zoh": 0.2060546875,
+                "state_switch_count": 383,
+                "state_switches_per_s": 149.60937500000318
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.5239024390243903,
+                "time_duty_fraction_zoh": 0.5244140625,
+                "state_switch_count": 732,
+                "state_switches_per_s": 285.9375000000061
+              },
+              "right": {
+                "sample_duty_fraction": 0.5804878048780487,
+                "time_duty_fraction_zoh": 0.580078125,
+                "state_switch_count": 567,
+                "state_switches_per_s": 221.48437500000472
+              },
+              "both": {
+                "sample_duty_fraction": 0.3102439024390244,
+                "time_duty_fraction_zoh": 0.310546875,
+                "state_switch_count": 550,
+                "state_switches_per_s": 214.84375000000458
+              },
+              "none": {
+                "sample_duty_fraction": 0.20585365853658535,
+                "time_duty_fraction_zoh": 0.2060546875,
+                "state_switch_count": 383,
+                "state_switches_per_s": 149.60937500000318
+              }
+            }
+          },
+          "maximum_tilt_deg": 8.911247738535112,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "45": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "60": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        },
+        "full": {
+          "interval_s": [
+            0.0,
+            6.98
+          ],
+          "native_samples": 2793,
+          "tracking": {
+            "available": false,
+            "coverage_complete": false,
+            "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 2793,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.14321518080916576,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.04087920988829515,
+            "common_band_rms": 0.20218607738490588,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.042285126257485206,
+            "native_high_frequency_rms": 0.20563347552741798,
+            "at_or_above100hz_mean_square": 0.0014059163691900534,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.6237021124239169,
+                "time_duty_fraction_zoh": 0.6239255014326662,
+                "state_switch_count": 1698,
+                "state_switches_per_s": 243.2664756446855
+              },
+              "right": {
+                "sample_duty_fraction": 0.6845685642678124,
+                "time_duty_fraction_zoh": 0.6844555873925555,
+                "state_switch_count": 1373,
+                "state_switches_per_s": 196.70487106016088
+              },
+              "both": {
+                "sample_duty_fraction": 0.43501611170784105,
+                "time_duty_fraction_zoh": 0.4351719197707773,
+                "state_switch_count": 1602,
+                "state_switches_per_s": 229.51289398279516
+              },
+              "none": {
+                "sample_duty_fraction": 0.1267454350161117,
+                "time_duty_fraction_zoh": 0.1267908309455556,
+                "state_switch_count": 663,
+                "state_switches_per_s": 94.98567335243021
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.6237021124239169,
+                "time_duty_fraction_zoh": 0.6239255014326662,
+                "state_switch_count": 1698,
+                "state_switches_per_s": 243.2664756446855
+              },
+              "right": {
+                "sample_duty_fraction": 0.6845685642678124,
+                "time_duty_fraction_zoh": 0.6844555873925555,
+                "state_switch_count": 1373,
+                "state_switches_per_s": 196.70487106016088
+              },
+              "both": {
+                "sample_duty_fraction": 0.43501611170784105,
+                "time_duty_fraction_zoh": 0.4351719197707773,
+                "state_switch_count": 1602,
+                "state_switches_per_s": 229.51289398279516
+              },
+              "none": {
+                "sample_duty_fraction": 0.1267454350161117,
+                "time_duty_fraction_zoh": 0.1267908309455556,
+                "state_switch_count": 663,
+                "state_switches_per_s": 94.98567335243021
+              }
+            }
+          },
+          "maximum_tilt_deg": 8.911247738535112,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "45": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "60": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        },
+        "reference_overlap": {
+          "interval_s": [
+            0.0,
+            6.96
+          ],
+          "native_samples": 2785,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 2785,
+            "xy_rmse_m": 2.6328757005237375,
+            "xy_peak_m": 5.07458823686591,
+            "mean_speed_m_s": 1.2163057033663254,
+            "reference_mean_speed_m_s": 0.8741363103669761,
+            "speed_retention": 1.391437112200157,
+            "beta_rmse_deg": 50.07867070398882,
+            "beta_valid_samples": 2362,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 2785,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.1436265709156194,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.040874903753688574,
+            "common_band_rms": 0.20217542816496908,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.04228375342300292,
+            "native_high_frequency_rms": 0.20563013743856448,
+            "at_or_above100hz_mean_square": 0.0014088496693143346,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.6240574506283663,
+                "time_duty_fraction_zoh": 0.6242816091954039,
+                "state_switch_count": 1690,
+                "state_switches_per_s": 242.81609195400944
+              },
+              "right": {
+                "sample_duty_fraction": 0.6840215439856373,
+                "time_duty_fraction_zoh": 0.6842672413793157,
+                "state_switch_count": 1370,
+                "state_switches_per_s": 196.83908045975915
+              },
+              "both": {
+                "sample_duty_fraction": 0.4351885098743267,
+                "time_duty_fraction_zoh": 0.4353448275862106,
+                "state_switch_count": 1596,
+                "state_switches_per_s": 229.31034482757343
+              },
+              "none": {
+                "sample_duty_fraction": 0.12710951526032316,
+                "time_duty_fraction_zoh": 0.1267959770114911,
+                "state_switch_count": 662,
+                "state_switches_per_s": 95.11494252873032
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.6240574506283663,
+                "time_duty_fraction_zoh": 0.6242816091954039,
+                "state_switch_count": 1690,
+                "state_switches_per_s": 242.81609195400944
+              },
+              "right": {
+                "sample_duty_fraction": 0.6840215439856373,
+                "time_duty_fraction_zoh": 0.6842672413793157,
+                "state_switch_count": 1370,
+                "state_switches_per_s": 196.83908045975915
+              },
+              "both": {
+                "sample_duty_fraction": 0.4351885098743267,
+                "time_duty_fraction_zoh": 0.4353448275862106,
+                "state_switch_count": 1596,
+                "state_switches_per_s": 229.31034482757343
+              },
+              "none": {
+                "sample_duty_fraction": 0.12710951526032316,
+                "time_duty_fraction_zoh": 0.1267959770114911,
+                "state_switch_count": 662,
+                "state_switches_per_s": 95.11494252873032
+              }
+            }
+          },
+          "maximum_tilt_deg": 8.911247738535112,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "45": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "60": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        },
+        "post_core": {
+          "interval_s": [
+            4.0,
+            6.98
+          ],
+          "native_samples": 1193,
+          "tracking": {
+            "available": false,
+            "coverage_complete": false,
+            "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 1193,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.3352891869237217,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.04500422500091637,
+            "common_band_rms": 0.2121419925448905,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.04594150125427393,
+            "native_high_frequency_rms": 0.2143396866058032,
+            "at_or_above100hz_mean_square": 0.0009372762533575601,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.6370494551550713,
+                "time_duty_fraction_zoh": 0.6375838926174497,
+                "state_switch_count": 718,
+                "state_switches_per_s": 240.9395973153986
+              },
+              "right": {
+                "sample_duty_fraction": 0.7585917854149203,
+                "time_duty_fraction_zoh": 0.7583892617449665,
+                "state_switch_count": 574,
+                "state_switches_per_s": 192.61744966439946
+              },
+              "both": {
+                "sample_duty_fraction": 0.48197820620285,
+                "time_duty_fraction_zoh": 0.48238255033557054,
+                "state_switch_count": 748,
+                "state_switches_per_s": 251.00671140935677
+              },
+              "none": {
+                "sample_duty_fraction": 0.08633696563285834,
+                "time_duty_fraction_zoh": 0.08640939597315438,
+                "state_switch_count": 204,
+                "state_switches_per_s": 68.45637583891548
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.6370494551550713,
+                "time_duty_fraction_zoh": 0.6375838926174497,
+                "state_switch_count": 718,
+                "state_switches_per_s": 240.9395973153986
+              },
+              "right": {
+                "sample_duty_fraction": 0.7585917854149203,
+                "time_duty_fraction_zoh": 0.7583892617449665,
+                "state_switch_count": 574,
+                "state_switches_per_s": 192.61744966439946
+              },
+              "both": {
+                "sample_duty_fraction": 0.48197820620285,
+                "time_duty_fraction_zoh": 0.48238255033557054,
+                "state_switch_count": 748,
+                "state_switches_per_s": 251.00671140935677
+              },
+              "none": {
+                "sample_duty_fraction": 0.08633696563285834,
+                "time_duty_fraction_zoh": 0.08640939597315438,
+                "state_switch_count": 204,
+                "state_switches_per_s": 68.45637583891548
+              }
+            }
+          },
+          "maximum_tilt_deg": 3.985697394315694,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "45": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "60": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        }
+      },
+      "failure_diagnostics": {
+        "core": {
+          "tangent_error": {
+            "definition": "Actual minus reference at the same timestamp; reference COM-velocity tangent; left normal positive.",
+            "minimum_reference_speed_m_s_strict": 0.3,
+            "eligible_samples": 1025,
+            "valid_samples": 1025,
+            "valid_fraction": 1.0,
+            "along_track": {
+              "rms_m": 0.6580718551483028,
+              "signed_mean_m": -0.521794732224874,
+              "absolute_p95_m": 1.322635259874398,
+              "maximum_absolute_m": 1.4434306683662066
+            },
+            "cross_track": {
+              "rms_m": 0.9295594183173173,
+              "signed_mean_m": -0.8168583684632729,
+              "absolute_p95_m": 1.5458323385677462,
+              "maximum_absolute_m": 1.647849246248672
+            },
+            "time_alignment_or_closest_path_projection": false
+          },
+          "course": {
+            "valid_samples": 1025,
+            "window_samples": 1025,
+            "complete_valid_window": true,
+            "contiguous_segments": [
+              {
+                "start_s": 1.4399999999999804,
+                "end_s": 3.999999999999926,
+                "samples": 1025,
+                "signed_course_change_deg": 1.0350176371651703
+              }
+            ],
+            "net_course_change_deg": 1.0350176371651703,
+            "invalid_gap_unwrap_or_interpolation": false
+          },
+          "reference_course": {
+            "valid_samples": 129,
+            "window_samples": 129,
+            "complete_valid_window": true,
+            "contiguous_segments": [
+              {
+                "start_s": 1.44,
+                "end_s": 4.0,
+                "samples": 129,
+                "signed_course_change_deg": 59.25535645538145
+              }
+            ],
+            "net_course_change_deg": 59.25535645538145,
+            "invalid_gap_unwrap_or_interpolation": false
+          },
+          "turn_and_ground_contact_heading_geometry": {
+            "window_s": [
+              1.44,
+              4.0
+            ],
+            "coverage_complete": true,
+            "samples_in_window": 1025,
+            "reference_xy_rmse_m": 1.138920224915142,
+            "reference_xy_peak_m": 2.1906390010091643,
+            "large_xy_exploratory_screen": true,
+            "mean_speed_m_s": 1.2101477206254974,
+            "reference_mean_speed_m_s": 1.0282628655553003,
+            "mean_speed_retention_ratio": 1.1768855622068706,
+            "fraction_below_80pct_reference_speed": 0.0,
+            "net_course_change_deg": 1.0350176371651703,
+            "heading_geometry": {
+              "root_directed_beta": {
+                "valid_samples": 1025,
+                "eligible_samples": 1025,
+                "valid_fraction": 1.0,
+                "signed_circular_mean_deg": -63.60073636301948,
+                "mean_absolute_deg": 63.0723583927191,
+                "absolute_p95_deg": 87.5307223123568
+              },
+              "per_wheel": {
+                "left": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 1025,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 1.0,
+                    "signed_circular_mean_deg": -65.54052371022021,
+                    "mean_absolute_deg": 62.98402094867594,
+                    "absolute_p95_deg": 87.16115021538242
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 1025,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 1.0,
+                    "signed_circular_mean_deg": -69.29004355540945,
+                    "mean_absolute_deg": 65.15566394798142,
+                    "absolute_p95_deg": 88.34595633979484
+                  }
+                },
+                "right": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 1025,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 1.0,
+                    "signed_circular_mean_deg": -65.64717796228474,
+                    "mean_absolute_deg": 63.085410995386205,
+                    "absolute_p95_deg": 87.40731425102044
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 1025,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 1.0,
+                    "signed_circular_mean_deg": -63.975580166556504,
+                    "mean_absolute_deg": 61.10310692693481,
+                    "absolute_p95_deg": 88.91606180960318
+                  }
+                }
+              },
+              "measured_contact_gate_applied": false
+            },
+            "ground_contact_heading_geometry": {
+              "threshold_upward_force_n": 5.0,
+              "per_wheel": {
+                "left": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 537,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 0.5239024390243903,
+                    "signed_circular_mean_deg": -65.36370506420185,
+                    "mean_absolute_deg": 63.25963347996282,
+                    "absolute_p95_deg": 86.91347928358358
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 537,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 0.5239024390243903,
+                    "signed_circular_mean_deg": -69.97785720322608,
+                    "mean_absolute_deg": 66.59627188800191,
+                    "absolute_p95_deg": 88.4913749963188
+                  }
+                },
+                "right": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 595,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 0.5804878048780487,
+                    "signed_circular_mean_deg": -61.466746757667146,
+                    "mean_absolute_deg": 59.832132204419175,
+                    "absolute_p95_deg": 87.20114036531962
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 595,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 0.5804878048780487,
+                    "signed_circular_mean_deg": -60.19644559902264,
+                    "mean_absolute_deg": 58.38885925576726,
+                    "absolute_p95_deg": 88.79273709847232
+                  }
+                }
+              },
+              "measured_contact_gate_applied": true,
+              "contact_fraction_left_right": [
+                0.5239024390243903,
+                0.5804878048780487
+              ]
+            },
+            "ground_contact_lateral_slip_m_s": {
+              "left": 1.0931010867050697,
+              "right": 1.0363996828743882
+            },
+            "heading_offset_is_mismatch": false,
+            "height_or_flight_failure_gate": false,
+            "xy_screen_limits_m": {
+              "rmse": 0.15,
+              "peak": 0.3
+            }
+          },
+          "final_xy_error_m": 2.1906390010091643,
+          "persistent_xy_gt0p30m": {
+            "minimum_persistence_s": 0.1,
+            "first_true_sample_s": 1.782499999999973,
+            "first_persistent_event": {
+              "onset_s": 1.782499999999973,
+              "confirmation_s": 1.8824999999999732,
+              "end_s": 3.999999999999926,
+              "observed_duration_s": 2.2174999999999527,
+              "native_samples": 888,
+              "left_window_censored": false,
+              "right_window_censored": true,
+              "duration_is_lower_bound": true
+            },
+            "persistent_event_count": 1,
+            "longest_observed_run_s": 2.2174999999999527,
+            "events": [
+              {
+                "onset_s": 1.782499999999973,
+                "confirmation_s": 1.8824999999999732,
+                "end_s": 3.999999999999926,
+                "observed_duration_s": 2.2174999999999527,
+                "native_samples": 888,
+                "left_window_censored": false,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              }
+            ]
+          },
+          "large_xy_screen": true
+        },
+        "reference_overlap": {
+          "tangent_error": {
+            "definition": "Actual minus reference at the same timestamp; reference COM-velocity tangent; left normal positive.",
+            "minimum_reference_speed_m_s_strict": 0.3,
+            "eligible_samples": 2785,
+            "valid_samples": 2342,
+            "valid_fraction": 0.8409335727109515,
+            "along_track": {
+              "rms_m": 0.9539833653479889,
+              "signed_mean_m": -0.7013339488363172,
+              "absolute_p95_m": 1.7299290861549637,
+              "maximum_absolute_m": 1.7567337945173254
+            },
+            "cross_track": {
+              "rms_m": 1.7959057517262924,
+              "signed_mean_m": -1.2834321449415966,
+              "absolute_p95_m": 3.8388140455497273,
+              "maximum_absolute_m": 4.178052883728583
+            },
+            "time_alignment_or_closest_path_projection": false
+          },
+          "course": {
+            "valid_samples": 2785,
+            "window_samples": 2785,
+            "complete_valid_window": true,
+            "contiguous_segments": [
+              {
+                "start_s": 0.0,
+                "end_s": 6.960000000000388,
+                "samples": 2785,
+                "signed_course_change_deg": 14.497218287563776
+              }
+            ],
+            "net_course_change_deg": 14.497218287563776,
+            "invalid_gap_unwrap_or_interpolation": false
+          },
+          "reference_course": {
+            "valid_samples": 296,
+            "window_samples": 349,
+            "complete_valid_window": false,
+            "contiguous_segments": [
+              {
+                "start_s": 0.0,
+                "end_s": 5.9,
+                "samples": 296,
+                "signed_course_change_deg": 54.837295812389065
+              }
+            ],
+            "net_course_change_deg": null,
+            "invalid_gap_unwrap_or_interpolation": false
+          },
+          "turn_and_ground_contact_heading_geometry": {
+            "window_s": [
+              0.0,
+              6.96
+            ],
+            "coverage_complete": true,
+            "samples_in_window": 2785,
+            "reference_xy_rmse_m": 2.6328757005237375,
+            "reference_xy_peak_m": 5.07458823686591,
+            "large_xy_exploratory_screen": true,
+            "mean_speed_m_s": 1.2163057033663254,
+            "reference_mean_speed_m_s": 0.8741363103669761,
+            "mean_speed_retention_ratio": 1.391437112200157,
+            "fraction_below_80pct_reference_speed": 0.0,
+            "net_course_change_deg": 14.497218287563776,
+            "heading_geometry": {
+              "root_directed_beta": {
+                "valid_samples": 2785,
+                "eligible_samples": 2785,
+                "valid_fraction": 1.0,
+                "signed_circular_mean_deg": -47.4984057500663,
+                "mean_absolute_deg": 47.24541195654286,
+                "absolute_p95_deg": 86.34987951850641
+              },
+              "per_wheel": {
+                "left": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 2785,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 1.0,
+                    "signed_circular_mean_deg": -48.72756109112475,
+                    "mean_absolute_deg": 47.20535409685868,
+                    "absolute_p95_deg": 85.81946745885621
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 2785,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 1.0,
+                    "signed_circular_mean_deg": -49.191344906580575,
+                    "mean_absolute_deg": 47.77548471035692,
+                    "absolute_p95_deg": 85.68198920380688
+                  }
+                },
+                "right": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 2785,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 1.0,
+                    "signed_circular_mean_deg": -48.76534506738743,
+                    "mean_absolute_deg": 47.256210225071364,
+                    "absolute_p95_deg": 86.30589836311404
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 2785,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 1.0,
+                    "signed_circular_mean_deg": -48.97352119254489,
+                    "mean_absolute_deg": 47.70284593028133,
+                    "absolute_p95_deg": 87.08056118560287
+                  }
+                }
+              },
+              "measured_contact_gate_applied": false
+            },
+            "ground_contact_heading_geometry": {
+              "threshold_upward_force_n": 5.0,
+              "per_wheel": {
+                "left": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 1738,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 0.6240574506283663,
+                    "signed_circular_mean_deg": -44.66167131119748,
+                    "mean_absolute_deg": 43.79362571969031,
+                    "absolute_p95_deg": 85.28078275539191
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 1738,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 0.6240574506283663,
+                    "signed_circular_mean_deg": -44.96396487390826,
+                    "mean_absolute_deg": 44.65052357561755,
+                    "absolute_p95_deg": 84.67996823275794
+                  }
+                },
+                "right": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 1905,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 0.6840215439856373,
+                    "signed_circular_mean_deg": -46.38324592200241,
+                    "mean_absolute_deg": 45.56016041857376,
+                    "absolute_p95_deg": 85.77526716855448
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 1905,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 0.6840215439856373,
+                    "signed_circular_mean_deg": -46.97389860291977,
+                    "mean_absolute_deg": 46.363773898777765,
+                    "absolute_p95_deg": 85.79104809190027
+                  }
+                }
+              },
+              "measured_contact_gate_applied": true,
+              "contact_fraction_left_right": [
+                0.6240574506283663,
+                0.6840215439856373
+              ]
+            },
+            "ground_contact_lateral_slip_m_s": {
+              "left": 0.8760016192388805,
+              "right": 0.8922938472510297
+            },
+            "heading_offset_is_mismatch": false,
+            "height_or_flight_failure_gate": false,
+            "xy_screen_limits_m": {
+              "rmse": 0.15,
+              "peak": 0.3
+            }
+          },
+          "final_xy_error_m": 5.07458823686591,
+          "persistent_xy_gt0p30m": {
+            "minimum_persistence_s": 0.1,
+            "first_true_sample_s": 1.782499999999973,
+            "first_persistent_event": {
+              "onset_s": 1.782499999999973,
+              "confirmation_s": 1.8824999999999732,
+              "end_s": 6.960000000000388,
+              "observed_duration_s": 5.177500000000415,
+              "native_samples": 2072,
+              "left_window_censored": false,
+              "right_window_censored": true,
+              "duration_is_lower_bound": true
+            },
+            "persistent_event_count": 1,
+            "longest_observed_run_s": 5.177500000000415,
+            "events": [
+              {
+                "onset_s": 1.782499999999973,
+                "confirmation_s": 1.8824999999999732,
+                "end_s": 6.960000000000388,
+                "observed_duration_s": 5.177500000000415,
+                "native_samples": 2072,
+                "left_window_censored": false,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              }
+            ]
+          },
+          "large_xy_screen": true
+        }
+      },
+      "height_airborne_tilt_or_beta_failure_gate": false,
+      "wheel_FK_audit": {
+        "maximum_wheel_link_position_error_m": 3.621544272996959e-15,
+        "wheel_position_tolerance_m": 0.0002,
+        "maximum_root_com_velocity_reconstruction_error": 7.771561172376096e-16,
+        "dynamics_stepping": false,
+        "measured_contact_replaced": false,
+        "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+      },
+      "input_files": {
+        "report": {
+          "path": "/home/roy/tron1-sliding-analysis/outputs/ppo_cem_friction_failure_400hz_20261022_v1/cem/cem_beta_on_mu0p01/report.json",
+          "sha256": "e81ee096fe713da015d0fcb646095df2413a5687aca5c7418cc7cfbe6f218da8"
+        },
+        "recording": {
+          "path": "/home/roy/tron1-sliding-analysis/outputs/ppo_cem_friction_failure_400hz_20261022_v1/cem/cem_beta_on_mu0p01/rollout.npz",
+          "sha256": "b097b99661ec34cce187d4a184c0761da9c1a076f612faf30b5ae4d957847767"
+        }
+      },
+      "prediction_friction_known": true,
+      "solver_failures": 0,
+      "compute_ms_median_p95_max": [
+        1549.8191060032696,
+        1778.8391676265746,
+        2167.99945209641
+      ],
+      "real_time_verified": false,
+      "difference_from_own_nominal_mu0p7": {
+        "available": true,
+        "nominal_mu": 0.7,
+        "nominal_core_large_xy_screen": false,
+        "nominal_overlap_large_xy_screen": true,
+        "new_core_screen_exceedance_relative_to_nominal": true,
+        "new_overlap_screen_exceedance_relative_to_nominal": false,
+        "friction_causality_or_statistical_significance_claimed": false,
+        "core": {
+          "xy_rmse_change_m": 1.0538832667844047,
+          "xy_peak_change_m": 2.052854414302721
+        },
+        "reference_overlap": {
+          "xy_rmse_change_m": 2.5033677298252286,
+          "xy_peak_change_m": 4.619023456332784
+        }
+      }
+    },
+    {
+      "id": "cem_beta_on/mu0p050",
+      "group": "cem_beta_on",
+      "controller": "MPC-CEM",
+      "condition": "beta_on",
+      "mu": 0.05,
+      "status": "completed",
+      "evaluated": true,
+      "core_large_xy_screen": true,
+      "overlap_large_xy_screen": true,
+      "reused_nominal": false,
+      "sample_size": 1,
+      "PPO_coefficient_outside_training_DR_range": null,
+      "windows": {
+        "core": {
+          "interval_s": [
+            1.44,
+            4.0
+          ],
+          "native_samples": 1025,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 1025,
+            "xy_rmse_m": 0.5350798127422457,
+            "xy_peak_m": 0.8354380765665699,
+            "mean_speed_m_s": 1.0037928017592477,
+            "reference_mean_speed_m_s": 1.0282628655553003,
+            "speed_retention": 0.9762025211492609,
+            "beta_rmse_deg": 20.540007088971826,
+            "beta_valid_samples": 1025,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 1025,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.3902439024390244,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.051856390682359955,
+            "common_band_rms": 0.22771998305453994,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.05408387234852154,
+            "native_high_frequency_rms": 0.23255939531337266,
+            "at_or_above100hz_mean_square": 0.0022274816661615906,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.41268292682926827,
+                "time_duty_fraction_zoh": 0.412109375,
+                "state_switch_count": 585,
+                "state_switches_per_s": 228.51562500000486
+              },
+              "right": {
+                "sample_duty_fraction": 0.48390243902439023,
+                "time_duty_fraction_zoh": 0.4833984375,
+                "state_switch_count": 571,
+                "state_switches_per_s": 223.04687500000475
+              },
+              "both": {
+                "sample_duty_fraction": 0.21658536585365853,
+                "time_duty_fraction_zoh": 0.2158203125,
+                "state_switch_count": 363,
+                "state_switches_per_s": 141.796875000003
+              },
+              "none": {
+                "sample_duty_fraction": 0.32,
+                "time_duty_fraction_zoh": 0.3203125,
+                "state_switch_count": 527,
+                "state_switches_per_s": 205.85937500000438
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.41268292682926827,
+                "time_duty_fraction_zoh": 0.412109375,
+                "state_switch_count": 585,
+                "state_switches_per_s": 228.51562500000486
+              },
+              "right": {
+                "sample_duty_fraction": 0.48390243902439023,
+                "time_duty_fraction_zoh": 0.4833984375,
+                "state_switch_count": 571,
+                "state_switches_per_s": 223.04687500000475
+              },
+              "both": {
+                "sample_duty_fraction": 0.21658536585365853,
+                "time_duty_fraction_zoh": 0.2158203125,
+                "state_switch_count": 363,
+                "state_switches_per_s": 141.796875000003
+              },
+              "none": {
+                "sample_duty_fraction": 0.32,
+                "time_duty_fraction_zoh": 0.3203125,
+                "state_switch_count": 527,
+                "state_switches_per_s": 205.85937500000438
+              }
+            }
+          },
+          "maximum_tilt_deg": 9.270968220080434,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "45": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "60": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        },
+        "full": {
+          "interval_s": [
+            0.0,
+            6.98
+          ],
+          "native_samples": 2793,
+          "tracking": {
+            "available": false,
+            "coverage_complete": false,
+            "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 2793,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.14321518080916576,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.07437974237308523,
+            "common_band_rms": 0.27272649737985716,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.07675957381386125,
+            "native_high_frequency_rms": 0.27705518189317674,
+            "at_or_above100hz_mean_square": 0.002379831440776024,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.3795202291442893,
+                "time_duty_fraction_zoh": 0.37965616045844625,
+                "state_switch_count": 1288,
+                "state_switches_per_s": 184.52722063036214
+              },
+              "right": {
+                "sample_duty_fraction": 0.4217687074829932,
+                "time_duty_fraction_zoh": 0.42191977077362836,
+                "state_switch_count": 1256,
+                "state_switches_per_s": 179.94269340973204
+              },
+              "both": {
+                "sample_duty_fraction": 0.20981023988542785,
+                "time_duty_fraction_zoh": 0.20988538681947777,
+                "state_switch_count": 778,
+                "state_switches_per_s": 111.46131805156968
+              },
+              "none": {
+                "sample_duty_fraction": 0.40852130325814534,
+                "time_duty_fraction_zoh": 0.40830945558740317,
+                "state_switch_count": 1224,
+                "state_switches_per_s": 175.35816618910192
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.3795202291442893,
+                "time_duty_fraction_zoh": 0.37965616045844625,
+                "state_switch_count": 1288,
+                "state_switches_per_s": 184.52722063036214
+              },
+              "right": {
+                "sample_duty_fraction": 0.4217687074829932,
+                "time_duty_fraction_zoh": 0.42191977077362836,
+                "state_switch_count": 1256,
+                "state_switches_per_s": 179.94269340973204
+              },
+              "both": {
+                "sample_duty_fraction": 0.20981023988542785,
+                "time_duty_fraction_zoh": 0.20988538681947777,
+                "state_switch_count": 778,
+                "state_switches_per_s": 111.46131805156968
+              },
+              "none": {
+                "sample_duty_fraction": 0.40852130325814534,
+                "time_duty_fraction_zoh": 0.40830945558740317,
+                "state_switch_count": 1224,
+                "state_switches_per_s": 175.35816618910192
+              }
+            }
+          },
+          "maximum_tilt_deg": 9.270968220080434,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "45": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "60": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        },
+        "reference_overlap": {
+          "interval_s": [
+            0.0,
+            6.96
+          ],
+          "native_samples": 2785,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 2785,
+            "xy_rmse_m": 0.7720944910561909,
+            "xy_peak_m": 1.472445974946492,
+            "mean_speed_m_s": 1.0998763653522157,
+            "reference_mean_speed_m_s": 0.8741363103669761,
+            "speed_retention": 1.258243539718045,
+            "beta_rmse_deg": 15.391650268302344,
+            "beta_valid_samples": 2362,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 2785,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.1436265709156194,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.07366501337656294,
+            "common_band_rms": 0.27141299411885744,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.07603666722584573,
+            "native_high_frequency_rms": 0.27574747002619215,
+            "at_or_above100hz_mean_square": 0.0023716538492828208,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.38061041292639136,
+                "time_duty_fraction_zoh": 0.3807471264367752,
+                "state_switch_count": 1288,
+                "state_switches_per_s": 185.0574712643575
+              },
+              "right": {
+                "sample_duty_fraction": 0.422262118491921,
+                "time_duty_fraction_zoh": 0.4224137931034377,
+                "state_switch_count": 1252,
+                "state_switches_per_s": 179.88505747125433
+              },
+              "both": {
+                "sample_duty_fraction": 0.2104129263913824,
+                "time_duty_fraction_zoh": 0.21048850574712,
+                "state_switch_count": 778,
+                "state_switches_per_s": 111.78160919539607
+              },
+              "none": {
+                "sample_duty_fraction": 0.40754039497307004,
+                "time_duty_fraction_zoh": 0.40732758620690707,
+                "state_switch_count": 1220,
+                "state_switches_per_s": 175.2873563218293
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.38061041292639136,
+                "time_duty_fraction_zoh": 0.3807471264367752,
+                "state_switch_count": 1288,
+                "state_switches_per_s": 185.0574712643575
+              },
+              "right": {
+                "sample_duty_fraction": 0.422262118491921,
+                "time_duty_fraction_zoh": 0.4224137931034377,
+                "state_switch_count": 1252,
+                "state_switches_per_s": 179.88505747125433
+              },
+              "both": {
+                "sample_duty_fraction": 0.2104129263913824,
+                "time_duty_fraction_zoh": 0.21048850574712,
+                "state_switch_count": 778,
+                "state_switches_per_s": 111.78160919539607
+              },
+              "none": {
+                "sample_duty_fraction": 0.40754039497307004,
+                "time_duty_fraction_zoh": 0.40732758620690707,
+                "state_switch_count": 1220,
+                "state_switches_per_s": 175.2873563218293
+              }
+            }
+          },
+          "maximum_tilt_deg": 9.270968220080434,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "45": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "60": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        },
+        "post_core": {
+          "interval_s": [
+            4.0,
+            6.98
+          ],
+          "native_samples": 1193,
+          "tracking": {
+            "available": false,
+            "coverage_complete": false,
+            "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 1193,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.3352891869237217,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.19084194899783494,
+            "common_band_rms": 0.43685460853450425,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.19647665978245546,
+            "native_high_frequency_rms": 0.44325687787383,
+            "at_or_above100hz_mean_square": 0.005634710784620488,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.28499580888516346,
+                "time_duty_fraction_zoh": 0.2852348993288589,
+                "state_switch_count": 489,
+                "state_switches_per_s": 164.093959731518
+              },
+              "right": {
+                "sample_duty_fraction": 0.2740989103101425,
+                "time_duty_fraction_zoh": 0.27432885906040255,
+                "state_switch_count": 451,
+                "state_switches_per_s": 151.342281879171
+              },
+              "both": {
+                "sample_duty_fraction": 0.11399832355406538,
+                "time_duty_fraction_zoh": 0.11409395973154349,
+                "state_switch_count": 223,
+                "state_switches_per_s": 74.83221476508898
+              },
+              "none": {
+                "sample_duty_fraction": 0.5549036043587594,
+                "time_duty_fraction_zoh": 0.5545302013422819,
+                "state_switch_count": 505,
+                "state_switches_per_s": 169.4630872482957
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.28499580888516346,
+                "time_duty_fraction_zoh": 0.2852348993288589,
+                "state_switch_count": 489,
+                "state_switches_per_s": 164.093959731518
+              },
+              "right": {
+                "sample_duty_fraction": 0.2740989103101425,
+                "time_duty_fraction_zoh": 0.27432885906040255,
+                "state_switch_count": 451,
+                "state_switches_per_s": 151.342281879171
+              },
+              "both": {
+                "sample_duty_fraction": 0.11399832355406538,
+                "time_duty_fraction_zoh": 0.11409395973154349,
+                "state_switch_count": 223,
+                "state_switches_per_s": 74.83221476508898
+              },
+              "none": {
+                "sample_duty_fraction": 0.5549036043587594,
+                "time_duty_fraction_zoh": 0.5545302013422819,
+                "state_switch_count": 505,
+                "state_switches_per_s": 169.4630872482957
+              }
+            }
+          },
+          "maximum_tilt_deg": 8.440483807644279,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "45": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "60": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        }
+      },
+      "failure_diagnostics": {
+        "core": {
+          "tangent_error": {
+            "definition": "Actual minus reference at the same timestamp; reference COM-velocity tangent; left normal positive.",
+            "minimum_reference_speed_m_s_strict": 0.3,
+            "eligible_samples": 1025,
+            "valid_samples": 1025,
+            "valid_fraction": 1.0,
+            "along_track": {
+              "rms_m": 0.433645611273595,
+              "signed_mean_m": -0.40624332832510845,
+              "absolute_p95_m": 0.6229629651641221,
+              "maximum_absolute_m": 0.6413637321344824
+            },
+            "cross_track": {
+              "rms_m": 0.3134675259535298,
+              "signed_mean_m": -0.2850954105007171,
+              "absolute_p95_m": 0.49822414410939325,
+              "maximum_absolute_m": 0.535359078450882
+            },
+            "time_alignment_or_closest_path_projection": false
+          },
+          "course": {
+            "valid_samples": 1025,
+            "window_samples": 1025,
+            "complete_valid_window": true,
+            "contiguous_segments": [
+              {
+                "start_s": 1.4399999999999804,
+                "end_s": 3.999999999999926,
+                "samples": 1025,
+                "signed_course_change_deg": 44.234192322278474
+              }
+            ],
+            "net_course_change_deg": 44.234192322278474,
+            "invalid_gap_unwrap_or_interpolation": false
+          },
+          "reference_course": {
+            "valid_samples": 129,
+            "window_samples": 129,
+            "complete_valid_window": true,
+            "contiguous_segments": [
+              {
+                "start_s": 1.44,
+                "end_s": 4.0,
+                "samples": 129,
+                "signed_course_change_deg": 59.25535645538145
+              }
+            ],
+            "net_course_change_deg": 59.25535645538145,
+            "invalid_gap_unwrap_or_interpolation": false
+          },
+          "turn_and_ground_contact_heading_geometry": {
+            "window_s": [
+              1.44,
+              4.0
+            ],
+            "coverage_complete": true,
+            "samples_in_window": 1025,
+            "reference_xy_rmse_m": 0.5350798127422457,
+            "reference_xy_peak_m": 0.8354380765665699,
+            "large_xy_exploratory_screen": true,
+            "mean_speed_m_s": 1.0037928017592477,
+            "reference_mean_speed_m_s": 1.0282628655553003,
+            "mean_speed_retention_ratio": 0.9762025211492609,
+            "fraction_below_80pct_reference_speed": 0.06634146341463415,
+            "net_course_change_deg": 44.234192322278474,
+            "heading_geometry": {
+              "root_directed_beta": {
+                "valid_samples": 1025,
+                "eligible_samples": 1025,
+                "valid_fraction": 1.0,
+                "signed_circular_mean_deg": -37.39029339806993,
+                "mean_absolute_deg": 37.31031741891566,
+                "absolute_p95_deg": 50.591211027482466
+              },
+              "per_wheel": {
+                "left": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 1025,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 1.0,
+                    "signed_circular_mean_deg": -37.62752226412752,
+                    "mean_absolute_deg": 37.30251085834919,
+                    "absolute_p95_deg": 50.70014227228181
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 1018,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 0.9931707317073171,
+                    "signed_circular_mean_deg": -41.3822509041285,
+                    "mean_absolute_deg": 41.010478737559104,
+                    "absolute_p95_deg": 64.4528309804547
+                  }
+                },
+                "right": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 1025,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 1.0,
+                    "signed_circular_mean_deg": -37.696589571264646,
+                    "mean_absolute_deg": 37.37394844366148,
+                    "absolute_p95_deg": 50.458044695647736
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 1021,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 0.9960975609756098,
+                    "signed_circular_mean_deg": -38.07084397638177,
+                    "mean_absolute_deg": 37.94613373379664,
+                    "absolute_p95_deg": 55.57669067644403
+                  }
+                }
+              },
+              "measured_contact_gate_applied": false
+            },
+            "ground_contact_heading_geometry": {
+              "threshold_upward_force_n": 5.0,
+              "per_wheel": {
+                "left": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 423,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 0.41268292682926827,
+                    "signed_circular_mean_deg": -38.0548639045963,
+                    "mean_absolute_deg": 37.67558444457323,
+                    "absolute_p95_deg": 50.6988055910183
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 422,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 0.4117073170731707,
+                    "signed_circular_mean_deg": -39.64439021833598,
+                    "mean_absolute_deg": 39.33339093622401,
+                    "absolute_p95_deg": 62.02371396716911
+                  }
+                },
+                "right": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 496,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 0.48390243902439023,
+                    "signed_circular_mean_deg": -37.84376244960613,
+                    "mean_absolute_deg": 37.583156437062186,
+                    "absolute_p95_deg": 50.32788377324855
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 494,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 0.4819512195121951,
+                    "signed_circular_mean_deg": -37.903961027154665,
+                    "mean_absolute_deg": 37.727477337059895,
+                    "absolute_p95_deg": 56.07498620108168
+                  }
+                }
+              },
+              "measured_contact_gate_applied": true,
+              "contact_fraction_left_right": [
+                0.41268292682926827,
+                0.48390243902439023
+              ]
+            },
+            "ground_contact_lateral_slip_m_s": {
+              "left": 0.7231001561335652,
+              "right": 0.7035540862610073
+            },
+            "heading_offset_is_mismatch": false,
+            "height_or_flight_failure_gate": false,
+            "xy_screen_limits_m": {
+              "rmse": 0.15,
+              "peak": 0.3
+            }
+          },
+          "final_xy_error_m": 0.8354380765665699,
+          "persistent_xy_gt0p30m": {
+            "minimum_persistence_s": 0.1,
+            "first_true_sample_s": 1.969999999999969,
+            "first_persistent_event": {
+              "onset_s": 1.969999999999969,
+              "confirmation_s": 2.069999999999969,
+              "end_s": 3.999999999999926,
+              "observed_duration_s": 2.0299999999999567,
+              "native_samples": 813,
+              "left_window_censored": false,
+              "right_window_censored": true,
+              "duration_is_lower_bound": true
+            },
+            "persistent_event_count": 1,
+            "longest_observed_run_s": 2.0299999999999567,
+            "events": [
+              {
+                "onset_s": 1.969999999999969,
+                "confirmation_s": 2.069999999999969,
+                "end_s": 3.999999999999926,
+                "observed_duration_s": 2.0299999999999567,
+                "native_samples": 813,
+                "left_window_censored": false,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              }
+            ]
+          },
+          "large_xy_screen": true
+        },
+        "reference_overlap": {
+          "tangent_error": {
+            "definition": "Actual minus reference at the same timestamp; reference COM-velocity tangent; left normal positive.",
+            "minimum_reference_speed_m_s_strict": 0.3,
+            "eligible_samples": 2785,
+            "valid_samples": 2342,
+            "valid_fraction": 0.8409335727109515,
+            "along_track": {
+              "rms_m": 0.42259178728127716,
+              "signed_mean_m": -0.34928988677779893,
+              "absolute_p95_m": 0.6694629565668829,
+              "maximum_absolute_m": 0.6780078620102595
+            },
+            "cross_track": {
+              "rms_m": 0.5351349990464506,
+              "signed_mean_m": -0.400168724366381,
+              "absolute_p95_m": 1.0623595095126548,
+              "maximum_absolute_m": 1.0761655220073305
+            },
+            "time_alignment_or_closest_path_projection": false
+          },
+          "course": {
+            "valid_samples": 2785,
+            "window_samples": 2785,
+            "complete_valid_window": true,
+            "contiguous_segments": [
+              {
+                "start_s": 0.0,
+                "end_s": 6.960000000000388,
+                "samples": 2785,
+                "signed_course_change_deg": 72.55835434222244
+              }
+            ],
+            "net_course_change_deg": 72.55835434222244,
+            "invalid_gap_unwrap_or_interpolation": false
+          },
+          "reference_course": {
+            "valid_samples": 296,
+            "window_samples": 349,
+            "complete_valid_window": false,
+            "contiguous_segments": [
+              {
+                "start_s": 0.0,
+                "end_s": 5.9,
+                "samples": 296,
+                "signed_course_change_deg": 54.837295812389065
+              }
+            ],
+            "net_course_change_deg": null,
+            "invalid_gap_unwrap_or_interpolation": false
+          },
+          "turn_and_ground_contact_heading_geometry": {
+            "window_s": [
+              0.0,
+              6.96
+            ],
+            "coverage_complete": true,
+            "samples_in_window": 2785,
+            "reference_xy_rmse_m": 0.7720944910561909,
+            "reference_xy_peak_m": 1.472445974946492,
+            "large_xy_exploratory_screen": true,
+            "mean_speed_m_s": 1.0998763653522157,
+            "reference_mean_speed_m_s": 0.8741363103669761,
+            "mean_speed_retention_ratio": 1.258243539718045,
+            "fraction_below_80pct_reference_speed": 0.024416517055655295,
+            "net_course_change_deg": 72.55835434222244,
+            "heading_geometry": {
+              "root_directed_beta": {
+                "valid_samples": 2785,
+                "eligible_samples": 2785,
+                "valid_fraction": 1.0,
+                "signed_circular_mean_deg": -14.416080715641417,
+                "mean_absolute_deg": 19.231818937390702,
+                "absolute_p95_deg": 48.9433490186013
+              },
+              "per_wheel": {
+                "left": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 2785,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 1.0,
+                    "signed_circular_mean_deg": -13.74738718561216,
+                    "mean_absolute_deg": 19.230463112789206,
+                    "absolute_p95_deg": 48.91743340788769
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 2778,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 0.9974865350089767,
+                    "signed_circular_mean_deg": -15.617492461410343,
+                    "mean_absolute_deg": 24.904513489136477,
+                    "absolute_p95_deg": 58.06935108151653
+                  }
+                },
+                "right": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 2785,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 1.0,
+                    "signed_circular_mean_deg": -13.782215188078666,
+                    "mean_absolute_deg": 19.279263089884086,
+                    "absolute_p95_deg": 48.92372698328355
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 2781,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 0.9985637342908438,
+                    "signed_circular_mean_deg": -14.751266844926686,
+                    "mean_absolute_deg": 23.28180804045343,
+                    "absolute_p95_deg": 53.364359427796245
+                  }
+                }
+              },
+              "measured_contact_gate_applied": false
+            },
+            "ground_contact_heading_geometry": {
+              "threshold_upward_force_n": 5.0,
+              "per_wheel": {
+                "left": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 1060,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 0.38061041292639136,
+                    "signed_circular_mean_deg": -17.416829773065576,
+                    "mean_absolute_deg": 19.827883341070134,
+                    "absolute_p95_deg": 48.84340149124153
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 1059,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 0.38025134649910236,
+                    "signed_circular_mean_deg": -17.911437082275754,
+                    "mean_absolute_deg": 23.95003867395417,
+                    "absolute_p95_deg": 56.9344914763381
+                  }
+                },
+                "right": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 1176,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 0.422262118491921,
+                    "signed_circular_mean_deg": -18.635907808065554,
+                    "mean_absolute_deg": 20.84740781914109,
+                    "absolute_p95_deg": 48.85241667974612
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 1174,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 0.4215439856373429,
+                    "signed_circular_mean_deg": -18.998522025597453,
+                    "mean_absolute_deg": 23.559801986846175,
+                    "absolute_p95_deg": 53.78833879670545
+                  }
+                }
+              },
+              "measured_contact_gate_applied": true,
+              "contact_fraction_left_right": [
+                0.38061041292639136,
+                0.422262118491921
+              ]
+            },
+            "ground_contact_lateral_slip_m_s": {
+              "left": 0.5877064537107493,
+              "right": 0.5637630191843043
+            },
+            "heading_offset_is_mismatch": false,
+            "height_or_flight_failure_gate": false,
+            "xy_screen_limits_m": {
+              "rmse": 0.15,
+              "peak": 0.3
+            }
+          },
+          "final_xy_error_m": 1.472445974946492,
+          "persistent_xy_gt0p30m": {
+            "minimum_persistence_s": 0.1,
+            "first_true_sample_s": 1.969999999999969,
+            "first_persistent_event": {
+              "onset_s": 1.969999999999969,
+              "confirmation_s": 2.069999999999969,
+              "end_s": 6.960000000000388,
+              "observed_duration_s": 4.990000000000419,
+              "native_samples": 1997,
+              "left_window_censored": false,
+              "right_window_censored": true,
+              "duration_is_lower_bound": true
+            },
+            "persistent_event_count": 1,
+            "longest_observed_run_s": 4.990000000000419,
+            "events": [
+              {
+                "onset_s": 1.969999999999969,
+                "confirmation_s": 2.069999999999969,
+                "end_s": 6.960000000000388,
+                "observed_duration_s": 4.990000000000419,
+                "native_samples": 1997,
+                "left_window_censored": false,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              }
+            ]
+          },
+          "large_xy_screen": true
+        }
+      },
+      "height_airborne_tilt_or_beta_failure_gate": false,
+      "wheel_FK_audit": {
+        "maximum_wheel_link_position_error_m": 2.471493356579895e-15,
+        "wheel_position_tolerance_m": 0.0002,
+        "maximum_root_com_velocity_reconstruction_error": 6.661338147750939e-16,
+        "dynamics_stepping": false,
+        "measured_contact_replaced": false,
+        "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+      },
+      "input_files": {
+        "report": {
+          "path": "/home/roy/tron1-sliding-analysis/outputs/ppo_cem_friction_failure_400hz_20261022_v1/cem/cem_beta_on_mu0p05/report.json",
+          "sha256": "c76c0742b7813a9dde77186dda622c764826075f2b138618223cae2b2d4e8e69"
+        },
+        "recording": {
+          "path": "/home/roy/tron1-sliding-analysis/outputs/ppo_cem_friction_failure_400hz_20261022_v1/cem/cem_beta_on_mu0p05/rollout.npz",
+          "sha256": "4b8a4d7fd3fe0fa0ff8bf2bc1547491a58f472e5381cc17aaf6dcaf0c40a61b0"
+        }
+      },
+      "prediction_friction_known": true,
+      "solver_failures": 0,
+      "compute_ms_median_p95_max": [
+        1247.8731489973143,
+        1415.8322695875538,
+        1681.2958210939541
+      ],
+      "real_time_verified": false,
+      "difference_from_own_nominal_mu0p7": {
+        "available": true,
+        "nominal_mu": 0.7,
+        "nominal_core_large_xy_screen": false,
+        "nominal_overlap_large_xy_screen": true,
+        "new_core_screen_exceedance_relative_to_nominal": true,
+        "new_overlap_screen_exceedance_relative_to_nominal": false,
+        "friction_causality_or_statistical_significance_claimed": false,
+        "core": {
+          "xy_rmse_change_m": 0.45004285461150834,
+          "xy_peak_change_m": 0.6976534898601268
+        },
+        "reference_overlap": {
+          "xy_rmse_change_m": 0.6425865203576819,
+          "xy_peak_change_m": 1.0168811944133658
+        }
+      }
+    },
+    {
+      "id": "cem_beta_on/mu0p100",
+      "group": "cem_beta_on",
+      "controller": "MPC-CEM",
+      "condition": "beta_on",
+      "mu": 0.1,
+      "status": "completed",
+      "evaluated": true,
+      "core_large_xy_screen": true,
+      "overlap_large_xy_screen": true,
+      "reused_nominal": false,
+      "sample_size": 1,
+      "PPO_coefficient_outside_training_DR_range": null,
+      "windows": {
+        "core": {
+          "interval_s": [
+            1.44,
+            4.0
+          ],
+          "native_samples": 1025,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 1025,
+            "xy_rmse_m": 0.2325968422018176,
+            "xy_peak_m": 0.31524082016478205,
+            "mean_speed_m_s": 1.1363977974363588,
+            "reference_mean_speed_m_s": 1.0282628655553003,
+            "speed_retention": 1.10516273173267,
+            "beta_rmse_deg": 4.738508457399264,
+            "beta_valid_samples": 1025,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 1025,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.3902439024390244,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.11701625957077426,
+            "common_band_rms": 0.342076394348944,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.11992794739220464,
+            "native_high_frequency_rms": 0.3463061469165753,
+            "at_or_above100hz_mean_square": 0.0029116878214303765,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.3258536585365854,
+                "time_duty_fraction_zoh": 0.3251953125,
+                "state_switch_count": 443,
+                "state_switches_per_s": 173.0468750000037
+              },
+              "right": {
+                "sample_duty_fraction": 0.33658536585365856,
+                "time_duty_fraction_zoh": 0.3359375,
+                "state_switch_count": 475,
+                "state_switches_per_s": 185.54687500000395
+              },
+              "both": {
+                "sample_duty_fraction": 0.13658536585365855,
+                "time_duty_fraction_zoh": 0.1357421875,
+                "state_switch_count": 241,
+                "state_switches_per_s": 94.140625000002
+              },
+              "none": {
+                "sample_duty_fraction": 0.4741463414634146,
+                "time_duty_fraction_zoh": 0.474609375,
+                "state_switch_count": 453,
+                "state_switches_per_s": 176.95312500000378
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.3258536585365854,
+                "time_duty_fraction_zoh": 0.3251953125,
+                "state_switch_count": 443,
+                "state_switches_per_s": 173.0468750000037
+              },
+              "right": {
+                "sample_duty_fraction": 0.33658536585365856,
+                "time_duty_fraction_zoh": 0.3359375,
+                "state_switch_count": 475,
+                "state_switches_per_s": 185.54687500000395
+              },
+              "both": {
+                "sample_duty_fraction": 0.13658536585365855,
+                "time_duty_fraction_zoh": 0.1357421875,
+                "state_switch_count": 241,
+                "state_switches_per_s": 94.140625000002
+              },
+              "none": {
+                "sample_duty_fraction": 0.4741463414634146,
+                "time_duty_fraction_zoh": 0.474609375,
+                "state_switch_count": 453,
+                "state_switches_per_s": 176.95312500000378
+              }
+            }
+          },
+          "maximum_tilt_deg": 13.144220058874351,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "45": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "60": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        },
+        "full": {
+          "interval_s": [
+            0.0,
+            6.98
+          ],
+          "native_samples": 2793,
+          "tracking": {
+            "available": false,
+            "coverage_complete": false,
+            "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 2793,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.14321518080916576,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.20608830091182814,
+            "common_band_rms": 0.45396949337133674,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.21008825561755187,
+            "native_high_frequency_rms": 0.4583538541537006,
+            "at_or_above100hz_mean_square": 0.003999954705723712,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.43609022556390975,
+                "time_duty_fraction_zoh": 0.43588825214899846,
+                "state_switch_count": 1129,
+                "state_switches_per_s": 161.74785100285627
+              },
+              "right": {
+                "sample_duty_fraction": 0.414249910490512,
+                "time_duty_fraction_zoh": 0.4140401146131764,
+                "state_switch_count": 1101,
+                "state_switches_per_s": 157.73638968480492
+              },
+              "both": {
+                "sample_duty_fraction": 0.22986036519871106,
+                "time_duty_fraction_zoh": 0.22958452722062753,
+                "state_switch_count": 711,
+                "state_switches_per_s": 101.86246418337538
+              },
+              "none": {
+                "sample_duty_fraction": 0.3795202291442893,
+                "time_duty_fraction_zoh": 0.37965616045845263,
+                "state_switch_count": 1051,
+                "state_switches_per_s": 150.57306590257036
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.43609022556390975,
+                "time_duty_fraction_zoh": 0.43588825214899846,
+                "state_switch_count": 1129,
+                "state_switches_per_s": 161.74785100285627
+              },
+              "right": {
+                "sample_duty_fraction": 0.414249910490512,
+                "time_duty_fraction_zoh": 0.4140401146131764,
+                "state_switch_count": 1101,
+                "state_switches_per_s": 157.73638968480492
+              },
+              "both": {
+                "sample_duty_fraction": 0.22986036519871106,
+                "time_duty_fraction_zoh": 0.22958452722062753,
+                "state_switch_count": 711,
+                "state_switches_per_s": 101.86246418337538
+              },
+              "none": {
+                "sample_duty_fraction": 0.3795202291442893,
+                "time_duty_fraction_zoh": 0.37965616045845263,
+                "state_switch_count": 1051,
+                "state_switches_per_s": 150.57306590257036
+              }
+            }
+          },
+          "maximum_tilt_deg": 13.144220058874351,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "45": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "60": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        },
+        "reference_overlap": {
+          "interval_s": [
+            0.0,
+            6.96
+          ],
+          "native_samples": 2785,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 2785,
+            "xy_rmse_m": 0.3677515617206758,
+            "xy_peak_m": 0.928569302184428,
+            "mean_speed_m_s": 1.044038516585461,
+            "reference_mean_speed_m_s": 0.8741363103669761,
+            "speed_retention": 1.1943658033689932,
+            "beta_rmse_deg": 4.541125179699478,
+            "beta_valid_samples": 2362,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 2785,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.1436265709156194,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.20559538841826824,
+            "common_band_rms": 0.4534262767179117,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.20958786885575567,
+            "native_high_frequency_rms": 0.45780767671125355,
+            "at_or_above100hz_mean_square": 0.0039924804374874764,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.4355475763016158,
+                "time_duty_fraction_zoh": 0.4353448275862082,
+                "state_switch_count": 1123,
+                "state_switches_per_s": 161.35057471263468
+              },
+              "right": {
+                "sample_duty_fraction": 0.4132854578096948,
+                "time_duty_fraction_zoh": 0.41343390804597285,
+                "state_switch_count": 1096,
+                "state_switches_per_s": 157.47126436780732
+              },
+              "both": {
+                "sample_duty_fraction": 0.22944344703770198,
+                "time_duty_fraction_zoh": 0.22952586206896267,
+                "state_switch_count": 706,
+                "state_switches_per_s": 101.43678160918975
+              },
+              "none": {
+                "sample_duty_fraction": 0.38061041292639136,
+                "time_duty_fraction_zoh": 0.3807471264367816,
+                "state_switch_count": 1051,
+                "state_switches_per_s": 151.00574712642836
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.4355475763016158,
+                "time_duty_fraction_zoh": 0.4353448275862082,
+                "state_switch_count": 1123,
+                "state_switches_per_s": 161.35057471263468
+              },
+              "right": {
+                "sample_duty_fraction": 0.4132854578096948,
+                "time_duty_fraction_zoh": 0.41343390804597285,
+                "state_switch_count": 1096,
+                "state_switches_per_s": 157.47126436780732
+              },
+              "both": {
+                "sample_duty_fraction": 0.22944344703770198,
+                "time_duty_fraction_zoh": 0.22952586206896267,
+                "state_switch_count": 706,
+                "state_switches_per_s": 101.43678160918975
+              },
+              "none": {
+                "sample_duty_fraction": 0.38061041292639136,
+                "time_duty_fraction_zoh": 0.3807471264367816,
+                "state_switch_count": 1051,
+                "state_switches_per_s": 151.00574712642836
+              }
+            }
+          },
+          "maximum_tilt_deg": 13.144220058874351,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "45": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "60": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        },
+        "post_core": {
+          "interval_s": [
+            4.0,
+            6.98
+          ],
+          "native_samples": 1193,
+          "tracking": {
+            "available": false,
+            "coverage_complete": false,
+            "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 1193,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.3352891869237217,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.277301278787079,
+            "common_band_rms": 0.526594036034476,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.2842544739088091,
+            "native_high_frequency_rms": 0.5331552062099826,
+            "at_or_above100hz_mean_square": 0.0069531951217300745,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.44425817267393125,
+                "time_duty_fraction_zoh": 0.44379194630872476,
+                "state_switch_count": 502,
+                "state_switches_per_s": 168.45637583889987
+              },
+              "right": {
+                "sample_duty_fraction": 0.3512154233025985,
+                "time_duty_fraction_zoh": 0.3506711409395972,
+                "state_switch_count": 434,
+                "state_switches_per_s": 145.6375838925947
+              },
+              "both": {
+                "sample_duty_fraction": 0.18105616093880972,
+                "time_duty_fraction_zoh": 0.1803691275167784,
+                "state_switch_count": 278,
+                "state_switches_per_s": 93.28859060401227
+              },
+              "none": {
+                "sample_duty_fraction": 0.38558256496227994,
+                "time_duty_fraction_zoh": 0.38590604026845643,
+                "state_switch_count": 476,
+                "state_switches_per_s": 159.73154362413612
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.44425817267393125,
+                "time_duty_fraction_zoh": 0.44379194630872476,
+                "state_switch_count": 502,
+                "state_switches_per_s": 168.45637583889987
+              },
+              "right": {
+                "sample_duty_fraction": 0.3512154233025985,
+                "time_duty_fraction_zoh": 0.3506711409395972,
+                "state_switch_count": 434,
+                "state_switches_per_s": 145.6375838925947
+              },
+              "both": {
+                "sample_duty_fraction": 0.18105616093880972,
+                "time_duty_fraction_zoh": 0.1803691275167784,
+                "state_switch_count": 278,
+                "state_switches_per_s": 93.28859060401227
+              },
+              "none": {
+                "sample_duty_fraction": 0.38558256496227994,
+                "time_duty_fraction_zoh": 0.38590604026845643,
+                "state_switch_count": 476,
+                "state_switches_per_s": 159.73154362413612
+              }
+            }
+          },
+          "maximum_tilt_deg": 7.433538121568931,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "45": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "60": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        }
+      },
+      "failure_diagnostics": {
+        "core": {
+          "tangent_error": {
+            "definition": "Actual minus reference at the same timestamp; reference COM-velocity tangent; left normal positive.",
+            "minimum_reference_speed_m_s_strict": 0.3,
+            "eligible_samples": 1025,
+            "valid_samples": 1025,
+            "valid_fraction": 1.0,
+            "along_track": {
+              "rms_m": 0.09006380816874784,
+              "signed_mean_m": -0.08603643909354265,
+              "absolute_p95_m": 0.12638309847206328,
+              "maximum_absolute_m": 0.12850001502800248
+            },
+            "cross_track": {
+              "rms_m": 0.2144523291092923,
+              "signed_mean_m": -0.20317141722971854,
+              "absolute_p95_m": 0.2867045990240993,
+              "maximum_absolute_m": 0.3061224013054658
+            },
+            "time_alignment_or_closest_path_projection": false
+          },
+          "course": {
+            "valid_samples": 1025,
+            "window_samples": 1025,
+            "complete_valid_window": true,
+            "contiguous_segments": [
+              {
+                "start_s": 1.4399999999999804,
+                "end_s": 3.999999999999926,
+                "samples": 1025,
+                "signed_course_change_deg": 57.79181218442394
+              }
+            ],
+            "net_course_change_deg": 57.79181218442394,
+            "invalid_gap_unwrap_or_interpolation": false
+          },
+          "reference_course": {
+            "valid_samples": 129,
+            "window_samples": 129,
+            "complete_valid_window": true,
+            "contiguous_segments": [
+              {
+                "start_s": 1.44,
+                "end_s": 4.0,
+                "samples": 129,
+                "signed_course_change_deg": 59.25535645538145
+              }
+            ],
+            "net_course_change_deg": 59.25535645538145,
+            "invalid_gap_unwrap_or_interpolation": false
+          },
+          "turn_and_ground_contact_heading_geometry": {
+            "window_s": [
+              1.44,
+              4.0
+            ],
+            "coverage_complete": true,
+            "samples_in_window": 1025,
+            "reference_xy_rmse_m": 0.2325968422018176,
+            "reference_xy_peak_m": 0.31524082016478205,
+            "large_xy_exploratory_screen": true,
+            "mean_speed_m_s": 1.1363977974363588,
+            "reference_mean_speed_m_s": 1.0282628655553003,
+            "mean_speed_retention_ratio": 1.10516273173267,
+            "fraction_below_80pct_reference_speed": 0.0,
+            "net_course_change_deg": 57.79181218442394,
+            "heading_geometry": {
+              "root_directed_beta": {
+                "valid_samples": 1025,
+                "eligible_samples": 1025,
+                "valid_fraction": 1.0,
+                "signed_circular_mean_deg": -22.519833574757637,
+                "mean_absolute_deg": 22.51660877567294,
+                "absolute_p95_deg": 33.85943530836841
+              },
+              "per_wheel": {
+                "left": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 1025,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 1.0,
+                    "signed_circular_mean_deg": -22.473273762716843,
+                    "mean_absolute_deg": 22.45910076388359,
+                    "absolute_p95_deg": 33.82053607897496
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 1025,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 1.0,
+                    "signed_circular_mean_deg": -25.253971374618843,
+                    "mean_absolute_deg": 27.03361569861387,
+                    "absolute_p95_deg": 50.41626893290721
+                  }
+                },
+                "right": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 1025,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 1.0,
+                    "signed_circular_mean_deg": -22.54997975483996,
+                    "mean_absolute_deg": 22.536104862249054,
+                    "absolute_p95_deg": 33.85602117236809
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 1025,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 1.0,
+                    "signed_circular_mean_deg": -23.267888178623082,
+                    "mean_absolute_deg": 25.022804479475624,
+                    "absolute_p95_deg": 48.37530775557021
+                  }
+                }
+              },
+              "measured_contact_gate_applied": false
+            },
+            "ground_contact_heading_geometry": {
+              "threshold_upward_force_n": 5.0,
+              "per_wheel": {
+                "left": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 334,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 0.3258536585365854,
+                    "signed_circular_mean_deg": -23.323585811182504,
+                    "mean_absolute_deg": 23.28714757152507,
+                    "absolute_p95_deg": 34.7091758174061
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 334,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 0.3258536585365854,
+                    "signed_circular_mean_deg": -25.264175232616594,
+                    "mean_absolute_deg": 26.113700021001776,
+                    "absolute_p95_deg": 48.774985829253914
+                  }
+                },
+                "right": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 345,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 0.33658536585365856,
+                    "signed_circular_mean_deg": -24.2087060977215,
+                    "mean_absolute_deg": 24.176310262341122,
+                    "absolute_p95_deg": 34.22435274948475
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 345,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 0.33658536585365856,
+                    "signed_circular_mean_deg": -21.98261411113095,
+                    "mean_absolute_deg": 23.257209488086733,
+                    "absolute_p95_deg": 45.26635783088944
+                  }
+                }
+              },
+              "measured_contact_gate_applied": true,
+              "contact_fraction_left_right": [
+                0.3258536585365854,
+                0.33658536585365856
+              ]
+            },
+            "ground_contact_lateral_slip_m_s": {
+              "left": 0.5705897361745784,
+              "right": 0.5717148072317507
+            },
+            "heading_offset_is_mismatch": false,
+            "height_or_flight_failure_gate": false,
+            "xy_screen_limits_m": {
+              "rmse": 0.15,
+              "peak": 0.3
+            }
+          },
+          "final_xy_error_m": 0.31524082016478205,
+          "persistent_xy_gt0p30m": {
+            "minimum_persistence_s": 0.1,
+            "first_true_sample_s": 3.8624999999999288,
+            "first_persistent_event": {
+              "onset_s": 3.8624999999999288,
+              "confirmation_s": 3.962499999999929,
+              "end_s": 3.999999999999926,
+              "observed_duration_s": 0.13749999999999707,
+              "native_samples": 56,
+              "left_window_censored": false,
+              "right_window_censored": true,
+              "duration_is_lower_bound": true
+            },
+            "persistent_event_count": 1,
+            "longest_observed_run_s": 0.13749999999999707,
+            "events": [
+              {
+                "onset_s": 3.8624999999999288,
+                "confirmation_s": 3.962499999999929,
+                "end_s": 3.999999999999926,
+                "observed_duration_s": 0.13749999999999707,
+                "native_samples": 56,
+                "left_window_censored": false,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              }
+            ]
+          },
+          "large_xy_screen": true
+        },
+        "reference_overlap": {
+          "tangent_error": {
+            "definition": "Actual minus reference at the same timestamp; reference COM-velocity tangent; left normal positive.",
+            "minimum_reference_speed_m_s_strict": 0.3,
+            "eligible_samples": 2785,
+            "valid_samples": 2342,
+            "valid_fraction": 0.8409335727109515,
+            "along_track": {
+              "rms_m": 0.14202534557619031,
+              "signed_mean_m": 0.00906859871919684,
+              "absolute_p95_m": 0.3012867039534554,
+              "maximum_absolute_m": 0.43094154283560904
+            },
+            "cross_track": {
+              "rms_m": 0.19345588728948135,
+              "signed_mean_m": -0.15881207722443993,
+              "absolute_p95_m": 0.31637209269706584,
+              "maximum_absolute_m": 0.3252012160816009
+            },
+            "time_alignment_or_closest_path_projection": false
+          },
+          "course": {
+            "valid_samples": 2748,
+            "window_samples": 2785,
+            "complete_valid_window": false,
+            "contiguous_segments": [
+              {
+                "start_s": 0.0,
+                "end_s": 6.867500000000374,
+                "samples": 2748,
+                "signed_course_change_deg": 23.784335844277223
+              }
+            ],
+            "net_course_change_deg": null,
+            "invalid_gap_unwrap_or_interpolation": false
+          },
+          "reference_course": {
+            "valid_samples": 296,
+            "window_samples": 349,
+            "complete_valid_window": false,
+            "contiguous_segments": [
+              {
+                "start_s": 0.0,
+                "end_s": 5.9,
+                "samples": 296,
+                "signed_course_change_deg": 54.837295812389065
+              }
+            ],
+            "net_course_change_deg": null,
+            "invalid_gap_unwrap_or_interpolation": false
+          },
+          "turn_and_ground_contact_heading_geometry": {
+            "window_s": [
+              0.0,
+              6.96
+            ],
+            "coverage_complete": true,
+            "samples_in_window": 2785,
+            "reference_xy_rmse_m": 0.3677515617206758,
+            "reference_xy_peak_m": 0.928569302184428,
+            "large_xy_exploratory_screen": true,
+            "mean_speed_m_s": 1.044038516585461,
+            "reference_mean_speed_m_s": 0.8741363103669761,
+            "mean_speed_retention_ratio": 1.1943658033689932,
+            "fraction_below_80pct_reference_speed": 0.0,
+            "net_course_change_deg": null,
+            "heading_geometry": {
+              "root_directed_beta": {
+                "valid_samples": 2748,
+                "eligible_samples": 2785,
+                "valid_fraction": 0.9867145421903052,
+                "signed_circular_mean_deg": -7.313431285035334,
+                "mean_absolute_deg": 12.623768115457093,
+                "absolute_p95_deg": 31.15847377219514
+              },
+              "per_wheel": {
+                "left": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 2748,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 0.9867145421903052,
+                    "signed_circular_mean_deg": -7.289440817609498,
+                    "mean_absolute_deg": 12.592641463474644,
+                    "absolute_p95_deg": 31.06174547484476
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 2685,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 0.9640933572710951,
+                    "signed_circular_mean_deg": -8.298717841597295,
+                    "mean_absolute_deg": 17.681348539397828,
+                    "absolute_p95_deg": 46.52774869129937
+                  }
+                },
+                "right": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 2748,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 0.9867145421903052,
+                    "signed_circular_mean_deg": -7.309806656051179,
+                    "mean_absolute_deg": 12.645688753756327,
+                    "absolute_p95_deg": 31.13738897073948
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 2717,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 0.9755834829443447,
+                    "signed_circular_mean_deg": -7.557143121637082,
+                    "mean_absolute_deg": 18.68215599203066,
+                    "absolute_p95_deg": 48.3901422680126
+                  }
+                }
+              },
+              "measured_contact_gate_applied": false
+            },
+            "ground_contact_heading_geometry": {
+              "threshold_upward_force_n": 5.0,
+              "per_wheel": {
+                "left": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 1193,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 0.4283662477558348,
+                    "signed_circular_mean_deg": -7.001441477897659,
+                    "mean_absolute_deg": 10.412855565092515,
+                    "absolute_p95_deg": 31.323923258843344
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 1140,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 0.40933572710951527,
+                    "signed_circular_mean_deg": -6.207010890352656,
+                    "mean_absolute_deg": 13.692011605437845,
+                    "absolute_p95_deg": 44.1095203948337
+                  }
+                },
+                "right": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 1126,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 0.4043087971274686,
+                    "signed_circular_mean_deg": -7.1299352628631825,
+                    "mean_absolute_deg": 11.009731889901575,
+                    "absolute_p95_deg": 31.152085776266667
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 1116,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 0.4007181328545781,
+                    "signed_circular_mean_deg": -6.533405548123461,
+                    "mean_absolute_deg": 13.454994172139086,
+                    "absolute_p95_deg": 42.18589317537817
+                  }
+                }
+              },
+              "measured_contact_gate_applied": true,
+              "contact_fraction_left_right": [
+                0.4355475763016158,
+                0.4132854578096948
+              ]
+            },
+            "ground_contact_lateral_slip_m_s": {
+              "left": 0.3841653755196129,
+              "right": 0.39737115411556767
+            },
+            "heading_offset_is_mismatch": false,
+            "height_or_flight_failure_gate": false,
+            "xy_screen_limits_m": {
+              "rmse": 0.15,
+              "peak": 0.3
+            }
+          },
+          "final_xy_error_m": 0.928569302184428,
+          "persistent_xy_gt0p30m": {
+            "minimum_persistence_s": 0.1,
+            "first_true_sample_s": 3.8624999999999288,
+            "first_persistent_event": {
+              "onset_s": 3.8624999999999288,
+              "confirmation_s": 3.962499999999929,
+              "end_s": 4.650000000000027,
+              "observed_duration_s": 0.7875000000000982,
+              "native_samples": 315,
+              "left_window_censored": false,
+              "right_window_censored": false,
+              "duration_is_lower_bound": false
+            },
+            "persistent_event_count": 3,
+            "longest_observed_run_s": 1.842500000000288,
+            "events": [
+              {
+                "onset_s": 3.8624999999999288,
+                "confirmation_s": 3.962499999999929,
+                "end_s": 4.650000000000027,
+                "observed_duration_s": 0.7875000000000982,
+                "native_samples": 315,
+                "left_window_censored": false,
+                "right_window_censored": false,
+                "duration_is_lower_bound": false
+              },
+              {
+                "onset_s": 4.767500000000045,
+                "confirmation_s": 4.867500000000045,
+                "end_s": 5.097500000000097,
+                "observed_duration_s": 0.3300000000000516,
+                "native_samples": 132,
+                "left_window_censored": false,
+                "right_window_censored": false,
+                "duration_is_lower_bound": false
+              },
+              {
+                "onset_s": 5.1175000000001,
+                "confirmation_s": 5.2175000000001,
+                "end_s": 6.960000000000388,
+                "observed_duration_s": 1.842500000000288,
+                "native_samples": 738,
+                "left_window_censored": false,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              }
+            ]
+          },
+          "large_xy_screen": true
+        }
+      },
+      "height_airborne_tilt_or_beta_failure_gate": false,
+      "wheel_FK_audit": {
+        "maximum_wheel_link_position_error_m": 2.047338255141143e-15,
+        "wheel_position_tolerance_m": 0.0002,
+        "maximum_root_com_velocity_reconstruction_error": 8.881784197001252e-16,
+        "dynamics_stepping": false,
+        "measured_contact_replaced": false,
+        "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+      },
+      "input_files": {
+        "report": {
+          "path": "/home/roy/tron1-sliding-analysis/outputs/ppo_cem_friction_failure_400hz_20261022_v1/cem/cem_beta_on_mu0p1/report.json",
+          "sha256": "4eca1d4634d29d2910466eec69937f0952f60106ee027bc00b81f63d1cf004cc"
+        },
+        "recording": {
+          "path": "/home/roy/tron1-sliding-analysis/outputs/ppo_cem_friction_failure_400hz_20261022_v1/cem/cem_beta_on_mu0p1/rollout.npz",
+          "sha256": "5b02766a0d3dfdcb6a2e730d69bad70f9c4c9f7706b83320c7142244a0c5b83f"
+        }
+      },
+      "prediction_friction_known": true,
+      "solver_failures": 0,
+      "compute_ms_median_p95_max": [
+        1220.6590060377494,
+        1448.061647173017,
+        1859.9152760580182
+      ],
+      "real_time_verified": false,
+      "difference_from_own_nominal_mu0p7": {
+        "available": true,
+        "nominal_mu": 0.7,
+        "nominal_core_large_xy_screen": false,
+        "nominal_overlap_large_xy_screen": true,
+        "new_core_screen_exceedance_relative_to_nominal": true,
+        "new_overlap_screen_exceedance_relative_to_nominal": false,
+        "friction_causality_or_statistical_significance_claimed": false,
+        "core": {
+          "xy_rmse_change_m": 0.14755988407108023,
+          "xy_peak_change_m": 0.17745623345833894
+        },
+        "reference_overlap": {
+          "xy_rmse_change_m": 0.23824359102216688,
+          "xy_peak_change_m": 0.47300452165130186
+        }
+      }
+    },
+    {
+      "id": "cem_beta_on/mu0p150",
+      "group": "cem_beta_on",
+      "controller": "MPC-CEM",
+      "condition": "beta_on",
+      "mu": 0.15,
+      "status": "completed",
+      "evaluated": true,
+      "core_large_xy_screen": false,
+      "overlap_large_xy_screen": true,
+      "reused_nominal": false,
+      "sample_size": 1,
+      "PPO_coefficient_outside_training_DR_range": null,
+      "windows": {
+        "core": {
+          "interval_s": [
+            1.44,
+            4.0
+          ],
+          "native_samples": 1025,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 1025,
+            "xy_rmse_m": 0.11028936631558639,
+            "xy_peak_m": 0.2896867464131487,
+            "mean_speed_m_s": 1.1672039387080515,
+            "reference_mean_speed_m_s": 1.0282628655553003,
+            "speed_retention": 1.1351221344337061,
+            "beta_rmse_deg": 3.1814633675777886,
+            "beta_valid_samples": 1025,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 1025,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.3902439024390244,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.9423326493996196,
+            "common_band_rms": 0.9707381981768408,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.9581028582864631,
+            "native_high_frequency_rms": 0.9788272872608645,
+            "at_or_above100hz_mean_square": 0.015770208886843384,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.13951219512195123,
+                "time_duty_fraction_zoh": 0.1396484375,
+                "state_switch_count": 208,
+                "state_switches_per_s": 81.25000000000173
+              },
+              "right": {
+                "sample_duty_fraction": 0.2029268292682927,
+                "time_duty_fraction_zoh": 0.203125,
+                "state_switch_count": 269,
+                "state_switches_per_s": 105.07812500000225
+              },
+              "both": {
+                "sample_duty_fraction": 0.05951219512195122,
+                "time_duty_fraction_zoh": 0.0595703125,
+                "state_switch_count": 84,
+                "state_switches_per_s": 32.812500000000696
+              },
+              "none": {
+                "sample_duty_fraction": 0.7170731707317073,
+                "time_duty_fraction_zoh": 0.716796875,
+                "state_switch_count": 319,
+                "state_switches_per_s": 124.60937500000266
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.13951219512195123,
+                "time_duty_fraction_zoh": 0.1396484375,
+                "state_switch_count": 208,
+                "state_switches_per_s": 81.25000000000173
+              },
+              "right": {
+                "sample_duty_fraction": 0.2029268292682927,
+                "time_duty_fraction_zoh": 0.203125,
+                "state_switch_count": 269,
+                "state_switches_per_s": 105.07812500000225
+              },
+              "both": {
+                "sample_duty_fraction": 0.05951219512195122,
+                "time_duty_fraction_zoh": 0.0595703125,
+                "state_switch_count": 84,
+                "state_switches_per_s": 32.812500000000696
+              },
+              "none": {
+                "sample_duty_fraction": 0.7170731707317073,
+                "time_duty_fraction_zoh": 0.716796875,
+                "state_switch_count": 319,
+                "state_switches_per_s": 124.60937500000266
+              }
+            }
+          },
+          "maximum_tilt_deg": 16.04561095652305,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "45": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "60": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        },
+        "full": {
+          "interval_s": [
+            0.0,
+            6.98
+          ],
+          "native_samples": 2793,
+          "tracking": {
+            "available": false,
+            "coverage_complete": false,
+            "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 2793,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.14321518080916576,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.5905293114067446,
+            "common_band_rms": 0.7684590499218189,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.6002226170236256,
+            "native_high_frequency_rms": 0.7747403545857319,
+            "at_or_above100hz_mean_square": 0.009693305616880997,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.3476548514142499,
+                "time_duty_fraction_zoh": 0.34777936962750744,
+                "state_switch_count": 904,
+                "state_switches_per_s": 129.51289398280076
+              },
+              "right": {
+                "sample_duty_fraction": 0.32653061224489793,
+                "time_duty_fraction_zoh": 0.3266475644699098,
+                "state_switch_count": 876,
+                "state_switches_per_s": 125.50143266474942
+              },
+              "both": {
+                "sample_duty_fraction": 0.17758682420336555,
+                "time_duty_fraction_zoh": 0.177650429799423,
+                "state_switch_count": 552,
+                "state_switches_per_s": 79.0830945558695
+              },
+              "none": {
+                "sample_duty_fraction": 0.5034013605442177,
+                "time_duty_fraction_zoh": 0.5032234957020058,
+                "state_switch_count": 862,
+                "state_switches_per_s": 123.49570200572374
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.3476548514142499,
+                "time_duty_fraction_zoh": 0.34777936962750744,
+                "state_switch_count": 904,
+                "state_switches_per_s": 129.51289398280076
+              },
+              "right": {
+                "sample_duty_fraction": 0.32653061224489793,
+                "time_duty_fraction_zoh": 0.3266475644699098,
+                "state_switch_count": 876,
+                "state_switches_per_s": 125.50143266474942
+              },
+              "both": {
+                "sample_duty_fraction": 0.17758682420336555,
+                "time_duty_fraction_zoh": 0.177650429799423,
+                "state_switch_count": 552,
+                "state_switches_per_s": 79.0830945558695
+              },
+              "none": {
+                "sample_duty_fraction": 0.5034013605442177,
+                "time_duty_fraction_zoh": 0.5032234957020058,
+                "state_switch_count": 862,
+                "state_switches_per_s": 123.49570200572374
+              }
+            }
+          },
+          "maximum_tilt_deg": 16.04561095652305,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "45": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "60": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        },
+        "reference_overlap": {
+          "interval_s": [
+            0.0,
+            6.96
+          ],
+          "native_samples": 2785,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 2785,
+            "xy_rmse_m": 0.3576851264685647,
+            "xy_peak_m": 0.595416177051254,
+            "mean_speed_m_s": 0.9950783252058423,
+            "reference_mean_speed_m_s": 0.8741363103669761,
+            "speed_retention": 1.1383560131349455,
+            "beta_rmse_deg": 3.805398909433969,
+            "beta_valid_samples": 2362,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 2785,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.1436265709156194,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.5919787193183103,
+            "common_band_rms": 0.7694015332180657,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.6017032816704191,
+            "native_high_frequency_rms": 0.7756953536475638,
+            "at_or_above100hz_mean_square": 0.009724562352108963,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.34865350089766606,
+                "time_duty_fraction_zoh": 0.34877873563218426,
+                "state_switch_count": 904,
+                "state_switches_per_s": 129.8850574712571
+              },
+              "right": {
+                "sample_duty_fraction": 0.3267504488330341,
+                "time_duty_fraction_zoh": 0.32686781609194976,
+                "state_switch_count": 872,
+                "state_switches_per_s": 125.28735632183209
+              },
+              "both": {
+                "sample_duty_fraction": 0.17809694793536804,
+                "time_duty_fraction_zoh": 0.17816091954022598,
+                "state_switch_count": 552,
+                "state_switches_per_s": 79.31034482758179
+              },
+              "none": {
+                "sample_duty_fraction": 0.5026929982046678,
+                "time_duty_fraction_zoh": 0.5025143678160919,
+                "state_switch_count": 858,
+                "state_switches_per_s": 123.27586206895865
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.34865350089766606,
+                "time_duty_fraction_zoh": 0.34877873563218426,
+                "state_switch_count": 904,
+                "state_switches_per_s": 129.8850574712571
+              },
+              "right": {
+                "sample_duty_fraction": 0.3267504488330341,
+                "time_duty_fraction_zoh": 0.32686781609194976,
+                "state_switch_count": 872,
+                "state_switches_per_s": 125.28735632183209
+              },
+              "both": {
+                "sample_duty_fraction": 0.17809694793536804,
+                "time_duty_fraction_zoh": 0.17816091954022598,
+                "state_switch_count": 552,
+                "state_switches_per_s": 79.31034482758179
+              },
+              "none": {
+                "sample_duty_fraction": 0.5026929982046678,
+                "time_duty_fraction_zoh": 0.5025143678160919,
+                "state_switch_count": 858,
+                "state_switches_per_s": 123.27586206895865
+              }
+            }
+          },
+          "maximum_tilt_deg": 16.04561095652305,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "45": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "60": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        },
+        "post_core": {
+          "interval_s": [
+            4.0,
+            6.98
+          ],
+          "native_samples": 1193,
+          "tracking": {
+            "available": false,
+            "coverage_complete": false,
+            "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 1193,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.3352891869237217,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.26194269774199747,
+            "common_band_rms": 0.5118033780095609,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.26951280755709656,
+            "native_high_frequency_rms": 0.5191462294547622,
+            "at_or_above100hz_mean_square": 0.00757010981509913,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.34115674769488685,
+                "time_duty_fraction_zoh": 0.3414429530201343,
+                "state_switch_count": 452,
+                "state_switches_per_s": 151.6778523489696
+              },
+              "right": {
+                "sample_duty_fraction": 0.2598491198658843,
+                "time_duty_fraction_zoh": 0.2600671140939598,
+                "state_switch_count": 364,
+                "state_switches_per_s": 122.14765100669233
+              },
+              "both": {
+                "sample_duty_fraction": 0.11483654652137469,
+                "time_duty_fraction_zoh": 0.11493288590604028,
+                "state_switch_count": 210,
+                "state_switches_per_s": 70.46979865770712
+              },
+              "none": {
+                "sample_duty_fraction": 0.5138306789606035,
+                "time_duty_fraction_zoh": 0.5134228187919463,
+                "state_switch_count": 436,
+                "state_switches_per_s": 146.30872483219193
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.34115674769488685,
+                "time_duty_fraction_zoh": 0.3414429530201343,
+                "state_switch_count": 452,
+                "state_switches_per_s": 151.6778523489696
+              },
+              "right": {
+                "sample_duty_fraction": 0.2598491198658843,
+                "time_duty_fraction_zoh": 0.2600671140939598,
+                "state_switch_count": 364,
+                "state_switches_per_s": 122.14765100669233
+              },
+              "both": {
+                "sample_duty_fraction": 0.11483654652137469,
+                "time_duty_fraction_zoh": 0.11493288590604028,
+                "state_switch_count": 210,
+                "state_switches_per_s": 70.46979865770712
+              },
+              "none": {
+                "sample_duty_fraction": 0.5138306789606035,
+                "time_duty_fraction_zoh": 0.5134228187919463,
+                "state_switch_count": 436,
+                "state_switches_per_s": 146.30872483219193
+              }
+            }
+          },
+          "maximum_tilt_deg": 15.26209757216331,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "45": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "60": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        }
+      },
+      "failure_diagnostics": {
+        "core": {
+          "tangent_error": {
+            "definition": "Actual minus reference at the same timestamp; reference COM-velocity tangent; left normal positive.",
+            "minimum_reference_speed_m_s_strict": 0.3,
+            "eligible_samples": 1025,
+            "valid_samples": 1025,
+            "valid_fraction": 1.0,
+            "along_track": {
+              "rms_m": 0.07422649938275665,
+              "signed_mean_m": -0.019910984959341706,
+              "absolute_p95_m": 0.14236767519335755,
+              "maximum_absolute_m": 0.21413620406614997
+            },
+            "cross_track": {
+              "rms_m": 0.0815731028689925,
+              "signed_mean_m": -0.0514496910577021,
+              "absolute_p95_m": 0.16584124527640598,
+              "maximum_absolute_m": 0.19510022336116403
+            },
+            "time_alignment_or_closest_path_projection": false
+          },
+          "course": {
+            "valid_samples": 1025,
+            "window_samples": 1025,
+            "complete_valid_window": true,
+            "contiguous_segments": [
+              {
+                "start_s": 1.4399999999999804,
+                "end_s": 3.999999999999926,
+                "samples": 1025,
+                "signed_course_change_deg": 54.01265241159413
+              }
+            ],
+            "net_course_change_deg": 54.01265241159413,
+            "invalid_gap_unwrap_or_interpolation": false
+          },
+          "reference_course": {
+            "valid_samples": 129,
+            "window_samples": 129,
+            "complete_valid_window": true,
+            "contiguous_segments": [
+              {
+                "start_s": 1.44,
+                "end_s": 4.0,
+                "samples": 129,
+                "signed_course_change_deg": 59.25535645538145
+              }
+            ],
+            "net_course_change_deg": 59.25535645538145,
+            "invalid_gap_unwrap_or_interpolation": false
+          },
+          "turn_and_ground_contact_heading_geometry": {
+            "window_s": [
+              1.44,
+              4.0
+            ],
+            "coverage_complete": true,
+            "samples_in_window": 1025,
+            "reference_xy_rmse_m": 0.11028936631558639,
+            "reference_xy_peak_m": 0.2896867464131487,
+            "large_xy_exploratory_screen": false,
+            "mean_speed_m_s": 1.1672039387080515,
+            "reference_mean_speed_m_s": 1.0282628655553003,
+            "mean_speed_retention_ratio": 1.1351221344337061,
+            "fraction_below_80pct_reference_speed": 0.0,
+            "net_course_change_deg": 54.01265241159413,
+            "heading_geometry": {
+              "root_directed_beta": {
+                "valid_samples": 1025,
+                "eligible_samples": 1025,
+                "valid_fraction": 1.0,
+                "signed_circular_mean_deg": -20.562018960741064,
+                "mean_absolute_deg": 20.56090643268006,
+                "absolute_p95_deg": 31.044886278615703
+              },
+              "per_wheel": {
+                "left": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 1025,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 1.0,
+                    "signed_circular_mean_deg": -20.238671106098636,
+                    "mean_absolute_deg": 20.24315060757959,
+                    "absolute_p95_deg": 31.115804416736555
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 1015,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 0.9902439024390244,
+                    "signed_circular_mean_deg": -22.52348377739473,
+                    "mean_absolute_deg": 31.155074399308113,
+                    "absolute_p95_deg": 76.9761653739363
+                  }
+                },
+                "right": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 1025,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 1.0,
+                    "signed_circular_mean_deg": -20.440902991845515,
+                    "mean_absolute_deg": 20.437427901029576,
+                    "absolute_p95_deg": 31.02876250895975
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 1021,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 0.9960975609756098,
+                    "signed_circular_mean_deg": -19.491939459330354,
+                    "mean_absolute_deg": 28.09305357916138,
+                    "absolute_p95_deg": 74.07533380684139
+                  }
+                }
+              },
+              "measured_contact_gate_applied": false
+            },
+            "ground_contact_heading_geometry": {
+              "threshold_upward_force_n": 5.0,
+              "per_wheel": {
+                "left": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 143,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 0.13951219512195123,
+                    "signed_circular_mean_deg": -15.666352121302317,
+                    "mean_absolute_deg": 15.742642553285544,
+                    "absolute_p95_deg": 31.38629765867819
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 142,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 0.13853658536585367,
+                    "signed_circular_mean_deg": -18.915011994009912,
+                    "mean_absolute_deg": 24.59099782446418,
+                    "absolute_p95_deg": 72.78226514821546
+                  }
+                },
+                "right": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 208,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 0.2029268292682927,
+                    "signed_circular_mean_deg": -15.641153934886338,
+                    "mean_absolute_deg": 15.670317386616155,
+                    "absolute_p95_deg": 25.546837188001447
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 208,
+                    "eligible_samples": 1025,
+                    "valid_fraction": 0.2029268292682927,
+                    "signed_circular_mean_deg": -14.728225455475627,
+                    "mean_absolute_deg": 18.387171168626267,
+                    "absolute_p95_deg": 51.32508374667636
+                  }
+                }
+              },
+              "measured_contact_gate_applied": true,
+              "contact_fraction_left_right": [
+                0.13951219512195123,
+                0.2029268292682927
+              ]
+            },
+            "ground_contact_lateral_slip_m_s": {
+              "left": 0.8053915104182666,
+              "right": 0.6832323671142843
+            },
+            "heading_offset_is_mismatch": false,
+            "height_or_flight_failure_gate": false,
+            "xy_screen_limits_m": {
+              "rmse": 0.15,
+              "peak": 0.3
+            }
+          },
+          "final_xy_error_m": 0.2896867464131487,
+          "persistent_xy_gt0p30m": {
+            "minimum_persistence_s": 0.1,
+            "first_true_sample_s": null,
+            "first_persistent_event": null,
+            "persistent_event_count": 0,
+            "longest_observed_run_s": 0.0,
+            "events": []
+          },
+          "large_xy_screen": false
+        },
+        "reference_overlap": {
+          "tangent_error": {
+            "definition": "Actual minus reference at the same timestamp; reference COM-velocity tangent; left normal positive.",
+            "minimum_reference_speed_m_s_strict": 0.3,
+            "eligible_samples": 2785,
+            "valid_samples": 2342,
+            "valid_fraction": 0.8409335727109515,
+            "along_track": {
+              "rms_m": 0.27754221369208854,
+              "signed_mean_m": 0.1373465721828021,
+              "absolute_p95_m": 0.5527821303029455,
+              "maximum_absolute_m": 0.5787066729994766
+            },
+            "cross_track": {
+              "rms_m": 0.13346889776336096,
+              "signed_mean_m": -0.09337019149216388,
+              "absolute_p95_m": 0.2760927490448708,
+              "maximum_absolute_m": 0.29298088507251996
+            },
+            "time_alignment_or_closest_path_projection": false
+          },
+          "course": {
+            "valid_samples": 2589,
+            "window_samples": 2785,
+            "complete_valid_window": false,
+            "contiguous_segments": [
+              {
+                "start_s": 0.0,
+                "end_s": 6.01250000000024,
+                "samples": 2406,
+                "signed_course_change_deg": 51.71031789910534
+              },
+              {
+                "start_s": 6.507500000000317,
+                "end_s": 6.960000000000388,
+                "samples": 182,
+                "signed_course_change_deg": -34.14461436754933
+              }
+            ],
+            "net_course_change_deg": null,
+            "invalid_gap_unwrap_or_interpolation": false
+          },
+          "reference_course": {
+            "valid_samples": 296,
+            "window_samples": 349,
+            "complete_valid_window": false,
+            "contiguous_segments": [
+              {
+                "start_s": 0.0,
+                "end_s": 5.9,
+                "samples": 296,
+                "signed_course_change_deg": 54.837295812389065
+              }
+            ],
+            "net_course_change_deg": null,
+            "invalid_gap_unwrap_or_interpolation": false
+          },
+          "turn_and_ground_contact_heading_geometry": {
+            "window_s": [
+              0.0,
+              6.96
+            ],
+            "coverage_complete": true,
+            "samples_in_window": 2785,
+            "reference_xy_rmse_m": 0.3576851264685647,
+            "reference_xy_peak_m": 0.595416177051254,
+            "large_xy_exploratory_screen": true,
+            "mean_speed_m_s": 0.9950783252058423,
+            "reference_mean_speed_m_s": 0.8741363103669761,
+            "mean_speed_retention_ratio": 1.1383560131349455,
+            "fraction_below_80pct_reference_speed": 0.0,
+            "net_course_change_deg": null,
+            "heading_geometry": {
+              "root_directed_beta": {
+                "valid_samples": 2589,
+                "eligible_samples": 2785,
+                "valid_fraction": 0.9296229802513465,
+                "signed_circular_mean_deg": -11.324138645293063,
+                "mean_absolute_deg": 21.385878598689526,
+                "absolute_p95_deg": 151.63587350537574
+              },
+              "per_wheel": {
+                "left": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 2589,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 0.9296229802513465,
+                    "signed_circular_mean_deg": -7.92789527848321,
+                    "mean_absolute_deg": 11.575275825498013,
+                    "absolute_p95_deg": 30.15630807774448
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 2697,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 0.9684021543985637,
+                    "signed_circular_mean_deg": -9.569403010895861,
+                    "mean_absolute_deg": 22.88229994801278,
+                    "absolute_p95_deg": 75.64066024950226
+                  }
+                },
+                "right": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 2589,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 0.9296229802513465,
+                    "signed_circular_mean_deg": -7.961832838763295,
+                    "mean_absolute_deg": 11.683080115330695,
+                    "absolute_p95_deg": 30.194693970360238
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 2720,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 0.9766606822262118,
+                    "signed_circular_mean_deg": -8.302644552944312,
+                    "mean_absolute_deg": 24.000036370172015,
+                    "absolute_p95_deg": 76.61863131422609
+                  }
+                }
+              },
+              "measured_contact_gate_applied": false
+            },
+            "ground_contact_heading_geometry": {
+              "threshold_upward_force_n": 5.0,
+              "per_wheel": {
+                "left": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 924,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 0.3317773788150808,
+                    "signed_circular_mean_deg": -2.39041762794893,
+                    "mean_absolute_deg": 7.003718985909995,
+                    "absolute_p95_deg": 26.14331780076512
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 946,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 0.33967684021543987,
+                    "signed_circular_mean_deg": -3.912885512389414,
+                    "mean_absolute_deg": 12.086299827563115,
+                    "absolute_p95_deg": 58.533357321393005
+                  }
+                },
+                "right": {
+                  "root_course_to_wheel_gamma": {
+                    "valid_samples": 892,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 0.32028725314183126,
+                    "signed_circular_mean_deg": -3.846122698319816,
+                    "mean_absolute_deg": 7.529205578215209,
+                    "absolute_p95_deg": 24.96887390767444
+                  },
+                  "wheel_center_course_to_wheel_gamma": {
+                    "valid_samples": 900,
+                    "eligible_samples": 2785,
+                    "valid_fraction": 0.3231597845601436,
+                    "signed_circular_mean_deg": -3.7287724673551823,
+                    "mean_absolute_deg": 11.556459209222176,
+                    "absolute_p95_deg": 41.16123557010407
+                  }
+                }
+              },
+              "measured_contact_gate_applied": true,
+              "contact_fraction_left_right": [
+                0.34865350089766606,
+                0.3267504488330341
+              ]
+            },
+            "ground_contact_lateral_slip_m_s": {
+              "left": 0.4450154077759925,
+              "right": 0.44132656062658865
+            },
+            "heading_offset_is_mismatch": false,
+            "height_or_flight_failure_gate": false,
+            "xy_screen_limits_m": {
+              "rmse": 0.15,
+              "peak": 0.3
+            }
+          },
+          "final_xy_error_m": 0.447180045268888,
+          "persistent_xy_gt0p30m": {
+            "minimum_persistence_s": 0.1,
+            "first_true_sample_s": 4.0199999999999285,
+            "first_persistent_event": {
+              "onset_s": 4.0199999999999285,
+              "confirmation_s": 4.119999999999928,
+              "end_s": 6.960000000000388,
+              "observed_duration_s": 2.9400000000004596,
+              "native_samples": 1177,
+              "left_window_censored": false,
+              "right_window_censored": true,
+              "duration_is_lower_bound": true
+            },
+            "persistent_event_count": 1,
+            "longest_observed_run_s": 2.9400000000004596,
+            "events": [
+              {
+                "onset_s": 4.0199999999999285,
+                "confirmation_s": 4.119999999999928,
+                "end_s": 6.960000000000388,
+                "observed_duration_s": 2.9400000000004596,
+                "native_samples": 1177,
+                "left_window_censored": false,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              }
+            ]
+          },
+          "large_xy_screen": true
+        }
+      },
+      "height_airborne_tilt_or_beta_failure_gate": false,
+      "wheel_FK_audit": {
+        "maximum_wheel_link_position_error_m": 2.2009313928704765e-15,
+        "wheel_position_tolerance_m": 0.0002,
+        "maximum_root_com_velocity_reconstruction_error": 1.3322676295501878e-15,
+        "dynamics_stepping": false,
+        "measured_contact_replaced": false,
+        "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+      },
+      "input_files": {
+        "report": {
+          "path": "/home/roy/tron1-sliding-analysis/outputs/ppo_cem_friction_failure_400hz_20261022_v1/cem/cem_beta_on_mu0p15/report.json",
+          "sha256": "c715d64a92802c58228fd4c5949aa384b40ef6a2e269a798168b3feb5509b350"
+        },
+        "recording": {
+          "path": "/home/roy/tron1-sliding-analysis/outputs/ppo_cem_friction_failure_400hz_20261022_v1/cem/cem_beta_on_mu0p15/rollout.npz",
+          "sha256": "111f82d69cfd03d7ecebb8ffcddc81ef88fa73a10ed75f60071e2c0703b47f34"
+        }
+      },
+      "prediction_friction_known": true,
+      "solver_failures": 0,
+      "compute_ms_median_p95_max": [
+        1285.4339129989967,
+        1475.5756183993067,
+        1715.7706490252167
+      ],
+      "real_time_verified": false,
+      "difference_from_own_nominal_mu0p7": {
+        "available": true,
+        "nominal_mu": 0.7,
+        "nominal_core_large_xy_screen": false,
+        "nominal_overlap_large_xy_screen": true,
+        "new_core_screen_exceedance_relative_to_nominal": false,
+        "new_overlap_screen_exceedance_relative_to_nominal": false,
+        "friction_causality_or_statistical_significance_claimed": false,
+        "core": {
+          "xy_rmse_change_m": 0.02525240818484903,
+          "xy_peak_change_m": 0.15190215970670556
+        },
+        "reference_overlap": {
+          "xy_rmse_change_m": 0.2281771557700558,
+          "xy_peak_change_m": 0.1398513965181279
+        }
+      }
+    }
+  ],
+  "selected_unique_cases": 4,
+  "source_summary_sha256": "7a565d8bdae25e77c7f0fd10cd0a869eedf639f9ead2890d42f1dce1d412184d",
+  "source_compact_sha256": "7057e7907449bce2f82394e44efe02f949fc3e740956a4ff037af41b05deb943",
+  "artifact_sha256": {
+    "native_failure_signals.npz": "0621e11022390fa8f4c6c2a3d4504a07de95a2d31e85fe535e3358f8318e1ab3"
+  },
+  "compact_filename": "selected_native_signals.npz",
+  "source_scope": "Four unique completed CEM+beta episodes, not four new independent trials."
+}
