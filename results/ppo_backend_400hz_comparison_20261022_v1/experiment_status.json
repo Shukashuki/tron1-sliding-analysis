@@ -4,6 +4,20 @@
   "status": "physx_training_completed_mujoco_warp_training_ongoing_validation_queued",
   "snapshot_utc": "2026-10-22T05:41:55.279412+00:00",
   "runtime_evidence": "runtime_handoff.json",
+  "workflow_order": {
+    "user_instruction": "Finish all currently scheduled comparisons before considering existing wheeled-legged PPO training settings for optimization.",
+    "current_baseline_recipe_frozen": true,
+    "optimization_or_new_recipe_search_started": false,
+    "phase1_completion_gate": [
+      "Both training arms complete and verify exactly 12,288,000 transitions each.",
+      "All 4 pipeline-validation smoke episodes and 68 formal 2x2x17 episodes complete and pass provenance/recording checks: 2793 native states and 349 policy decisions each.",
+      "The matrix reaches completed_with_analysis; overview, metric CSV and both plots exist and pass artifact hash checks.",
+      "Review nominal top views, 17-mu failure diagnostics and compact metrics; poor tracking is a result, not a reason to retune the frozen baseline.",
+      "Keep historical 200Hz contact-reward negative comparison and same-request backend diagnostic separately labelled; do not substitute them for new 400Hz closed-loop cells.",
+      "Retrieve and visually review generated plots, summarize the comparisons and synchronize verified evidence to Git."
+    ],
+    "phase2_after_gate_only": "Inspect primary open-source wheeled-legged PPO configurations, then propose separately labelled controlled optimization trials; do not modify or overwrite the baseline cohort."
+  },
   "local_scoped_tests": {"passed": 199, "skipped": 6, "additional_torch_cpu_evaluator_and_trainer_tests_passed": 70},
   "user_selected_new_training": true,
   "protocol": "config/ppo_backend_400hz_comparison_v1.json",
