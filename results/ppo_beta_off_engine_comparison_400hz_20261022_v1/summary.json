@@ -1,0 +1,2939 @@
+{
+  "schema_version": 1,
+  "kind": "new400hz_beta_off_same_physx_trained_actor_two_validation_engines",
+  "case_order": [
+    "physx",
+    "mujoco"
+  ],
+  "rows": [
+    {
+      "id": "physx",
+      "validation_backend": "PhysX",
+      "beta_reward_weight": 0.0,
+      "directory": "/home/roy/tron1-sliding-analysis/outputs/ppo_beta_off_engine_comparison_400hz_20261022_v1/physx",
+      "checkpoint_sha256": "fd9bb85554b7d25b31fbce57af63d33f73323e0530cf04990e95a7ac468f0688",
+      "actor_sha256": "3e32748317244d4e1dc3f3df8fd6ec1052796fe1a44327ee7948c3601bbebdd5",
+      "recording_sha256": "9bc8b9e689f05d7109151ec27e70e869c82f1c24dda3e7dfdbdcf91364637c4b",
+      "report_sha256": "acdb578a8b2c52cd6b8700248f03194e8fe0bc1814b4ae39e146821cbb901471",
+      "verification": {
+        "status": "verified",
+        "native_states": 2793,
+        "policy_decisions": 349,
+        "duration_s": 6.98,
+        "physics_dt_s": 0.0025,
+        "policy_dt_s": 0.02,
+        "recording_sha256": "9bc8b9e689f05d7109151ec27e70e869c82f1c24dda3e7dfdbdcf91364637c4b",
+        "validation_backend": "PhysX",
+        "training_backend": "physx",
+        "smoke_only": false,
+        "report_sha256": "acdb578a8b2c52cd6b8700248f03194e8fe0bc1814b4ae39e146821cbb901471",
+        "checkpoint_sha256": "fd9bb85554b7d25b31fbce57af63d33f73323e0530cf04990e95a7ac468f0688",
+        "evaluation_contact_friction": 0.7
+      },
+      "windows": {
+        "core": {
+          "interval_s": [
+            1.44,
+            4.0
+          ],
+          "native_samples": 1025,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 1025,
+            "xy_rmse_m": 0.373991369444119,
+            "xy_peak_m": 0.8979274785292073,
+            "mean_speed_m_s": 0.7972564098405345,
+            "reference_mean_speed_m_s": 1.0282628655552946,
+            "speed_retention": 0.775342995013236,
+            "beta_rmse_deg": 20.798424402430395,
+            "beta_valid_samples": 714,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 1025,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.3902439024390244,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.42413334671009223,
+            "common_band_rms": 0.651255208585768,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.46499580055243783,
+            "native_high_frequency_rms": 0.6819060056579923,
+            "at_or_above100hz_mean_square": 0.04086245384234565,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.424390243902439,
+                "time_duty_fraction_zoh": 0.4248046875000001,
+                "state_switch_count": 5,
+                "state_switches_per_s": 1.953125
+              },
+              "right": {
+                "sample_duty_fraction": 0.8839024390243903,
+                "time_duty_fraction_zoh": 0.8837890625,
+                "state_switch_count": 12,
+                "state_switches_per_s": 4.6875
+              },
+              "both": {
+                "sample_duty_fraction": 0.424390243902439,
+                "time_duty_fraction_zoh": 0.4248046875000001,
+                "state_switch_count": 5,
+                "state_switches_per_s": 1.953125
+              },
+              "none": {
+                "sample_duty_fraction": 0.11609756097560976,
+                "time_duty_fraction_zoh": 0.11621093749999994,
+                "state_switch_count": 12,
+                "state_switches_per_s": 4.6875
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.424390243902439,
+                "time_duty_fraction_zoh": 0.4248046875000001,
+                "state_switch_count": 5,
+                "state_switches_per_s": 1.953125
+              },
+              "right": {
+                "sample_duty_fraction": 0.8839024390243903,
+                "time_duty_fraction_zoh": 0.8837890625,
+                "state_switch_count": 12,
+                "state_switches_per_s": 4.6875
+              },
+              "both": {
+                "sample_duty_fraction": 0.424390243902439,
+                "time_duty_fraction_zoh": 0.4248046875000001,
+                "state_switch_count": 5,
+                "state_switches_per_s": 1.953125
+              },
+              "none": {
+                "sample_duty_fraction": 0.11609756097560976,
+                "time_duty_fraction_zoh": 0.11621093749999994,
+                "state_switch_count": 12,
+                "state_switches_per_s": 4.6875
+              }
+            }
+          },
+          "maximum_tilt_deg": 95.29309815544333,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": {
+                "onset_s": 2.92,
+                "confirmation_s": 3.02,
+                "end_s": 4.0,
+                "observed_duration_s": 1.08,
+                "native_samples": 433,
+                "left_window_censored": false,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              },
+              "persistent_event_count": 1
+            },
+            "45": {
+              "first_persistent_event": {
+                "onset_s": 3.0125,
+                "confirmation_s": 3.1125000000000003,
+                "end_s": 4.0,
+                "observed_duration_s": 0.9874999999999998,
+                "native_samples": 396,
+                "left_window_censored": false,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              },
+              "persistent_event_count": 1
+            },
+            "60": {
+              "first_persistent_event": {
+                "onset_s": 3.0825,
+                "confirmation_s": 3.1825,
+                "end_s": 4.0,
+                "observed_duration_s": 0.9175,
+                "native_samples": 368,
+                "left_window_censored": false,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              },
+              "persistent_event_count": 1
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        },
+        "full": {
+          "interval_s": [
+            0.0,
+            6.98
+          ],
+          "native_samples": 2793,
+          "tracking": {
+            "available": false,
+            "coverage_complete": false,
+            "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 2793,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.14321518080916576,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.30164804241748255,
+            "common_band_rms": 0.5492249470094039,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.3309994013472301,
+            "native_high_frequency_rms": 0.5753254742728068,
+            "at_or_above100hz_mean_square": 0.029351358929747558,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.3616183315431436,
+                "time_duty_fraction_zoh": 0.3617478510028654,
+                "state_switch_count": 6,
+                "state_switches_per_s": 0.8595988538681948
+              },
+              "right": {
+                "sample_duty_fraction": 0.9570354457572503,
+                "time_duty_fraction_zoh": 0.9570200573065901,
+                "state_switch_count": 13,
+                "state_switches_per_s": 1.8624641833810887
+              },
+              "both": {
+                "sample_duty_fraction": 0.3616183315431436,
+                "time_duty_fraction_zoh": 0.3617478510028654,
+                "state_switch_count": 6,
+                "state_switches_per_s": 0.8595988538681948
+              },
+              "none": {
+                "sample_duty_fraction": 0.04296455424274973,
+                "time_duty_fraction_zoh": 0.04297994269340972,
+                "state_switch_count": 13,
+                "state_switches_per_s": 1.8624641833810887
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.3616183315431436,
+                "time_duty_fraction_zoh": 0.3617478510028654,
+                "state_switch_count": 6,
+                "state_switches_per_s": 0.8595988538681948
+              },
+              "right": {
+                "sample_duty_fraction": 0.9570354457572503,
+                "time_duty_fraction_zoh": 0.9570200573065901,
+                "state_switch_count": 13,
+                "state_switches_per_s": 1.8624641833810887
+              },
+              "both": {
+                "sample_duty_fraction": 0.3616183315431436,
+                "time_duty_fraction_zoh": 0.3617478510028654,
+                "state_switch_count": 6,
+                "state_switches_per_s": 0.8595988538681948
+              },
+              "none": {
+                "sample_duty_fraction": 0.04296455424274973,
+                "time_duty_fraction_zoh": 0.04297994269340972,
+                "state_switch_count": 13,
+                "state_switches_per_s": 1.8624641833810887
+              }
+            }
+          },
+          "maximum_tilt_deg": 95.29309815544333,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": {
+                "onset_s": 2.92,
+                "confirmation_s": 3.02,
+                "end_s": 6.98,
+                "observed_duration_s": 4.0600000000000005,
+                "native_samples": 1625,
+                "left_window_censored": false,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              },
+              "persistent_event_count": 1
+            },
+            "45": {
+              "first_persistent_event": {
+                "onset_s": 3.0125,
+                "confirmation_s": 3.1125000000000003,
+                "end_s": 6.98,
+                "observed_duration_s": 3.9675000000000002,
+                "native_samples": 1588,
+                "left_window_censored": false,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              },
+              "persistent_event_count": 1
+            },
+            "60": {
+              "first_persistent_event": {
+                "onset_s": 3.0825,
+                "confirmation_s": 3.1825,
+                "end_s": 6.98,
+                "observed_duration_s": 3.8975000000000004,
+                "native_samples": 1560,
+                "left_window_censored": false,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              },
+              "persistent_event_count": 1
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        },
+        "reference_overlap": {
+          "interval_s": [
+            0.0,
+            6.96
+          ],
+          "native_samples": 2785,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 2785,
+            "xy_rmse_m": 1.3232400891205038,
+            "xy_peak_m": 2.371299020998488,
+            "mean_speed_m_s": 0.5642164432805411,
+            "reference_mean_speed_m_s": 0.8741363103669996,
+            "speed_retention": 0.6454559049762606,
+            "beta_rmse_deg": 15.5622443545396,
+            "beta_valid_samples": 1290,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 2785,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.1436265709156194,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.30258464967891774,
+            "common_band_rms": 0.5500769488707173,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.33208512400594264,
+            "native_high_frequency_rms": 0.5762682743357842,
+            "at_or_above100hz_mean_square": 0.02950047432702489,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.362657091561939,
+                "time_duty_fraction_zoh": 0.3627873563218391,
+                "state_switch_count": 6,
+                "state_switches_per_s": 0.8620689655172414
+              },
+              "right": {
+                "sample_duty_fraction": 0.9569120287253142,
+                "time_duty_fraction_zoh": 0.956896551724138,
+                "state_switch_count": 13,
+                "state_switches_per_s": 1.867816091954023
+              },
+              "both": {
+                "sample_duty_fraction": 0.362657091561939,
+                "time_duty_fraction_zoh": 0.3627873563218391,
+                "state_switch_count": 6,
+                "state_switches_per_s": 0.8620689655172414
+              },
+              "none": {
+                "sample_duty_fraction": 0.04308797127468582,
+                "time_duty_fraction_zoh": 0.04310344827586205,
+                "state_switch_count": 13,
+                "state_switches_per_s": 1.867816091954023
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.362657091561939,
+                "time_duty_fraction_zoh": 0.3627873563218391,
+                "state_switch_count": 6,
+                "state_switches_per_s": 0.8620689655172414
+              },
+              "right": {
+                "sample_duty_fraction": 0.9569120287253142,
+                "time_duty_fraction_zoh": 0.956896551724138,
+                "state_switch_count": 13,
+                "state_switches_per_s": 1.867816091954023
+              },
+              "both": {
+                "sample_duty_fraction": 0.362657091561939,
+                "time_duty_fraction_zoh": 0.3627873563218391,
+                "state_switch_count": 6,
+                "state_switches_per_s": 0.8620689655172414
+              },
+              "none": {
+                "sample_duty_fraction": 0.04308797127468582,
+                "time_duty_fraction_zoh": 0.04310344827586205,
+                "state_switch_count": 13,
+                "state_switches_per_s": 1.867816091954023
+              }
+            }
+          },
+          "maximum_tilt_deg": 95.29309815544333,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": {
+                "onset_s": 2.92,
+                "confirmation_s": 3.02,
+                "end_s": 6.96,
+                "observed_duration_s": 4.04,
+                "native_samples": 1617,
+                "left_window_censored": false,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              },
+              "persistent_event_count": 1
+            },
+            "45": {
+              "first_persistent_event": {
+                "onset_s": 3.0125,
+                "confirmation_s": 3.1125000000000003,
+                "end_s": 6.96,
+                "observed_duration_s": 3.9475,
+                "native_samples": 1580,
+                "left_window_censored": false,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              },
+              "persistent_event_count": 1
+            },
+            "60": {
+              "first_persistent_event": {
+                "onset_s": 3.0825,
+                "confirmation_s": 3.1825,
+                "end_s": 6.96,
+                "observed_duration_s": 3.8775,
+                "native_samples": 1552,
+                "left_window_censored": false,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              },
+              "persistent_event_count": 1
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        },
+        "post_core": {
+          "interval_s": [
+            4.0,
+            6.98
+          ],
+          "native_samples": 1193,
+          "tracking": {
+            "available": false,
+            "coverage_complete": false,
+            "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 1193,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.3352891869237217,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 2.0610336866701702e-07,
+            "common_band_rms": 0.0004539860886271924,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 2.672606235320203e-07,
+            "native_high_frequency_rms": 0.000516972555878956,
+            "at_or_above100hz_mean_square": 6.115725486500325e-08,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.0,
+                "time_duty_fraction_zoh": 0.0,
+                "state_switch_count": 0,
+                "state_switches_per_s": 0.0
+              },
+              "right": {
+                "sample_duty_fraction": 1.0,
+                "time_duty_fraction_zoh": 1.0,
+                "state_switch_count": 0,
+                "state_switches_per_s": 0.0
+              },
+              "both": {
+                "sample_duty_fraction": 0.0,
+                "time_duty_fraction_zoh": 0.0,
+                "state_switch_count": 0,
+                "state_switches_per_s": 0.0
+              },
+              "none": {
+                "sample_duty_fraction": 0.0,
+                "time_duty_fraction_zoh": 0.0,
+                "state_switch_count": 0,
+                "state_switches_per_s": 0.0
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.0,
+                "time_duty_fraction_zoh": 0.0,
+                "state_switch_count": 0,
+                "state_switches_per_s": 0.0
+              },
+              "right": {
+                "sample_duty_fraction": 1.0,
+                "time_duty_fraction_zoh": 1.0,
+                "state_switch_count": 0,
+                "state_switches_per_s": 0.0
+              },
+              "both": {
+                "sample_duty_fraction": 0.0,
+                "time_duty_fraction_zoh": 0.0,
+                "state_switch_count": 0,
+                "state_switches_per_s": 0.0
+              },
+              "none": {
+                "sample_duty_fraction": 0.0,
+                "time_duty_fraction_zoh": 0.0,
+                "state_switch_count": 0,
+                "state_switches_per_s": 0.0
+              }
+            }
+          },
+          "maximum_tilt_deg": 95.00271630205742,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": {
+                "onset_s": 4.0,
+                "confirmation_s": 4.1,
+                "end_s": 6.98,
+                "observed_duration_s": 2.9800000000000004,
+                "native_samples": 1193,
+                "left_window_censored": true,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              },
+              "persistent_event_count": 1
+            },
+            "45": {
+              "first_persistent_event": {
+                "onset_s": 4.0,
+                "confirmation_s": 4.1,
+                "end_s": 6.98,
+                "observed_duration_s": 2.9800000000000004,
+                "native_samples": 1193,
+                "left_window_censored": true,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              },
+              "persistent_event_count": 1
+            },
+            "60": {
+              "first_persistent_event": {
+                "onset_s": 4.0,
+                "confirmation_s": 4.1,
+                "end_s": 6.98,
+                "observed_duration_s": 2.9800000000000004,
+                "native_samples": 1193,
+                "left_window_censored": true,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              },
+              "persistent_event_count": 1
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        }
+      },
+      "wheel_FK_audit": {
+        "maximum_wheel_link_position_error_m": 1.0226917409039174e-06,
+        "wheel_position_tolerance_m": 0.0002,
+        "maximum_root_com_velocity_reconstruction_error": 3.552713678800501e-15,
+        "dynamics_stepping": false,
+        "measured_contact_replaced": false,
+        "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+      }
+    },
+    {
+      "id": "mujoco",
+      "title": "\u03b2 reward OFF (0) | PhysX-trained \u2192 native CPU MuJoCo",
+      "beta_reward_weight": 0.0,
+      "checkpoint_sha256": "fd9bb85554b7d25b31fbce57af63d33f73323e0530cf04990e95a7ac468f0688",
+      "actor_sha256": "3e32748317244d4e1dc3f3df8fd6ec1052796fe1a44327ee7948c3601bbebdd5",
+      "directory": "/home/roy/tron1-sliding-analysis/outputs/ppo_beta_physx_to_mujoco_400hz_20261022_v1/off",
+      "recording_sha256": "19c8781e4e94f012d017c9a52682126dc565188a3908084f3709f9ab29e72a60",
+      "report_sha256": "09b93c9beabf4267b99a18fff5f8f99d2628bac66870fe0ac90a5f9e477dfc71",
+      "verification": {
+        "status": "verified",
+        "native_states": 2793,
+        "policy_decisions": 349,
+        "duration_s": 6.98,
+        "physics_dt_s": 0.0025,
+        "policy_dt_s": 0.02,
+        "recording_sha256": "19c8781e4e94f012d017c9a52682126dc565188a3908084f3709f9ab29e72a60",
+        "validation_backend": "native CPU MuJoCo",
+        "training_backend": "physx",
+        "smoke_only": false,
+        "report_sha256": "09b93c9beabf4267b99a18fff5f8f99d2628bac66870fe0ac90a5f9e477dfc71",
+        "checkpoint_sha256": "fd9bb85554b7d25b31fbce57af63d33f73323e0530cf04990e95a7ac468f0688",
+        "evaluation_contact_friction": 0.7
+      },
+      "windows": {
+        "core": {
+          "interval_s": [
+            1.44,
+            4.0
+          ],
+          "native_samples": 1025,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 1025,
+            "xy_rmse_m": 0.1480565273872139,
+            "xy_peak_m": 0.19553812444161858,
+            "mean_speed_m_s": 1.0088574586268357,
+            "reference_mean_speed_m_s": 1.0282628655553003,
+            "speed_retention": 0.981127970698441,
+            "beta_rmse_deg": 11.820542198501311,
+            "beta_valid_samples": 1025,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 1025,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.3902439024390244,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.18733003712651686,
+            "common_band_rms": 0.43281640117550635,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.1899109846369499,
+            "native_high_frequency_rms": 0.4357877747676613,
+            "at_or_above100hz_mean_square": 0.0025809475104330197,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.2702439024390244,
+                "time_duty_fraction_zoh": 0.2705078125,
+                "state_switch_count": 231,
+                "state_switches_per_s": 90.23437500000192
+              },
+              "right": {
+                "sample_duty_fraction": 0.7892682926829269,
+                "time_duty_fraction_zoh": 0.7890625,
+                "state_switch_count": 66,
+                "state_switches_per_s": 25.78125000000055
+              },
+              "both": {
+                "sample_duty_fraction": 0.24682926829268292,
+                "time_duty_fraction_zoh": 0.2470703125,
+                "state_switch_count": 229,
+                "state_switches_per_s": 89.4531250000019
+              },
+              "none": {
+                "sample_duty_fraction": 0.1873170731707317,
+                "time_duty_fraction_zoh": 0.1875,
+                "state_switch_count": 64,
+                "state_switches_per_s": 25.000000000000533
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.2702439024390244,
+                "time_duty_fraction_zoh": 0.2705078125,
+                "state_switch_count": 231,
+                "state_switches_per_s": 90.23437500000192
+              },
+              "right": {
+                "sample_duty_fraction": 0.7892682926829269,
+                "time_duty_fraction_zoh": 0.7890625,
+                "state_switch_count": 66,
+                "state_switches_per_s": 25.78125000000055
+              },
+              "both": {
+                "sample_duty_fraction": 0.24682926829268292,
+                "time_duty_fraction_zoh": 0.2470703125,
+                "state_switch_count": 229,
+                "state_switches_per_s": 89.4531250000019
+              },
+              "none": {
+                "sample_duty_fraction": 0.1873170731707317,
+                "time_duty_fraction_zoh": 0.1875,
+                "state_switch_count": 64,
+                "state_switches_per_s": 25.000000000000533
+              }
+            }
+          },
+          "maximum_tilt_deg": 28.80644733341095,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "45": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            },
+            "60": {
+              "first_persistent_event": null,
+              "persistent_event_count": 0
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        },
+        "full": {
+          "interval_s": [
+            0.0,
+            6.98
+          ],
+          "native_samples": 2793,
+          "tracking": {
+            "available": false,
+            "coverage_complete": false,
+            "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 2793,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.14321518080916576,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.16447812652915844,
+            "common_band_rms": 0.40555902964816165,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.17183105349435082,
+            "native_high_frequency_rms": 0.41452509392598996,
+            "at_or_above100hz_mean_square": 0.00735292696519237,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.3050483351235231,
+                "time_duty_fraction_zoh": 0.30515759312318713,
+                "state_switch_count": 232,
+                "state_switches_per_s": 33.23782234956834
+              },
+              "right": {
+                "sample_duty_fraction": 0.5266738274257071,
+                "time_duty_fraction_zoh": 0.5268624641833475,
+                "state_switch_count": 144,
+                "state_switches_per_s": 20.63037249283552
+              },
+              "both": {
+                "sample_duty_fraction": 0.2964554242749731,
+                "time_duty_fraction_zoh": 0.29656160458450587,
+                "state_switch_count": 230,
+                "state_switches_per_s": 32.95128939827895
+              },
+              "none": {
+                "sample_duty_fraction": 0.4647332617257429,
+                "time_duty_fraction_zoh": 0.46454154727797126,
+                "state_switch_count": 142,
+                "state_switches_per_s": 20.34383954154614
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.3050483351235231,
+                "time_duty_fraction_zoh": 0.30515759312318713,
+                "state_switch_count": 232,
+                "state_switches_per_s": 33.23782234956834
+              },
+              "right": {
+                "sample_duty_fraction": 0.5266738274257071,
+                "time_duty_fraction_zoh": 0.5268624641833475,
+                "state_switch_count": 144,
+                "state_switches_per_s": 20.63037249283552
+              },
+              "both": {
+                "sample_duty_fraction": 0.2964554242749731,
+                "time_duty_fraction_zoh": 0.29656160458450587,
+                "state_switch_count": 230,
+                "state_switches_per_s": 32.95128939827895
+              },
+              "none": {
+                "sample_duty_fraction": 0.4647332617257429,
+                "time_duty_fraction_zoh": 0.46454154727797126,
+                "state_switch_count": 142,
+                "state_switches_per_s": 20.34383954154614
+              }
+            }
+          },
+          "maximum_tilt_deg": 94.85760812379654,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": {
+                "onset_s": 4.009999999999927,
+                "confirmation_s": 4.109999999999927,
+                "end_s": 6.980000000000391,
+                "observed_duration_s": 2.9700000000004643,
+                "native_samples": 1189,
+                "left_window_censored": false,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              },
+              "persistent_event_count": 1
+            },
+            "45": {
+              "first_persistent_event": {
+                "onset_s": 4.1224999999999445,
+                "confirmation_s": 4.222499999999944,
+                "end_s": 6.980000000000391,
+                "observed_duration_s": 2.8575000000004467,
+                "native_samples": 1144,
+                "left_window_censored": false,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              },
+              "persistent_event_count": 1
+            },
+            "60": {
+              "first_persistent_event": {
+                "onset_s": 4.214999999999959,
+                "confirmation_s": 4.314999999999959,
+                "end_s": 6.980000000000391,
+                "observed_duration_s": 2.7650000000004322,
+                "native_samples": 1107,
+                "left_window_censored": false,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              },
+              "persistent_event_count": 1
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        },
+        "reference_overlap": {
+          "interval_s": [
+            0.0,
+            6.96
+          ],
+          "native_samples": 2785,
+          "tracking": {
+            "available": true,
+            "coverage_complete": true,
+            "samples": 2785,
+            "xy_rmse_m": 0.7383207303946876,
+            "xy_peak_m": 1.4048804615491497,
+            "mean_speed_m_s": 0.7733244792276982,
+            "reference_mean_speed_m_s": 0.8741363103669761,
+            "speed_retention": 0.8846726420768912,
+            "beta_rmse_deg": 17.79455141984268,
+            "beta_valid_samples": 1826,
+            "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 2785,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.1436265709156194,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.16178149300358285,
+            "common_band_rms": 0.40222070185854786,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.16906390195285767,
+            "native_high_frequency_rms": 0.4111738099062946,
+            "at_or_above100hz_mean_square": 0.007282408949274821,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.3059245960502693,
+                "time_duty_fraction_zoh": 0.3060344827585987,
+                "state_switch_count": 232,
+                "state_switches_per_s": 33.333333333331474
+              },
+              "right": {
+                "sample_duty_fraction": 0.5281867145421903,
+                "time_duty_fraction_zoh": 0.5283764367815756,
+                "state_switch_count": 144,
+                "state_switches_per_s": 20.68965517241264
+              },
+              "both": {
+                "sample_duty_fraction": 0.29730700179533215,
+                "time_duty_fraction_zoh": 0.29741379310342697,
+                "state_switch_count": 230,
+                "state_switches_per_s": 33.04597701149241
+              },
+              "none": {
+                "sample_duty_fraction": 0.4631956912028725,
+                "time_duty_fraction_zoh": 0.46300287356325265,
+                "state_switch_count": 142,
+                "state_switches_per_s": 20.402298850573576
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.3059245960502693,
+                "time_duty_fraction_zoh": 0.3060344827585987,
+                "state_switch_count": 232,
+                "state_switches_per_s": 33.333333333331474
+              },
+              "right": {
+                "sample_duty_fraction": 0.5281867145421903,
+                "time_duty_fraction_zoh": 0.5283764367815756,
+                "state_switch_count": 144,
+                "state_switches_per_s": 20.68965517241264
+              },
+              "both": {
+                "sample_duty_fraction": 0.29730700179533215,
+                "time_duty_fraction_zoh": 0.29741379310342697,
+                "state_switch_count": 230,
+                "state_switches_per_s": 33.04597701149241
+              },
+              "none": {
+                "sample_duty_fraction": 0.4631956912028725,
+                "time_duty_fraction_zoh": 0.46300287356325265,
+                "state_switch_count": 142,
+                "state_switches_per_s": 20.402298850573576
+              }
+            }
+          },
+          "maximum_tilt_deg": 94.85760812379654,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": {
+                "onset_s": 4.009999999999927,
+                "confirmation_s": 4.109999999999927,
+                "end_s": 6.960000000000388,
+                "observed_duration_s": 2.950000000000461,
+                "native_samples": 1181,
+                "left_window_censored": false,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              },
+              "persistent_event_count": 1
+            },
+            "45": {
+              "first_persistent_event": {
+                "onset_s": 4.1224999999999445,
+                "confirmation_s": 4.222499999999944,
+                "end_s": 6.960000000000388,
+                "observed_duration_s": 2.8375000000004436,
+                "native_samples": 1136,
+                "left_window_censored": false,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              },
+              "persistent_event_count": 1
+            },
+            "60": {
+              "first_persistent_event": {
+                "onset_s": 4.214999999999959,
+                "confirmation_s": 4.314999999999959,
+                "end_s": 6.960000000000388,
+                "observed_duration_s": 2.745000000000429,
+                "native_samples": 1099,
+                "left_window_censored": false,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              },
+              "persistent_event_count": 1
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        },
+        "post_core": {
+          "interval_s": [
+            4.0,
+            6.98
+          ],
+          "native_samples": 1193,
+          "tracking": {
+            "available": false,
+            "coverage_complete": false,
+            "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+          },
+          "world_angular_xy_common10_100": {
+            "samples": 1193,
+            "sample_hz": 400.0,
+            "native_nyquist_hz": 200.0,
+            "frequency_resolution_hz": 0.3352891869237217,
+            "common_band_hz_exclusive": [
+              10.0,
+              100.0
+            ],
+            "common_band_mean_square": 0.11029416943609847,
+            "common_band_rms": 0.3321056600482721,
+            "native_high_frequency_cutoff_hz_exclusive": 10.0,
+            "native_high_frequency_mean_square": 0.1251732197203929,
+            "native_high_frequency_rms": 0.3537982754627174,
+            "at_or_above100hz_mean_square": 0.014879050284294416,
+            "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+            "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+          },
+          "contact": {
+            "measured_force_bearing_contact": {
+              "left": {
+                "sample_duty_fraction": 0.0,
+                "time_duty_fraction_zoh": 0.0,
+                "state_switch_count": 0,
+                "state_switches_per_s": 0.0
+              },
+              "right": {
+                "sample_duty_fraction": 0.07376362112321877,
+                "time_duty_fraction_zoh": 0.07382550335570456,
+                "state_switch_count": 77,
+                "state_switches_per_s": 25.83892617449261
+              },
+              "both": {
+                "sample_duty_fraction": 0.0,
+                "time_duty_fraction_zoh": 0.0,
+                "state_switch_count": 0,
+                "state_switches_per_s": 0.0
+              },
+              "none": {
+                "sample_duty_fraction": 0.9262363788767812,
+                "time_duty_fraction_zoh": 0.9261744966442954,
+                "state_switch_count": 77,
+                "state_switches_per_s": 25.83892617449261
+              }
+            },
+            "load_eligibility": {
+              "left": {
+                "sample_duty_fraction": 0.0,
+                "time_duty_fraction_zoh": 0.0,
+                "state_switch_count": 0,
+                "state_switches_per_s": 0.0
+              },
+              "right": {
+                "sample_duty_fraction": 0.07376362112321877,
+                "time_duty_fraction_zoh": 0.07382550335570456,
+                "state_switch_count": 77,
+                "state_switches_per_s": 25.83892617449261
+              },
+              "both": {
+                "sample_duty_fraction": 0.0,
+                "time_duty_fraction_zoh": 0.0,
+                "state_switch_count": 0,
+                "state_switches_per_s": 0.0
+              },
+              "none": {
+                "sample_duty_fraction": 0.9262363788767812,
+                "time_duty_fraction_zoh": 0.9261744966442954,
+                "state_switch_count": 77,
+                "state_switches_per_s": 25.83892617449261
+              }
+            }
+          },
+          "maximum_tilt_deg": 94.85760812379654,
+          "persistent_tilt_diagnostics": {
+            "30": {
+              "first_persistent_event": {
+                "onset_s": 4.009999999999927,
+                "confirmation_s": 4.109999999999927,
+                "end_s": 6.980000000000391,
+                "observed_duration_s": 2.9700000000004643,
+                "native_samples": 1189,
+                "left_window_censored": false,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              },
+              "persistent_event_count": 1
+            },
+            "45": {
+              "first_persistent_event": {
+                "onset_s": 4.1224999999999445,
+                "confirmation_s": 4.222499999999944,
+                "end_s": 6.980000000000391,
+                "observed_duration_s": 2.8575000000004467,
+                "native_samples": 1144,
+                "left_window_censored": false,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              },
+              "persistent_event_count": 1
+            },
+            "60": {
+              "first_persistent_event": {
+                "onset_s": 4.214999999999959,
+                "confirmation_s": 4.314999999999959,
+                "end_s": 6.980000000000391,
+                "observed_duration_s": 2.7650000000004322,
+                "native_samples": 1107,
+                "left_window_censored": false,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              },
+              "persistent_event_count": 1
+            }
+          },
+          "height_or_airborne_failure_gate": false
+        }
+      },
+      "wheel_FK_audit": {
+        "maximum_wheel_link_position_error_m": 3.146189686298752e-15,
+        "wheel_position_tolerance_m": 0.0002,
+        "maximum_root_com_velocity_reconstruction_error": 1.7763568394002505e-15,
+        "dynamics_stepping": false,
+        "measured_contact_replaced": false,
+        "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+      },
+      "validation_backend": "native CPU MuJoCo"
+    }
+  ],
+  "training_backend": "PhysX",
+  "mu": 0.7,
+  "beta_reward_weight": 0.0,
+  "checkpoint_sha256": "fd9bb85554b7d25b31fbce57af63d33f73323e0530cf04990e95a7ac468f0688",
+  "actor_sha256": "3e32748317244d4e1dc3f3df8fd6ec1052796fe1a44327ee7948c3601bbebdd5",
+  "training_backend_comparison_complete": false,
+  "MJWarp_trained_actor_included": false,
+  "scope": "Same completed PhysX-trained beta-OFF actor: in-engine PhysX versus transfer to native CPU MuJoCo",
+  "physics_dt_s": 0.0025,
+  "decimation": 8,
+  "policy_dt_s": 0.02,
+  "action_rate_weight": -0.5,
+  "original_grounded_reward_weight": 0.4,
+  "dense_ground_support_reward_used": false,
+  "reference_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+  "model_sha256": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513",
+  "FK_provenance": {
+    "model_sha256": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513",
+    "loader_evaluator_sha256": "2251d740d7568874a47a232556241cc8d1ee5f5b7be1351d1c657aea8fa85f87",
+    "removed_proven_noncolliding_visual_meshes": 9,
+    "isolated_FK_only": true,
+    "dynamics_stepping": false
+  },
+  "physx_retrieval_manifest_sha256": "2b4b947f83e09f374e8f1afd154853a438bb62de09e82916fbadc8af3509c81c",
+  "physx_input_ledger_sha256": {
+    "physx/evaluation_inputs/contract.json": "3d8aecf9c8007eb799cc4d82cfbb0bdab52071dedcec258b32de84a83b97196a",
+    "physx/evaluation_inputs/evaluation_source_audit.json": "6f169c894820a4e7afd526770812dfd752c48da2b44cd8ad8e8924fc9fc5ce04",
+    "physx/evaluation_inputs/task_profile.json": "5cf624644695a9110feaf0c99f9e981a568b8ea76964bbffbacccbb79aa86c12",
+    "physx/launch_status.json": "b7d0beab9abe839b1eab1d5e7fda1d140d4a64c8ea4c84f396f6e36799b04f6d",
+    "physx/physics_trajectory.npz": "9bc8b9e689f05d7109151ec27e70e869c82f1c24dda3e7dfdbdcf91364637c4b",
+    "physx/policy_contract.json": "ce181c43f22bfecdb5f947522f0f7371d1ea85d9c6ff40483707bc42c238a31f",
+    "physx/remote_verification.json": "869524e963213945dd6354237b58051cf38af1e7253167bc4fb6ce5b4ec8bd8b",
+    "physx/report.json": "acdb578a8b2c52cd6b8700248f03194e8fe0bc1814b4ae39e146821cbb901471",
+    "physx/runner_config.json": "c018be7245792d35efdaf6e65ac6526a7fe6e59f94ea53b70858f22abcab1b2e"
+  },
+  "mujoco_retrieval_manifest_sha256": "1c39be9e76cc157279fe822af886cd78652e6266f6732ef6de999c1805d3cf5c",
+  "on_retrieval_manifest_sha256_for_strict_existing_MJ_loader": "88f8f9b99c7f1f64ac054fb8a22885360fa6f64f2114192c6eec8da75de6b356",
+  "same_actual_source_actor": true,
+  "weights_or_inference_loaded_locally": false,
+  "PhysX_deployment_actor_SHA_remotely_verified_not_locally_rehashed": "623aff691136b8cf63ad9f288b3b592c3d98631851244423b5d939a460597f30",
+  "initial_recorded_state_max_absolute_difference": {
+    "position": 0.0,
+    "quaternion": 0.0,
+    "com_velocity": 0.0,
+    "angular_velocity": 0.0,
+    "joint_pos": 0.0,
+    "joint_vel": 0.0,
+    "wheel_pos": 3.078766225850238e-07
+  },
+  "materials_by_engine": {
+    "physx": {
+      "recipe": {
+        "name": "tron1_mjlab_tracking_dr_v1",
+        "source_repository": "https://github.com/mujocolab/mjlab",
+        "source_commit": "4360096b49c1bcc478668c11ce7d458db747e49d",
+        "source_configuration": "src/mjlab/tasks/tracking/tracking_env_cfg.py",
+        "training": false,
+        "wheel_contact_friction": {
+          "distribution": "fixed",
+          "range": [
+            0.7,
+            0.7
+          ],
+          "sampling": "startup_once_per_environment_shared_between_both_wheels",
+          "physx_static_equals_dynamic": true,
+          "physx_ground_friction": 1.0,
+          "physx_ground_friction_combine_mode": "multiply",
+          "mujoco_wheel_geom_priority": 1,
+          "mujoco_tangential_axis": 0,
+          "buckets": null
+        },
+        "nonwheel_friction": 0.7,
+        "nonwheel_plane_contact_mapping": {
+          "mujoco_raw_nonwheel_friction": 0.7,
+          "mujoco_raw_ground_friction": 0.7,
+          "mujoco_nonwheel_and_ground_priority": 0,
+          "mujoco_combine_rule": "max_for_equal_priority",
+          "physx_combine_rule": "multiply_by_unit_ground",
+          "effective_plane_friction": 0.7,
+          "raw_material_values_identical": false,
+          "purpose": "match_nonwheel_plane_contact_coefficient_not_solver_dynamics"
+        },
+        "restitution_randomization": false,
+        "physx_robot_and_ground_restitution": 0.0,
+        "mujoco_restitution_equivalence_claimed": false,
+        "encoder_bias_range_rad": [
+          0.0,
+          0.0
+        ],
+        "encoder_bias_semantics": {
+          "applies_to": "six_position_controlled_leg_joints",
+          "actor_joint_position": "q + b - nominal_q0",
+          "critic_joint_position": "q - nominal_q0",
+          "position_control_target": "nominal_q0 + clipped_action - b",
+          "default_joint_positions_mutated": false,
+          "wheel_velocity_noise": false
+        },
+        "base_com_offset_range_m": {
+          "x": [
+            0.0,
+            0.0
+          ],
+          "y": [
+            0.0,
+            0.0
+          ],
+          "z": [
+            0.0,
+            0.0
+          ]
+        },
+        "base_com_body": "base_Link",
+        "push_interval_s": null,
+        "push_velocity_range": {},
+        "push_semantics": "add_world_root_LINK_velocity_delta_not_COM_velocity",
+        "push_timer_reset": "resample_per_episode_matching_intended_recipe_and_Isaac",
+        "mjlab_v1_4_function_interval_reset_bug_reproduced": false,
+        "task_action_reward_termination_changed": false,
+        "additional_observation_corruption": false,
+        "physics_equivalence_claimed": false
+      },
+      "wheel_mu_range": [
+        0.699999988079071,
+        0.699999988079071
+      ],
+      "wheel_shape_slots": [
+        7,
+        8
+      ],
+      "all_wheel_shapes_share_one_draw_per_environment": true,
+      "encoder_bias_range_rad": [
+        0.0,
+        0.0
+      ],
+      "position_target_bias_sign_verified": true,
+      "live_physx_materials_verified": true,
+      "ground_material_usd_verified": true,
+      "ground_colliders": [
+        {
+          "collider": "/World/ground/terrain/GroundPlane/CollisionPlane",
+          "material": "/World/ground/terrain/physicsMaterial",
+          "friction": 1.0,
+          "restitution": 0.0,
+          "combine": "multiply"
+        }
+      ],
+      "robot_collision_geometry_materials": [
+        {
+          "collider": "/World/envs/env_0/Robot/base_Link/collisions/mesh_0/box",
+          "material": "/physicsScene/defaultMaterial",
+          "binding_source": "verified_physics_scene_default_material",
+          "friction_combine_mode": "multiply"
+        },
+        {
+          "collider": "/World/envs/env_0/Robot/abad_L_Link/collisions/mesh_0/cylinder",
+          "material": "/physicsScene/defaultMaterial",
+          "binding_source": "verified_physics_scene_default_material",
+          "friction_combine_mode": "multiply"
+        },
+        {
+          "collider": "/World/envs/env_0/Robot/hip_L_Link/collisions/mesh_0/cylinder",
+          "material": "/physicsScene/defaultMaterial",
+          "binding_source": "verified_physics_scene_default_material",
+          "friction_combine_mode": "multiply"
+        },
+        {
+          "collider": "/World/envs/env_0/Robot/knee_L_Link/collisions/mesh_0/cylinder",
+          "material": "/physicsScene/defaultMaterial",
+          "binding_source": "verified_physics_scene_default_material",
+          "friction_combine_mode": "multiply"
+        },
+        {
+          "collider": "/World/envs/env_0/Robot/wheel_L_Link/collisions/mesh_0/cylinder",
+          "material": "/physicsScene/defaultMaterial",
+          "binding_source": "verified_physics_scene_default_material",
+          "friction_combine_mode": "multiply"
+        },
+        {
+          "collider": "/World/envs/env_0/Robot/abad_R_Link/collisions/mesh_0/cylinder",
+          "material": "/physicsScene/defaultMaterial",
+          "binding_source": "verified_physics_scene_default_material",
+          "friction_combine_mode": "multiply"
+        },
+        {
+          "collider": "/World/envs/env_0/Robot/hip_R_Link/collisions/mesh_0/cylinder",
+          "material": "/physicsScene/defaultMaterial",
+          "binding_source": "verified_physics_scene_default_material",
+          "friction_combine_mode": "multiply"
+        },
+        {
+          "collider": "/World/envs/env_0/Robot/knee_R_Link/collisions/mesh_0/cylinder",
+          "material": "/physicsScene/defaultMaterial",
+          "binding_source": "verified_physics_scene_default_material",
+          "friction_combine_mode": "multiply"
+        },
+        {
+          "collider": "/World/envs/env_0/Robot/wheel_R_Link/collisions/mesh_0/cylinder",
+          "material": "/physicsScene/defaultMaterial",
+          "binding_source": "verified_physics_scene_default_material",
+          "friction_combine_mode": "multiply"
+        }
+      ],
+      "ignored_non_geometry_collision_containers": [
+        "/World/envs/env_0/Robot/base_Link/collisions",
+        "/World/envs/env_0/Robot/abad_L_Link/collisions",
+        "/World/envs/env_0/Robot/hip_L_Link/collisions",
+        "/World/envs/env_0/Robot/knee_L_Link/collisions",
+        "/World/envs/env_0/Robot/wheel_L_Link/collisions",
+        "/World/envs/env_0/Robot/abad_R_Link/collisions",
+        "/World/envs/env_0/Robot/hip_R_Link/collisions",
+        "/World/envs/env_0/Robot/knee_R_Link/collisions",
+        "/World/envs/env_0/Robot/wheel_R_Link/collisions"
+      ],
+      "leg_pd_gain_readback": {
+        "kp_range": [
+          500.0,
+          500.0
+        ],
+        "kd_range": [
+          10.0,
+          10.0
+        ]
+      },
+      "effective_pair_mapping": {
+        "trained_contact_friction": 1.0,
+        "evaluation_contact_friction": 0.7,
+        "meaning": "target effective pair coefficient; native material mapping, not contact-law equivalence",
+        "physx_robot_mu": 0.7,
+        "physx_ground_mu": 1.0,
+        "physx_combine": "multiply",
+        "mujoco_colliding_geom_mu": 0.7,
+        "mujoco_wheel_priority": 1,
+        "mujoco_other_priority": 0,
+        "mujoco_equal_priority_combine": "max",
+        "mu_squared": false
+      },
+      "native_plant_readback": {
+        "body_names": [
+          "base_Link",
+          "abad_L_Link",
+          "abad_R_Link",
+          "limx_imu",
+          "hip_L_Link",
+          "hip_R_Link",
+          "knee_L_Link",
+          "knee_R_Link",
+          "wheel_L_Link",
+          "wheel_R_Link"
+        ],
+        "joint_names": [
+          "abad_L_Joint",
+          "abad_R_Joint",
+          "hip_L_Joint",
+          "hip_R_Joint",
+          "knee_L_Joint",
+          "knee_R_Joint",
+          "wheel_L_Joint",
+          "wheel_R_Joint"
+        ],
+        "source": "live PhysX articulation view getters; not USD-authored inference",
+        "inertia_convention": "native get_inertias flat9, reported without cross-engine frame conversion",
+        "mass_inertia_equivalence_claimed": false,
+        "no_physics_or_state_mutation": true,
+        "readbacks": {
+          "get_masses": {
+            "shape": [
+              1,
+              10
+            ],
+            "values": [
+              [
+                9.585000038146973,
+                1.4689998626708984,
+                1.4689998626708984,
+                0.009999999776482582,
+                2.299999952316284,
+                2.299999952316284,
+                1.4900000095367432,
+                1.4900000095367432,
+                1.0800000429153442,
+                1.0800000429153442
+              ]
+            ],
+            "getter_source_file": "/data/zengxiong/.conda/envs/regrind/lib/python3.11/site-packages/isaacsim/extscache/omni.physics.tensors-107.3.26+107.3.3.lx64.r.cp311.u353/omni/physics/tensors/impl/api.py",
+            "getter_source_sha256": "5dd16f8a37eccc94ac82338d6c1127e785cccf761cae1f6f18ef03d55b0f325f"
+          },
+          "get_inertias": {
+            "shape": [
+              1,
+              10,
+              9
+            ],
+            "values": [
+              [
+                [
+                  0.14011049270629883,
+                  0.0005349389975890517,
+                  0.02818411961197853,
+                  0.0005349389975890517,
+                  0.1106414720416069,
+                  -2.7278205379843712e-05,
+                  0.02818412333726883,
+                  -2.7278205379843712e-05,
+                  0.09894455224275589
+                ],
+                [
+                  0.0015553840203210711,
+                  0.0003977799788117409,
+                  -1.3100002433930058e-05,
+                  0.0003977799788117409,
+                  0.002359249861910939,
+                  -9.799950930755585e-07,
+                  -1.3100000614940654e-05,
+                  -9.799987310543656e-07,
+                  0.0020809201523661613
+                ],
+                [
+                  0.0015553840203210711,
+                  -0.0003977799788117409,
+                  -1.3100002433930058e-05,
+                  -0.0003977799788117409,
+                  0.002359249861910939,
+                  9.799950930755585e-07,
+                  -1.3100000614940654e-05,
+                  9.799987310543656e-07,
+                  0.0020809201523661613
+                ],
+                [
+                  9.999999974752427e-07,
+                  0.0,
+                  0.0,
+                  0.0,
+                  9.999999974752427e-07,
+                  0.0,
+                  0.0,
+                  0.0,
+                  9.999999974752427e-07
+                ],
+                [
+                  0.01693728379905224,
+                  0.0016470295377075672,
+                  -0.009232531301677227,
+                  0.0016470295377075672,
+                  0.02285328507423401,
+                  0.002202401403337717,
+                  -0.009232530370354652,
+                  0.0022024009376764297,
+                  0.009334188885986805
+                ],
+                [
+                  0.01693728379905224,
+                  -0.0016470295377075672,
+                  -0.009232531301677227,
+                  -0.0016470295377075672,
+                  0.02285328507423401,
+                  -0.002202401403337717,
+                  -0.009232530370354652,
+                  -0.0022024009376764297,
+                  0.009334188885986805
+                ],
+                [
+                  0.01323279831558466,
+                  -0.00043546073720790446,
+                  0.006935690063983202,
+                  -0.00043546073720790446,
+                  0.01766137219965458,
+                  0.0007908700499683619,
+                  0.006935690063983202,
+                  0.00079086993355304,
+                  0.005016981158405542
+                ],
+                [
+                  0.01323279831558466,
+                  0.00043546073720790446,
+                  0.006935690063983202,
+                  0.00043546073720790446,
+                  0.01766137219965458,
+                  -0.0007908700499683619,
+                  0.006935690063983202,
+                  -0.00079086993355304,
+                  0.005016981158405542
+                ],
+                [
+                  0.0051551200449466705,
+                  9.99999905104687e-09,
+                  -9.699724614620209e-07,
+                  9.99999993922529e-09,
+                  0.009742720052599907,
+                  -1.000000082740371e-08,
+                  -9.699724614620209e-07,
+                  -1.000000082740371e-08,
+                  0.005154000129550695
+                ],
+                [
+                  0.0051551200449466705,
+                  -9.99999905104687e-09,
+                  -9.699724614620209e-07,
+                  -9.99999993922529e-09,
+                  0.009742720052599907,
+                  1.000000082740371e-08,
+                  -9.699724614620209e-07,
+                  1.000000082740371e-08,
+                  0.005154000129550695
+                ]
+              ]
+            ],
+            "getter_source_file": "/data/zengxiong/.conda/envs/regrind/lib/python3.11/site-packages/isaacsim/extscache/omni.physics.tensors-107.3.26+107.3.3.lx64.r.cp311.u353/omni/physics/tensors/impl/api.py",
+            "getter_source_sha256": "5dd16f8a37eccc94ac82338d6c1127e785cccf761cae1f6f18ef03d55b0f325f"
+          },
+          "get_coms": {
+            "shape": [
+              1,
+              10,
+              7
+            ],
+            "values": [
+              [
+                [
+                  0.04575999826192856,
+                  0.00014000000373926014,
+                  -0.16398000717163086,
+                  -0.006218296475708485,
+                  -0.2328483760356903,
+                  0.003965523559600115,
+                  0.9724851846694946
+                ],
+                [
+                  -0.06977000087499619,
+                  0.04478999972343445,
+                  0.0005699999746866524,
+                  -0.008187533356249332,
+                  -0.007064875215291977,
+                  -0.19381769001483917,
+                  0.9809780120849609
+                ],
+                [
+                  -0.06977000087499619,
+                  -0.04478999972343445,
+                  0.0005699999746866524,
+                  0.008187533356249332,
+                  -0.007064875215291977,
+                  0.19381769001483917,
+                  0.9809780120849609
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  -0.028689999133348465,
+                  -0.04769999906420708,
+                  -0.03991999849677086,
+                  -0.02411648817360401,
+                  0.29677271842956543,
+                  -0.30193981528282166,
+                  0.9056360721588135
+                ],
+                [
+                  -0.028689999133348465,
+                  0.04769999906420708,
+                  -0.03991999849677086,
+                  0.02411648817360401,
+                  0.29677271842956543,
+                  0.30193981528282166,
+                  0.9056360721588135
+                ],
+                [
+                  0.11913000047206879,
+                  0.011060000397264957,
+                  -0.2036300003528595,
+                  0.029415728524327278,
+                  -0.2556636929512024,
+                  -0.005277751479297876,
+                  0.966303825378418
+                ],
+                [
+                  0.11913000047206879,
+                  -0.011060000397264957,
+                  -0.2036300003528595,
+                  -0.029415728524327278,
+                  -0.2556636929512024,
+                  0.005277751479297876,
+                  0.966303825378418
+                ],
+                [
+                  2.9999999242136255e-05,
+                  0.008070000447332859,
+                  -1.9999999494757503e-05,
+                  -7.70559381635394e-07,
+                  0.25883248448371887,
+                  -1.3350669405554072e-06,
+                  0.9659222364425659
+                ],
+                [
+                  2.9999999242136255e-05,
+                  -0.008070000447332859,
+                  -1.9999999494757503e-05,
+                  7.70559381635394e-07,
+                  0.25883248448371887,
+                  1.3350669405554072e-06,
+                  0.9659222364425659
+                ]
+              ]
+            ],
+            "getter_source_file": "/data/zengxiong/.conda/envs/regrind/lib/python3.11/site-packages/isaacsim/extscache/omni.physics.tensors-107.3.26+107.3.3.lx64.r.cp311.u353/omni/physics/tensors/impl/api.py",
+            "getter_source_sha256": "5dd16f8a37eccc94ac82338d6c1127e785cccf761cae1f6f18ef03d55b0f325f"
+          },
+          "get_dof_armatures": {
+            "shape": [
+              1,
+              8
+            ],
+            "values": [
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ]
+            ],
+            "getter_source_file": "/data/zengxiong/.conda/envs/regrind/lib/python3.11/site-packages/isaacsim/extscache/omni.physics.tensors-107.3.26+107.3.3.lx64.r.cp311.u353/omni/physics/tensors/impl/api.py",
+            "getter_source_sha256": "5dd16f8a37eccc94ac82338d6c1127e785cccf761cae1f6f18ef03d55b0f325f"
+          },
+          "get_dof_dampings": {
+            "shape": [
+              1,
+              8
+            ],
+            "values": [
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ]
+            ],
+            "getter_source_file": "/data/zengxiong/.conda/envs/regrind/lib/python3.11/site-packages/isaacsim/extscache/omni.physics.tensors-107.3.26+107.3.3.lx64.r.cp311.u353/omni/physics/tensors/impl/api.py",
+            "getter_source_sha256": "5dd16f8a37eccc94ac82338d6c1127e785cccf761cae1f6f18ef03d55b0f325f"
+          }
+        },
+        "unavailable": {}
+      }
+    },
+    "mujoco": {
+      "expected_friction": 0.7,
+      "colliding_geom_count": 10,
+      "explicit_contact_solref": null,
+      "compiled_solref_ranges": [
+        [
+          0.004,
+          0.004
+        ],
+        [
+          1.0,
+          1.0
+        ]
+      ],
+      "refsafe_minimum_timeconst_s": 0.005,
+      "contact_margin_and_gap_changed": false,
+      "compiled_friction_range": [
+        0.7,
+        0.7
+      ],
+      "combination_note": "Both contacting materials have the same value; max/average combination agree.",
+      "native_mapping_verified": true,
+      "compiled_native_timestep_s": 0.0025,
+      "explicit_contact_pair_count": 0,
+      "wheel_geom_ids": [
+        5,
+        9
+      ],
+      "colliding_geom_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "colliding_geom_names": [
+        "floor",
+        "base_collision",
+        "abad_L_collision",
+        "hip_L_collision",
+        "knee_L_collision",
+        "wheel_L_collision",
+        "abad_R_collision",
+        "hip_R_collision",
+        "knee_R_collision",
+        "wheel_R_collision"
+      ],
+      "geom_friction": [
+        [
+          0.7,
+          0.0,
+          0.0
+        ],
+        [
+          0.7,
+          0.0,
+          0.0
+        ],
+        [
+          0.7,
+          0.0,
+          0.0
+        ],
+        [
+          0.7,
+          0.0,
+          0.0
+        ],
+        [
+          0.7,
+          0.0,
+          0.0
+        ],
+        [
+          0.7,
+          0.0,
+          0.0
+        ],
+        [
+          0.7,
+          0.0,
+          0.0
+        ],
+        [
+          0.7,
+          0.0,
+          0.0
+        ],
+        [
+          0.7,
+          0.0,
+          0.0
+        ],
+        [
+          0.7,
+          0.0,
+          0.0
+        ]
+      ],
+      "geom_priority": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "geom_condim": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "geom_solref": [
+        [
+          0.004,
+          1.0
+        ],
+        [
+          0.004,
+          1.0
+        ],
+        [
+          0.004,
+          1.0
+        ],
+        [
+          0.004,
+          1.0
+        ],
+        [
+          0.004,
+          1.0
+        ],
+        [
+          0.004,
+          1.0
+        ],
+        [
+          0.004,
+          1.0
+        ],
+        [
+          0.004,
+          1.0
+        ],
+        [
+          0.004,
+          1.0
+        ],
+        [
+          0.004,
+          1.0
+        ]
+      ],
+      "geom_solimp": [
+        [
+          0.9,
+          0.95,
+          0.001,
+          0.5,
+          2.0
+        ],
+        [
+          0.9,
+          0.95,
+          0.001,
+          0.5,
+          2.0
+        ],
+        [
+          0.9,
+          0.95,
+          0.001,
+          0.5,
+          2.0
+        ],
+        [
+          0.9,
+          0.95,
+          0.001,
+          0.5,
+          2.0
+        ],
+        [
+          0.9,
+          0.95,
+          0.001,
+          0.5,
+          2.0
+        ],
+        [
+          0.9,
+          0.95,
+          0.001,
+          0.5,
+          2.0
+        ],
+        [
+          0.9,
+          0.95,
+          0.001,
+          0.5,
+          2.0
+        ],
+        [
+          0.9,
+          0.95,
+          0.001,
+          0.5,
+          2.0
+        ],
+        [
+          0.9,
+          0.95,
+          0.001,
+          0.5,
+          2.0
+        ],
+        [
+          0.9,
+          0.95,
+          0.001,
+          0.5,
+          2.0
+        ]
+      ],
+      "mapping": "explicit wheel priority1 / other colliders0; all colliding sliding mu equal target; not mu squared",
+      "pair_coefficient": 0.7,
+      "contact_law_equivalence_claimed": false,
+      "native_plant_readback": {
+        "source": "compiled native MuJoCo MjModel arrays after declared configuration",
+        "body_names": [
+          "world",
+          "base_Link",
+          "abad_L_Link",
+          "hip_L_Link",
+          "knee_L_Link",
+          "wheel_L_Link",
+          "abad_R_Link",
+          "hip_R_Link",
+          "knee_R_Link",
+          "wheel_R_Link",
+          "limx_imu"
+        ],
+        "joint_names": [
+          "root",
+          "abad_L_Joint",
+          "hip_L_Joint",
+          "knee_L_Joint",
+          "wheel_L_Joint",
+          "abad_R_Joint",
+          "hip_R_Joint",
+          "knee_R_Joint",
+          "wheel_R_Joint"
+        ],
+        "inertia_convention": "body_inertia principal moments; body_ipos/body_iquat define local inertial frame",
+        "mass_inertia_equivalence_claimed": false,
+        "no_physics_or_state_mutation": true,
+        "readbacks": {
+          "body_mass": {
+            "shape": [
+              11
+            ],
+            "values": [
+              0.0,
+              9.585000038146973,
+              1.468999981880188,
+              2.299999952316284,
+              1.4900000095367432,
+              1.0800000429153442,
+              1.468999981880188,
+              2.299999952316284,
+              1.4900000095367432,
+              1.0800000429153442,
+              0.009999999776482582
+            ]
+          },
+          "body_inertia": {
+            "shape": [
+              11,
+              3
+            ],
+            "values": [
+              [
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.154432341456,
+                0.110639259219,
+                0.0846248790622
+              ],
+              [
+                0.00139162677806,
+                0.00252288533375,
+                0.00208104168996
+              ],
+              [
+                0.0230229143053,
+                0.0233263615519,
+                0.00277547957376
+              ],
+              [
+                0.0171854905784,
+                0.0177106633782,
+                0.00101499736775
+              ],
+              [
+                0.00515568023548,
+                0.0097427200526,
+                0.00515343993902
+              ],
+              [
+                0.00139162677806,
+                0.00252288533375,
+                0.00208104168996
+              ],
+              [
+                0.0230229143053,
+                0.0233263615519,
+                0.00277547957376
+              ],
+              [
+                0.0171854905784,
+                0.0177106633782,
+                0.00101499736775
+              ],
+              [
+                0.00515568023548,
+                0.0097427200526,
+                0.00515343993902
+              ],
+              [
+                9.99999997475e-07,
+                9.99999997475e-07,
+                9.99999997475e-07
+              ]
+            ]
+          },
+          "body_ipos": {
+            "shape": [
+              11,
+              3
+            ],
+            "values": [
+              [
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0457599982619,
+                0.000140000003739,
+                -0.163980007172
+              ],
+              [
+                -0.069770000875,
+                0.0447899997234,
+                0.000569999974687
+              ],
+              [
+                -0.0286899991333,
+                -0.0476999990642,
+                -0.0399199984968
+              ],
+              [
+                0.119130000472,
+                0.0110600003973,
+                -0.203630000353
+              ],
+              [
+                2.99999992421e-05,
+                0.00807000044733,
+                -1.99999994948e-05
+              ],
+              [
+                -0.069770000875,
+                -0.0447899997234,
+                0.000569999974687
+              ],
+              [
+                -0.0286899991333,
+                0.0476999990642,
+                -0.0399199984968
+              ],
+              [
+                0.119130000472,
+                -0.0110600003973,
+                -0.203630000353
+              ],
+              [
+                2.99999992421e-05,
+                -0.00807000044733,
+                -1.99999994948e-05
+              ],
+              [
+                0.0,
+                0.0,
+                0.0
+              ]
+            ]
+          },
+          "body_iquat": {
+            "shape": [
+              11,
+              4
+            ],
+            "values": [
+              [
+                1.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.9724850907213711,
+                -0.006218295874987008,
+                -0.2328483535415156,
+                0.003965523176507752
+              ],
+              [
+                0.9809779604260858,
+                -0.008187532925089384,
+                -0.0070648748432492635,
+                -0.1938176798084395
+              ],
+              [
+                0.9056360727680978,
+                -0.024116488189819874,
+                0.29677271862959853,
+                -0.30193981548607374
+              ],
+              [
+                0.966303754558184,
+                0.029415726368439258,
+                -0.2556636742135644,
+                -0.005277751092496823
+              ],
+              [
+                0.9659222258750465,
+                -7.705593732044707e-07,
+                0.2588324816521678,
+                -1.3350669259533114e-06
+              ],
+              [
+                0.9809779604260858,
+                0.008187532925089384,
+                -0.0070648748432492635,
+                0.1938176798084395
+              ],
+              [
+                0.9056360727680978,
+                0.024116488189819874,
+                0.29677271862959853,
+                0.30193981548607374
+              ],
+              [
+                0.966303754558184,
+                -0.029415726368439258,
+                -0.2556636742135644,
+                0.005277751092496823
+              ],
+              [
+                0.9659222258750465,
+                7.705593732044707e-07,
+                0.2588324816521678,
+                1.3350669259533114e-06
+              ],
+              [
+                1.0,
+                0.0,
+                0.0,
+                0.0
+              ]
+            ]
+          },
+          "dof_armature": {
+            "shape": [
+              14
+            ],
+            "values": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "dof_damping": {
+            "shape": [
+              14
+            ],
+            "values": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "dof_frictionloss": {
+            "shape": [
+              14
+            ],
+            "values": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "geom_margin": {
+            "shape": [
+              10
+            ],
+            "values": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "geom_gap": {
+            "shape": [
+              10
+            ],
+            "values": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "solver_configuration": {
+          "timestep": 0.0025,
+          "iterations": 100.0,
+          "ls_iterations": 50.0,
+          "tolerance": 1e-10,
+          "ls_tolerance": 0.01,
+          "solver": 2.0,
+          "integrator": 3.0,
+          "cone": 0.0,
+          "impratio": 1.0
+        }
+      }
+    }
+  },
+  "sample_size_per_engine": 1,
+  "new_simulation": false,
+  "new_policy_inference": false,
+  "state_interpolation": false,
+  "pose_alignment": false,
+  "height_or_airborne_failure_gate": false,
+  "lower_HF_alone_establishes_stability": false,
+  "visual_reviewed": false,
+  "limitations": [
+    "Only one completed PhysX-trained beta-OFF actor in two validation engines; NOT a complete four-cell training-backend comparison.",
+    "No MJWarp-trained smoke/intermediate/200Hz actor is used. Missing training-backend cells are not placeholders.",
+    "Same400Hz/50Hz actor/interface and nominal effective pair mu=.7; contact laws, model representations and native telemetry operators still differ.",
+    "Initial recorded state differences are reported, not aligned or forced equal. USD/MJ native inertias/contact readbacks are retained as nuisance evidence.",
+    "Core1.44\u20134s alone can hide late loss of balance. Reference-overlap0\u20136.96s and fullnative0\u20136.98s are both reported.",
+    "LowerHF is not stability; thresholded count/Fz is not a flight label. No absoluteheight/contact/tilt failure gate is introduced.",
+    "One deterministic episode per engine is descriptive, not a statistical backend ranking or hardware claim.",
+    "Training/export hashes are bound to copied completed metadata and strict remote proofs; no weights are downloaded or executed locally."
+  ],
+  "world_bounds": [
+    [
+      -0.25253836655058554,
+      -0.398574238993162
+    ],
+    [
+      4.837924159281794,
+      3.613490104675293
+    ]
+  ],
+  "fixed_follow_camera": {
+    "distance_m": 1.6953047794244371,
+    "azimuth_deg": 135.0,
+    "elevation_deg": -30.0,
+    "vertical_fov_deg": 45.0,
+    "fit_audit": {
+      "all_mesh_bounds_inside": true,
+      "maximum_normalized_frustum_extent": 0.914952294645384,
+      "minimum_depth_m": 1.3230827387188184,
+      "distance_changed_with_time": false,
+      "distance_differs_between_cases": false,
+      "margin_m": 0.03,
+      "frames_per_case": 350,
+      "cases": 2,
+      "visible_mesh_geoms_per_case": 9,
+      "fixed_root_relative_offset_m": [
+        0.0,
+        0.0,
+        -0.28
+      ],
+      "orientation_follows_yaw": false,
+      "original_root_pose_changed": false,
+      "basis_source": "native MjvGLCamera forward/up",
+      "physics_stepping": false
+    }
+  },
+  "mesh_provenance": {
+    "meshes": [
+      {
+        "file": "base_Link.STL",
+        "sha256": "a0e4a75a180f51b5593220fec14cec3272ff744b289de0844f8845ca1be34548"
+      },
+      {
+        "file": "abad_L_Link.STL",
+        "sha256": "9eb73a043ef1b8f8425f422cbb9a4d7364fbe93182fe232eefed52a748acb815"
+      },
+      {
+        "file": "hip_L_Link.STL",
+        "sha256": "d9c5699d6948d2778c4206284e76531d9ed008c3d3205ba902abd4bdc9715117"
+      },
+      {
+        "file": "knee_L_Link.STL",
+        "sha256": "119f2f177a7f90475fae071d4683bcc1b6c5164a1f5c606e20fbb85264806baf"
+      },
+      {
+        "file": "wheel_L_Link.STL",
+        "sha256": "cd7687ae258efd83aa6c89ff9e7b496193c9a174787abf0d6338f95b6f621bf3"
+      },
+      {
+        "file": "abad_R_Link.STL",
+        "sha256": "fbfdd2d0801e73c71a0c514f34f5d4190c43f344c58fda108f1eae9997ca3917"
+      },
+      {
+        "file": "hip_R_Link.STL",
+        "sha256": "9f70593a70c75e68969a5e41dbabcba9dba71b8b06a45bbac8134a94a88fd39b"
+      },
+      {
+        "file": "knee_R_Link.STL",
+        "sha256": "83c4acc7127b0c6f3d51e8ea5818c78e19a5dfaf61f06a06ccdc72ea04eb385a"
+      },
+      {
+        "file": "wheel_R_Link.STL",
+        "sha256": "d816f9a69097a7c6dc2b8d3c0310183bea26514fc778a1677146f3c2d6e1ee91"
+      }
+    ],
+    "official_source": {
+      "schema_version": 1,
+      "repository": "https://github.com/limxdynamics/tron1-robot-description",
+      "revision": "5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316",
+      "license": "Apache-2.0",
+      "files": [
+        {
+          "source": "LICENSE",
+          "destination": "LICENSE.txt",
+          "size": 11357,
+          "git_blob_sha1": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/LICENSE",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/xml/robot.xml",
+          "destination": "upstream/robot.xml",
+          "size": 9315,
+          "git_blob_sha1": "245d2fc22eb01ecfcec29118daa635e6f2c3e6e1",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/xml/robot.xml",
+          "sha256": "cbe885f68bc22aea9ffc011186e67ea5080e6e99a8df3b7f1a36657d4dd68476"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/urdf/robot.urdf",
+          "destination": "upstream/robot.urdf",
+          "size": 21232,
+          "git_blob_sha1": "a558e9375dcf6dc2666825ac224cbb750032ead8",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/urdf/robot.urdf",
+          "sha256": "f09c56c15acd507bba43b394e37a9abe024e0111fdde7dbf41796408895ee4c5"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/base_Link.STL",
+          "destination": "meshes/base_Link.STL",
+          "size": 6225184,
+          "git_blob_sha1": "62a7837a98e37a784e9bd2f9f66ed4350980bc97",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/base_Link.STL",
+          "sha256": "a0e4a75a180f51b5593220fec14cec3272ff744b289de0844f8845ca1be34548"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/abad_L_Link.STL",
+          "destination": "meshes/abad_L_Link.STL",
+          "size": 1658684,
+          "git_blob_sha1": "562152a171e9344dafddb98133b757adb3e100d9",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/abad_L_Link.STL",
+          "sha256": "9eb73a043ef1b8f8425f422cbb9a4d7364fbe93182fe232eefed52a748acb815"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/hip_L_Link.STL",
+          "destination": "meshes/hip_L_Link.STL",
+          "size": 2121684,
+          "git_blob_sha1": "a88548378708be1bb8b2b27dccba292fd953eeda",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/hip_L_Link.STL",
+          "sha256": "d9c5699d6948d2778c4206284e76531d9ed008c3d3205ba902abd4bdc9715117"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/knee_L_Link.STL",
+          "destination": "meshes/knee_L_Link.STL",
+          "size": 2273084,
+          "git_blob_sha1": "bde12153f0431bec19a5248379c51177b458fbda",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/knee_L_Link.STL",
+          "sha256": "119f2f177a7f90475fae071d4683bcc1b6c5164a1f5c606e20fbb85264806baf"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/wheel_L_Link.STL",
+          "destination": "meshes/wheel_L_Link.STL",
+          "size": 1000384,
+          "git_blob_sha1": "07c39ec4a620f1b0c113ee5bbada45c5dbd8be61",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/wheel_L_Link.STL",
+          "sha256": "cd7687ae258efd83aa6c89ff9e7b496193c9a174787abf0d6338f95b6f621bf3"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/abad_R_Link.STL",
+          "destination": "meshes/abad_R_Link.STL",
+          "size": 1300984,
+          "git_blob_sha1": "5064e376232a13c1c7662f247ccf4c2e3e320193",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/abad_R_Link.STL",
+          "sha256": "fbfdd2d0801e73c71a0c514f34f5d4190c43f344c58fda108f1eae9997ca3917"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/hip_R_Link.STL",
+          "destination": "meshes/hip_R_Link.STL",
+          "size": 2125684,
+          "git_blob_sha1": "9f59b5ef4a4c0c2cd42850102be151bd53828fe9",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/hip_R_Link.STL",
+          "sha256": "9f70593a70c75e68969a5e41dbabcba9dba71b8b06a45bbac8134a94a88fd39b"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/knee_R_Link.STL",
+          "destination": "meshes/knee_R_Link.STL",
+          "size": 2372284,
+          "git_blob_sha1": "9230da6dc8b9c77d4e9f20e3f4fb8e7dc56e0af7",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/knee_R_Link.STL",
+          "sha256": "83c4acc7127b0c6f3d51e8ea5818c78e19a5dfaf61f06a06ccdc72ea04eb385a"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/wheel_R_Link.STL",
+          "destination": "meshes/wheel_R_Link.STL",
+          "size": 1000384,
+          "git_blob_sha1": "c51e99fc41a733a01ff1e9f237ed1eaffc32951e",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/wheel_R_Link.STL",
+          "sha256": "d816f9a69097a7c6dc2b8d3c0310183bea26514fc778a1677146f3c2d6e1ee91"
+        }
+      ],
+      "derived_model": "robot.xml",
+      "derived_model_sha256": "30c8bb94b32b1804aa2f7de2425f7a8dd02be7792881255388097e2e68092e52",
+      "changes_to_upstream_mjcf": [
+        "compiler meshdir ../meshes/ -> meshes",
+        "name existing free joint root",
+        "add nine IK/display sites"
+      ],
+      "notes": [
+        "Official MJCF/STL assets are preserved; generated robot.xml changes only meshdir, names the floating root joint, and adds IK/display sites.",
+        "left/right_wheel sites are wheel hinge centers, not human ankle frames; left/right_knee sites are actual knee joint centers.",
+        "left/right_contact are nominal local bottom markers: they rotate with the wheel and are NOT rolling contact points or reliable ground clearance. Compute clearance from collision geometry instead.",
+        "Official MJCF and Isaac USD share link offsets and joint axes, but are not numerically identical dynamics models. MJCF base includes fixed IMU mass; wheel collision axial width is 0.010m versus 0.050m in USD, and lateral collision offsets are +/-0.008m versus +/-0.00707m.",
+        "Official MJCF wheel motor ctrlrange is +/-40Nm, while the imported USD drive maxForce is 80. Other collision primitives also differ; no cross-engine contact or actuator equivalence is implied.",
+        "Mink IK playback does not validate contact forces, balance, jump actuation, self-collision avoidance, or dynamic feasibility. No Isaac assets or runtime are changed."
+      ],
+      "validation": {
+        "mujoco_version": "3.8.1",
+        "nq": 15,
+        "nv": 14,
+        "hinge_joint_order": [
+          "abad_L_Joint",
+          "hip_L_Joint",
+          "knee_L_Joint",
+          "wheel_L_Joint",
+          "abad_R_Joint",
+          "hip_R_Joint",
+          "knee_R_Joint",
+          "wheel_R_Joint"
+        ],
+        "qpos_hinge_addresses": [
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        "dof_hinge_addresses": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ],
+        "joint_ranges_rad": [
+          [
+            -0.38397,
+            1.39626
+          ],
+          [
+            -1.01229,
+            1.39626
+          ],
+          [
+            -0.872665,
+            1.36136
+          ],
+          [
+            -1000000.0,
+            1000000.0
+          ],
+          [
+            -1.39626,
+            0.38397
+          ],
+          [
+            -1.39626,
+            1.01229
+          ],
+          [
+            -1.36136,
+            0.872665
+          ],
+          [
+            -1000000.0,
+            1000000.0
+          ]
+        ],
+        "body_names": [
+          "world",
+          "base_Link",
+          "abad_L_Link",
+          "hip_L_Link",
+          "knee_L_Link",
+          "wheel_L_Link",
+          "abad_R_Link",
+          "hip_R_Link",
+          "knee_R_Link",
+          "wheel_R_Link"
+        ],
+        "sites": {
+          "pelvis": {
+            "body": "base_Link",
+            "pos": [
+              0,
+              0,
+              0
+            ]
+          },
+          "left_hip": {
+            "body": "hip_L_Link",
+            "pos": [
+              0,
+              0,
+              0
+            ]
+          },
+          "right_hip": {
+            "body": "hip_R_Link",
+            "pos": [
+              0,
+              0,
+              0
+            ]
+          },
+          "left_knee": {
+            "body": "knee_L_Link",
+            "pos": [
+              0,
+              0,
+              0
+            ]
+          },
+          "right_knee": {
+            "body": "knee_R_Link",
+            "pos": [
+              0,
+              0,
+              0
+            ]
+          },
+          "left_wheel": {
+            "body": "wheel_L_Link",
+            "pos": [
+              0,
+              0,
+              0
+            ]
+          },
+          "right_wheel": {
+            "body": "wheel_R_Link",
+            "pos": [
+              0,
+              0,
+              0
+            ]
+          },
+          "left_contact": {
+            "body": "wheel_L_Link",
+            "pos": [
+              0,
+              0.008,
+              -0.127
+            ]
+          },
+          "right_contact": {
+            "body": "wheel_R_Link",
+            "pos": [
+              0,
+              -0.008,
+              -0.127
+            ]
+          }
+        },
+        "mass_kg": 22.273000000000003,
+        "visual_meshes": 9,
+        "mesh_vertices": 199461,
+        "independent_urdf_fk_random_poses": 25,
+        "independent_urdf_fk_max_position_error_m": 3.3306690738754696e-16,
+        "independent_urdf_fk_max_rotation_matrix_error": 6.661338147750939e-16,
+        "wheel_radius_m": 0.127,
+        "wheel_collision_full_width_m": 0.01,
+        "zero_joint_pose_body_positions_relative_to_base_m": {
+          "base_Link": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "abad_L_Link": [
+            0.05556,
+            0.105,
+            -0.2602
+          ],
+          "hip_L_Link": [
+            -0.02144,
+            0.1255,
+            -0.2602
+          ],
+          "knee_L_Link": [
+            -0.17143999999999998,
+            0.105,
+            -0.52001
+          ],
+          "wheel_L_Link": [
+            -0.021439999999999987,
+            0.1485,
+            -0.77982
+          ],
+          "abad_R_Link": [
+            0.05556,
+            -0.105,
+            -0.2602
+          ],
+          "hip_R_Link": [
+            -0.02144,
+            -0.1255,
+            -0.2602
+          ],
+          "knee_R_Link": [
+            -0.17143999999999998,
+            -0.105,
+            -0.52001
+          ],
+          "wheel_R_Link": [
+            -0.021439999999999987,
+            -0.1485,
+            -0.77982
+          ]
+        },
+        "zero_joint_pose_sites_relative_to_base_m": {
+          "pelvis": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "left_hip": [
+            -0.02144,
+            0.1255,
+            -0.2602
+          ],
+          "right_hip": [
+            -0.02144,
+            -0.1255,
+            -0.2602
+          ],
+          "left_knee": [
+            -0.17143999999999998,
+            0.105,
+            -0.52001
+          ],
+          "right_knee": [
+            -0.17143999999999998,
+            -0.105,
+            -0.52001
+          ],
+          "left_wheel": [
+            -0.021439999999999987,
+            0.1485,
+            -0.77982
+          ],
+          "right_wheel": [
+            -0.021439999999999987,
+            -0.1485,
+            -0.77982
+          ],
+          "left_contact": [
+            -0.021439999999999987,
+            0.1565,
+            -0.90682
+          ],
+          "right_contact": [
+            -0.021439999999999987,
+            -0.1565,
+            -0.90682
+          ]
+        },
+        "zero_joint_pose_contact_base_height_m": 0.90682,
+        "seed_joint_degrees": [
+          0,
+          20,
+          40,
+          0,
+          0,
+          -20,
+          -40,
+          0
+        ],
+        "seed_sites_relative_to_base_m": {
+          "pelvis": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "left_hip": [
+            -0.02144,
+            0.1255,
+            -0.2602
+          ],
+          "right_hip": [
+            -0.02144,
+            -0.1255,
+            -0.2602
+          ],
+          "left_knee": [
+            -0.25125414655532824,
+            0.10500000000000001,
+            -0.4530385183075365
+          ],
+          "right_knee": [
+            -0.25125414655532824,
+            -0.10500000000000001,
+            -0.4530385183075365
+          ],
+          "left_wheel": [
+            -0.021440000000000015,
+            0.1485,
+            -0.645877036615073
+          ],
+          "right_wheel": [
+            -0.021440000000000015,
+            -0.1485,
+            -0.645877036615073
+          ],
+          "left_contact": [
+            0.021996558202359906,
+            0.1565,
+            -0.7652179994548833
+          ],
+          "right_contact": [
+            0.021996558202359906,
+            -0.1565,
+            -0.7652179994548833
+          ]
+        },
+        "seed_level_base_height_for_grounded_wheels_m": 0.772877036615073,
+        "seed_ground_contacts": [
+          {
+            "geom1": "floor",
+            "geom2": "wheel_L_collision",
+            "distance_m": -2.7755575615628914e-17
+          },
+          {
+            "geom1": "floor",
+            "geom2": "wheel_L_collision",
+            "distance_m": -2.7755575615628914e-17
+          },
+          {
+            "geom1": "floor",
+            "geom2": "wheel_R_collision",
+            "distance_m": -2.7755575615628914e-17
+          },
+          {
+            "geom1": "floor",
+            "geom2": "wheel_R_collision",
+            "distance_m": -2.7755575615628914e-17
+          }
+        ],
+        "note": "Geometric/FK checks only. Contacts include margin contacts and do not prove dynamically feasible balance or jumping."
+      }
+    },
+    "meshes_copied_to_output": false
+  },
+  "fk_audits": {
+    "physx": {
+      "samples_checked": 2793,
+      "max_wheel_origin_error_m": 1.0226917409039174e-06,
+      "tolerance_m": 2e-06,
+      "physics_stepping": false,
+      "kinematic_functions": [
+        "mj_kinematics",
+        "mj_comPos",
+        "mj_camlight"
+      ],
+      "root_pose_copied_exactly": true,
+      "named_joint_qpos_addresses": [
+        7,
+        11,
+        8,
+        12,
+        9,
+        13,
+        10,
+        14
+      ]
+    },
+    "mujoco": {
+      "samples_checked": 2793,
+      "max_wheel_origin_error_m": 0.0,
+      "tolerance_m": 2e-06,
+      "physics_stepping": false,
+      "kinematic_functions": [
+        "mj_kinematics",
+        "mj_comPos",
+        "mj_camlight"
+      ],
+      "root_pose_copied_exactly": true,
+      "named_joint_qpos_addresses": [
+        7,
+        11,
+        8,
+        12,
+        9,
+        13,
+        10,
+        14
+      ]
+    }
+  },
+  "renderer_sha256": "b95b652203385fd1c3dee8b5ca9ac5d3f49672664157cb88636c6f8b40b6dbf3",
+  "video_frames": 350,
+  "video_fps": 50,
+  "video_size_pixels": [
+    1280,
+    750
+  ],
+  "native_sample_stride": 8,
+  "preview_original_time_s": 5.0,
+  "robot_mesh_alpha": 1.0,
+  "diagnostic_plot_metadata": {
+    "layout": [
+      1,
+      4
+    ],
+    "new_simulation": false,
+    "native_states_per_condition": 2793,
+    "xy_error_interval_s": [
+      0.0,
+      6.96
+    ],
+    "pose_diagnostic_interval_s": [
+      0.0,
+      6.98
+    ],
+    "core_interval_s": [
+      1.44,
+      4.0
+    ],
+    "state_filtering_resampling_or_alignment": false,
+    "tilt30_used_as_failure_gate": false,
+    "persistent_tilt30_diagnostic_by_engine": {
+      "physx": {
+        "onset_s": 2.92,
+        "confirmation_s": 3.02,
+        "end_s": 6.98,
+        "observed_duration_s": 4.0600000000000005,
+        "native_samples": 1625,
+        "left_window_censored": false,
+        "right_window_censored": true,
+        "duration_is_lower_bound": true
+      },
+      "mujoco": {
+        "onset_s": 4.009999999999927,
+        "confirmation_s": 4.109999999999927,
+        "end_s": 6.980000000000391,
+        "observed_duration_s": 2.9700000000004643,
+        "native_samples": 1189,
+        "left_window_censored": false,
+        "right_window_censored": true,
+        "duration_is_lower_bound": true
+      }
+    },
+    "same_actor_different_native_plants": true,
+    "identical_action_sequence_claimed": false,
+    "MJWarp_trained_actor_included": false
+  },
+  "video_generated": true,
+  "compact_native_recomputed_all_windows_exactly": true,
+  "artifacts": {
+    "native_comparison_signals.npz": "6a2fa06512bc04c74f329e0be7f41abc6c08a4ea930cc8a22ef13ce5a20744cd",
+    "replay_states.npz": "9b832174356718dfa6c531892e58f4f7a2972fe2e84a832e34d79f3d62381c33",
+    "comparison.png": "1447ef37dec7ee0c34e87d6150e4f78ac9dbbbf2346fb4fdd6151212a3f6c8da",
+    "comparison_core_3s.png": "3254074b1f24ef8e3808c9314ceea98e24b196c25b3a4ab3677b0cf2da5ccc43",
+    "turn_diagnostics.png": "0f78d4fdb3a38731eaf2d4b580db872212f520ae87a6d8e6f7f2d663a2899c7e",
+    "metric_table.csv": "5a2ca9592707d6ff994479ff0102a029a7c88dc5e6835765b389be83129dfad8",
+    "overview.json": "2cef5ec67394b1b74ba426bd9b8c3a691773bad3f2ce4be3022afd80d08a176c",
+    "beta_off_physx_vs_mujoco_400hz.mp4": "73f39f3fa34b89f32e030e73375306d212b5403f3660aab97887b3f48493cdc5"
+  },
+  "helpers_sha256": {
+    "render_ppo_beta_physx_to_mujoco_400hz.py": "9268618566845d8f0fba02e806ce33c9168512466b57f495cfe294ed28acdbee",
+    "render_ppo_fixed_follow.py": "829d2055c03e73503924a493155e605e07066cede8eb9dd72c110bd54a9d3bba",
+    "render_physx_ppo_fullbody.py": "d8fb77dc22004eb244579c0c1be1155baa6069cf5b8d83a6b7ea9ce73628b4e9",
+    "plot_ppo_beta_off_engine_comparison_400hz.py": "0fdd62bd183ee3c6670b4bee08a07dc138f1ca85a84432860a07676e6a49634c",
+    "render_ppo_training_recipe_comparison.py": "a946ae5edc969ed6c6680bcdbbb10ac075e51467ac3461f57deb7b4be25cb6d0",
+    "controller_trace.py": "673d17bda4d9f6c93b76b0b963b199aef3e3abe8982cfc6cc6580184e5b0a3e6"
+  }
+}

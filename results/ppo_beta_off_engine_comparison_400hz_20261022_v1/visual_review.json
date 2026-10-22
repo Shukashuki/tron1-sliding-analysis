@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "kind": "sampled_two_engine_fullbody_review_and_complete_video_decode_audit",
+  "generated_summary_sha256": "7477ba34a8c727e712b6b73bf624de86893a5087835aaa53ffee5292d83c38ae",
+  "video_sha256": "73f39f3fa34b89f32e030e73375306d212b5403f3660aab97887b3f48493cdc5",
+  "review_contact_sheet_sha256": "17edac03a5676a8a1d4bb9d5b2b2038108df28d1af2352218dac2ac86877ab7c",
+  "video_size_pixels": [1280, 750],
+  "all_frames_decoded": 350,
+  "video_fps": 50,
+  "encoded_duration_s": 7.0,
+  "sampled_original_times_s": [0.0, 1.44, 2.8, 3.0, 3.3, 4.0, 4.2, 4.5, 5.0, 6.0, 6.98],
+  "full_resolution_stills_reviewed_s": [3.0, 5.0],
+  "camera": {
+    "fixed_distance_m_all_cases_and_frames": 1.6953047794244371,
+    "fixed_world_azimuth_deg": 135.0,
+    "fixed_world_elevation_deg": -30.0,
+    "fixed_vertical_fov_deg": 45.0,
+    "fixed_root_relative_lookat_offset_m": [0.0, 0.0, -0.28],
+    "all_350_frames_by_2_cases_mesh_bounds_inside_frustum": true,
+    "maximum_normalized_frustum_extent": 0.914952294645384,
+    "time_varying_zoom_or_case_specific_distance": false,
+    "camera_lookat_matches_original_root_plus_fixed_offset": true
+  },
+  "native_FK_samples_checked_per_case": 2793,
+  "maximum_wheel_origin_FK_error_m": {"physx": 0.0000010226917409039174, "mujoco": 0.0},
+  "selected_native_stride": 8,
+  "original_native_qpos_and_root_height_preserved": true,
+  "original_native_cumulative_clock_preserved": true,
+  "new_simulation_or_inference_during_rendering": false,
+  "observations": [
+    "Both panels use the SAME completed new400Hz PhysX-trained beta-OFF actor, not an MJWarp-trained or historical200Hz substitute.",
+    "At3s the PhysX body is already tilted42.4deg while the MuJoCo body is7.0deg. PhysX is approximately sideways by3.3s; MuJoCo falls later and is approximately sideways by4.5s.",
+    "At5s both original bodies are fallen; retained full-horizon world-XY maps show the distinct resulting divergence.",
+    "Meshes are opaque. Shared fixed camera distance/orientation and map bounds preserve the observed differences instead of zooming or aligning them away.",
+    "World-XY maps include the original body heading and each wheel rolling-plane axis. The final6.98s frame correctly marks XY error unavailable beyond the6.96s reference.",
+    "Four horizontal diagnostic plots retain original XY paths, tracking error, both sustained tilt event timings and native common-band jitter. Lower jitter is not labeled task success."
+  ],
+  "limitations": [
+    "All350frames were decoded and all camera fits checked numerically; visual inspection used selected frames rather than individually examining every encoded frame.",
+    "A50fps video cannot resolve every400Hz physical oscillation; reported spectra use original native400Hz angular velocity.",
+    "Contact forces/counts have different native measurement operators. Zero wheel force is not a geometric flight label and t=0 is a pre-action snapshot.",
+    "Tilt/contact/height are diagnostics, not new task failure gates. No causal beta-ON/OFF conclusion or statistical engine ranking follows from this same-policy N=1 comparison."
+  ]
+}
