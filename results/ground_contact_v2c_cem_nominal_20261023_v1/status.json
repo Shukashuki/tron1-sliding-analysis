@@ -1,0 +1,101 @@
+{
+  "status": "PARTIAL_EXPERIMENT_ACTUAL_CEM_C_XY_BETA_CONTACT_FAILED_PPO_C_RUNNING",
+  "snapshot_utc": "2026-10-23T19:17:01.833501+00:00",
+  "conditions": {
+    "mu": 0.7,
+    "physics_hz": 400,
+    "policy_hz": 50,
+    "sample_size_per_CEM_condition": 1,
+    "beta_reward_on": true,
+    "grounded_external_weight": 0.4,
+    "C_formula": "g*impact*min8(q)-mean8(1-q), coefficient1 ungated deficit",
+    "other14_reward_terms_unchanged": true,
+    "single_wheel_support_allowed": true,
+    "height_or_zero_beta_constraint_added": false
+  },
+  "CEM_C": {
+    "recording_status": "completed_actual349decisions2793native_states",
+    "numeric_nominal_episode_pass": false,
+    "failed_checks": [
+      "core_xy_rmse",
+      "core_xy_peak",
+      "whole_xy_rmse",
+      "whole_xy_peak",
+      "core_reference_beta",
+      "any_wheel_every_physical_sample",
+      "longest_no_support_gap"
+    ],
+    "core_speed_criterion_passed": true,
+    "core_HF_criterion_passed": true,
+    "core_xy_rmse_m": 0.38700663795192053,
+    "whole_reference_xy_rmse_m": 0.37321527789637043,
+    "whole_reference_xy_peak_m": 0.6083773808155537,
+    "core_reference_beta_rmse_deg": 23.62651923245118,
+    "core_speed_retention": 1.0450966368448615,
+    "core_HF_ratio_to_original_CEM": 0.665408100532215,
+    "full_contact_anywheel_fraction": 0.6431400792221822,
+    "full_contact_longest_gap_s": 0.16249999999999787,
+    "core_anywheel_fraction": 0.5102439024390244,
+    "core_longest_gap_s": 0.15749999999999664,
+    "solver_failures": 0,
+    "plant_warning_counts": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "all349x15_actual_stage_rewards": "verified_exact_before_packaging_full_reward_history_not_in_compact",
+    "compute_ms_median_p95_max": [
+      1396.4005110319704,
+      1666.2292931694535,
+      2050.768064102158
+    ],
+    "offline_walltime_not_realtime_control": true
+  },
+  "contact_diagnostic": {
+    "computation_and_compact_replay": "completed_verified_exact",
+    "metadata_append_attempt": "FAILED_EXCLUSIVE_WRITE_COLLISION_PRESERVED_EXISTING_SUMMARY",
+    "separate_new_C_provenance_sidecar": "completed_CEM_C_loader_sidecar.json",
+    "diagnostic_summary_sha256": "04989f112edfe679b8901f474ea16bb70997c97a5f9c8525d329576ccc001f55",
+    "sidecar_sha256": "9a0b490347ae78bc616722a3c4ff3890b0caa6e6192be90507c610618622fa28",
+    "not_a_failed_physics_run": true,
+    "no_diagnostic_or_physics_rerun_for_append_failure": true,
+    "normalization_weight_source": "Reconstructed nominal pinned XML model normalization 218.49813011007384 N, NOT a measured live PhysX gravity/weight readback. Descriptive load/impact normalization only; fixed strict 5N support acceptance is unchanged.",
+    "ge100ms_full_contact_gap_count": 6,
+    "per_wheel_3mg_impact_windows": 73
+  },
+  "PPO_C": {
+    "status": "FORMAL_TRAINING_RUNNING_NO_FORMAL_RESULTS_IN_THIS_SNAPSHOT",
+    "new_formal_policy_results_claimed": false,
+    "parent_last_observed_utc": "2026-10-23T19:11:14Z",
+    "parent_last_observed_iteration": 216,
+    "declared_iterations": 1000,
+    "declared_transitions": 12288000,
+    "from_scratch": true,
+    "physical_GPU_index": 3,
+    "parent_reported_training_pid": 3605407,
+    "parent_reported_waiting_coordinator_pid": 3606619,
+    "information_source": "Parent actual launch/progress report; this packaging performs no SSH, GPU query, or training-process polling",
+    "source_snapshot_archive_sha256": "7914e8a3a3ee3d636e0b1bdbf79227201503a1bf108755688859bbe5fa8f3675",
+    "continuation_snapshot_archive_sha256": "b85486867e22984bea3dc32d78832a002e79c0903767877883dcdf80ce200faf",
+    "formal_actor_or_validation_proof_included": false
+  },
+  "comparison": {
+    "conditions": [
+      "original",
+      "actual_A",
+      "actual_B",
+      "actual_C"
+    ],
+    "performance_metrics": "Native recorded state/contact metrics; no different-reward return ranking",
+    "N_per_condition": 1,
+    "CEM_to_PPO_C_inference_claimed": false,
+    "strict_continuous_contact_achieved": false,
+    "overall_goal_complete": false,
+    "new_C_visuals_included": false
+  },
+  "goal_complete": false
+}

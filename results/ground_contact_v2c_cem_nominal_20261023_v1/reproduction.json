@@ -1,0 +1,32 @@
+{
+  "kind": "ACTUAL_CEM_C_FOUR_CASE_EXACT_METRIC_REPLAY_NOT_PPO_C_RESULT",
+  "command": "python results/ground_contact_v2c_cem_nominal_20261023_v1/reproduce.py",
+  "metric_cases": [
+    "original_grounded_baseline",
+    "prior_actual_V2a",
+    "prior_actual_V2b",
+    "actual_V2c"
+  ],
+  "standalone_state_metric_inputs": "native_comparison_signals.npz",
+  "standalone_actual_C_contact_inputs": "native_contact_context.npz",
+  "four_case_metrics_and_all_C_contact_diagnostic_keys_verified_exact": true,
+  "robot_reference_assets_weights_or_native_library_required_for_metric_replay": false,
+  "full_stage_reward_history_in_compact": false,
+  "full_stage_reward_audit_scope": "All349x15 actualC stages recomputed from complete source-bound raw+solver log before packaging; compact replays only native state/contact metrics.",
+  "preserved_metadata_append_failure": "Original successful diagnostic summary and separate C loader sidecar are independently hash-bound. The exclusive-write append failure is not relabeled as successful metadata append or failed physics.",
+  "executed_source_archive": {
+    "file": "executed_source.tar.gz",
+    "sha256": "88af3914fc0f57b22006125cbab20613ca471f25aa6ce95ab458658a68be3e85",
+    "pure_source_files": 67,
+    "models_weights_credentials_native_libraries_included": false,
+    "extraction": "Restore only into a fresh isolated checkout, never over a dirty working tree."
+  },
+  "older_immutable_public_bundles": {
+    "original": "../ppo_cem_matched_reward_400hz_20261022_v1/",
+    "A": "../ground_contact_v2_nominal_20261023_v1/",
+    "B": "../ground_contact_v2b_cem_nominal_20261023_v1/"
+  },
+  "no_new_simulation_FK_inference_training_or_C_visuals": true,
+  "no_different_reward_return_or_PPO_C_comparison": true,
+  "N_per_condition": 1
+}
