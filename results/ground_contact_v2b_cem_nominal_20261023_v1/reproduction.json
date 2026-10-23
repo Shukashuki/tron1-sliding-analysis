@@ -1,0 +1,30 @@
+{
+  "kind": "ACTUAL_B_CEM_METRIC_REPRODUCTION_NOT_PPO_B_RESULT",
+  "command": "python results/ground_contact_v2b_cem_nominal_20261023_v1/reproduce.py",
+  "metric_cases": [
+    "original_grounded_baseline",
+    "prior_actual_V2a",
+    "actual_V2b"
+  ],
+  "standalone_metric_inputs": "native_comparison_signals.npz",
+  "standalone_B_contact_inputs": "native_contact_context.npz",
+  "robot_reference_assets_weights_or_native_library_required_for_metric_replay": false,
+  "full_stage_reward_history_in_compact": false,
+  "full_stage_reward_audit_scope": "All349x15 actualB stages recomputed using original source-SHA-bound raw+solver log before packaging; compact reproduces state/contact metrics only.",
+  "no_new_simulation_FK_policy_inference_or_training": true,
+  "source_archive": {
+    "file": "executed_source.tar.gz",
+    "sha256": "56bce7174685138e26fc58b8afea35bd1636f2a434789216c7ab4d93bc4f7f53",
+    "pure_source_files": 63,
+    "models_weights_credentials_native_libraries_included": false,
+    "extraction": "Restore only into a fresh isolated checkout, never over a dirty working tree."
+  },
+  "previous_public_bundles": {
+    "original": "../ppo_cem_matched_reward_400hz_20261022_v1/",
+    "V2a": "../ground_contact_v2_nominal_20261023_v1/",
+    "V2a_PPO": "../ground_contact_v2_ppo_nominal_20261023_v1/"
+  },
+  "return_comparison_across_different_reward_definitions_claimed": false,
+  "N_per_condition": 1,
+  "PPO_B_results_included": false
+}

@@ -1,0 +1,130 @@
+{
+  "status": "FAILED_FINALIZATION_ARRAYS_RECOVERED",
+  "kind": "failed_V1_saved_force_measurement_recovery",
+  "role": "measurement_only_not_original_A_formal_comparison",
+  "original_A_formal_result": false,
+  "finalization_completed": false,
+  "new_physics_inference_training_or_retry": false,
+  "goal_completion_claimed": false,
+  "actor_sha256_from_pre_failure_source_audit": "0e489750f0f7377c698cd38031d68b104f859fe0b2e6a7b23bec452bf746ac39",
+  "checkpoint_sha256_from_pre_failure_source_audit": "ee15d6856392dd541988f68324fba30d1c144db758c0ca8ce17f9ee4daac6562",
+  "raw_recording_verified": {
+    "status": "verified",
+    "native_states": 2793,
+    "policy_decisions": 349,
+    "duration_s": 6.98,
+    "physics_dt_s": 0.0025,
+    "policy_dt_s": 0.02,
+    "recording_sha256": "a8417f57f5e3c63f3c57a721ffd554cf5184107fc52b4527dd8684db8c356124"
+  },
+  "diagnostics": {
+    "samples": 2792,
+    "native_recorder_states": 2793,
+    "probe_samples_bind_native_indices": [
+      1,
+      2792
+    ],
+    "comparisons": {
+      "point_sum_vs_direct32": {
+        "max_abs_vector_difference_n": 0.000244140625,
+        "rms_vector_difference_n": 1.2982054613530636e-05,
+        "per_wheel_Fz_gt5N_mask_disagreement_samples": [
+          0,
+          0
+        ],
+        "any_wheel_Fz_gt5N_mask_disagreement_samples": 0,
+        "threshold_n_strict": 5.0,
+        "pointcount_gate": false
+      },
+      "point_sum_vs_legacy_recorder": {
+        "max_abs_vector_difference_n": 1.3351442760267673e-05,
+        "rms_vector_difference_n": 1.1881012332343876e-07,
+        "per_wheel_Fz_gt5N_mask_disagreement_samples": [
+          0,
+          0
+        ],
+        "any_wheel_Fz_gt5N_mask_disagreement_samples": 0,
+        "threshold_n_strict": 5.0,
+        "pointcount_gate": false
+      },
+      "direct32_vs_filtered64": {
+        "max_abs_vector_difference_n": 0.0,
+        "rms_vector_difference_n": 0.0,
+        "per_wheel_Fz_gt5N_mask_disagreement_samples": [
+          0,
+          0
+        ],
+        "any_wheel_Fz_gt5N_mask_disagreement_samples": 0,
+        "threshold_n_strict": 5.0,
+        "pointcount_gate": false
+      },
+      "point_sum_vs_filtered64": {
+        "max_abs_vector_difference_n": 0.000244140625,
+        "rms_vector_difference_n": 1.2982054613530636e-05,
+        "per_wheel_Fz_gt5N_mask_disagreement_samples": [
+          0,
+          0
+        ],
+        "any_wheel_Fz_gt5N_mask_disagreement_samples": 0,
+        "threshold_n_strict": 5.0,
+        "pointcount_gate": false
+      }
+    },
+    "legacy32_max_occupied_points_L_R": [
+      2,
+      2
+    ],
+    "legacy32_capacity": [
+      32,
+      32
+    ],
+    "legacy32_at_capacity_samples_L_R": [
+      0,
+      0
+    ],
+    "legacy32_possible_saturation": false,
+    "point_count_gt5N_vs_legacy_recorder_mismatches": [
+      0,
+      0
+    ],
+    "force_units": "N; all-point normal sum retained, no force normalization or pointcount support gate"
+  },
+  "input_files": {
+    "raw": {
+      "path": "/home/roy/tron1-sliding-analysis/outputs/ground_contact_v2_20261023_v1/force_probe_raw_v1/physics_trajectory.npz",
+      "sha256": "a8417f57f5e3c63f3c57a721ffd554cf5184107fc52b4527dd8684db8c356124",
+      "bytes": 790548
+    },
+    "probe_arrays": {
+      "path": "/home/roy/tron1-sliding-analysis/outputs/ground_contact_v2_20261023_v1/force_probe_raw_v1/probe_arrays.npz",
+      "sha256": "baf7832e2b860e267cf0b1f4d700ee7871dc57db0bc2f9c279c1baf6959129ce",
+      "bytes": 180619
+    },
+    "source_audit": {
+      "path": "/home/roy/tron1-sliding-analysis/outputs/ground_contact_v2_20261023_v1/force_probe_raw_v1/evaluation_source_audit.json",
+      "sha256": "39d7b181af60ed7cd0348bd3a38d924d9f50e38ab23a25268c93e89840830e2e",
+      "bytes": 2496
+    },
+    "failure_log": {
+      "path": "/home/roy/tron1-sliding-analysis/outputs/ground_contact_v2_20261023_v1/force_probe_raw_v1/force_api_probe_v1_driver.log",
+      "sha256": "52e4e3cec993a352ca5ea2dd04e1d7b1226854811f25ba581c920d6d5c10aed1",
+      "bytes": 162371
+    }
+  },
+  "source_sha256": {
+    "/home/roy/tron1-sliding-analysis/scripts/recover_ground_force_api_probe_v1.py": "29dd7373364ddb5de6378a7cd15f291d5fbe7f3a2bd126b09ff801804205af0b",
+    "/home/roy/tron1-sliding-analysis/scripts/eval_ppo_ground_force_api_probe_v2.py": "3c36b568592d9d3f4d242aa271f0e6d772365df15c8d09ac00e6c1e561761deb"
+  },
+  "unavailable_not_fabricated": [
+    "probe_audit.json",
+    "final report.json",
+    "live per-body mass/gravity probe metadata",
+    "optional USD gravity readback"
+  ],
+  "limitations": [
+    "V1 failed after writing complete native/probe arrays; recovery does not repair or invent its missing final report.",
+    "The pre-failure A source audit is input evidence only; this recovery is NOT an original-A formal result.",
+    "Raw aggregate force channels are observed values; individual point force buffers were not serialized.",
+    "Capacity occupancy is a possible truncation flag, not a physical flight label."
+  ]
+}

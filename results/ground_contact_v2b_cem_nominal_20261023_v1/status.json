@@ -1,0 +1,66 @@
+{
+  "status": "PARTIAL_EXPERIMENT_CEM_B_CONTACT_FAILED_PPO_B_RUNNING_NOT_GOAL_COMPLETION",
+  "snapshot_utc": "2026-10-23T18:26:05.637874+00:00",
+  "conditions": {
+    "mu": 0.7,
+    "physics_hz": 400,
+    "policy_hz": 50,
+    "sample_size_per_CEM_condition": 1,
+    "beta_reward_on": true,
+    "grounded_weight": 0.4,
+    "single_wheel_support_allowed": true,
+    "height_or_zero_beta_constraint_added": false
+  },
+  "CEM_B": {
+    "status": "COMPLETED_ACTUAL_EPISODE_CONTACT_CRITERION_FAILED",
+    "policy_decisions": 349,
+    "native_states": 2793,
+    "failed_checks": [
+      "any_wheel_every_physical_sample",
+      "longest_no_support_gap"
+    ],
+    "core_speed_retention": 0.9546064870430815,
+    "core_HF_reduction_relative_original_fraction": 0.6551238078003887,
+    "full_contact_anywheel_fraction": 0.6373784659704718,
+    "prior_A_full_contact_anywheel_fraction": 0.704717320849838,
+    "full_contact_longest_gap_s": 0.2574999999999945,
+    "prior_A_full_contact_longest_gap_s": 0.2574999999999945,
+    "zero_solver_failures": true,
+    "zero_plant_warnings": true,
+    "actual_349x15_reward_recompute": "verified_exact_before_packaging; full reward history not included in compact",
+    "real_time_control_claimed": false,
+    "median_solve_ms": 1294.6264101192355
+  },
+  "PPO_B": {
+    "status": "FORMAL_TRAINING_RUNNING_NO_RESULTS_IN_THIS_SNAPSHOT",
+    "new_formal_policy_results_claimed": false,
+    "training_backend": "PhysX",
+    "physical_GPU_index": 3,
+    "parent_reported_process_id": 3583707,
+    "parent_reported_started_utc": "2026-10-23T18:16:55Z",
+    "declared_transitions": 12288000,
+    "from_scratch": true,
+    "information_source": "Parent launch report; packaging performs no SSH or job polling",
+    "formal_B_policy_validation_proof": "PENDING_NOT_INCLUDED"
+  },
+  "force_API_probe_context": {
+    "status": "PARENT_REPORTED_RAW_ARRAY_COMPARISON_VERIFIED_SEPARATE_OFFLINE_PROOF_PENDING",
+    "compared_physical_substeps": 2792,
+    "anywheel_5N_mask_disagreements": 0,
+    "direct32_vs_filtered64_max_force_difference_n": 0.0,
+    "point_sum_vs_matrix_max_force_difference_n": 0.000244,
+    "maximum_raw_point_occupancy": 2,
+    "raw_point_capacity": 32,
+    "original_probe_finalize_status": "FAILED_EXCLUSIVE_AUDIT_COLLISION_PRESERVED",
+    "new_probe_reexecution_claimed": false,
+    "probe_artifacts_in_this_bundle": false,
+    "note": "These are parent-provided context, not independently revalidated in this CEM package. Original failed finalization is not relabeled successful."
+  },
+  "comparison": {
+    "performance_compared_using": "Recorded XY/speed/reference-beta/HF/contact metrics, not returns across changed rewards",
+    "PPO_B_or_population_robustness_result_claimed": false,
+    "strict_continuous_contact_achieved": false,
+    "qualitative_render_or_review_included": false
+  },
+  "goal_complete": false
+}
