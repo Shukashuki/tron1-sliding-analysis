@@ -1,0 +1,27 @@
+{
+  "kind": "verified_PPO_native_recording_replay_no_weights",
+  "metrics": {
+    "input": "native_states.npz",
+    "four_case_exact_recompute_verified": true,
+    "command": "import numpy as np,sys;sys.path.insert(0,'scripts');import analyze_ppo_ground_contact_v2 as a;z=np.load('results/ground_contact_v2_ppo_nominal_20261023_v1/native_states.npz',allow_pickle=False);r=a.recompute_compact({k:z[k] for k in z.files})"
+  },
+  "render": {
+    "recorded_only": true,
+    "350_frames_at_50hz": true,
+    "native_samples_per_case": 2793,
+    "same_fixed_relative_camera_no_yaw_or_zoom": true,
+    "opaque_actual_TRON1_meshes": true,
+    "FK_audit": "All2793 actual poses per case; no mj_step, IK, reinference, alignment, interpolation or height correction",
+    "assets": "Original pinned TRON1 model/meshes required for3D rerender; not bundled"
+  },
+  "local_replay_source_archive": {
+    "file": "executed_source.tar.gz",
+    "sha256": "07ef2f0edca89545e3fc08364189574b1c71d318f06cc4fb9d86da79a7737c97",
+    "pure_source_files": 58,
+    "models_weights_credentials_native_libraries_included": false,
+    "extraction": "Restore only into a fresh isolated checkout, never over a dirty working tree."
+  },
+  "remote_executed_source": "Original SHA-bound source/config snapshots and manifests in executed_snapshots/",
+  "omitted": "No actor/checkpoint weights, robot models/meshes, credentials, native shared libraries or new physics",
+  "visual_review": "Recorded renderer provenance is immutable and initially visual_reviewed=false; independent human/agent review is separate."
+}
