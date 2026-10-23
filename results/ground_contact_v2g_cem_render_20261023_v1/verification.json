@@ -1,0 +1,87 @@
+{
+  "kind": "ACTUAL_G_CEM_RECORDED_MEDIA_VERIFICATION",
+  "utc": "2026-10-23T22:57:07.218804+00:00",
+  "manual_visual_review": {
+    "reviewed_times_s": [
+      3.0,
+      6.0,
+      6.96
+    ],
+    "reviewed_files": [
+      "comparison.png",
+      "review_t6s.png",
+      "review_t6p96s.png"
+    ],
+    "all350_frames_manually_inspected": false,
+    "findings": [
+      "Four horizontal actual Original/A/F/G CEM cases; opaque full-body poses and wheel/body headings retained.",
+      "G tracks the turn and reduces terminal overshoot versus F in this N1 episode, but does not achieve continuous any-wheel support.",
+      "At3s G is on the right wheel; this allowed single-wheel support is not itself failure.",
+      "At6.96s G has zero measured floor-normal support; no geometric flight inference or height gate is added.",
+      "Shared world bounds, constant relative camera distance and no yaw-follow/zoom are preserved."
+    ]
+  },
+  "full_video_decode": {
+    "status": "full_350_frame_decode_verified",
+    "final_decoder_progress": {
+      "frame": "350",
+      "fps": "0.00",
+      "stream_0_0_q": "-0.0",
+      "bitrate": "N/A",
+      "total_size": "N/A",
+      "out_time_us": "7000000",
+      "out_time_ms": "7000000",
+      "out_time": "00:00:07.000000",
+      "dup_frames": "0",
+      "drop_frames": "0",
+      "speed": "13.8x",
+      "progress": "end"
+    },
+    "ffmpeg_returncode": 0,
+    "ffmpeg_stderr": "",
+    "video_sha256": "55fc6ab59e0e0a9430567509daf4261984e5de62a6e2175f7e6c6edea3e10b89",
+    "review_images_extracted_not_yet_manually_inspected": [
+      "review_t6s.png",
+      "review_t6p96s.png"
+    ],
+    "no_video_frames_dropped_or_duplicated": true
+  },
+  "asset_free_eight_case_replay": {
+    "verification": {
+      "status": "ALL_EIGHT_CASE_METRICS_AND_ACTUAL_G_CONTACT_DIAGNOSTICS_EXACT",
+      "conditions": [
+        "original_grounded_baseline",
+        "prior_actual_V2a",
+        "prior_actual_V2b",
+        "prior_actual_V2c",
+        "prior_actual_V2d",
+        "prior_actual_V2e",
+        "prior_actual_V2f",
+        "actual_V2g"
+      ],
+      "actual_G_failed_checks": [
+        "any_wheel_every_physical_sample",
+        "longest_no_support_gap"
+      ],
+      "full349x15_stage_reward_audit_preserved_not_recomputed_from_compact": true,
+      "robot_assets_or_weights_required": false,
+      "new_physics_FK_inference_training_file_writes": false,
+      "PPO_G_result_claimed": false,
+      "overall_goal_complete_claimed": false
+    },
+    "guarded_read_counts": {
+      "public_bundle": 34,
+      "pinned_repository_source": 118
+    },
+    "extra_reads_or_writes_allowed": false,
+    "models_weights_physics_policy_FK_or_other_bundles_allowed": false
+  },
+  "public_numeric_manifest_sha256": "6ca3ff91164310ff71fd37f74d9d44571999805de01a8de113b7c30c8e7e8b05",
+  "corrected_unpublished_metadata_snapshot_preserved": {
+    "path": "outputs/ground_contact_v2g_20261023_v1/cem_publication_rejected_stale_status_v1",
+    "reason": "Only replay status identifier corrected from F to G; actual data and numeric metrics unchanged",
+    "deleted": false
+  },
+  "PPO_result_claimed": false,
+  "overall_goal_complete_claimed": false
+}
