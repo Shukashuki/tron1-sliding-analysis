@@ -1,0 +1,53 @@
+{
+  "strict_render_command": "python scripts/render_cem_ground_contact_v2f.py --analysis-sha256 e77dd09bb1cbbcb7f4d9f24c10a427a3bfe126d2d14b76c1cf30dfa57868d569 --output-dir FRESH_OUTPUT_DIRECTORY",
+  "renderer_sha256": "c424114ccc12a5f080ad75c4d57f819bf245c35aef5c78bb1cc72ed2d160eece",
+  "source_in_repository": "scripts/render_cem_ground_contact_v2f.py",
+  "render_requires_original_raw_recordings_and_model_assets": true,
+  "model_and_raw_recordings_not_in_this_video_bundle": true,
+  "metrics_only_replay": "python results/ground_contact_v2f_cem_nominal_20261023_v1/reproduce.py",
+  "metrics_replay_requires_pinned_repository_python_helpers_but_no_robot_assets_or_weights": true,
+  "not_real_time_CEM": true,
+  "terminal_xy_diagnostic_source_python": "import pathlib,json,numpy as np\nfolder=pathlib.Path('results/ground_contact_v2f_cem_nominal_20261023_v1')\nwith np.load(folder/'native_comparison_signals.npz',allow_pickle=False) as z:\n rt=z['reference__time_s'];rp=z['reference__position'];rv=z['reference__velocity'];rq=z['reference__quaternion']\n speed=np.linalg.norm(rv[:,:2],axis=1);last=np.flatnonzero(speed>.3)[-1];start=float(rt[last+1]);end=float(rt[-1])\n w,x,y,qz=rq[-1];axis=np.array([1-2*(y*y+qz*qz),2*(x*y+w*qz)]);axis/=np.linalg.norm(axis)\n rows=[]\n for case in ['original_grounded_baseline','prior_actual_V2a','prior_actual_V2b','prior_actual_V2c','prior_actual_V2d','prior_actual_V2e','actual_V2f']:\n  t=z[case+'__time_s'];pos=z[case+'__position'];v=z[case+'__com_velocity'];fz=z[case+'__ground_normal_Fz_n']\n  mask=(t>=start-1e-10)&(t<=end+1e-10);idx=np.flatnonzero(mask)[-1];delta=pos[idx,:2]-rp[-1,:2];along=float(delta@axis);cross=float(axis[0]*delta[1]-axis[1]*delta[0])\n  rows.append({'case':case,'reference_overlap_end_xy_m':float(np.linalg.norm(delta)),'terminal_ref_heading_along_error_m':along,'terminal_ref_heading_cross_error_m':cross,'actual_speed_at_reference_end_m_s':float(np.linalg.norm(v[idx,:2])),'terminal_low_speed_region_anywheel_support_fraction':float((fz[mask].max(axis=-1)>5).mean()),'terminal_region_actual_mean_speed_m_s':float(np.linalg.norm(v[mask,:2],axis=-1).mean())})\nprint(json.dumps({'definition':'post-hoc terminal XY decomposition along final reference projected body +X, cross=axis_x*delta_y-axis_y*delta_x; no controller retuning or causal claim','reference_terminal_speed_threshold_m_s':.3,'terminal_region_s':[start,end],'reference_terminal_region_mean_speed_m_s':float(speed[last+1:].mean()),'rows':rows},indent=2))",
+  "terminal_diagnostic_is_posthoc_not_a_causal_or_new_controller_result": true,
+  "camera": {
+    "distance_m": 1.5806941148098554,
+    "azimuth_deg": 135.0,
+    "elevation_deg": -30.0,
+    "vertical_fov_deg": 45.0,
+    "fit_audit": {
+      "all_mesh_bounds_inside": true,
+      "maximum_normalized_frustum_extent": 0.9051522155647781,
+      "minimum_depth_m": 1.2149156110272459,
+      "distance_changed_with_time": false,
+      "distance_differs_between_cases": false,
+      "margin_m": 0.03,
+      "frames_per_case": 350,
+      "cases": 4,
+      "visible_mesh_geoms_per_case": 9,
+      "fixed_root_relative_offset_m": [
+        0.0,
+        0.0,
+        -0.28
+      ],
+      "orientation_follows_yaw": false,
+      "original_root_pose_changed": false,
+      "basis_source": "native MjvGLCamera forward/up",
+      "physics_stepping": false
+    }
+  },
+  "display_cases": [
+    "original",
+    "v2a",
+    "v2c",
+    "v2f"
+  ],
+  "numeric_cases": [
+    "original",
+    "v2a",
+    "v2c",
+    "v2f",
+    "v2b",
+    "v2d",
+    "v2e"
+  ]
+}

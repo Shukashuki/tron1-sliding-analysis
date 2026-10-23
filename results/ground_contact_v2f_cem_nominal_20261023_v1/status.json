@@ -1,0 +1,68 @@
+{
+  "status": "ACTUAL_CEM_F_COMPLETED_NUMERICAL_CRITERIA_FAILED",
+  "snapshot_utc": "2026-10-23T21:50:49.509926+00:00",
+  "sample_size_per_case": 1,
+  "conditions": {
+    "mu": 0.7,
+    "friction_known_to_CEM": true,
+    "physics_hz": 400,
+    "policy_hz": 50,
+    "beta_reward_on": true,
+    "support_gap_weight": 1.0,
+    "support_force_threshold_n": 5.0,
+    "positive_mean_weight": 0.75,
+    "positive_minimum_weight": 0.25,
+    "external_grounded_weight": 0.4,
+    "single_wheel_support_allowed": true,
+    "height_flight_or_zero_beta_gate": false
+  },
+  "CEM_F": {
+    "full_policy_decisions": 349,
+    "native_states": 2793,
+    "numeric_nominal_episode_pass": false,
+    "failed_checks": [
+      "whole_xy_rmse",
+      "whole_xy_peak",
+      "core_reference_beta",
+      "any_wheel_every_physical_sample",
+      "longest_no_support_gap"
+    ],
+    "whole_contact_interval_s": [
+      0.02,
+      6.96
+    ],
+    "whole_anywheel_support_fraction": 0.6903132877205618,
+    "whole_longest_no_support_s": 0.16749999999999643,
+    "runtime": {
+      "solver_failures": 0,
+      "plant_warning_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "compute_ms_median_p95_max": [
+        1382.2620229329914,
+        1625.2117943484336,
+        1844.5623898878694
+      ]
+    },
+    "offline_solver_not_real_time": true
+  },
+  "PPO_F": {
+    "status": "OUT_OF_SCOPE_NO_PPO_PERFORMANCE_IN_THIS_CEM_BUNDLE",
+    "new_formal_policy_results_claimed": false
+  },
+  "strict_continuous_anywheel_contact_achieved": false,
+  "goal_complete": false,
+  "episode_reward_ranking_across_definitions_claimed": false,
+  "limitations": [
+    "N=1 each; no seed statistics, friction-range or general causal robustness claim.",
+    "Whole-reference and core tracking/contact/HF screens remain separate and unchanged.",
+    "Lower HF, core-only tracking or numerical screens do not establish overall task completion.",
+    "Original/A/B/C/D/E/F reward definitions differ; their summed rewards are not ranked."
+  ]
+}
