@@ -1,0 +1,63 @@
+{
+  "status": "ACTUAL_CEM_E_COMPLETED_NUMERICAL_CRITERIA_FAILED",
+  "snapshot_utc": "2026-10-23T21:12:42.035058+00:00",
+  "sample_size_per_case": 1,
+  "conditions": {
+    "mu": 0.7,
+    "friction_known_to_CEM": true,
+    "physics_hz": 400,
+    "policy_hz": 50,
+    "beta_reward_on": true,
+    "support_deficit_weight": 0.0,
+    "external_grounded_weight": 0.4,
+    "single_wheel_support_allowed": true,
+    "height_flight_or_zero_beta_gate": false
+  },
+  "CEM_E": {
+    "full_policy_decisions": 349,
+    "native_states": 2793,
+    "numeric_nominal_episode_pass": false,
+    "failed_checks": [
+      "any_wheel_every_physical_sample",
+      "longest_no_support_gap",
+      "core_HF_reduction"
+    ],
+    "whole_contact_interval_s": [
+      0.02,
+      6.96
+    ],
+    "whole_anywheel_support_fraction": 0.6496218941303565,
+    "whole_longest_no_support_s": 0.23749999999999494,
+    "runtime": {
+      "solver_failures": 0,
+      "plant_warning_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "compute_ms_median_p95_max": [
+        1309.778850991279,
+        1565.2183861937374,
+        1952.090690145269
+      ]
+    },
+    "offline_solver_not_real_time": true
+  },
+  "PPO_E": {
+    "status": "OUT_OF_SCOPE_NO_PPO_PERFORMANCE_IN_THIS_CEM_BUNDLE",
+    "new_formal_policy_results_claimed": false
+  },
+  "strict_continuous_anywheel_contact_achieved": false,
+  "goal_complete": false,
+  "episode_reward_ranking_across_definitions_claimed": false,
+  "limitations": [
+    "N=1 each; no seed statistics, friction-range or general causal robustness claim.",
+    "Whole-reference and core tracking/contact/HF screens remain separate and unchanged.",
+    "Lower HF, core-only tracking or numerical screens do not establish overall task completion.",
+    "Original/A/B/C/D/E reward definitions differ; their summed rewards are not ranked."
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "status": "FORMAL_E_PPO_COMPLETED_DUAL_ENGINE_NUMERICAL_CRITERIA_FAILED",
+  "snapshot_utc": "2026-10-23T21:28:15.052510+00:00",
+  "cohort_id": "tron1_ground_contact_v2e_any_wheel_400hz_v1",
+  "reward_definition_version": "ground_contact_v2e_any_wheel",
+  "support_aggregation": "E preserves D gated mean8(q) positive bonus; deficit weight1 to0 only, no active negative penalty",
+  "training_backend": "PhysX",
+  "training_transitions": 12288000,
+  "initialization": "from_scratch",
+  "conditions": {
+    "mu": 0.7,
+    "physics_hz": 400,
+    "policy_hz": 50,
+    "beta_reward_on": true,
+    "grounded_weight": 0.4,
+    "support_deficit_weight": 0.0,
+    "support_deficit_penalty_active": false,
+    "support_deficit_tracking_or_impact_gated": false,
+    "action_rate_weight": -0.5,
+    "single_wheel_support_allowed": true,
+    "bilateral_support_required": false,
+    "absolute_height_or_zero_beta_gate_added": false
+  },
+  "same_new_normalized_actor_sha256_both_engines": "e07f2d74f773b2bd57d8cbf85fc025956ebfeb8f457d77931990bf1bb821cfd0",
+  "new_checkpoint_sha256": "6c4ebcbca25a11a5eaa54430f24ea7af22587ea1899a8136df2bc10a497b2a00",
+  "cases": [
+    {
+      "id": "physx_trained_to_physx",
+      "validation_backend": "PhysX",
+      "sample_size": 1,
+      "whole_contact_interval_s": [
+        0.02,
+        6.96
+      ],
+      "whole_anywheel_support_fraction": 0.912855599567879,
+      "whole_longest_no_support_s": 0.11500000000000021,
+      "numeric_nominal_episode_pass": false,
+      "failed_checks": [
+        "core_xy_rmse",
+        "core_xy_peak",
+        "whole_xy_rmse",
+        "whole_xy_peak",
+        "core_speed_retention",
+        "core_reference_beta",
+        "any_wheel_every_physical_sample",
+        "longest_no_support_gap"
+      ]
+    },
+    {
+      "id": "physx_trained_to_mujoco",
+      "validation_backend": "native CPU MuJoCo",
+      "sample_size": 1,
+      "whole_contact_interval_s": [
+        0.02,
+        6.96
+      ],
+      "whole_anywheel_support_fraction": 0.8772056175729204,
+      "whole_longest_no_support_s": 0.04000000000000625,
+      "numeric_nominal_episode_pass": false,
+      "failed_checks": [
+        "core_xy_rmse",
+        "core_xy_peak",
+        "whole_xy_rmse",
+        "whole_xy_peak",
+        "core_speed_retention",
+        "core_reference_beta",
+        "any_wheel_every_physical_sample",
+        "longest_no_support_gap"
+      ]
+    }
+  ],
+  "both_numerical_nominal_screens_passed": false,
+  "strict_continuous_anywheel_contact_achieved": false,
+  "formal_training_and_validation_complete": true,
+  "goal_complete": false,
+  "weights_included_or_executed_locally": false,
+  "evidence_scope": "Execution-host verified training/export weights; copied JSON proofs and compact native metrics rehashed locally.",
+  "fairness": {
+    "baseline": "Original same-engine PhysX-trained400Hz betaON PPO, not A contact policy",
+    "training": "E gated mean8(q) positive bonus, deficit coefficient0, external+0.4; other14 terms unchanged",
+    "evaluation": "Normalized actor once; legacy evaluator reward logging is NOT numerically compared with CEM returns",
+    "metrics": "Recorded state/contact tracking, not different-reward return totals or optimizer-only superiority"
+  },
+  "limitations": [
+    "N=1 per engine, nominal mu0.7 only; no friction-range, seed, hardware or statistical qualification.",
+    "Lower HF or shorter maximum gaps alone do not establish continuous support or task completion.",
+    "Numerical pass/fail is actual-data-derived; unchanged contact/speed/beta/XY/HF criteria are not relaxed.",
+    "Qualitative whole-body review and broader task completion remain separate; A/CEM packages are not overwritten."
+  ]
+}

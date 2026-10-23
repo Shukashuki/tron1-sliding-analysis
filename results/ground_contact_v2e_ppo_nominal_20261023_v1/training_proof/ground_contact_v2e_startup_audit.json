@@ -1,0 +1,92 @@
+{
+  "settings": {
+    "schema_version": 1,
+    "candidate": "ground_contact_v2e",
+    "physics_substeps": 8,
+    "support_load_fraction": 0.5,
+    "mean_weight": 1,
+    "minimum_weight": 0,
+    "impact_multiple": 3,
+    "negative_force_tolerance_n": 0.0001,
+    "external_reward_weight": 0.4,
+    "reward_dt_s": 0.02,
+    "support_deficit_weight": 0
+  },
+  "runtime": {
+    "reward_definition_version": "ground_contact_v2e_any_wheel",
+    "settings": {
+      "schema_version": 1,
+      "candidate": "ground_contact_v2e",
+      "physics_substeps": 8,
+      "support_load_fraction": 0.5,
+      "mean_weight": 1,
+      "minimum_weight": 0,
+      "impact_multiple": 3,
+      "negative_force_tolerance_n": 0.0001,
+      "external_reward_weight": 0.4,
+      "reward_dt_s": 0.02,
+      "support_deficit_weight": 0
+    },
+    "module_sha256": "3df02f220a7ccc08e6b6cf15ba7d0c8c0fc501e11e2d983a8f74bc333c8aed1e",
+    "definition_sha256": "ea0438bceb70d10b7eabc962bd3792ccfa523ba9610081b3b8a00f4482157644",
+    "immutable_v2a_definition_sha256": "5794ceb435c6ddc9cc374fa5ebe7718edc99d4c3181ebeac111cafe128461bf5",
+    "immutable_v2b_definition_sha256": "359997a5e4e1734f14ffd8c64a61bbaf0f8fb1d0dd6b274001a77689bb62ba6c",
+    "immutable_v2c_definition_sha256": "758eba1c7234cd43b211262541fce0cab6ad91be8ae0f10a44714d037322ebfb",
+    "immutable_v2d_definition_sha256": "1f6245ca3ca08483704d4f42a044ba38b8d09f01d81dc6e71bbf423d206898a7",
+    "physics_dt_s": 0.0025,
+    "policy_dt_s": 0.02,
+    "substeps": 8,
+    "device": "cuda:3",
+    "cpu_fixture_only": false,
+    "floor_filter": "/World/ground/terrain/GroundPlane/CollisionPlane",
+    "force_units": "normal force N; impulse converted with physical dt2.5ms",
+    "mass_kg_range": [
+      22.272998809814453,
+      22.272998809814453
+    ],
+    "steps_started": 8,
+    "steps_completed": 8,
+    "physics_samples": 64,
+    "unique_reward_windows": 8,
+    "reset_calls": 7,
+    "single_wheel_support_allowed": true,
+    "bilateral_constraint": false,
+    "height_or_zero_slip_target": false,
+    "observation_action_or_physics_change": false,
+    "closed": false,
+    "device_finite_normal_force_health": true,
+    "device_finite_reward_health": true,
+    "ground_fz_min_N": [
+      0.0,
+      0.0
+    ],
+    "ground_fz_max_N": [
+      170.49400329589844,
+      246.26905822753906
+    ],
+    "force_bearing_samples_L_R_any_both": [
+      32671,
+      32734,
+      32765,
+      32640
+    ],
+    "sampled_environment_substeps": 32768,
+    "mean_raw_reward": 0.9494774341583252
+  },
+  "source_sha256": {
+    "/data/zengxiong/workspaces/tron1-ground-contact-v2e-20261023/source_snapshot_v1/scripts/train_ppo_ground_contact_v2e.py": "64ffd80f8f90bb674f74adbe4a013b0e94864ff303be0a3eb2a9022835c918b2",
+    "/data/zengxiong/workspaces/tron1-ground-contact-v2e-20261023/source_snapshot_v1/scripts/ground_contact_reward_v2.py": "5794ceb435c6ddc9cc374fa5ebe7718edc99d4c3181ebeac111cafe128461bf5",
+    "/data/zengxiong/workspaces/tron1-ground-contact-v2e-20261023/source_snapshot_v1/scripts/ground_contact_reward_v2b.py": "359997a5e4e1734f14ffd8c64a61bbaf0f8fb1d0dd6b274001a77689bb62ba6c",
+    "/data/zengxiong/workspaces/tron1-ground-contact-v2e-20261023/source_snapshot_v1/scripts/ground_contact_reward_v2c.py": "758eba1c7234cd43b211262541fce0cab6ad91be8ae0f10a44714d037322ebfb",
+    "/data/zengxiong/workspaces/tron1-ground-contact-v2e-20261023/source_snapshot_v1/scripts/ground_contact_reward_v2d.py": "1f6245ca3ca08483704d4f42a044ba38b8d09f01d81dc6e71bbf423d206898a7",
+    "/data/zengxiong/workspaces/tron1-ground-contact-v2e-20261023/source_snapshot_v1/scripts/ground_contact_reward_v2e.py": "ea0438bceb70d10b7eabc962bd3792ccfa523ba9610081b3b8a00f4482157644",
+    "/data/zengxiong/workspaces/tron1-ground-contact-v2e-20261023/source_snapshot_v1/scripts/ppo_ground_contact_v2e.py": "3df02f220a7ccc08e6b6cf15ba7d0c8c0fc501e11e2d983a8f74bc333c8aed1e",
+    "/data/zengxiong/workspaces/tron1-ppo-beta-ablation-400hz-20261022/source_snapshot_v4/scripts/train_ppo_backend_400hz.py": "5234070be219e59c61e6c4e4435e0dd0b2ab71df60d9c23886e507ed73692390",
+    "/data/zengxiong/workspaces/tron1-ppo-beta-ablation-400hz-20261022/source_snapshot_v4/scripts/train_ppo_backend.py": "65367115de9b5608dc2ef57cab701bea31c152c6af576bdb43a5cef025cc6878",
+    "/data/zengxiong/workspaces/tron1-ppo-beta-ablation-400hz-20261022/source_snapshot_v4/scripts/physx_mjlab_recipe.py": "1365f4eecc6129bef4738e05a491763a2884407d8cf00a3a7d0faffbc24fa699",
+    "/data/zengxiong/workspaces/tron1-ppo-beta-ablation-400hz-20261022/source_snapshot_v4/scripts/height_smoothness.py": "e133aca58f671fc22ae1dfc97a03461e7724e4072bf8b74f58a2c14281d198b8"
+  },
+  "other14_reward_terms_changed": false,
+  "single_wheel_support_allowed": true,
+  "from_scratch": true
+}
