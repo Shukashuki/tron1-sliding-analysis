@@ -1,0 +1,92 @@
+{
+  "status": "PARTIAL_EXPERIMENT_ACTUAL_CEM_D_WHOLE_XY_CONTACT_HF_FAILED_PPO_D_RUNNING",
+  "snapshot_utc": "2026-10-23T20:07:43.016271+00:00",
+  "conditions": {
+    "mu": 0.7,
+    "physics_hz": 400,
+    "policy_hz": 50,
+    "sample_size_per_CEM_condition": 1,
+    "beta_reward_on": true,
+    "grounded_external_weight": 0.4,
+    "D_formula": "g*impact*mean8(q)-mean8(1-q), coefficient1 ungated deficit; only C positive min8 changed to mean8",
+    "other14_reward_terms_unchanged": true,
+    "single_wheel_support_allowed": true,
+    "height_or_zero_beta_constraint_added": false
+  },
+  "CEM_D": {
+    "recording_status": "completed_actual349decisions2793native_states",
+    "numeric_nominal_episode_pass": false,
+    "failed_checks": [
+      "whole_xy_rmse",
+      "whole_xy_peak",
+      "any_wheel_every_physical_sample",
+      "longest_no_support_gap",
+      "core_HF_reduction"
+    ],
+    "core_xy_rmse_m": 0.06333796306708195,
+    "whole_reference_xy_rmse_m": 0.3475546775407425,
+    "whole_reference_xy_peak_m": 1.3830679776583383,
+    "whole_reference_peak_xy_time_s": 6.960000000000388,
+    "core_reference_beta_rmse_deg": 6.370065574630004,
+    "core_speed_retention": 1.0784906115585295,
+    "core_HF_ratio_to_original_CEM": 0.7434668322743777,
+    "full_contact_anywheel_fraction": 0.7036370183651423,
+    "full_contact_longest_gap_s": 0.1924999999999959,
+    "core_anywheel_fraction": 0.49853658536585366,
+    "core_longest_gap_s": 0.1924999999999959,
+    "solver_failures": 0,
+    "plant_warning_counts": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "all349x15_actual_stage_rewards": "verified_exact_before_packaging_full_reward_history_not_in_compact",
+    "compute_ms_median_p95_max": [
+      1287.2427699621767,
+      1444.036988681182,
+      1690.8654449507594
+    ],
+    "offline_walltime_not_realtime_control": true
+  },
+  "contact_diagnostic": {
+    "computation_and_all_compact_metric_keys": "completed_verified_exact",
+    "source": "Original D strict offline analyzer; no diagnostic recomputation run or summary edits for packaging",
+    "new_provenance_sidecar": "completed_CEM_D_provenance.json",
+    "diagnostic_sha256": "4edf4fc512743911cefa449f02e315d849a9d5855fb06dd19d32fccb02bc166a",
+    "normalization_weight_source": "SHA-bound D validation model_weight_n; actual native MuJoCo model weight",
+    "height_or_geometric_flight_inferred": false
+  },
+  "PPO_D": {
+    "status": "FORMAL_TRAINING_IN_PROGRESS_NO_FORMAL_RESULTS_IN_THIS_SNAPSHOT",
+    "new_formal_policy_results_claimed": false,
+    "parent_last_observed_utc": "2026-10-23T20:00:35Z",
+    "parent_last_observed_iteration": 166,
+    "declared_iterations": 1000,
+    "declared_transitions": 12288000,
+    "from_scratch": true,
+    "information_source": "Dated parent progress report only; no SSH/GPU/process checks or extrapolated progress.",
+    "source_snapshot_archive_sha256": "55313fe8be3717e899ab63ab92b772d1a03bdf52c66ae3c13bffa08672e46dbd",
+    "continuation_snapshot_archive_sha256": "981e6d3c54041b2d94ebabf94c051a93e3bcced7c6167040362a832ef86f6fea",
+    "formal_actor_or_validation_proof_included": false
+  },
+  "comparison": {
+    "conditions": [
+      "original_grounded_baseline",
+      "prior_actual_V2a",
+      "prior_actual_V2b",
+      "prior_actual_V2c",
+      "actual_V2d"
+    ],
+    "N_per_condition": 1,
+    "performance_metrics": "Native state/contact metrics; no ranking by different-reward return totals",
+    "CEM_to_PPO_D_inference_claimed": false,
+    "strict_continuous_contact_achieved": false,
+    "new_D_images_or_video_included": false,
+    "overall_goal_complete": false
+  },
+  "goal_complete": false
+}
