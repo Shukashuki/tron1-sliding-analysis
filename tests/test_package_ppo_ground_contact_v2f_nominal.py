@@ -80,6 +80,15 @@ class PackageETests(unittest.TestCase):
                 self.assertTrue(status["formal_training_and_validation_complete"])
                 self.assertFalse(status["weights_included_or_executed_locally"])
                 self.assertEqual(status["conditions"]["single_wheel_support_allowed"], True)
+                frozen = mod.audit.definition.validate_settings()
+                for field, setting in (("positive_mean_weight", "mean_weight"),
+                                       ("positive_minimum_weight", "minimum_weight"),
+                                       ("support_gap_weight", "support_gap_weight"),
+                                       ("support_force_threshold_n", "support_force_threshold_n")):
+                    self.assertEqual(status["conditions"][field], frozen[setting])
+                self.assertTrue(status["conditions"]["support_gap_penalty_active"])
+                self.assertNotIn("support_deficit_weight", status["conditions"])
+                self.assertEqual(status["support_aggregation"], mod.audit.definition.formula_metadata()["formula"])
                 self.assertIn("legacy evaluator reward logging is NOT numerically compared with CEM returns", status["fairness"]["evaluation"])
         self.assertIn("REVIEW_PENDING", mod.status_from_summary(synthetic_rows(), evidence(), "fixture")["status"])
 

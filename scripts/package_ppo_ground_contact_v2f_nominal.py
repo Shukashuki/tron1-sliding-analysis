@@ -1,4 +1,4 @@
-"""Package formal F(A-bonus/gap-cost bonus, deficit weight0) PPO proofs and replay.
+"""Package formal F(frozen A bonus minus any-wheel gap cost) PPO proofs and replay.
 
 No weights, models, credentials, native libraries, physics, FK or inference are
 loaded. A, B, C, D and CEM bundles are never written. Numerical pass/fail is derived
@@ -184,6 +184,8 @@ def local_source_ledger():
 
 
 def status_from_summary(summary, evidence, snapshot_utc):
+    settings = audit.definition.validate_settings()
+    formula = audit.definition.formula_metadata()["formula"]
     rows = []; strict_support = True
     for row in summary["rows"]:
         support = row["new_V2"]["any_wheel_ground_support"]["full_contact"]
@@ -196,10 +198,13 @@ def status_from_summary(summary, evidence, snapshot_utc):
     passed = all(row["numeric_nominal_episode_pass"] for row in rows)
     status = "FORMAL_F_PPO_COMPLETED_DUAL_ENGINE_NUMERICAL_SCREENS_PASSED_REVIEW_PENDING" if passed else "FORMAL_F_PPO_COMPLETED_DUAL_ENGINE_NUMERICAL_CRITERIA_FAILED"
     return {"status": status, "snapshot_utc": snapshot_utc, "cohort_id": audit.evaluator.COHORT_ID,
-        "reward_definition_version": audit.evaluator.REWARD_VERSION, "support_aggregation": "F preserves D gated mean8(q) positive bonus; deficit weight1 to0 only, no active negative penalty",
+        "reward_definition_version": audit.evaluator.REWARD_VERSION, "support_aggregation": formula,
         "training_backend": "PhysX", "training_transitions": 12288000, "initialization": "from_scratch",
         "conditions": {"mu": .7, "physics_hz": 400, "policy_hz": 50, "beta_reward_on": True,
-            "grounded_weight": .4, "support_deficit_weight": 0., "support_deficit_penalty_active": False, "support_deficit_tracking_or_impact_gated": False,
+            "grounded_weight": settings["external_reward_weight"],
+            "positive_mean_weight": settings["mean_weight"], "positive_minimum_weight": settings["minimum_weight"],
+            "support_gap_weight": settings["support_gap_weight"], "support_force_threshold_n": settings["support_force_threshold_n"],
+            "support_gap_penalty_active": True, "support_gap_tracking_or_impact_gated": False,
             "action_rate_weight": -.5, "single_wheel_support_allowed": True,
             "bilateral_support_required": False, "absolute_height_or_zero_beta_gate_added": False},
         "same_new_normalized_actor_sha256_both_engines": evidence["physx"]["actor_sha256"],
@@ -209,7 +214,7 @@ def status_from_summary(summary, evidence, snapshot_utc):
         "weights_included_or_executed_locally": False,
         "evidence_scope": "Execution-host verified training/export weights; copied JSON proofs and compact native metrics rehashed locally.",
         "fairness": {"baseline": "Original same-engine PhysX-trained400Hz betaON PPO, not A contact policy",
-            "training": "F gated mean8(q) positive bonus, deficit coefficient0, external+0.4; other14 terms unchanged",
+            "training": "Frozen F formula: "+formula+"; external+0.4; other14 terms unchanged",
             "evaluation": "Normalized actor once; legacy evaluator reward logging is NOT numerically compared with CEM returns",
             "metrics": "Recorded state/contact tracking, not different-reward return totals or optimizer-only superiority"},
         "limitations": ["N=1 per engine, nominal mu0.7 only; no friction-range, seed, hardware or statistical qualification.",
@@ -353,7 +358,7 @@ def verify_published(folder):
         verify_source_snapshot(folder/"executed_snapshots"/(stem+".tar.gz"),
             folder/"executed_snapshots"/(stem+".manifest.json"), digest,
             expected_member_count=SNAPSHOT_MEMBER_COUNTS[stem])
-    return {"status": "VERIFIED_ALL_FOUR_CASE_COMPACT_METRICS_AND_ACTUAL_E_OUTCOMES_EXACT",
+    return {"status": "VERIFIED_ALL_FOUR_CASE_COMPACT_METRICS_AND_ACTUAL_F_OUTCOMES_EXACT",
         "numeric_screens_passed_both_engines": status["both_numerical_nominal_screens_passed"],
         "strict_anywheel_support_achieved": status["strict_continuous_anywheel_contact_achieved"],
         "goal_complete": False, "weights_models_dynamics_FK_inference_or_training_required": False}
