@@ -1,0 +1,34 @@
+{
+  "purpose": "Describe friction utilization AND observed contact slip; not a reward, task failure or zero-beta criterion",
+  "case": "D PhysX-trained PPO evaluated in native CPU MuJoCo at mu0.7; N=1",
+  "wheel_resultant_reference": "rho=norm(sum contact Ft_worldXY)/(mu*sum contact Fn); uniform isotropic mu; loaded wheel Fn>5N",
+  "future_per_contact_reference": "elliptic condim3 rho_L2=norm(Ft_i/mu_i)/Fn_i; actual aligned MuJoCo pyramidal condim3 rho_L1=sum(abs(Ft_i/mu_i))/Fn_i",
+  "current_actual_pyramidal_per_contact_edge_available": false,
+  "static_state_or_controlled_drift_inferred": false,
+  "total_point_slip_available": false,
+  "legacy_slip": "Force-weighted RMS wheel-lateral speed at actual contact points with individual Fn>5N; count0 means unavailable, never rolling",
+  "exploratory_near_reference_rho": 0.9,
+  "exploratory_lateral_RMS_threshold_m_s": 0.05,
+  "persistence": "Longest observed consecutive-positive sample span t[last]-t[first], singleton0; unavailable/unloaded gaps break runs; no extrapolation",
+  "comparability": "Report L/R separately and show loaded/eligible denominators. Body beta, wheel headings, XY error and maintained speed remain separate task metrics. A small wheel resultant rho cannot rule out local saturation/slip.",
+  "physx_status": "Old saved channels are normal-only; tangential forces absent. Low-level get_friction_data requires a new validated measurement; never zip its anchors to normal points by index.",
+  "mujoco_contact_reader_status": "New read-only API passes25 actual MuJoCo fixture tests; NOT used to reconstruct absent contact forces in this historical D episode. Collect current cached solution in a new diagnostic with timing provenance.",
+  "primary_sources": [
+    {
+      "title": "MuJoCo friction cones",
+      "url": "https://mujoco.readthedocs.io/en/stable/computation/index.html#friction-cones"
+    },
+    {
+      "title": "MuJoCo mj_contactForce",
+      "url": "https://mujoco.readthedocs.io/en/stable/APIreference/APIfunctions.html#mj-contactforce"
+    },
+    {
+      "title": "PhysX friction and contact patches",
+      "url": "https://nvidia-omniverse.github.io/PhysX/physx/5.4.1/docs/RigidBodyDynamics.html#friction-and-restitution"
+    },
+    {
+      "title": "Installed-family Omni Physics107.3 tensor friction API",
+      "url": "https://docs.omniverse.nvidia.com/kit/docs/omni_physics/107.3/extensions/runtime/source/omni.physics.tensors/docs/api/python.html#get_friction_data"
+    }
+  ]
+}
