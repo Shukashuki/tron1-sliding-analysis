@@ -1,0 +1,68 @@
+{
+  "kind": "ACTUAL_G_PPO_REVIEW_VERIFICATION",
+  "utc": "2026-10-23T23:23:19.035010+00:00",
+  "training_audit_sha256": "922358ea08062b02bbadca1c5fb95beda1e3bb4407c51af7b3175d787295663b",
+  "checkpoint_sha256": "ff071b88847c7a01f66501bb63a1dd10d134407efe744762ec256d49ae6016b4",
+  "normalized_actor_sha256": "98f668ab0fcfd99fca28d593c9c34b9af852a2e2ddabd67f69e9bf41c0d80275",
+  "public_G_PPO_manifest_sha256": "15a1a284a44a1562d036a4bf0aca9c65fe150598712856a94d2e07cd2e15c7ec",
+  "public_G_CEM_manifest_sha256": "6ca3ff91164310ff71fd37f74d9d44571999805de01a8de113b7c30c8e7e8b05",
+  "actual_same_actor_verified_in_both_engines": true,
+  "full_video_decode": {
+    "status": "full_350_frame_decode_verified",
+    "final_decoder_progress": {
+      "frame": "350",
+      "fps": "0.00",
+      "stream_0_0_q": "-0.0",
+      "bitrate": "N/A",
+      "total_size": "N/A",
+      "out_time_us": "7000000",
+      "out_time_ms": "7000000",
+      "out_time": "00:00:07.000000",
+      "dup_frames": "0",
+      "drop_frames": "0",
+      "speed": "13.5x",
+      "progress": "end"
+    },
+    "ffmpeg_returncode": 0,
+    "ffmpeg_stderr": "",
+    "video_sha256": "b119bd379b334e6400aa959777f4c36fb6f6982d45ad42eebe77e17f19068d07",
+    "review_images_extracted_not_yet_manually_inspected": [
+      "review_t6s.png",
+      "review_t6p96s.png"
+    ],
+    "no_video_frames_dropped_or_duplicated": true
+  },
+  "guarded_public_replay": {
+    "verification": {
+      "status": "VERIFIED_ALL_FOUR_CASE_COMPACT_METRICS_AND_ACTUAL_G_OUTCOMES_EXACT",
+      "numeric_screens_passed_both_engines": false,
+      "strict_anywheel_support_achieved": false,
+      "goal_complete": false,
+      "weights_models_dynamics_FK_inference_or_training_required": false
+    },
+    "guarded_read_counts": {
+      "public_bundle": 81,
+      "pinned_repository_source": 204
+    },
+    "extra_reads_or_writes_allowed": false,
+    "models_weights_physics_policy_FK_or_other_bundles_allowed": false
+  },
+  "source_initialization_preloaded_before_guard_no_actual_bundle_replay_outside_guard": true,
+  "manual_visual_review": {
+    "times_s": [
+      3.0,
+      6.0,
+      6.96
+    ],
+    "all350_frames_manually_inspected": false,
+    "findings": [
+      "Opaque actual recorded poses; one fixed relative distance2.001m and fixed world camera angles across all four cases.",
+      "At3s G PhysX has single right-wheel support; G MuJoCo has no measured wheel support at that sample.",
+      "At6 and6.96s G PhysX remains standing with substantial path overshoot; G MuJoCo is tipped with wheels largely unsupported.",
+      "No tails are cropped, and no height, pose, force or trajectory correction is applied."
+    ]
+  },
+  "support_fraction_is_not_a_geometric_flight_label": true,
+  "height_tilt_not_automatic_failure_gates": true,
+  "goal_complete": false
+}

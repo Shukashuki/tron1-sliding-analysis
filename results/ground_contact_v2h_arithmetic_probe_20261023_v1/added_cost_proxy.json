@@ -1,0 +1,200 @@
+{
+  "kind": "H_ADDED_COST_ONLY_ON_ACTUAL_SAVED_TRAJECTORIES_NOT_A_CONTROLLER_RESULT",
+  "definition_sha256": "0eafdb683b4a77029f31c83b9bb02b4a58089369ed8a3d2e42f576374191e693",
+  "settings": {
+    "schema_version": 1,
+    "candidate": "ground_contact_v2h",
+    "physics_substeps": 8,
+    "support_load_fraction": 0.5,
+    "mean_weight": 0.75,
+    "minimum_weight": 0.25,
+    "impact_multiple": 3.0,
+    "negative_force_tolerance_n": 0.0001,
+    "external_reward_weight": 0.4,
+    "reward_dt_s": 0.02,
+    "support_gap_weight": 1.0,
+    "support_force_threshold_n": 5.0,
+    "beta_gate_low_reference_speed_m_s": 0.3,
+    "loaded_com_vz_deadband_m_s": 0.3,
+    "loaded_com_vz_scale_m_s": 0.3,
+    "loaded_com_vz_cost_cap": 1.0,
+    "loaded_com_vz_weight": 0.5
+  },
+  "public_input_sha256": {
+    "results/ground_contact_v2g_review_20261023_v1/phase_inputs.npz": "1ea9acea3a5b66592c90180209848c249b79bf3ed732d9bd712dd58b96df6a32",
+    "results/ground_contact_v2g_cem_nominal_20261023_v1/native_comparison_signals.npz": "67668752e061b275806fa72f6879ef52a2b479247906afca3a16741180c3286e"
+  },
+  "original_proxy_sha256": "ec8dd247db921845d11b8249c69891650fd5c4b6e8f980bb34178417c1ceea85",
+  "rows": [
+    {
+      "case": "A_PPO_physx",
+      "phases": [
+        {
+          "phase": "core",
+          "control_windows": 128,
+          "mean_added_raw_penalty": 3.598572849896599e-05,
+          "affected_window_fraction": 0.015625
+        },
+        {
+          "phase": "post_turn",
+          "control_windows": 93,
+          "mean_added_raw_penalty": 3.216882220977576e-06,
+          "affected_window_fraction": 0.010752688172043012
+        },
+        {
+          "phase": "stop",
+          "control_windows": 55,
+          "mean_added_raw_penalty": 0.0,
+          "affected_window_fraction": 0.0
+        }
+      ]
+    },
+    {
+      "case": "A_PPO_mujoco",
+      "phases": [
+        {
+          "phase": "core",
+          "control_windows": 128,
+          "mean_added_raw_penalty": 0.0009872182067259827,
+          "affected_window_fraction": 0.046875
+        },
+        {
+          "phase": "post_turn",
+          "control_windows": 93,
+          "mean_added_raw_penalty": 0.0,
+          "affected_window_fraction": 0.0
+        },
+        {
+          "phase": "stop",
+          "control_windows": 55,
+          "mean_added_raw_penalty": 0.0,
+          "affected_window_fraction": 0.0
+        }
+      ]
+    },
+    {
+      "case": "F_PPO_physx",
+      "phases": [
+        {
+          "phase": "core",
+          "control_windows": 128,
+          "mean_added_raw_penalty": 0.000286913475911312,
+          "affected_window_fraction": 0.0390625
+        },
+        {
+          "phase": "post_turn",
+          "control_windows": 93,
+          "mean_added_raw_penalty": 0.0,
+          "affected_window_fraction": 0.0
+        },
+        {
+          "phase": "stop",
+          "control_windows": 55,
+          "mean_added_raw_penalty": 9.081918436122861e-05,
+          "affected_window_fraction": 0.03636363636363636
+        }
+      ]
+    },
+    {
+      "case": "F_PPO_mujoco",
+      "phases": [
+        {
+          "phase": "core",
+          "control_windows": 128,
+          "mean_added_raw_penalty": 0.007717696363299638,
+          "affected_window_fraction": 0.0859375
+        },
+        {
+          "phase": "post_turn",
+          "control_windows": 93,
+          "mean_added_raw_penalty": 6.815662760720712e-05,
+          "affected_window_fraction": 0.021505376344086023
+        },
+        {
+          "phase": "stop",
+          "control_windows": 55,
+          "mean_added_raw_penalty": 0.012327968285109259,
+          "affected_window_fraction": 0.14545454545454545
+        }
+      ]
+    },
+    {
+      "case": "G_PPO_physx",
+      "phases": [
+        {
+          "phase": "core",
+          "control_windows": 128,
+          "mean_added_raw_penalty": 0.00024776303284926966,
+          "affected_window_fraction": 0.0234375
+        },
+        {
+          "phase": "post_turn",
+          "control_windows": 93,
+          "mean_added_raw_penalty": 0.1339001011028752,
+          "affected_window_fraction": 0.44086021505376344
+        },
+        {
+          "phase": "stop",
+          "control_windows": 55,
+          "mean_added_raw_penalty": 0.0,
+          "affected_window_fraction": 0.0
+        }
+      ]
+    },
+    {
+      "case": "G_PPO_mujoco",
+      "phases": [
+        {
+          "phase": "core",
+          "control_windows": 128,
+          "mean_added_raw_penalty": 0.014878618880227385,
+          "affected_window_fraction": 0.1875
+        },
+        {
+          "phase": "post_turn",
+          "control_windows": 93,
+          "mean_added_raw_penalty": 0.0036442187641251133,
+          "affected_window_fraction": 0.1935483870967742
+        },
+        {
+          "phase": "stop",
+          "control_windows": 55,
+          "mean_added_raw_penalty": 0.00025271595229291855,
+          "affected_window_fraction": 0.05454545454545454
+        }
+      ]
+    },
+    {
+      "case": "G_CEM_mujoco",
+      "phases": [
+        {
+          "phase": "core",
+          "control_windows": 128,
+          "mean_added_raw_penalty": 0.035802677089247635,
+          "affected_window_fraction": 0.28125
+        },
+        {
+          "phase": "post_turn",
+          "control_windows": 93,
+          "mean_added_raw_penalty": 0.025633118268184155,
+          "affected_window_fraction": 0.17204301075268819
+        },
+        {
+          "phase": "stop",
+          "control_windows": 55,
+          "mean_added_raw_penalty": 0.0940775861049794,
+          "affected_window_fraction": 0.4727272727272727
+        }
+      ]
+    }
+  ],
+  "all_eight_actual_native_velocity_samples": true,
+  "H_runtime_or_policy_trained": false,
+  "H_controller_task_success_claimed": false,
+  "episode_returns_reconstructed_or_ranked": false,
+  "limitations": [
+    "This measures only where a proposed new component would charge existing motions, not how a new policy or CEM would behave.",
+    "Threshold/scale/weight are explicit candidate design choices, not calibrated hardware parameters.",
+    "No absolute height, bilateral support, zero-beta or friction-cone criterion is added."
+  ]
+}
