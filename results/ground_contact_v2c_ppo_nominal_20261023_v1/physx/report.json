@@ -1,0 +1,1264 @@
+{
+  "schema_version": 1,
+  "status": "evaluated",
+  "full_horizon_diagnostic": true,
+  "pose_termination_diagnostics": {
+    "anchor_pos": {
+      "active_policy_steps": 0,
+      "first_trigger_time_s": null,
+      "active_fraction": 0.0
+    },
+    "anchor_ori": {
+      "active_policy_steps": 0,
+      "first_trigger_time_s": null,
+      "active_fraction": 0.0
+    },
+    "ee_body_pos": {
+      "active_policy_steps": 0,
+      "first_trigger_time_s": null,
+      "active_fraction": 0.0
+    }
+  },
+  "terrain": null,
+  "terrain_runtime_audit": null,
+  "terrain_file_sha256": null,
+  "terrain_module_sha256": null,
+  "legacy_joint_friction_audit": {
+    "joint_names": [
+      "abad_L_Joint",
+      "abad_R_Joint",
+      "hip_L_Joint",
+      "hip_R_Joint",
+      "knee_L_Joint",
+      "knee_R_Joint",
+      "wheel_L_Joint",
+      "wheel_R_Joint"
+    ],
+    "before_first_environment": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.009999999776482582,
+      0.009999999776482582
+    ],
+    "after_first_environment": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "all_environments_verified_zero": true
+  },
+  "domain_parameters": null,
+  "task_profile": {
+    "schema_version": 1,
+    "task": "car_drift",
+    "contact_friction": 1.0,
+    "env_spacing_m": 8.0,
+    "reward_weights": {
+      "sideslip": 2.0,
+      "yaw_rate": 1.0,
+      "speed": 1.0,
+      "grounded": 0.4,
+      "tilt": -0.2
+    },
+    "height_regularization": {
+      "mode": "vertical_acceleration_only",
+      "weight": -0.1,
+      "acceleration_scale_m_s2": 5.0
+    },
+    "description": "V2c any-wheel support: V2b gated minimum-substep bonus minus ungated mean8(1-q) deficit at weight1; external grounded+.4 and all other settings unchanged.",
+    "action_rate_weight": -0.5,
+    "ground_contact_reward_v2": {
+      "schema_version": 1,
+      "candidate": "ground_contact_v2c",
+      "physics_substeps": 8,
+      "support_load_fraction": 0.5,
+      "mean_weight": 0,
+      "minimum_weight": 1,
+      "impact_multiple": 3,
+      "negative_force_tolerance_n": 0.0001,
+      "external_reward_weight": 0.4,
+      "reward_dt_s": 0.02,
+      "support_deficit_weight": 1
+    }
+  },
+  "evaluation_task_profile": {
+    "schema_version": 1,
+    "task": "car_drift",
+    "contact_friction": 0.7,
+    "env_spacing_m": 8.0,
+    "reward_weights": {
+      "sideslip": 2.0,
+      "yaw_rate": 1.0,
+      "speed": 1.0,
+      "grounded": 0.4,
+      "tilt": -0.2
+    },
+    "height_regularization": {
+      "mode": "vertical_acceleration_only",
+      "weight": -0.1,
+      "acceleration_scale_m_s2": 5.0
+    },
+    "description": "V2c any-wheel support: V2b gated minimum-substep bonus minus ungated mean8(1-q) deficit at weight1; external grounded+.4 and all other settings unchanged.",
+    "action_rate_weight": -0.5,
+    "ground_contact_reward_v2": {
+      "schema_version": 1,
+      "candidate": "ground_contact_v2c",
+      "physics_substeps": 8,
+      "support_load_fraction": 0.5,
+      "mean_weight": 0,
+      "minimum_weight": 1,
+      "impact_multiple": 3,
+      "negative_force_tolerance_n": 0.0001,
+      "external_reward_weight": 0.4,
+      "reward_dt_s": 0.02,
+      "support_deficit_weight": 1
+    }
+  },
+  "evaluation_contact_friction_override": {
+    "trained_contact_friction": 1.0,
+    "evaluation_contact_friction": 0.7,
+    "meaning": "target effective pair coefficient; native material mapping, not contact-law equivalence",
+    "physx_robot_mu": 0.7,
+    "physx_ground_mu": 1.0,
+    "physx_combine": "multiply",
+    "mujoco_colliding_geom_mu": 0.7,
+    "mujoco_wheel_priority": 1,
+    "mujoco_other_priority": 0,
+    "mujoco_equal_priority_combine": "max",
+    "mu_squared": false
+  },
+  "contact_material_audit": {
+    "recipe": {
+      "name": "tron1_mjlab_tracking_dr_v1",
+      "source_repository": "https://github.com/mujocolab/mjlab",
+      "source_commit": "4360096b49c1bcc478668c11ce7d458db747e49d",
+      "source_configuration": "src/mjlab/tasks/tracking/tracking_env_cfg.py",
+      "training": false,
+      "wheel_contact_friction": {
+        "distribution": "fixed",
+        "range": [
+          0.7,
+          0.7
+        ],
+        "sampling": "startup_once_per_environment_shared_between_both_wheels",
+        "physx_static_equals_dynamic": true,
+        "physx_ground_friction": 1.0,
+        "physx_ground_friction_combine_mode": "multiply",
+        "mujoco_wheel_geom_priority": 1,
+        "mujoco_tangential_axis": 0,
+        "buckets": null
+      },
+      "nonwheel_friction": 0.7,
+      "nonwheel_plane_contact_mapping": {
+        "mujoco_raw_nonwheel_friction": 0.7,
+        "mujoco_raw_ground_friction": 0.7,
+        "mujoco_nonwheel_and_ground_priority": 0,
+        "mujoco_combine_rule": "max_for_equal_priority",
+        "physx_combine_rule": "multiply_by_unit_ground",
+        "effective_plane_friction": 0.7,
+        "raw_material_values_identical": false,
+        "purpose": "match_nonwheel_plane_contact_coefficient_not_solver_dynamics"
+      },
+      "restitution_randomization": false,
+      "physx_robot_and_ground_restitution": 0.0,
+      "mujoco_restitution_equivalence_claimed": false,
+      "encoder_bias_range_rad": [
+        0.0,
+        0.0
+      ],
+      "encoder_bias_semantics": {
+        "applies_to": "six_position_controlled_leg_joints",
+        "actor_joint_position": "q + b - nominal_q0",
+        "critic_joint_position": "q - nominal_q0",
+        "position_control_target": "nominal_q0 + clipped_action - b",
+        "default_joint_positions_mutated": false,
+        "wheel_velocity_noise": false
+      },
+      "base_com_offset_range_m": {
+        "x": [
+          0.0,
+          0.0
+        ],
+        "y": [
+          0.0,
+          0.0
+        ],
+        "z": [
+          0.0,
+          0.0
+        ]
+      },
+      "base_com_body": "base_Link",
+      "push_interval_s": null,
+      "push_velocity_range": {},
+      "push_semantics": "add_world_root_LINK_velocity_delta_not_COM_velocity",
+      "push_timer_reset": "resample_per_episode_matching_intended_recipe_and_Isaac",
+      "mjlab_v1_4_function_interval_reset_bug_reproduced": false,
+      "task_action_reward_termination_changed": false,
+      "additional_observation_corruption": false,
+      "physics_equivalence_claimed": false
+    },
+    "wheel_mu_range": [
+      0.699999988079071,
+      0.699999988079071
+    ],
+    "wheel_shape_slots": [
+      7,
+      8
+    ],
+    "all_wheel_shapes_share_one_draw_per_environment": true,
+    "encoder_bias_range_rad": [
+      0.0,
+      0.0
+    ],
+    "position_target_bias_sign_verified": true,
+    "live_physx_materials_verified": true,
+    "ground_material_usd_verified": true,
+    "ground_colliders": [
+      {
+        "collider": "/World/ground/terrain/GroundPlane/CollisionPlane",
+        "material": "/World/ground/terrain/physicsMaterial",
+        "friction": 1.0,
+        "restitution": 0.0,
+        "combine": "multiply"
+      }
+    ],
+    "robot_collision_geometry_materials": [
+      {
+        "collider": "/World/envs/env_0/Robot/base_Link/collisions/mesh_0/box",
+        "material": "/physicsScene/defaultMaterial",
+        "binding_source": "verified_physics_scene_default_material",
+        "friction_combine_mode": "multiply"
+      },
+      {
+        "collider": "/World/envs/env_0/Robot/abad_L_Link/collisions/mesh_0/cylinder",
+        "material": "/physicsScene/defaultMaterial",
+        "binding_source": "verified_physics_scene_default_material",
+        "friction_combine_mode": "multiply"
+      },
+      {
+        "collider": "/World/envs/env_0/Robot/hip_L_Link/collisions/mesh_0/cylinder",
+        "material": "/physicsScene/defaultMaterial",
+        "binding_source": "verified_physics_scene_default_material",
+        "friction_combine_mode": "multiply"
+      },
+      {
+        "collider": "/World/envs/env_0/Robot/knee_L_Link/collisions/mesh_0/cylinder",
+        "material": "/physicsScene/defaultMaterial",
+        "binding_source": "verified_physics_scene_default_material",
+        "friction_combine_mode": "multiply"
+      },
+      {
+        "collider": "/World/envs/env_0/Robot/wheel_L_Link/collisions/mesh_0/cylinder",
+        "material": "/physicsScene/defaultMaterial",
+        "binding_source": "verified_physics_scene_default_material",
+        "friction_combine_mode": "multiply"
+      },
+      {
+        "collider": "/World/envs/env_0/Robot/abad_R_Link/collisions/mesh_0/cylinder",
+        "material": "/physicsScene/defaultMaterial",
+        "binding_source": "verified_physics_scene_default_material",
+        "friction_combine_mode": "multiply"
+      },
+      {
+        "collider": "/World/envs/env_0/Robot/hip_R_Link/collisions/mesh_0/cylinder",
+        "material": "/physicsScene/defaultMaterial",
+        "binding_source": "verified_physics_scene_default_material",
+        "friction_combine_mode": "multiply"
+      },
+      {
+        "collider": "/World/envs/env_0/Robot/knee_R_Link/collisions/mesh_0/cylinder",
+        "material": "/physicsScene/defaultMaterial",
+        "binding_source": "verified_physics_scene_default_material",
+        "friction_combine_mode": "multiply"
+      },
+      {
+        "collider": "/World/envs/env_0/Robot/wheel_R_Link/collisions/mesh_0/cylinder",
+        "material": "/physicsScene/defaultMaterial",
+        "binding_source": "verified_physics_scene_default_material",
+        "friction_combine_mode": "multiply"
+      }
+    ],
+    "ignored_non_geometry_collision_containers": [
+      "/World/envs/env_0/Robot/base_Link/collisions",
+      "/World/envs/env_0/Robot/abad_L_Link/collisions",
+      "/World/envs/env_0/Robot/hip_L_Link/collisions",
+      "/World/envs/env_0/Robot/knee_L_Link/collisions",
+      "/World/envs/env_0/Robot/wheel_L_Link/collisions",
+      "/World/envs/env_0/Robot/abad_R_Link/collisions",
+      "/World/envs/env_0/Robot/hip_R_Link/collisions",
+      "/World/envs/env_0/Robot/knee_R_Link/collisions",
+      "/World/envs/env_0/Robot/wheel_R_Link/collisions"
+    ],
+    "leg_pd_gain_readback": {
+      "kp_range": [
+        500.0,
+        500.0
+      ],
+      "kd_range": [
+        10.0,
+        10.0
+      ]
+    },
+    "effective_pair_mapping": {
+      "trained_contact_friction": 1.0,
+      "evaluation_contact_friction": 0.7,
+      "meaning": "target effective pair coefficient; native material mapping, not contact-law equivalence",
+      "physx_robot_mu": 0.7,
+      "physx_ground_mu": 1.0,
+      "physx_combine": "multiply",
+      "mujoco_colliding_geom_mu": 0.7,
+      "mujoco_wheel_priority": 1,
+      "mujoco_other_priority": 0,
+      "mujoco_equal_priority_combine": "max",
+      "mu_squared": false
+    },
+    "native_plant_readback": {
+      "body_names": [
+        "base_Link",
+        "abad_L_Link",
+        "abad_R_Link",
+        "limx_imu",
+        "hip_L_Link",
+        "hip_R_Link",
+        "knee_L_Link",
+        "knee_R_Link",
+        "wheel_L_Link",
+        "wheel_R_Link"
+      ],
+      "joint_names": [
+        "abad_L_Joint",
+        "abad_R_Joint",
+        "hip_L_Joint",
+        "hip_R_Joint",
+        "knee_L_Joint",
+        "knee_R_Joint",
+        "wheel_L_Joint",
+        "wheel_R_Joint"
+      ],
+      "source": "live PhysX articulation view getters; not USD-authored inference",
+      "inertia_convention": "native get_inertias flat9, reported without cross-engine frame conversion",
+      "mass_inertia_equivalence_claimed": false,
+      "no_physics_or_state_mutation": true,
+      "readbacks": {
+        "get_masses": {
+          "shape": [
+            1,
+            10
+          ],
+          "values": [
+            [
+              9.585000038146973,
+              1.4689998626708984,
+              1.4689998626708984,
+              0.009999999776482582,
+              2.299999952316284,
+              2.299999952316284,
+              1.4900000095367432,
+              1.4900000095367432,
+              1.0800000429153442,
+              1.0800000429153442
+            ]
+          ],
+          "getter_source_file": "/data/zengxiong/.conda/envs/regrind/lib/python3.11/site-packages/isaacsim/extscache/omni.physics.tensors-107.3.26+107.3.3.lx64.r.cp311.u353/omni/physics/tensors/impl/api.py",
+          "getter_source_sha256": "5dd16f8a37eccc94ac82338d6c1127e785cccf761cae1f6f18ef03d55b0f325f"
+        },
+        "get_inertias": {
+          "shape": [
+            1,
+            10,
+            9
+          ],
+          "values": [
+            [
+              [
+                0.14011049270629883,
+                0.0005349389975890517,
+                0.02818411961197853,
+                0.0005349389975890517,
+                0.1106414720416069,
+                -2.7278205379843712e-05,
+                0.02818412333726883,
+                -2.7278205379843712e-05,
+                0.09894455224275589
+              ],
+              [
+                0.0015553840203210711,
+                0.0003977799788117409,
+                -1.3100002433930058e-05,
+                0.0003977799788117409,
+                0.002359249861910939,
+                -9.799950930755585e-07,
+                -1.3100000614940654e-05,
+                -9.799987310543656e-07,
+                0.0020809201523661613
+              ],
+              [
+                0.0015553840203210711,
+                -0.0003977799788117409,
+                -1.3100002433930058e-05,
+                -0.0003977799788117409,
+                0.002359249861910939,
+                9.799950930755585e-07,
+                -1.3100000614940654e-05,
+                9.799987310543656e-07,
+                0.0020809201523661613
+              ],
+              [
+                9.999999974752427e-07,
+                0.0,
+                0.0,
+                0.0,
+                9.999999974752427e-07,
+                0.0,
+                0.0,
+                0.0,
+                9.999999974752427e-07
+              ],
+              [
+                0.01693728379905224,
+                0.0016470295377075672,
+                -0.009232531301677227,
+                0.0016470295377075672,
+                0.02285328507423401,
+                0.002202401403337717,
+                -0.009232530370354652,
+                0.0022024009376764297,
+                0.009334188885986805
+              ],
+              [
+                0.01693728379905224,
+                -0.0016470295377075672,
+                -0.009232531301677227,
+                -0.0016470295377075672,
+                0.02285328507423401,
+                -0.002202401403337717,
+                -0.009232530370354652,
+                -0.0022024009376764297,
+                0.009334188885986805
+              ],
+              [
+                0.01323279831558466,
+                -0.00043546073720790446,
+                0.006935690063983202,
+                -0.00043546073720790446,
+                0.01766137219965458,
+                0.0007908700499683619,
+                0.006935690063983202,
+                0.00079086993355304,
+                0.005016981158405542
+              ],
+              [
+                0.01323279831558466,
+                0.00043546073720790446,
+                0.006935690063983202,
+                0.00043546073720790446,
+                0.01766137219965458,
+                -0.0007908700499683619,
+                0.006935690063983202,
+                -0.00079086993355304,
+                0.005016981158405542
+              ],
+              [
+                0.0051551200449466705,
+                9.99999905104687e-09,
+                -9.699724614620209e-07,
+                9.99999993922529e-09,
+                0.009742720052599907,
+                -1.000000082740371e-08,
+                -9.699724614620209e-07,
+                -1.000000082740371e-08,
+                0.005154000129550695
+              ],
+              [
+                0.0051551200449466705,
+                -9.99999905104687e-09,
+                -9.699724614620209e-07,
+                -9.99999993922529e-09,
+                0.009742720052599907,
+                1.000000082740371e-08,
+                -9.699724614620209e-07,
+                1.000000082740371e-08,
+                0.005154000129550695
+              ]
+            ]
+          ],
+          "getter_source_file": "/data/zengxiong/.conda/envs/regrind/lib/python3.11/site-packages/isaacsim/extscache/omni.physics.tensors-107.3.26+107.3.3.lx64.r.cp311.u353/omni/physics/tensors/impl/api.py",
+          "getter_source_sha256": "5dd16f8a37eccc94ac82338d6c1127e785cccf761cae1f6f18ef03d55b0f325f"
+        },
+        "get_coms": {
+          "shape": [
+            1,
+            10,
+            7
+          ],
+          "values": [
+            [
+              [
+                0.04575999826192856,
+                0.00014000000373926014,
+                -0.16398000717163086,
+                -0.006218296475708485,
+                -0.2328483760356903,
+                0.003965523559600115,
+                0.9724851846694946
+              ],
+              [
+                -0.06977000087499619,
+                0.04478999972343445,
+                0.0005699999746866524,
+                -0.008187533356249332,
+                -0.007064875215291977,
+                -0.19381769001483917,
+                0.9809780120849609
+              ],
+              [
+                -0.06977000087499619,
+                -0.04478999972343445,
+                0.0005699999746866524,
+                0.008187533356249332,
+                -0.007064875215291977,
+                0.19381769001483917,
+                0.9809780120849609
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                -0.028689999133348465,
+                -0.04769999906420708,
+                -0.03991999849677086,
+                -0.02411648817360401,
+                0.29677271842956543,
+                -0.30193981528282166,
+                0.9056360721588135
+              ],
+              [
+                -0.028689999133348465,
+                0.04769999906420708,
+                -0.03991999849677086,
+                0.02411648817360401,
+                0.29677271842956543,
+                0.30193981528282166,
+                0.9056360721588135
+              ],
+              [
+                0.11913000047206879,
+                0.011060000397264957,
+                -0.2036300003528595,
+                0.029415728524327278,
+                -0.2556636929512024,
+                -0.005277751479297876,
+                0.966303825378418
+              ],
+              [
+                0.11913000047206879,
+                -0.011060000397264957,
+                -0.2036300003528595,
+                -0.029415728524327278,
+                -0.2556636929512024,
+                0.005277751479297876,
+                0.966303825378418
+              ],
+              [
+                2.9999999242136255e-05,
+                0.008070000447332859,
+                -1.9999999494757503e-05,
+                -7.70559381635394e-07,
+                0.25883248448371887,
+                -1.3350669405554072e-06,
+                0.9659222364425659
+              ],
+              [
+                2.9999999242136255e-05,
+                -0.008070000447332859,
+                -1.9999999494757503e-05,
+                7.70559381635394e-07,
+                0.25883248448371887,
+                1.3350669405554072e-06,
+                0.9659222364425659
+              ]
+            ]
+          ],
+          "getter_source_file": "/data/zengxiong/.conda/envs/regrind/lib/python3.11/site-packages/isaacsim/extscache/omni.physics.tensors-107.3.26+107.3.3.lx64.r.cp311.u353/omni/physics/tensors/impl/api.py",
+          "getter_source_sha256": "5dd16f8a37eccc94ac82338d6c1127e785cccf761cae1f6f18ef03d55b0f325f"
+        },
+        "get_dof_armatures": {
+          "shape": [
+            1,
+            8
+          ],
+          "values": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "getter_source_file": "/data/zengxiong/.conda/envs/regrind/lib/python3.11/site-packages/isaacsim/extscache/omni.physics.tensors-107.3.26+107.3.3.lx64.r.cp311.u353/omni/physics/tensors/impl/api.py",
+          "getter_source_sha256": "5dd16f8a37eccc94ac82338d6c1127e785cccf761cae1f6f18ef03d55b0f325f"
+        },
+        "get_dof_dampings": {
+          "shape": [
+            1,
+            8
+          ],
+          "values": [
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "getter_source_file": "/data/zengxiong/.conda/envs/regrind/lib/python3.11/site-packages/isaacsim/extscache/omni.physics.tensors-107.3.26+107.3.3.lx64.r.cp311.u353/omni/physics/tensors/impl/api.py",
+          "getter_source_sha256": "5dd16f8a37eccc94ac82338d6c1127e785cccf761cae1f6f18ef03d55b0f325f"
+        }
+      },
+      "unavailable": {}
+    }
+  },
+  "wheel_contact_slip_evidence": "force-weighted RMS from actual ground-filtered contact points and wheel COM twist",
+  "wheel_lateral_contact_slip_evidence_kind": "actual_ground_contact_points",
+  "contact_slip_helper_sha256": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4",
+  "evaluator_source_sha256": "ea0484e3dab634324b194d612be7f983d30f9ed27480e3f37a7b93a402c8b173",
+  "drift_module_sha256": "5fee46238c825a2bcf474e969e93af65834aa1302ce857aa1c553e8a9fbaefaa",
+  "contact_slip_measurement": {
+    "aggregation": "normal-force-weighted RMS over active actual ground contact points",
+    "active_point_normal_force_threshold_n": 5.0,
+    "nonwheel_active_point_threshold_n": 1.0,
+    "ground_is_stationary": true,
+    "sample_dt_s": 0.02
+  },
+  "domain_parameters_file_sha256": null,
+  "domain_randomization_audit": {
+    "enabled": false,
+    "mode": "disabled"
+  },
+  "simulator": "IsaacLab/PhysX",
+  "checkpoint": "/data/zengxiong/workspaces/tron1-ground-contact-v2c-20261023/physx_formal_v1/model_final.pt",
+  "checkpoint_sha256": "537e38f151b997ef7576da1aa06d92ee5011b7b5ee84a20d0048d6a221e93678",
+  "runner_config": "/data/zengxiong/workspaces/tron1-ground-contact-v2c-20261023/physx_formal_v1/runner_config.json",
+  "runner_config_sha256": "c018be7245792d35efdaf6e65ac6526a7fe6e59f94ea53b70858f22abcab1b2e",
+  "motion_file": "/data/zengxiong/workspaces/tron1-drift-turn-worst-load-20261014/motion.npz",
+  "motion_file_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+  "asset_path": "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/outputs/training-asset/WF_TRON1A.usda",
+  "asset_root_file_sha256": "327ca5080e753bbc95d8c3c797e9cd49a0f134d400cfe80494af0ba840e23a8e",
+  "seed": 42,
+  "reference_frames": 349,
+  "reference_sample_span_s": 6.96,
+  "wall_time_seconds": 25.58117976039648,
+  "deterministic_start_frame": 0,
+  "reference_state_initialization_during_evaluation": false,
+  "observation_noise_enabled": false,
+  "domain_randomization_enabled": false,
+  "terminal_states_captured_before_auto_reset": true,
+  "episodes_per_environment": 1,
+  "hardware_ready": false,
+  "summary": {
+    "num_environments": 1,
+    "full_reference_survival_rate": 1.0,
+    "early_termination_rate": 0.0,
+    "detected_jump_and_landing_rate": 1.0,
+    "full_clip_with_detected_jump_and_landing_rate": 1.0,
+    "mean_base_link_height_gain_m": 0.05337393283843994,
+    "maximum_base_link_height_gain_m": 0.05337393283843994,
+    "mean_reference_height_rmse_m": 0.031982600688934326,
+    "maximum_base_tilt_deg": 7.119211196899414,
+    "policy_sampling_interval_s": 0.02,
+    "episodes": [
+      {
+        "environment": 0,
+        "early_terminated": false,
+        "timed_out": true,
+        "termination_terms": [
+          "motion_end"
+        ],
+        "end_reason": "timeout",
+        "completed_full_reference": true,
+        "recorded_samples": 350,
+        "recorded_duration_s": 6.98,
+        "start_reference_frame": 0,
+        "final_reference_frame": 348,
+        "base_link_initial_height_m": 0.75,
+        "base_link_peak_height_m": 0.8033739328384399,
+        "base_link_height_gain_m": 0.05337393283843994,
+        "base_link_height_gain_from_lowest_pose_m": 0.11140918731689453,
+        "reference_base_link_height_gain_m": 0.0,
+        "reference_height_rmse_m": 0.031982600688934326,
+        "max_base_tilt_deg": 7.119211196899414,
+        "final_base_tilt_deg": 3.164649248123169,
+        "max_horizontal_displacement_m": 5.507920265197754,
+        "contact": {
+          "available": true,
+          "force_threshold_n": 5.0,
+          "sampling_interval_s": 0.020000000000000018,
+          "minimum_prior_support_s": 0.1,
+          "minimum_flight_s": 0.04,
+          "minimum_landing_support_s": 0.1,
+          "two_wheel_contact_fraction": 0.7771428571428571,
+          "left_contact_fraction": 0.8171428571428572,
+          "right_contact_fraction": 0.8885714285714286,
+          "flight_intervals": [
+            {
+              "takeoff_s": 2.16,
+              "no_contact_end_s": 2.22,
+              "no_contact_duration_s": 0.06000000000000005,
+              "landing_s": 4.32,
+              "right_censored": false
+            }
+          ],
+          "first_takeoff_s": 2.16,
+          "first_landing_s": 4.32,
+          "max_flight_duration_s": 0.06000000000000005,
+          "reason": null
+        },
+        "jump_and_landing_detected": true,
+        "full_clip_with_detected_jump_and_landing": true
+      }
+    ]
+  },
+  "policy_export": {
+    "policy_fps": 50.0,
+    "physics_dt": 0.0025,
+    "decimation": 8,
+    "actor_dim": 51,
+    "critic_dim": 120,
+    "action_dim": 8,
+    "leg_joint_names": [
+      "abad_L_Joint",
+      "abad_R_Joint",
+      "hip_L_Joint",
+      "hip_R_Joint",
+      "knee_L_Joint",
+      "knee_R_Joint"
+    ],
+    "wheel_joint_names": [
+      "wheel_L_Joint",
+      "wheel_R_Joint"
+    ],
+    "observed_joint_velocity_order": [
+      "abad_L_Joint",
+      "abad_R_Joint",
+      "hip_L_Joint",
+      "hip_R_Joint",
+      "knee_L_Joint",
+      "knee_R_Joint",
+      "wheel_L_Joint",
+      "wheel_R_Joint"
+    ],
+    "body_names": [
+      "base_Link",
+      "abad_L_Link",
+      "abad_R_Link",
+      "hip_L_Link",
+      "hip_R_Link",
+      "knee_L_Link",
+      "knee_R_Link",
+      "wheel_L_Link",
+      "wheel_R_Link"
+    ],
+    "orientation_body_names": [
+      "base_Link",
+      "abad_L_Link",
+      "abad_R_Link",
+      "hip_L_Link",
+      "hip_R_Link",
+      "knee_L_Link",
+      "knee_R_Link"
+    ],
+    "actor_terms": [
+      [
+        "ref_leg_q_ref_leg_dq_phase_sin_cos",
+        14
+      ],
+      [
+        "motion_anchor_pos_b",
+        3
+      ],
+      [
+        "motion_anchor_ori_b_6d_first_two_columns_row_major",
+        6
+      ],
+      [
+        "base_lin_vel_b",
+        3
+      ],
+      [
+        "base_ang_vel_b",
+        3
+      ],
+      [
+        "leg_joint_pos_rel",
+        6
+      ],
+      [
+        "joint_velocities",
+        8
+      ],
+      [
+        "previous_clipped_actions",
+        8
+      ]
+    ],
+    "raw_action_clip": [
+      -1.0,
+      1.0
+    ],
+    "leg_position_scale": 1.0,
+    "leg_position_offset": "reference_frame_0_joint_pos",
+    "wheel_torque_scale_nm": 12.0,
+    "leg_kp": 500.0,
+    "leg_kd": 10.0,
+    "leg_torque_limit_nm": 80.0,
+    "wheel_torque_limit_nm": 12.0,
+    "actuator_model": "dc_motor",
+    "leg_saturation_effort_nm": 80.0,
+    "wheel_saturation_effort_nm": 12.0,
+    "leg_motor_velocity_limit_rad_s": 15.0,
+    "wheel_motor_velocity_limit_rad_s": 100.0,
+    "solver_joint_velocity_limit_rad_s": 1000.0,
+    "motor_velocity_limit_semantics": "no_load_speed_for_torque_speed_curve_not_hard_qvel_clip",
+    "legacy_joint_friction_coefficient": 0.0,
+    "legacy_joint_friction_startup_readback_required": true,
+    "rigid_body_max_angular_speed_rad_s": 100.0,
+    "rigid_body_angular_speed_config_units": "degrees_per_second",
+    "quaternion_order": "wxyz",
+    "root_prescribed_during_steps": false,
+    "wheel_orientation_tracking": false,
+    "wheel_angle_observation": false,
+    "reference_state_initialization_training_only": true,
+    "training_full_clip_start_fraction": 0.2,
+    "deterministic_evaluation_start_frame": 0,
+    "motion_end_hidden_teleport": false,
+    "domain_randomization": "disabled during evaluation; fixed actuator parameters",
+    "actuator_limits_provenance": "project sim2sim baseline settings; NOT verified manufacturer hardware ratings",
+    "hardware_ready": false,
+    "task_profile": {
+      "schema_version": 1,
+      "task": "car_drift",
+      "contact_friction": 0.7,
+      "env_spacing_m": 8.0,
+      "reward_weights": {
+        "sideslip": 2.0,
+        "yaw_rate": 1.0,
+        "speed": 1.0,
+        "grounded": 0.4,
+        "tilt": -0.2
+      },
+      "height_regularization": {
+        "mode": "vertical_acceleration_only",
+        "weight": -0.1,
+        "acceleration_scale_m_s2": 5.0
+      },
+      "description": "V2c any-wheel support: V2b gated minimum-substep bonus minus ungated mean8(1-q) deficit at weight1; external grounded+.4 and all other settings unchanged.",
+      "action_rate_weight": -0.5,
+      "ground_contact_reward_v2": {
+        "schema_version": 1,
+        "candidate": "ground_contact_v2c",
+        "physics_substeps": 8,
+        "support_load_fraction": 0.5,
+        "mean_weight": 0,
+        "minimum_weight": 1,
+        "impact_multiple": 3,
+        "negative_force_tolerance_n": 0.0001,
+        "external_reward_weight": 0.4,
+        "reward_dt_s": 0.02,
+        "support_deficit_weight": 1
+      }
+    },
+    "reference_file_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+    "default_joint_position_rad": [
+      0.0,
+      0.0,
+      0.3447771668434143,
+      -0.3447771668434143,
+      0.7936588525772095,
+      -0.7936588525772095,
+      0.0,
+      0.0
+    ],
+    "trained_task_profile": {
+      "schema_version": 1,
+      "task": "car_drift",
+      "contact_friction": 1.0,
+      "env_spacing_m": 8.0,
+      "reward_weights": {
+        "sideslip": 2.0,
+        "yaw_rate": 1.0,
+        "speed": 1.0,
+        "grounded": 0.4,
+        "tilt": -0.2
+      },
+      "height_regularization": {
+        "mode": "vertical_acceleration_only",
+        "weight": -0.1,
+        "acceleration_scale_m_s2": 5.0
+      },
+      "description": "V2c any-wheel support: V2b gated minimum-substep bonus minus ungated mean8(1-q) deficit at weight1; external grounded+.4 and all other settings unchanged.",
+      "action_rate_weight": -0.5,
+      "ground_contact_reward_v2": {
+        "schema_version": 1,
+        "candidate": "ground_contact_v2c",
+        "physics_substeps": 8,
+        "support_load_fraction": 0.5,
+        "mean_weight": 0,
+        "minimum_weight": 1,
+        "impact_multiple": 3,
+        "negative_force_tolerance_n": 0.0001,
+        "external_reward_weight": 0.4,
+        "reward_dt_s": 0.02,
+        "support_deficit_weight": 1
+      }
+    },
+    "training_domain_randomization": {
+      "source": "mjlab v1.4.0 tracking events adapted to TRON1",
+      "sliding_friction": {
+        "range": [
+          0.3,
+          1.2
+        ],
+        "distribution": "uniform_continuous",
+        "sampling": "startup_once_per_environment",
+        "shared_between_wheels": true,
+        "scope": "colliding_wheel_shapes",
+        "mujoco_wheel_priority": 1,
+        "physx_static_equals_dynamic": true,
+        "physx_floor_mu": 1,
+        "physx_combine": "multiply"
+      },
+      "encoder_position_bias_rad": [
+        -0.01,
+        0.01
+      ],
+      "encoder_bias_signs": {
+        "actor": "+b",
+        "position_target": "-b",
+        "critic": "unbiased"
+      },
+      "base_com_xyz_range_m": [
+        [
+          -0.025,
+          0.025
+        ],
+        [
+          -0.05,
+          0.05
+        ],
+        [
+          -0.05,
+          0.05
+        ]
+      ],
+      "root_link_velocity_push_interval_s": [
+        1,
+        3
+      ],
+      "root_link_velocity_push_ranges": {
+        "x": [
+          -0.5,
+          0.5
+        ],
+        "y": [
+          -0.5,
+          0.5
+        ],
+        "z": [
+          -0.2,
+          0.2
+        ],
+        "roll": [
+          -0.52,
+          0.52
+        ],
+        "pitch": [
+          -0.52,
+          0.52
+        ],
+        "yaw": [
+          -0.78,
+          0.78
+        ]
+      },
+      "push_timer_reset_correction": "resample all interval timers at episode reset; do not reproduce v1.4 function-event reset bug",
+      "restitution_randomization": false,
+      "contact_law_equivalence_claimed": false
+    },
+    "cohort_id": "tron1_ground_contact_v2c_any_wheel_400hz_v1",
+    "contract_status": "trained_completed_normalized_actor",
+    "physics_clock_origin": "trained_at_native400Hz_not_evaluation_only_refinement",
+    "reward_definition_version": "ground_contact_v2c_any_wheel",
+    "ground_contact_reward_v2": {
+      "schema_version": 1,
+      "candidate": "ground_contact_v2c",
+      "physics_substeps": 8,
+      "support_load_fraction": 0.5,
+      "mean_weight": 0,
+      "minimum_weight": 1,
+      "impact_multiple": 3,
+      "negative_force_tolerance_n": 0.0001,
+      "external_reward_weight": 0.4,
+      "reward_dt_s": 0.02,
+      "support_deficit_weight": 1
+    },
+    "smoke_only": false,
+    "trained_policy_claimed": true,
+    "run_kind": "formal",
+    "policy_algorithm": "PPO",
+    "policy_training_backend": "physx",
+    "checkpoint_sha256": "537e38f151b997ef7576da1aa06d92ee5011b7b5ee84a20d0048d6a221e93678",
+    "checkpoint_file": "model_final.pt",
+    "exported_policy_sha256": "44e48cce5226f3a8d47556a9fb8f88d51da7226ed2eaa9bec2a3302925dc9219",
+    "actor_file": "actor_normalized.pt",
+    "actor_includes_observation_normalizer": true,
+    "actor_output_is_unclipped": true,
+    "actor_observation_groups": [
+      "policy"
+    ],
+    "export_validation_max_abs_error": 8.940696716308594e-08,
+    "training_cohort_protocol_sha256": "12af160c7b5bbca6b7e3548d59054f62f4ec6d8c22112df7bfdd02892380c075",
+    "training_environment_transitions": 12288000,
+    "runtime_clock_and_interface_verified": true,
+    "full_horizon_diagnostic": true,
+    "evaluation_backend": "PhysX",
+    "evaluation_contact_friction_override": {
+      "trained_contact_friction": 1.0,
+      "evaluation_contact_friction": 0.7,
+      "meaning": "target effective pair coefficient; native material mapping, not contact-law equivalence",
+      "physx_robot_mu": 0.7,
+      "physx_ground_mu": 1.0,
+      "physx_combine": "multiply",
+      "mujoco_colliding_geom_mu": 0.7,
+      "mujoco_wheel_priority": 1,
+      "mujoco_other_priority": 0,
+      "mujoco_equal_priority_combine": "max",
+      "mu_squared": false
+    },
+    "scripted_actor_provenance": {
+      "kind": "ground_contact_v2c_any_wheel_ppo_evaluation",
+      "cohort_id": "tron1_ground_contact_v2c_any_wheel_400hz_v1",
+      "reward_definition_version": "ground_contact_v2c_any_wheel",
+      "training_backend": "physx",
+      "smoke_only": false,
+      "trained_policy_claimed": true,
+      "additional_training_updates": 0,
+      "checkpoint_sha256": "537e38f151b997ef7576da1aa06d92ee5011b7b5ee84a20d0048d6a221e93678",
+      "normalized_actor_sha256": "44e48cce5226f3a8d47556a9fb8f88d51da7226ed2eaa9bec2a3302925dc9219",
+      "protocol_sha256": "12af160c7b5bbca6b7e3548d59054f62f4ec6d8c22112df7bfdd02892380c075",
+      "cohort_input_sha256": {
+        "ground_contact_v2c_training_audit.json": "e8e45aafe7ec33367aaf51aad6d23ea4ca8b37d347342bbaf3e00b06e70fab16",
+        "cohort_completion_audit.json": "5c2e856498f1d31731f193de5408c6471ed96243cb7e2af43be0afed7fc5ea01",
+        "manifest.json": "53acafa543b54491d078df97677e384a395e242f11c2f18bd8671a8b7aafbcf9",
+        "policy_contract.json": "2cf07884791ead311f82cd2a72a8116caac94dfd25745c2464c352e95484becc",
+        "final_policy_contract.json": "2cf07884791ead311f82cd2a72a8116caac94dfd25745c2464c352e95484becc",
+        "run_status.json": "a8d643d0a2658f06b05cc5c2e1beb4374e5e915263fe542ec7408bcaff5c29e9",
+        "policy.pt": "44e48cce5226f3a8d47556a9fb8f88d51da7226ed2eaa9bec2a3302925dc9219",
+        "model_final.pt": "537e38f151b997ef7576da1aa06d92ee5011b7b5ee84a20d0048d6a221e93678"
+      },
+      "normalizer_included_in_actor": true,
+      "normalization_applications_per_inference": 1,
+      "extra_normalization": false,
+      "physics_dt_s": 0.0025,
+      "decimation": 8,
+      "policy_dt_s": 0.02,
+      "single_wheel_support_allowed": true,
+      "bilateral_support_required": false,
+      "support_count_definition": "recorded legacy count includes contacts exceeding 5 N; not raw geometric point count",
+      "absolute_height_gate": false,
+      "airborne_failure": false,
+      "hardware_ready": false
+    },
+    "actual_joint_order": [
+      "abad_L_Joint",
+      "abad_R_Joint",
+      "hip_L_Joint",
+      "hip_R_Joint",
+      "knee_L_Joint",
+      "knee_R_Joint",
+      "wheel_L_Joint",
+      "wheel_R_Joint"
+    ],
+    "actual_body_order": [
+      "base_Link",
+      "abad_L_Link",
+      "abad_R_Link",
+      "limx_imu",
+      "hip_L_Link",
+      "hip_R_Link",
+      "knee_L_Link",
+      "knee_R_Link",
+      "wheel_L_Link",
+      "wheel_R_Link"
+    ],
+    "ground_contact_v2c_evaluation": {
+      "kind": "ground_contact_v2c_any_wheel_ppo_evaluation",
+      "cohort_id": "tron1_ground_contact_v2c_any_wheel_400hz_v1",
+      "reward_definition_version": "ground_contact_v2c_any_wheel",
+      "training_backend": "physx",
+      "smoke_only": false,
+      "trained_policy_claimed": true,
+      "additional_training_updates": 0,
+      "checkpoint_sha256": "537e38f151b997ef7576da1aa06d92ee5011b7b5ee84a20d0048d6a221e93678",
+      "normalized_actor_sha256": "44e48cce5226f3a8d47556a9fb8f88d51da7226ed2eaa9bec2a3302925dc9219",
+      "protocol_sha256": "12af160c7b5bbca6b7e3548d59054f62f4ec6d8c22112df7bfdd02892380c075",
+      "cohort_input_sha256": {
+        "ground_contact_v2c_training_audit.json": "e8e45aafe7ec33367aaf51aad6d23ea4ca8b37d347342bbaf3e00b06e70fab16",
+        "cohort_completion_audit.json": "5c2e856498f1d31731f193de5408c6471ed96243cb7e2af43be0afed7fc5ea01",
+        "manifest.json": "53acafa543b54491d078df97677e384a395e242f11c2f18bd8671a8b7aafbcf9",
+        "policy_contract.json": "2cf07884791ead311f82cd2a72a8116caac94dfd25745c2464c352e95484becc",
+        "final_policy_contract.json": "2cf07884791ead311f82cd2a72a8116caac94dfd25745c2464c352e95484becc",
+        "run_status.json": "a8d643d0a2658f06b05cc5c2e1beb4374e5e915263fe542ec7408bcaff5c29e9",
+        "policy.pt": "44e48cce5226f3a8d47556a9fb8f88d51da7226ed2eaa9bec2a3302925dc9219",
+        "model_final.pt": "537e38f151b997ef7576da1aa06d92ee5011b7b5ee84a20d0048d6a221e93678"
+      },
+      "normalizer_included_in_actor": true,
+      "normalization_applications_per_inference": 1,
+      "extra_normalization": false,
+      "physics_dt_s": 0.0025,
+      "decimation": 8,
+      "policy_dt_s": 0.02,
+      "single_wheel_support_allowed": true,
+      "bilateral_support_required": false,
+      "support_count_definition": "recorded legacy count includes contacts exceeding 5 N; not raw geometric point count",
+      "absolute_height_gate": false,
+      "airborne_failure": false,
+      "hardware_ready": false,
+      "status": "verified",
+      "validation_backend": "PhysX",
+      "wrapper_sha256": "ea0484e3dab634324b194d612be7f983d30f9ed27480e3f37a7b93a402c8b173",
+      "legacy_evaluator_sha256": "76d78337d70519693bc7e8d819a6523a800e1e4889de5a0466c2d34356d2ae9d",
+      "generated_source_sha256": "9267221101601f0b36deeea7ed121d8a98efc06f8aec146025774d1e2f233adc",
+      "recording_sha256": "7f0afe3cce2b374bf7f9cf0390459a8fdfada8bca7d8d63a93559d44c24a29b2",
+      "native_states": 2793,
+      "policy_decisions": 349,
+      "duration_s": 6.98,
+      "physical_gpu_index_requested": 3,
+      "deployment_actor_sha256": "44c24d6de00ab994d8c182ada7fc6aa6c59f6a2f6c557308b2753adcce760bd7"
+    }
+  },
+  "limitations": [
+    "Surviving the full clip is not by itself evidence of a successful jump.",
+    "All environments begin from the same reference frame0 state without random perturbations; this is a deterministic smoke evaluation, not a robustness success probability.",
+    "Reported height is the measured base_Link origin, not center-of-mass height, reference height, or wheel clearance.",
+    "Contact events use wheel net-force norms sampled at policy frequency; self-contact can also contribute to these net forces.",
+    "Flight needs at least 0.10s prior two-wheel support and 0.04s both-wheel contact absence; landing needs 0.10s subsequent two-wheel support.",
+    "jump_and_landing_detected additionally requires at least0.05m measured base height gain; it does not certify stable recovery or hardware feasibility.",
+    "Torque samples are the last physics substep, not the maximum over all decimation substeps.",
+    "qpos arrays use named Isaac joint order, not native MuJoCo joint order; MuJoCo deployment must remap by name.",
+    "Root linear velocity follows Isaac's COM-velocity convention; root pose is the link-frame pose.",
+    "The exported actor emits raw actions; deployment must clamp all8 actions to[-1,1] before the documented action scaling."
+  ],
+  "runtime_device_audit": {
+    "schema_version": 1,
+    "status": "verified",
+    "requested_device": "cuda:3",
+    "environment_device": "cuda:3",
+    "physics_sim_view_frontend_device": "cuda:3",
+    "robot_native_transform_tensor_device": "cuda:3",
+    "native_physics_backend_device_ordinal": 3,
+    "torch_current_device": 3,
+    "physics_cudaDevice_setting": 3,
+    "physics_sceneMultiGPUMode_setting": 0,
+    "cuda_visible_devices": null,
+    "required_unmasked": true,
+    "device_index": 3,
+    "index_scope": "unmasked_cuda_ordinal",
+    "native_and_tensor_device_consistency_verified": true,
+    "physical_mapping_verified": false,
+    "exclusivity_verified": false
+  },
+  "runtime_device_module_sha256": "2a1460d1b48e884fc5608e0365edc43b815d1fc74c8439945d4e2cc18027f775",
+  "physics_trajectory_file": "physics_trajectory.npz",
+  "physics_trajectory_sha256": "7f0afe3cce2b374bf7f9cf0390459a8fdfada8bca7d8d63a93559d44c24a29b2",
+  "physics_dt_s": 0.0025,
+  "physics_recording": {
+    "sample_dt_s": 0.0025,
+    "samples": 2793,
+    "time_source": "relative simulator physics-step counter",
+    "hook": "after original scene.update at each incremented simulator counter during wrapped.step",
+    "initial_state_samples": 1,
+    "terminal_states_before_reset": true,
+    "same_counter_reset_and_forward_updates_excluded": true,
+    "first_episode_only_valid_mask": true,
+    "observations": "actual policy pre-action observations held across 8 physics substeps; validate actor only with trajectory.npz",
+    "primary_policy_trajectory_file": "trajectory.npz",
+    "policy_sample_dt_s": 0.02
+  },
+  "physics_clock_readback": {
+    "status": "verified",
+    "decimation": 8,
+    "simulator_physics_dt_s": 0.0025,
+    "environment_physics_dt_s": 0.0025,
+    "policy_dt_s": 0.02,
+    "net_contact_sensor_update_period_s": 0.0025
+  },
+  "ground_contact_v2c_evaluation": {
+    "kind": "ground_contact_v2c_any_wheel_ppo_evaluation",
+    "cohort_id": "tron1_ground_contact_v2c_any_wheel_400hz_v1",
+    "reward_definition_version": "ground_contact_v2c_any_wheel",
+    "training_backend": "physx",
+    "smoke_only": false,
+    "trained_policy_claimed": true,
+    "additional_training_updates": 0,
+    "checkpoint_sha256": "537e38f151b997ef7576da1aa06d92ee5011b7b5ee84a20d0048d6a221e93678",
+    "normalized_actor_sha256": "44e48cce5226f3a8d47556a9fb8f88d51da7226ed2eaa9bec2a3302925dc9219",
+    "protocol_sha256": "12af160c7b5bbca6b7e3548d59054f62f4ec6d8c22112df7bfdd02892380c075",
+    "cohort_input_sha256": {
+      "ground_contact_v2c_training_audit.json": "e8e45aafe7ec33367aaf51aad6d23ea4ca8b37d347342bbaf3e00b06e70fab16",
+      "cohort_completion_audit.json": "5c2e856498f1d31731f193de5408c6471ed96243cb7e2af43be0afed7fc5ea01",
+      "manifest.json": "53acafa543b54491d078df97677e384a395e242f11c2f18bd8671a8b7aafbcf9",
+      "policy_contract.json": "2cf07884791ead311f82cd2a72a8116caac94dfd25745c2464c352e95484becc",
+      "final_policy_contract.json": "2cf07884791ead311f82cd2a72a8116caac94dfd25745c2464c352e95484becc",
+      "run_status.json": "a8d643d0a2658f06b05cc5c2e1beb4374e5e915263fe542ec7408bcaff5c29e9",
+      "policy.pt": "44e48cce5226f3a8d47556a9fb8f88d51da7226ed2eaa9bec2a3302925dc9219",
+      "model_final.pt": "537e38f151b997ef7576da1aa06d92ee5011b7b5ee84a20d0048d6a221e93678"
+    },
+    "normalizer_included_in_actor": true,
+    "normalization_applications_per_inference": 1,
+    "extra_normalization": false,
+    "physics_dt_s": 0.0025,
+    "decimation": 8,
+    "policy_dt_s": 0.02,
+    "single_wheel_support_allowed": true,
+    "bilateral_support_required": false,
+    "support_count_definition": "recorded legacy count includes contacts exceeding 5 N; not raw geometric point count",
+    "absolute_height_gate": false,
+    "airborne_failure": false,
+    "hardware_ready": false,
+    "status": "verified",
+    "validation_backend": "PhysX",
+    "wrapper_sha256": "ea0484e3dab634324b194d612be7f983d30f9ed27480e3f37a7b93a402c8b173",
+    "legacy_evaluator_sha256": "76d78337d70519693bc7e8d819a6523a800e1e4889de5a0466c2d34356d2ae9d",
+    "generated_source_sha256": "9267221101601f0b36deeea7ed121d8a98efc06f8aec146025774d1e2f233adc",
+    "recording_sha256": "7f0afe3cce2b374bf7f9cf0390459a8fdfada8bca7d8d63a93559d44c24a29b2",
+    "native_states": 2793,
+    "policy_decisions": 349,
+    "duration_s": 6.98,
+    "physical_gpu_index_requested": 3,
+    "deployment_actor_sha256": "44c24d6de00ab994d8c182ada7fc6aa6c59f6a2f6c557308b2753adcce760bd7"
+  }
+}
