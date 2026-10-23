@@ -1,0 +1,639 @@
+{
+  "kind": "recorded_ground_contact_V2_fixed_relative_fullbody_replay",
+  "cases": [
+    {
+      "id": "original_CEM",
+      "title": "Original CEM | original grounded +0.4 | beta ON",
+      "kind": "nmpc",
+      "recording": "/home/roy/tron1-sliding-analysis/outputs/ppo_cem_matched_reward_400hz_20261022_v1/beta_on/rollout.npz",
+      "report": "/home/roy/tron1-sliding-analysis/outputs/ppo_cem_matched_reward_400hz_20261022_v1/beta_on/report.json",
+      "recording_sha256": "eff2b735b07b481e6ead32b76a716066f71815401f91231345dde84d451804be",
+      "report_sha256": "343f6270e8be135e2afd4f06df69d8d4f1273cca2cc651188a1198c81ab901da",
+      "count_semantics": "legacy active ground points: normalforce>5N"
+    },
+    {
+      "id": "V2_CEM",
+      "title": "V2 CEM | any-wheel ground support +0.4 | beta ON",
+      "kind": "nmpc",
+      "recording": "/home/roy/tron1-sliding-analysis/outputs/ground_contact_v2_20261023_v1/cem_mu0p7/rollout.npz",
+      "report": "/home/roy/tron1-sliding-analysis/outputs/ground_contact_v2_20261023_v1/cem_mu0p7/report.json",
+      "recording_sha256": "b4a6dc3ee5e22977140c669f4a9041fe207abaa1ecd129814bc6d3343e01a8ae",
+      "report_sha256": "a1573ea6a2c97d9c1a6f132f14d1b0a3aab9abdd650606b5f73602c980061081",
+      "ground_force_key": "ground_normal_force_w",
+      "ground_count_key": "ground_contact_count",
+      "count_semantics": "V2 positive ground points: normalforce>=1e-6N"
+    }
+  ],
+  "native_states_per_case": 2793,
+  "native_dt_s": 0.0025,
+  "video_frames": 350,
+  "video_fps": 50,
+  "selected_native_stride": 8,
+  "video_generated": true,
+  "reference_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+  "model_sha256": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513",
+  "renderer_sha256": "a54bc511e5a16e08b8ebec189d3b7b0b803f723a084760099e2aa4a65a951ccf",
+  "mesh_provenance": {
+    "meshes": [
+      {
+        "file": "base_Link.STL",
+        "sha256": "a0e4a75a180f51b5593220fec14cec3272ff744b289de0844f8845ca1be34548"
+      },
+      {
+        "file": "abad_L_Link.STL",
+        "sha256": "9eb73a043ef1b8f8425f422cbb9a4d7364fbe93182fe232eefed52a748acb815"
+      },
+      {
+        "file": "hip_L_Link.STL",
+        "sha256": "d9c5699d6948d2778c4206284e76531d9ed008c3d3205ba902abd4bdc9715117"
+      },
+      {
+        "file": "knee_L_Link.STL",
+        "sha256": "119f2f177a7f90475fae071d4683bcc1b6c5164a1f5c606e20fbb85264806baf"
+      },
+      {
+        "file": "wheel_L_Link.STL",
+        "sha256": "cd7687ae258efd83aa6c89ff9e7b496193c9a174787abf0d6338f95b6f621bf3"
+      },
+      {
+        "file": "abad_R_Link.STL",
+        "sha256": "fbfdd2d0801e73c71a0c514f34f5d4190c43f344c58fda108f1eae9997ca3917"
+      },
+      {
+        "file": "hip_R_Link.STL",
+        "sha256": "9f70593a70c75e68969a5e41dbabcba9dba71b8b06a45bbac8134a94a88fd39b"
+      },
+      {
+        "file": "knee_R_Link.STL",
+        "sha256": "83c4acc7127b0c6f3d51e8ea5818c78e19a5dfaf61f06a06ccdc72ea04eb385a"
+      },
+      {
+        "file": "wheel_R_Link.STL",
+        "sha256": "d816f9a69097a7c6dc2b8d3c0310183bea26514fc778a1677146f3c2d6e1ee91"
+      }
+    ],
+    "official_source": {
+      "schema_version": 1,
+      "repository": "https://github.com/limxdynamics/tron1-robot-description",
+      "revision": "5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316",
+      "license": "Apache-2.0",
+      "files": [
+        {
+          "source": "LICENSE",
+          "destination": "LICENSE.txt",
+          "size": 11357,
+          "git_blob_sha1": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/LICENSE",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/xml/robot.xml",
+          "destination": "upstream/robot.xml",
+          "size": 9315,
+          "git_blob_sha1": "245d2fc22eb01ecfcec29118daa635e6f2c3e6e1",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/xml/robot.xml",
+          "sha256": "cbe885f68bc22aea9ffc011186e67ea5080e6e99a8df3b7f1a36657d4dd68476"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/urdf/robot.urdf",
+          "destination": "upstream/robot.urdf",
+          "size": 21232,
+          "git_blob_sha1": "a558e9375dcf6dc2666825ac224cbb750032ead8",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/urdf/robot.urdf",
+          "sha256": "f09c56c15acd507bba43b394e37a9abe024e0111fdde7dbf41796408895ee4c5"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/base_Link.STL",
+          "destination": "meshes/base_Link.STL",
+          "size": 6225184,
+          "git_blob_sha1": "62a7837a98e37a784e9bd2f9f66ed4350980bc97",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/base_Link.STL",
+          "sha256": "a0e4a75a180f51b5593220fec14cec3272ff744b289de0844f8845ca1be34548"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/abad_L_Link.STL",
+          "destination": "meshes/abad_L_Link.STL",
+          "size": 1658684,
+          "git_blob_sha1": "562152a171e9344dafddb98133b757adb3e100d9",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/abad_L_Link.STL",
+          "sha256": "9eb73a043ef1b8f8425f422cbb9a4d7364fbe93182fe232eefed52a748acb815"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/hip_L_Link.STL",
+          "destination": "meshes/hip_L_Link.STL",
+          "size": 2121684,
+          "git_blob_sha1": "a88548378708be1bb8b2b27dccba292fd953eeda",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/hip_L_Link.STL",
+          "sha256": "d9c5699d6948d2778c4206284e76531d9ed008c3d3205ba902abd4bdc9715117"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/knee_L_Link.STL",
+          "destination": "meshes/knee_L_Link.STL",
+          "size": 2273084,
+          "git_blob_sha1": "bde12153f0431bec19a5248379c51177b458fbda",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/knee_L_Link.STL",
+          "sha256": "119f2f177a7f90475fae071d4683bcc1b6c5164a1f5c606e20fbb85264806baf"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/wheel_L_Link.STL",
+          "destination": "meshes/wheel_L_Link.STL",
+          "size": 1000384,
+          "git_blob_sha1": "07c39ec4a620f1b0c113ee5bbada45c5dbd8be61",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/wheel_L_Link.STL",
+          "sha256": "cd7687ae258efd83aa6c89ff9e7b496193c9a174787abf0d6338f95b6f621bf3"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/abad_R_Link.STL",
+          "destination": "meshes/abad_R_Link.STL",
+          "size": 1300984,
+          "git_blob_sha1": "5064e376232a13c1c7662f247ccf4c2e3e320193",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/abad_R_Link.STL",
+          "sha256": "fbfdd2d0801e73c71a0c514f34f5d4190c43f344c58fda108f1eae9997ca3917"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/hip_R_Link.STL",
+          "destination": "meshes/hip_R_Link.STL",
+          "size": 2125684,
+          "git_blob_sha1": "9f59b5ef4a4c0c2cd42850102be151bd53828fe9",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/hip_R_Link.STL",
+          "sha256": "9f70593a70c75e68969a5e41dbabcba9dba71b8b06a45bbac8134a94a88fd39b"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/knee_R_Link.STL",
+          "destination": "meshes/knee_R_Link.STL",
+          "size": 2372284,
+          "git_blob_sha1": "9230da6dc8b9c77d4e9f20e3f4fb8e7dc56e0af7",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/knee_R_Link.STL",
+          "sha256": "83c4acc7127b0c6f3d51e8ea5818c78e19a5dfaf61f06a06ccdc72ea04eb385a"
+        },
+        {
+          "source": "pointfoot/WF_TRON1A/meshes/wheel_R_Link.STL",
+          "destination": "meshes/wheel_R_Link.STL",
+          "size": 1000384,
+          "git_blob_sha1": "c51e99fc41a733a01ff1e9f237ed1eaffc32951e",
+          "url": "https://raw.githubusercontent.com/limxdynamics/tron1-robot-description/5b97add1f3b461c9ed26ff2ff2f5025cc6ee4316/pointfoot/WF_TRON1A/meshes/wheel_R_Link.STL",
+          "sha256": "d816f9a69097a7c6dc2b8d3c0310183bea26514fc778a1677146f3c2d6e1ee91"
+        }
+      ],
+      "derived_model": "robot.xml",
+      "derived_model_sha256": "30c8bb94b32b1804aa2f7de2425f7a8dd02be7792881255388097e2e68092e52",
+      "changes_to_upstream_mjcf": [
+        "compiler meshdir ../meshes/ -> meshes",
+        "name existing free joint root",
+        "add nine IK/display sites"
+      ],
+      "notes": [
+        "Official MJCF/STL assets are preserved; generated robot.xml changes only meshdir, names the floating root joint, and adds IK/display sites.",
+        "left/right_wheel sites are wheel hinge centers, not human ankle frames; left/right_knee sites are actual knee joint centers.",
+        "left/right_contact are nominal local bottom markers: they rotate with the wheel and are NOT rolling contact points or reliable ground clearance. Compute clearance from collision geometry instead.",
+        "Official MJCF and Isaac USD share link offsets and joint axes, but are not numerically identical dynamics models. MJCF base includes fixed IMU mass; wheel collision axial width is 0.010m versus 0.050m in USD, and lateral collision offsets are +/-0.008m versus +/-0.00707m.",
+        "Official MJCF wheel motor ctrlrange is +/-40Nm, while the imported USD drive maxForce is 80. Other collision primitives also differ; no cross-engine contact or actuator equivalence is implied.",
+        "Mink IK playback does not validate contact forces, balance, jump actuation, self-collision avoidance, or dynamic feasibility. No Isaac assets or runtime are changed."
+      ],
+      "validation": {
+        "mujoco_version": "3.8.1",
+        "nq": 15,
+        "nv": 14,
+        "hinge_joint_order": [
+          "abad_L_Joint",
+          "hip_L_Joint",
+          "knee_L_Joint",
+          "wheel_L_Joint",
+          "abad_R_Joint",
+          "hip_R_Joint",
+          "knee_R_Joint",
+          "wheel_R_Joint"
+        ],
+        "qpos_hinge_addresses": [
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        "dof_hinge_addresses": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ],
+        "joint_ranges_rad": [
+          [
+            -0.38397,
+            1.39626
+          ],
+          [
+            -1.01229,
+            1.39626
+          ],
+          [
+            -0.872665,
+            1.36136
+          ],
+          [
+            -1000000.0,
+            1000000.0
+          ],
+          [
+            -1.39626,
+            0.38397
+          ],
+          [
+            -1.39626,
+            1.01229
+          ],
+          [
+            -1.36136,
+            0.872665
+          ],
+          [
+            -1000000.0,
+            1000000.0
+          ]
+        ],
+        "body_names": [
+          "world",
+          "base_Link",
+          "abad_L_Link",
+          "hip_L_Link",
+          "knee_L_Link",
+          "wheel_L_Link",
+          "abad_R_Link",
+          "hip_R_Link",
+          "knee_R_Link",
+          "wheel_R_Link"
+        ],
+        "sites": {
+          "pelvis": {
+            "body": "base_Link",
+            "pos": [
+              0,
+              0,
+              0
+            ]
+          },
+          "left_hip": {
+            "body": "hip_L_Link",
+            "pos": [
+              0,
+              0,
+              0
+            ]
+          },
+          "right_hip": {
+            "body": "hip_R_Link",
+            "pos": [
+              0,
+              0,
+              0
+            ]
+          },
+          "left_knee": {
+            "body": "knee_L_Link",
+            "pos": [
+              0,
+              0,
+              0
+            ]
+          },
+          "right_knee": {
+            "body": "knee_R_Link",
+            "pos": [
+              0,
+              0,
+              0
+            ]
+          },
+          "left_wheel": {
+            "body": "wheel_L_Link",
+            "pos": [
+              0,
+              0,
+              0
+            ]
+          },
+          "right_wheel": {
+            "body": "wheel_R_Link",
+            "pos": [
+              0,
+              0,
+              0
+            ]
+          },
+          "left_contact": {
+            "body": "wheel_L_Link",
+            "pos": [
+              0,
+              0.008,
+              -0.127
+            ]
+          },
+          "right_contact": {
+            "body": "wheel_R_Link",
+            "pos": [
+              0,
+              -0.008,
+              -0.127
+            ]
+          }
+        },
+        "mass_kg": 22.273000000000003,
+        "visual_meshes": 9,
+        "mesh_vertices": 199461,
+        "independent_urdf_fk_random_poses": 25,
+        "independent_urdf_fk_max_position_error_m": 3.3306690738754696e-16,
+        "independent_urdf_fk_max_rotation_matrix_error": 6.661338147750939e-16,
+        "wheel_radius_m": 0.127,
+        "wheel_collision_full_width_m": 0.01,
+        "zero_joint_pose_body_positions_relative_to_base_m": {
+          "base_Link": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "abad_L_Link": [
+            0.05556,
+            0.105,
+            -0.2602
+          ],
+          "hip_L_Link": [
+            -0.02144,
+            0.1255,
+            -0.2602
+          ],
+          "knee_L_Link": [
+            -0.17143999999999998,
+            0.105,
+            -0.52001
+          ],
+          "wheel_L_Link": [
+            -0.021439999999999987,
+            0.1485,
+            -0.77982
+          ],
+          "abad_R_Link": [
+            0.05556,
+            -0.105,
+            -0.2602
+          ],
+          "hip_R_Link": [
+            -0.02144,
+            -0.1255,
+            -0.2602
+          ],
+          "knee_R_Link": [
+            -0.17143999999999998,
+            -0.105,
+            -0.52001
+          ],
+          "wheel_R_Link": [
+            -0.021439999999999987,
+            -0.1485,
+            -0.77982
+          ]
+        },
+        "zero_joint_pose_sites_relative_to_base_m": {
+          "pelvis": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "left_hip": [
+            -0.02144,
+            0.1255,
+            -0.2602
+          ],
+          "right_hip": [
+            -0.02144,
+            -0.1255,
+            -0.2602
+          ],
+          "left_knee": [
+            -0.17143999999999998,
+            0.105,
+            -0.52001
+          ],
+          "right_knee": [
+            -0.17143999999999998,
+            -0.105,
+            -0.52001
+          ],
+          "left_wheel": [
+            -0.021439999999999987,
+            0.1485,
+            -0.77982
+          ],
+          "right_wheel": [
+            -0.021439999999999987,
+            -0.1485,
+            -0.77982
+          ],
+          "left_contact": [
+            -0.021439999999999987,
+            0.1565,
+            -0.90682
+          ],
+          "right_contact": [
+            -0.021439999999999987,
+            -0.1565,
+            -0.90682
+          ]
+        },
+        "zero_joint_pose_contact_base_height_m": 0.90682,
+        "seed_joint_degrees": [
+          0,
+          20,
+          40,
+          0,
+          0,
+          -20,
+          -40,
+          0
+        ],
+        "seed_sites_relative_to_base_m": {
+          "pelvis": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "left_hip": [
+            -0.02144,
+            0.1255,
+            -0.2602
+          ],
+          "right_hip": [
+            -0.02144,
+            -0.1255,
+            -0.2602
+          ],
+          "left_knee": [
+            -0.25125414655532824,
+            0.10500000000000001,
+            -0.4530385183075365
+          ],
+          "right_knee": [
+            -0.25125414655532824,
+            -0.10500000000000001,
+            -0.4530385183075365
+          ],
+          "left_wheel": [
+            -0.021440000000000015,
+            0.1485,
+            -0.645877036615073
+          ],
+          "right_wheel": [
+            -0.021440000000000015,
+            -0.1485,
+            -0.645877036615073
+          ],
+          "left_contact": [
+            0.021996558202359906,
+            0.1565,
+            -0.7652179994548833
+          ],
+          "right_contact": [
+            0.021996558202359906,
+            -0.1565,
+            -0.7652179994548833
+          ]
+        },
+        "seed_level_base_height_for_grounded_wheels_m": 0.772877036615073,
+        "seed_ground_contacts": [
+          {
+            "geom1": "floor",
+            "geom2": "wheel_L_collision",
+            "distance_m": -2.7755575615628914e-17
+          },
+          {
+            "geom1": "floor",
+            "geom2": "wheel_L_collision",
+            "distance_m": -2.7755575615628914e-17
+          },
+          {
+            "geom1": "floor",
+            "geom2": "wheel_R_collision",
+            "distance_m": -2.7755575615628914e-17
+          },
+          {
+            "geom1": "floor",
+            "geom2": "wheel_R_collision",
+            "distance_m": -2.7755575615628914e-17
+          }
+        ],
+        "note": "Geometric/FK checks only. Contacts include margin contacts and do not prove dynamically feasible balance or jumping."
+      }
+    },
+    "meshes_copied_to_output": false
+  },
+  "FK_source": {
+    "model_sha256": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513",
+    "loader_evaluator_sha256": "2251d740d7568874a47a232556241cc8d1ee5f5b7be1351d1c657aea8fa85f87",
+    "removed_proven_noncolliding_visual_meshes": 9,
+    "isolated_FK_only": true,
+    "dynamics_stepping": false
+  },
+  "replay_FK_audit": {
+    "original_CEM": {
+      "samples_checked": 2793,
+      "max_wheel_origin_error_m": 0.0,
+      "tolerance_m": 2e-06,
+      "physics_stepping": false,
+      "kinematic_functions": [
+        "mj_kinematics",
+        "mj_comPos",
+        "mj_camlight"
+      ],
+      "root_pose_copied_exactly": true,
+      "named_joint_qpos_addresses": [
+        7,
+        11,
+        8,
+        12,
+        9,
+        13,
+        10,
+        14
+      ]
+    },
+    "V2_CEM": {
+      "samples_checked": 2793,
+      "max_wheel_origin_error_m": 0.0,
+      "tolerance_m": 2e-06,
+      "physics_stepping": false,
+      "kinematic_functions": [
+        "mj_kinematics",
+        "mj_comPos",
+        "mj_camlight"
+      ],
+      "root_pose_copied_exactly": true,
+      "named_joint_qpos_addresses": [
+        7,
+        11,
+        8,
+        12,
+        9,
+        13,
+        10,
+        14
+      ]
+    }
+  },
+  "camera": {
+    "distance_m": 1.5029546233325086,
+    "azimuth_deg": 135.0,
+    "elevation_deg": -30.0,
+    "vertical_fov_deg": 45.0,
+    "fit_audit": {
+      "all_mesh_bounds_inside": true,
+      "maximum_normalized_frustum_extent": 0.9056614757255579,
+      "minimum_depth_m": 1.137176119549899,
+      "distance_changed_with_time": false,
+      "distance_differs_between_cases": false,
+      "margin_m": 0.03,
+      "frames_per_case": 350,
+      "cases": 2,
+      "visible_mesh_geoms_per_case": 9,
+      "fixed_root_relative_offset_m": [
+        0.0,
+        0.0,
+        -0.28
+      ],
+      "orientation_follows_yaw": false,
+      "original_root_pose_changed": false,
+      "basis_source": "native MjvGLCamera forward/up",
+      "physics_stepping": false
+    }
+  },
+  "fixed_world_bounds": [
+    [
+      -0.25253836655058554,
+      -0.4093513421855518
+    ],
+    [
+      4.802148275761495,
+      4.095788448170147
+    ]
+  ],
+  "camera_distance_same_for_all_cases_frames": true,
+  "camera_yaw_follows_robot": false,
+  "camera_zoom": false,
+  "contact_overlay_native_substeps": 8,
+  "single_wheel_support_allowed": true,
+  "stable_contact_or_goal_achieved_claimed": false,
+  "robot_mesh_alpha": 1.0,
+  "visual_reviewed": false,
+  "new_physics_policy_inference_training": false,
+  "interpolation_smoothing_alignment_height_correction": false,
+  "artifacts": {
+    "replay_states.npz": "623ce6f2549cb969bd93edde30659a17a2e3cb155d45a5639e1206f20114fb15",
+    "comparison.png": "6a4e85c2cb06b5665821001b9793ab2b24e8320609a9e19a4f4df6073c417c4c",
+    "fullbody_comparison.mp4": "0c137c3a82b24a3b38d830eab193d4ddeff4515fe6ef7c1634805a59afb8edf5"
+  }
+}

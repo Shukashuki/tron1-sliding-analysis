@@ -1,0 +1,69 @@
+{
+  "status": "PARTIAL_EXPERIMENT_NOT_GOAL_COMPLETION",
+  "snapshot_utc": "2026-10-23T17:33:40.617543+00:00",
+  "task": "traj4 high-speed large turn with at least one continuously supporting wheel",
+  "conditions": {
+    "mu": 0.7,
+    "physics_hz": 400,
+    "policy_hz": 50,
+    "beta_reward_on_both": true,
+    "grounded_weight_old_and_V2": 0.4,
+    "sample_size_per_completed_CEM_condition": 1,
+    "height_or_zero_beta_constraint_added": false,
+    "original_CEM_contact_reward": "last-substep all-contact wheel net-force norm binary",
+    "V2_CEM_contact_reward": "new eight-substep floor-only any-wheel support/impact/tracking-gated V2a"
+  },
+  "CEM": {
+    "status": "COMPLETED_RECORDINGS_CONTACT_CRITERION_FAILED",
+    "full_policy_decisions": 349,
+    "native_states": 2793,
+    "numeric_nominal_episode_pass": false,
+    "failed_checks": [
+      "any_wheel_every_physical_sample",
+      "longest_no_support_gap"
+    ],
+    "whole_contact_interval_s": [
+      0.02,
+      6.96
+    ],
+    "whole_anywheel_support_fraction": 0.704717320849838,
+    "whole_longest_no_support_s": 0.2574999999999945,
+    "core_contact_interval_s": [
+      1.44,
+      4.0
+    ],
+    "core_anywheel_support_fraction": 0.5892682926829268,
+    "core_longest_no_support_s": 0.17499999999999627,
+    "actual_all15term_V2_reward_recomputed_exactly": true,
+    "zero_solver_failures": true
+  },
+  "PPO": {
+    "status": "FORMAL_TRAINING_RUNNING_RESULTS_NOT_AVAILABLE",
+    "new_formal_policy_results_claimed": false,
+    "training_backend": "PhysX",
+    "physical_GPU_index": 3,
+    "parent_reported_process_id": 3554880,
+    "parent_reported_started_utc": "2026-10-23T17:24:59Z",
+    "declared_transitions": 12288000,
+    "snapshot_information_source": "Parent-agent launch report; packaging does not SSH/poll/restart jobs",
+    "checkpoint_actor_validation_proof": "PENDING_NOT_PRESENT_IN_THIS_PARTIAL_BUNDLE",
+    "nativeCPU_fullhorizon_smoke_integration": {
+      "status": "PARENT_REPORTED_PASSED_NOT_FORMAL_PERFORMANCE",
+      "native_states": 2793,
+      "policy_decisions": 349,
+      "formal_performance_claimed": false
+    }
+  },
+  "comparison_fairness": {
+    "PPO_training_objective": "new V2 ground_contact_reward+0.4; training underway",
+    "CEM_prediction_objective": "new V2 formula+0.4",
+    "CEM_actual_stage_objective": "new V2 formula+0.4; exact recompute verified",
+    "PPO_evaluation": "Normalized actor only; no numerical PPO-eval-return versus CEM-return comparison claimed",
+    "legacy_PPO_validation_reward_logging": "Not used for cross-controller numerical return comparison",
+    "comparison_metrics": "Recorded state/contact tracking metrics, not summed reward across recipes",
+    "optimizer_only_or_statistical_superiority_claimed": false
+  },
+  "goal_complete": false,
+  "strict_continuous_anywheel_contact_achieved": false,
+  "warning": "CEM wholecontact70.47% is NOT its corecontact58.93%; less HF does not certify stable contact. PPO formal results are pending."
+}

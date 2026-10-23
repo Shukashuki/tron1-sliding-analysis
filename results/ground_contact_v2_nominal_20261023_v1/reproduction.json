@@ -1,0 +1,28 @@
+{
+  "kind": "PARTIAL_CEM_completed_PPO_running_reproduction_notes",
+  "status_file": "status.json",
+  "executed_source_archive": {
+    "file": "executed_source.tar.gz",
+    "sha256": "5a74df62baa7d4b16f93820fc86daa0edc1fb7180134868cb23356d531460307",
+    "pure_source_files": 26,
+    "models_weights_credentials_native_libraries_included": false,
+    "extraction": "Restore only into a fresh isolated checkout, never over a dirty working tree."
+  },
+  "graphics": "MuJoCo OSMesa CPU, opaque real TRON1 meshes; no physics stepping",
+  "metrics_replay_without_robot_assets": {
+    "compact": "native_comparison_signals.npz",
+    "exact_two_case_metric_parity_verified": true,
+    "python": "import sys;sys.path.insert(0,'scripts');from package_ground_contact_v2_partial import recompute_public_metrics;result=recompute_public_metrics('results/ground_contact_v2_nominal_20261023_v1/native_comparison_signals.npz')"
+  },
+  "full_CEM_reproduction_requires": [
+    "Pinned MuJoCo3.8.1 and original TRON1 model/reference assets (not bundled).",
+    "Historical completed PPO lineage/evaluation bundles required by nominal.inputs(); weights are not included or inferred.",
+    "Explicitly build isolated ABI3 using nmpc_native_ground_contact_400hz.build_native_library(fresh_directory).",
+    "Invoke scripts/run_cem_ground_contact_v2.py --native-library <ABI3.so> --output-dir <fresh_directory>; no automatic retries."
+  ],
+  "full_reward_recompute_scope": "All349x15 actual CEM stages verified against original raw+solver log; public compact contains state/contact metric inputs, not all-body reward history.",
+  "fullbody_replay_scope": "replay_states.npz preserves exact original2793poses/case and50Hz selections; original meshes required for3D replay.",
+  "generic_renderer": "scripts/render_ground_contact_v2.py accepts explicit SHA-bound nmpc/policy_isaac/policy_mujoco case manifests; this poster caption refers to the present CEM pair.",
+  "omitted": "No TRON1 models/meshes, policy weights, credentials, native shared libraries or speculative PPO results included.",
+  "status_refresh": "When later PPO results arrive, update status and regenerate artifact-manifest hashes; this is a dated partial snapshot."
+}
