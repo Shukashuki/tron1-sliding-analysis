@@ -1,0 +1,97 @@
+{
+  "kind": "actual_A_G_H_contact_reward_review",
+  "utc": "2026-10-24T00:49:14.997224+00:00",
+  "summary": "H raises PhysX any-wheel support versus G but fails core XY/beta/speed and transfers poorly to native CPU MuJoCo. The loaded root-COM vertical-motion cost is not adopted as a successful task solution.",
+  "comparison_scope": {
+    "mu": 0.7,
+    "native_physics_hz": 400,
+    "policy_hz": 50,
+    "sample_size_per_case": 1,
+    "same_other14_rewards": true,
+    "same_PPO_scratch_budget_each": 12288000,
+    "CEM_knows_mu_PPO_has_DR_not_mu_observation": true,
+    "episode_returns_not_ranked_across_reward_definitions": true,
+    "H_only_changes_grounded_term_not_height_or_zero_beta_target": true
+  },
+  "source_analysis_sha256": {
+    "results/ground_contact_v2_ppo_nominal_20261023_v1/analysis.json": "99b1347e3f34cb0ef875c4495ee5ec6bbf09e9f6e46f11ad1784cb5455acece5",
+    "results/ground_contact_v2g_ppo_nominal_20261023_v1/analysis.json": "3eb1202db961e0157fb2d418266357587032bf38eacdf4a1d93d70e34dc23155",
+    "results/ground_contact_v2h_ppo_nominal_20261024_v1/analysis.json": "ce0d3400891f0124051092ad0aeb5b26dbf948fccfc94a6a1d4bbd89af3c39a6",
+    "results/ground_contact_v2h_cem_nominal_20261024_v1/cem_analysis.json": "fe805fa2831da803d408cce01de9e9d7ed0c5804bd2115eb7925970cbed3b3dc"
+  },
+  "table": "controller_comparison.csv",
+  "H_failed_PPO_screens": {
+    "PhysX": [
+      "core_xy_rmse",
+      "core_xy_peak",
+      "whole_xy_rmse",
+      "whole_xy_peak",
+      "core_speed_retention",
+      "core_reference_beta",
+      "any_wheel_every_physical_sample",
+      "longest_no_support_gap"
+    ],
+    "native CPU MuJoCo": [
+      "core_xy_rmse",
+      "core_xy_peak",
+      "whole_xy_rmse",
+      "whole_xy_peak",
+      "core_speed_retention",
+      "core_reference_beta",
+      "any_wheel_every_physical_sample",
+      "longest_no_support_gap"
+    ]
+  },
+  "media": {
+    "PPO_four_horizontal_panels": "../ground_contact_v2h_ppo_nominal_20261024_v1/fullbody_comparison.mp4",
+    "CEM_four_horizontal_panels": "../ground_contact_v2h_cem_render_20261024_v1/fullbody_comparison.mp4",
+    "PPO_camera": {
+      "distance_m": 3.5453667502281325,
+      "azimuth_deg": 135.0,
+      "elevation_deg": -30.0,
+      "vertical_fov_deg": 45.0,
+      "fit_audit": {
+        "all_mesh_bounds_inside": true,
+        "maximum_normalized_frustum_extent": 0.9053180316550915,
+        "minimum_depth_m": 2.5385019108446154,
+        "distance_changed_with_time": false,
+        "distance_differs_between_cases": false,
+        "margin_m": 0.03,
+        "frames_per_case": 350,
+        "cases": 4,
+        "visible_mesh_geoms_per_case": 9,
+        "fixed_root_relative_offset_m": [
+          0.0,
+          0.0,
+          -0.28
+        ],
+        "orientation_follows_yaw": false,
+        "original_root_pose_changed": false,
+        "basis_source": "native MjvGLCamera forward/up",
+        "physics_stepping": false
+      }
+    },
+    "same_relative_camera_distance_all_panels_and_frames": true,
+    "zoom_or_yaw_follow": false,
+    "original_opaque_mesh_poses_retained": true
+  },
+  "manual_review": {
+    "times_s": [
+      3,
+      6,
+      6.96
+    ],
+    "all350_frames_manually_inspected": false,
+    "full350_frame_decode_verified": true,
+    "findings": [
+      "At3s H PhysX has XYerror about.430m despite wheel support; H MuJoCo is side-tipped about85.8deg.",
+      "At6s H PhysX recovers to XYerror about.039m; H MuJoCo XYerror is about2.327m.",
+      "At6.96s H PhysX XYerror is about.020m, but final recovery does not erase core turn failures; H MuJoCo remains about2.441m away.",
+      "Root height and tilt are diagnostic only; independent XY/beta/speed/contact gates were not replaced."
+    ]
+  },
+  "learning_interpretation": "These are actual N=1 controller outcomes, not a population causal estimate. Lower angular HF alone can coexist with slowing, wrong intended beta, or falling. Further contact-reward signal diagnosis is needed before another trial.",
+  "formal_H_trial_and_comparison_complete": true,
+  "overall_task_complete": false,
+  "robot_assets_weights_or_credentials_included": false
+}
