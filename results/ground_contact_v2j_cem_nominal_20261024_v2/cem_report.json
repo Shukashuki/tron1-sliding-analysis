@@ -1,0 +1,2154 @@
+{
+  "schema_version": 1,
+  "kind": "400hz_CEM_ground_contact_reward_v2j_anywheel",
+  "source_sha256": {
+    "scripts/run_cem_ground_contact_v2j.py": "9954770b837a72588eb1739a8e3cc5f1081f3b828af5c5b5953099dbcb955238",
+    "config/ppo_cem_matched_reward_400hz_v1.json": "410180756a7d489a6f8181157d5993813b17b60f7e103449b9bfa81a25c0984d",
+    "config/ppo_ground_contact_v2j_400hz_v1.json": "2de62de6ef5d2e0a94a1af0b00ad1ab398cca822c498178976f8a869780fc6f8",
+    "scripts/ground_contact_reward_v2.py": "5794ceb435c6ddc9cc374fa5ebe7718edc99d4c3181ebeac111cafe128461bf5",
+    "scripts/ground_contact_reward_v2b.py": "359997a5e4e1734f14ffd8c64a61bbaf0f8fb1d0dd6b274001a77689bb62ba6c",
+    "scripts/ground_contact_reward_v2c.py": "758eba1c7234cd43b211262541fce0cab6ad91be8ae0f10a44714d037322ebfb",
+    "scripts/ground_contact_reward_v2d.py": "1f6245ca3ca08483704d4f42a044ba38b8d09f01d81dc6e71bbf423d206898a7",
+    "scripts/ground_contact_reward_v2f.py": "a9e561a09ca2f0cbcd6c412a8e1860817aeccaff50660e9796866996a844d3e1",
+    "scripts/ground_contact_reward_v2g.py": "81056b23fbf2052f2e0630d1888aa6b71556027ca108ab3b08dd768a912e493a",
+    "scripts/ground_contact_reward_v2i.py": "2d805c5d878541da7a7ccc1f6af421ebe4b425fb9006756081f786ae79bf5101",
+    "scripts/ground_contact_reward_v2j.py": "9f48001c2fe778a3b7756c66531fe75dffe2fbdfbb22ca68d5cd5c1b15726624",
+    "scripts/nmpc_batch_ground_contact_v2j_400hz.py": "41d0c13439ae11661305caad4cf49a3c6647d6b75e957036d22bf4f1cf6fd965",
+    "scripts/nmpc_native_ground_contact_400hz.py": "dccee6518aae5c4e20e513e27ccb27641174cd07836c1f951617c16398b5aa3c",
+    "scripts/run_ppo_cem_matched_reward_400hz.py": "f083a62813e8e5c7bf7099d90e603eaa3eea7909e148cfb636e613b200177bea",
+    "scripts/nmpc_shooting.py": "7c667ef0cbd32c58ce53882302e75f5d33487bcfea51c2f6ec3435d454a480ce",
+    "scripts/nmpc_tracking_objective.py": "ff22eebb2b22b9af7dba114c64fcd10f6b0a90822559af8f32cbe6884015b860",
+    "scripts/nmpc_batch_objective.py": "1c9da90ae66778a71ceb2e6bb9d0dcf7f0a2259fafee39b37cbe958b79178fae",
+    "scripts/nmpc_batch_objective_400hz.py": "3292c7753b2bbd336cb4944f6d64d417c738dfba8f994e878024dd52f5e11246",
+    "scripts/nmpc_native_batch_400hz.py": "9c07f5e3d88f123ca067f73ead43679eeb378c35ed0afe51b6375870f654f335",
+    "scripts/run_nmpc_tracking.py": "bce84b92fba8d3ea2f44c6cd5e5d32abd65bed6e20c4f1beb8473bae9cfb1977",
+    "scripts/classical_tracking.py": "3fcafdb6a16058280aa1e5a0ade6113f6963ddf3085c25ebe2ed6fbb30661c57",
+    "scripts/eval_ppo_backend_400hz_mujoco.py": "9887aa0b4b7ef74845f47f8623356490a9990e4449e0b42f4a77b2b35a49c1e4",
+    "scripts/render_ppo_beta_physx_to_mujoco_400hz.py": "9268618566845d8f0fba02e806ce33c9168512466b57f495cfe294ed28acdbee",
+    "native/nmpc_batch_ground_contact_400hz.cpp": "e80e76ad68352da00aeb4cf7215fc68f127b6a953d1afee4ad65e3ba0178aef1"
+  },
+  "reward_definition_version": "ground_contact_v2j_any_wheel",
+  "protocol_sha256": "2de62de6ef5d2e0a94a1af0b00ad1ab398cca822c498178976f8a869780fc6f8",
+  "native_library_sha256": "1c4c0a66da7770a9579e6a19d0aded25a6656426f76e068c686a0ad977435095",
+  "status": "completed",
+  "condition": "beta_on",
+  "engine": "native CPU MuJoCo",
+  "mujoco_version": "3.8.1",
+  "reference_id": "drift_drl_traj4",
+  "reference_spec": {
+    "reference_id": "drift_drl_traj4",
+    "role": "primary",
+    "stratum": "large_angle_turn",
+    "source": {
+      "repository": "https://github.com/caipeide/drift_drl",
+      "commit": "9f3a125f76ac2c0415014a761a514a511553322c",
+      "csv_path": "code/ref_trajectory/traj_4.csv",
+      "csv_sha256": "eb67a507817605d9b0018bdf2196c04f58f9a9238e7e1906350a7568ab87cf27",
+      "row_interval_inclusive": [
+        1535,
+        1595
+      ],
+      "kind": "CARLA_simulation",
+      "is_physical_car_capture": false,
+      "clock": "reconstructed_estimate_not_original_timestamps"
+    },
+    "motion_npz_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+    "robot_reference_npz_sha256": "afc22f19b813cf10b3e3a90affb0f26f5a7743074f98b262394c69de786e9f6e",
+    "frames": 349,
+    "fps": 50.0,
+    "sample_span_s": 6.96,
+    "source_demo_frames": 249,
+    "source_demo_interval_s": [
+      0.0,
+      4.96
+    ],
+    "evaluation_core_interval_s": [
+      1.44,
+      4.0
+    ],
+    "supplementary_event_windows_s": [],
+    "synthetic_recovery_frames": 75,
+    "stationary_tail_frames": 25,
+    "source_demo_speed_range_m_s": [
+      0.892961323261261,
+      1.3199347257614136
+    ],
+    "source_demo_left_separation_mean_abs_deg": 11.271605282421872,
+    "source_demo_left_separation_peak_abs_deg": 27.22207119854508,
+    "core_course_turn_deg": 60.928079107816444,
+    "spatial_scale": 0.08,
+    "time_scale": 2.0,
+    "pooled_success_statistics": false,
+    "heading_separation_definition": "signed wrap(base_Link COM XY velocity course minus each retargeted wheel rolling-plane heading)",
+    "heading_separation_is_measured_contact_slip": false,
+    "wheel_heading_definition": "world(local +Y wheel axle) crossed with world +Z; independent of axle spin",
+    "motion_contract": {
+      "positions": "world Z-up meters, link origins rather than COM",
+      "linear_velocities": "world-frame original unmerged URDF link COM velocities, m/s",
+      "angular_velocities": "world-frame rad/s",
+      "quaternions": "world-from-link, wxyz",
+      "wheel_spin_observed": false,
+      "wheel_orientation_is_training_target": false,
+      "export_model_sha256": "30c8bb94b32b1804aa2f7de2425f7a8dd02be7792881255388097e2e68092e52",
+      "export_urdf_sha256": "f09c56c15acd507bba43b394e37a9abe024e0111fdde7dbf41796408895ee4c5",
+      "runtime_model_note": "Export-model hashes document kinematic provenance, not an actuator/contact contract; apply and audit the shared validation model settings separately."
+    }
+  },
+  "model_sha256": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513",
+  "motion_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+  "matched_PPO_report_sha256": "57b2a47935bde2f0db5eb1c3bd5f9dae1a19c26e11016f54f69c91e3dce5152d",
+  "task_profile": {
+    "schema_version": 1,
+    "task": "car_drift",
+    "contact_friction": 0.7,
+    "env_spacing_m": 8.0,
+    "reward_weights": {
+      "sideslip": 2.0,
+      "yaw_rate": 1.0,
+      "speed": 1.0,
+      "grounded": 0.4,
+      "tilt": -0.2
+    },
+    "height_regularization": {
+      "mode": "vertical_acceleration_only",
+      "weight": -0.1,
+      "acceleration_scale_m_s2": 5.0
+    },
+    "description": "New matched-backend native400Hz training cohort; action-rate weight -0.5, original last-substep grounded reward +0.4, free absolute height, shared mjlab-style DR. Training is from scratch; no historical checkpoint initializes either arm.",
+    "action_rate_weight": -0.5,
+    "ground_contact_reward_v2": {
+      "schema_version": 1,
+      "candidate": "ground_contact_v2j",
+      "physics_substeps": 8,
+      "support_load_fraction": 0.5,
+      "mean_weight": 0.75,
+      "minimum_weight": 0.25,
+      "impact_multiple": 3.0,
+      "negative_force_tolerance_n": 0.0001,
+      "external_reward_weight": 0.4,
+      "reward_dt_s": 0.02,
+      "support_gap_weight": 1.0,
+      "support_force_threshold_n": 5.0,
+      "beta_gate_low_reference_speed_m_s": 0.3,
+      "support_gap_aggregation": "max8",
+      "loaded_angular_increment_deadband_rad_s": 0.05,
+      "loaded_angular_increment_scale_rad_s": 0.2,
+      "loaded_angular_increment_cap": 1.0,
+      "loaded_angular_increment_weight": 0.5
+    }
+  },
+  "base_objective_contract": {
+    "kind": "numpy_height_smooth_tracking_objective",
+    "body_names": [
+      "base_Link",
+      "abad_L_Link",
+      "abad_R_Link",
+      "hip_L_Link",
+      "hip_R_Link",
+      "knee_L_Link",
+      "knee_R_Link",
+      "wheel_L_Link",
+      "wheel_R_Link"
+    ],
+    "joint_names": [
+      "abad_L_Joint",
+      "abad_R_Joint",
+      "hip_L_Joint",
+      "hip_R_Joint",
+      "knee_L_Joint",
+      "knee_R_Joint",
+      "wheel_L_Joint",
+      "wheel_R_Joint"
+    ],
+    "dt_s": 0.02,
+    "weights": {
+      "motion_global_anchor_pos": 2.0,
+      "motion_global_anchor_ori": 2.0,
+      "motion_body_pos": 1.0,
+      "motion_body_ori": 1.0,
+      "motion_body_lin_vel": 1.0,
+      "motion_body_ang_vel": 1.0,
+      "action_rate_l2": -0.5,
+      "joint_limit": -10.0,
+      "undesired_contacts": -0.1,
+      "drift_sideslip": 2.0,
+      "drift_yaw_rate": 1.0,
+      "drift_speed": 1.0,
+      "drift_grounded": 0.4,
+      "drift_tilt": -0.2,
+      "height_vertical_acceleration": -0.1
+    },
+    "stds": {
+      "anchor_position_m": 0.3,
+      "anchor_orientation_rad": 0.4,
+      "body_position_m": 0.3,
+      "body_orientation_rad": 0.4,
+      "body_linear_velocity_m_s": 0.5,
+      "body_angular_velocity_rad_s": 0.8,
+      "sideslip_rad": 0.12,
+      "yaw_rate_rad_s": 0.5,
+      "speed_m_s": 0.35
+    },
+    "height_regularization": {
+      "mode": "vertical_acceleration_only",
+      "weight": -0.1,
+      "acceleration_scale_m_s2": 5.0
+    },
+    "absolute_height_target": false,
+    "reference_vertical_velocity_target": false,
+    "sideslip_target": "held reference body-frame course angle, NOT zero",
+    "reference_order": "Freeze reference[k] and relative-body targets at pre-action state; evaluate after decimation, before command advances.",
+    "pose_semantics": "World link-origin position and link wxyz quaternion",
+    "velocity_semantics": "World original-unmerged-link COM linear velocity and world angular velocity",
+    "cost": "dt * (sum_positive_reward_weights - sum(weight * raw_term)); no terminal term supplied",
+    "contact_thresholds_n": {
+      "grounded_each_wheel_net_force": 5.0,
+      "undesired_contact_body_force": 1.0
+    },
+    "joint_limit_joints": [
+      "abad_L_Joint",
+      "abad_R_Joint",
+      "hip_L_Joint",
+      "hip_R_Joint",
+      "knee_L_Joint",
+      "knee_R_Joint"
+    ],
+    "surrogate_differences": [
+      "MuJoCo net contact forces are not identical to PhysX ContactSensor forces; all contacts, including self-contact, are included.",
+      "undesired_contacts uses max norm over supplied physical-substep history; omitted history is explicitly an instantaneous surrogate.",
+      "MuJoCo-derived 0.95 joint ranges are an approximation unless replaced by Isaac runtime soft_joint_pos_limits in matching joint order.",
+      "Body COM offsets/inertias must match the original unmerged USD links; random COM offsets require the same realized model parameters.",
+      "Task tilt safety termination and policy action/observation privileges are outside this stage objective."
+    ]
+  },
+  "ground_contact_reward_v2": {
+    "settings": {
+      "schema_version": 1,
+      "candidate": "ground_contact_v2j",
+      "physics_substeps": 8,
+      "support_load_fraction": 0.5,
+      "mean_weight": 0.75,
+      "minimum_weight": 0.25,
+      "impact_multiple": 3.0,
+      "negative_force_tolerance_n": 0.0001,
+      "external_reward_weight": 0.4,
+      "reward_dt_s": 0.02,
+      "support_gap_weight": 1.0,
+      "support_force_threshold_n": 5.0,
+      "beta_gate_low_reference_speed_m_s": 0.3,
+      "support_gap_aggregation": "max8",
+      "loaded_angular_increment_deadband_rad_s": 0.05,
+      "loaded_angular_increment_scale_rad_s": 0.2,
+      "loaded_angular_increment_cap": 1.0,
+      "loaded_angular_increment_weight": 0.5
+    },
+    "force_input": "ground-filtered upward world-Z normal force N; [...,8,2]",
+    "mass_normalization": "mg is actual post-DR total mass times gravity magnitude in N",
+    "formula": "q=clip(sum_wheels(max(Fz,0))/(.50*mg),0,1); support=.75*mean_substeps(q)+.25*min_substeps(q); excess=max(Fz/(3*mg)-1,0); impact_gate=exp(-mean_substeps_wheels(excess**2)); A_bonus=anchor_xy*drift_speed*support*impact_gate; support_gap=max_substeps(max_wheels(max(Fz,0))<=5N); beta_gate=where(reference_speed>.3,existing_reference_beta_quality,1); raw=A_bonus*beta_gate-1*support_gap; dOmega=omega_worldXY[1:9]-omega_worldXY[0:8]; angular_cost=mean8(loaded*min(meanXY((max(abs(dOmega)-.05,0)/.2)**2),1)); raw_J=raw_I-.5*angular_cost",
+    "raw_reward_bounds": [
+      -1.5,
+      1.0
+    ],
+    "ground_filter_and_force_units_verified_by_caller": true,
+    "contact_count_required_by_arithmetic": false,
+    "support_requirement": "At least one supporting wheel; single-wheel lift or alternating load is allowed",
+    "bilateral_support_required": false,
+    "height_or_zero_sideslip_target": false,
+    "cross_window_streak_memory": false,
+    "continuous_contact_or_task_success_certified": false,
+    "immutable_v2a_definition_sha256": "5794ceb435c6ddc9cc374fa5ebe7718edc99d4c3181ebeac111cafe128461bf5",
+    "only_causal_change": "I plus bounded loaded-contact physical-step angularXY increment cost",
+    "support_gap_tracking_gated": false,
+    "support_gap_impact_gated": false,
+    "supported_light_load_penalized": false,
+    "per_step_threshold_strict_greater": true,
+    "support_threshold_is_world_normal_newtons_not_mass_fraction": true,
+    "negative_term_independent_of_mean_or_min_window_packing": false,
+    "immutable_v2f_definition_sha256": "a9e561a09ca2f0cbcd6c412a8e1860817aeccaff50660e9796866996a844d3e1",
+    "existing_beta_reward_weight_or_std_changed": false,
+    "support_gap_cost_unchanged_and_ungated": false,
+    "reference_beta_not_zero_beta_is_intended": true,
+    "low_reference_speed_beta_gate_neutral": true,
+    "caller_must_verify_existing_beta_quality_and_held_reference_phase": true,
+    "arithmetic_alone_does_not_certify_runtime_or_task_success": true,
+    "immutable_v2g_definition_sha256": "81056b23fbf2052f2e0630d1888aa6b71556027ca108ab3b08dd768a912e493a",
+    "support_gap_cost_ungated": true,
+    "support_gap_coefficient_unchanged": true,
+    "support_gap_is_window_event_not_duration_fraction": true,
+    "any_single_unsupported_substep_receives_full_gap_cost": true,
+    "positive_bonus_and_existing_reference_beta_gate_unchanged": true,
+    "no_velocity_proxy_or_absolute_height_input": false,
+    "immutable_v2i_definition_sha256": "2d805c5d878541da7a7ccc1f6af421ebe4b425fb9006756081f786ae79bf5101",
+    "velocity_samples_per_window": 9,
+    "current_start_state_plus8_actual_substeps_required": true,
+    "angular_velocity_source_units": "world rad/s; increment per actual2.5ms physics step",
+    "velocity_is_pose_finite_difference": false,
+    "end_state_repetition_allowed": false,
+    "no_action_or_state_filter_or_absolute_height_target": true,
+    "constant_angular_rate_unpenalized": true,
+    "other14_reward_terms_changed": false,
+    "new_input_is_true_native_angular_velocity_not_height_proxy": true
+  },
+  "ground_reward_external_weight": 0.4,
+  "reward_term_count": 15,
+  "other_reward_terms_unchanged": 14,
+  "PPO_V2_trained_policy_claimed": false,
+  "model_weight_n": 218.49813011007384,
+  "ground_floor_geom_id": 0,
+  "ground_floor_geom_name": "floor",
+  "floor_filter_verified": true,
+  "ground_force_kind": "floor-only NORMAL world force acting on each wheel",
+  "ground_count_semantics": "floor pair normal force >=1e-6N; not legacy>5N",
+  "physics_dt_s": 0.0025,
+  "policy_dt_s": 0.02,
+  "decimation": 8,
+  "plant_mu": 0.7,
+  "prediction_mu_scenarios": [
+    0.7
+  ],
+  "prediction_friction_known": true,
+  "CEM_config": {
+    "horizon_steps": 30,
+    "control_blocks": 10,
+    "candidates": 64,
+    "iterations": 3,
+    "elite_count": 8,
+    "initial_std": [
+      0.04,
+      0.04,
+      0.04,
+      0.04,
+      0.04,
+      0.04,
+      0.35,
+      0.35
+    ],
+    "min_std": [
+      0.005,
+      0.005,
+      0.005,
+      0.005,
+      0.005,
+      0.005,
+      0.03,
+      0.03
+    ],
+    "smoothing": 0.0,
+    "seed": 42,
+    "scenario_reduction": "worst",
+    "fallback_action": "previous",
+    "reference_convention": "held_pre_action",
+    "parameterization": "warm_start_residual_blocks"
+  },
+  "discount_factor": 0.99,
+  "discounted_objective": "sum_h gamma**h * dt * (reward_upper_bound - total_stage_reward); fixed horizon, no terminal value",
+  "plant_contact_material_audit": {
+    "native_mapping_verified": true,
+    "compiled_native_timestep_s": 0.0025,
+    "explicit_contact_pair_count": 0,
+    "wheel_geom_ids": [
+      5,
+      9
+    ],
+    "colliding_geom_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "colliding_geom_names": [
+      "floor",
+      "base_collision",
+      "abad_L_collision",
+      "hip_L_collision",
+      "knee_L_collision",
+      "wheel_L_collision",
+      "abad_R_collision",
+      "hip_R_collision",
+      "knee_R_collision",
+      "wheel_R_collision"
+    ],
+    "geom_friction": [
+      [
+        0.7,
+        0.0,
+        0.0
+      ],
+      [
+        0.7,
+        0.0,
+        0.0
+      ],
+      [
+        0.7,
+        0.0,
+        0.0
+      ],
+      [
+        0.7,
+        0.0,
+        0.0
+      ],
+      [
+        0.7,
+        0.0,
+        0.0
+      ],
+      [
+        0.7,
+        0.0,
+        0.0
+      ],
+      [
+        0.7,
+        0.0,
+        0.0
+      ],
+      [
+        0.7,
+        0.0,
+        0.0
+      ],
+      [
+        0.7,
+        0.0,
+        0.0
+      ],
+      [
+        0.7,
+        0.0,
+        0.0
+      ]
+    ],
+    "geom_priority": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1
+    ],
+    "geom_condim": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
+    ],
+    "geom_solref": [
+      [
+        0.004,
+        1.0
+      ],
+      [
+        0.004,
+        1.0
+      ],
+      [
+        0.004,
+        1.0
+      ],
+      [
+        0.004,
+        1.0
+      ],
+      [
+        0.004,
+        1.0
+      ],
+      [
+        0.004,
+        1.0
+      ],
+      [
+        0.004,
+        1.0
+      ],
+      [
+        0.004,
+        1.0
+      ],
+      [
+        0.004,
+        1.0
+      ],
+      [
+        0.004,
+        1.0
+      ]
+    ],
+    "geom_solimp": [
+      [
+        0.9,
+        0.95,
+        0.001,
+        0.5,
+        2.0
+      ],
+      [
+        0.9,
+        0.95,
+        0.001,
+        0.5,
+        2.0
+      ],
+      [
+        0.9,
+        0.95,
+        0.001,
+        0.5,
+        2.0
+      ],
+      [
+        0.9,
+        0.95,
+        0.001,
+        0.5,
+        2.0
+      ],
+      [
+        0.9,
+        0.95,
+        0.001,
+        0.5,
+        2.0
+      ],
+      [
+        0.9,
+        0.95,
+        0.001,
+        0.5,
+        2.0
+      ],
+      [
+        0.9,
+        0.95,
+        0.001,
+        0.5,
+        2.0
+      ],
+      [
+        0.9,
+        0.95,
+        0.001,
+        0.5,
+        2.0
+      ],
+      [
+        0.9,
+        0.95,
+        0.001,
+        0.5,
+        2.0
+      ],
+      [
+        0.9,
+        0.95,
+        0.001,
+        0.5,
+        2.0
+      ]
+    ],
+    "mapping": "explicit wheel priority1 / other colliders0; all colliding sliding mu equal target; not mu squared",
+    "pair_coefficient": 0.7,
+    "contact_law_equivalence_claimed": false,
+    "native_plant_readback": {
+      "source": "compiled native MuJoCo MjModel arrays after declared configuration",
+      "body_names": [
+        "world",
+        "base_Link",
+        "abad_L_Link",
+        "hip_L_Link",
+        "knee_L_Link",
+        "wheel_L_Link",
+        "abad_R_Link",
+        "hip_R_Link",
+        "knee_R_Link",
+        "wheel_R_Link",
+        "limx_imu"
+      ],
+      "joint_names": [
+        "root",
+        "abad_L_Joint",
+        "hip_L_Joint",
+        "knee_L_Joint",
+        "wheel_L_Joint",
+        "abad_R_Joint",
+        "hip_R_Joint",
+        "knee_R_Joint",
+        "wheel_R_Joint"
+      ],
+      "inertia_convention": "body_inertia principal moments; body_ipos/body_iquat define local inertial frame",
+      "mass_inertia_equivalence_claimed": false,
+      "no_physics_or_state_mutation": true,
+      "readbacks": {
+        "body_mass": {
+          "shape": [
+            11
+          ],
+          "values": [
+            0.0,
+            9.585000038146973,
+            1.468999981880188,
+            2.299999952316284,
+            1.4900000095367432,
+            1.0800000429153442,
+            1.468999981880188,
+            2.299999952316284,
+            1.4900000095367432,
+            1.0800000429153442,
+            0.009999999776482582
+          ]
+        },
+        "body_inertia": {
+          "shape": [
+            11,
+            3
+          ],
+          "values": [
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.154432341456,
+              0.110639259219,
+              0.0846248790622
+            ],
+            [
+              0.00139162677806,
+              0.00252288533375,
+              0.00208104168996
+            ],
+            [
+              0.0230229143053,
+              0.0233263615519,
+              0.00277547957376
+            ],
+            [
+              0.0171854905784,
+              0.0177106633782,
+              0.00101499736775
+            ],
+            [
+              0.00515568023548,
+              0.0097427200526,
+              0.00515343993902
+            ],
+            [
+              0.00139162677806,
+              0.00252288533375,
+              0.00208104168996
+            ],
+            [
+              0.0230229143053,
+              0.0233263615519,
+              0.00277547957376
+            ],
+            [
+              0.0171854905784,
+              0.0177106633782,
+              0.00101499736775
+            ],
+            [
+              0.00515568023548,
+              0.0097427200526,
+              0.00515343993902
+            ],
+            [
+              9.99999997475e-07,
+              9.99999997475e-07,
+              9.99999997475e-07
+            ]
+          ]
+        },
+        "body_ipos": {
+          "shape": [
+            11,
+            3
+          ],
+          "values": [
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0457599982619,
+              0.000140000003739,
+              -0.163980007172
+            ],
+            [
+              -0.069770000875,
+              0.0447899997234,
+              0.000569999974687
+            ],
+            [
+              -0.0286899991333,
+              -0.0476999990642,
+              -0.0399199984968
+            ],
+            [
+              0.119130000472,
+              0.0110600003973,
+              -0.203630000353
+            ],
+            [
+              2.99999992421e-05,
+              0.00807000044733,
+              -1.99999994948e-05
+            ],
+            [
+              -0.069770000875,
+              -0.0447899997234,
+              0.000569999974687
+            ],
+            [
+              -0.0286899991333,
+              0.0476999990642,
+              -0.0399199984968
+            ],
+            [
+              0.119130000472,
+              -0.0110600003973,
+              -0.203630000353
+            ],
+            [
+              2.99999992421e-05,
+              -0.00807000044733,
+              -1.99999994948e-05
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ]
+          ]
+        },
+        "body_iquat": {
+          "shape": [
+            11,
+            4
+          ],
+          "values": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.9724850907213711,
+              -0.006218295874987008,
+              -0.2328483535415156,
+              0.003965523176507752
+            ],
+            [
+              0.9809779604260858,
+              -0.008187532925089384,
+              -0.0070648748432492635,
+              -0.1938176798084395
+            ],
+            [
+              0.9056360727680978,
+              -0.024116488189819874,
+              0.29677271862959853,
+              -0.30193981548607374
+            ],
+            [
+              0.966303754558184,
+              0.029415726368439258,
+              -0.2556636742135644,
+              -0.005277751092496823
+            ],
+            [
+              0.9659222258750465,
+              -7.705593732044707e-07,
+              0.2588324816521678,
+              -1.3350669259533114e-06
+            ],
+            [
+              0.9809779604260858,
+              0.008187532925089384,
+              -0.0070648748432492635,
+              0.1938176798084395
+            ],
+            [
+              0.9056360727680978,
+              0.024116488189819874,
+              0.29677271862959853,
+              0.30193981548607374
+            ],
+            [
+              0.966303754558184,
+              -0.029415726368439258,
+              -0.2556636742135644,
+              0.005277751092496823
+            ],
+            [
+              0.9659222258750465,
+              7.705593732044707e-07,
+              0.2588324816521678,
+              1.3350669259533114e-06
+            ],
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ]
+        },
+        "dof_armature": {
+          "shape": [
+            14
+          ],
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "dof_damping": {
+          "shape": [
+            14
+          ],
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "dof_frictionloss": {
+          "shape": [
+            14
+          ],
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "geom_margin": {
+          "shape": [
+            10
+          ],
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "geom_gap": {
+          "shape": [
+            10
+          ],
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "solver_configuration": {
+        "timestep": 0.0025,
+        "iterations": 100.0,
+        "ls_iterations": 50.0,
+        "tolerance": 1e-10,
+        "ls_tolerance": 0.01,
+        "solver": 2.0,
+        "integrator": 3.0,
+        "cone": 0.0,
+        "impratio": 1.0
+      }
+    }
+  },
+  "prediction_contact_material_audit": {
+    "native_mapping_verified": true,
+    "compiled_native_timestep_s": 0.0025,
+    "explicit_contact_pair_count": 0,
+    "wheel_geom_ids": [
+      5,
+      9
+    ],
+    "colliding_geom_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "colliding_geom_names": [
+      "floor",
+      "base_collision",
+      "abad_L_collision",
+      "hip_L_collision",
+      "knee_L_collision",
+      "wheel_L_collision",
+      "abad_R_collision",
+      "hip_R_collision",
+      "knee_R_collision",
+      "wheel_R_collision"
+    ],
+    "geom_friction": [
+      [
+        0.7,
+        0.0,
+        0.0
+      ],
+      [
+        0.7,
+        0.0,
+        0.0
+      ],
+      [
+        0.7,
+        0.0,
+        0.0
+      ],
+      [
+        0.7,
+        0.0,
+        0.0
+      ],
+      [
+        0.7,
+        0.0,
+        0.0
+      ],
+      [
+        0.7,
+        0.0,
+        0.0
+      ],
+      [
+        0.7,
+        0.0,
+        0.0
+      ],
+      [
+        0.7,
+        0.0,
+        0.0
+      ],
+      [
+        0.7,
+        0.0,
+        0.0
+      ],
+      [
+        0.7,
+        0.0,
+        0.0
+      ]
+    ],
+    "geom_priority": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1
+    ],
+    "geom_condim": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
+    ],
+    "geom_solref": [
+      [
+        0.004,
+        1.0
+      ],
+      [
+        0.004,
+        1.0
+      ],
+      [
+        0.004,
+        1.0
+      ],
+      [
+        0.004,
+        1.0
+      ],
+      [
+        0.004,
+        1.0
+      ],
+      [
+        0.004,
+        1.0
+      ],
+      [
+        0.004,
+        1.0
+      ],
+      [
+        0.004,
+        1.0
+      ],
+      [
+        0.004,
+        1.0
+      ],
+      [
+        0.004,
+        1.0
+      ]
+    ],
+    "geom_solimp": [
+      [
+        0.9,
+        0.95,
+        0.001,
+        0.5,
+        2.0
+      ],
+      [
+        0.9,
+        0.95,
+        0.001,
+        0.5,
+        2.0
+      ],
+      [
+        0.9,
+        0.95,
+        0.001,
+        0.5,
+        2.0
+      ],
+      [
+        0.9,
+        0.95,
+        0.001,
+        0.5,
+        2.0
+      ],
+      [
+        0.9,
+        0.95,
+        0.001,
+        0.5,
+        2.0
+      ],
+      [
+        0.9,
+        0.95,
+        0.001,
+        0.5,
+        2.0
+      ],
+      [
+        0.9,
+        0.95,
+        0.001,
+        0.5,
+        2.0
+      ],
+      [
+        0.9,
+        0.95,
+        0.001,
+        0.5,
+        2.0
+      ],
+      [
+        0.9,
+        0.95,
+        0.001,
+        0.5,
+        2.0
+      ],
+      [
+        0.9,
+        0.95,
+        0.001,
+        0.5,
+        2.0
+      ]
+    ],
+    "mapping": "explicit wheel priority1 / other colliders0; all colliding sliding mu equal target; not mu squared",
+    "pair_coefficient": 0.7,
+    "contact_law_equivalence_claimed": false,
+    "native_plant_readback": {
+      "source": "compiled native MuJoCo MjModel arrays after declared configuration",
+      "body_names": [
+        "world",
+        "base_Link",
+        "abad_L_Link",
+        "hip_L_Link",
+        "knee_L_Link",
+        "wheel_L_Link",
+        "abad_R_Link",
+        "hip_R_Link",
+        "knee_R_Link",
+        "wheel_R_Link",
+        "limx_imu"
+      ],
+      "joint_names": [
+        "root",
+        "abad_L_Joint",
+        "hip_L_Joint",
+        "knee_L_Joint",
+        "wheel_L_Joint",
+        "abad_R_Joint",
+        "hip_R_Joint",
+        "knee_R_Joint",
+        "wheel_R_Joint"
+      ],
+      "inertia_convention": "body_inertia principal moments; body_ipos/body_iquat define local inertial frame",
+      "mass_inertia_equivalence_claimed": false,
+      "no_physics_or_state_mutation": true,
+      "readbacks": {
+        "body_mass": {
+          "shape": [
+            11
+          ],
+          "values": [
+            0.0,
+            9.585000038146973,
+            1.468999981880188,
+            2.299999952316284,
+            1.4900000095367432,
+            1.0800000429153442,
+            1.468999981880188,
+            2.299999952316284,
+            1.4900000095367432,
+            1.0800000429153442,
+            0.009999999776482582
+          ]
+        },
+        "body_inertia": {
+          "shape": [
+            11,
+            3
+          ],
+          "values": [
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.154432341456,
+              0.110639259219,
+              0.0846248790622
+            ],
+            [
+              0.00139162677806,
+              0.00252288533375,
+              0.00208104168996
+            ],
+            [
+              0.0230229143053,
+              0.0233263615519,
+              0.00277547957376
+            ],
+            [
+              0.0171854905784,
+              0.0177106633782,
+              0.00101499736775
+            ],
+            [
+              0.00515568023548,
+              0.0097427200526,
+              0.00515343993902
+            ],
+            [
+              0.00139162677806,
+              0.00252288533375,
+              0.00208104168996
+            ],
+            [
+              0.0230229143053,
+              0.0233263615519,
+              0.00277547957376
+            ],
+            [
+              0.0171854905784,
+              0.0177106633782,
+              0.00101499736775
+            ],
+            [
+              0.00515568023548,
+              0.0097427200526,
+              0.00515343993902
+            ],
+            [
+              9.99999997475e-07,
+              9.99999997475e-07,
+              9.99999997475e-07
+            ]
+          ]
+        },
+        "body_ipos": {
+          "shape": [
+            11,
+            3
+          ],
+          "values": [
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0457599982619,
+              0.000140000003739,
+              -0.163980007172
+            ],
+            [
+              -0.069770000875,
+              0.0447899997234,
+              0.000569999974687
+            ],
+            [
+              -0.0286899991333,
+              -0.0476999990642,
+              -0.0399199984968
+            ],
+            [
+              0.119130000472,
+              0.0110600003973,
+              -0.203630000353
+            ],
+            [
+              2.99999992421e-05,
+              0.00807000044733,
+              -1.99999994948e-05
+            ],
+            [
+              -0.069770000875,
+              -0.0447899997234,
+              0.000569999974687
+            ],
+            [
+              -0.0286899991333,
+              0.0476999990642,
+              -0.0399199984968
+            ],
+            [
+              0.119130000472,
+              -0.0110600003973,
+              -0.203630000353
+            ],
+            [
+              2.99999992421e-05,
+              -0.00807000044733,
+              -1.99999994948e-05
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ]
+          ]
+        },
+        "body_iquat": {
+          "shape": [
+            11,
+            4
+          ],
+          "values": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.9724850907213711,
+              -0.006218295874987008,
+              -0.2328483535415156,
+              0.003965523176507752
+            ],
+            [
+              0.9809779604260858,
+              -0.008187532925089384,
+              -0.0070648748432492635,
+              -0.1938176798084395
+            ],
+            [
+              0.9056360727680978,
+              -0.024116488189819874,
+              0.29677271862959853,
+              -0.30193981548607374
+            ],
+            [
+              0.966303754558184,
+              0.029415726368439258,
+              -0.2556636742135644,
+              -0.005277751092496823
+            ],
+            [
+              0.9659222258750465,
+              -7.705593732044707e-07,
+              0.2588324816521678,
+              -1.3350669259533114e-06
+            ],
+            [
+              0.9809779604260858,
+              0.008187532925089384,
+              -0.0070648748432492635,
+              0.1938176798084395
+            ],
+            [
+              0.9056360727680978,
+              0.024116488189819874,
+              0.29677271862959853,
+              0.30193981548607374
+            ],
+            [
+              0.966303754558184,
+              -0.029415726368439258,
+              -0.2556636742135644,
+              0.005277751092496823
+            ],
+            [
+              0.9659222258750465,
+              7.705593732044707e-07,
+              0.2588324816521678,
+              1.3350669259533114e-06
+            ],
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ]
+        },
+        "dof_armature": {
+          "shape": [
+            14
+          ],
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "dof_damping": {
+          "shape": [
+            14
+          ],
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "dof_frictionloss": {
+          "shape": [
+            14
+          ],
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "geom_margin": {
+          "shape": [
+            10
+          ],
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "geom_gap": {
+          "shape": [
+            10
+          ],
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "solver_configuration": {
+        "timestep": 0.0025,
+        "iterations": 100.0,
+        "ls_iterations": 50.0,
+        "tolerance": 1e-10,
+        "ls_tolerance": 0.01,
+        "solver": 2.0,
+        "integrator": 3.0,
+        "cone": 0.0,
+        "impratio": 1.0
+      }
+    }
+  },
+  "prediction_state_contract": {
+    "dimension": 111,
+    "qpos_dimension": 15,
+    "qvel_dimension": 14,
+    "contact_force_history_shape": [
+      3,
+      9,
+      3
+    ],
+    "algorithmic_memory": "Physical-substep contact-force history plus first-reward reset flag; not extra robot state or actuators.",
+    "excluded_integration_state": "qacc warm-start and simulator time are cold-reset per prediction interval; no actuator activation state exists in this model.",
+    "external_applied_forces": "Required zero in both predictor and plant; no prescribed root correction."
+  },
+  "prediction_reset_caveat": "Predictor cold-resets solver warmstart/time each20ms stage; validation plant integrates continuously. Full hidden-contact-state equivalence is NOT claimed even within MuJoCo.",
+  "initial_state": {
+    "qpos": [
+      0.0,
+      0.0,
+      0.75,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.3447771668434143,
+      0.7936588525772095,
+      0.0,
+      0.0,
+      -0.3447771668434143,
+      -0.7936588525772095,
+      0.0
+    ],
+    "qvel": [
+      1.3074680834662915,
+      -0.0076419591996073725,
+      0.0,
+      0.0,
+      0.0,
+      0.08704382181167603,
+      0.0,
+      0.0,
+      0.0,
+      10.187701225280762,
+      0.0,
+      0.0,
+      0.0,
+      10.402226448059082
+    ]
+  },
+  "PPO_actions_or_future_states_used_for_initial_plan": false,
+  "new_training_or_policy_inference": false,
+  "new_GPU_job": false,
+  "native_contact_substeps": 8,
+  "termination_or_reset_after_initialization": false,
+  "height_contact_tilt_failure_gate": false,
+  "native_plant_arrays_match_PPO_validation_exactly": true,
+  "state_access": "Full qpos/qvel, objective memory and future reference; PPO actor has a51dim observation",
+  "PPO_total_reward_recomputed": false,
+  "PPO_total_reward_unavailable_reason": "Saved PPO traces lack all-body contact force/history; do not manufacture an exact episode-return comparison.",
+  "reward_parity_scope": "NEW grounded replacement; fourteen other legacy stage terms unchanged. Not the old PPO trained reward and not bitwise cross-engine force parity.",
+  "soft_joint_limits_source": "mujoco_ranges_times_0.95_surrogate",
+  "soft_joint_pos_limits": [
+    [
+      -0.3394642499999999,
+      1.35175425
+    ],
+    [
+      -1.35175425,
+      0.3394642499999999
+    ],
+    [
+      -0.95207625,
+      1.33604625
+    ],
+    [
+      -1.33604625,
+      0.95207625
+    ],
+    [
+      -0.8168143749999999,
+      1.3055093749999997
+    ],
+    [
+      -1.3055093749999997,
+      0.8168143749999999
+    ],
+    [
+      -950000.0,
+      950000.0
+    ],
+    [
+      -950000.0,
+      950000.0
+    ]
+  ],
+  "N_per_condition": 1,
+  "max_policy_steps": 349,
+  "truncated_smoke": false,
+  "concurrent_local_CPU_episodes": 1,
+  "timing_caveat": "End-to-end measured solve time includes IPC; no realtime or hardware-matched PPO inference claim.",
+  "real_time_verified": false,
+  "controller_tuned_on_this_episode": false,
+  "native_backend": {
+    "kind": "native_batch_ground_contact_reward_v2j_400hz",
+    "native_abi": 3,
+    "physics_dt_s": 0.0025,
+    "control_dt_s": 0.02,
+    "physical_substeps": 8,
+    "prediction_mu_scenarios": [
+      0.7
+    ],
+    "production_cem_wired": true,
+    "learned_initialization": false,
+    "terminal_cost": null,
+    "horizon_discount_factor": 0.99,
+    "objective": {
+      "kind": "numpy_ground_contact_reward_v2j_400hz",
+      "body_names": [
+        "base_Link",
+        "abad_L_Link",
+        "abad_R_Link",
+        "hip_L_Link",
+        "hip_R_Link",
+        "knee_L_Link",
+        "knee_R_Link",
+        "wheel_L_Link",
+        "wheel_R_Link"
+      ],
+      "joint_names": [
+        "abad_L_Joint",
+        "abad_R_Joint",
+        "hip_L_Joint",
+        "hip_R_Joint",
+        "knee_L_Joint",
+        "knee_R_Joint",
+        "wheel_L_Joint",
+        "wheel_R_Joint"
+      ],
+      "dt_s": 0.02,
+      "weights": {
+        "motion_global_anchor_pos": 2.0,
+        "motion_global_anchor_ori": 2.0,
+        "motion_body_pos": 1.0,
+        "motion_body_ori": 1.0,
+        "motion_body_lin_vel": 1.0,
+        "motion_body_ang_vel": 1.0,
+        "action_rate_l2": -0.5,
+        "joint_limit": -10.0,
+        "undesired_contacts": -0.1,
+        "drift_sideslip": 2.0,
+        "drift_yaw_rate": 1.0,
+        "drift_speed": 1.0,
+        "drift_grounded": 0.4,
+        "drift_tilt": -0.2,
+        "height_vertical_acceleration": -0.1
+      },
+      "stds": {
+        "anchor_position_m": 0.3,
+        "anchor_orientation_rad": 0.4,
+        "body_position_m": 0.3,
+        "body_orientation_rad": 0.4,
+        "body_linear_velocity_m_s": 0.5,
+        "body_angular_velocity_rad_s": 0.8,
+        "sideslip_rad": 0.12,
+        "yaw_rate_rad_s": 0.5,
+        "speed_m_s": 0.35
+      },
+      "height_regularization": {
+        "mode": "vertical_acceleration_only",
+        "weight": -0.1,
+        "acceleration_scale_m_s2": 5.0
+      },
+      "absolute_height_target": false,
+      "reference_vertical_velocity_target": false,
+      "sideslip_target": "held reference body-frame course angle, NOT zero",
+      "reference_order": "Freeze reference[k] and relative-body targets at pre-action state; evaluate after decimation, before command advances.",
+      "pose_semantics": "World link-origin position and link wxyz quaternion",
+      "velocity_semantics": "World original-unmerged-link COM linear velocity and world angular velocity",
+      "cost": "dt * (sum_positive_reward_weights - sum(weight * raw_term)); no terminal term supplied",
+      "contact_thresholds_n": {
+        "grounded_each_wheel_net_force": 5.0,
+        "undesired_contact_body_force": 1.0
+      },
+      "joint_limit_joints": [
+        "abad_L_Joint",
+        "abad_R_Joint",
+        "hip_L_Joint",
+        "hip_R_Joint",
+        "knee_L_Joint",
+        "knee_R_Joint"
+      ],
+      "surrogate_differences": [
+        "MuJoCo net contact forces are not identical to PhysX ContactSensor forces; all contacts, including self-contact, are included.",
+        "undesired_contacts uses max norm over supplied physical-substep history; omitted history is explicitly an instantaneous surrogate.",
+        "MuJoCo-derived 0.95 joint ranges are an approximation unless replaced by Isaac runtime soft_joint_pos_limits in matching joint order.",
+        "Body COM offsets/inertias must match the original unmerged USD links; random COM offsets require the same realized model parameters.",
+        "Task tilt safety termination and policy action/observation privileges are outside this stage objective."
+      ],
+      "array_axes": "candidate, horizon, then body/history/vector axes",
+      "scalar_objective_term_names": [
+        "motion_global_anchor_pos",
+        "motion_global_anchor_ori",
+        "motion_body_pos",
+        "motion_body_ori",
+        "motion_body_lin_vel",
+        "motion_body_ang_vel",
+        "action_rate_l2",
+        "joint_limit",
+        "undesired_contacts",
+        "drift_sideslip",
+        "drift_yaw_rate",
+        "drift_speed",
+        "drift_grounded",
+        "drift_tilt",
+        "height_vertical_acceleration"
+      ],
+      "per_term_cost": "dt * (max(weight,0) - weighted_term); sums to stage_cost",
+      "reference_phase": "reference[min(start_index+h,last_frame)] held BEFORE each action",
+      "nonfinite_policy": "Raise; never silently replace invalid samples with finite scores",
+      "production_cem_wired": true,
+      "physics_dt_s": 0.0025,
+      "physical_substeps": 8,
+      "stage_reward_formulas_changed": true,
+      "native_contact_history": "last three of eight physical 2.5 ms samples",
+      "horizon_discount_factor": 0.99,
+      "horizon_cost": "sum(discount_factor**h * stage_cost[h]); no terminal value",
+      "replacement_term": "drift_grounded",
+      "unchanged_other_reward_terms": 14,
+      "ground_contact_reward_v2": {
+        "settings": {
+          "schema_version": 1,
+          "candidate": "ground_contact_v2j",
+          "physics_substeps": 8,
+          "support_load_fraction": 0.5,
+          "mean_weight": 0.75,
+          "minimum_weight": 0.25,
+          "impact_multiple": 3.0,
+          "negative_force_tolerance_n": 0.0001,
+          "external_reward_weight": 0.4,
+          "reward_dt_s": 0.02,
+          "support_gap_weight": 1.0,
+          "support_force_threshold_n": 5.0,
+          "beta_gate_low_reference_speed_m_s": 0.3,
+          "support_gap_aggregation": "max8",
+          "loaded_angular_increment_deadband_rad_s": 0.05,
+          "loaded_angular_increment_scale_rad_s": 0.2,
+          "loaded_angular_increment_cap": 1.0,
+          "loaded_angular_increment_weight": 0.5
+        },
+        "force_input": "ground-filtered upward world-Z normal force N; [...,8,2]",
+        "mass_normalization": "mg is actual post-DR total mass times gravity magnitude in N",
+        "formula": "q=clip(sum_wheels(max(Fz,0))/(.50*mg),0,1); support=.75*mean_substeps(q)+.25*min_substeps(q); excess=max(Fz/(3*mg)-1,0); impact_gate=exp(-mean_substeps_wheels(excess**2)); A_bonus=anchor_xy*drift_speed*support*impact_gate; support_gap=max_substeps(max_wheels(max(Fz,0))<=5N); beta_gate=where(reference_speed>.3,existing_reference_beta_quality,1); raw=A_bonus*beta_gate-1*support_gap; dOmega=omega_worldXY[1:9]-omega_worldXY[0:8]; angular_cost=mean8(loaded*min(meanXY((max(abs(dOmega)-.05,0)/.2)**2),1)); raw_J=raw_I-.5*angular_cost",
+        "raw_reward_bounds": [
+          -1.5,
+          1.0
+        ],
+        "ground_filter_and_force_units_verified_by_caller": true,
+        "contact_count_required_by_arithmetic": false,
+        "support_requirement": "At least one supporting wheel; single-wheel lift or alternating load is allowed",
+        "bilateral_support_required": false,
+        "height_or_zero_sideslip_target": false,
+        "cross_window_streak_memory": false,
+        "continuous_contact_or_task_success_certified": false,
+        "immutable_v2a_definition_sha256": "5794ceb435c6ddc9cc374fa5ebe7718edc99d4c3181ebeac111cafe128461bf5",
+        "only_causal_change": "I plus bounded loaded-contact physical-step angularXY increment cost",
+        "support_gap_tracking_gated": false,
+        "support_gap_impact_gated": false,
+        "supported_light_load_penalized": false,
+        "per_step_threshold_strict_greater": true,
+        "support_threshold_is_world_normal_newtons_not_mass_fraction": true,
+        "negative_term_independent_of_mean_or_min_window_packing": false,
+        "immutable_v2f_definition_sha256": "a9e561a09ca2f0cbcd6c412a8e1860817aeccaff50660e9796866996a844d3e1",
+        "existing_beta_reward_weight_or_std_changed": false,
+        "support_gap_cost_unchanged_and_ungated": false,
+        "reference_beta_not_zero_beta_is_intended": true,
+        "low_reference_speed_beta_gate_neutral": true,
+        "caller_must_verify_existing_beta_quality_and_held_reference_phase": true,
+        "arithmetic_alone_does_not_certify_runtime_or_task_success": true,
+        "immutable_v2g_definition_sha256": "81056b23fbf2052f2e0630d1888aa6b71556027ca108ab3b08dd768a912e493a",
+        "support_gap_cost_ungated": true,
+        "support_gap_coefficient_unchanged": true,
+        "support_gap_is_window_event_not_duration_fraction": true,
+        "any_single_unsupported_substep_receives_full_gap_cost": true,
+        "positive_bonus_and_existing_reference_beta_gate_unchanged": true,
+        "no_velocity_proxy_or_absolute_height_input": false,
+        "immutable_v2i_definition_sha256": "2d805c5d878541da7a7ccc1f6af421ebe4b425fb9006756081f786ae79bf5101",
+        "velocity_samples_per_window": 9,
+        "current_start_state_plus8_actual_substeps_required": true,
+        "angular_velocity_source_units": "world rad/s; increment per actual2.5ms physics step",
+        "velocity_is_pose_finite_difference": false,
+        "end_state_repetition_allowed": false,
+        "no_action_or_state_filter_or_absolute_height_target": true,
+        "constant_angular_rate_unpenalized": true,
+        "other14_reward_terms_changed": false,
+        "new_input_is_true_native_angular_velocity_not_height_proxy": true
+      },
+      "model_weight_n": 218.49813011007384,
+      "ground_readout": "actual unique flat world floor plane; NORMAL force only; counts>=1e-6N",
+      "intended_support": "At least one wheel continuously supporting; other wheel may lift; alternating wheels allowed",
+      "beta_contact_gate_source": "existing_unweighted_drift_sideslip_same_held_reference",
+      "beta_contact_gate_neutral_at_reference_xy_speed_le_m_s": 0.3,
+      "support_gap_penalty_remains_ungated": true,
+      "angular_increment_readout": "native pre_body_ang_vel_w plus all8 body_ang_vel_w samples; base worldXY rad/s",
+      "angular_start_state_imputed_or_end_repeated": false,
+      "absolute_height_constraint": false,
+      "zero_sideslip_target": false
+    },
+    "workers": {
+      "0.7": {
+        "schema_version": 1,
+        "abi_version": 3,
+        "mujoco_version": "3.8.1",
+        "header_version": 3008001,
+        "source_sha256": "e80e76ad68352da00aeb4cf7215fc68f127b6a953d1afee4ad65e3ba0178aef1",
+        "mujoco_header_sha256": "d5ccfb227eb06586edfb4def5812a8082c1cbdf8e6dc5c3176abd9772a57fd07",
+        "mujoco_library_sha256": "8969010a8325d32b9b154159862ffe3b112277cc993983a0168f7dbe2efe0592",
+        "native_library_sha256": "1c4c0a66da7770a9579e6a19d0aded25a6656426f76e068c686a0ad977435095",
+        "compiler_command": [
+          "c++",
+          "-std=c++17",
+          "-O2",
+          "-fPIC",
+          "-shared",
+          "/home/roy/tron1-sliding-analysis/native/nmpc_batch_ground_contact_400hz.cpp",
+          "-I/home/roy/miniconda3/lib/python3.13/site-packages/mujoco/include",
+          "/home/roy/miniconda3/lib/python3.13/site-packages/mujoco/libmujoco.so.3.8.1",
+          "-Wl,-rpath,/home/roy/miniconda3/lib/python3.13/site-packages/mujoco",
+          "-ldl",
+          "-o",
+          "/home/roy/tron1-sliding-analysis/outputs/native_ground_contact_v2_20261023_v1/libtron1_nmpc_batch_ground_contact_400hz.so"
+        ],
+        "experimental_optional_backend": true,
+        "production_cem_wired": false,
+        "physics_dt_s": 0.0025,
+        "physics_substeps": 8,
+        "stage_width": 1755,
+        "workers": 1,
+        "global_callbacks_installed": false,
+        "model_snapshot_sha256": "4398c729c00192fe7651f73e26c5c72394d449ee832130ebcc4b10b1e1c04138",
+        "model_snapshot_owned_by_child": true,
+        "fatal_errors_process_isolated": true,
+        "body_names": [
+          "base_Link",
+          "abad_L_Link",
+          "abad_R_Link",
+          "hip_L_Link",
+          "hip_R_Link",
+          "knee_L_Link",
+          "knee_R_Link",
+          "wheel_L_Link",
+          "wheel_R_Link"
+        ],
+        "joint_names": [
+          "abad_L_Joint",
+          "abad_R_Joint",
+          "hip_L_Joint",
+          "hip_R_Joint",
+          "knee_L_Joint",
+          "knee_R_Joint",
+          "wheel_L_Joint",
+          "wheel_R_Joint"
+        ],
+        "control_dt_s": 0.02,
+        "ipc_included_in_latency": true,
+        "measurement_semantics": "post-mj_forward link origins/quaternions and original link-COM world velocities",
+        "reset_semantics": "cold mj_resetData at EACH action interval; 8 torque/mj_step/mj_forward/contact samples",
+        "ground_floor_geom_id": 0,
+        "model_weight_n": 218.49813011007384,
+        "ground_force_kind": "floor-only normal force acting on wheel in world axes",
+        "ground_count_semantics": "floor pair normal force >=1e-6N; not legacy>5N",
+        "legacy_output_channels_unchanged": true,
+        "worker_pid": 15843
+      }
+    },
+    "runtime_cem_population_path": "callable predictor.rollout_batch",
+    "worker_build_manifest_flag_semantics": "Nested worker production_cem_wired is historical build-time metadata, not this runtime attachment."
+  },
+  "objective_contract": {
+    "kind": "numpy_ground_contact_reward_v2j_400hz",
+    "body_names": [
+      "base_Link",
+      "abad_L_Link",
+      "abad_R_Link",
+      "hip_L_Link",
+      "hip_R_Link",
+      "knee_L_Link",
+      "knee_R_Link",
+      "wheel_L_Link",
+      "wheel_R_Link"
+    ],
+    "joint_names": [
+      "abad_L_Joint",
+      "abad_R_Joint",
+      "hip_L_Joint",
+      "hip_R_Joint",
+      "knee_L_Joint",
+      "knee_R_Joint",
+      "wheel_L_Joint",
+      "wheel_R_Joint"
+    ],
+    "dt_s": 0.02,
+    "weights": {
+      "motion_global_anchor_pos": 2.0,
+      "motion_global_anchor_ori": 2.0,
+      "motion_body_pos": 1.0,
+      "motion_body_ori": 1.0,
+      "motion_body_lin_vel": 1.0,
+      "motion_body_ang_vel": 1.0,
+      "action_rate_l2": -0.5,
+      "joint_limit": -10.0,
+      "undesired_contacts": -0.1,
+      "drift_sideslip": 2.0,
+      "drift_yaw_rate": 1.0,
+      "drift_speed": 1.0,
+      "drift_grounded": 0.4,
+      "drift_tilt": -0.2,
+      "height_vertical_acceleration": -0.1
+    },
+    "stds": {
+      "anchor_position_m": 0.3,
+      "anchor_orientation_rad": 0.4,
+      "body_position_m": 0.3,
+      "body_orientation_rad": 0.4,
+      "body_linear_velocity_m_s": 0.5,
+      "body_angular_velocity_rad_s": 0.8,
+      "sideslip_rad": 0.12,
+      "yaw_rate_rad_s": 0.5,
+      "speed_m_s": 0.35
+    },
+    "height_regularization": {
+      "mode": "vertical_acceleration_only",
+      "weight": -0.1,
+      "acceleration_scale_m_s2": 5.0
+    },
+    "absolute_height_target": false,
+    "reference_vertical_velocity_target": false,
+    "sideslip_target": "held reference body-frame course angle, NOT zero",
+    "reference_order": "Freeze reference[k] and relative-body targets at pre-action state; evaluate after decimation, before command advances.",
+    "pose_semantics": "World link-origin position and link wxyz quaternion",
+    "velocity_semantics": "World original-unmerged-link COM linear velocity and world angular velocity",
+    "cost": "dt * (sum_positive_reward_weights - sum(weight * raw_term)); no terminal term supplied",
+    "contact_thresholds_n": {
+      "grounded_each_wheel_net_force": 5.0,
+      "undesired_contact_body_force": 1.0
+    },
+    "joint_limit_joints": [
+      "abad_L_Joint",
+      "abad_R_Joint",
+      "hip_L_Joint",
+      "hip_R_Joint",
+      "knee_L_Joint",
+      "knee_R_Joint"
+    ],
+    "surrogate_differences": [
+      "MuJoCo net contact forces are not identical to PhysX ContactSensor forces; all contacts, including self-contact, are included.",
+      "undesired_contacts uses max norm over supplied physical-substep history; omitted history is explicitly an instantaneous surrogate.",
+      "MuJoCo-derived 0.95 joint ranges are an approximation unless replaced by Isaac runtime soft_joint_pos_limits in matching joint order.",
+      "Body COM offsets/inertias must match the original unmerged USD links; random COM offsets require the same realized model parameters.",
+      "Task tilt safety termination and policy action/observation privileges are outside this stage objective."
+    ],
+    "array_axes": "candidate, horizon, then body/history/vector axes",
+    "scalar_objective_term_names": [
+      "motion_global_anchor_pos",
+      "motion_global_anchor_ori",
+      "motion_body_pos",
+      "motion_body_ori",
+      "motion_body_lin_vel",
+      "motion_body_ang_vel",
+      "action_rate_l2",
+      "joint_limit",
+      "undesired_contacts",
+      "drift_sideslip",
+      "drift_yaw_rate",
+      "drift_speed",
+      "drift_grounded",
+      "drift_tilt",
+      "height_vertical_acceleration"
+    ],
+    "per_term_cost": "dt * (max(weight,0) - weighted_term); sums to stage_cost",
+    "reference_phase": "reference[min(start_index+h,last_frame)] held BEFORE each action",
+    "nonfinite_policy": "Raise; never silently replace invalid samples with finite scores",
+    "production_cem_wired": false,
+    "physics_dt_s": 0.0025,
+    "physical_substeps": 8,
+    "stage_reward_formulas_changed": true,
+    "native_contact_history": "last three of eight physical 2.5 ms samples",
+    "horizon_discount_factor": 0.99,
+    "horizon_cost": "sum(discount_factor**h * stage_cost[h]); no terminal value",
+    "replacement_term": "drift_grounded",
+    "unchanged_other_reward_terms": 14,
+    "ground_contact_reward_v2": {
+      "settings": {
+        "schema_version": 1,
+        "candidate": "ground_contact_v2j",
+        "physics_substeps": 8,
+        "support_load_fraction": 0.5,
+        "mean_weight": 0.75,
+        "minimum_weight": 0.25,
+        "impact_multiple": 3.0,
+        "negative_force_tolerance_n": 0.0001,
+        "external_reward_weight": 0.4,
+        "reward_dt_s": 0.02,
+        "support_gap_weight": 1.0,
+        "support_force_threshold_n": 5.0,
+        "beta_gate_low_reference_speed_m_s": 0.3,
+        "support_gap_aggregation": "max8",
+        "loaded_angular_increment_deadband_rad_s": 0.05,
+        "loaded_angular_increment_scale_rad_s": 0.2,
+        "loaded_angular_increment_cap": 1.0,
+        "loaded_angular_increment_weight": 0.5
+      },
+      "force_input": "ground-filtered upward world-Z normal force N; [...,8,2]",
+      "mass_normalization": "mg is actual post-DR total mass times gravity magnitude in N",
+      "formula": "q=clip(sum_wheels(max(Fz,0))/(.50*mg),0,1); support=.75*mean_substeps(q)+.25*min_substeps(q); excess=max(Fz/(3*mg)-1,0); impact_gate=exp(-mean_substeps_wheels(excess**2)); A_bonus=anchor_xy*drift_speed*support*impact_gate; support_gap=max_substeps(max_wheels(max(Fz,0))<=5N); beta_gate=where(reference_speed>.3,existing_reference_beta_quality,1); raw=A_bonus*beta_gate-1*support_gap; dOmega=omega_worldXY[1:9]-omega_worldXY[0:8]; angular_cost=mean8(loaded*min(meanXY((max(abs(dOmega)-.05,0)/.2)**2),1)); raw_J=raw_I-.5*angular_cost",
+      "raw_reward_bounds": [
+        -1.5,
+        1.0
+      ],
+      "ground_filter_and_force_units_verified_by_caller": true,
+      "contact_count_required_by_arithmetic": false,
+      "support_requirement": "At least one supporting wheel; single-wheel lift or alternating load is allowed",
+      "bilateral_support_required": false,
+      "height_or_zero_sideslip_target": false,
+      "cross_window_streak_memory": false,
+      "continuous_contact_or_task_success_certified": false,
+      "immutable_v2a_definition_sha256": "5794ceb435c6ddc9cc374fa5ebe7718edc99d4c3181ebeac111cafe128461bf5",
+      "only_causal_change": "I plus bounded loaded-contact physical-step angularXY increment cost",
+      "support_gap_tracking_gated": false,
+      "support_gap_impact_gated": false,
+      "supported_light_load_penalized": false,
+      "per_step_threshold_strict_greater": true,
+      "support_threshold_is_world_normal_newtons_not_mass_fraction": true,
+      "negative_term_independent_of_mean_or_min_window_packing": false,
+      "immutable_v2f_definition_sha256": "a9e561a09ca2f0cbcd6c412a8e1860817aeccaff50660e9796866996a844d3e1",
+      "existing_beta_reward_weight_or_std_changed": false,
+      "support_gap_cost_unchanged_and_ungated": false,
+      "reference_beta_not_zero_beta_is_intended": true,
+      "low_reference_speed_beta_gate_neutral": true,
+      "caller_must_verify_existing_beta_quality_and_held_reference_phase": true,
+      "arithmetic_alone_does_not_certify_runtime_or_task_success": true,
+      "immutable_v2g_definition_sha256": "81056b23fbf2052f2e0630d1888aa6b71556027ca108ab3b08dd768a912e493a",
+      "support_gap_cost_ungated": true,
+      "support_gap_coefficient_unchanged": true,
+      "support_gap_is_window_event_not_duration_fraction": true,
+      "any_single_unsupported_substep_receives_full_gap_cost": true,
+      "positive_bonus_and_existing_reference_beta_gate_unchanged": true,
+      "no_velocity_proxy_or_absolute_height_input": false,
+      "immutable_v2i_definition_sha256": "2d805c5d878541da7a7ccc1f6af421ebe4b425fb9006756081f786ae79bf5101",
+      "velocity_samples_per_window": 9,
+      "current_start_state_plus8_actual_substeps_required": true,
+      "angular_velocity_source_units": "world rad/s; increment per actual2.5ms physics step",
+      "velocity_is_pose_finite_difference": false,
+      "end_state_repetition_allowed": false,
+      "no_action_or_state_filter_or_absolute_height_target": true,
+      "constant_angular_rate_unpenalized": true,
+      "other14_reward_terms_changed": false,
+      "new_input_is_true_native_angular_velocity_not_height_proxy": true
+    },
+    "model_weight_n": 218.49813011007384,
+    "ground_readout": "actual unique flat world floor plane; NORMAL force only; counts>=1e-6N",
+    "intended_support": "At least one wheel continuously supporting; other wheel may lift; alternating wheels allowed",
+    "beta_contact_gate_source": "existing_unweighted_drift_sideslip_same_held_reference",
+    "beta_contact_gate_neutral_at_reference_xy_speed_le_m_s": 0.3,
+    "support_gap_penalty_remains_ungated": true,
+    "angular_increment_readout": "native pre_body_ang_vel_w plus all8 body_ang_vel_w samples; base worldXY rad/s",
+    "angular_start_state_imputed_or_end_repeated": false,
+    "absolute_height_constraint": false,
+    "zero_sideslip_target": false
+  },
+  "action_parameterization": {
+    "mode": "warm_start_residual_blocks",
+    "parameter_units": "Normalized action residuals",
+    "baseline": "Winning bounded initial FULL plan, or bounded fallback when all initial scores fail; fresh after each warm shift",
+    "baseline_copied_and_fixed_per_solve": true,
+    "decode": "clip(fixed_full_baseline + block_residual[assignment], action_low, action_high)",
+    "zero_residual": "Exactly represents the initial baseline, not a later improved incumbent",
+    "incumbent": "Paired stored best encoded residual and decoded full plan",
+    "elite_moments": "Encoded clipped residual parameters; never re-compress decoded/clipped actions",
+    "residual_parameter_clip_low": [
+      -2.0,
+      -2.0,
+      -2.0,
+      -2.0,
+      -2.0,
+      -2.0,
+      -2.0,
+      -2.0
+    ],
+    "residual_parameter_clip_high": [
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0
+    ],
+    "finite_validation": "Before residual encoding clip, before decoded action clip, and for elite moment arithmetic; invalid arithmetic raises",
+    "generic_bounds": "New mode rejects nonfinite spans and rounded spans failing endpoint saturation; decoded sums must still be finite",
+    "learned_baseline": false
+  },
+  "completed_policy_steps": 349,
+  "native_samples": 2793,
+  "duration_s": 6.980000000000391,
+  "checkpoint_sha256": "0dc9b4a8c535ff65b406deb5fa4a05675ba1bb2e4d8ac7bf45ccb9403deda7d9",
+  "wall_s": 427.6985578579988,
+  "compute_ms_median_p95_max": [
+    1203.8982089943602,
+    1357.048795602168,
+    1498.8711459955084
+  ],
+  "compute_over_control_dt_fraction": 1.0,
+  "solver_failures": 0,
+  "plant_warning_counts": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "actual_CEM_reward_sum": 59.025559355415055,
+  "actual_reward_uses_ground_contact_v2": true,
+  "smoke_only": false,
+  "completed_full_reference": true,
+  "rollout_sha256": "872afda846fefb6cc8d01bf91629fbcd66d6511da7a01d8121fc756652ba4cf9",
+  "solver_log_sha256": "4fbd2635f1486f114f985ed2afcc38be9877ecb73d6da0969052d4e9bff9a937",
+  "actual_reward_audit": {
+    "status": "verified_exact",
+    "stages": 349,
+    "reward_terms": 15,
+    "V2_grounded_used_for_actual_plant_and_planner": true,
+    "native_substeps_per_stage": 8,
+    "actual_dt_scaled_reward_sum": 59.025559355415055,
+    "PPO_return_recomputed": false
+  },
+  "baseline_reset_recording_sha256": "876a459afdcbcfff2282f59fc85b21da4adac7e2235875fceb38a4f0b70660ca",
+  "native_build_manifest_sha256": "3b8ebd639e7fbcfa5ddbb6f3196dc0db59225e846b9fb2debf80e3aab7236d35",
+  "V2_same_as_old_PPO_training_reward": false
+}
