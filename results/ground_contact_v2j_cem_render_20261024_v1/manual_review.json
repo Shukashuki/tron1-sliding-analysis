@@ -1,0 +1,61 @@
+{
+  "status": "four_selected_instants_manually_reviewed_after_full_decode",
+  "manually_reviewed_times_s": [
+    3.0,
+    4.1,
+    6.0,
+    6.96
+  ],
+  "all_350_frames_manually_reviewed": false,
+  "all_350_frames_machine_decoded": true,
+  "v2_video_byte_identical_to_decoded_and_reviewed_v1_video": true,
+  "camera_constant_relative_distance_and_world_angles": true,
+  "opaque_actual_meshes": true,
+  "body_and_each_wheel_heading_shown": true,
+  "single_wheel_support_allowed": true,
+  "observations_for_actual_J": [
+    {
+      "native_time_s": 2.999999999999947,
+      "wheel_floor_Fz_L_R_n": [
+        301.1180891721359,
+        0.0
+      ],
+      "preceding8_anywheel_supported_samples": 8,
+      "root_z_m_diagnostic_only": 0.6945103191205793
+    },
+    {
+      "native_time_s": 4.099999999999941,
+      "wheel_floor_Fz_L_R_n": [
+        0.0,
+        0.0
+      ],
+      "preceding8_anywheel_supported_samples": 0,
+      "root_z_m_diagnostic_only": 0.8413749130746245
+    },
+    {
+      "native_time_s": 6.000000000000238,
+      "wheel_floor_Fz_L_R_n": [
+        0.0,
+        0.0
+      ],
+      "preceding8_anywheel_supported_samples": 7,
+      "root_z_m_diagnostic_only": 0.7434460561025494
+    },
+    {
+      "native_time_s": 6.960000000000388,
+      "wheel_floor_Fz_L_R_n": [
+        253.59077166436464,
+        237.6220750326361
+      ],
+      "preceding8_anywheel_supported_samples": 8,
+      "root_z_m_diagnostic_only": 0.7221624173660087
+    }
+  ],
+  "conclusion": "J improves whole-reference XY and reference-beta over parent I, but still fails uninterrupted any-wheel support; the longest unsupported interval is worse. No task completion claim.",
+  "limitations": [
+    "Manual pose review covers four instants only; contact continuity is evaluated from all native samples.",
+    "No geometric flight or absolute-height failure criterion is introduced.",
+    "N=1 and fixed mu=.7; no statistical robustness or real-time CEM claim.",
+    "This bundle contains only actual native CPU MuJoCo CEM results; no PPO outcome is inferred."
+  ]
+}
