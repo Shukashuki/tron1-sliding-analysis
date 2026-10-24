@@ -1,0 +1,43 @@
+{
+  "title": "K contact reward: fixed-budget CEM nominal comparison",
+  "controller": "offline CEM",
+  "plant_and_predictor": "native CPU MuJoCo",
+  "mu": 0.7,
+  "formula_change": "I positive/reference-beta bonus retained; binary any-gap cost replaced by continuous worst-substep max-wheel force margin from5N to0.5mg.",
+  "unchanged": [
+    "Other14 rewards",
+    "External grounded weight+.4",
+    "Reference beta reward+2/std.12",
+    "Action-rate-.5",
+    "400Hz physics/50Hz control",
+    "CEM search budget",
+    "Original task acceptance"
+  ],
+  "case_order": [
+    "Original",
+    "A",
+    "I",
+    "K"
+  ],
+  "sample_size_per_case": 1,
+  "source_analysis_sha256": "1c0bd5e9d330a5d39a0eaafd62014499e86a3d9d7f68ab2aa3d93d921b270146",
+  "source_public_numeric_manifest_sha256": "36cdfa9c3e8bbacc40b2bfe617d5b19521efaa2bd9274fd21611a31b78fa3bf1",
+  "core_xy_rmse_m": 0.12586271525532747,
+  "whole_xy_rmse_m": 0.0907796538124044,
+  "whole_xy_peak_m": 0.22876700413650855,
+  "core_beta_rmse_deg": 11.288537927114053,
+  "core_speed_ratio": 0.9897430724130126,
+  "full_anywheel_support_fraction": 0.7129996398991718,
+  "full_unsupported_physical_samples": 797,
+  "full_max_support_gap_s": 0.1499999999999968,
+  "core_HF_ratio_to_original_CEM": 0.6470014721771302,
+  "failed_checks": [
+    "core_reference_beta",
+    "any_wheel_every_physical_sample",
+    "longest_no_support_gap"
+  ],
+  "interpretation": "XY, speed and high-frequency angular-motion screens pass; intended-beta tracking and continuous any-wheel support fail. K is not a completed task.",
+  "new_PPO_result_claimed": false,
+  "friction_sweep_or_population_claimed": false,
+  "goal_completion_claimed": false
+}
