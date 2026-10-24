@@ -109,7 +109,7 @@ def test_no_existing_results_overwrite_or_speculative_graphics(tmp_path):
     assert '"support_gap_weight": 1.' in source
 
 
-def test_synthetic_canvas_replaces_only_identity_captions_with_E_mean8_only(monkeypatch):
+def test_synthetic_canvas_uses_J_angular_increment_identity_caption(monkeypatch):
     from PIL import Image, ImageDraw
     calls = []
     canvas = Image.new("RGB", (2560, 850))
@@ -121,6 +121,6 @@ def test_synthetic_canvas_replaces_only_identity_captions_with_E_mean8_only(monk
     result = mod.render_frame(NS(small=None), {}, {}, {}, {}, [], {}, None, 150)
     assert result is canvas
     texts = [value for kind, value in calls if kind == "text"]
-    assert "IcontactV2j(max8 any-gap event)" in texts[0] and "t=3.00s" in texts[0]
+    assert "J contactV2j(loaded angular increments)" in texts[0] and "t=3.00s" in texts[0]
     assert texts[1].startswith("J PPO(loaded angular increments)")
     assert [box for kind, box in calls if kind == "rectangle"] == [(0, 0, 2560, 29), (0, 763, 2560, 786)]

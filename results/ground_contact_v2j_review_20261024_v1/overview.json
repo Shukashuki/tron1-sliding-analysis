@@ -1,0 +1,182 @@
+{
+  "kind": "ACTUAL_I_VS_J_NOMINAL_CONTACT_REWARD_REVIEW",
+  "created_utc": "2026-10-24T20:01:22.990549+00:00",
+  "task": "TRON1 traj_4 high-speed large turn, intended nonzero reference beta, mu=.7",
+  "sample_size_per_case": 1,
+  "candidate_I": "G reference-beta-gated positive support bonus minus max8(anywheel Fz<=5N), external+.4",
+  "candidate_J": "Immutable I minus bounded loaded-contact world angularXY physical-step increment cost, raw coefficient.5, external+.4",
+  "main_conclusions": [
+    "PPO J meets the original HF-reduction screen in both engines and raises support fractions, but core/whole XY, reference-beta and uninterrupted-support criteria fail in both engines.",
+    "CEM J improves whole-reference XY and reference-beta over I and passes those numerical screens, while uninterrupted any-wheel support still fails; the longest unsupported interval worsens.",
+    "These are observed single-seed outcomes; no population-level causal claim or successful task completion is made."
+  ],
+  "unchanged_acceptance": {
+    "mu": 0.7,
+    "validation_backends": [
+      "PhysX",
+      "native CPU MuJoCo"
+    ],
+    "core_interval_s": [
+      1.44,
+      4
+    ],
+    "reference_overlap_interval_s": [
+      0,
+      6.96
+    ],
+    "full_contact_interval_s": [
+      0.02,
+      6.96
+    ],
+    "native_recording_interval_s": [
+      0,
+      6.98
+    ],
+    "core_and_whole_xy_rmse_m_max": 0.15,
+    "core_and_whole_xy_peak_m_max": 0.3,
+    "core_speed_ratio_range": [
+      0.95,
+      1.1
+    ],
+    "core_reference_beta_rmse_deg_max": 10,
+    "contact_force_definition": "Ground-filtered normal force in worldZ N; at least one wheel exceeds5N each physical sample.",
+    "contact_force_threshold_n_strict": 5,
+    "any_wheel_support_fraction_min": 1,
+    "longest_no_support_interval_s_max": 0,
+    "core_10_to_100hz_angular_xy_rms_ratio_to_original_baseline_max": 0.7,
+    "single_wheel_lift_is_failure": false,
+    "absolute_height_or_flight_gate": false,
+    "full_horizon_no_auto_reset": true,
+    "qualitative_review": "Render whole-body and fixed-world XY; cannot declare task complete solely from lower HF or summed reward.",
+    "results_are_single_seed_not_statistical_qualification": true
+  },
+  "training": {
+    "PPO_each_candidate_transitions": 12288000,
+    "initial_network_sha256": "7dcdf78ffeb61806eeefcb31c4739d707c1caef934d152f2296ba2ee488b4d5d",
+    "training_backend": "PhysX",
+    "validation_backends": [
+      "PhysX",
+      "native CPU MuJoCo"
+    ],
+    "same_normalized_actor_used_in_both_validation_engines_per_candidate": true,
+    "other14_rewards_changed": false,
+    "physics_hz": 400,
+    "policy_hz": 50,
+    "action_rate_weight": -0.5,
+    "shared_training_DR": {
+      "source": "mjlab v1.4.0 tracking events adapted to TRON1",
+      "sliding_friction": {
+        "range": [
+          0.3,
+          1.2
+        ],
+        "distribution": "uniform_continuous",
+        "sampling": "startup_once_per_environment",
+        "shared_between_wheels": true,
+        "scope": "colliding_wheel_shapes",
+        "mujoco_wheel_priority": 1,
+        "physx_static_equals_dynamic": true,
+        "physx_floor_mu": 1,
+        "physx_combine": "multiply"
+      },
+      "encoder_position_bias_rad": [
+        -0.01,
+        0.01
+      ],
+      "encoder_bias_signs": {
+        "actor": "+b",
+        "position_target": "-b",
+        "critic": "unbiased"
+      },
+      "base_com_xyz_range_m": [
+        [
+          -0.025,
+          0.025
+        ],
+        [
+          -0.05,
+          0.05
+        ],
+        [
+          -0.05,
+          0.05
+        ]
+      ],
+      "root_link_velocity_push_interval_s": [
+        1,
+        3
+      ],
+      "root_link_velocity_push_ranges": {
+        "x": [
+          -0.5,
+          0.5
+        ],
+        "y": [
+          -0.5,
+          0.5
+        ],
+        "z": [
+          -0.2,
+          0.2
+        ],
+        "roll": [
+          -0.52,
+          0.52
+        ],
+        "pitch": [
+          -0.52,
+          0.52
+        ],
+        "yaw": [
+          -0.78,
+          0.78
+        ]
+      },
+      "push_timer_reset_correction": "resample all interval timers at episode reset; do not reproduce v1.4 function-event reset bug",
+      "restitution_randomization": false,
+      "contact_law_equivalence_claimed": false
+    }
+  },
+  "fairness_limits": [
+    "CEM knows mu=.7 and uses the existing native MuJoCo predictor; PPO receives the unchanged actor observations.",
+    "CEM is offline with the frozen search budget, not a20ms real-time controller.",
+    "HF ratios use each controller original same-engine baseline; they are not a shared absolute-power denominator.",
+    "Reward definitions differ; episode returns are not ranked.",
+    "Camera distances are fixed within each cohort video but may differ between separate cohort videos; apparent size across separate videos is not a metric."
+  ],
+  "artifacts": {
+    "PPO_video": "results/ground_contact_v2j_ppo_nominal_20261024_v1/fullbody_comparison.mp4",
+    "CEM_video": "results/ground_contact_v2j_cem_render_20261024_v1/fullbody_comparison.mp4",
+    "six_row_comparison": "comparison.csv",
+    "read_only_table_reproduction": "python results/ground_contact_v2j_review_20261024_v1/reproduce_comparison.py"
+  },
+  "comparison_inputs": [
+    {
+      "candidate": "I",
+      "controller": "PPO",
+      "path": "results/ground_contact_v2i_ppo_nominal_20261024_v1/analysis.json",
+      "sha256": "c72d227b9a4e12d5faebba079b684c96ff201a29c4cde0573ace515f46cfce75"
+    },
+    {
+      "candidate": "I",
+      "controller": "CEM",
+      "path": "results/ground_contact_v2i_cem_nominal_20261024_v1/cem_analysis.json",
+      "sha256": "9730d7f3a29d1c863a8fea9271318ec3f54d0ff07410954a9d3da54c6da65c79"
+    },
+    {
+      "candidate": "J",
+      "controller": "PPO",
+      "path": "results/ground_contact_v2j_ppo_nominal_20261024_v1/analysis.json",
+      "sha256": "45fe45720d1ff112485a701175f25c6f6b5ad877fd796d21f99ec478d381cbc5"
+    },
+    {
+      "candidate": "J",
+      "controller": "CEM",
+      "path": "results/ground_contact_v2j_cem_nominal_20261024_v2/cem_analysis.json",
+      "sha256": "30414df33c9c44a557dc82db3d5cdabcf6b960f4858f35c02362e05ba62b23d9"
+    }
+  ],
+  "table_reproduction_scope": "Only six rows from SHA-pinned public analyses; each underlying bundle provides its independent recorded-state metric replay.",
+  "next_direction_not_yet_a_trained_result": "Return to tracking-valid I and investigate worst-substep any-wheel load margin above5N, preserving the original acceptance, reference beta and free absolute height.",
+  "goal_complete": false
+}

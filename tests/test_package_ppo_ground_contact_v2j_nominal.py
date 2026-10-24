@@ -38,7 +38,7 @@ class PackageGTests(unittest.TestCase):
     def test_actual_E_completed_renderer_field_contract(self):
         root = ROOT/"outputs/ground_contact_v2j_20261024_v1"
         analysis = root/"ppo_dual_engine_analysis_v1/summary.json"
-        render = root/"ppo_render_v1/provenance.json"
+        render = root/"ppo_render_v2/provenance.json"
         if not (analysis.is_file() and render.is_file()):
             self.skipTest("Actual completed J render absent; never substitute synthetic J evidence")
         summary, provenance = mod.read_json(analysis), mod.read_json(render)
@@ -202,7 +202,7 @@ class PackageGTests(unittest.TestCase):
                     key = variant+"_"+engine
                     render["cases"][key] = {"analysis": row[field], "A_B_C_D_E_F_reward_policy_substituted": False,
                         "new_nominal_screen": row["nominal_screen"] if variant == "v2j" else None,
-                        "I_cohort_id": mod.audit.evaluator.COHORT_ID if variant == "v2j" else None}
+                        "J_cohort_id": mod.audit.evaluator.COHORT_ID if variant == "v2j" else None}
                     render["input_evidence"][key] = row[evidence_key]
                     render["replay_FK_audit"][key] = {"samples_checked": 2793, "root_pose_copied_exactly": True,
                         "max_wheel_origin_error_m": 0., "tolerance_m": 1e-4}
@@ -283,7 +283,7 @@ class PackageGTests(unittest.TestCase):
 
     def test_optional_ACTUAL_formal_C_analysis_and_render_when_completed(self):
         root = mod.DEFAULT_ROOT
-        analysis, render = root/"ppo_dual_engine_analysis_v1/summary.json", root/"ppo_render_v1/provenance.json"
+        analysis, render = root/"ppo_dual_engine_analysis_v1/summary.json", root/"ppo_render_v2/provenance.json"
         if not (analysis.is_file() and render.is_file()):
             self.skipTest("Actual formal J dual-engine analysis/render not complete; no J results invented")
         summary = mod.read_json(analysis)

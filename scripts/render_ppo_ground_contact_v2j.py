@@ -103,7 +103,7 @@ def render_frame(runtime, traces, qposes, reference, cases, order, plan, bounds,
     draw = ImageDraw.Draw(canvas)
     draw.rectangle((0, 0, canvas.width, 29), fill="#fafafa")
     subset = "EXPLICIT TWO-PANEL SUBSET" if len(order) == 2 else "FOUR ACTUAL COMPLETED CASES"
-    draw.text((12, 4), f"PPO original vsIcontactV2j(max8 any-gap event) | mu=.7 | native400Hz / replay50Hz | t={int(native_indices()[frame])*.0025:.2f}s | {subset}",
+    draw.text((12, 4), f"PPO original vs J contactV2j(loaded angular increments) | mu=.7 | native400Hz / replay50Hz | t={int(native_indices()[frame])*.0025:.2f}s | {subset}",
               font=runtime.small, fill="#111111")
     draw.rectangle((0, 763, canvas.width, 786), fill="#fafafa")
     draw.text((12, 765), outcome_caption(cases, order), font=runtime.small, fill="#8f2929")

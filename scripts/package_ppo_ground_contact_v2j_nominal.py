@@ -24,7 +24,7 @@ from ppo_backend_400hz_contract import read_json, require, sha256, write_json
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_ROOT = ROOT/"outputs/ground_contact_v2j_20261024_v1"
 ANALYZER_SHA256 = "0d3a8d450e8aaedbd5542c58421bc3fb03f17aa77dfa06cdc35147ac07fc9fc6"
-RENDERER_SHA256 = "a8a9363cb791a8124459f78d7eda0a0ebaae592c1c19b599027426eccf4e8028"
+RENDERER_SHA256 = "c2417303a54aa5ab95d7abf933fc704f07cab8724cf0741def83a9f1757d29bc"
 COMPACT_CASE_ORDER = ["new_physx", "baseline_physx", "new_mujoco", "baseline_mujoco"]
 CASE_ORDER = ["baseline_physx", "v2j_physx", "baseline_mujoco", "v2j_mujoco"]
 PROOF_FILES = ("runner_config.json", "cohort_completion_audit.json", "ground_contact_v2j_startup_audit.json",
@@ -134,7 +134,7 @@ def verify_render(render, summary, folder):
                     and case.get("A_B_C_D_E_F_reward_policy_substituted") is False, "J render did not use actual analysis/proof")
             if variant == "v2j":
                 require(case["new_nominal_screen"] == row["nominal_screen"]
-                        and case["I_cohort_id"] == audit.evaluator.COHORT_ID, "J outcome caption or cohort differs")
+                        and case["J_cohort_id"] == audit.evaluator.COHORT_ID, "J outcome caption or cohort differs")
             fk = render["replay_FK_audit"][key]
             require(fk["samples_checked"] == 2793 and fk["root_pose_copied_exactly"] is True
                     and fk["max_wheel_origin_error_m"] <= fk["tolerance_m"], "J native-pose FK audit differs")
@@ -259,7 +259,7 @@ def run(args):
     output, root = Path(args.output_dir), Path(args.input_root)
     require(not output.exists(), "Preserve published results; require fresh output directory")
     protocol = verify_sources()
-    analysis_folder, render_folder, training = root/"ppo_dual_engine_analysis_v1", root/"ppo_render_v1", root/"ppo_training_proof_v1"
+    analysis_folder, render_folder, training = root/"ppo_dual_engine_analysis_v1", root/"ppo_render_v2", root/"ppo_training_proof_v1"
     summary, render = read_json(analysis_folder/"summary.json"), read_json(render_folder/"provenance.json")
     validate_summary(summary, protocol)
     training_path = training/"ground_contact_v2j_training_audit.json"
@@ -284,7 +284,7 @@ def run(args):
     for stem, digest in SNAPSHOT_PINS.items():
         verify_source_snapshot(root/(stem+".tar.gz"), root/(stem+".manifest.json"), digest,
             expected_member_count=SNAPSHOT_MEMBER_COUNTS[stem])
-    require((root/"ppo_render_launch.json").is_file() and not (root/"ppo_render_launch.json").is_symlink(),
+    require((root/"ppo_render_launch_v2.json").is_file() and not (root/"ppo_render_launch_v2.json").is_symlink(),
             "Missing direct actual J render launch JSON")
     output.mkdir(parents=True, exist_ok=False)
     copies = {}
@@ -292,7 +292,7 @@ def run(args):
         destination = output/name; destination.parent.mkdir(parents=True, exist_ok=True)
         copies[name] = copy_bound(source, destination, expected)
     for source, name in ((analysis_folder/"summary.json", "analysis.json"), (audit.DEFAULT_PROTOCOL, "protocol.json"),
-                         (root/"ppo_render_launch.json", "render_launch.json"), (render_folder/"provenance.json", "render_provenance.json")):
+                         (root/"ppo_render_launch_v2.json", "render_launch.json"), (render_folder/"provenance.json", "render_provenance.json")):
         save(source, name)
     for name in ("native_states.npz", "metric_table.csv"): save(analysis_folder/name, name, summary["artifact_sha256"][name])
     for name in ("comparison.png", "fullbody_comparison.mp4", "replay_states.npz"): save(render_folder/name, name, render["artifacts"][name])

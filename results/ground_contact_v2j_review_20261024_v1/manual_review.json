@@ -1,0 +1,128 @@
+{
+  "status": "five_selected_instants_manually_reviewed_after_full350_frame_decode",
+  "manually_reviewed_times_s": [
+    2.1,
+    2.16,
+    3.0,
+    6.0,
+    6.96
+  ],
+  "all350_frames_manually_reviewed": false,
+  "same_fixed_relative_distance_and_world_angles_within_each_video": true,
+  "opaque_actual_meshes": true,
+  "body_and_both_wheel_headings_visible": true,
+  "observations": [
+    {
+      "requested_time_s": 2.1,
+      "actual_J": {
+        "physx": {
+          "native_time_s": 2.1,
+          "wheel_floor_Fz_L_R_n": [
+            0.0,
+            337.56158447265324
+          ],
+          "preceding8_anywheel_supported_samples": 8
+        },
+        "mujoco": {
+          "native_time_s": 2.0999999999999663,
+          "wheel_floor_Fz_L_R_n": [
+            0.0,
+            0.0
+          ],
+          "preceding8_anywheel_supported_samples": 0
+        }
+      }
+    },
+    {
+      "requested_time_s": 2.16,
+      "actual_J": {
+        "physx": {
+          "native_time_s": 2.16,
+          "wheel_floor_Fz_L_R_n": [
+            0.0,
+            0.0
+          ],
+          "preceding8_anywheel_supported_samples": 0
+        },
+        "mujoco": {
+          "native_time_s": 2.159999999999965,
+          "wheel_floor_Fz_L_R_n": [
+            0.0,
+            235.0198296382145
+          ],
+          "preceding8_anywheel_supported_samples": 7
+        }
+      }
+    },
+    {
+      "requested_time_s": 3.0,
+      "actual_J": {
+        "physx": {
+          "native_time_s": 3.0,
+          "wheel_floor_Fz_L_R_n": [
+            163.7227935791001,
+            0.0
+          ],
+          "preceding8_anywheel_supported_samples": 8
+        },
+        "mujoco": {
+          "native_time_s": 2.999999999999947,
+          "wheel_floor_Fz_L_R_n": [
+            325.9255986681659,
+            0.0
+          ],
+          "preceding8_anywheel_supported_samples": 3
+        }
+      }
+    },
+    {
+      "requested_time_s": 6.0,
+      "actual_J": {
+        "physx": {
+          "native_time_s": 6.0,
+          "wheel_floor_Fz_L_R_n": [
+            72.04598999023374,
+            155.90269470214704
+          ],
+          "preceding8_anywheel_supported_samples": 8
+        },
+        "mujoco": {
+          "native_time_s": 6.000000000000238,
+          "wheel_floor_Fz_L_R_n": [
+            102.42578103170425,
+            116.54555977923067
+          ],
+          "preceding8_anywheel_supported_samples": 8
+        }
+      }
+    },
+    {
+      "requested_time_s": 6.96,
+      "actual_J": {
+        "physx": {
+          "native_time_s": 6.96,
+          "wheel_floor_Fz_L_R_n": [
+            84.93787384033128,
+            135.44746398925662
+          ],
+          "preceding8_anywheel_supported_samples": 8
+        },
+        "mujoco": {
+          "native_time_s": 6.960000000000388,
+          "wheel_floor_Fz_L_R_n": [
+            83.83690218765199,
+            136.87752379160293
+          ],
+          "preceding8_anywheel_supported_samples": 8
+        }
+      }
+    }
+  ],
+  "conclusions": [
+    "At2.10s the MuJoCo J case has0/8 supported samples; at2.16s the PhysX J case has0/8, matching the independently measured gap timing.",
+    "At3s both J cases have about0.64m XY error despite improved whole-episode support fraction.",
+    "Late tracking/contact recovery at6s and6.96s does not erase turn-core errors, support gaps or reference-beta failures."
+  ],
+  "height_or_geometric_flight_failure_inferred": false,
+  "overall_goal_complete": false
+}
