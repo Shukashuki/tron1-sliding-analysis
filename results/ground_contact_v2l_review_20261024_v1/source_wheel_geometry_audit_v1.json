@@ -1,0 +1,66 @@
+{
+  "kind": "read_only_source_XML_wheel_geometry_audit",
+  "source_xml_sha256": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513",
+  "actual_CEM_report_same_model_sha256": true,
+  "source_visual_default": {
+    "contype": "0",
+    "conaffinity": "0",
+    "group": "1",
+    "type": "mesh",
+    "rgba": "0.9 0.9 0.9 1.0"
+  },
+  "wheels": [
+    {
+      "side": "L",
+      "body": "wheel_L_Link",
+      "collision_geom": {
+        "name": "wheel_L_collision",
+        "pos": "0 0.00707 0",
+        "size": "0.127 0.025",
+        "quat": "0.707106781187 0.707106781187 0 0",
+        "type": "cylinder",
+        "rgba": "1 0.423529 0.0392157 1"
+      },
+      "visual_geoms": [
+        {
+          "class": "visual",
+          "rgba": "0.26667 0.26667 0.26667 1",
+          "mesh": "wheel_L_Link"
+        }
+      ]
+    },
+    {
+      "side": "R",
+      "body": "wheel_R_Link",
+      "collision_geom": {
+        "name": "wheel_R_collision",
+        "pos": "0 -0.00707 0",
+        "size": "0.127 0.025",
+        "quat": "0.707106781187 0.707106781187 0 0",
+        "type": "cylinder",
+        "rgba": "1 0.423529 0.0392157 1"
+      },
+      "visual_geoms": [
+        {
+          "class": "visual",
+          "rgba": "0.26667 0.26667 0.26667 1",
+          "mesh": "wheel_R_Link"
+        }
+      ]
+    }
+  ],
+  "source_option": {
+    "timestep": "0.002",
+    "gravity": "0 0 -9.81",
+    "integrator": "implicitfast",
+    "solver": "Newton",
+    "iterations": "100",
+    "tolerance": "1e-10"
+  },
+  "recorded_actual_CEM_physics_dt_s": 0.0025,
+  "source_xml_timestep_is_not_the_refined_execution_timestep": true,
+  "direct_compiled_plant_contact_geometry_readback": false,
+  "causal_contact_instability_claimed": false,
+  "new_physics_or_policy_inference": false,
+  "interpretation": "Both wheel collision definitions are analytic cylinders in the locked XML; separate STL geoms are visual. This source inspection alone does not explain or rule out contact-solver/controller-induced load oscillations."
+}

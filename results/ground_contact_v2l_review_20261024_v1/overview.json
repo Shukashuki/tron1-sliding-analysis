@@ -1,0 +1,47 @@
+{
+  "title": "I / J / K / L contact-reward nominal review",
+  "snapshot_utc": "2026-10-24T21:51:44.776164+00:00",
+  "sample_size_per_case": 1,
+  "mu": 0.7,
+  "physics_dt_s": 0.0025,
+  "control_dt_s": 0.02,
+  "reference": "traj_4, intended nonzero beta",
+  "public_analysis_paths": {
+    "i_ppo": "results/ground_contact_v2i_ppo_nominal_20261024_v1/analysis.json",
+    "i_cem": "results/ground_contact_v2i_cem_nominal_20261024_v1/cem_analysis.json",
+    "j_ppo": "results/ground_contact_v2j_ppo_nominal_20261024_v1/analysis.json",
+    "j_cem": "results/ground_contact_v2j_cem_nominal_20261024_v2/cem_analysis.json",
+    "k_ppo": "results/ground_contact_v2k_ppo_nominal_20261024_v1/analysis.json",
+    "k_cem": "results/ground_contact_v2k_cem_nominal_20261024_v1/cem_analysis.json",
+    "l_ppo": "results/ground_contact_v2l_ppo_nominal_20261024_v1/analysis.json",
+    "l_cem": "results/ground_contact_v2l_cem_nominal_20261024_v1/cem_analysis.json"
+  },
+  "public_analysis_sha256": {
+    "i_ppo": "c72d227b9a4e12d5faebba079b684c96ff201a29c4cde0573ace515f46cfce75",
+    "i_cem": "9730d7f3a29d1c863a8fea9271318ec3f54d0ff07410954a9d3da54c6da65c79",
+    "j_ppo": "45fe45720d1ff112485a701175f25c6f6b5ad877fd796d21f99ec478d381cbc5",
+    "j_cem": "30414df33c9c44a557dc82db3d5cdabcf6b960f4858f35c02362e05ba62b23d9",
+    "k_ppo": "c01cff93c49229b418b8a3e13944ae5fadc81c8a22a5df3fa2ff53aa6467d928",
+    "k_cem": "1c0bd5e9d330a5d39a0eaafd62014499e86a3d9d7f68ab2aa3d93d921b270146",
+    "l_ppo": "dd26c33e0bb244188b4809f19e0b2f8c4874a7e2bf30ce4ab149032ef806d4e3",
+    "l_cem": "d724dff44c6706983f3e85a2405ac1de6e83e8dbb6d8024f180edafaf2dbc3f6"
+  },
+  "key_findings": [
+    "L PPO fails8 unchanged nominal checks in each validation engine; only the angularHF reduction screen passes.",
+    "L PPO coreXYRMSE0.163/0.289m, speed ratios0.934/0.909 and betaRMSE22.1/35.6deg do not preserve the task.",
+    "L nativeMuJoCo beta has868 valid core samples versus1025 in K; slowing/stalling affects metric availability. Valid counts are shown separately.",
+    "L PPO full support fractions0.925/0.867 and maximum gaps60/35ms do not establish continuous support.",
+    "L CEM raises support fraction relative to K but worsens XY/beta tracking; it fails7 original checks.",
+    "K remains the tracking-valid branch for further contact shaping; no successful task is claimed.",
+    "The source XML uses cylinder wheel collision geoms and noncolliding visual meshes. Source inspection alone does not identify the cause of contact oscillation.",
+    "M is declared as K with internal load-margin cost weight1->4; arithmetic/configuration tests only. No M training, control rollout or performance is claimed."
+  ],
+  "PPO_video": "../ground_contact_v2l_ppo_nominal_20261024_v1/fullbody_comparison.mp4",
+  "CEM_video": "../ground_contact_v2l_cem_render_20261024_v1/fullbody_comparison.mp4",
+  "comparison_replay_scope": "SHA-pinned public analyses -> exact12 CSV rows; this table extractor does not recompute native metrics. Separate guarded native replays verify PPO/CEM compact state metrics.",
+  "actor_training_budget_each": 12288000,
+  "one_wheel_lift_allowed": true,
+  "free_absolute_height": true,
+  "no_statistical_hardware_or_general_friction_claim": true,
+  "goal_completion_claimed": false
+}

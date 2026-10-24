@@ -1,0 +1,115 @@
+{
+  "status": "FORMAL_L_PPO_COMPLETED_DUAL_ENGINE_NUMERICAL_CRITERIA_FAILED",
+  "snapshot_utc": "2026-10-24T21:48:38.089831+00:00",
+  "cohort_id": "tron1_ground_contact_v2l_any_wheel_400hz_v1",
+  "reward_definition_version": "ground_contact_v2l_any_wheel",
+  "support_aggregation": "q=clip(sum_wheels(max(Fz,0))/(.50*mg),0,1); support=.75*mean_substeps(q)+.25*min_substeps(q); excess=max(Fz/(3*mg)-1,0); impact_gate=exp(-mean_substeps_wheels(excess**2)); A_bonus=anchor_xy*drift_speed*support*impact_gate; support_gap=max_substeps(max_wheels(max(Fz,0))<=5N); beta_gate=where(reference_speed>.3,existing_reference_beta_quality,1); raw=A_bonus*beta_gate-1*support_gap; target=.5mg>5N; margin_samples=clip((target-max_wheel(max(Fz,0)))/(target-5N),0,1); K_cost=max8(margin_samples); raw_K=G_gated_support_bonus-1*K_cost; netF=sum_wheels(max(Fz,0)); delta=netF[1:8]-netF[0:7]; slew_samples=min((delta/(1*mg))^2,1); slew_cost=mean7(slew_samples); raw_L=raw_K-1*slew_cost",
+  "training_backend": "PhysX",
+  "training_transitions": 12288000,
+  "initialization": "from_scratch",
+  "conditions": {
+    "mu": 0.7,
+    "physics_hz": 400,
+    "policy_hz": 50,
+    "beta_reward_on": true,
+    "grounded_weight": 0.4,
+    "positive_mean_weight": 0.75,
+    "positive_minimum_weight": 0.25,
+    "support_gap_weight": 1.0,
+    "support_force_threshold_n": 5.0,
+    "support_gap_penalty_active": true,
+    "support_gap_tracking_or_impact_gated": false,
+    "contact_reward_settings": {
+      "schema_version": 1,
+      "candidate": "ground_contact_v2l",
+      "physics_substeps": 8,
+      "support_load_fraction": 0.5,
+      "mean_weight": 0.75,
+      "minimum_weight": 0.25,
+      "impact_multiple": 3.0,
+      "negative_force_tolerance_n": 0.0001,
+      "external_reward_weight": 0.4,
+      "reward_dt_s": 0.02,
+      "support_gap_weight": 1.0,
+      "support_force_threshold_n": 5.0,
+      "beta_gate_low_reference_speed_m_s": 0.3,
+      "support_gap_aggregation": "max8",
+      "support_gap_cost_mode": "worst_substep_continuous_anywheel_load_margin",
+      "normal_force_slew_weight": 1.0,
+      "normal_force_slew_mg_scale": 1.0,
+      "normal_force_slew_cap": 1.0
+    },
+    "positive_beta_gate_source": "existing unweighted reference-beta quality, not zero-beta target",
+    "positive_beta_gate_low_reference_speed_m_s": 0.3,
+    "action_rate_weight": -0.5,
+    "single_wheel_support_allowed": true,
+    "bilateral_support_required": false,
+    "absolute_height_or_zero_beta_gate_added": false
+  },
+  "same_new_normalized_actor_sha256_both_engines": "18691ac2e7a16a1496ccd33ab1e6fe692851fedb6b5a75de5f3f696342d5b5c9",
+  "new_checkpoint_sha256": "a54156b1bb29167519402db35f5a2490062573a4a91d50816c5975359faaaff3",
+  "cases": [
+    {
+      "id": "physx_trained_to_physx",
+      "validation_backend": "PhysX",
+      "sample_size": 1,
+      "whole_contact_interval_s": [
+        0.02,
+        6.96
+      ],
+      "whole_anywheel_support_fraction": 0.9247389268995319,
+      "whole_longest_no_support_s": 0.06000000000000005,
+      "numeric_nominal_episode_pass": false,
+      "failed_checks": [
+        "core_xy_rmse",
+        "core_xy_peak",
+        "whole_xy_rmse",
+        "whole_xy_peak",
+        "core_speed_retention",
+        "core_reference_beta",
+        "any_wheel_every_physical_sample",
+        "longest_no_support_gap"
+      ]
+    },
+    {
+      "id": "physx_trained_to_mujoco",
+      "validation_backend": "native CPU MuJoCo",
+      "sample_size": 1,
+      "whole_contact_interval_s": [
+        0.02,
+        6.96
+      ],
+      "whole_anywheel_support_fraction": 0.8667626935541952,
+      "whole_longest_no_support_s": 0.034999999999999254,
+      "numeric_nominal_episode_pass": false,
+      "failed_checks": [
+        "core_xy_rmse",
+        "core_xy_peak",
+        "whole_xy_rmse",
+        "whole_xy_peak",
+        "core_speed_retention",
+        "core_reference_beta",
+        "any_wheel_every_physical_sample",
+        "longest_no_support_gap"
+      ]
+    }
+  ],
+  "both_numerical_nominal_screens_passed": false,
+  "strict_continuous_anywheel_contact_achieved": false,
+  "formal_training_and_validation_complete": true,
+  "goal_complete": false,
+  "weights_included_or_executed_locally": false,
+  "evidence_scope": "Execution-host verified training/export weights; copied JSON proofs and compact native metrics rehashed locally.",
+  "fairness": {
+    "baseline": "Original same-engine PhysX-trained400Hz betaON PPO, not A contact policy",
+    "training": "Frozen L formula: q=clip(sum_wheels(max(Fz,0))/(.50*mg),0,1); support=.75*mean_substeps(q)+.25*min_substeps(q); excess=max(Fz/(3*mg)-1,0); impact_gate=exp(-mean_substeps_wheels(excess**2)); A_bonus=anchor_xy*drift_speed*support*impact_gate; support_gap=max_substeps(max_wheels(max(Fz,0))<=5N); beta_gate=where(reference_speed>.3,existing_reference_beta_quality,1); raw=A_bonus*beta_gate-1*support_gap; target=.5mg>5N; margin_samples=clip((target-max_wheel(max(Fz,0)))/(target-5N),0,1); K_cost=max8(margin_samples); raw_K=G_gated_support_bonus-1*K_cost; netF=sum_wheels(max(Fz,0)); delta=netF[1:8]-netF[0:7]; slew_samples=min((delta/(1*mg))^2,1); slew_cost=mean7(slew_samples); raw_L=raw_K-1*slew_cost; external+0.4; other14 terms unchanged",
+    "evaluation": "Normalized actor once; legacy evaluator reward logging is NOT numerically compared with CEM returns",
+    "metrics": "Recorded state/contact tracking, not different-reward return totals or optimizer-only superiority"
+  },
+  "limitations": [
+    "N=1 per engine, nominal mu0.7 only; no friction-range, seed, hardware or statistical qualification.",
+    "Lower HF or shorter maximum gaps alone do not establish continuous support or task completion.",
+    "Numerical pass/fail is actual-data-derived; unchanged contact/speed/beta/XY/HF criteria are not relaxed.",
+    "Qualitative whole-body review and broader task completion remain separate; A/CEM packages are not overwritten."
+  ]
+}
