@@ -1,0 +1,49 @@
+{
+  "title": "L net-normal-force slew reward: fixed-budget CEM nominal comparison",
+  "controller": "offline CEM",
+  "plant_and_predictor": "native CPU MuJoCo",
+  "mu": 0.7,
+  "formula_change": "Immutable K raw reward minus mean7(min((diff8(sum_wheels(max(Fz,0)))/mg)^2,1)), weight1; same8 actual native force samples.",
+  "unchanged": [
+    "External grounded weight+.4",
+    "Other14 rewards",
+    "Intended reference-beta reward+2/std.12",
+    "K support margin",
+    "400Hz physics/50Hz control",
+    "CEM search budget",
+    "Original acceptance"
+  ],
+  "case_order": [
+    "Original",
+    "A",
+    "K",
+    "L"
+  ],
+  "sample_size_per_case": 1,
+  "analysis_sha256": "d724dff44c6706983f3e85a2405ac1de6e83e8dbb6d8024f180edafaf2dbc3f6",
+  "public_numeric_manifest_sha256": "ec22b7b3f7bb0febab6b60f7a3b5c5429829a0ebb7bfc677df918df472402eca",
+  "core_xy_rmse_m": 0.28039818935451477,
+  "whole_xy_rmse_m": 0.31811390051631333,
+  "whole_xy_peak_m": 0.5335732904726954,
+  "core_beta_rmse_deg": 17.745282813919143,
+  "core_speed_ratio": 0.9621490433530866,
+  "full_anywheel_support_fraction": 0.7695354699315808,
+  "full_unsupported_physical_samples": 640,
+  "full_max_gap_s": 0.15000000000002345,
+  "core_HF_ratio_to_original_CEM": 0.6698139593398335,
+  "parent_K_core_xy_rmse_m": 0.12586271525532747,
+  "parent_K_full_support_fraction": 0.7129996398991718,
+  "failed_checks": [
+    "core_xy_rmse",
+    "core_xy_peak",
+    "whole_xy_rmse",
+    "whole_xy_peak",
+    "core_reference_beta",
+    "any_wheel_every_physical_sample",
+    "longest_no_support_gap"
+  ],
+  "interpretation": "Relative to K, support fraction improves but XY and intended-beta tracking worsen. AngularHF remains within the original0.7 screen but is slightly higher than K. Neither continuous support nor the task is achieved.",
+  "new_PPO_result_claimed": false,
+  "friction_sweep_or_population_claimed": false,
+  "goal_completion_claimed": false
+}
