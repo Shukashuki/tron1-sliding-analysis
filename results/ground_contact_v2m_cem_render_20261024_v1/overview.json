@@ -1,0 +1,49 @@
+{
+  "title": "M K-load-margin cost1->4: fixed-budget CEM nominal comparison",
+  "controller": "offline CEM",
+  "plant_and_predictor": "native CPU MuJoCo",
+  "mu": 0.7,
+  "formula_change": "Immutable K positive held-reference-beta support bonus minus4 times K continuous worst-substep any-wheel load-margin cost; coefficient1->4 only. L force-slew is not retained.",
+  "unchanged": [
+    "External grounded weight+.4",
+    "Other14 rewards",
+    "Intended reference-beta reward+2/std.12",
+    "K support margin",
+    "400Hz physics/50Hz control",
+    "CEM search budget",
+    "Original acceptance"
+  ],
+  "case_order": [
+    "Original",
+    "A",
+    "K",
+    "M"
+  ],
+  "sample_size_per_case": 1,
+  "analysis_sha256": "119d42b34c7d93fd769f1da0ff7edb226a1b4b3c026c8d9f9b2abf12ebd3bcc9",
+  "public_numeric_manifest_sha256": "fd300829da022115bc5a636745c22e41f53ce5a848d025d77d31feb06201c1a5",
+  "core_xy_rmse_m": 0.2494984776440307,
+  "whole_xy_rmse_m": 0.47895821726651466,
+  "whole_xy_peak_m": 0.9536008520898202,
+  "core_beta_rmse_deg": 19.233286370033298,
+  "core_speed_ratio": 1.0647961886374875,
+  "full_anywheel_support_fraction": 0.8732445084623695,
+  "full_unsupported_physical_samples": 352,
+  "full_max_gap_s": 0.13249999999999718,
+  "core_HF_ratio_to_original_CEM": 0.5411668272378214,
+  "parent_K_core_xy_rmse_m": 0.12586271525532747,
+  "parent_K_full_support_fraction": 0.7129996398991718,
+  "failed_checks": [
+    "core_xy_rmse",
+    "core_xy_peak",
+    "whole_xy_rmse",
+    "whole_xy_peak",
+    "core_reference_beta",
+    "any_wheel_every_physical_sample",
+    "longest_no_support_gap"
+  ],
+  "interpretation": "Relative to K, support fraction improves from71.30% to87.32% and angularHF ratio to original decreases from0.6470 to0.5412. CoreXY RMSE worsens from0.1259m to0.2495m, wholeXY peak from0.2288m to0.9536m, and intended-beta RMSE from11.29deg to19.23deg. A132.5ms support gap remains. Neither continuous support nor the original task is achieved.",
+  "new_PPO_result_claimed": false,
+  "friction_sweep_or_population_claimed": false,
+  "goal_completion_claimed": false
+}

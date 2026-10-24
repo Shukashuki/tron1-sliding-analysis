@@ -1,0 +1,673 @@
+{
+  "kind": "CEM_L_A_B_C_D_E_F_G_EXECUTED_AND_OFFLINE_PURE_SOURCE",
+  "archive": {
+    "file": "executed_source.tar.gz",
+    "sha256": "e14169b0a783f42f0058fc3a2cf0af0bcd200af24394f515e3cb82ad3f5216a6",
+    "pure_source_files": 105,
+    "models_weights_credentials_native_libraries_included": false,
+    "extraction": "Restore only into a fresh isolated checkout, never over a dirty working tree."
+  },
+  "executed_controller_source_sha256": {
+    "scripts/run_cem_ground_contact_v2m.py": "82fce1d77e2e38c4ac27aa1ad795eabaeeb5779840e84e2ff0f433dead2fb66e",
+    "config/ppo_cem_matched_reward_400hz_v1.json": "410180756a7d489a6f8181157d5993813b17b60f7e103449b9bfa81a25c0984d",
+    "config/ppo_ground_contact_v2m_400hz_v1.json": "a398f63e8abe49541ee339c79402cd91988304a0a4c33d34516ffe5a5bd74b51",
+    "scripts/ground_contact_reward_v2.py": "5794ceb435c6ddc9cc374fa5ebe7718edc99d4c3181ebeac111cafe128461bf5",
+    "scripts/ground_contact_reward_v2b.py": "359997a5e4e1734f14ffd8c64a61bbaf0f8fb1d0dd6b274001a77689bb62ba6c",
+    "scripts/ground_contact_reward_v2c.py": "758eba1c7234cd43b211262541fce0cab6ad91be8ae0f10a44714d037322ebfb",
+    "scripts/ground_contact_reward_v2d.py": "1f6245ca3ca08483704d4f42a044ba38b8d09f01d81dc6e71bbf423d206898a7",
+    "scripts/ground_contact_reward_v2f.py": "a9e561a09ca2f0cbcd6c412a8e1860817aeccaff50660e9796866996a844d3e1",
+    "scripts/ground_contact_reward_v2g.py": "81056b23fbf2052f2e0630d1888aa6b71556027ca108ab3b08dd768a912e493a",
+    "scripts/ground_contact_reward_v2i.py": "2d805c5d878541da7a7ccc1f6af421ebe4b425fb9006756081f786ae79bf5101",
+    "scripts/ground_contact_reward_v2k.py": "dbea1148c00a394b990964f7e7b26d3a7e9bdbe75e43975b3e9e79e7e0ebe18f",
+    "scripts/ground_contact_reward_v2m.py": "83912fa9a4a44b997fe241a1bd99d9ecf1ad866e1f8e07932439363825da4542",
+    "scripts/nmpc_batch_ground_contact_v2m_400hz.py": "b06f75b9e16a6948f7e11f53732335c29d2047935b2fcd6169256de9ba673f55",
+    "scripts/nmpc_native_ground_contact_400hz.py": "dccee6518aae5c4e20e513e27ccb27641174cd07836c1f951617c16398b5aa3c",
+    "scripts/run_ppo_cem_matched_reward_400hz.py": "f083a62813e8e5c7bf7099d90e603eaa3eea7909e148cfb636e613b200177bea",
+    "scripts/nmpc_shooting.py": "7c667ef0cbd32c58ce53882302e75f5d33487bcfea51c2f6ec3435d454a480ce",
+    "scripts/nmpc_tracking_objective.py": "ff22eebb2b22b9af7dba114c64fcd10f6b0a90822559af8f32cbe6884015b860",
+    "scripts/nmpc_batch_objective.py": "1c9da90ae66778a71ceb2e6bb9d0dcf7f0a2259fafee39b37cbe958b79178fae",
+    "scripts/nmpc_batch_objective_400hz.py": "3292c7753b2bbd336cb4944f6d64d417c738dfba8f994e878024dd52f5e11246",
+    "scripts/nmpc_native_batch_400hz.py": "9c07f5e3d88f123ca067f73ead43679eeb378c35ed0afe51b6375870f654f335",
+    "scripts/run_nmpc_tracking.py": "bce84b92fba8d3ea2f44c6cd5e5d32abd65bed6e20c4f1beb8473bae9cfb1977",
+    "scripts/classical_tracking.py": "3fcafdb6a16058280aa1e5a0ade6113f6963ddf3085c25ebe2ed6fbb30661c57",
+    "scripts/eval_ppo_backend_400hz_mujoco.py": "9887aa0b4b7ef74845f47f8623356490a9990e4449e0b42f4a77b2b35a49c1e4",
+    "scripts/render_ppo_beta_physx_to_mujoco_400hz.py": "9268618566845d8f0fba02e806ce33c9168512466b57f495cfe294ed28acdbee",
+    "native/nmpc_batch_ground_contact_400hz.cpp": "e80e76ad68352da00aeb4cf7215fc68f127b6a953d1afee4ad65e3ba0178aef1"
+  },
+  "offline_replay_helper_sha256": {
+    "config/ppo_cem_matched_reward_400hz_v1.json": "410180756a7d489a6f8181157d5993813b17b60f7e103449b9bfa81a25c0984d",
+    "config/ppo_ground_contact_v2_400hz_v1.json": "1d34a2a71b85f678e8bc305f926f4b58dd43e66658dacdad20bb8e3722735260",
+    "config/ppo_ground_contact_v2b_400hz_v1.json": "8d6036f1770b30dd24af4ef8c7549204137cf63a5fa3872aa904d2148b436d75",
+    "config/ppo_ground_contact_v2c_400hz_v1.json": "12af160c7b5bbca6b7e3548d59054f62f4ec6d8c22112df7bfdd02892380c075",
+    "config/ppo_ground_contact_v2d_400hz_v1.json": "e89a5a3b2336da37097cf7dad163d560b05f38ae15ad6578742b9d567940804a",
+    "config/ppo_ground_contact_v2e_400hz_v1.json": "356b657da92651b96cca0241d9a53890026b4bcd003eb268b48a61d5f94a9e61",
+    "config/ppo_ground_contact_v2f_400hz_v1.json": "ceded934984b00341d375ebb1e8c888d42fae203b2b58680d29bd8f5cefdf42b",
+    "config/ppo_ground_contact_v2g_400hz_v1.json": "3357bc61142cd543ec3efc1ffe97918eb40cc84d8cf699e3c45e73a657ff6861",
+    "config/ppo_ground_contact_v2i_400hz_v1.json": "d59f58abcb60c4205c6485b34bf6bf4ca55f71668d39efe0a161aa9bcc9768e7",
+    "config/ppo_ground_contact_v2k_400hz_v1.json": "855ca5a08e2b228c5146c65fb76f55cf6c9152d70480dc43a32a875aa4ff17d9",
+    "config/ppo_ground_contact_v2m_400hz_v1.json": "a398f63e8abe49541ee339c79402cd91988304a0a4c33d34516ffe5a5bd74b51",
+    "native/nmpc_batch_ground_contact_400hz.cpp": "e80e76ad68352da00aeb4cf7215fc68f127b6a953d1afee4ad65e3ba0178aef1",
+    "scripts/adaptive_contact_model.py": "7edcbe37d2c30b57d9f204a09703f6292f783b614fa5a8f33d40fa5c3ae5259c",
+    "scripts/adaptive_mpc_runtime.py": "02924542acefde8e0f06392984290c57e057ec2715d9e1da709dc04e1d4803e2",
+    "scripts/adaptive_nmpc.py": "a958046f258d9b91201e5e91232f924058e7840d45e2ac2ddd37d2675c4400c1",
+    "scripts/analyze_cem_ground_contact_v2.py": "540f85cb960669d30ef212a4d1ab68c0c1c6abe8508505ac8103dedbe3b1a0ed",
+    "scripts/analyze_cem_ground_contact_v2b.py": "ae6cb319af8e3e23e20532f0a172f2c61097a090ea12e2e030355912ced8c2ff",
+    "scripts/analyze_cem_ground_contact_v2c.py": "5b8bb74b45816e16d65250039490c75ed1cce4d5b2bcacaee88fd0b8d5be2416",
+    "scripts/analyze_cem_ground_contact_v2d.py": "7008d5d9612c295596cd2e263f6bd1099147776d656d627bee6eddcf9f2792c8",
+    "scripts/analyze_cem_ground_contact_v2e.py": "d6f9323876fea532fa06daf9ee862cfc6a9fede80104aaee1a807a50eb147446",
+    "scripts/analyze_cem_ground_contact_v2f.py": "64d421dd25294bf26074e5ec2a6a9f080379c757c0a9cd3a0da6586d2c26df72",
+    "scripts/analyze_cem_ground_contact_v2g.py": "a8243fba2608821836d25916d20a9a6cd17c486d8e20aa43559db03f81f61da9",
+    "scripts/analyze_cem_ground_contact_v2i.py": "d47dc2972bf932babd506d04c31de006a5cf89570183c14864509eadfbf1e7b5",
+    "scripts/analyze_cem_ground_contact_v2k.py": "4e6a6df6bc639032f393ed46ca1d22db4dad89c10ce6a51ea206969321168720",
+    "scripts/analyze_cem_ground_contact_v2m.py": "54c70076b29e130c13b02b1a06e30d0a9e7ebb88a463f2e914b89b1bf965f7ec",
+    "scripts/analyze_ppo_backend_400hz_matrix.py": "2645c26150b4bbca5a5631beee3d1cf1178ee365bf0a11044d7e8c618220c0a1",
+    "scripts/analyze_ppo_beta_jitter.py": "6a806c84e23d8b1c6656b2b3bbb1baa49e38df0db668877a79c4ac05652129cd",
+    "scripts/analyze_ppo_contact_stability.py": "34b5372d57388174a1b7896df0735f3cd3de6b5afa946d1c3093a07b1ff2e56b",
+    "scripts/analyze_ppo_contact_timestep.py": "e0110f0fb66e469922838f9a5428f7f6db54c7c2e6a8c559ad9d2f697a140bff",
+    "scripts/analyze_ppo_ground_contact_v2.py": "f7edea803cfe409bc049b6447aef02577b2fa0d579013ecadcf90c307cf6abcd",
+    "scripts/analyze_ppo_ground_support_failure.py": "cc0acd232a240618cd55aa5de8fcad0817b71696e0f9f285db4bd11c679c5219",
+    "scripts/analyze_ppo_smoothness.py": "79a1caeda4ae12ef176b14770a4beefde0f44a885052be54c6382a74368d4f3c",
+    "scripts/classical_tracking.py": "3fcafdb6a16058280aa1e5a0ade6113f6963ddf3085c25ebe2ed6fbb30661c57",
+    "scripts/controller_metrics.py": "40921dad0c268d4bd871e0910086957555116fdd07188ba7cb4f8c76ca4343de",
+    "scripts/controller_references.py": "2f2746946c37a527298ef83d6a4f07063a9d95250c49815f4f1478d5141b4bf6",
+    "scripts/controller_trace.py": "673d17bda4d9f6c93b76b0b963b199aef3e3abe8982cfc6cc6580184e5b0a3e6",
+    "scripts/diagnose_ground_contact_windows_v2.py": "78bdf14d2dea8a7b0e324a1afe52d46e265802664f49564cdd6c32d4d3d69452",
+    "scripts/eval_ppo_backend_400hz_isaac.py": "e670d6c88bd85eb8aa36f402301e7f0c9ae5f7d3b97336a78d1a66750a642f99",
+    "scripts/eval_ppo_backend_400hz_mujoco.py": "9887aa0b4b7ef74845f47f8623356490a9990e4449e0b42f4a77b2b35a49c1e4",
+    "scripts/eval_ppo_ground_contact_v2.py": "86a2edf95961ddad29154cdc3aacb4f7c43a177a08b1e14d56bf03792d7ed578",
+    "scripts/ground_contact_reward_v2.py": "5794ceb435c6ddc9cc374fa5ebe7718edc99d4c3181ebeac111cafe128461bf5",
+    "scripts/ground_contact_reward_v2b.py": "359997a5e4e1734f14ffd8c64a61bbaf0f8fb1d0dd6b274001a77689bb62ba6c",
+    "scripts/ground_contact_reward_v2c.py": "758eba1c7234cd43b211262541fce0cab6ad91be8ae0f10a44714d037322ebfb",
+    "scripts/ground_contact_reward_v2d.py": "1f6245ca3ca08483704d4f42a044ba38b8d09f01d81dc6e71bbf423d206898a7",
+    "scripts/ground_contact_reward_v2e.py": "ea0438bceb70d10b7eabc962bd3792ccfa523ba9610081b3b8a00f4482157644",
+    "scripts/ground_contact_reward_v2f.py": "a9e561a09ca2f0cbcd6c412a8e1860817aeccaff50660e9796866996a844d3e1",
+    "scripts/ground_contact_reward_v2g.py": "81056b23fbf2052f2e0630d1888aa6b71556027ca108ab3b08dd768a912e493a",
+    "scripts/ground_contact_reward_v2i.py": "2d805c5d878541da7a7ccc1f6af421ebe4b425fb9006756081f786ae79bf5101",
+    "scripts/ground_contact_reward_v2k.py": "dbea1148c00a394b990964f7e7b26d3a7e9bdbe75e43975b3e9e79e7e0ebe18f",
+    "scripts/ground_contact_reward_v2m.py": "83912fa9a4a44b997fe241a1bd99d9ecf1ad866e1f8e07932439363825da4542",
+    "scripts/height_smoothness.py": "e133aca58f671fc22ae1dfc97a03461e7724e4072bf8b74f58a2c14281d198b8",
+    "scripts/mjlab_gpu_ppo_env.py": "d45526f3af6d1689856285cebbdbd1943e96d0da570d078d54d9d8ba17aab3bf",
+    "scripts/mjlab_tron1_env.py": "bc88f6919f3c4bfa57a362bc52d411b6a6871ee01a99e3d0954100bb7596a410",
+    "scripts/mjlab_tron1_gpu.py": "57c23780e8da39e124acf491dfa339d66410ebf0df774334a768e8029cbf02e2",
+    "scripts/model_nominal_plan.py": "98f43f30a6355b321a92c95ad843c51941994c03245f13cef61ad9b27d577a44",
+    "scripts/mujoco_ppo_env.py": "aa82be7322d7ab21dd17f6ba6d2462bcd13de7b368c89c903eb7aed1a52871c5",
+    "scripts/mujoco_ppo_native.py": "f1b79830fac22623c861de2eba0c77bc3832f634ff2a494cf0a45481864886c4",
+    "scripts/nmpc_batch_ground_contact_400hz.py": "3c9b548c3c952f30394794cf478fe3d46368226f91b377b11ed0561e45524020",
+    "scripts/nmpc_batch_ground_contact_v2b_400hz.py": "f52d396b386c5045b61a2c4817caf8d3e4fb56c110b051068d8c145e3b8a0de9",
+    "scripts/nmpc_batch_ground_contact_v2c_400hz.py": "b5cdd3239f70216199884b041be9384e71db0c7e1ddd2ddc1d5e2e80c05f6ff3",
+    "scripts/nmpc_batch_ground_contact_v2d_400hz.py": "e4fb8b22d02556579248b8419ffa2f47580be6351c62f46178fcab82b9ac55f1",
+    "scripts/nmpc_batch_ground_contact_v2e_400hz.py": "0ef8ced53ed50be635e018bb80cd35d3d86118f19b74c0f7aef08f89d5697627",
+    "scripts/nmpc_batch_ground_contact_v2f_400hz.py": "861c2cf13d2fe48a559b79d0373ae5f3e9731188b8bc8b58eaf048a54c7ef024",
+    "scripts/nmpc_batch_ground_contact_v2g_400hz.py": "6c184e5a0d52bfd425efa20fa12c8f165e4896e21b75e032d0e7838404fd4b12",
+    "scripts/nmpc_batch_ground_contact_v2i_400hz.py": "3634ae24fcde16ed76192fc1ac07c2a9d0399ae8fd4a81a739c8d8332452b288",
+    "scripts/nmpc_batch_ground_contact_v2k_400hz.py": "d2ec7042e26b9ef9121cdd66d42d041f703073b724d231cd39a4d80e752c1923",
+    "scripts/nmpc_batch_ground_contact_v2m_400hz.py": "b06f75b9e16a6948f7e11f53732335c29d2047935b2fcd6169256de9ba673f55",
+    "scripts/nmpc_batch_objective.py": "1c9da90ae66778a71ceb2e6bb9d0dcf7f0a2259fafee39b37cbe958b79178fae",
+    "scripts/nmpc_batch_objective_400hz.py": "3292c7753b2bbd336cb4944f6d64d417c738dfba8f994e878024dd52f5e11246",
+    "scripts/nmpc_native_batch.py": "bb19aeea51cf03eedd87c0fb9e4561c11bc8ab5569cabf31c5465287a815fb76",
+    "scripts/nmpc_native_batch_400hz.py": "9c07f5e3d88f123ca067f73ead43679eeb378c35ed0afe51b6375870f654f335",
+    "scripts/nmpc_native_ground_contact_400hz.py": "dccee6518aae5c4e20e513e27ccb27641174cd07836c1f951617c16398b5aa3c",
+    "scripts/nmpc_shooting.py": "7c667ef0cbd32c58ce53882302e75f5d33487bcfea51c2f6ec3435d454a480ce",
+    "scripts/nmpc_tracking_objective.py": "ff22eebb2b22b9af7dba114c64fcd10f6b0a90822559af8f32cbe6884015b860",
+    "scripts/package_cem_ground_contact_v2m_nominal.py": "71b028b77411e84a6170d4c3d14093ac49d86a3cfed68196fab7e4f8d14049f2",
+    "scripts/package_ground_contact_v2_partial.py": "a726d8d2ef0aa014a00382db5087416193f871643b8d21ab5630ed02b113b026",
+    "scripts/physx_batch_predictor.py": "6b3a081ee7227a97bd8b59c16660a5d248c0f1e197a3a19dc12f7efcca41078e",
+    "scripts/physx_mjlab_recipe.py": "1365f4eecc6129bef4738e05a491763a2884407d8cf00a3a7d0faffbc24fa699",
+    "scripts/plot_ppo_beta_physx_to_mujoco_400hz.py": "dd0c87e26ef1f81562488055f63368a8e709d4ee3e60987e6b7aec9e749d73d9",
+    "scripts/ppo_backend_400hz_contract.py": "b57b7444698e06f4d9faed6f246bb8a301b505f6c785bdbc2caafdb0b2b6f56e",
+    "scripts/render_physx_ppo_fullbody.py": "d8fb77dc22004eb244579c0c1be1155baa6069cf5b8d83a6b7ea9ce73628b4e9",
+    "scripts/render_ppo_backend_400hz_nominal.py": "e0dc27b3bef1c7ab84ea3fa9b0839aa314b45cb4081e8839d2f75d7a228b7411",
+    "scripts/render_ppo_beta_nominal.py": "2631655642a84c34256f0d849ea6e0052c7cfab388d6be9c9c88e619d3cd9901",
+    "scripts/render_ppo_beta_physx_to_mujoco_400hz.py": "9268618566845d8f0fba02e806ce33c9168512466b57f495cfe294ed28acdbee",
+    "scripts/render_ppo_fixed_follow.py": "829d2055c03e73503924a493155e605e07066cede8eb9dd72c110bd54a9d3bba",
+    "scripts/render_ppo_training_recipe_comparison.py": "a946ae5edc969ed6c6680bcdbbb10ac075e51467ac3461f57deb7b4be25cb6d0",
+    "scripts/run_cem_ground_contact_v2.py": "38243f3163fc608fd171df2a37798e7bd56d3b4dd80dfd9d0dc377179c89ce94",
+    "scripts/run_cem_ground_contact_v2b.py": "f855db4ba45923325f040b2ce0837c320c821d72003d7c8f87ae7f1a7137f9d4",
+    "scripts/run_cem_ground_contact_v2c.py": "0cca667a844d1a7c548ccedc9d6205c0afe59a4d2528d91b0aceb9cb53cf8a91",
+    "scripts/run_cem_ground_contact_v2d.py": "24dcbe41050c49d80105222fc508c6f07b0b6091dda02d236bfb79d283c32f16",
+    "scripts/run_cem_ground_contact_v2e.py": "e45adffe2694af3f3fed4c46644fb5cfb97ba052e8c0582832c72e91faf49f2f",
+    "scripts/run_cem_ground_contact_v2f.py": "f8fe439ff6ba2941ae6a2d22697f5b7069dfb7898e178fb2b0381ff189131af9",
+    "scripts/run_cem_ground_contact_v2g.py": "181769b3a74ebb4c992a67915f2a3588c706e76e6cb4642ae0aafcdc76ead907",
+    "scripts/run_cem_ground_contact_v2i.py": "2449b983016f0227ee166704b8b4a0a9ca6572a0032a8cf010b4cebac32456de",
+    "scripts/run_cem_ground_contact_v2k.py": "b79f13577b8e8760dd5b70d19b5a596136f598e0ad2a5143f550e290ef75b0fe",
+    "scripts/run_cem_ground_contact_v2m.py": "82fce1d77e2e38c4ac27aa1ad795eabaeeb5779840e84e2ff0f433dead2fb66e",
+    "scripts/run_nmpc_tracking.py": "bce84b92fba8d3ea2f44c6cd5e5d32abd65bed6e20c4f1beb8473bae9cfb1977",
+    "scripts/run_ppo_cem_matched_reward_400hz.py": "f083a62813e8e5c7bf7099d90e603eaa3eea7909e148cfb636e613b200177bea",
+    "scripts/run_ppo_contact_damping.py": "900bed0c5945f35d40d4a031a813bfa71fdf9139b8c9ee22758102fd680e01a9",
+    "scripts/summarize_ppo_backend_400hz_nominal.py": "70fe399282cd0d841d59e75400e60bf95067a3d76ea422335c268c35f226ebb4",
+    "scripts/summarize_ppo_smoothness.py": "611dec09e37400be6d789ff9e9ff33ef9cad53ab803ca8d564abbe0f3f32d597",
+    "scripts/train_ppo_backend.py": "65367115de9b5608dc2ef57cab701bea31c152c6af576bdb43a5cef025cc6878",
+    "scripts/train_ppo_backend_400hz.py": "5234070be219e59c61e6c4e4435e0dd0b2ab71df60d9c23886e507ed73692390",
+    "scripts/train_ppo_backend_400hz_beta_off.py": "0417b6a4aa471d89f870fdf09506ae70389a9c62435b554dc43e6dae860f8000",
+    "scripts/tron1_torch_task.py": "48d0b0506900f008bf9c32f95d4c1f688e3bdb983129a43106f7896df625fd9f"
+  },
+  "files": [
+    {
+      "path": "config/ppo_cem_matched_reward_400hz_v1.json",
+      "sha256": "410180756a7d489a6f8181157d5993813b17b60f7e103449b9bfa81a25c0984d",
+      "bytes": 1732
+    },
+    {
+      "path": "config/ppo_ground_contact_v2_400hz_v1.json",
+      "sha256": "1d34a2a71b85f678e8bc305f926f4b58dd43e66658dacdad20bb8e3722735260",
+      "bytes": 6137
+    },
+    {
+      "path": "config/ppo_ground_contact_v2b_400hz_v1.json",
+      "sha256": "8d6036f1770b30dd24af4ef8c7549204137cf63a5fa3872aa904d2148b436d75",
+      "bytes": 6133
+    },
+    {
+      "path": "config/ppo_ground_contact_v2c_400hz_v1.json",
+      "sha256": "12af160c7b5bbca6b7e3548d59054f62f4ec6d8c22112df7bfdd02892380c075",
+      "bytes": 6166
+    },
+    {
+      "path": "config/ppo_ground_contact_v2d_400hz_v1.json",
+      "sha256": "e89a5a3b2336da37097cf7dad163d560b05f38ae15ad6578742b9d567940804a",
+      "bytes": 6166
+    },
+    {
+      "path": "config/ppo_ground_contact_v2e_400hz_v1.json",
+      "sha256": "356b657da92651b96cca0241d9a53890026b4bcd003eb268b48a61d5f94a9e61",
+      "bytes": 6166
+    },
+    {
+      "path": "config/ppo_ground_contact_v2f_400hz_v1.json",
+      "sha256": "ceded934984b00341d375ebb1e8c888d42fae203b2b58680d29bd8f5cefdf42b",
+      "bytes": 6973
+    },
+    {
+      "path": "config/ppo_ground_contact_v2g_400hz_v1.json",
+      "sha256": "3357bc61142cd543ec3efc1ffe97918eb40cc84d8cf699e3c45e73a657ff6861",
+      "bytes": 7380
+    },
+    {
+      "path": "config/ppo_ground_contact_v2i_400hz_v1.json",
+      "sha256": "d59f58abcb60c4205c6485b34bf6bf4ca55f71668d39efe0a161aa9bcc9768e7",
+      "bytes": 7856
+    },
+    {
+      "path": "config/ppo_ground_contact_v2k_400hz_v1.json",
+      "sha256": "855ca5a08e2b228c5146c65fb76f55cf6c9152d70480dc43a32a875aa4ff17d9",
+      "bytes": 8092
+    },
+    {
+      "path": "config/ppo_ground_contact_v2m_400hz_v1.json",
+      "sha256": "a398f63e8abe49541ee339c79402cd91988304a0a4c33d34516ffe5a5bd74b51",
+      "bytes": 7916
+    },
+    {
+      "path": "native/nmpc_batch_ground_contact_400hz.cpp",
+      "sha256": "e80e76ad68352da00aeb4cf7215fc68f127b6a953d1afee4ad65e3ba0178aef1",
+      "bytes": 13579
+    },
+    {
+      "path": "scripts/adaptive_contact_model.py",
+      "sha256": "7edcbe37d2c30b57d9f204a09703f6292f783b614fa5a8f33d40fa5c3ae5259c",
+      "bytes": 10000
+    },
+    {
+      "path": "scripts/adaptive_mpc_runtime.py",
+      "sha256": "02924542acefde8e0f06392984290c57e057ec2715d9e1da709dc04e1d4803e2",
+      "bytes": 5339
+    },
+    {
+      "path": "scripts/adaptive_nmpc.py",
+      "sha256": "a958046f258d9b91201e5e91232f924058e7840d45e2ac2ddd37d2675c4400c1",
+      "bytes": 10733
+    },
+    {
+      "path": "scripts/analyze_cem_ground_contact_v2.py",
+      "sha256": "540f85cb960669d30ef212a4d1ab68c0c1c6abe8508505ac8103dedbe3b1a0ed",
+      "bytes": 11301
+    },
+    {
+      "path": "scripts/analyze_cem_ground_contact_v2b.py",
+      "sha256": "ae6cb319af8e3e23e20532f0a172f2c61097a090ea12e2e030355912ced8c2ff",
+      "bytes": 15340
+    },
+    {
+      "path": "scripts/analyze_cem_ground_contact_v2c.py",
+      "sha256": "5b8bb74b45816e16d65250039490c75ed1cce4d5b2bcacaee88fd0b8d5be2416",
+      "bytes": 17273
+    },
+    {
+      "path": "scripts/analyze_cem_ground_contact_v2d.py",
+      "sha256": "7008d5d9612c295596cd2e263f6bd1099147776d656d627bee6eddcf9f2792c8",
+      "bytes": 19382
+    },
+    {
+      "path": "scripts/analyze_cem_ground_contact_v2e.py",
+      "sha256": "d6f9323876fea532fa06daf9ee862cfc6a9fede80104aaee1a807a50eb147446",
+      "bytes": 21307
+    },
+    {
+      "path": "scripts/analyze_cem_ground_contact_v2f.py",
+      "sha256": "64d421dd25294bf26074e5ec2a6a9f080379c757c0a9cd3a0da6586d2c26df72",
+      "bytes": 23122
+    },
+    {
+      "path": "scripts/analyze_cem_ground_contact_v2g.py",
+      "sha256": "a8243fba2608821836d25916d20a9a6cd17c486d8e20aa43559db03f81f61da9",
+      "bytes": 25100
+    },
+    {
+      "path": "scripts/analyze_cem_ground_contact_v2i.py",
+      "sha256": "d47dc2972bf932babd506d04c31de006a5cf89570183c14864509eadfbf1e7b5",
+      "bytes": 27024
+    },
+    {
+      "path": "scripts/analyze_cem_ground_contact_v2k.py",
+      "sha256": "4e6a6df6bc639032f393ed46ca1d22db4dad89c10ce6a51ea206969321168720",
+      "bytes": 28946
+    },
+    {
+      "path": "scripts/analyze_cem_ground_contact_v2m.py",
+      "sha256": "54c70076b29e130c13b02b1a06e30d0a9e7ebb88a463f2e914b89b1bf965f7ec",
+      "bytes": 30869
+    },
+    {
+      "path": "scripts/analyze_ppo_backend_400hz_matrix.py",
+      "sha256": "2645c26150b4bbca5a5631beee3d1cf1178ee365bf0a11044d7e8c618220c0a1",
+      "bytes": 24413
+    },
+    {
+      "path": "scripts/analyze_ppo_beta_jitter.py",
+      "sha256": "6a806c84e23d8b1c6656b2b3bbb1baa49e38df0db668877a79c4ac05652129cd",
+      "bytes": 15891
+    },
+    {
+      "path": "scripts/analyze_ppo_contact_stability.py",
+      "sha256": "34b5372d57388174a1b7896df0735f3cd3de6b5afa946d1c3093a07b1ff2e56b",
+      "bytes": 21999
+    },
+    {
+      "path": "scripts/analyze_ppo_contact_timestep.py",
+      "sha256": "e0110f0fb66e469922838f9a5428f7f6db54c7c2e6a8c559ad9d2f697a140bff",
+      "bytes": 19347
+    },
+    {
+      "path": "scripts/analyze_ppo_ground_contact_v2.py",
+      "sha256": "f7edea803cfe409bc049b6447aef02577b2fa0d579013ecadcf90c307cf6abcd",
+      "bytes": 29270
+    },
+    {
+      "path": "scripts/analyze_ppo_ground_support_failure.py",
+      "sha256": "cc0acd232a240618cd55aa5de8fcad0817b71696e0f9f285db4bd11c679c5219",
+      "bytes": 21652
+    },
+    {
+      "path": "scripts/analyze_ppo_smoothness.py",
+      "sha256": "79a1caeda4ae12ef176b14770a4beefde0f44a885052be54c6382a74368d4f3c",
+      "bytes": 31132
+    },
+    {
+      "path": "scripts/classical_tracking.py",
+      "sha256": "3fcafdb6a16058280aa1e5a0ade6113f6963ddf3085c25ebe2ed6fbb30661c57",
+      "bytes": 11715
+    },
+    {
+      "path": "scripts/controller_metrics.py",
+      "sha256": "40921dad0c268d4bd871e0910086957555116fdd07188ba7cb4f8c76ca4343de",
+      "bytes": 12157
+    },
+    {
+      "path": "scripts/controller_references.py",
+      "sha256": "2f2746946c37a527298ef83d6a4f07063a9d95250c49815f4f1478d5141b4bf6",
+      "bytes": 11827
+    },
+    {
+      "path": "scripts/controller_trace.py",
+      "sha256": "673d17bda4d9f6c93b76b0b963b199aef3e3abe8982cfc6cc6580184e5b0a3e6",
+      "bytes": 9292
+    },
+    {
+      "path": "scripts/diagnose_ground_contact_windows_v2.py",
+      "sha256": "78bdf14d2dea8a7b0e324a1afe52d46e265802664f49564cdd6c32d4d3d69452",
+      "bytes": 22079
+    },
+    {
+      "path": "scripts/eval_ppo_backend_400hz_isaac.py",
+      "sha256": "e670d6c88bd85eb8aa36f402301e7f0c9ae5f7d3b97336a78d1a66750a642f99",
+      "bytes": 14017
+    },
+    {
+      "path": "scripts/eval_ppo_backend_400hz_mujoco.py",
+      "sha256": "9887aa0b4b7ef74845f47f8623356490a9990e4449e0b42f4a77b2b35a49c1e4",
+      "bytes": 9147
+    },
+    {
+      "path": "scripts/eval_ppo_ground_contact_v2.py",
+      "sha256": "86a2edf95961ddad29154cdc3aacb4f7c43a177a08b1e14d56bf03792d7ed578",
+      "bytes": 25784
+    },
+    {
+      "path": "scripts/ground_contact_reward_v2.py",
+      "sha256": "5794ceb435c6ddc9cc374fa5ebe7718edc99d4c3181ebeac111cafe128461bf5",
+      "bytes": 9138
+    },
+    {
+      "path": "scripts/ground_contact_reward_v2b.py",
+      "sha256": "359997a5e4e1734f14ffd8c64a61bbaf0f8fb1d0dd6b274001a77689bb62ba6c",
+      "bytes": 3113
+    },
+    {
+      "path": "scripts/ground_contact_reward_v2c.py",
+      "sha256": "758eba1c7234cd43b211262541fce0cab6ad91be8ae0f10a44714d037322ebfb",
+      "bytes": 3777
+    },
+    {
+      "path": "scripts/ground_contact_reward_v2d.py",
+      "sha256": "1f6245ca3ca08483704d4f42a044ba38b8d09f01d81dc6e71bbf423d206898a7",
+      "bytes": 3588
+    },
+    {
+      "path": "scripts/ground_contact_reward_v2e.py",
+      "sha256": "ea0438bceb70d10b7eabc962bd3792ccfa523ba9610081b3b8a00f4482157644",
+      "bytes": 4101
+    },
+    {
+      "path": "scripts/ground_contact_reward_v2f.py",
+      "sha256": "a9e561a09ca2f0cbcd6c412a8e1860817aeccaff50660e9796866996a844d3e1",
+      "bytes": 5400
+    },
+    {
+      "path": "scripts/ground_contact_reward_v2g.py",
+      "sha256": "81056b23fbf2052f2e0630d1888aa6b71556027ca108ab3b08dd768a912e493a",
+      "bytes": 5636
+    },
+    {
+      "path": "scripts/ground_contact_reward_v2i.py",
+      "sha256": "2d805c5d878541da7a7ccc1f6af421ebe4b425fb9006756081f786ae79bf5101",
+      "bytes": 4362
+    },
+    {
+      "path": "scripts/ground_contact_reward_v2k.py",
+      "sha256": "dbea1148c00a394b990964f7e7b26d3a7e9bdbe75e43975b3e9e79e7e0ebe18f",
+      "bytes": 6937
+    },
+    {
+      "path": "scripts/ground_contact_reward_v2m.py",
+      "sha256": "83912fa9a4a44b997fe241a1bd99d9ecf1ad866e1f8e07932439363825da4542",
+      "bytes": 4055
+    },
+    {
+      "path": "scripts/height_smoothness.py",
+      "sha256": "e133aca58f671fc22ae1dfc97a03461e7724e4072bf8b74f58a2c14281d198b8",
+      "bytes": 7288
+    },
+    {
+      "path": "scripts/mjlab_gpu_ppo_env.py",
+      "sha256": "d45526f3af6d1689856285cebbdbd1943e96d0da570d078d54d9d8ba17aab3bf",
+      "bytes": 15344
+    },
+    {
+      "path": "scripts/mjlab_tron1_env.py",
+      "sha256": "bc88f6919f3c4bfa57a362bc52d411b6a6871ee01a99e3d0954100bb7596a410",
+      "bytes": 19734
+    },
+    {
+      "path": "scripts/mjlab_tron1_gpu.py",
+      "sha256": "57c23780e8da39e124acf491dfa339d66410ebf0df774334a768e8029cbf02e2",
+      "bytes": 18765
+    },
+    {
+      "path": "scripts/model_nominal_plan.py",
+      "sha256": "98f43f30a6355b321a92c95ad843c51941994c03245f13cef61ad9b27d577a44",
+      "bytes": 18204
+    },
+    {
+      "path": "scripts/mujoco_ppo_env.py",
+      "sha256": "aa82be7322d7ab21dd17f6ba6d2462bcd13de7b368c89c903eb7aed1a52871c5",
+      "bytes": 30273
+    },
+    {
+      "path": "scripts/mujoco_ppo_native.py",
+      "sha256": "f1b79830fac22623c861de2eba0c77bc3832f634ff2a494cf0a45481864886c4",
+      "bytes": 19042
+    },
+    {
+      "path": "scripts/nmpc_batch_ground_contact_400hz.py",
+      "sha256": "3c9b548c3c952f30394794cf478fe3d46368226f91b377b11ed0561e45524020",
+      "bytes": 7647
+    },
+    {
+      "path": "scripts/nmpc_batch_ground_contact_v2b_400hz.py",
+      "sha256": "f52d396b386c5045b61a2c4817caf8d3e4fb56c110b051068d8c145e3b8a0de9",
+      "bytes": 7658
+    },
+    {
+      "path": "scripts/nmpc_batch_ground_contact_v2c_400hz.py",
+      "sha256": "b5cdd3239f70216199884b041be9384e71db0c7e1ddd2ddc1d5e2e80c05f6ff3",
+      "bytes": 7658
+    },
+    {
+      "path": "scripts/nmpc_batch_ground_contact_v2d_400hz.py",
+      "sha256": "e4fb8b22d02556579248b8419ffa2f47580be6351c62f46178fcab82b9ac55f1",
+      "bytes": 7658
+    },
+    {
+      "path": "scripts/nmpc_batch_ground_contact_v2e_400hz.py",
+      "sha256": "0ef8ced53ed50be635e018bb80cd35d3d86118f19b74c0f7aef08f89d5697627",
+      "bytes": 7658
+    },
+    {
+      "path": "scripts/nmpc_batch_ground_contact_v2f_400hz.py",
+      "sha256": "861c2cf13d2fe48a559b79d0373ae5f3e9731188b8bc8b58eaf048a54c7ef024",
+      "bytes": 7658
+    },
+    {
+      "path": "scripts/nmpc_batch_ground_contact_v2g_400hz.py",
+      "sha256": "6c184e5a0d52bfd425efa20fa12c8f165e4896e21b75e032d0e7838404fd4b12",
+      "bytes": 8265
+    },
+    {
+      "path": "scripts/nmpc_batch_ground_contact_v2i_400hz.py",
+      "sha256": "3634ae24fcde16ed76192fc1ac07c2a9d0399ae8fd4a81a739c8d8332452b288",
+      "bytes": 8264
+    },
+    {
+      "path": "scripts/nmpc_batch_ground_contact_v2k_400hz.py",
+      "sha256": "d2ec7042e26b9ef9121cdd66d42d041f703073b724d231cd39a4d80e752c1923",
+      "bytes": 8470
+    },
+    {
+      "path": "scripts/nmpc_batch_ground_contact_v2m_400hz.py",
+      "sha256": "b06f75b9e16a6948f7e11f53732335c29d2047935b2fcd6169256de9ba673f55",
+      "bytes": 8471
+    },
+    {
+      "path": "scripts/nmpc_batch_objective.py",
+      "sha256": "1c9da90ae66778a71ceb2e6bb9d0dcf7f0a2259fafee39b37cbe958b79178fae",
+      "bytes": 26922
+    },
+    {
+      "path": "scripts/nmpc_batch_objective_400hz.py",
+      "sha256": "3292c7753b2bbd336cb4944f6d64d417c738dfba8f994e878024dd52f5e11246",
+      "bytes": 9995
+    },
+    {
+      "path": "scripts/nmpc_native_batch.py",
+      "sha256": "bb19aeea51cf03eedd87c0fb9e4561c11bc8ab5569cabf31c5465287a815fb76",
+      "bytes": 25685
+    },
+    {
+      "path": "scripts/nmpc_native_batch_400hz.py",
+      "sha256": "9c07f5e3d88f123ca067f73ead43679eeb378c35ed0afe51b6375870f654f335",
+      "bytes": 26020
+    },
+    {
+      "path": "scripts/nmpc_native_ground_contact_400hz.py",
+      "sha256": "dccee6518aae5c4e20e513e27ccb27641174cd07836c1f951617c16398b5aa3c",
+      "bytes": 28769
+    },
+    {
+      "path": "scripts/nmpc_shooting.py",
+      "sha256": "7c667ef0cbd32c58ce53882302e75f5d33487bcfea51c2f6ec3435d454a480ce",
+      "bytes": 35986
+    },
+    {
+      "path": "scripts/nmpc_tracking_objective.py",
+      "sha256": "ff22eebb2b22b9af7dba114c64fcd10f6b0a90822559af8f32cbe6884015b860",
+      "bytes": 19826
+    },
+    {
+      "path": "scripts/package_cem_ground_contact_v2m_nominal.py",
+      "sha256": "71b028b77411e84a6170d4c3d14093ac49d86a3cfed68196fab7e4f8d14049f2",
+      "bytes": 26988
+    },
+    {
+      "path": "scripts/package_ground_contact_v2_partial.py",
+      "sha256": "a726d8d2ef0aa014a00382db5087416193f871643b8d21ab5630ed02b113b026",
+      "bytes": 13317
+    },
+    {
+      "path": "scripts/physx_batch_predictor.py",
+      "sha256": "6b3a081ee7227a97bd8b59c16660a5d248c0f1e197a3a19dc12f7efcca41078e",
+      "bytes": 20348
+    },
+    {
+      "path": "scripts/physx_mjlab_recipe.py",
+      "sha256": "1365f4eecc6129bef4738e05a491763a2884407d8cf00a3a7d0faffbc24fa699",
+      "bytes": 19541
+    },
+    {
+      "path": "scripts/plot_ppo_beta_physx_to_mujoco_400hz.py",
+      "sha256": "dd0c87e26ef1f81562488055f63368a8e709d4ee3e60987e6b7aec9e749d73d9",
+      "bytes": 7138
+    },
+    {
+      "path": "scripts/ppo_backend_400hz_contract.py",
+      "sha256": "b57b7444698e06f4d9faed6f246bb8a301b505f6c785bdbc2caafdb0b2b6f56e",
+      "bytes": 26431
+    },
+    {
+      "path": "scripts/render_physx_ppo_fullbody.py",
+      "sha256": "d8fb77dc22004eb244579c0c1be1155baa6069cf5b8d83a6b7ea9ce73628b4e9",
+      "bytes": 16976
+    },
+    {
+      "path": "scripts/render_ppo_backend_400hz_nominal.py",
+      "sha256": "e0dc27b3bef1c7ab84ea3fa9b0839aa314b45cb4081e8839d2f75d7a228b7411",
+      "bytes": 21389
+    },
+    {
+      "path": "scripts/render_ppo_beta_nominal.py",
+      "sha256": "2631655642a84c34256f0d849ea6e0052c7cfab388d6be9c9c88e619d3cd9901",
+      "bytes": 16195
+    },
+    {
+      "path": "scripts/render_ppo_beta_physx_to_mujoco_400hz.py",
+      "sha256": "9268618566845d8f0fba02e806ce33c9168512466b57f495cfe294ed28acdbee",
+      "bytes": 30366
+    },
+    {
+      "path": "scripts/render_ppo_fixed_follow.py",
+      "sha256": "829d2055c03e73503924a493155e605e07066cede8eb9dd72c110bd54a9d3bba",
+      "bytes": 5952
+    },
+    {
+      "path": "scripts/render_ppo_training_recipe_comparison.py",
+      "sha256": "a946ae5edc969ed6c6680bcdbbb10ac075e51467ac3461f57deb7b4be25cb6d0",
+      "bytes": 24267
+    },
+    {
+      "path": "scripts/run_cem_ground_contact_v2.py",
+      "sha256": "38243f3163fc608fd171df2a37798e7bd56d3b4dd80dfd9d0dc377179c89ce94",
+      "bytes": 22869
+    },
+    {
+      "path": "scripts/run_cem_ground_contact_v2b.py",
+      "sha256": "f855db4ba45923325f040b2ce0837c320c821d72003d7c8f87ae7f1a7137f9d4",
+      "bytes": 23117
+    },
+    {
+      "path": "scripts/run_cem_ground_contact_v2c.py",
+      "sha256": "0cca667a844d1a7c548ccedc9d6205c0afe59a4d2528d91b0aceb9cb53cf8a91",
+      "bytes": 23383
+    },
+    {
+      "path": "scripts/run_cem_ground_contact_v2d.py",
+      "sha256": "24dcbe41050c49d80105222fc508c6f07b0b6091dda02d236bfb79d283c32f16",
+      "bytes": 23426
+    },
+    {
+      "path": "scripts/run_cem_ground_contact_v2e.py",
+      "sha256": "e45adffe2694af3f3fed4c46644fb5cfb97ba052e8c0582832c72e91faf49f2f",
+      "bytes": 23454
+    },
+    {
+      "path": "scripts/run_cem_ground_contact_v2f.py",
+      "sha256": "f8fe439ff6ba2941ae6a2d22697f5b7069dfb7898e178fb2b0381ff189131af9",
+      "bytes": 23465
+    },
+    {
+      "path": "scripts/run_cem_ground_contact_v2g.py",
+      "sha256": "181769b3a74ebb4c992a67915f2a3588c706e76e6cb4642ae0aafcdc76ead907",
+      "bytes": 24259
+    },
+    {
+      "path": "scripts/run_cem_ground_contact_v2i.py",
+      "sha256": "2449b983016f0227ee166704b8b4a0a9ca6572a0032a8cf010b4cebac32456de",
+      "bytes": 24266
+    },
+    {
+      "path": "scripts/run_cem_ground_contact_v2k.py",
+      "sha256": "b79f13577b8e8760dd5b70d19b5a596136f598e0ad2a5143f550e290ef75b0fe",
+      "bytes": 24298
+    },
+    {
+      "path": "scripts/run_cem_ground_contact_v2m.py",
+      "sha256": "82fce1d77e2e38c4ac27aa1ad795eabaeeb5779840e84e2ff0f433dead2fb66e",
+      "bytes": 24341
+    },
+    {
+      "path": "scripts/run_nmpc_tracking.py",
+      "sha256": "bce84b92fba8d3ea2f44c6cd5e5d32abd65bed6e20c4f1beb8473bae9cfb1977",
+      "bytes": 34473
+    },
+    {
+      "path": "scripts/run_ppo_cem_matched_reward_400hz.py",
+      "sha256": "f083a62813e8e5c7bf7099d90e603eaa3eea7909e148cfb636e613b200177bea",
+      "bytes": 19779
+    },
+    {
+      "path": "scripts/run_ppo_contact_damping.py",
+      "sha256": "900bed0c5945f35d40d4a031a813bfa71fdf9139b8c9ee22758102fd680e01a9",
+      "bytes": 8761
+    },
+    {
+      "path": "scripts/summarize_ppo_backend_400hz_nominal.py",
+      "sha256": "70fe399282cd0d841d59e75400e60bf95067a3d76ea422335c268c35f226ebb4",
+      "bytes": 23801
+    },
+    {
+      "path": "scripts/summarize_ppo_smoothness.py",
+      "sha256": "611dec09e37400be6d789ff9e9ff33ef9cad53ab803ca8d564abbe0f3f32d597",
+      "bytes": 24176
+    },
+    {
+      "path": "scripts/train_ppo_backend.py",
+      "sha256": "65367115de9b5608dc2ef57cab701bea31c152c6af576bdb43a5cef025cc6878",
+      "bytes": 15914
+    },
+    {
+      "path": "scripts/train_ppo_backend_400hz.py",
+      "sha256": "5234070be219e59c61e6c4e4435e0dd0b2ab71df60d9c23886e507ed73692390",
+      "bytes": 26675
+    },
+    {
+      "path": "scripts/train_ppo_backend_400hz_beta_off.py",
+      "sha256": "0417b6a4aa471d89f870fdf09506ae70389a9c62435b554dc43e6dae860f8000",
+      "bytes": 10062
+    },
+    {
+      "path": "scripts/tron1_torch_task.py",
+      "sha256": "48d0b0506900f008bf9c32f95d4c1f688e3bdb983129a43106f7896df625fd9f",
+      "bytes": 14050
+    }
+  ],
+  "models_weights_credentials_native_libraries_included": false,
+  "compact_metric_replay_requires_no_assets_or_weights": true
+}

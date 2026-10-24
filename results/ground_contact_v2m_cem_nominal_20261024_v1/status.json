@@ -1,0 +1,143 @@
+{
+  "status": "ACTUAL_CEM_L_COMPLETED_NUMERICAL_CRITERIA_FAILED",
+  "snapshot_utc": "2026-10-24T22:13:12.767318+00:00",
+  "sample_size_per_case": 1,
+  "conditions": {
+    "mu": 0.7,
+    "friction_known_to_CEM": true,
+    "physics_hz": 400,
+    "policy_hz": 50,
+    "beta_reward_on": true,
+    "support_gap_weight": 4.0,
+    "support_force_threshold_n": 5.0,
+    "positive_mean_weight": 0.75,
+    "positive_minimum_weight": 0.25,
+    "external_grounded_weight": 0.4,
+    "single_wheel_support_allowed": true,
+    "height_flight_or_zero_beta_gate": false,
+    "contact_reward_formula": {
+      "settings": {
+        "schema_version": 1,
+        "candidate": "ground_contact_v2m",
+        "physics_substeps": 8,
+        "support_load_fraction": 0.5,
+        "mean_weight": 0.75,
+        "minimum_weight": 0.25,
+        "impact_multiple": 3.0,
+        "negative_force_tolerance_n": 0.0001,
+        "external_reward_weight": 0.4,
+        "reward_dt_s": 0.02,
+        "support_gap_weight": 4.0,
+        "support_force_threshold_n": 5.0,
+        "beta_gate_low_reference_speed_m_s": 0.3,
+        "support_gap_aggregation": "max8",
+        "support_gap_cost_mode": "worst_substep_continuous_anywheel_load_margin"
+      },
+      "force_input": "ground-filtered upward world-Z normal force N; [...,8,2]",
+      "mass_normalization": "mg is actual post-DR total mass times gravity magnitude in N",
+      "formula": "q=clip(sum_wheels(max(Fz,0))/(.50*mg),0,1); support=.75*mean_substeps(q)+.25*min_substeps(q); excess=max(Fz/(3*mg)-1,0); impact_gate=exp(-mean_substeps_wheels(excess**2)); A_bonus=anchor_xy*drift_speed*support*impact_gate; support_gap=max_substeps(max_wheels(max(Fz,0))<=5N); beta_gate=where(reference_speed>.3,existing_reference_beta_quality,1); raw=A_bonus*beta_gate-1*support_gap; target=.5mg>5N; margin_samples=clip((target-max_wheel(max(Fz,0)))/(target-5N),0,1); K_cost=max8(margin_samples); raw_K=G_gated_support_bonus-1*K_cost; raw_M=G_gated_support_bonus-4*K_cost",
+      "raw_reward_bounds": [
+        -4.0,
+        1.0
+      ],
+      "ground_filter_and_force_units_verified_by_caller": true,
+      "contact_count_required_by_arithmetic": false,
+      "support_requirement": "At least one supporting wheel; single-wheel lift or alternating load is allowed",
+      "bilateral_support_required": false,
+      "height_or_zero_sideslip_target": false,
+      "cross_window_streak_memory": false,
+      "continuous_contact_or_task_success_certified": false,
+      "immutable_v2a_definition_sha256": "5794ceb435c6ddc9cc374fa5ebe7718edc99d4c3181ebeac111cafe128461bf5",
+      "only_causal_change": "K continuous any-wheel load-margin cost coefficient1->4",
+      "support_gap_tracking_gated": false,
+      "support_gap_impact_gated": false,
+      "supported_light_load_penalized": true,
+      "per_step_threshold_strict_greater": true,
+      "support_threshold_is_world_normal_newtons_not_mass_fraction": true,
+      "negative_term_independent_of_mean_or_min_window_packing": false,
+      "immutable_v2f_definition_sha256": "a9e561a09ca2f0cbcd6c412a8e1860817aeccaff50660e9796866996a844d3e1",
+      "existing_beta_reward_weight_or_std_changed": false,
+      "support_gap_cost_unchanged_and_ungated": false,
+      "reference_beta_not_zero_beta_is_intended": true,
+      "low_reference_speed_beta_gate_neutral": true,
+      "caller_must_verify_existing_beta_quality_and_held_reference_phase": true,
+      "arithmetic_alone_does_not_certify_runtime_or_task_success": true,
+      "immutable_v2g_definition_sha256": "81056b23fbf2052f2e0630d1888aa6b71556027ca108ab3b08dd768a912e493a",
+      "support_gap_cost_ungated": true,
+      "support_gap_coefficient_unchanged": false,
+      "support_gap_is_window_event_not_duration_fraction": false,
+      "any_single_unsupported_substep_receives_full_gap_cost": true,
+      "positive_bonus_and_existing_reference_beta_gate_unchanged": true,
+      "no_velocity_proxy_or_absolute_height_input": true,
+      "immutable_v2i_definition_sha256": "2d805c5d878541da7a7ccc1f6af421ebe4b425fb9006756081f786ae79bf5101",
+      "support_gap_cost_mode": "worst_substep_continuous_anywheel_load_margin",
+      "support_gap_is_continuous_load_margin": true,
+      "load_margin_uses_existing_support_load_fraction": true,
+      "mass_weight_must_exceed_threshold_divided_by_load_fraction": true,
+      "original_support_acceptance_threshold_n": 5.0,
+      "other14_reward_terms_changed": false,
+      "new_angular_velocity_input": false,
+      "immutable_v2k_definition_sha256": "dbea1148c00a394b990964f7e7b26d3a7e9bdbe75e43975b3e9e79e7e0ebe18f",
+      "support_gap_coefficient_previous": 1.0,
+      "support_gap_coefficient_current": 4.0,
+      "K_support_margin_mapping_and_positive_reference_beta_bonus_unchanged": true,
+      "external_grounded_weight_unchanged": true,
+      "force_slew_cost_added": false,
+      "no_new_force_or_velocity_inputs": true
+    },
+    "beta_gate_source": "existing unweighted reference-beta tracking quality",
+    "beta_gate_low_reference_speed_m_s": 0.3,
+    "support_gap_penalty_ungated": true
+  },
+  "CEM_K": {
+    "full_policy_decisions": 349,
+    "native_states": 2793,
+    "numeric_nominal_episode_pass": false,
+    "failed_checks": [
+      "core_xy_rmse",
+      "core_xy_peak",
+      "whole_xy_rmse",
+      "whole_xy_peak",
+      "core_reference_beta",
+      "any_wheel_every_physical_sample",
+      "longest_no_support_gap"
+    ],
+    "whole_contact_interval_s": [
+      0.02,
+      6.96
+    ],
+    "whole_anywheel_support_fraction": 0.8732445084623695,
+    "whole_longest_no_support_s": 0.13249999999999718,
+    "runtime": {
+      "solver_failures": 0,
+      "plant_warning_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "compute_ms_median_p95_max": [
+        1223.2430439908057,
+        1357.4844280054092,
+        1591.6525240027113
+      ]
+    },
+    "offline_solver_not_real_time": true
+  },
+  "PPO_K": {
+    "status": "OUT_OF_SCOPE_NO_PPO_PERFORMANCE_IN_THIS_CEM_BUNDLE",
+    "new_formal_policy_results_claimed": false
+  },
+  "strict_continuous_anywheel_contact_achieved": false,
+  "goal_complete": false,
+  "episode_reward_ranking_across_definitions_claimed": false,
+  "limitations": [
+    "N=1 each; no seed statistics, friction-range or general causal robustness claim.",
+    "Whole-reference and core tracking/contact/HF screens remain separate and unchanged.",
+    "Lower HF, core-only tracking or numerical screens do not establish overall task completion.",
+    "Original/A/B/C/D/E/F/M reward definitions differ; their summed rewards are not ranked."
+  ]
+}
