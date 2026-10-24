@@ -1,0 +1,47 @@
+"""I changes only G's unsupported-substep temporal aggregation and identity."""
+import ast
+import copy
+import json
+from pathlib import Path
+import sys
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT/"scripts"))
+import ground_contact_reward_v2i as definition
+import continue_ground_contact_v2i_validation as continuation
+
+
+def test_exact_g_protocol_except_identity_design_and_gap_aggregation():
+    g = json.loads((ROOT/"config/ppo_ground_contact_v2g_400hz_v1.json").read_text())
+    i = json.loads((ROOT/"config/ppo_ground_contact_v2i_400hz_v1.json").read_text())
+    assert i["ground_contact_reward_v2"] == definition.validate_settings()
+    assert i["cohort_id"] == continuation.COHORT_ID == "tron1_ground_contact_v2i_any_wheel_400hz_v1"
+    assert i["reward_definition_version"] == "ground_contact_v2i_any_wheel"
+    assert i["experiment_design"]["existing_beta_reward_weight"] == 2.
+    assert i["experiment_design"]["beta_quality_std_rad"] == .12
+    value = copy.deepcopy(i)
+    for key in ("cohort_id", "reward_definition_version", "experiment_design"): value[key] = g[key]
+    value["ground_contact_reward_v2"].pop("support_gap_aggregation")
+    value["ground_contact_reward_v2"]["candidate"] = g["ground_contact_reward_v2"]["candidate"]
+    assert value == g
+
+
+def test_native_capture_and_reward_inputs_and_lifecycle_identical_to_g():
+    trees = [ast.parse((ROOT/"scripts"/name).read_text()) for name in
+             ("ppo_ground_contact_v2g.py", "ppo_ground_contact_v2i.py")]
+    methods = [{n.name: ast.dump(n, include_attributes=False)
+        for cls in tree.body if isinstance(cls, ast.ClassDef)
+        for n in cls.body if isinstance(n, ast.FunctionDef)} for tree in trees]
+    for name in ("_matrix", "update", "_complete", "reset", "close", "_attached", "step", "reward", "_phase"):
+        assert methods[0][name] == methods[1][name], name
+    funcs = [{n.name: ast.dump(n, include_attributes=False) for n in tree.body if isinstance(n, ast.FunctionDef)}
+             for tree in trees]
+    for name in ("configure_sensors", "clock", "_restore"): assert funcs[0][name] == funcs[1][name]
+
+
+def test_continuation_pins_actual_i_and_immutable_g_sources():
+    from ppo_backend_400hz_contract import sha256
+    assert continuation.PROTOCOL_SHA256 == sha256(ROOT/"config/ppo_ground_contact_v2i_400hz_v1.json")
+    assert {"ground_contact_reward_v2f.py", "ground_contact_reward_v2g.py",
+            "ground_contact_reward_v2i.py", "ground_contact_beta_contract.py"} <= set(continuation.DEPENDENCIES)
+    for name, digest in continuation.DEPENDENCIES.items(): assert sha256(ROOT/"scripts"/name) == digest
