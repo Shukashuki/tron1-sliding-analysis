@@ -286,7 +286,7 @@ def run(args):
     for stem, digest in SNAPSHOT_PINS.items():
         verify_source_snapshot(root/(stem+".tar.gz"), root/(stem+".manifest.json"), digest,
             expected_member_count=SNAPSHOT_MEMBER_COUNTS[stem])
-    require((root/"ppo_render_launch_v2.json").is_file() and not (root/"ppo_render_launch_v2.json").is_symlink(),
+    require((root/"ppo_render_launch_v1.json").is_file() and not (root/"ppo_render_launch_v1.json").is_symlink(),
             "Missing direct actual K render launch JSON")
     output.mkdir(parents=True, exist_ok=False)
     copies = {}
@@ -294,7 +294,7 @@ def run(args):
         destination = output/name; destination.parent.mkdir(parents=True, exist_ok=True)
         copies[name] = copy_bound(source, destination, expected)
     for source, name in ((analysis_folder/"summary.json", "analysis.json"), (audit.DEFAULT_PROTOCOL, "protocol.json"),
-                         (root/"ppo_render_launch_v2.json", "render_launch.json"), (render_folder/"provenance.json", "render_provenance.json")):
+                         (root/"ppo_render_launch_v1.json", "render_launch.json"), (render_folder/"provenance.json", "render_provenance.json")):
         save(source, name)
     for name in ("native_states.npz", "metric_table.csv"): save(analysis_folder/name, name, summary["artifact_sha256"][name])
     for name in ("comparison.png", "fullbody_comparison.mp4", "replay_states.npz"): save(render_folder/name, name, render["artifacts"][name])

@@ -1,0 +1,42 @@
+{
+  "title": "I / J / K contact-reward nominal review",
+  "snapshot_utc": "2026-10-24T21:06:56.861738+00:00",
+  "sample_size_per_case": 1,
+  "mu": 0.7,
+  "physics_dt_s": 0.0025,
+  "control_dt_s": 0.02,
+  "reference": "traj_4, intended nonzero beta",
+  "public_analysis_paths": {
+    "i_ppo": "results/ground_contact_v2i_ppo_nominal_20261024_v1/analysis.json",
+    "i_cem": "results/ground_contact_v2i_cem_nominal_20261024_v1/cem_analysis.json",
+    "j_ppo": "results/ground_contact_v2j_ppo_nominal_20261024_v1/analysis.json",
+    "j_cem": "results/ground_contact_v2j_cem_nominal_20261024_v2/cem_analysis.json",
+    "k_ppo": "results/ground_contact_v2k_ppo_nominal_20261024_v1/analysis.json",
+    "k_cem": "results/ground_contact_v2k_cem_nominal_20261024_v1/cem_analysis.json"
+  },
+  "public_analysis_sha256": {
+    "i_ppo": "c72d227b9a4e12d5faebba079b684c96ff201a29c4cde0573ace515f46cfce75",
+    "i_cem": "9730d7f3a29d1c863a8fea9271318ec3f54d0ff07410954a9d3da54c6da65c79",
+    "j_ppo": "45fe45720d1ff112485a701175f25c6f6b5ad877fd796d21f99ec478d381cbc5",
+    "j_cem": "30414df33c9c44a557dc82db3d5cdabcf6b960f4858f35c02362e05ba62b23d9",
+    "k_ppo": "c01cff93c49229b418b8a3e13944ae5fadc81c8a22a5df3fa2ff53aa6467d928",
+    "k_cem": "1c0bd5e9d330a5d39a0eaafd62014499e86a3d9d7f68ab2aa3d93d921b270146"
+  },
+  "key_findings": [
+    "K PPO passes XY, speed and intended-beta tracking in both engines.",
+    "K PPO PhysX angularHF ratio0.614 passes0.7; nativeMuJoCo0.793 fails.",
+    "K PPO full-support fractions0.895/0.879 remain below1; maximum gaps45/65ms. Task remains incomplete.",
+    "J reduces angularHF but fails XY and reference-beta tracking; its greater support fraction does not complete the task.",
+    "K CEM passes XY/speed/HF but fails beta and continuous support; no realtime claim.",
+    "Recorded-force arithmetic finds larger normal-force changes in partially supported windows; this association does not prove a cause.",
+    "A prospective bounded net-normal-force slew term has only been evaluated arithmetically; no new L policy or CEM result is claimed."
+  ],
+  "PPO_video": "../ground_contact_v2k_ppo_nominal_20261024_v1/fullbody_comparison.mp4",
+  "CEM_video": "../ground_contact_v2k_cem_render_20261024_v1/fullbody_comparison.mp4",
+  "comparison_replay_scope": "SHA-pinned public analyses -> exact9 CSV rows; this table extractor does not recompute native metrics. Separate guarded native replays verify PPO/CEM compact state metrics.",
+  "actor_training_budget_each": 12288000,
+  "one_wheel_lift_allowed": true,
+  "free_absolute_height": true,
+  "no_statistical_hardware_or_general_friction_claim": true,
+  "goal_completion_claimed": false
+}

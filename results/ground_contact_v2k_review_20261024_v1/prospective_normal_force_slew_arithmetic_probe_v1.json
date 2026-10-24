@@ -1,0 +1,231 @@
+{
+  "kind": "prospective_slew_cost_arithmetic_on_actual_I_J_K_PPO_recordings",
+  "observed_utc": "2026-10-24T21:03:54.335474+00:00",
+  "formula": "S=mean7(min(((sum_wheels(Fz[k+1])-sum_wheels(Fz[k]))/mg)^2,1)); prospective raw_L=raw_K-1*S",
+  "force_window": "8 actual post-action native400Hz substeps;7 within-window consecutive force differences; no boundary/start sample invented",
+  "normalization_weight_n": 218.49813011007384,
+  "normalization_source": "Same locked native MuJoCo CEM model_weight_n; a common arithmetic reference, NOT a live PhysX validation mass readback",
+  "normalization_source_report_sha256": "220edda86e0e4fab5bfbcf4b18864ce6229addf781a462f5daf96a14e1f3d6b9",
+  "actual_PPO_results": {
+    "I_physx": {
+      "recording_sha256": "497d7c2f59278e8ef00228169bb00ffc600c554991e6144fb0acb06818d56151",
+      "statistics": {
+        "whole349_stages": {
+          "windows": 349,
+          "mean_prospective_raw_slew_cost": 0.049453415165658876,
+          "mean_prospective_weighted_slew_cost": 0.019781366066263555,
+          "p95_abs_net_force_increment_n": 93.74161376953172
+        },
+        "core_held_phase_stages": {
+          "windows": 129,
+          "mean_prospective_raw_slew_cost": 0.10453623527920981,
+          "mean_prospective_weighted_slew_cost": 0.04181449411168393,
+          "p95_abs_net_force_increment_n": 701.7837280273374
+        },
+        "fully_supported_8of8": {
+          "windows": 281,
+          "mean_prospective_raw_slew_cost": 0.019014244591486346,
+          "mean_prospective_weighted_slew_cost": 0.007605697836594538,
+          "p95_abs_net_force_increment_n": 25.215609741210635
+        },
+        "partial_support_1to7": {
+          "windows": 40,
+          "mean_prospective_raw_slew_cost": 0.29790541119322833,
+          "mean_prospective_weighted_slew_cost": 0.11916216447729133,
+          "p95_abs_net_force_increment_n": 1065.9174194335842
+        },
+        "unsupported_0of8": {
+          "windows": 28,
+          "mean_prospective_raw_slew_cost": 8.112456483671627e-07,
+          "mean_prospective_weighted_slew_cost": 3.244982593468651e-07,
+          "p95_abs_net_force_increment_n": 0.0
+        }
+      }
+    },
+    "J_physx": {
+      "recording_sha256": "bc8a17a054e262f6c61cace51f56d6ff90a8d18d250715e8e6b7661aae6dc833",
+      "statistics": {
+        "whole349_stages": {
+          "windows": 349,
+          "mean_prospective_raw_slew_cost": 0.03713020819426203,
+          "mean_prospective_weighted_slew_cost": 0.014852083277704809,
+          "p95_abs_net_force_increment_n": 41.74904537200888
+        },
+        "core_held_phase_stages": {
+          "windows": 129,
+          "mean_prospective_raw_slew_cost": 0.07103419030628916,
+          "mean_prospective_weighted_slew_cost": 0.028413676122515663,
+          "p95_abs_net_force_increment_n": 354.5730033874474
+        },
+        "fully_supported_8of8": {
+          "windows": 311,
+          "mean_prospective_raw_slew_cost": 0.021231563082851308,
+          "mean_prospective_weighted_slew_cost": 0.008492625233140523,
+          "p95_abs_net_force_increment_n": 21.97278099060034
+        },
+        "partial_support_1to7": {
+          "windows": 27,
+          "mean_prospective_raw_slew_cost": 0.23538535015192166,
+          "mean_prospective_weighted_slew_cost": 0.09415414006076865,
+          "p95_abs_net_force_increment_n": 720.8979492187434
+        },
+        "unsupported_0of8": {
+          "windows": 11,
+          "mean_prospective_raw_slew_cost": 2.007902618817315e-06,
+          "mean_prospective_weighted_slew_cost": 8.031610475269261e-07,
+          "p95_abs_net_force_increment_n": 0.0
+        }
+      }
+    },
+    "K_physx": {
+      "recording_sha256": "cbd7d2b249737919bc21f2bccb05b3d82e8b869fbbe3d0a91c45e6b8eda4a67a",
+      "statistics": {
+        "whole349_stages": {
+          "windows": 349,
+          "mean_prospective_raw_slew_cost": 0.04076545423774583,
+          "mean_prospective_weighted_slew_cost": 0.016306181695098333,
+          "p95_abs_net_force_increment_n": 47.62734222412067
+        },
+        "core_held_phase_stages": {
+          "windows": 129,
+          "mean_prospective_raw_slew_cost": 0.102162170333442,
+          "mean_prospective_weighted_slew_cost": 0.0408648681333768,
+          "p95_abs_net_force_increment_n": 648.419482421869
+        },
+        "fully_supported_8of8": {
+          "windows": 296,
+          "mean_prospective_raw_slew_cost": 0.020950619046071952,
+          "mean_prospective_weighted_slew_cost": 0.00838024761842878,
+          "p95_abs_net_force_increment_n": 19.1888080596922
+        },
+        "partial_support_1to7": {
+          "windows": 29,
+          "mean_prospective_raw_slew_cost": 0.27675035487365507,
+          "mean_prospective_weighted_slew_cost": 0.11070014194946204,
+          "p95_abs_net_force_increment_n": 1166.5966339111217
+        },
+        "unsupported_0of8": {
+          "windows": 24,
+          "mean_prospective_raw_slew_cost": 0.0,
+          "mean_prospective_weighted_slew_cost": 0.0,
+          "p95_abs_net_force_increment_n": 0.0
+        }
+      }
+    },
+    "I_mujoco": {
+      "recording_sha256": "50491d34cc64f1786beea91fecb54bf6ae3a3fc63bb253884af516b5ecf0f1dc",
+      "statistics": {
+        "whole349_stages": {
+          "windows": 349,
+          "mean_prospective_raw_slew_cost": 0.1104585227837049,
+          "mean_prospective_weighted_slew_cost": 0.04418340911348197,
+          "p95_abs_net_force_increment_n": 487.9300769691502
+        },
+        "core_held_phase_stages": {
+          "windows": 129,
+          "mean_prospective_raw_slew_cost": 0.25164055861321377,
+          "mean_prospective_weighted_slew_cost": 0.1006562234452855,
+          "p95_abs_net_force_increment_n": 1151.7231491443072
+        },
+        "fully_supported_8of8": {
+          "windows": 266,
+          "mean_prospective_raw_slew_cost": 0.061892211655247956,
+          "mean_prospective_weighted_slew_cost": 0.024756884662099177,
+          "p95_abs_net_force_increment_n": 166.06140011844374
+        },
+        "partial_support_1to7": {
+          "windows": 53,
+          "mean_prospective_raw_slew_cost": 0.41673011606069926,
+          "mean_prospective_weighted_slew_cost": 0.16669204642427968,
+          "p95_abs_net_force_increment_n": 1461.306105955059
+        },
+        "unsupported_0of8": {
+          "windows": 30,
+          "mean_prospective_raw_slew_cost": 0.0,
+          "mean_prospective_weighted_slew_cost": 0.0,
+          "p95_abs_net_force_increment_n": 0.0
+        }
+      }
+    },
+    "J_mujoco": {
+      "recording_sha256": "37aa682587eb97701bd1a45ebe4143e6f3809f84730b9c005cdb67e4d42f0c82",
+      "statistics": {
+        "whole349_stages": {
+          "windows": 349,
+          "mean_prospective_raw_slew_cost": 0.10496798180631166,
+          "mean_prospective_weighted_slew_cost": 0.04198719272252468,
+          "p95_abs_net_force_increment_n": 452.4484833186849
+        },
+        "core_held_phase_stages": {
+          "windows": 129,
+          "mean_prospective_raw_slew_cost": 0.23951430162741827,
+          "mean_prospective_weighted_slew_cost": 0.09580572065096733,
+          "p95_abs_net_force_increment_n": 1063.535137801562
+        },
+        "fully_supported_8of8": {
+          "windows": 282,
+          "mean_prospective_raw_slew_cost": 0.056041576238105045,
+          "mean_prospective_weighted_slew_cost": 0.022416630495242017,
+          "p95_abs_net_force_increment_n": 149.82412332102106
+        },
+        "partial_support_1to7": {
+          "windows": 52,
+          "mean_prospective_raw_slew_cost": 0.4005788682934068,
+          "mean_prospective_weighted_slew_cost": 0.1602315473173627,
+          "p95_abs_net_force_increment_n": 1441.9588565279703
+        },
+        "unsupported_0of8": {
+          "windows": 15,
+          "mean_prospective_raw_slew_cost": 0.0,
+          "mean_prospective_weighted_slew_cost": 0.0,
+          "p95_abs_net_force_increment_n": 0.0
+        }
+      }
+    },
+    "K_mujoco": {
+      "recording_sha256": "af790839128d5d02a8233a7a7b2cd8b23eb508e9056cd4d1c619b8d4173d14ef",
+      "statistics": {
+        "whole349_stages": {
+          "windows": 349,
+          "mean_prospective_raw_slew_cost": 0.07579174676515146,
+          "mean_prospective_weighted_slew_cost": 0.03031669870606059,
+          "p95_abs_net_force_increment_n": 271.22147180914783
+        },
+        "core_held_phase_stages": {
+          "windows": 129,
+          "mean_prospective_raw_slew_cost": 0.16295876373049853,
+          "mean_prospective_weighted_slew_cost": 0.06518350549219942,
+          "p95_abs_net_force_increment_n": 1144.000964469988
+        },
+        "fully_supported_8of8": {
+          "windows": 286,
+          "mean_prospective_raw_slew_cost": 0.039998106116836275,
+          "mean_prospective_weighted_slew_cost": 0.015999242446734507,
+          "p95_abs_net_force_increment_n": 86.17702346787414
+        },
+        "partial_support_1to7": {
+          "windows": 44,
+          "mean_prospective_raw_slew_cost": 0.341178665264152,
+          "mean_prospective_weighted_slew_cost": 0.13647146610566077,
+          "p95_abs_net_force_increment_n": 1366.143200521045
+        },
+        "unsupported_0of8": {
+          "windows": 19,
+          "mean_prospective_raw_slew_cost": 0.0,
+          "mean_prospective_weighted_slew_cost": 0.0,
+          "p95_abs_net_force_increment_n": 0.0
+        }
+      }
+    }
+  },
+  "prospective_controller_performance_claimed": false,
+  "new_controller_training_or_rollout_started": false,
+  "task_acceptance_changed": false,
+  "limitations": [
+    "Arithmetic only; no predicted PPO/CEM success or causal performance improvement.",
+    "No-support windows may have zero force-slew cost, so the existing independent support-margin cost must remain.",
+    "Net force rather than separate wheel force changes permits steady total support during left/right load transfer.",
+    "Uses force changes, not COM-height, flight labels, angular-rate proxies, zero-beta targets or action filtering.",
+    "A penalty on re-impact can also alter recovery; its closed-loop effect requires actual validation."
+  ]
+}

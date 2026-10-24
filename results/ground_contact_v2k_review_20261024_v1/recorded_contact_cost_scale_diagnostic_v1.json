@@ -1,0 +1,104 @@
+{
+  "kind": "recorded_actual_CEM_contact_cost_scale_diagnostic",
+  "observed_utc": "2026-10-24T20:53:05.121087+00:00",
+  "cases": {
+    "I": {
+      "actual_controller_result_only": true,
+      "report_sha256": "68829f93738030528ffb96dd9ef78fd2f4bf934ab4b999340439ba46003132ff",
+      "solver_log_sha256": "d091d9f677707409968d4e73c92ea084d94b89009f201e03453069dd8b9e1c27",
+      "rollout_sha256": "655f17cfc1967116640a8242fe759d1a24ab4620999805a7b94963a61d9282ce",
+      "spans": {
+        "whole349_stages": {
+          "stages": 349,
+          "fully_supported_8of8": 226,
+          "partially_supported_1to7": 83,
+          "unsupported_0of8": 40,
+          "mean_weighted_grounded": -0.02500146382676402,
+          "mean_other14_weighted_sum": 8.333670536371944,
+          "mean_minimum_maxwheel_Fz_n": 107.86253838477673
+        },
+        "core_held_phase_stages": {
+          "stages": 129,
+          "fully_supported_8of8": 63,
+          "partially_supported_1to7": 42,
+          "unsupported_0of8": 24,
+          "mean_weighted_grounded": -0.09686337538054472,
+          "mean_other14_weighted_sum": 8.188450869346411,
+          "mean_minimum_maxwheel_Fz_n": 98.29150908056356
+        }
+      }
+    },
+    "J": {
+      "actual_controller_result_only": true,
+      "report_sha256": "7d10c7151dc64523b643781f178c2227d39560d0710df106eb9db25f62c8736a",
+      "solver_log_sha256": "4fbd2635f1486f114f985ed2afcc38be9877ecb73d6da0969052d4e9bff9a937",
+      "rollout_sha256": "872afda846fefb6cc8d01bf91629fbcd66d6511da7a01d8121fc756652ba4cf9",
+      "spans": {
+        "whole349_stages": {
+          "stages": 349,
+          "fully_supported_8of8": 237,
+          "partially_supported_1to7": 67,
+          "unsupported_0of8": 45,
+          "mean_weighted_grounded": -0.025519436935712785,
+          "mean_other14_weighted_sum": 8.481903298743028,
+          "mean_minimum_maxwheel_Fz_n": 115.05593253604385
+        },
+        "core_held_phase_stages": {
+          "stages": 129,
+          "fully_supported_8of8": 74,
+          "partially_supported_1to7": 32,
+          "unsupported_0of8": 23,
+          "mean_weighted_grounded": -0.09726898333409137,
+          "mean_other14_weighted_sum": 8.120276433402408,
+          "mean_minimum_maxwheel_Fz_n": 115.72241197626381
+        }
+      }
+    },
+    "K": {
+      "actual_controller_result_only": true,
+      "report_sha256": "220edda86e0e4fab5bfbcf4b18864ce6229addf781a462f5daf96a14e1f3d6b9",
+      "solver_log_sha256": "fd6576de665a51c32667f22b5d2abdd2113ab89e431bf1999f459f14c3316ecc",
+      "rollout_sha256": "0542ab5d8c8e6a64a1b04d16118811fcec7cd1a87e651871373344a0c98374d7",
+      "spans": {
+        "whole349_stages": {
+          "stages": 349,
+          "fully_supported_8of8": 201,
+          "partially_supported_1to7": 93,
+          "unsupported_0of8": 55,
+          "mean_weighted_grounded": -0.030039888660453432,
+          "mean_other14_weighted_sum": 8.60531821466058,
+          "mean_minimum_maxwheel_Fz_n": 99.84097029526828
+        },
+        "core_held_phase_stages": {
+          "stages": 129,
+          "fully_supported_8of8": 63,
+          "partially_supported_1to7": 43,
+          "unsupported_0of8": 23,
+          "mean_weighted_grounded": -0.12117523978737187,
+          "mean_other14_weighted_sum": 8.239536525189878,
+          "mean_minimum_maxwheel_Fz_n": 100.83938540682138
+        }
+      },
+      "continuous_cost_saturated_windows": 148,
+      "continuous_cost_zero_windows": 155,
+      "continuous_cost_strictly_between_0_and_1_windows": 46,
+      "prospective_internal_gap_weight1_to4_on_same_recording": {
+        "mean_added_weighted_term": -0.547997975116737,
+        "mean_added_weighted_term_core": -0.6242929130145286,
+        "all_other14_terms_unchanged_by_arithmetic": true,
+        "candidate_controller_performance_claimed": false,
+        "candidate_training_started": false,
+        "external_grounded_weight_changed": false,
+        "saturated_unloaded_windows_still_have_no_force_margin_sensitivity": true
+      }
+    }
+  },
+  "limitations": [
+    "Actual different closed-loop I/J/K episodes, N=1 each; reward sums are not ranked across definitions.",
+    "Cost magnitude alone does not establish why a closed-loop controller lost support.",
+    "The weight1-to4 calculation changes no states/actions and predicts no learning or CEM performance.",
+    "A saturated gap cost cannot distinguish zero-force cases by force margin alone.",
+    "No new physics, policy inference, training or acceptance changes."
+  ],
+  "task_success_claimed": false
+}
