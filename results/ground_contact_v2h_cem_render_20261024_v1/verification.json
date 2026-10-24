@@ -1,0 +1,87 @@
+{
+  "kind": "ACTUAL_H_CEM_RECORDED_MEDIA_VERIFICATION",
+  "utc": "2026-10-24T00:22:13.440119+00:00",
+  "manual_visual_review": {
+    "reviewed_times_s": [
+      3.0,
+      6.0,
+      6.96
+    ],
+    "reviewed_files": [
+      "comparison.png",
+      "review_t6s.png",
+      "review_t6p96s.png"
+    ],
+    "all350_frames_manually_inspected": false,
+    "findings": [
+      "Four horizontal actual Original/A/G/H CEM cases; opaque original full-body poses, wheel/body headings and shared XY bounds retained.",
+      "H reduces core angular high-frequency RMS and raises any-wheel support fraction versus G in this N1 episode, but worsens whole-reference XY and intended-beta tracking.",
+      "At3s H is supported on the right wheel and reports beta+12.2deg while G reports-23.2deg; single-wheel support is allowed but this does not qualify the whole episode.",
+      "At6s H has zero measured floor-normal support; its preceding eight physical samples include only one supported sample. No geometric flight or absolute-height gate is inferred.",
+      "At6.96s H has right-wheel support and XYerror about.402m, versus G about.230m with no measured normal support; final frames are not whole-episode success.",
+      "Shared world bounds and the same1.702m fixed relative camera distance/worldangles are retained without yaw-follow, zoom, smoothing, pose alignment or height correction."
+    ]
+  },
+  "full_video_decode": {
+    "status": "full_350_frame_decode_verified",
+    "final_decoder_progress": {
+      "frame": "350",
+      "fps": "0.00",
+      "stream_0_0_q": "-0.0",
+      "bitrate": "N/A",
+      "total_size": "N/A",
+      "out_time_us": "7000000",
+      "out_time_ms": "7000000",
+      "out_time": "00:00:07.000000",
+      "dup_frames": "0",
+      "drop_frames": "0",
+      "speed": "10.8x",
+      "progress": "end"
+    },
+    "ffmpeg_returncode": 0,
+    "ffmpeg_stderr": "",
+    "video_sha256": "4363e2aaa688667dfa84682a3e2988595c266a98abc98db0c6d52dd1d40f670d",
+    "review_images_extracted_not_yet_manually_inspected": [
+      "review_t6s.png",
+      "review_t6p96s.png"
+    ],
+    "no_video_frames_dropped_or_duplicated": true
+  },
+  "asset_free_nine_case_replay": {
+    "verification": {
+      "status": "ALL_NINE_CASE_METRICS_AND_ACTUAL_H_CONTACT_DIAGNOSTICS_EXACT",
+      "conditions": [
+        "original_grounded_baseline",
+        "prior_actual_V2a",
+        "prior_actual_V2b",
+        "prior_actual_V2c",
+        "prior_actual_V2d",
+        "prior_actual_V2e",
+        "prior_actual_V2f",
+        "prior_actual_V2g",
+        "actual_V2h"
+      ],
+      "actual_H_failed_checks": [
+        "whole_xy_rmse",
+        "whole_xy_peak",
+        "core_reference_beta",
+        "any_wheel_every_physical_sample",
+        "longest_no_support_gap"
+      ],
+      "full349x15_stage_reward_audit_preserved_not_recomputed_from_compact": true,
+      "robot_assets_or_weights_required": false,
+      "new_physics_FK_inference_training_file_writes": false,
+      "PPO_H_result_claimed": false,
+      "overall_goal_complete_claimed": false
+    },
+    "guarded_read_counts": {
+      "public_bundle": 34,
+      "pinned_repository_source": 124
+    },
+    "extra_reads_or_writes_allowed": false,
+    "models_weights_physics_policy_FK_or_other_bundles_allowed": false
+  },
+  "public_numeric_manifest_sha256": "ea19a3d60a1d9ac13e451ed360f29065b332fcb0cd1b8bea31f5be743c7ac009",
+  "PPO_result_claimed": false,
+  "overall_goal_complete_claimed": false
+}
