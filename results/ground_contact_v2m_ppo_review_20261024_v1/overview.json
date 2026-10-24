@@ -1,0 +1,48 @@
+{
+  "title": "M completed PPO: only K load-margin cost coefficient1->4",
+  "formal_transitions": 12288000,
+  "same_actor_validated_in_both_engines": true,
+  "mu": 0.7,
+  "rows": [
+    {
+      "engine": "PhysX",
+      "core_XY_RMSE_m": 0.15426514463939095,
+      "core_speed_ratio": 0.9272785199767298,
+      "core_beta_RMSE_deg": 5.344220847948536,
+      "whole_XY_RMSE_m": 0.1540308079862176,
+      "support_fraction": 0.958588404753331,
+      "unsupported_physical_samples": 115,
+      "max_support_gap_s": 0.039999999999999994,
+      "failed_checks": [
+        "core_xy_rmse",
+        "whole_xy_rmse",
+        "core_speed_retention",
+        "any_wheel_every_physical_sample",
+        "longest_no_support_gap"
+      ]
+    },
+    {
+      "engine": "native CPU MuJoCo",
+      "core_XY_RMSE_m": 0.2961468750165619,
+      "core_speed_ratio": 0.996595537502005,
+      "core_beta_RMSE_deg": 16.00983362934613,
+      "whole_XY_RMSE_m": 0.4187627576511711,
+      "support_fraction": 0.7846597047173208,
+      "unsupported_physical_samples": 598,
+      "max_support_gap_s": 0.042500000000000024,
+      "failed_checks": [
+        "core_xy_rmse",
+        "core_xy_peak",
+        "whole_xy_rmse",
+        "whole_xy_peak",
+        "core_reference_beta",
+        "any_wheel_every_physical_sample",
+        "longest_no_support_gap"
+      ]
+    }
+  ],
+  "public_PPO_manifest_sha256": "82759075e29975c0e2f594a5452ac7d52e2f9dd013b3dc258830a58ab4bb150b",
+  "interpretation": "PhysX support fraction improves, but XY/speed and support continuity still fail. MuJoCo transfer has larger XY/beta errors and lower support. Neither task nor continuous support is achieved.",
+  "next_user_directed_work": "Separate PhysX contact-law/geometry comparisons for cars and TRON1, then assess GMR/AMP motion-prior value. Do not start another reward-weight training sweep.",
+  "task_complete": false
+}
