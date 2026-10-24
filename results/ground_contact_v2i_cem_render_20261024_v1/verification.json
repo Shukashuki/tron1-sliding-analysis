@@ -1,0 +1,80 @@
+{
+  "kind": "ACTUAL_I_CEM_RECORDED_MEDIA_VERIFICATION",
+  "utc": "2026-10-24T18:23:04.014535+00:00",
+  "manual_visual_review": {
+    "reviewed_times_s": [
+      3.0,
+      6.0,
+      6.96
+    ],
+    "files_and_times_s": {
+      "comparison.png": 6.96,
+      "review_t3s.png": 3.0,
+      "review_t6s.png": 6.0
+    },
+    "all350_frames_manually_inspected": false,
+    "findings": [
+      "Four horizontal actual Original/A/G/I CEM cases; original opaque body poses, wheel/body headings, shared XY bounds and all8 native support samples per video frame are retained.",
+      "I has a higher whole-reference any-wheel support fraction and shorter longest support gap than G in this single episode, but fails whole XY and core intended-beta criteria.",
+      "At3s I has right-wheel normal support199N and8/8 preceding supported samples, XYerror0.103m versus G0.078m; this one supported window is not whole-task success.",
+      "At6s I has normal support54/110N and8/8 supported samples, XYerror0.191m versus G0.123m.",
+      "At6.96s I has left-wheel normal support212N and8/8 supported samples, but XYerror0.667m versus G0.230m; original reference end is6.96s.",
+      "The same1.543m relative camera distance and worldangles are held for all cases/frames without zoom, yaw-follow, smoothing, pose alignment or height correction; no geometric-flight gate is inferred."
+    ]
+  },
+  "full_video_decode": {
+    "status": "full_350_frame_decode_verified",
+    "video_sha256": "7d21733dcc1352658994c879fd4aa24172e7cbdbcb472d8d7da8fd8057058650",
+    "frames": 350,
+    "fps": 50,
+    "width": 2560,
+    "height": 850,
+    "consecutive_dts_pts_verified": true,
+    "unique_frame_hashes": 350,
+    "no_video_frames_dropped_or_duplicated": true,
+    "review_frame_times_s": [
+      3.0,
+      6.0,
+      6.96
+    ],
+    "manual_review_complete": false,
+    "physics_or_policy_executed": false
+  },
+  "asset_free_nine_case_replay": {
+    "verification": {
+      "status": "ALL_NINE_CASE_METRICS_AND_ACTUAL_I_CONTACT_DIAGNOSTICS_EXACT",
+      "conditions": [
+        "original_grounded_baseline",
+        "prior_actual_V2a",
+        "prior_actual_V2b",
+        "prior_actual_V2c",
+        "prior_actual_V2d",
+        "prior_actual_V2e",
+        "prior_actual_V2f",
+        "prior_actual_V2g",
+        "actual_V2i"
+      ],
+      "actual_I_failed_checks": [
+        "whole_xy_rmse",
+        "whole_xy_peak",
+        "core_reference_beta",
+        "any_wheel_every_physical_sample",
+        "longest_no_support_gap"
+      ],
+      "full349x15_stage_reward_audit_preserved_not_recomputed_from_compact": true,
+      "robot_assets_or_weights_required": false,
+      "new_physics_FK_inference_training_file_writes": false,
+      "PPO_I_result_claimed": false,
+      "overall_goal_complete_claimed": false
+    },
+    "guarded_read_counts": {
+      "public_bundle": 34,
+      "pinned_repository_source": 124
+    },
+    "extra_reads_or_writes_allowed": false,
+    "models_weights_physics_policy_FK_or_other_bundles_allowed": false
+  },
+  "public_numeric_manifest_sha256": "3f015523c7766fc17a3a459843892bdf52e0224a3738c6c366648f6a094a97db",
+  "PPO_result_claimed": false,
+  "overall_goal_complete_claimed": false
+}
