@@ -1,0 +1,98 @@
+{
+  "kind": "read_only_vertical_smoothing_sample_rate_diagnostic",
+  "existing_height_regularization": {
+    "mode": "vertical_acceleration_only",
+    "weight": -0.1,
+    "acceleration_scale_m_s2": 5.0,
+    "absolute_height_reward": false,
+    "height_termination": false,
+    "reference_vertical_velocity_reward": false,
+    "removed_termination_terms": [
+      "anchor_pos",
+      "ee_body_pos"
+    ],
+    "position_and_linear_velocity_tracking_axes": [
+      "x",
+      "y"
+    ],
+    "smoothness_signal": "base_Link COM world vz difference / control dt",
+    "reset_history": "first reward sample after each reset is unpenalized",
+    "actor_observation_layout": "unchanged; reference-height observation retained, not constrained",
+    "retained": [
+      "orientation_tracking",
+      "tilt_safety",
+      "action_rate",
+      "joint_limits",
+      "contact_rewards"
+    ]
+  },
+  "formal_actor_sha256": "570fcbd541d910f9c8da98dbabe7a913c7ff13e879aef0a955d873c4ddca263f",
+  "rows": [
+    {
+      "id": "K_native",
+      "recording_sha256": "cbd7d2b249737919bc21f2bccb05b3d82e8b869fbbe3d0a91c45e6b8eda4a67a",
+      "core_whole_control_windows": 128,
+      "core_400hz_acceleration_rms_m_s2": 11.163592782657123,
+      "core_50hz_interval_mean_acceleration_rms_m_s2": 10.433634083342023,
+      "core_within_interval_acceleration_variance_mean": 15.765083631917856,
+      "core_acceleration_energy_missed_by_interval_mean_fraction": 0.12649935365767406,
+      "core_physical_abs_acceleration_p95_m_s2": 21.60565661266446,
+      "core_mean_existing_bounded50hz_cost": 0.678402056456991,
+      "core_mean_hypothetical_bounded400hz_cost": 0.658741947429474,
+      "core_low_coarse_cost_lt0p1_but_fine_mean_gt0p5_windows": 1,
+      "existing_training_reward_or_acceptance_modified": false
+    },
+    {
+      "id": "physx_nonlinear",
+      "recording_sha256": "4933182a7fe2420c126a0224f738f07b4b61e0b82660d74914ad60361f9a6bbe",
+      "core_whole_control_windows": 128,
+      "core_400hz_acceleration_rms_m_s2": 11.627459675435203,
+      "core_50hz_interval_mean_acceleration_rms_m_s2": 9.295411772599216,
+      "core_within_interval_acceleration_variance_mean": 48.79313848169561,
+      "core_acceleration_energy_missed_by_interval_mean_fraction": 0.3609018179557262,
+      "core_physical_abs_acceleration_p95_m_s2": 21.952178571373185,
+      "core_mean_existing_bounded50hz_cost": 0.5567986917136934,
+      "core_mean_hypothetical_bounded400hz_cost": 0.5728748703448592,
+      "core_low_coarse_cost_lt0p1_but_fine_mean_gt0p5_windows": 3,
+      "existing_training_reward_or_acceptance_modified": false
+    },
+    {
+      "id": "physx_native",
+      "recording_sha256": "1066526f9e64ee0e6559d82e15a397a62cb78f102ef728246e4cd3c0666ded24",
+      "core_whole_control_windows": 128,
+      "core_400hz_acceleration_rms_m_s2": 10.994325971362585,
+      "core_50hz_interval_mean_acceleration_rms_m_s2": 10.51181707493281,
+      "core_within_interval_acceleration_variance_mean": 10.376905347728835,
+      "core_acceleration_energy_missed_by_interval_mean_fraction": 0.08584808994497328,
+      "core_physical_abs_acceleration_p95_m_s2": 20.376236587762833,
+      "core_mean_existing_bounded50hz_cost": 0.7850950113879258,
+      "core_mean_hypothetical_bounded400hz_cost": 0.7794995396094229,
+      "core_low_coarse_cost_lt0p1_but_fine_mean_gt0p5_windows": 0,
+      "existing_training_reward_or_acceptance_modified": false
+    },
+    {
+      "id": "mujoco_native",
+      "recording_sha256": "2c7a2dc26ef12ac6c8bab399877c555c76edd94ce1d802e7f6a1c9301de9dd32",
+      "core_whole_control_windows": 128,
+      "core_400hz_acceleration_rms_m_s2": 10.988983197507318,
+      "core_50hz_interval_mean_acceleration_rms_m_s2": 10.006309338201941,
+      "core_within_interval_acceleration_variance_mean": 20.631525143310817,
+      "core_acceleration_energy_missed_by_interval_mean_fraction": 0.17085052388178312,
+      "core_physical_abs_acceleration_p95_m_s2": 20.86216601548342,
+      "core_mean_existing_bounded50hz_cost": 0.6679724051151752,
+      "core_mean_hypothetical_bounded400hz_cost": 0.6800815944330703,
+      "core_low_coarse_cost_lt0p1_but_fine_mean_gt0p5_windows": 4,
+      "existing_training_reward_or_acceptance_modified": false
+    }
+  ],
+  "source_sha256": "a2dae5eb7f02f330732a1dcd1df9aa4034930e3a3a463e1516335dc58a46e282",
+  "height_source_sha256": "e133aca58f671fc22ae1dfc97a03461e7724e4072bf8b74f58a2c14281d198b8",
+  "nominal_analysis_sha256": "70a1589effcefefffac29e56ee26090be8f8e4e39bf3291620afb04d4d3b731e",
+  "interpretation": "Within-window acceleration cancellation is quantified. It does not prove reward sampling caused support gaps, or that a new 400Hz reward will improve learning. Bounded cost can saturate and need not obey Jensen.",
+  "physical_velocity": "base_Link COM world vz, identical recorded Isaac getter root_lin_vel_w; MuJoCo COM convention retained by adapter",
+  "first_post_reset_reward_unpenalized": true,
+  "reset_or_push_crossing_in_core": false,
+  "gate_changes": false,
+  "new_training": false,
+  "task_success_claimed": false
+}
