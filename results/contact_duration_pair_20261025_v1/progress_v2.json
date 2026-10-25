@@ -1,0 +1,271 @@
+{
+  "observed_unix_time": 1792962426.811826,
+  "workspace": "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2",
+  "handles": {
+    "driver_v1_launch.json": {
+      "actual": null,
+      "identity_matches": false
+    },
+    "nominal_continuation_v1_launch.json": {
+      "actual": {
+        "pid": 1096296,
+        "uid": 1030,
+        "state": "S",
+        "start_ticks": 2036022724,
+        "argv": [
+          "/usr/bin/python3",
+          "-B",
+          "-u",
+          "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3/scripts/continue_contact_duration_pair.py",
+          "--workspace",
+          "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2",
+          "--evaluation-snapshot",
+          "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3",
+          "--training-snapshot",
+          "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3",
+          "--idle-audit-source",
+          "/data/zengxiong/workspaces/tron1-ground-contact-v2o-20261025/continuation_snapshot_v1/scripts/continue_ground_contact_v2o_validation.py",
+          "--python",
+          "/data/zengxiong/.conda/envs/regrind/bin/python",
+          "--legacy-physx",
+          "/data/zengxiong/workspaces/tron1-controller-comparison-20261015/controller_evaluation_source_v2/scripts/eval_tracking_friction_isaac.py",
+          "--legacy-mujoco",
+          "/data/zengxiong/workspaces/tron1-controller-comparison-20261015/controller_evaluation_source_v2/scripts/eval_tracking_mujoco.py",
+          "--expected-driver-pid",
+          "1096294"
+        ]
+      },
+      "identity_matches": true
+    }
+  },
+  "training": {
+    "status": "both_formal_arms_completed_verified_nominal_pending",
+    "children": [
+      {
+        "label": "smoke_S",
+        "pid": 1096301,
+        "status": "completed_strictly_verified",
+        "returncode": 0,
+        "gpu": 3,
+        "actual": null
+      },
+      {
+        "label": "smoke_S_CPU_verification",
+        "pid": 1096688,
+        "status": "completed_strictly_verified",
+        "returncode": 0,
+        "gpu": null,
+        "actual": null
+      },
+      {
+        "label": "smoke_T",
+        "pid": 1096712,
+        "status": "completed_strictly_verified",
+        "returncode": 0,
+        "gpu": 3,
+        "actual": null
+      },
+      {
+        "label": "smoke_T_CPU_verification",
+        "pid": 1097085,
+        "status": "completed_strictly_verified",
+        "returncode": 0,
+        "gpu": null,
+        "actual": null
+      },
+      {
+        "label": "formal_S",
+        "pid": 1097098,
+        "status": "completed_strictly_verified",
+        "returncode": 0,
+        "gpu": 3,
+        "actual": null
+      },
+      {
+        "label": "formal_S_CPU_verification",
+        "pid": 1100205,
+        "status": "completed_strictly_verified",
+        "returncode": 0,
+        "gpu": null,
+        "actual": null
+      },
+      {
+        "label": "formal_T",
+        "pid": 1100208,
+        "status": "completed_strictly_verified",
+        "returncode": 0,
+        "gpu": 3,
+        "actual": null
+      },
+      {
+        "label": "formal_T_CPU_verification",
+        "pid": 1102272,
+        "status": "completed_strictly_verified",
+        "returncode": 0,
+        "gpu": null,
+        "actual": null
+      }
+    ],
+    "S": {
+      "last_iteration": 199,
+      "last_completed_steps": 2457600,
+      "log_eta": "00:00:01",
+      "log_bytes": 2502637
+    },
+    "T": {
+      "last_iteration": 199,
+      "last_completed_steps": 2457600,
+      "log_eta": "00:00:01",
+      "log_bytes": 2502477
+    }
+  },
+  "nominal": {
+    "status": "running_S_physx",
+    "children": [
+      {
+        "label": "S_physx",
+        "pid": 1102323,
+        "status": "running",
+        "returncode": null,
+        "gpu": 3,
+        "actual": {
+          "pid": 1102323,
+          "uid": 1030,
+          "state": "R",
+          "start_ticks": 2036094985,
+          "argv": [
+            "/data/zengxiong/.conda/envs/regrind/bin/python",
+            "-B",
+            "-u",
+            "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3/scripts/eval_contact_duration_pair.py",
+            "--base-snapshot",
+            "/data/zengxiong/workspaces/tron1-ppo-beta-ablation-400hz-20261022/source_snapshot_v4",
+            "--k-snapshot",
+            "/data/zengxiong/workspaces/tron1-ground-contact-v2k-20261024/source_snapshot_v1",
+            "--training-dir",
+            "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/formal_S",
+            "--protocol",
+            "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3/config/contact_duration_pair_400hz_v1.json",
+            "--backend",
+            "physx",
+            "--mu",
+            ".7",
+            "--motion-file",
+            "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3/references/fit_differential.npz",
+            "--output-dir",
+            "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/nominal_v1/S_physx",
+            "--legacy-evaluator",
+            "/data/zengxiong/workspaces/tron1-controller-comparison-20261015/controller_evaluation_source_v2/scripts/eval_tracking_friction_isaac.py",
+            "--asset-path",
+            "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/outputs/training-asset/WF_TRON1A.usda",
+            "--physical-gpu-index",
+            "3"
+          ]
+        }
+      }
+    ]
+  },
+  "proofs": {
+    "smoke_S": {
+      "kind": "strict_contact_duration_pair_training_verification",
+      "status": "completed_verified",
+      "cohort_id": "tron1_contact_duration_credit_pair_400hz_v1",
+      "variant": "S",
+      "run_kind": "smoke",
+      "transitions": 1536,
+      "cumulative_transitions": 12289536,
+      "actor_sha256": "13a550561a9be6ed773d3e20501e01b44d26ee00a35790da7cb75391661436fb",
+      "checkpoint_sha256": "dcda2116ca58686be8db4e2b9d877e0109466d1089330d178e49bdf46523289b",
+      "completion_audit_sha256": "42b30cb4629a2057b63d314adf363b53ab0b4009e88bb699d1fa742ca354c970",
+      "initial_policy_state_sha256": "1c4894073146a9bd1abd131c60de7efdba493fc33d75599c679792435a110db8",
+      "CPU_actor_output_shape": [
+        1,
+        8
+      ],
+      "task_space_tracking_verified": true,
+      "three_dimensional_axial_orientation_verified": true,
+      "independent_camber_reference_verified": true,
+      "matched_scale_duration_verified": true,
+      "from_scratch": false,
+      "historical_checkpoint_used": true,
+      "verifier_sha256": "1131aaa09cd8fa6367c23fbcca09befda1a2d5131d7d966e351f422a33196764",
+      "task_success_claimed": false
+    },
+    "smoke_T": {
+      "kind": "strict_contact_duration_pair_training_verification",
+      "status": "completed_verified",
+      "cohort_id": "tron1_contact_duration_credit_pair_400hz_v1",
+      "variant": "T",
+      "run_kind": "smoke",
+      "transitions": 1536,
+      "cumulative_transitions": 12289536,
+      "actor_sha256": "ff9750fa3e4d6d2115f06ad7349a6ed01dbb405cc609023dcc2cbf1544afe2c3",
+      "checkpoint_sha256": "5c338f9ec2fefda33156861db2828b8a2bdd3628171fe08f5a86a273a2a81f03",
+      "completion_audit_sha256": "4708fa19c35d19726104b3062db9fbdb8c4e1405c672661c14e3647523f8d28f",
+      "initial_policy_state_sha256": "1c4894073146a9bd1abd131c60de7efdba493fc33d75599c679792435a110db8",
+      "CPU_actor_output_shape": [
+        1,
+        8
+      ],
+      "task_space_tracking_verified": true,
+      "three_dimensional_axial_orientation_verified": true,
+      "independent_camber_reference_verified": true,
+      "matched_scale_duration_verified": true,
+      "from_scratch": false,
+      "historical_checkpoint_used": true,
+      "verifier_sha256": "1131aaa09cd8fa6367c23fbcca09befda1a2d5131d7d966e351f422a33196764",
+      "task_success_claimed": false
+    },
+    "formal_S": {
+      "kind": "strict_contact_duration_pair_training_verification",
+      "status": "completed_verified",
+      "cohort_id": "tron1_contact_duration_credit_pair_400hz_v1",
+      "variant": "S",
+      "run_kind": "formal",
+      "transitions": 2457600,
+      "cumulative_transitions": 14745600,
+      "actor_sha256": "04df92fd46ff28cc2471972f3c9ad6c66fa3b64e83f5dc0520b0a5c927467aba",
+      "checkpoint_sha256": "85c5bae087504f31dfedd09371eeff8d8311a2b0d599a2b2cb1120fd49cc6d24",
+      "completion_audit_sha256": "d453cec6951bda66b5de0627895df89e6b53188c0b91c7197fa88dd01787f8e0",
+      "initial_policy_state_sha256": "1c4894073146a9bd1abd131c60de7efdba493fc33d75599c679792435a110db8",
+      "CPU_actor_output_shape": [
+        1,
+        8
+      ],
+      "task_space_tracking_verified": true,
+      "three_dimensional_axial_orientation_verified": true,
+      "independent_camber_reference_verified": true,
+      "matched_scale_duration_verified": true,
+      "from_scratch": false,
+      "historical_checkpoint_used": true,
+      "verifier_sha256": "1131aaa09cd8fa6367c23fbcca09befda1a2d5131d7d966e351f422a33196764",
+      "task_success_claimed": false
+    },
+    "formal_T": {
+      "kind": "strict_contact_duration_pair_training_verification",
+      "status": "completed_verified",
+      "cohort_id": "tron1_contact_duration_credit_pair_400hz_v1",
+      "variant": "T",
+      "run_kind": "formal",
+      "transitions": 2457600,
+      "cumulative_transitions": 14745600,
+      "actor_sha256": "bad430065d6a0e4d0d3ac7308de6d6b50f78d344bc1c4cb4dea3aa53f5d39a5a",
+      "checkpoint_sha256": "bae7b6fa829e04348f367497ec06493270e3a99cbc2defa1f18789a7b51eba3d",
+      "completion_audit_sha256": "9482d2e8ef3d1af04f09681e6b58890a8dda6fede323d0a023c76d4fa13d7fc3",
+      "initial_policy_state_sha256": "1c4894073146a9bd1abd131c60de7efdba493fc33d75599c679792435a110db8",
+      "CPU_actor_output_shape": [
+        1,
+        8
+      ],
+      "task_space_tracking_verified": true,
+      "three_dimensional_axial_orientation_verified": true,
+      "independent_camber_reference_verified": true,
+      "matched_scale_duration_verified": true,
+      "from_scratch": false,
+      "historical_checkpoint_used": true,
+      "verifier_sha256": "1131aaa09cd8fa6367c23fbcca09befda1a2d5131d7d966e351f422a33196764",
+      "task_success_claimed": false
+    }
+  },
+  "task_success_claimed": false
+}

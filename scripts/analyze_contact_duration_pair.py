@@ -9,6 +9,7 @@ def materialize(source):
     assert hashlib.sha256(source.encode()).hexdigest()=="b62e61b551e01acd3ad1a46907025ddd0706da6c7a069bfd6c95a51832ca9e7b"
     changes=[
         ("import collect_contact_warm_refinement as collection","import collect_contact_duration_pair as collection"),
+        ("collection.INITIAL","collection.namespace()['INITIAL']"),
         ("ORDER=('K_physx','M_physx','K_mujoco','M_mujoco')","ORDER=('S_physx','T_physx','S_mujoco','T_mujoco')"),
         ("source_snapshot_v1/config/contact_warm_refinement_400hz_v1.json","source_snapshot_v3/config/contact_duration_pair_400hz_v1.json"),
         ("['K','M']","['S','T']"),
@@ -40,6 +41,7 @@ def materialize(source):
         ("        same_K_initialization_and_optimizer_between_arms=True,all_original_gates_retained=True,",
          "        same_K_initialization_and_optimizer_between_arms=True,all_original_gates_retained=True,\n"
          "        matched_raw_cost_bounds=[0.,2.],same_positive_G_and_other14_terms=True,\n"
+         "        scoring_reference='original_locked_car_body_path',native_motion_reference='independent_camber_0c8f2cfc',\n"
          "        same_independent_camber_reference=True,only_reward_intervention='worst_plus_mean_vs_twice_worst',"),
     ]
     for old,new in changes:

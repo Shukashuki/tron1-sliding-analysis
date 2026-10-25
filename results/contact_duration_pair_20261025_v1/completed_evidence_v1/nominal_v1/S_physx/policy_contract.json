@@ -1,0 +1,743 @@
+{
+  "policy_fps": 50.0,
+  "physics_dt": 0.0025,
+  "decimation": 8,
+  "actor_dim": 51,
+  "critic_dim": 120,
+  "action_dim": 8,
+  "leg_joint_names": [
+    "abad_L_Joint",
+    "abad_R_Joint",
+    "hip_L_Joint",
+    "hip_R_Joint",
+    "knee_L_Joint",
+    "knee_R_Joint"
+  ],
+  "wheel_joint_names": [
+    "wheel_L_Joint",
+    "wheel_R_Joint"
+  ],
+  "observed_joint_velocity_order": [
+    "abad_L_Joint",
+    "abad_R_Joint",
+    "hip_L_Joint",
+    "hip_R_Joint",
+    "knee_L_Joint",
+    "knee_R_Joint",
+    "wheel_L_Joint",
+    "wheel_R_Joint"
+  ],
+  "body_names": [
+    "base_Link",
+    "abad_L_Link",
+    "abad_R_Link",
+    "hip_L_Link",
+    "hip_R_Link",
+    "knee_L_Link",
+    "knee_R_Link",
+    "wheel_L_Link",
+    "wheel_R_Link"
+  ],
+  "orientation_body_names": [
+    "base_Link",
+    "abad_L_Link",
+    "abad_R_Link",
+    "hip_L_Link",
+    "hip_R_Link",
+    "knee_L_Link",
+    "knee_R_Link"
+  ],
+  "actor_terms": [
+    [
+      "ref_leg_q_ref_leg_dq_phase_sin_cos",
+      14
+    ],
+    [
+      "motion_anchor_pos_b",
+      3
+    ],
+    [
+      "motion_anchor_ori_b_6d_first_two_columns_row_major",
+      6
+    ],
+    [
+      "base_lin_vel_b",
+      3
+    ],
+    [
+      "base_ang_vel_b",
+      3
+    ],
+    [
+      "leg_joint_pos_rel",
+      6
+    ],
+    [
+      "joint_velocities",
+      8
+    ],
+    [
+      "previous_clipped_actions",
+      8
+    ]
+  ],
+  "raw_action_clip": [
+    -1.0,
+    1.0
+  ],
+  "leg_position_scale": 1.0,
+  "leg_position_offset": "reference_frame_0_joint_pos",
+  "wheel_torque_scale_nm": 12.0,
+  "leg_kp": 500.0,
+  "leg_kd": 10.0,
+  "leg_torque_limit_nm": 80.0,
+  "wheel_torque_limit_nm": 12.0,
+  "actuator_model": "dc_motor",
+  "leg_saturation_effort_nm": 80.0,
+  "wheel_saturation_effort_nm": 12.0,
+  "leg_motor_velocity_limit_rad_s": 15.0,
+  "wheel_motor_velocity_limit_rad_s": 100.0,
+  "solver_joint_velocity_limit_rad_s": 1000.0,
+  "motor_velocity_limit_semantics": "no_load_speed_for_torque_speed_curve_not_hard_qvel_clip",
+  "legacy_joint_friction_coefficient": 0.0,
+  "legacy_joint_friction_startup_readback_required": true,
+  "rigid_body_max_angular_speed_rad_s": 100.0,
+  "rigid_body_angular_speed_config_units": "degrees_per_second",
+  "quaternion_order": "wxyz",
+  "root_prescribed_during_steps": false,
+  "wheel_orientation_tracking": false,
+  "wheel_angle_observation": false,
+  "reference_state_initialization_training_only": true,
+  "training_full_clip_start_fraction": 0.2,
+  "deterministic_evaluation_start_frame": 0,
+  "motion_end_hidden_teleport": false,
+  "domain_randomization": "disabled during evaluation; fixed actuator parameters",
+  "actuator_limits_provenance": "project sim2sim baseline settings; NOT verified manufacturer hardware ratings",
+  "hardware_ready": false,
+  "task_profile": {
+    "schema_version": 1,
+    "task": "car_drift",
+    "contact_friction": 0.7,
+    "env_spacing_m": 8.0,
+    "reward_weights": {
+      "sideslip": 2.0,
+      "yaw_rate": 1.0,
+      "speed": 1.0,
+      "grounded": 0.4,
+      "tilt": -0.2
+    },
+    "height_regularization": {
+      "mode": "vertical_acceleration_only",
+      "weight": -0.1,
+      "acceleration_scale_m_s2": 5.0
+    },
+    "description": "Matched S/T support-duration costs;fixed independent-camber reference and3D wheel-axis reward;explicit original K warm start.",
+    "action_rate_weight": -0.5,
+    "ground_contact_reward_v2": {
+      "schema_version": 1,
+      "candidate": "ground_contact_v2s",
+      "physics_substeps": 8,
+      "support_load_fraction": 0.5,
+      "mean_weight": 0.75,
+      "minimum_weight": 0.25,
+      "impact_multiple": 3.0,
+      "negative_force_tolerance_n": 0.0001,
+      "external_reward_weight": 0.4,
+      "reward_dt_s": 0.02,
+      "support_gap_weight": 1.0,
+      "support_force_threshold_n": 5.0,
+      "beta_gate_low_reference_speed_m_s": 0.3,
+      "support_gap_aggregation": "max8_plus_mean8",
+      "support_gap_cost_mode": "worst_plus_mean_continuous_anywheel_load_margin"
+    },
+    "task_space_tracking": {
+      "mode": "base_wheel_targets_3D_axles_free_leg_links_v1",
+      "position_bodies": [
+        "base_Link",
+        "wheel_L_Link",
+        "wheel_R_Link"
+      ],
+      "linear_velocity_bodies": [
+        "base_Link",
+        "wheel_L_Link",
+        "wheel_R_Link"
+      ],
+      "angular_velocity_bodies": [
+        "base_Link"
+      ],
+      "orientation_term": "world_axial_3D_wheel_axis",
+      "wheel_bodies": [
+        "wheel_L_Link",
+        "wheel_R_Link"
+      ],
+      "wheel_axle_local": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "wheel_axis_std_rad": 0.4,
+      "wheel_axis_min_norm": 1e-06,
+      "all_reward_weights_unchanged": true,
+      "root_global_orientation_and_nonzero_beta_retained": true,
+      "intermediate_leg_reference_observations_retained": true,
+      "contact_reward_formula_changed": false
+    }
+  },
+  "reference_file_sha256": "0c8f2cfc2876bbd103bad206e708d91bf6753f8faa75c3107b0ec37c56c448b9",
+  "default_joint_position_rad": [
+    0.0,
+    -0.0,
+    0.3447771668434143,
+    -0.3447771668434143,
+    0.7936588525772095,
+    -0.7936588525772095,
+    0.0,
+    0.0
+  ],
+  "trained_task_profile": {
+    "schema_version": 1,
+    "task": "car_drift",
+    "contact_friction": 1.0,
+    "env_spacing_m": 8.0,
+    "reward_weights": {
+      "sideslip": 2.0,
+      "yaw_rate": 1.0,
+      "speed": 1.0,
+      "grounded": 0.4,
+      "tilt": -0.2
+    },
+    "height_regularization": {
+      "mode": "vertical_acceleration_only",
+      "weight": -0.1,
+      "acceleration_scale_m_s2": 5.0
+    },
+    "description": "Matched S/T support-duration costs;fixed independent-camber reference and3D wheel-axis reward;explicit original K warm start.",
+    "action_rate_weight": -0.5,
+    "ground_contact_reward_v2": {
+      "schema_version": 1,
+      "candidate": "ground_contact_v2s",
+      "physics_substeps": 8,
+      "support_load_fraction": 0.5,
+      "mean_weight": 0.75,
+      "minimum_weight": 0.25,
+      "impact_multiple": 3.0,
+      "negative_force_tolerance_n": 0.0001,
+      "external_reward_weight": 0.4,
+      "reward_dt_s": 0.02,
+      "support_gap_weight": 1.0,
+      "support_force_threshold_n": 5.0,
+      "beta_gate_low_reference_speed_m_s": 0.3,
+      "support_gap_aggregation": "max8_plus_mean8",
+      "support_gap_cost_mode": "worst_plus_mean_continuous_anywheel_load_margin"
+    },
+    "task_space_tracking": {
+      "mode": "base_wheel_targets_3D_axles_free_leg_links_v1",
+      "position_bodies": [
+        "base_Link",
+        "wheel_L_Link",
+        "wheel_R_Link"
+      ],
+      "linear_velocity_bodies": [
+        "base_Link",
+        "wheel_L_Link",
+        "wheel_R_Link"
+      ],
+      "angular_velocity_bodies": [
+        "base_Link"
+      ],
+      "orientation_term": "world_axial_3D_wheel_axis",
+      "wheel_bodies": [
+        "wheel_L_Link",
+        "wheel_R_Link"
+      ],
+      "wheel_axle_local": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "wheel_axis_std_rad": 0.4,
+      "wheel_axis_min_norm": 1e-06,
+      "all_reward_weights_unchanged": true,
+      "root_global_orientation_and_nonzero_beta_retained": true,
+      "intermediate_leg_reference_observations_retained": true,
+      "contact_reward_formula_changed": false
+    }
+  },
+  "training_domain_randomization": {
+    "source": "mjlab v1.4.0 tracking events adapted to TRON1",
+    "sliding_friction": {
+      "range": [
+        0.3,
+        1.2
+      ],
+      "distribution": "uniform_continuous",
+      "sampling": "startup_once_per_environment",
+      "shared_between_wheels": true,
+      "scope": "colliding_wheel_shapes",
+      "mujoco_wheel_priority": 1,
+      "physx_static_equals_dynamic": true,
+      "physx_floor_mu": 1,
+      "physx_combine": "multiply"
+    },
+    "encoder_position_bias_rad": [
+      -0.01,
+      0.01
+    ],
+    "encoder_bias_signs": {
+      "actor": "+b",
+      "position_target": "-b",
+      "critic": "unbiased"
+    },
+    "base_com_xyz_range_m": [
+      [
+        -0.025,
+        0.025
+      ],
+      [
+        -0.05,
+        0.05
+      ],
+      [
+        -0.05,
+        0.05
+      ]
+    ],
+    "root_link_velocity_push_interval_s": [
+      1,
+      3
+    ],
+    "root_link_velocity_push_ranges": {
+      "x": [
+        -0.5,
+        0.5
+      ],
+      "y": [
+        -0.5,
+        0.5
+      ],
+      "z": [
+        -0.2,
+        0.2
+      ],
+      "roll": [
+        -0.52,
+        0.52
+      ],
+      "pitch": [
+        -0.52,
+        0.52
+      ],
+      "yaw": [
+        -0.78,
+        0.78
+      ]
+    },
+    "push_timer_reset_correction": "resample all interval timers at episode reset; do not reproduce v1.4 function-event reset bug",
+    "restitution_randomization": false,
+    "contact_law_equivalence_claimed": false
+  },
+  "cohort_id": "tron1_contact_duration_credit_pair_400hz_v1",
+  "cohort_variant": "S",
+  "contract_status": "trained_completed_normalized_actor",
+  "physics_clock_origin": "native400Hz_warm_refinement",
+  "reward_definition_version": "ground_contact_v2s_any_wheel",
+  "ground_contact_reward_v2": {
+    "schema_version": 1,
+    "candidate": "ground_contact_v2s",
+    "physics_substeps": 8,
+    "support_load_fraction": 0.5,
+    "mean_weight": 0.75,
+    "minimum_weight": 0.25,
+    "impact_multiple": 3.0,
+    "negative_force_tolerance_n": 0.0001,
+    "external_reward_weight": 0.4,
+    "reward_dt_s": 0.02,
+    "support_gap_weight": 1.0,
+    "support_force_threshold_n": 5.0,
+    "beta_gate_low_reference_speed_m_s": 0.3,
+    "support_gap_aggregation": "max8_plus_mean8",
+    "support_gap_cost_mode": "worst_plus_mean_continuous_anywheel_load_margin"
+  },
+  "historical_checkpoint_used": true,
+  "warm_start": {
+    "checkpoint_sha256": "8cb011e4c5e2a33a685bc58280df410141ab99aa245892042762b8956595fe5a",
+    "actor_sha256": "fafdccb45571b99da53a02455f2402a8cd8b960f16809ba8e6e0fe6996dce912",
+    "policy_state_sha256": "1c4894073146a9bd1abd131c60de7efdba493fc33d75599c679792435a110db8",
+    "base_training_transitions": 12288000,
+    "load_actor_critic_normalizers": true,
+    "load_optimizer": false,
+    "reset_stage_iteration_counter": true
+  },
+  "leg_command_execution": "original_position_target_hold",
+  "kinematic_reference": {
+    "id": "fit_differential",
+    "motion_sha256": "0c8f2cfc2876bbd103bad206e708d91bf6753f8faa75c3107b0ec37c56c448b9",
+    "original_motion_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+    "generation_sha256": "ac825323e8104df81049bd3ad29d6daef99ffc6bb50bf9c9ed3895a2abba00a8",
+    "kinematic_verification_sha256": "4ef2695324556d5a6da18e98c03379e3314597150a176a23a220bd031f2ce1a7",
+    "independent_signed_camber": true,
+    "targets_L_R": [
+      1.1,
+      0.9
+    ],
+    "geometrical_support_is_measured_force": false,
+    "original_body_XY_speed_yaw_retained": true,
+    "new_height_or_slip_reward": false,
+    "reference_path": "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3/references/fit_differential.npz",
+    "frames": 349,
+    "fps": 50,
+    "geometric_support_only": true,
+    "positive_contact_force_proven": false,
+    "peak_abs_camber_deg_L_R": [
+      6.953012726387789,
+      6.9530127263772314
+    ],
+    "input_sha256": {
+      "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3/references/fit_differential.npz": "0c8f2cfc2876bbd103bad206e708d91bf6753f8faa75c3107b0ec37c56c448b9",
+      "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3/references/generation.json": "ac825323e8104df81049bd3ad29d6daef99ffc6bb50bf9c9ed3895a2abba00a8",
+      "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3/references/verification_v2.json": "4ef2695324556d5a6da18e98c03379e3314597150a176a23a220bd031f2ce1a7"
+    }
+  },
+  "smoke_only": false,
+  "trained_policy_claimed": true,
+  "run_kind": "formal",
+  "policy_algorithm": "PPO",
+  "policy_training_backend": "physx",
+  "checkpoint_sha256": "85c5bae087504f31dfedd09371eeff8d8311a2b0d599a2b2cb1120fd49cc6d24",
+  "checkpoint_file": "model_final.pt",
+  "exported_policy_sha256": "04df92fd46ff28cc2471972f3c9ad6c66fa3b64e83f5dc0520b0a5c927467aba",
+  "actor_file": "actor_normalized.pt",
+  "actor_includes_observation_normalizer": true,
+  "actor_output_is_unclipped": true,
+  "actor_observation_groups": [
+    "policy"
+  ],
+  "export_validation_max_abs_error": 1.341104507446289e-07,
+  "training_cohort_protocol_sha256": "dd1a4d4f839057f7443323daf1212347d571228b7321dfa1682b75e6e888506e",
+  "training_environment_transitions": 2457600,
+  "runtime_clock_and_interface_verified": true,
+  "cumulative_training_environment_transitions": 14745600,
+  "from_scratch": false,
+  "full_horizon_diagnostic": true,
+  "evaluation_backend": "PhysX",
+  "evaluation_contact_friction_override": {
+    "trained_contact_friction": 1.0,
+    "evaluation_contact_friction": 0.7,
+    "meaning": "target effective pair coefficient; native material mapping, not contact-law equivalence",
+    "physx_robot_mu": 0.7,
+    "physx_ground_mu": 1.0,
+    "physx_combine": "multiply",
+    "mujoco_colliding_geom_mu": 0.7,
+    "mujoco_wheel_priority": 1,
+    "mujoco_other_priority": 0,
+    "mujoco_equal_priority_combine": "max",
+    "mu_squared": false
+  },
+  "scripted_actor_provenance": {
+    "kind": "duration_credit_pair_native_evaluation",
+    "cohort_id": "tron1_contact_duration_credit_pair_400hz_v1",
+    "training_backend": "physx",
+    "smoke_only": false,
+    "trained_policy_claimed": true,
+    "run_kind": "formal",
+    "additional_training_updates": 0,
+    "checkpoint_sha256": "85c5bae087504f31dfedd09371eeff8d8311a2b0d599a2b2cb1120fd49cc6d24",
+    "normalized_actor_sha256": "04df92fd46ff28cc2471972f3c9ad6c66fa3b64e83f5dc0520b0a5c927467aba",
+    "cohort_input_sha256": {
+      "manifest.json": "190254e97a0632e63e2ec62d83af2608adc1d8bd63350445f0cdd2036d7e8a60",
+      "cohort_completion_audit.json": "d453cec6951bda66b5de0627895df89e6b53188c0b91c7197fa88dd01787f8e0",
+      "cohort_startup_audit.json": "e593496f6d783f4d8af7126fe5e21c82f78397dfdcb39bf554c3a01ceae06e8d",
+      "policy_contract.json": "bd2d871108d85f8226da45adae4ebd3ba1148e6e66e8592dd94a2b9b0fafab9c",
+      "final_policy_contract.json": "bd2d871108d85f8226da45adae4ebd3ba1148e6e66e8592dd94a2b9b0fafab9c",
+      "runner_config.json": "db95bad45629be624f182f33c1b8822b133745d791014c6d55d095a168b4afe4",
+      "run_status.json": "b9fde07a4cd560431665827ef4840129ef10f9c07035729aa547cac4afa25e86",
+      "policy.pt": "04df92fd46ff28cc2471972f3c9ad6c66fa3b64e83f5dc0520b0a5c927467aba",
+      "model_final.pt": "85c5bae087504f31dfedd09371eeff8d8311a2b0d599a2b2cb1120fd49cc6d24",
+      "pre_export_runtime_audit.json": "997c8d5c08912df0a4a88cd42ee01640b835dd94407e8fe595984f7872707d8b",
+      "export_precision_audit.json": "8676fb4dc552c32e33c101adbdcea27ddc16564b148fde98be5459c5bcb109f5",
+      "environment_final.json": "8ec51fe0ec737f6e9c37eb66f45cc9e6af76212eb573d333d93cd0cae3354ba9"
+    },
+    "protocol_sha256": "dd1a4d4f839057f7443323daf1212347d571228b7321dfa1682b75e6e888506e",
+    "inference_algorithm": "PPO",
+    "normalizer_included_in_actor": true,
+    "outer_normalizer": "Identity",
+    "physics_dt_s": 0.0025,
+    "decimation": 8,
+    "policy_dt_s": 0.02,
+    "old_200hz_actor_used": false,
+    "absolute_height_gate": false,
+    "airborne_failure": false,
+    "contact_law_equivalence_claimed": false,
+    "hardware_ready": false,
+    "reward_variant": "S",
+    "reward_definition_version": "ground_contact_v2s_any_wheel",
+    "initial_policy_state_sha256": "1c4894073146a9bd1abd131c60de7efdba493fc33d75599c679792435a110db8",
+    "source_K_checkpoint_sha256": "8cb011e4c5e2a33a685bc58280df410141ab99aa245892042762b8956595fe5a",
+    "source_K_actor_sha256": "fafdccb45571b99da53a02455f2402a8cd8b960f16809ba8e6e0fe6996dce912",
+    "from_scratch": false,
+    "historical_checkpoint_used": true,
+    "additional_refinement_transitions": 2457600,
+    "cumulative_training_transitions": 14745600,
+    "normalization_applications_per_inference": 1,
+    "extra_normalization": false,
+    "single_wheel_support_allowed": true,
+    "leg_command_execution": "original_position_target_hold",
+    "kinematic_reference": {
+      "id": "fit_differential",
+      "motion_sha256": "0c8f2cfc2876bbd103bad206e708d91bf6753f8faa75c3107b0ec37c56c448b9",
+      "original_motion_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+      "generation_sha256": "ac825323e8104df81049bd3ad29d6daef99ffc6bb50bf9c9ed3895a2abba00a8",
+      "kinematic_verification_sha256": "4ef2695324556d5a6da18e98c03379e3314597150a176a23a220bd031f2ce1a7",
+      "independent_signed_camber": true,
+      "targets_L_R": [
+        1.1,
+        0.9
+      ],
+      "geometrical_support_is_measured_force": false,
+      "original_body_XY_speed_yaw_retained": true,
+      "new_height_or_slip_reward": false,
+      "reference_path": "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3/references/fit_differential.npz",
+      "frames": 349,
+      "fps": 50,
+      "geometric_support_only": true,
+      "positive_contact_force_proven": false,
+      "peak_abs_camber_deg_L_R": [
+        6.953012726387789,
+        6.9530127263772314
+      ],
+      "input_sha256": {
+        "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3/references/fit_differential.npz": "0c8f2cfc2876bbd103bad206e708d91bf6753f8faa75c3107b0ec37c56c448b9",
+        "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3/references/generation.json": "ac825323e8104df81049bd3ad29d6daef99ffc6bb50bf9c9ed3895a2abba00a8",
+        "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3/references/verification_v2.json": "4ef2695324556d5a6da18e98c03379e3314597150a176a23a220bd031f2ce1a7"
+      }
+    },
+    "native_common_reference_binding": {
+      "original_common_sha256": "b57b7444698e06f4d9faed6f246bb8a301b505f6c785bdbc2caafdb0b2b6f56e",
+      "materialized_common_sha256": "95026f69dc266367436d1411109273c1774d70be9facdaf4e5fb8a8540bc3f7c",
+      "original_motion_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+      "declared_motion_sha256": "0c8f2cfc2876bbd103bad206e708d91bf6753f8faa75c3107b0ec37c56c448b9",
+      "original_source_file_modified": false,
+      "other_input_pins_unchanged": true
+    }
+  },
+  "actual_joint_order": [
+    "abad_L_Joint",
+    "abad_R_Joint",
+    "hip_L_Joint",
+    "hip_R_Joint",
+    "knee_L_Joint",
+    "knee_R_Joint",
+    "wheel_L_Joint",
+    "wheel_R_Joint"
+  ],
+  "actual_body_order": [
+    "base_Link",
+    "abad_L_Link",
+    "abad_R_Link",
+    "limx_imu",
+    "hip_L_Link",
+    "hip_R_Link",
+    "knee_L_Link",
+    "knee_R_Link",
+    "wheel_L_Link",
+    "wheel_R_Link"
+  ],
+  "contact_warm_refinement_evaluation": {
+    "kind": "duration_credit_pair_native_evaluation",
+    "cohort_id": "tron1_contact_duration_credit_pair_400hz_v1",
+    "training_backend": "physx",
+    "smoke_only": false,
+    "trained_policy_claimed": true,
+    "run_kind": "formal",
+    "additional_training_updates": 0,
+    "checkpoint_sha256": "85c5bae087504f31dfedd09371eeff8d8311a2b0d599a2b2cb1120fd49cc6d24",
+    "normalized_actor_sha256": "04df92fd46ff28cc2471972f3c9ad6c66fa3b64e83f5dc0520b0a5c927467aba",
+    "cohort_input_sha256": {
+      "manifest.json": "190254e97a0632e63e2ec62d83af2608adc1d8bd63350445f0cdd2036d7e8a60",
+      "cohort_completion_audit.json": "d453cec6951bda66b5de0627895df89e6b53188c0b91c7197fa88dd01787f8e0",
+      "cohort_startup_audit.json": "e593496f6d783f4d8af7126fe5e21c82f78397dfdcb39bf554c3a01ceae06e8d",
+      "policy_contract.json": "bd2d871108d85f8226da45adae4ebd3ba1148e6e66e8592dd94a2b9b0fafab9c",
+      "final_policy_contract.json": "bd2d871108d85f8226da45adae4ebd3ba1148e6e66e8592dd94a2b9b0fafab9c",
+      "runner_config.json": "db95bad45629be624f182f33c1b8822b133745d791014c6d55d095a168b4afe4",
+      "run_status.json": "b9fde07a4cd560431665827ef4840129ef10f9c07035729aa547cac4afa25e86",
+      "policy.pt": "04df92fd46ff28cc2471972f3c9ad6c66fa3b64e83f5dc0520b0a5c927467aba",
+      "model_final.pt": "85c5bae087504f31dfedd09371eeff8d8311a2b0d599a2b2cb1120fd49cc6d24",
+      "pre_export_runtime_audit.json": "997c8d5c08912df0a4a88cd42ee01640b835dd94407e8fe595984f7872707d8b",
+      "export_precision_audit.json": "8676fb4dc552c32e33c101adbdcea27ddc16564b148fde98be5459c5bcb109f5",
+      "environment_final.json": "8ec51fe0ec737f6e9c37eb66f45cc9e6af76212eb573d333d93cd0cae3354ba9"
+    },
+    "protocol_sha256": "dd1a4d4f839057f7443323daf1212347d571228b7321dfa1682b75e6e888506e",
+    "inference_algorithm": "PPO",
+    "normalizer_included_in_actor": true,
+    "outer_normalizer": "Identity",
+    "physics_dt_s": 0.0025,
+    "decimation": 8,
+    "policy_dt_s": 0.02,
+    "old_200hz_actor_used": false,
+    "absolute_height_gate": false,
+    "airborne_failure": false,
+    "contact_law_equivalence_claimed": false,
+    "hardware_ready": false,
+    "reward_variant": "S",
+    "reward_definition_version": "ground_contact_v2s_any_wheel",
+    "initial_policy_state_sha256": "1c4894073146a9bd1abd131c60de7efdba493fc33d75599c679792435a110db8",
+    "source_K_checkpoint_sha256": "8cb011e4c5e2a33a685bc58280df410141ab99aa245892042762b8956595fe5a",
+    "source_K_actor_sha256": "fafdccb45571b99da53a02455f2402a8cd8b960f16809ba8e6e0fe6996dce912",
+    "from_scratch": false,
+    "historical_checkpoint_used": true,
+    "additional_refinement_transitions": 2457600,
+    "cumulative_training_transitions": 14745600,
+    "normalization_applications_per_inference": 1,
+    "extra_normalization": false,
+    "single_wheel_support_allowed": true,
+    "leg_command_execution": "original_position_target_hold",
+    "kinematic_reference": {
+      "id": "fit_differential",
+      "motion_sha256": "0c8f2cfc2876bbd103bad206e708d91bf6753f8faa75c3107b0ec37c56c448b9",
+      "original_motion_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+      "generation_sha256": "ac825323e8104df81049bd3ad29d6daef99ffc6bb50bf9c9ed3895a2abba00a8",
+      "kinematic_verification_sha256": "4ef2695324556d5a6da18e98c03379e3314597150a176a23a220bd031f2ce1a7",
+      "independent_signed_camber": true,
+      "targets_L_R": [
+        1.1,
+        0.9
+      ],
+      "geometrical_support_is_measured_force": false,
+      "original_body_XY_speed_yaw_retained": true,
+      "new_height_or_slip_reward": false,
+      "reference_path": "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3/references/fit_differential.npz",
+      "frames": 349,
+      "fps": 50,
+      "geometric_support_only": true,
+      "positive_contact_force_proven": false,
+      "peak_abs_camber_deg_L_R": [
+        6.953012726387789,
+        6.9530127263772314
+      ],
+      "input_sha256": {
+        "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3/references/fit_differential.npz": "0c8f2cfc2876bbd103bad206e708d91bf6753f8faa75c3107b0ec37c56c448b9",
+        "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3/references/generation.json": "ac825323e8104df81049bd3ad29d6daef99ffc6bb50bf9c9ed3895a2abba00a8",
+        "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3/references/verification_v2.json": "4ef2695324556d5a6da18e98c03379e3314597150a176a23a220bd031f2ce1a7"
+      }
+    },
+    "native_common_reference_binding": {
+      "original_common_sha256": "b57b7444698e06f4d9faed6f246bb8a301b505f6c785bdbc2caafdb0b2b6f56e",
+      "materialized_common_sha256": "95026f69dc266367436d1411109273c1774d70be9facdaf4e5fb8a8540bc3f7c",
+      "original_motion_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+      "declared_motion_sha256": "0c8f2cfc2876bbd103bad206e708d91bf6753f8faa75c3107b0ec37c56c448b9",
+      "original_source_file_modified": false,
+      "other_input_pins_unchanged": true
+    },
+    "status": "verified",
+    "validation_backend": "PhysX",
+    "wrapper_sha256": "e7981eac1ac72a739a951bc5d2cd7044c17178f909220bfffc7af1c66a1e4920",
+    "legacy_evaluator_sha256": "76d78337d70519693bc7e8d819a6523a800e1e4889de5a0466c2d34356d2ae9d",
+    "generated_source_sha256": "9267221101601f0b36deeea7ed121d8a98efc06f8aec146025774d1e2f233adc",
+    "recording_sha256": "06620c482a936139ee6269cf0b0e512d873363b5b75903b726c0fdf074ae290f",
+    "native_states": 2793,
+    "policy_decisions": 349,
+    "duration_s": 6.98,
+    "physical_gpu_index_requested": 3,
+    "deployment_actor_sha256": "e5b94e87ed070f28c391cc7b0a11b216ce6b6d887141a28e7c83157085a9d8d0"
+  },
+  "warm_contact_evaluation": {
+    "kind": "duration_credit_pair_native_evaluation",
+    "cohort_id": "tron1_contact_duration_credit_pair_400hz_v1",
+    "training_backend": "physx",
+    "smoke_only": false,
+    "trained_policy_claimed": true,
+    "run_kind": "formal",
+    "additional_training_updates": 0,
+    "checkpoint_sha256": "85c5bae087504f31dfedd09371eeff8d8311a2b0d599a2b2cb1120fd49cc6d24",
+    "normalized_actor_sha256": "04df92fd46ff28cc2471972f3c9ad6c66fa3b64e83f5dc0520b0a5c927467aba",
+    "cohort_input_sha256": {
+      "manifest.json": "190254e97a0632e63e2ec62d83af2608adc1d8bd63350445f0cdd2036d7e8a60",
+      "cohort_completion_audit.json": "d453cec6951bda66b5de0627895df89e6b53188c0b91c7197fa88dd01787f8e0",
+      "cohort_startup_audit.json": "e593496f6d783f4d8af7126fe5e21c82f78397dfdcb39bf554c3a01ceae06e8d",
+      "policy_contract.json": "bd2d871108d85f8226da45adae4ebd3ba1148e6e66e8592dd94a2b9b0fafab9c",
+      "final_policy_contract.json": "bd2d871108d85f8226da45adae4ebd3ba1148e6e66e8592dd94a2b9b0fafab9c",
+      "runner_config.json": "db95bad45629be624f182f33c1b8822b133745d791014c6d55d095a168b4afe4",
+      "run_status.json": "b9fde07a4cd560431665827ef4840129ef10f9c07035729aa547cac4afa25e86",
+      "policy.pt": "04df92fd46ff28cc2471972f3c9ad6c66fa3b64e83f5dc0520b0a5c927467aba",
+      "model_final.pt": "85c5bae087504f31dfedd09371eeff8d8311a2b0d599a2b2cb1120fd49cc6d24",
+      "pre_export_runtime_audit.json": "997c8d5c08912df0a4a88cd42ee01640b835dd94407e8fe595984f7872707d8b",
+      "export_precision_audit.json": "8676fb4dc552c32e33c101adbdcea27ddc16564b148fde98be5459c5bcb109f5",
+      "environment_final.json": "8ec51fe0ec737f6e9c37eb66f45cc9e6af76212eb573d333d93cd0cae3354ba9"
+    },
+    "protocol_sha256": "dd1a4d4f839057f7443323daf1212347d571228b7321dfa1682b75e6e888506e",
+    "inference_algorithm": "PPO",
+    "normalizer_included_in_actor": true,
+    "outer_normalizer": "Identity",
+    "physics_dt_s": 0.0025,
+    "decimation": 8,
+    "policy_dt_s": 0.02,
+    "old_200hz_actor_used": false,
+    "absolute_height_gate": false,
+    "airborne_failure": false,
+    "contact_law_equivalence_claimed": false,
+    "hardware_ready": false,
+    "reward_variant": "S",
+    "reward_definition_version": "ground_contact_v2s_any_wheel",
+    "initial_policy_state_sha256": "1c4894073146a9bd1abd131c60de7efdba493fc33d75599c679792435a110db8",
+    "source_K_checkpoint_sha256": "8cb011e4c5e2a33a685bc58280df410141ab99aa245892042762b8956595fe5a",
+    "source_K_actor_sha256": "fafdccb45571b99da53a02455f2402a8cd8b960f16809ba8e6e0fe6996dce912",
+    "from_scratch": false,
+    "historical_checkpoint_used": true,
+    "additional_refinement_transitions": 2457600,
+    "cumulative_training_transitions": 14745600,
+    "normalization_applications_per_inference": 1,
+    "extra_normalization": false,
+    "single_wheel_support_allowed": true,
+    "leg_command_execution": "original_position_target_hold",
+    "kinematic_reference": {
+      "id": "fit_differential",
+      "motion_sha256": "0c8f2cfc2876bbd103bad206e708d91bf6753f8faa75c3107b0ec37c56c448b9",
+      "original_motion_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+      "generation_sha256": "ac825323e8104df81049bd3ad29d6daef99ffc6bb50bf9c9ed3895a2abba00a8",
+      "kinematic_verification_sha256": "4ef2695324556d5a6da18e98c03379e3314597150a176a23a220bd031f2ce1a7",
+      "independent_signed_camber": true,
+      "targets_L_R": [
+        1.1,
+        0.9
+      ],
+      "geometrical_support_is_measured_force": false,
+      "original_body_XY_speed_yaw_retained": true,
+      "new_height_or_slip_reward": false,
+      "reference_path": "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3/references/fit_differential.npz",
+      "frames": 349,
+      "fps": 50,
+      "geometric_support_only": true,
+      "positive_contact_force_proven": false,
+      "peak_abs_camber_deg_L_R": [
+        6.953012726387789,
+        6.9530127263772314
+      ],
+      "input_sha256": {
+        "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3/references/fit_differential.npz": "0c8f2cfc2876bbd103bad206e708d91bf6753f8faa75c3107b0ec37c56c448b9",
+        "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3/references/generation.json": "ac825323e8104df81049bd3ad29d6daef99ffc6bb50bf9c9ed3895a2abba00a8",
+        "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3/references/verification_v2.json": "4ef2695324556d5a6da18e98c03379e3314597150a176a23a220bd031f2ce1a7"
+      }
+    },
+    "native_common_reference_binding": {
+      "original_common_sha256": "b57b7444698e06f4d9faed6f246bb8a301b505f6c785bdbc2caafdb0b2b6f56e",
+      "materialized_common_sha256": "95026f69dc266367436d1411109273c1774d70be9facdaf4e5fb8a8540bc3f7c",
+      "original_motion_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+      "declared_motion_sha256": "0c8f2cfc2876bbd103bad206e708d91bf6753f8faa75c3107b0ec37c56c448b9",
+      "original_source_file_modified": false,
+      "other_input_pins_unchanged": true
+    },
+    "status": "completed_requires_analysis",
+    "validation_backend": "physx",
+    "evaluation_mu": 0.7,
+    "native_states": 2793,
+    "policy_decisions": 349,
+    "recording_sha256": "06620c482a936139ee6269cf0b0e512d873363b5b75903b726c0fdf074ae290f",
+    "source_sha256": {
+      "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3/scripts/eval_contact_duration_pair.py": "e7981eac1ac72a739a951bc5d2cd7044c17178f909220bfffc7af1c66a1e4920",
+      "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3/scripts/train_contact_duration_pair.py": "8c67099d4555bc6b02a741a951808427598cbe8b6fb1caa6ec0249c9e35c3847",
+      "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3/scripts/verify_contact_duration_pair.py": "1131aaa09cd8fa6367c23fbcca09befda1a2d5131d7d966e351f422a33196764"
+    },
+    "training_completion_audit_sha256": "d453cec6951bda66b5de0627895df89e6b53188c0b91c7197fa88dd01787f8e0",
+    "task_success_claimed": false
+  }
+}
