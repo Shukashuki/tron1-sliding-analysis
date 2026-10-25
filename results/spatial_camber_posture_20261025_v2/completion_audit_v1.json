@@ -1,0 +1,54 @@
+{
+  "offline_stage_completed": true,
+  "goal_complete": false,
+  "native_continuous_contact_proven": false,
+  "full_reference_trajectory_produced": false,
+  "all_original_nominal_gates_retained": {
+    "mu": 0.7,
+    "validation_backends": [
+      "PhysX",
+      "native CPU MuJoCo"
+    ],
+    "core_interval_s": [
+      1.44,
+      4
+    ],
+    "reference_overlap_interval_s": [
+      0,
+      6.96
+    ],
+    "full_contact_interval_s": [
+      0.02,
+      6.96
+    ],
+    "native_recording_interval_s": [
+      0,
+      6.98
+    ],
+    "core_and_whole_xy_rmse_m_max": 0.15,
+    "core_and_whole_xy_peak_m_max": 0.3,
+    "core_speed_ratio_range": [
+      0.95,
+      1.1
+    ],
+    "core_reference_beta_rmse_deg_max": 10,
+    "contact_force_definition": "Ground-filtered normal force in worldZ N; at least one wheel exceeds5N each physical sample.",
+    "contact_force_threshold_n_strict": 5,
+    "any_wheel_support_fraction_min": 1,
+    "longest_no_support_interval_s_max": 0,
+    "core_10_to_100hz_angular_xy_rms_ratio_to_original_baseline_max": 0.7,
+    "single_wheel_lift_is_failure": false,
+    "absolute_height_or_flight_gate": false,
+    "full_horizon_no_auto_reset": true,
+    "qualitative_review": "Render whole-body and fixed-world XY; cannot declare task complete solely from lower HF or summed reward.",
+    "results_are_single_seed_not_statistical_qualification": true
+  },
+  "progress": "Verified3D orientation coupling and rejected XY-only force cancellation with full base wrench checks. Explicit contact mode/time-coupled planning is needed before another learning test.",
+  "next_required_work": [
+    "Model at least one loaded rolling/sticking wheel and optionally a sliding or unloaded other wheel.",
+    "Include changing root/leg shape velocities and accelerations in the complete reference.",
+    "Check motor limits,contact mode feasibility and native mu0.7 support without weakening any original task gate."
+  ],
+  "verification_sha256": "55d3cd207edd88a7e58b7099835f9e0c55349c0466b1cb2159580509540242cd",
+  "report_source_sha256": "9b262fcbf0cbb7622b47d559ac0bca13db3bbe46eb93e028437feab367890243"
+}
