@@ -1,0 +1,17 @@
+{
+  "kind": "TRON1_camber_kinematic_reference_v1",
+  "ramp_times_s": [0.4, 1.44, 4.0, 5.2],
+  "base_XY_path_and_yaw": "unchanged original traj_4",
+  "camber_sign": "asin(worldZ dot authored wheel local+Y),same world convention for both wheels",
+  "cases": [
+    {"id":"zero", "title":"Zero camber control", "coefficients_deg":[[0,0,0,0],[0,0,0,0]]},
+    {"id":"parallel_plus10", "title":"Parallel +10 deg", "coefficients_deg":[[10,10,10,10],[10,10,10,10]]},
+    {"id":"parallel_minus10", "title":"Parallel -10 deg", "coefficients_deg":[[-10,-10,-10,-10],[-10,-10,-10,-10]]},
+    {"id":"opposed_out10", "title":"Opposed outward 10 deg", "coefficients_deg":[[10,10,10,10],[-10,-10,-10,-10]]}
+  ],
+  "policy_training": false,
+  "new_contact_or_friction_law": false,
+  "geometric_support_is_measured_normal_force": false,
+  "absolute_height_acceptance_gate": false,
+  "dynamic_success_claimed": false
+}

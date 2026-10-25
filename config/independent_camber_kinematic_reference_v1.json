@@ -1,0 +1,17 @@
+{
+  "kind": "independent_camber_kinematic_reference_v1",
+  "ramp_times_s": [0.4,1.44,4.0,5.2],
+  "coefficient_regularization_m_s": 0.001,
+  "max_nfev": 40,
+  "independent_coefficients": true,
+  "fixed_cases": [
+    {"id":"zero","title":"Zero camber","coefficients_deg":[[0,0,0,0],[0,0,0,0]]},
+    {"id":"opposed10","title":"Left+10 /Right-10 deg","coefficients_deg":[[10,10,10,10],[-10,-10,-10,-10]]}
+  ],
+  "fit_cases": [
+    {"id":"fit_both90","title":"Independent fit: L90% /R90% slip","signed_velocity_ratios_L_R":[0.9,0.9],"initial_coefficients_deg":[[0,1,10,14],[0,1,10,14]]},
+    {"id":"fit_differential","title":"Independent fit: L110% /R90% slip","signed_velocity_ratios_L_R":[1.1,0.9],"initial_coefficients_deg":[[10,3,-3,-10],[-10,-3,3,10]]}
+  ],
+  "geometric_support_is_force_validation": false,
+  "no_new_height_or_friction_constraint": true
+}

@@ -1,0 +1,81 @@
+{
+  "kind": "camber_kinematic_slip_shooting_v1",
+  "status": "kinematic_shooting_finished",
+  "solver": "scipy.optimize.least_squares,TRF,bounded numerical Jacobian",
+  "scipy_version": "1.17.1",
+  "optimizer_success": true,
+  "message": "`gtol` termination condition is satisfied.",
+  "objective_evaluations": 36,
+  "nfev": 7,
+  "initial_coefficients_deg": [
+    2.0,
+    4.0,
+    8.0,
+    12.0
+  ],
+  "fitted_common_coefficients_deg": [
+    8.482895845313924e-07,
+    1.9774533574884706e-08,
+    14.999999686512762,
+    13.042776266769295
+  ],
+  "coefficient_bounds_deg": [
+    0,
+    15
+  ],
+  "right_geometric_support_velocity_ratio": 0.9,
+  "initial_core_target_RMSE_m_s": 0.020122499879911274,
+  "final_core_target_RMSE_m_s": 0.006774405719594497,
+  "zero_camber_core_signed_slip_m_s_median": -0.3759535774814891,
+  "target_core_signed_slip_m_s_median": -0.3383582197333402,
+  "fitted_core_signed_slip_m_s_median": -0.3416304634534975,
+  "scored_right_wheel_core_geometric_support_fraction": 1.0,
+  "left_wheel_core_geometric_support_fraction": 0.0,
+  "raw_target_achieved_exactly": false,
+  "kinematic_report": {
+    "wheels": [
+      {
+        "wheel": "left",
+        "core_geometric_support_fraction": 0.0,
+        "core_touching_signed_lateral_velocity_m_s_median": null,
+        "core_touching_abs_lateral_velocity_m_s_p95": null,
+        "whole_max_geometric_gap_m": 0.021111942207883563,
+        "whole_max_abs_camber_deg": 12.048510855669381
+      },
+      {
+        "wheel": "right",
+        "core_geometric_support_fraction": 1.0,
+        "core_touching_signed_lateral_velocity_m_s_median": -0.3416304634534975,
+        "core_touching_abs_lateral_velocity_m_s_p95": 0.4394088285563798,
+        "whole_max_geometric_gap_m": 6.678685382510707e-17,
+        "whole_max_abs_camber_deg": 12.048510855669377
+      }
+    ],
+    "core_interval_s": [
+      1.44,
+      4.0
+    ],
+    "whole_max_abs_named_leg_velocity_rad_s": 0.3466826979627916,
+    "whole_max_abs_longitudinal_point_velocity_m_s": 0.0023809206562328683,
+    "root_height_range_m": [
+      0.7500000000000002,
+      0.7557954172928559
+    ],
+    "nonwheel_min_geometric_floor_clearance_m": 0.1387398595355936,
+    "max_wheel_center_XY_displacement_from_old_reference_m": 0.07668901050460408,
+    "base_XY_path_speed_and_orientation_preserved": true,
+    "geometric_touch_is_not_measured_load": true,
+    "friction_or_dynamic_feasibility_verified": false,
+    "training_or_task_success_claimed": false
+  },
+  "config_sha256": "38187fe6b659eb3d2930e9c84cf28a7522668e926453acd0b88ad688a354662d",
+  "reference_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+  "model_sha256": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513",
+  "forward_generator_sha256": "8ebb5b6b0f425a85b0ae7d3c03a58f2f649d956cc3449294ece2f632f31a1534",
+  "fitter_sha256": "058360bd3d1dc83df287a1f2e019b323f4dfcaaf224da872a19aef99f6d6c4a6",
+  "fitted_reference_sha256": "c497cbc7b39e363ff8a812b4a6e332976a0446fbbfd8f7b46b27903dddc62afc",
+  "no_physics_integration": true,
+  "no_reward_or_policy_changed": true,
+  "task_success_claimed": false,
+  "limit": "Positive common camber family,one geometric supporting candidate;not a general inverse dynamics solution or proof of feasible loads."
+}
