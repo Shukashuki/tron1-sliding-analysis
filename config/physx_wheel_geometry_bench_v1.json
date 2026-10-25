@@ -1,0 +1,48 @@
+{
+  "kind": "PhysX_single_wheel_geometry_force_factorial_v1",
+  "parent_plan": "config/physx_wheel_contact_extension_v1.json",
+  "physics_dt_s": 0.0025,
+  "duration_s": 2.0,
+  "settling_duration_s": 1.0,
+  "mu": 0.7,
+  "speed_m_s": 1.0,
+  "initial_hub_side_angle_deg": 20.0,
+  "radius_m": 0.127,
+  "width_m": 0.05,
+  "mass_kg": 1.08,
+  "geometry_levels": [
+    {"id": "single_convex", "slices": 1, "approximation": "convex"},
+    {"id": "single_smooth", "slices": 1, "approximation": "smooth"},
+    {"id": "sliced9_smooth", "slices": 9, "approximation": "smooth"}
+  ],
+  "force_levels": [
+    "native_coulomb",
+    "external_coulomb_regularized",
+    "combined_slip_magic_formula"
+  ],
+  "tire_parameters": {
+    "B": 4.5, "C": 1.8, "E": 1.0,
+    "speed_regularization_m_s": 0.2,
+    "coulomb_regularization_m_s": 0.02,
+    "parameters_identified_from_real_TRON1": false
+  },
+  "controls": {
+    "one_rigid_body": true,
+    "fixture_locks_world_rotation_XZ_only": true,
+    "same_explicit_total_mass_COM_principal_inertia": true,
+    "same_native_normal_solver": true,
+    "external_law_uses_preceding_physical_sample_load_and_point": true,
+    "disable_native_tangential_force_in_external_arms": true,
+    "approximation_setting_readback_is_not_cooked_geometry_identification": true,
+    "at_most_one_owned_GPU_job": true,
+    "fresh_fully_idle_GPU_audit_per_case": true,
+    "automatic_retry": false
+  },
+  "limits": [
+    "Axle-constrained single-wheel diagnostic, not a TRON1 or car task result.",
+    "Uniform slicing preserves the ideal envelope; it does not introduce tire compliance.",
+    "A smooth cylinder is still a rigid collision model, not a nonlinear tire-force law.",
+    "External regularized Coulomb is required to separate force-curve effects from external load coupling.",
+    "These primary cases have zero camber; tilted rolling and seam sensitivity remain subsequent checks."
+  ]
+}
