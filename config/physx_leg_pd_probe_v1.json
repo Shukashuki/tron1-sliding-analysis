@@ -1,0 +1,54 @@
+{
+  "reference": "traj_4",
+  "mu": 0.7,
+  "actor_sha256": "fafdccb45571b99da53a02455f2402a8cd8b960f16809ba8e6e0fe6996dce912",
+  "baseline_physics_trajectory_sha256": "cbd7d2b249737919bc21f2bccb05b3d82e8b869fbbe3d0a91c45e6b8eda4a67a",
+  "validation_geometry": "authored_cylinders_original_mass_COM_inertia",
+  "contact_offset_m": 0.001,
+  "rest_offset_m": 0.0,
+  "native_force_law": "unchanged_native_Coulomb",
+  "physics_dt_s": 0.0025,
+  "policy_dt_s": 0.02,
+  "native_states": 2793,
+  "physical_steps": 2792,
+  "policy_decisions": 349,
+  "nominal_goal_thresholds": "unchanged from K protocol; numerical improvement does not establish model-trained or cross-engine completion",
+  "launch_constraints": "one owned single-environment job at a time; freshly fully idle approved GPU3/5/4 only; never stop another process",
+  "task_success_claimed": false,
+  "kind": "frozen_K_PhysX_explicit_leg_PD_diagnostic",
+  "profiles": {
+    "baseline_500_10": [
+      500.0,
+      10.0
+    ],
+    "soft_40_2p5": [
+      40.0,
+      2.5
+    ]
+  },
+  "intervention": "After identical reset/startup, change only explicit DC motor leg stiffness/damping; freeze K actor, rewards, wheel torques, motor limits, materials and geometry.",
+  "actuator_class": "DCMotor",
+  "training_gains": [
+    500.0,
+    10.0
+  ],
+  "official_reference": {
+    "url": "https://github.com/limxdynamics/tron1-rl-isaaclab/blob/main/exts/bipedal_locomotion/bipedal_locomotion/assets/config/wheelfoot_cfg.py",
+    "git_blob_sha1": "014f37917b2bd5db8ad92afdcb478bb31e5381db",
+    "gains": [
+      40.0,
+      2.5
+    ],
+    "class": "ImplicitActuatorCfg",
+    "same_actuator_model_reproduction_claimed": false
+  },
+  "actual_gain_contract_required": true,
+  "prephysics_computed_and_applied_efforts_recorded": true,
+  "native_PD_torque_reconstruction_required": true,
+  "baseline_byte_identity_required": true,
+  "inference_only_not_retrained": true,
+  "parameter_search": false,
+  "additional_training_updates": 0,
+  "gain_activation": "first_actual_policy_physics_action",
+  "initialization_motor_computations": "Preserve original500/10 before first policy action; do not count reset/forward callbacks as physical action samples."
+}
