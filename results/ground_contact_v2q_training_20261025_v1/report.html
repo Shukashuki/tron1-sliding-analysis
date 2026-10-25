@@ -1,0 +1,22 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Q unsupported-gap reward: native smoke and launch</title>
+<style>body{font:17px/1.6 system-ui;max-width:1100px;margin:30px auto;padding:0 20px}pre{background:#eff3f6;padding:16px;white-space:pre-wrap}td,th{border-bottom:1px solid #ccc;padding:8px;text-align:left}</style>
+<h1>Q contact reward: add a geometric signal while wheel load is absent</h1>
+<p>This is a dated launch observation at 2026-10-25T07:50:35.425378+00:00, not a completed training or nominal result. PhysX training was confirmed live at iteration 129/1000; the nominal driver was waiting for that exact process. No learned support improvement or task success is claimed.</p>
+<h2>Only change from the tracking-valid K reward</h2><pre>missing_i = max(Fz_left_i, Fz_right_i) &lt;= 5 N
+gap_i = max(min(authored_gap_left_i, authored_gap_right_i), 0)
+new_cost = max_over_8_actual_substeps(missing_i * (1 - exp(-gap_i / 0.02 m)))
+raw_Q = raw_K - new_cost
+grounded_reward = 0.4 * raw_Q   # unchanged policy-step dt factor follows</pre>
+<p>The 20 mm exponential length shapes the reward; it is not a contact tolerance. One wheel exceeding5 N disables the new cost at that physical sample. The other wheel may lift or alternate. No absolute torso-height target, bilateral requirement, zero-slip target, new impact cost or model change is introduced. The geometric input is the original finite cylinder's distance to the flat floor, not the native manifold's separation or point count.</p>
+<p>In the completed K diagnosis,288 of291 below5N PhysX samples had positive minimum authored wheel gap. Batched Torch float32 geometry agrees with the independent saved CPU geometry to2.50e-8 m over all2792 captured native K states. This checks the input signal; it does not predict learning outcomes. <a href="native_K_geometry_signal_check.json">Signal check</a> · <a href="../native_contact_manifold_20261025_v1/report.html">Native manifold diagnosis</a></p>
+<h2>Executed checks</h2><table><tr><th>Check</th><th>Evidence</th></tr>
+<tr><td>CPU arithmetic, lifecycle, trainer and provenance</td><td>151 tests +56 subtests passed</td></tr>
+<tr><td>Native smoke</td><td>32 worlds;1536 training transitions;56 reward windows;448 paired native force/geometry samples per world</td></tr>
+<tr><td>Smoke reward signal observed</td><td>1017 positive-cost world/windows; mean raw new cost 0.331505</td></tr>
+<tr><td>Formal startup</td><td>All512 worlds' original wheel colliders and local frames checked;8 setup reward windows;64 paired physical samples</td></tr>
+<tr><td>Startup independent CPU/Torch parity</td><td>1.49e-08 m maximum error</td></tr>
+<tr><td>Initialization</td><td>Same seed42 from-scratch network as K; no checkpoint resume</td></tr>
+<tr><td>GPU selection</td><td>GPU3; fresh complete compute/graphics process, memory and PCI-order audit before smoke and formal; one GPU job at a time</td></tr></table>
+<h2>Fixed recipe and pending evaluation</h2><p>512 environments ×24 steps ×1000 iterations =12,288,000 transitions. Original14 other reward terms, beta+2/std0.12, action-rate−0.5,400Hz physics/50Hz policy, actuator limits and gains, original rigid cylinders, original friction/encoder/COM/push DR and reference remain unchanged. The snapshot contains31 code/config/test files (no assets, neural weights, native binaries or credentials).</p>
+<p>After source-bound completed training, the same normalized actor is evaluated sequentially at nominalμ=0.7 in native CPU MuJoCo and PhysX. PhysX waits for a freshly confirmed fully idle GPU. Both native400Hz recordings and fixed-relative-camera full-body replay are required. Original XY, speed, intended-beta and HF gates remain; at least one wheel must exceed5N at every accepted native sample. Friction-range qualification and model-specific nonlinear/sliced-cylinder comparisons follow nominal qualification. This launch does not establish that any of those criteria have passed.</p>
+<p><a href="evidence/smoke_v1_strict_verification.json">Native smoke proof</a> · <a href="evidence/formal_v1/ground_contact_v2q_startup_audit.json">All-world formal startup</a> · <a href="evidence/process_observation.json">Exact process observation</a> · <a href="source_snapshot_v1.manifest.json">Executed source manifest</a> · <a href="../ground_contact_v2p_ppo_nominal_20261025_v1/report.html">Previous impact-cost failure</a></p></html>
