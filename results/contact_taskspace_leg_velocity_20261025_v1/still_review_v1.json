@@ -1,0 +1,32 @@
+{
+  "kind": "inspected_native_replay_stills_negative_M_R_result",
+  "inspected_frame_indices": [
+    112,
+    150,
+    200,
+    348
+  ],
+  "inspected_times_s": [
+    2.24,
+    3.0,
+    4.0,
+    6.96
+  ],
+  "frame_sha256": {
+    "frame_112.png": "e4aff7c502cb30505a15b9014c2c910e017706a89943dc554d23f363fcb5349a",
+    "frame_150.png": "31fc4752992d5d309704bb0dd40bd274d0260eb6c867743825283a5a78fc204a",
+    "frame_200.png": "20f4fc7130e16eeff76cce4e4799556dafcaeea8a411e6c7854599c49ce29b4b",
+    "frame_348.png": "cc26ae1e880e7dea29b6999070d827242b1db59ec3c66568aa9e6e91b7697024"
+  },
+  "case_notes": {
+    "control_physx": "The M control stays upright in the inspected 2.24, 3.00, 4.00 and 6.96 s frames. It follows the reference and settles at the planned stop. This does not erase its native support interruptions or failing high-frequency score.",
+    "leg_velocity_physx": "R is upright at 2.24 s. At 3.00 s its XY error is 0.397 m and body beta has reversed to +36.9 degrees. At 4.00 s the legs are folded/splayed, XY error is 0.398 m and beta is -136 degrees; measured loading after loss of body integrity is not successful support. At 6.96 s it remains collapsed, with 1.125 m XY error and 45.7 degree torso tilt.",
+    "control_mujoco": "The M control stays upright in all four inspected frames, follows the path and reaches the planned stop. The 3.00 s frame records zero load on both wheels and 0/8 loaded physical samples, consistent with failing native continuous support.",
+    "leg_velocity_mujoco": "R is upright at 2.24 s. At 3.00 s XY error reaches 0.443 m and beta is +26 degrees. At 4.00 s the legs have collapsed, beta is -127.9 degrees and only 1/8 physical samples shows any-wheel load. At 6.96 s the body remains collapsed, XY error is 1.102 m, tilt is 46.6 degrees and neither wheel carries measured load."
+  },
+  "analysis_plot_inspected": true,
+  "full_manual_video_playback_claimed": false,
+  "task_success_claimed": false,
+  "height_used_as_failure_gate": false,
+  "review_basis": "Actual decoded native-pose stills and their overlays; native full-horizon force, tilt and tracking records are evaluated separately."
+}
