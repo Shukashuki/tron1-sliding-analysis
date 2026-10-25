@@ -88,7 +88,7 @@ def load_cases(folder,reference,reference_file):
         original_raw,_=metrics.load_baseline(engine)
         original_metrics,_=metrics.recorded_metrics(original_raw,engine,reference)
         for variant in ['K','ramp']:
-            f=BASELINE/engine/(engine+'_v1') if variant=='K' else folder/'nominal_v1'/engine
+            f=BASELINE/engine/(engine+'_v1') if variant=='K' else folder/collection.layout(folder)['nominal_directory']/engine
             name='physics_trajectory.npz' if engine=='physx' else 'rollout.npz'
             verify_recording(f/name,'PhysX' if engine=='physx' else 'native CPU MuJoCo')
             if variant=='K':

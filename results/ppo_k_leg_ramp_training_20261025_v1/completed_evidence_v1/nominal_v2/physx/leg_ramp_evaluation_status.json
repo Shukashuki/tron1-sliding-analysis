@@ -1,0 +1,156 @@
+{
+  "kind": "K_leg_ramp_trained_native_nominal_evaluation",
+  "status": "completed_requires_analysis",
+  "training_cohort_id": "tron1_ppo_k_leg_ramp_400hz_v1",
+  "leg_command_execution": {
+    "mode": "leg_position_linear_8substeps_reset_at_measured_q_v1",
+    "physical_applications_per_control": 8,
+    "reset_start": "measured native joint position",
+    "exact_final_endpoint": true,
+    "wheel_effort_interpolation": false,
+    "leg_kp": 500.0,
+    "leg_kd": 10.0,
+    "policy_dt_s": 0.02,
+    "physics_dt_s": 0.0025
+  },
+  "smoke_policy_only": false,
+  "normalized_actor_sha256": "7102f7510766088eaa6e75dc8fd04e78325c2571234aad774f8b03e1651005ee",
+  "validation_backend": "physx",
+  "mu": 0.7,
+  "native_states": 2793,
+  "policy_decisions": 349,
+  "physics_dt_s": 0.0025,
+  "policy_dt_s": 0.02,
+  "recording_sha256": "40bc41bbda53993bc6b8333d941c5561006c54562c44898217b70de3a7e51632",
+  "source_sha256": {
+    "/data/zengxiong/workspaces/tron1-ppo-k-leg-ramp-20261025-v1/evaluation_snapshot_v2/scripts/eval_ppo_k_leg_ramp.py": "d9aff7fbc1657c324706e9687bffd155101428a72db62c1c9372a11a237e3dfc",
+    "/data/zengxiong/workspaces/tron1-ppo-k-leg-ramp-20261025-v1/source_snapshot_v1/scripts/train_ppo_k_leg_ramp.py": "5fcc43d50e2c8ebae9804149a260cc064420751ad34e5579212215a94f460b9d",
+    "/data/zengxiong/workspaces/tron1-ppo-k-leg-ramp-20261025-v1/source_snapshot_v1/scripts/verify_ppo_k_leg_ramp.py": "113b6db2659a8000c1b18a5fa38e26e82db97767bf28cdc8c66a841fae2fe164",
+    "/data/zengxiong/workspaces/tron1-ppo-k-leg-ramp-20261025-v1/source_snapshot_v1/scripts/ppo_batched_leg_ramp.py": "90f8aec6bace12bd5cb53bcc57dc4f64b0d8d41620233ed6e115ee4e4cc9e77b"
+  },
+  "command_audit": {
+    "command_recording_sha256": "6bb2272d8ab8f29fbd576f778b4016c1938ee447dd7018e8ae6ea452e5b1f034",
+    "native_target_applications": 2792,
+    "policy_windows": 349,
+    "exact_endpoints_and_window_fractions_verified": true,
+    "reset_start": "measured native leg joint positions",
+    "wheel_effort_interpolated": false,
+    "source_pose_smoothed_or_corrected": false
+  },
+  "runtime": {
+    "mode": "leg_position_linear_8substeps_reset_at_measured_q_v1",
+    "physical_applications": 2792,
+    "environment_physical_applications": 2792,
+    "complete_policy_windows": 349,
+    "num_envs": 1,
+    "device": "cuda:3",
+    "finite_and_held_target_and_native_application_health": true,
+    "exact_window_endpoint": true,
+    "reset_start": "measured native joint position on first physical application after each per-world reset",
+    "reset_calls": 2,
+    "reset_world_events": 2,
+    "maximum_physical_leg_target_increment_l2_rad": 0.07934746891260147,
+    "source_sha256": {
+      "/data/zengxiong/IsaacLab/source/isaaclab/isaaclab/envs/mdp/actions/joint_actions.py": "1b3dcb55d969d886cee500e660f12331e49f8638fec98cde30d2b818a1ca1692",
+      "/data/zengxiong/IsaacLab/source/isaaclab/isaaclab/assets/articulation/articulation.py": "9cc03b85642c36c801ff9683e94b8ccc3fbef1178761338974b433dacc78ef75"
+    },
+    "extra_environment_or_scene_step_owner": false,
+    "host_transfers_in_physical_hot_path": false,
+    "per_world_Python_loop": false,
+    "raw_action_observation_reward_mapping_changed": false,
+    "wheel_effort_interpolation": false,
+    "original_PD_and_DC_motor_limits_retained": true,
+    "last_window_first4_worlds": {
+      "start_rad": [
+        [
+          -0.002966511994600296,
+          0.11038031429052353,
+          0.570328950881958,
+          -0.47514334321022034,
+          0.8215623497962952,
+          -0.8821115493774414
+        ]
+      ],
+      "desired_rad": [
+        [
+          -0.002936646342277527,
+          0.10966978222131729,
+          0.578001081943512,
+          -0.47875887155532837,
+          0.8228500485420227,
+          -0.886505126953125
+        ]
+      ],
+      "actual_native_targets_rad": [
+        [
+          [
+            -0.00296277878805995,
+            0.1102914959192276,
+            0.571287989616394,
+            -0.47559529542922974,
+            0.8217233419418335,
+            -0.8826607465744019
+          ],
+          [
+            -0.0029590455815196037,
+            0.11020268499851227,
+            0.5722469687461853,
+            -0.47604721784591675,
+            0.821884274482727,
+            -0.8832099437713623
+          ],
+          [
+            -0.0029553123749792576,
+            0.11011386662721634,
+            0.5732060074806213,
+            -0.47649917006492615,
+            0.8220452070236206,
+            -0.8837591409683228
+          ],
+          [
+            -0.0029515791684389114,
+            0.11002504825592041,
+            0.5741649866104126,
+            -0.47695112228393555,
+            0.8222061991691589,
+            -0.8843083381652832
+          ],
+          [
+            -0.0029478459618985653,
+            0.10993622988462448,
+            0.5751240253448486,
+            -0.47740304470062256,
+            0.8223671913146973,
+            -0.8848575353622437
+          ],
+          [
+            -0.002944112755358219,
+            0.10984741151332855,
+            0.5760830640792847,
+            -0.47785499691963196,
+            0.8225281238555908,
+            -0.8854067325592041
+          ],
+          [
+            -0.002940379548817873,
+            0.10975860059261322,
+            0.5770420432090759,
+            -0.47830691933631897,
+            0.8226890563964844,
+            -0.8859559297561646
+          ],
+          [
+            -0.002936646342277527,
+            0.10966978222131729,
+            0.578001081943512,
+            -0.47875887155532837,
+            0.8228500485420227,
+            -0.886505126953125
+          ]
+        ]
+      ]
+    },
+    "task_success_claimed": false
+  },
+  "task_success_claimed": false
+}

@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/data/zengxiong/workspaces/tron1-ppo-k-leg-ramp-20261025-v1/postprocessing_snapshot_v1/scripts/collect_after_ppo_k_leg_ramp.py", line 42, in <module>
+    p.add_argument('--expected-continuation-pid',type=int,required=True);run(p.parse_args())
+  File "/data/zengxiong/workspaces/tron1-ppo-k-leg-ramp-20261025-v1/postprocessing_snapshot_v1/scripts/collect_after_ppo_k_leg_ramp.py", line 32, in run
+    result=collector.collect(root,a.idle_audit_source)
+  File "/data/zengxiong/workspaces/tron1-ppo-k-leg-ramp-20261025-v1/postprocessing_snapshot_v1/scripts/collect_ppo_k_leg_ramp.py", line 65, in collect
+    driver,status,proof=verify_completed(root)
+  File "/data/zengxiong/workspaces/tron1-ppo-k-leg-ramp-20261025-v1/postprocessing_snapshot_v1/scripts/collect_ppo_k_leg_ramp.py", line 30, in verify_completed
+    assert status['status']=='two_nominal_episodes_completed_require_analysis_and_render'
+AssertionError

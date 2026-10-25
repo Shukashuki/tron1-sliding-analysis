@@ -30,9 +30,11 @@ def run(a):
     root=a.workspace.resolve();snapshot=a.evaluation_snapshot.resolve()
     with (root/'evaluation_continuation.lock').open('a') as lock:
         fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
-        out=root/'nominal_v1';out.mkdir(exist_ok=False)
+        assert a.nominal_name.replace('_','').isalnum()
+        out=root/a.nominal_name;out.mkdir(exist_ok=False)
         status_path=out/'status.json'
-        status=dict(kind='K_leg_ramp_PPO_nominal_two_engines',status='preflight',cases=[],task_success_claimed=False)
+        status=dict(kind='K_leg_ramp_PPO_nominal_two_engines',status='preflight',cases=[],task_success_claimed=False,
+            nominal_round=a.nominal_name,evaluation_snapshot=snapshot.name)
         write(status_path,status)
         try:
             assert sha(a.idle_audit_source)=='6f5285f9e9515d98ea4ae6e99c3bf58a436fd98a3ca266e1f297f4501cce3866'
@@ -119,5 +121,6 @@ if __name__=='__main__':
     for n in ('workspace','evaluation-snapshot','training-snapshot','idle-audit-source','python','legacy-physx','legacy-mujoco'):
         p.add_argument('--'+n,type=Path,required=True)
     p.add_argument('--expected-driver-pid',type=int,required=True)
+    p.add_argument('--nominal-name',default='nominal_v1')
     p.add_argument('--deadline-seconds',type=int,default=7200)
     run(p.parse_args())

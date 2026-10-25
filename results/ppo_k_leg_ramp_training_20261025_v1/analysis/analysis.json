@@ -1,0 +1,4862 @@
+{
+  "kind": "K_vs_ramp_trained_K_dual_engine",
+  "status": "completed_analysis",
+  "rows": [
+    {
+      "id": "K_physx",
+      "engine": "physx",
+      "title": "K PPO | physx",
+      "variant": "K",
+      "actor_sha256": "fafdccb45571b99da53a02455f2402a8cd8b960f16809ba8e6e0fe6996dce912",
+      "recording_sha256": "cbd7d2b249737919bc21f2bccb05b3d82e8b869fbbe3d0a91c45e6b8eda4a67a",
+      "metrics": {
+        "windows": {
+          "core": {
+            "interval_s": [
+              1.44,
+              4.0
+            ],
+            "native_samples": 1025,
+            "tracking": {
+              "available": true,
+              "coverage_complete": true,
+              "samples": 1025,
+              "xy_rmse_m": 0.08156596987132982,
+              "xy_peak_m": 0.12097644233262604,
+              "mean_speed_m_s": 1.0087409245686176,
+              "reference_mean_speed_m_s": 1.0282628655552946,
+              "speed_retention": 0.9810146396990282,
+              "beta_rmse_deg": 3.771785420227817,
+              "beta_valid_samples": 1025,
+              "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+            },
+            "world_angular_xy_common10_100": {
+              "samples": 1025,
+              "sample_hz": 400.0,
+              "native_nyquist_hz": 200.0,
+              "frequency_resolution_hz": 0.3902439024390244,
+              "common_band_hz_exclusive": [
+                10.0,
+                100.0
+              ],
+              "common_band_mean_square": 0.5829960634819911,
+              "common_band_rms": 0.7635417889559097,
+              "native_high_frequency_cutoff_hz_exclusive": 10.0,
+              "native_high_frequency_mean_square": 0.5910593116562535,
+              "native_high_frequency_rms": 0.7688038187055612,
+              "at_or_above100hz_mean_square": 0.008063248174262566,
+              "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+              "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+            },
+            "contact": {
+              "measured_force_bearing_contact": {
+                "left": {
+                  "sample_duty_fraction": 0.48390243902439023,
+                  "time_duty_fraction_zoh": 0.4833984375000001,
+                  "state_switch_count": 78,
+                  "state_switches_per_s": 30.46875
+                },
+                "right": {
+                  "sample_duty_fraction": 0.5990243902439024,
+                  "time_duty_fraction_zoh": 0.5986328124999997,
+                  "state_switch_count": 50,
+                  "state_switches_per_s": 19.53125
+                },
+                "both": {
+                  "sample_duty_fraction": 0.3570731707317073,
+                  "time_duty_fraction_zoh": 0.3564453125,
+                  "state_switch_count": 52,
+                  "state_switches_per_s": 20.3125
+                },
+                "none": {
+                  "sample_duty_fraction": 0.27414634146341466,
+                  "time_duty_fraction_zoh": 0.2744140625000002,
+                  "state_switch_count": 66,
+                  "state_switches_per_s": 25.78125
+                }
+              },
+              "load_eligibility": {
+                "left": {
+                  "sample_duty_fraction": 0.48390243902439023,
+                  "time_duty_fraction_zoh": 0.4833984375000001,
+                  "state_switch_count": 78,
+                  "state_switches_per_s": 30.46875
+                },
+                "right": {
+                  "sample_duty_fraction": 0.5990243902439024,
+                  "time_duty_fraction_zoh": 0.5986328124999997,
+                  "state_switch_count": 50,
+                  "state_switches_per_s": 19.53125
+                },
+                "both": {
+                  "sample_duty_fraction": 0.3570731707317073,
+                  "time_duty_fraction_zoh": 0.3564453125,
+                  "state_switch_count": 52,
+                  "state_switches_per_s": 20.3125
+                },
+                "none": {
+                  "sample_duty_fraction": 0.27414634146341466,
+                  "time_duty_fraction_zoh": 0.2744140625000002,
+                  "state_switch_count": 66,
+                  "state_switches_per_s": 25.78125
+                }
+              }
+            },
+            "maximum_tilt_deg": 9.727221992070335,
+            "persistent_tilt_diagnostics": {
+              "30": {
+                "first_persistent_event": null,
+                "persistent_event_count": 0
+              },
+              "45": {
+                "first_persistent_event": null,
+                "persistent_event_count": 0
+              },
+              "60": {
+                "first_persistent_event": null,
+                "persistent_event_count": 0
+              }
+            },
+            "height_or_airborne_failure_gate": false
+          },
+          "whole_reference_overlap": {
+            "interval_s": [
+              0.0,
+              6.96
+            ],
+            "native_samples": 2785,
+            "tracking": {
+              "available": true,
+              "coverage_complete": true,
+              "samples": 2785,
+              "xy_rmse_m": 0.06481060402557197,
+              "xy_peak_m": 0.12097644233262604,
+              "mean_speed_m_s": 0.8825970255609616,
+              "reference_mean_speed_m_s": 0.8741363103669996,
+              "speed_retention": 1.0096789426244173,
+              "beta_rmse_deg": 2.714839995958712,
+              "beta_valid_samples": 2362,
+              "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+            },
+            "world_angular_xy_common10_100": {
+              "samples": 2785,
+              "sample_hz": 400.0,
+              "native_nyquist_hz": 200.0,
+              "frequency_resolution_hz": 0.1436265709156194,
+              "common_band_hz_exclusive": [
+                10.0,
+                100.0
+              ],
+              "common_band_mean_square": 0.31938677705724317,
+              "common_band_rms": 0.5651431474035965,
+              "native_high_frequency_cutoff_hz_exclusive": 10.0,
+              "native_high_frequency_mean_square": 0.3240253592701119,
+              "native_high_frequency_rms": 0.5692322542425999,
+              "at_or_above100hz_mean_square": 0.0046385822128687205,
+              "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+              "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+            },
+            "contact": {
+              "measured_force_bearing_contact": {
+                "left": {
+                  "sample_duty_fraction": 0.8025134649910234,
+                  "time_duty_fraction_zoh": 0.8024425287356323,
+                  "state_switch_count": 83,
+                  "state_switches_per_s": 11.925287356321839
+                },
+                "right": {
+                  "sample_duty_fraction": 0.8438061041292639,
+                  "time_duty_fraction_zoh": 0.8437499999999998,
+                  "state_switch_count": 55,
+                  "state_switches_per_s": 7.902298850574713
+                },
+                "both": {
+                  "sample_duty_fraction": 0.7511669658886894,
+                  "time_duty_fraction_zoh": 0.7510775862068965,
+                  "state_switch_count": 57,
+                  "state_switches_per_s": 8.189655172413794
+                },
+                "none": {
+                  "sample_duty_fraction": 0.10484739676840216,
+                  "time_duty_fraction_zoh": 0.10488505747126445,
+                  "state_switch_count": 71,
+                  "state_switches_per_s": 10.201149425287356
+                }
+              },
+              "load_eligibility": {
+                "left": {
+                  "sample_duty_fraction": 0.8025134649910234,
+                  "time_duty_fraction_zoh": 0.8024425287356323,
+                  "state_switch_count": 83,
+                  "state_switches_per_s": 11.925287356321839
+                },
+                "right": {
+                  "sample_duty_fraction": 0.8438061041292639,
+                  "time_duty_fraction_zoh": 0.8437499999999998,
+                  "state_switch_count": 55,
+                  "state_switches_per_s": 7.902298850574713
+                },
+                "both": {
+                  "sample_duty_fraction": 0.7511669658886894,
+                  "time_duty_fraction_zoh": 0.7510775862068965,
+                  "state_switch_count": 57,
+                  "state_switches_per_s": 8.189655172413794
+                },
+                "none": {
+                  "sample_duty_fraction": 0.10484739676840216,
+                  "time_duty_fraction_zoh": 0.10488505747126445,
+                  "state_switch_count": 71,
+                  "state_switches_per_s": 10.201149425287356
+                }
+              }
+            },
+            "maximum_tilt_deg": 9.727221992070335,
+            "persistent_tilt_diagnostics": {
+              "30": {
+                "first_persistent_event": null,
+                "persistent_event_count": 0
+              },
+              "45": {
+                "first_persistent_event": null,
+                "persistent_event_count": 0
+              },
+              "60": {
+                "first_persistent_event": null,
+                "persistent_event_count": 0
+              }
+            },
+            "height_or_airborne_failure_gate": false
+          },
+          "full_native": {
+            "interval_s": [
+              0.0,
+              6.98
+            ],
+            "native_samples": 2793,
+            "tracking": {
+              "available": false,
+              "coverage_complete": false,
+              "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+            },
+            "world_angular_xy_common10_100": {
+              "samples": 2793,
+              "sample_hz": 400.0,
+              "native_nyquist_hz": 200.0,
+              "frequency_resolution_hz": 0.14321518080916576,
+              "common_band_hz_exclusive": [
+                10.0,
+                100.0
+              ],
+              "common_band_mean_square": 0.3175523216217522,
+              "common_band_rms": 0.563517809498291,
+              "native_high_frequency_cutoff_hz_exclusive": 10.0,
+              "native_high_frequency_mean_square": 0.32216083388263855,
+              "native_high_frequency_rms": 0.5675921369105095,
+              "at_or_above100hz_mean_square": 0.004608512260886362,
+              "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+              "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+            },
+            "contact": {
+              "measured_force_bearing_contact": {
+                "left": {
+                  "sample_duty_fraction": 0.8030791263873971,
+                  "time_duty_fraction_zoh": 0.8030085959885387,
+                  "state_switch_count": 83,
+                  "state_switches_per_s": 11.891117478510028
+                },
+                "right": {
+                  "sample_duty_fraction": 0.8442534908700322,
+                  "time_duty_fraction_zoh": 0.8441977077363897,
+                  "state_switch_count": 55,
+                  "state_switches_per_s": 7.8796561604584525
+                },
+                "both": {
+                  "sample_duty_fraction": 0.7518796992481203,
+                  "time_duty_fraction_zoh": 0.7517908309455588,
+                  "state_switch_count": 57,
+                  "state_switches_per_s": 8.166189111747851
+                },
+                "none": {
+                  "sample_duty_fraction": 0.10454708199069102,
+                  "time_duty_fraction_zoh": 0.10458452722063044,
+                  "state_switch_count": 71,
+                  "state_switches_per_s": 10.171919770773638
+                }
+              },
+              "load_eligibility": {
+                "left": {
+                  "sample_duty_fraction": 0.8030791263873971,
+                  "time_duty_fraction_zoh": 0.8030085959885387,
+                  "state_switch_count": 83,
+                  "state_switches_per_s": 11.891117478510028
+                },
+                "right": {
+                  "sample_duty_fraction": 0.8442534908700322,
+                  "time_duty_fraction_zoh": 0.8441977077363897,
+                  "state_switch_count": 55,
+                  "state_switches_per_s": 7.8796561604584525
+                },
+                "both": {
+                  "sample_duty_fraction": 0.7518796992481203,
+                  "time_duty_fraction_zoh": 0.7517908309455588,
+                  "state_switch_count": 57,
+                  "state_switches_per_s": 8.166189111747851
+                },
+                "none": {
+                  "sample_duty_fraction": 0.10454708199069102,
+                  "time_duty_fraction_zoh": 0.10458452722063044,
+                  "state_switch_count": 71,
+                  "state_switches_per_s": 10.171919770773638
+                }
+              }
+            },
+            "maximum_tilt_deg": 9.727221992070335,
+            "persistent_tilt_diagnostics": {
+              "30": {
+                "first_persistent_event": null,
+                "persistent_event_count": 0
+              },
+              "45": {
+                "first_persistent_event": null,
+                "persistent_event_count": 0
+              },
+              "60": {
+                "first_persistent_event": null,
+                "persistent_event_count": 0
+              }
+            },
+            "height_or_airborne_failure_gate": false
+          }
+        },
+        "any_wheel_ground_support": {
+          "core": {
+            "interval_s": [
+              1.44,
+              4.0
+            ],
+            "force_threshold_n_strict": 5.0,
+            "definition": "Any wheel upward actual floor-normal Fz>threshold; no bilateral or count requirement",
+            "native_samples": 1025,
+            "any_wheel_support_sample_fraction": 0.7258536585365853,
+            "any_wheel_support_time_fraction_zoh": 0.7255859374999998,
+            "unsupported_physical_samples": 281,
+            "every_physical_sample_supported": false,
+            "longest_no_support_observed_s": 0.04499999999999993,
+            "no_support_gaps": [
+              {
+                "onset_s": 1.9425000000000001,
+                "end_s": 1.97,
+                "observed_duration_s": 0.027499999999999858,
+                "native_samples": 11,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.0225,
+                "end_s": 2.025,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.0825,
+                "end_s": 2.1275,
+                "observed_duration_s": 0.04499999999999993,
+                "native_samples": 18,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.1425,
+                "end_s": 2.1525,
+                "observed_duration_s": 0.009999999999999787,
+                "native_samples": 4,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.1625,
+                "end_s": 2.2075,
+                "observed_duration_s": 0.04499999999999993,
+                "native_samples": 18,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.2225,
+                "end_s": 2.2475,
+                "observed_duration_s": 0.02499999999999991,
+                "native_samples": 10,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.3025,
+                "end_s": 2.33,
+                "observed_duration_s": 0.027499999999999858,
+                "native_samples": 11,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.3825,
+                "end_s": 2.415,
+                "observed_duration_s": 0.032500000000000195,
+                "native_samples": 13,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.4225,
+                "end_s": 2.4250000000000003,
+                "observed_duration_s": 0.002500000000000391,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.4425,
+                "end_s": 2.4825,
+                "observed_duration_s": 0.040000000000000036,
+                "native_samples": 16,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.5025,
+                "end_s": 2.5175,
+                "observed_duration_s": 0.015000000000000124,
+                "native_samples": 6,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.5625,
+                "end_s": 2.5825,
+                "observed_duration_s": 0.020000000000000018,
+                "native_samples": 8,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.6225,
+                "end_s": 2.6575,
+                "observed_duration_s": 0.03500000000000014,
+                "native_samples": 14,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.7375000000000003,
+                "end_s": 2.7625,
+                "observed_duration_s": 0.02499999999999991,
+                "native_samples": 10,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.8025,
+                "end_s": 2.82,
+                "observed_duration_s": 0.017499999999999627,
+                "native_samples": 7,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.8225000000000002,
+                "end_s": 2.8425000000000002,
+                "observed_duration_s": 0.020000000000000018,
+                "native_samples": 8,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.9025,
+                "end_s": 2.9275,
+                "observed_duration_s": 0.025000000000000355,
+                "native_samples": 10,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.9625,
+                "end_s": 3.0,
+                "observed_duration_s": 0.03750000000000009,
+                "native_samples": 15,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.1025,
+                "end_s": 3.1425,
+                "observed_duration_s": 0.040000000000000036,
+                "native_samples": 16,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.1625,
+                "end_s": 3.165,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.2225,
+                "end_s": 3.2575000000000003,
+                "observed_duration_s": 0.03500000000000014,
+                "native_samples": 14,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.2825,
+                "end_s": 3.29,
+                "observed_duration_s": 0.00749999999999984,
+                "native_samples": 3,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.3025,
+                "end_s": 3.315,
+                "observed_duration_s": 0.012499999999999734,
+                "native_samples": 5,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.3425000000000002,
+                "end_s": 3.345,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.3625000000000003,
+                "end_s": 3.395,
+                "observed_duration_s": 0.03249999999999975,
+                "native_samples": 13,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.4025,
+                "end_s": 3.4050000000000002,
+                "observed_duration_s": 0.002500000000000391,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.4225,
+                "end_s": 3.4275,
+                "observed_duration_s": 0.0050000000000003375,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.4825,
+                "end_s": 3.495,
+                "observed_duration_s": 0.012500000000000178,
+                "native_samples": 5,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.5025,
+                "end_s": 3.5300000000000002,
+                "observed_duration_s": 0.027500000000000302,
+                "native_samples": 11,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.6025,
+                "end_s": 3.6075,
+                "observed_duration_s": 0.004999999999999893,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.6225,
+                "end_s": 3.6475,
+                "observed_duration_s": 0.02499999999999991,
+                "native_samples": 10,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.7025,
+                "end_s": 3.7225,
+                "observed_duration_s": 0.020000000000000018,
+                "native_samples": 8,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.7625,
+                "end_s": 3.7825,
+                "observed_duration_s": 0.020000000000000018,
+                "native_samples": 8,
+                "right_window_censored": false,
+                "left_window_censored": false
+              }
+            ],
+            "minimum_anywheel_normal_force_n": 0.0,
+            "single_wheel_lift_is_failure": false,
+            "flight_or_height_inferred": false,
+            "last_sample_no_future_extension": true
+          },
+          "full_contact": {
+            "interval_s": [
+              0.02,
+              6.96
+            ],
+            "force_threshold_n_strict": 5.0,
+            "definition": "Any wheel upward actual floor-normal Fz>threshold; no bilateral or count requirement",
+            "native_samples": 2777,
+            "any_wheel_support_sample_fraction": 0.8952106589845157,
+            "any_wheel_support_time_fraction_zoh": 0.895172910662824,
+            "unsupported_physical_samples": 291,
+            "every_physical_sample_supported": false,
+            "longest_no_support_observed_s": 0.04499999999999993,
+            "no_support_gaps": [
+              {
+                "onset_s": 0.0625,
+                "end_s": 0.07,
+                "observed_duration_s": 0.007500000000000007,
+                "native_samples": 3,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 0.0825,
+                "end_s": 0.1,
+                "observed_duration_s": 0.0175,
+                "native_samples": 7,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 1.9425000000000001,
+                "end_s": 1.97,
+                "observed_duration_s": 0.027499999999999858,
+                "native_samples": 11,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.0225,
+                "end_s": 2.025,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.0825,
+                "end_s": 2.1275,
+                "observed_duration_s": 0.04499999999999993,
+                "native_samples": 18,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.1425,
+                "end_s": 2.1525,
+                "observed_duration_s": 0.009999999999999787,
+                "native_samples": 4,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.1625,
+                "end_s": 2.2075,
+                "observed_duration_s": 0.04499999999999993,
+                "native_samples": 18,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.2225,
+                "end_s": 2.2475,
+                "observed_duration_s": 0.02499999999999991,
+                "native_samples": 10,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.3025,
+                "end_s": 2.33,
+                "observed_duration_s": 0.027499999999999858,
+                "native_samples": 11,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.3825,
+                "end_s": 2.415,
+                "observed_duration_s": 0.032500000000000195,
+                "native_samples": 13,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.4225,
+                "end_s": 2.4250000000000003,
+                "observed_duration_s": 0.002500000000000391,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.4425,
+                "end_s": 2.4825,
+                "observed_duration_s": 0.040000000000000036,
+                "native_samples": 16,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.5025,
+                "end_s": 2.5175,
+                "observed_duration_s": 0.015000000000000124,
+                "native_samples": 6,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.5625,
+                "end_s": 2.5825,
+                "observed_duration_s": 0.020000000000000018,
+                "native_samples": 8,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.6225,
+                "end_s": 2.6575,
+                "observed_duration_s": 0.03500000000000014,
+                "native_samples": 14,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.7375000000000003,
+                "end_s": 2.7625,
+                "observed_duration_s": 0.02499999999999991,
+                "native_samples": 10,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.8025,
+                "end_s": 2.82,
+                "observed_duration_s": 0.017499999999999627,
+                "native_samples": 7,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.8225000000000002,
+                "end_s": 2.8425000000000002,
+                "observed_duration_s": 0.020000000000000018,
+                "native_samples": 8,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.9025,
+                "end_s": 2.9275,
+                "observed_duration_s": 0.025000000000000355,
+                "native_samples": 10,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.9625,
+                "end_s": 3.0,
+                "observed_duration_s": 0.03750000000000009,
+                "native_samples": 15,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.1025,
+                "end_s": 3.1425,
+                "observed_duration_s": 0.040000000000000036,
+                "native_samples": 16,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.1625,
+                "end_s": 3.165,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.2225,
+                "end_s": 3.2575000000000003,
+                "observed_duration_s": 0.03500000000000014,
+                "native_samples": 14,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.2825,
+                "end_s": 3.29,
+                "observed_duration_s": 0.00749999999999984,
+                "native_samples": 3,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.3025,
+                "end_s": 3.315,
+                "observed_duration_s": 0.012499999999999734,
+                "native_samples": 5,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.3425000000000002,
+                "end_s": 3.345,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.3625000000000003,
+                "end_s": 3.395,
+                "observed_duration_s": 0.03249999999999975,
+                "native_samples": 13,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.4025,
+                "end_s": 3.4050000000000002,
+                "observed_duration_s": 0.002500000000000391,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.4225,
+                "end_s": 3.4275,
+                "observed_duration_s": 0.0050000000000003375,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.4825,
+                "end_s": 3.495,
+                "observed_duration_s": 0.012500000000000178,
+                "native_samples": 5,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.5025,
+                "end_s": 3.5300000000000002,
+                "observed_duration_s": 0.027500000000000302,
+                "native_samples": 11,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.6025,
+                "end_s": 3.6075,
+                "observed_duration_s": 0.004999999999999893,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.6225,
+                "end_s": 3.6475,
+                "observed_duration_s": 0.02499999999999991,
+                "native_samples": 10,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.7025,
+                "end_s": 3.7225,
+                "observed_duration_s": 0.020000000000000018,
+                "native_samples": 8,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.7625,
+                "end_s": 3.7825,
+                "observed_duration_s": 0.020000000000000018,
+                "native_samples": 8,
+                "right_window_censored": false,
+                "left_window_censored": false
+              }
+            ],
+            "minimum_anywheel_normal_force_n": 0.0,
+            "single_wheel_lift_is_failure": false,
+            "flight_or_height_inferred": false,
+            "last_sample_no_future_extension": true
+          }
+        },
+        "persistent_xy_departure_gt0p30m": {
+          "core": {
+            "minimum_persistence_s": 0.1,
+            "first_true_sample_s": null,
+            "first_persistent_event": null,
+            "persistent_event_count": 0,
+            "longest_observed_run_s": 0.0,
+            "events": []
+          },
+          "whole_reference_overlap": {
+            "minimum_persistence_s": 0.1,
+            "first_true_sample_s": null,
+            "first_persistent_event": null,
+            "persistent_event_count": 0,
+            "longest_observed_run_s": 0.0,
+            "events": []
+          }
+        },
+        "nonwheel_ground_contact_diagnostic": {
+          "available": true,
+          "threshold_n_strict": 1.0,
+          "maximum_n": 58.41178321838379,
+          "sample_fraction_over_threshold": 0.00035803795202291446,
+          "persistent_events": {
+            "minimum_persistence_s": 0.1,
+            "first_true_sample_s": 0.0,
+            "first_persistent_event": null,
+            "persistent_event_count": 0,
+            "longest_observed_run_s": 0.0025,
+            "events": []
+          },
+          "used_as_automatic_failure_gate": false
+        },
+        "nonzero_beta_is_intended": true,
+        "bilateral_support_required": false,
+        "height_contact_tilt_or_beta_used_as_XY_failure_gate": false,
+        "trajectory_aligned_smoothed_or_extrapolated": false,
+        "root_heading_and_reference_beta_only_no_wheel_FK_inferred": true,
+        "whole_tracking_reference_end_s": 6.96,
+        "physical_recording_end_s": 6.98,
+        "support_force_source": "wheel_ground_contact_force_w_n"
+      },
+      "nominal_screen": {
+        "criteria": {
+          "mu": 0.7,
+          "validation_backends": [
+            "PhysX",
+            "native CPU MuJoCo"
+          ],
+          "core_interval_s": [
+            1.44,
+            4
+          ],
+          "reference_overlap_interval_s": [
+            0,
+            6.96
+          ],
+          "full_contact_interval_s": [
+            0.02,
+            6.96
+          ],
+          "native_recording_interval_s": [
+            0,
+            6.98
+          ],
+          "core_and_whole_xy_rmse_m_max": 0.15,
+          "core_and_whole_xy_peak_m_max": 0.3,
+          "core_speed_ratio_range": [
+            0.95,
+            1.1
+          ],
+          "core_reference_beta_rmse_deg_max": 10,
+          "contact_force_definition": "Ground-filtered normal force in worldZ N; at least one wheel exceeds5N each physical sample.",
+          "contact_force_threshold_n_strict": 5,
+          "any_wheel_support_fraction_min": 1,
+          "longest_no_support_interval_s_max": 0,
+          "core_10_to_100hz_angular_xy_rms_ratio_to_original_baseline_max": 0.7,
+          "single_wheel_lift_is_failure": false,
+          "absolute_height_or_flight_gate": false,
+          "full_horizon_no_auto_reset": true,
+          "qualitative_review": "Render whole-body and fixed-world XY; cannot declare task complete solely from lower HF or summed reward.",
+          "results_are_single_seed_not_statistical_qualification": true
+        },
+        "checks": {
+          "core_xy_rmse": true,
+          "core_xy_peak": true,
+          "whole_xy_rmse": true,
+          "whole_xy_peak": true,
+          "core_speed_retention": true,
+          "core_reference_beta": true,
+          "any_wheel_every_physical_sample": false,
+          "longest_no_support_gap": false,
+          "core_HF_reduction": true
+        },
+        "failed_checks": [
+          "any_wheel_every_physical_sample",
+          "longest_no_support_gap"
+        ],
+        "numeric_nominal_episode_pass": false,
+        "core_HF_ratio_to_original_same_engine_PPO": 0.6142827061833106,
+        "baseline": "Original PhysX-trained400Hz beta-ON policy evaluated in PhysX",
+        "core_beta_valid_samples": 1025,
+        "core_native_samples": 1025,
+        "qualitative_whole_body_review_complete": false,
+        "overall_task_goal_complete_claimed": false
+      }
+    },
+    {
+      "id": "ramp_physx",
+      "engine": "physx",
+      "title": "ramp PPO | physx",
+      "variant": "ramp",
+      "actor_sha256": "7102f7510766088eaa6e75dc8fd04e78325c2571234aad774f8b03e1651005ee",
+      "recording_sha256": "40bc41bbda53993bc6b8333d941c5561006c54562c44898217b70de3a7e51632",
+      "metrics": {
+        "windows": {
+          "core": {
+            "interval_s": [
+              1.44,
+              4.0
+            ],
+            "native_samples": 1025,
+            "tracking": {
+              "available": true,
+              "coverage_complete": true,
+              "samples": 1025,
+              "xy_rmse_m": 0.05341442450360169,
+              "xy_peak_m": 0.08603327036078846,
+              "mean_speed_m_s": 1.0101435524012612,
+              "reference_mean_speed_m_s": 1.0282628655552946,
+              "speed_retention": 0.9823787148588232,
+              "beta_rmse_deg": 2.776789335851846,
+              "beta_valid_samples": 1025,
+              "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+            },
+            "world_angular_xy_common10_100": {
+              "samples": 1025,
+              "sample_hz": 400.0,
+              "native_nyquist_hz": 200.0,
+              "frequency_resolution_hz": 0.3902439024390244,
+              "common_band_hz_exclusive": [
+                10.0,
+                100.0
+              ],
+              "common_band_mean_square": 0.8015967169256583,
+              "common_band_rms": 0.8953193379602935,
+              "native_high_frequency_cutoff_hz_exclusive": 10.0,
+              "native_high_frequency_mean_square": 0.8026021649327526,
+              "native_high_frequency_rms": 0.8958806644485372,
+              "at_or_above100hz_mean_square": 0.0010054480070943949,
+              "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+              "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+            },
+            "contact": {
+              "measured_force_bearing_contact": {
+                "left": {
+                  "sample_duty_fraction": 0.38634146341463416,
+                  "time_duty_fraction_zoh": 0.38574218750000017,
+                  "state_switch_count": 58,
+                  "state_switches_per_s": 22.65625
+                },
+                "right": {
+                  "sample_duty_fraction": 0.7873170731707317,
+                  "time_duty_fraction_zoh": 0.7871093749999999,
+                  "state_switch_count": 38,
+                  "state_switches_per_s": 14.84375
+                },
+                "both": {
+                  "sample_duty_fraction": 0.36878048780487804,
+                  "time_duty_fraction_zoh": 0.3681640624999999,
+                  "state_switch_count": 58,
+                  "state_switches_per_s": 22.65625
+                },
+                "none": {
+                  "sample_duty_fraction": 0.1951219512195122,
+                  "time_duty_fraction_zoh": 0.19531249999999983,
+                  "state_switch_count": 38,
+                  "state_switches_per_s": 14.84375
+                }
+              },
+              "load_eligibility": {
+                "left": {
+                  "sample_duty_fraction": 0.38634146341463416,
+                  "time_duty_fraction_zoh": 0.38574218750000017,
+                  "state_switch_count": 58,
+                  "state_switches_per_s": 22.65625
+                },
+                "right": {
+                  "sample_duty_fraction": 0.7873170731707317,
+                  "time_duty_fraction_zoh": 0.7871093749999999,
+                  "state_switch_count": 38,
+                  "state_switches_per_s": 14.84375
+                },
+                "both": {
+                  "sample_duty_fraction": 0.36878048780487804,
+                  "time_duty_fraction_zoh": 0.3681640624999999,
+                  "state_switch_count": 58,
+                  "state_switches_per_s": 22.65625
+                },
+                "none": {
+                  "sample_duty_fraction": 0.1951219512195122,
+                  "time_duty_fraction_zoh": 0.19531249999999983,
+                  "state_switch_count": 38,
+                  "state_switches_per_s": 14.84375
+                }
+              }
+            },
+            "maximum_tilt_deg": 10.863166239942135,
+            "persistent_tilt_diagnostics": {
+              "30": {
+                "first_persistent_event": null,
+                "persistent_event_count": 0
+              },
+              "45": {
+                "first_persistent_event": null,
+                "persistent_event_count": 0
+              },
+              "60": {
+                "first_persistent_event": null,
+                "persistent_event_count": 0
+              }
+            },
+            "height_or_airborne_failure_gate": false
+          },
+          "whole_reference_overlap": {
+            "interval_s": [
+              0.0,
+              6.96
+            ],
+            "native_samples": 2785,
+            "tracking": {
+              "available": true,
+              "coverage_complete": true,
+              "samples": 2785,
+              "xy_rmse_m": 0.04547509972076371,
+              "xy_peak_m": 0.08798324053889056,
+              "mean_speed_m_s": 0.8932675113355448,
+              "reference_mean_speed_m_s": 0.8741363103669996,
+              "speed_retention": 1.0218858326117504,
+              "beta_rmse_deg": 2.23833304153959,
+              "beta_valid_samples": 2362,
+              "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+            },
+            "world_angular_xy_common10_100": {
+              "samples": 2785,
+              "sample_hz": 400.0,
+              "native_nyquist_hz": 200.0,
+              "frequency_resolution_hz": 0.1436265709156194,
+              "common_band_hz_exclusive": [
+                10.0,
+                100.0
+              ],
+              "common_band_mean_square": 0.5811200037616893,
+              "common_band_rms": 0.762312274439871,
+              "native_high_frequency_cutoff_hz_exclusive": 10.0,
+              "native_high_frequency_mean_square": 0.581593874104417,
+              "native_high_frequency_rms": 0.7626230222753684,
+              "at_or_above100hz_mean_square": 0.00047387034272780207,
+              "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+              "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+            },
+            "contact": {
+              "measured_force_bearing_contact": {
+                "left": {
+                  "sample_duty_fraction": 0.7737881508078994,
+                  "time_duty_fraction_zoh": 0.7737068965517241,
+                  "state_switch_count": 59,
+                  "state_switches_per_s": 8.477011494252874
+                },
+                "right": {
+                  "sample_duty_fraction": 0.9213644524236984,
+                  "time_duty_fraction_zoh": 0.9213362068965517,
+                  "state_switch_count": 39,
+                  "state_switches_per_s": 5.603448275862069
+                },
+                "both": {
+                  "sample_duty_fraction": 0.7673249551166966,
+                  "time_duty_fraction_zoh": 0.7672413793103449,
+                  "state_switch_count": 59,
+                  "state_switches_per_s": 8.477011494252874
+                },
+                "none": {
+                  "sample_duty_fraction": 0.07217235188509874,
+                  "time_duty_fraction_zoh": 0.0721982758620689,
+                  "state_switch_count": 39,
+                  "state_switches_per_s": 5.603448275862069
+                }
+              },
+              "load_eligibility": {
+                "left": {
+                  "sample_duty_fraction": 0.7737881508078994,
+                  "time_duty_fraction_zoh": 0.7737068965517241,
+                  "state_switch_count": 59,
+                  "state_switches_per_s": 8.477011494252874
+                },
+                "right": {
+                  "sample_duty_fraction": 0.9213644524236984,
+                  "time_duty_fraction_zoh": 0.9213362068965517,
+                  "state_switch_count": 39,
+                  "state_switches_per_s": 5.603448275862069
+                },
+                "both": {
+                  "sample_duty_fraction": 0.7673249551166966,
+                  "time_duty_fraction_zoh": 0.7672413793103449,
+                  "state_switch_count": 59,
+                  "state_switches_per_s": 8.477011494252874
+                },
+                "none": {
+                  "sample_duty_fraction": 0.07217235188509874,
+                  "time_duty_fraction_zoh": 0.0721982758620689,
+                  "state_switch_count": 39,
+                  "state_switches_per_s": 5.603448275862069
+                }
+              }
+            },
+            "maximum_tilt_deg": 10.863166239942135,
+            "persistent_tilt_diagnostics": {
+              "30": {
+                "first_persistent_event": null,
+                "persistent_event_count": 0
+              },
+              "45": {
+                "first_persistent_event": null,
+                "persistent_event_count": 0
+              },
+              "60": {
+                "first_persistent_event": null,
+                "persistent_event_count": 0
+              }
+            },
+            "height_or_airborne_failure_gate": false
+          },
+          "full_native": {
+            "interval_s": [
+              0.0,
+              6.98
+            ],
+            "native_samples": 2793,
+            "tracking": {
+              "available": false,
+              "coverage_complete": false,
+              "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+            },
+            "world_angular_xy_common10_100": {
+              "samples": 2793,
+              "sample_hz": 400.0,
+              "native_nyquist_hz": 200.0,
+              "frequency_resolution_hz": 0.14321518080916576,
+              "common_band_hz_exclusive": [
+                10.0,
+                100.0
+              ],
+              "common_band_mean_square": 0.5782660568341914,
+              "common_band_rms": 0.7604380690327066,
+              "native_high_frequency_cutoff_hz_exclusive": 10.0,
+              "native_high_frequency_mean_square": 0.5787368747057623,
+              "native_high_frequency_rms": 0.7607475762076159,
+              "at_or_above100hz_mean_square": 0.00047081787157081357,
+              "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+              "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+            },
+            "contact": {
+              "measured_force_bearing_contact": {
+                "left": {
+                  "sample_duty_fraction": 0.7744360902255639,
+                  "time_duty_fraction_zoh": 0.7743553008595989,
+                  "state_switch_count": 59,
+                  "state_switches_per_s": 8.452722063037248
+                },
+                "right": {
+                  "sample_duty_fraction": 0.9215896885069818,
+                  "time_duty_fraction_zoh": 0.9215616045845271,
+                  "state_switch_count": 39,
+                  "state_switches_per_s": 5.587392550143266
+                },
+                "both": {
+                  "sample_duty_fraction": 0.7679914070891515,
+                  "time_duty_fraction_zoh": 0.7679083094555873,
+                  "state_switch_count": 59,
+                  "state_switches_per_s": 8.452722063037248
+                },
+                "none": {
+                  "sample_duty_fraction": 0.0719656283566058,
+                  "time_duty_fraction_zoh": 0.07199140401146124,
+                  "state_switch_count": 39,
+                  "state_switches_per_s": 5.587392550143266
+                }
+              },
+              "load_eligibility": {
+                "left": {
+                  "sample_duty_fraction": 0.7744360902255639,
+                  "time_duty_fraction_zoh": 0.7743553008595989,
+                  "state_switch_count": 59,
+                  "state_switches_per_s": 8.452722063037248
+                },
+                "right": {
+                  "sample_duty_fraction": 0.9215896885069818,
+                  "time_duty_fraction_zoh": 0.9215616045845271,
+                  "state_switch_count": 39,
+                  "state_switches_per_s": 5.587392550143266
+                },
+                "both": {
+                  "sample_duty_fraction": 0.7679914070891515,
+                  "time_duty_fraction_zoh": 0.7679083094555873,
+                  "state_switch_count": 59,
+                  "state_switches_per_s": 8.452722063037248
+                },
+                "none": {
+                  "sample_duty_fraction": 0.0719656283566058,
+                  "time_duty_fraction_zoh": 0.07199140401146124,
+                  "state_switch_count": 39,
+                  "state_switches_per_s": 5.587392550143266
+                }
+              }
+            },
+            "maximum_tilt_deg": 10.863166239942135,
+            "persistent_tilt_diagnostics": {
+              "30": {
+                "first_persistent_event": null,
+                "persistent_event_count": 0
+              },
+              "45": {
+                "first_persistent_event": null,
+                "persistent_event_count": 0
+              },
+              "60": {
+                "first_persistent_event": null,
+                "persistent_event_count": 0
+              }
+            },
+            "height_or_airborne_failure_gate": false
+          }
+        },
+        "any_wheel_ground_support": {
+          "core": {
+            "interval_s": [
+              1.44,
+              4.0
+            ],
+            "force_threshold_n_strict": 5.0,
+            "definition": "Any wheel upward actual floor-normal Fz>threshold; no bilateral or count requirement",
+            "native_samples": 1025,
+            "any_wheel_support_sample_fraction": 0.8048780487804879,
+            "any_wheel_support_time_fraction_zoh": 0.8046875000000002,
+            "unsupported_physical_samples": 200,
+            "every_physical_sample_supported": false,
+            "longest_no_support_observed_s": 0.040000000000000036,
+            "no_support_gaps": [
+              {
+                "onset_s": 2.055,
+                "end_s": 2.0875,
+                "observed_duration_s": 0.03249999999999975,
+                "native_samples": 13,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.1375,
+                "end_s": 2.165,
+                "observed_duration_s": 0.027499999999999858,
+                "native_samples": 11,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.2125,
+                "end_s": 2.245,
+                "observed_duration_s": 0.032500000000000195,
+                "native_samples": 13,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.2825,
+                "end_s": 2.3225000000000002,
+                "observed_duration_s": 0.040000000000000036,
+                "native_samples": 16,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.355,
+                "end_s": 2.39,
+                "observed_duration_s": 0.03500000000000014,
+                "native_samples": 14,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.44,
+                "end_s": 2.4425,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.5775,
+                "end_s": 2.605,
+                "observed_duration_s": 0.027499999999999858,
+                "native_samples": 11,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.6550000000000002,
+                "end_s": 2.6825,
+                "observed_duration_s": 0.027499999999999858,
+                "native_samples": 11,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.73,
+                "end_s": 2.765,
+                "observed_duration_s": 0.03500000000000014,
+                "native_samples": 14,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.8025,
+                "end_s": 2.83,
+                "observed_duration_s": 0.027499999999999858,
+                "native_samples": 11,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.87,
+                "end_s": 2.9075,
+                "observed_duration_s": 0.03750000000000009,
+                "native_samples": 15,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.9425,
+                "end_s": 2.975,
+                "observed_duration_s": 0.032500000000000195,
+                "native_samples": 13,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.0075000000000003,
+                "end_s": 3.035,
+                "observed_duration_s": 0.027499999999999858,
+                "native_samples": 11,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.075,
+                "end_s": 3.0875,
+                "observed_duration_s": 0.012499999999999734,
+                "native_samples": 5,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.5125,
+                "end_s": 3.5325,
+                "observed_duration_s": 0.020000000000000018,
+                "native_samples": 8,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.6575,
+                "end_s": 3.6825,
+                "observed_duration_s": 0.02499999999999991,
+                "native_samples": 10,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.735,
+                "end_s": 3.7525,
+                "observed_duration_s": 0.01750000000000007,
+                "native_samples": 7,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.795,
+                "end_s": 3.8325,
+                "observed_duration_s": 0.03750000000000009,
+                "native_samples": 15,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.93,
+                "end_s": 3.9325,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              }
+            ],
+            "minimum_anywheel_normal_force_n": 0.0,
+            "single_wheel_lift_is_failure": false,
+            "flight_or_height_inferred": false,
+            "last_sample_no_future_extension": true
+          },
+          "full_contact": {
+            "interval_s": [
+              0.02,
+              6.96
+            ],
+            "force_threshold_n_strict": 5.0,
+            "definition": "Any wheel upward actual floor-normal Fz>threshold; no bilateral or count requirement",
+            "native_samples": 2777,
+            "any_wheel_support_sample_fraction": 0.927979834353619,
+            "any_wheel_support_time_fraction_zoh": 0.9279538904899135,
+            "unsupported_physical_samples": 200,
+            "every_physical_sample_supported": false,
+            "longest_no_support_observed_s": 0.040000000000000036,
+            "no_support_gaps": [
+              {
+                "onset_s": 2.055,
+                "end_s": 2.0875,
+                "observed_duration_s": 0.03249999999999975,
+                "native_samples": 13,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.1375,
+                "end_s": 2.165,
+                "observed_duration_s": 0.027499999999999858,
+                "native_samples": 11,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.2125,
+                "end_s": 2.245,
+                "observed_duration_s": 0.032500000000000195,
+                "native_samples": 13,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.2825,
+                "end_s": 2.3225000000000002,
+                "observed_duration_s": 0.040000000000000036,
+                "native_samples": 16,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.355,
+                "end_s": 2.39,
+                "observed_duration_s": 0.03500000000000014,
+                "native_samples": 14,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.44,
+                "end_s": 2.4425,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.5775,
+                "end_s": 2.605,
+                "observed_duration_s": 0.027499999999999858,
+                "native_samples": 11,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.6550000000000002,
+                "end_s": 2.6825,
+                "observed_duration_s": 0.027499999999999858,
+                "native_samples": 11,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.73,
+                "end_s": 2.765,
+                "observed_duration_s": 0.03500000000000014,
+                "native_samples": 14,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.8025,
+                "end_s": 2.83,
+                "observed_duration_s": 0.027499999999999858,
+                "native_samples": 11,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.87,
+                "end_s": 2.9075,
+                "observed_duration_s": 0.03750000000000009,
+                "native_samples": 15,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.9425,
+                "end_s": 2.975,
+                "observed_duration_s": 0.032500000000000195,
+                "native_samples": 13,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.0075000000000003,
+                "end_s": 3.035,
+                "observed_duration_s": 0.027499999999999858,
+                "native_samples": 11,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.075,
+                "end_s": 3.0875,
+                "observed_duration_s": 0.012499999999999734,
+                "native_samples": 5,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.5125,
+                "end_s": 3.5325,
+                "observed_duration_s": 0.020000000000000018,
+                "native_samples": 8,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.6575,
+                "end_s": 3.6825,
+                "observed_duration_s": 0.02499999999999991,
+                "native_samples": 10,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.735,
+                "end_s": 3.7525,
+                "observed_duration_s": 0.01750000000000007,
+                "native_samples": 7,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.795,
+                "end_s": 3.8325,
+                "observed_duration_s": 0.03750000000000009,
+                "native_samples": 15,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.93,
+                "end_s": 3.9325,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              }
+            ],
+            "minimum_anywheel_normal_force_n": 0.0,
+            "single_wheel_lift_is_failure": false,
+            "flight_or_height_inferred": false,
+            "last_sample_no_future_extension": true
+          }
+        },
+        "persistent_xy_departure_gt0p30m": {
+          "core": {
+            "minimum_persistence_s": 0.1,
+            "first_true_sample_s": null,
+            "first_persistent_event": null,
+            "persistent_event_count": 0,
+            "longest_observed_run_s": 0.0,
+            "events": []
+          },
+          "whole_reference_overlap": {
+            "minimum_persistence_s": 0.1,
+            "first_true_sample_s": null,
+            "first_persistent_event": null,
+            "persistent_event_count": 0,
+            "longest_observed_run_s": 0.0,
+            "events": []
+          }
+        },
+        "nonwheel_ground_contact_diagnostic": {
+          "available": true,
+          "threshold_n_strict": 1.0,
+          "maximum_n": 58.41178321838379,
+          "sample_fraction_over_threshold": 0.00035803795202291446,
+          "persistent_events": {
+            "minimum_persistence_s": 0.1,
+            "first_true_sample_s": 0.0,
+            "first_persistent_event": null,
+            "persistent_event_count": 0,
+            "longest_observed_run_s": 0.0025,
+            "events": []
+          },
+          "used_as_automatic_failure_gate": false
+        },
+        "nonzero_beta_is_intended": true,
+        "bilateral_support_required": false,
+        "height_contact_tilt_or_beta_used_as_XY_failure_gate": false,
+        "trajectory_aligned_smoothed_or_extrapolated": false,
+        "root_heading_and_reference_beta_only_no_wheel_FK_inferred": true,
+        "whole_tracking_reference_end_s": 6.96,
+        "physical_recording_end_s": 6.98,
+        "support_force_source": "wheel_ground_contact_force_w_n"
+      },
+      "nominal_screen": {
+        "criteria": {
+          "mu": 0.7,
+          "validation_backends": [
+            "PhysX",
+            "native CPU MuJoCo"
+          ],
+          "core_interval_s": [
+            1.44,
+            4
+          ],
+          "reference_overlap_interval_s": [
+            0,
+            6.96
+          ],
+          "full_contact_interval_s": [
+            0.02,
+            6.96
+          ],
+          "native_recording_interval_s": [
+            0,
+            6.98
+          ],
+          "core_and_whole_xy_rmse_m_max": 0.15,
+          "core_and_whole_xy_peak_m_max": 0.3,
+          "core_speed_ratio_range": [
+            0.95,
+            1.1
+          ],
+          "core_reference_beta_rmse_deg_max": 10,
+          "contact_force_definition": "Ground-filtered normal force in worldZ N; at least one wheel exceeds5N each physical sample.",
+          "contact_force_threshold_n_strict": 5,
+          "any_wheel_support_fraction_min": 1,
+          "longest_no_support_interval_s_max": 0,
+          "core_10_to_100hz_angular_xy_rms_ratio_to_original_baseline_max": 0.7,
+          "single_wheel_lift_is_failure": false,
+          "absolute_height_or_flight_gate": false,
+          "full_horizon_no_auto_reset": true,
+          "qualitative_review": "Render whole-body and fixed-world XY; cannot declare task complete solely from lower HF or summed reward.",
+          "results_are_single_seed_not_statistical_qualification": true
+        },
+        "checks": {
+          "core_xy_rmse": true,
+          "core_xy_peak": true,
+          "whole_xy_rmse": true,
+          "whole_xy_peak": true,
+          "core_speed_retention": true,
+          "core_reference_beta": true,
+          "any_wheel_every_physical_sample": false,
+          "longest_no_support_gap": false,
+          "core_HF_reduction": false
+        },
+        "failed_checks": [
+          "any_wheel_every_physical_sample",
+          "longest_no_support_gap",
+          "core_HF_reduction"
+        ],
+        "numeric_nominal_episode_pass": false,
+        "core_HF_ratio_to_original_same_engine_PPO": 0.7203000461475165,
+        "baseline": "Original PhysX-trained400Hz beta-ON policy evaluated in PhysX",
+        "core_beta_valid_samples": 1025,
+        "core_native_samples": 1025,
+        "qualitative_whole_body_review_complete": false,
+        "overall_task_goal_complete_claimed": false
+      },
+      "independent_command_audit": {
+        "all_native_command_fractions_and_exact_endpoints_verified": true,
+        "unchanged_desired_raw_action_mapping_and_wheel_effort_verified": true,
+        "actual_native_leg_PD_and_motor_envelope_verified": true,
+        "maximum_leg_torque_reconstruction_error_nm": 9.328126907348633e-06,
+        "torque_check_tolerance": {
+          "rtol": 2e-05,
+          "atol_nm": 0.005
+        },
+        "native_applications": 2792
+      }
+    },
+    {
+      "id": "K_mujoco",
+      "engine": "mujoco",
+      "title": "K PPO | mujoco",
+      "variant": "K",
+      "actor_sha256": "fafdccb45571b99da53a02455f2402a8cd8b960f16809ba8e6e0fe6996dce912",
+      "recording_sha256": "af790839128d5d02a8233a7a7b2cd8b23eb508e9056cd4d1c619b8d4173d14ef",
+      "metrics": {
+        "windows": {
+          "core": {
+            "interval_s": [
+              1.44,
+              4.0
+            ],
+            "native_samples": 1025,
+            "tracking": {
+              "available": true,
+              "coverage_complete": true,
+              "samples": 1025,
+              "xy_rmse_m": 0.09103104894610631,
+              "xy_peak_m": 0.1267787197755248,
+              "mean_speed_m_s": 1.0054523593868379,
+              "reference_mean_speed_m_s": 1.0282628655553003,
+              "speed_retention": 0.9778164641235547,
+              "beta_rmse_deg": 4.311666758431467,
+              "beta_valid_samples": 1025,
+              "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+            },
+            "world_angular_xy_common10_100": {
+              "samples": 1025,
+              "sample_hz": 400.0,
+              "native_nyquist_hz": 200.0,
+              "frequency_resolution_hz": 0.3902439024390244,
+              "common_band_hz_exclusive": [
+                10.0,
+                100.0
+              ],
+              "common_band_mean_square": 0.8638572736628755,
+              "common_band_rms": 0.9294392253734912,
+              "native_high_frequency_cutoff_hz_exclusive": 10.0,
+              "native_high_frequency_mean_square": 0.8766620707109658,
+              "native_high_frequency_rms": 0.9363023393706574,
+              "at_or_above100hz_mean_square": 0.012804797048090595,
+              "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+              "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+            },
+            "contact": {
+              "measured_force_bearing_contact": {
+                "left": {
+                  "sample_duty_fraction": 0.3678048780487805,
+                  "time_duty_fraction_zoh": 0.3671875,
+                  "state_switch_count": 132,
+                  "state_switches_per_s": 51.5625000000011
+                },
+                "right": {
+                  "sample_duty_fraction": 0.6448780487804878,
+                  "time_duty_fraction_zoh": 0.64453125,
+                  "state_switch_count": 68,
+                  "state_switches_per_s": 26.562500000000565
+                },
+                "both": {
+                  "sample_duty_fraction": 0.31414634146341464,
+                  "time_duty_fraction_zoh": 0.3134765625,
+                  "state_switch_count": 104,
+                  "state_switches_per_s": 40.62500000000087
+                },
+                "none": {
+                  "sample_duty_fraction": 0.30146341463414633,
+                  "time_duty_fraction_zoh": 0.3017578125,
+                  "state_switch_count": 86,
+                  "state_switches_per_s": 33.59375000000072
+                }
+              },
+              "load_eligibility": {
+                "left": {
+                  "sample_duty_fraction": 0.3678048780487805,
+                  "time_duty_fraction_zoh": 0.3671875,
+                  "state_switch_count": 132,
+                  "state_switches_per_s": 51.5625000000011
+                },
+                "right": {
+                  "sample_duty_fraction": 0.6448780487804878,
+                  "time_duty_fraction_zoh": 0.64453125,
+                  "state_switch_count": 68,
+                  "state_switches_per_s": 26.562500000000565
+                },
+                "both": {
+                  "sample_duty_fraction": 0.31414634146341464,
+                  "time_duty_fraction_zoh": 0.3134765625,
+                  "state_switch_count": 104,
+                  "state_switches_per_s": 40.62500000000087
+                },
+                "none": {
+                  "sample_duty_fraction": 0.30146341463414633,
+                  "time_duty_fraction_zoh": 0.3017578125,
+                  "state_switch_count": 86,
+                  "state_switches_per_s": 33.59375000000072
+                }
+              }
+            },
+            "maximum_tilt_deg": 10.519588242928887,
+            "persistent_tilt_diagnostics": {
+              "30": {
+                "first_persistent_event": null,
+                "persistent_event_count": 0
+              },
+              "45": {
+                "first_persistent_event": null,
+                "persistent_event_count": 0
+              },
+              "60": {
+                "first_persistent_event": null,
+                "persistent_event_count": 0
+              }
+            },
+            "height_or_airborne_failure_gate": false
+          },
+          "whole_reference_overlap": {
+            "interval_s": [
+              0.0,
+              6.96
+            ],
+            "native_samples": 2785,
+            "tracking": {
+              "available": true,
+              "coverage_complete": true,
+              "samples": 2785,
+              "xy_rmse_m": 0.07006213631326254,
+              "xy_peak_m": 0.1267787197755248,
+              "mean_speed_m_s": 0.8810930576506457,
+              "reference_mean_speed_m_s": 0.8741363103669761,
+              "speed_retention": 1.0079584238764192,
+              "beta_rmse_deg": 3.070183783169716,
+              "beta_valid_samples": 2362,
+              "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+            },
+            "world_angular_xy_common10_100": {
+              "samples": 2785,
+              "sample_hz": 400.0,
+              "native_nyquist_hz": 200.0,
+              "frequency_resolution_hz": 0.1436265709156194,
+              "common_band_hz_exclusive": [
+                10.0,
+                100.0
+              ],
+              "common_band_mean_square": 0.4475476115798141,
+              "common_band_rms": 0.6689899936320528,
+              "native_high_frequency_cutoff_hz_exclusive": 10.0,
+              "native_high_frequency_mean_square": 0.4537603638532326,
+              "native_high_frequency_rms": 0.6736173719948385,
+              "at_or_above100hz_mean_square": 0.006212752273418393,
+              "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+              "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+            },
+            "contact": {
+              "measured_force_bearing_contact": {
+                "left": {
+                  "sample_duty_fraction": 0.733572710951526,
+                  "time_duty_fraction_zoh": 0.7334770114942692,
+                  "state_switch_count": 201,
+                  "state_switches_per_s": 28.879310344825974
+                },
+                "right": {
+                  "sample_duty_fraction": 0.8481149012567325,
+                  "time_duty_fraction_zoh": 0.8480603448275953,
+                  "state_switch_count": 97,
+                  "state_switches_per_s": 13.936781609194625
+                },
+                "both": {
+                  "sample_duty_fraction": 0.7030520646319569,
+                  "time_duty_fraction_zoh": 0.7029454022988678,
+                  "state_switch_count": 161,
+                  "state_switches_per_s": 23.132183908044688
+                },
+                "none": {
+                  "sample_duty_fraction": 0.12136445242369838,
+                  "time_duty_fraction_zoh": 0.12140804597700332,
+                  "state_switch_count": 117,
+                  "state_switches_per_s": 16.81034482758527
+                }
+              },
+              "load_eligibility": {
+                "left": {
+                  "sample_duty_fraction": 0.733572710951526,
+                  "time_duty_fraction_zoh": 0.7334770114942692,
+                  "state_switch_count": 201,
+                  "state_switches_per_s": 28.879310344825974
+                },
+                "right": {
+                  "sample_duty_fraction": 0.8481149012567325,
+                  "time_duty_fraction_zoh": 0.8480603448275953,
+                  "state_switch_count": 97,
+                  "state_switches_per_s": 13.936781609194625
+                },
+                "both": {
+                  "sample_duty_fraction": 0.7030520646319569,
+                  "time_duty_fraction_zoh": 0.7029454022988678,
+                  "state_switch_count": 161,
+                  "state_switches_per_s": 23.132183908044688
+                },
+                "none": {
+                  "sample_duty_fraction": 0.12136445242369838,
+                  "time_duty_fraction_zoh": 0.12140804597700332,
+                  "state_switch_count": 117,
+                  "state_switches_per_s": 16.81034482758527
+                }
+              }
+            },
+            "maximum_tilt_deg": 10.519588242928887,
+            "persistent_tilt_diagnostics": {
+              "30": {
+                "first_persistent_event": null,
+                "persistent_event_count": 0
+              },
+              "45": {
+                "first_persistent_event": null,
+                "persistent_event_count": 0
+              },
+              "60": {
+                "first_persistent_event": null,
+                "persistent_event_count": 0
+              }
+            },
+            "height_or_airborne_failure_gate": false
+          },
+          "full_native": {
+            "interval_s": [
+              0.0,
+              6.98
+            ],
+            "native_samples": 2793,
+            "tracking": {
+              "available": false,
+              "coverage_complete": false,
+              "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+            },
+            "world_angular_xy_common10_100": {
+              "samples": 2793,
+              "sample_hz": 400.0,
+              "native_nyquist_hz": 200.0,
+              "frequency_resolution_hz": 0.14321518080916576,
+              "common_band_hz_exclusive": [
+                10.0,
+                100.0
+              ],
+              "common_band_mean_square": 0.4450095890520837,
+              "common_band_rms": 0.6670903904660025,
+              "native_high_frequency_cutoff_hz_exclusive": 10.0,
+              "native_high_frequency_mean_square": 0.45118141248928795,
+              "native_high_frequency_rms": 0.6717003889304278,
+              "at_or_above100hz_mean_square": 0.006171823437204235,
+              "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+              "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+            },
+            "contact": {
+              "measured_force_bearing_contact": {
+                "left": {
+                  "sample_duty_fraction": 0.7343358395989975,
+                  "time_duty_fraction_zoh": 0.7342406876790994,
+                  "state_switch_count": 201,
+                  "state_switches_per_s": 28.796561604582912
+                },
+                "right": {
+                  "sample_duty_fraction": 0.8485499462943072,
+                  "time_duty_fraction_zoh": 0.8484957020057398,
+                  "state_switch_count": 97,
+                  "state_switches_per_s": 13.896848137535038
+                },
+                "both": {
+                  "sample_duty_fraction": 0.7039026136770498,
+                  "time_duty_fraction_zoh": 0.7037965616046018,
+                  "state_switch_count": 161,
+                  "state_switches_per_s": 23.065902578795267
+                },
+                "none": {
+                  "sample_duty_fraction": 0.12101682778374508,
+                  "time_duty_fraction_zoh": 0.12106017191976258,
+                  "state_switch_count": 117,
+                  "state_switches_per_s": 16.76217765042886
+                }
+              },
+              "load_eligibility": {
+                "left": {
+                  "sample_duty_fraction": 0.7343358395989975,
+                  "time_duty_fraction_zoh": 0.7342406876790994,
+                  "state_switch_count": 201,
+                  "state_switches_per_s": 28.796561604582912
+                },
+                "right": {
+                  "sample_duty_fraction": 0.8485499462943072,
+                  "time_duty_fraction_zoh": 0.8484957020057398,
+                  "state_switch_count": 97,
+                  "state_switches_per_s": 13.896848137535038
+                },
+                "both": {
+                  "sample_duty_fraction": 0.7039026136770498,
+                  "time_duty_fraction_zoh": 0.7037965616046018,
+                  "state_switch_count": 161,
+                  "state_switches_per_s": 23.065902578795267
+                },
+                "none": {
+                  "sample_duty_fraction": 0.12101682778374508,
+                  "time_duty_fraction_zoh": 0.12106017191976258,
+                  "state_switch_count": 117,
+                  "state_switches_per_s": 16.76217765042886
+                }
+              }
+            },
+            "maximum_tilt_deg": 10.519588242928887,
+            "persistent_tilt_diagnostics": {
+              "30": {
+                "first_persistent_event": null,
+                "persistent_event_count": 0
+              },
+              "45": {
+                "first_persistent_event": null,
+                "persistent_event_count": 0
+              },
+              "60": {
+                "first_persistent_event": null,
+                "persistent_event_count": 0
+              }
+            },
+            "height_or_airborne_failure_gate": false
+          }
+        },
+        "any_wheel_ground_support": {
+          "core": {
+            "interval_s": [
+              1.44,
+              4.0
+            ],
+            "force_threshold_n_strict": 5.0,
+            "definition": "Any wheel upward actual floor-normal Fz>threshold; no bilateral or count requirement",
+            "native_samples": 1025,
+            "any_wheel_support_sample_fraction": 0.6985365853658536,
+            "any_wheel_support_time_fraction_zoh": 0.6982421875,
+            "unsupported_physical_samples": 309,
+            "every_physical_sample_supported": false,
+            "longest_no_support_observed_s": 0.06499999999999861,
+            "no_support_gaps": [
+              {
+                "onset_s": 2.022499999999968,
+                "end_s": 2.0499999999999674,
+                "observed_duration_s": 0.027499999999999414,
+                "native_samples": 11,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.0524999999999674,
+                "end_s": 2.0549999999999673,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.0899999999999666,
+                "end_s": 2.0949999999999664,
+                "observed_duration_s": 0.004999999999999893,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.0974999999999664,
+                "end_s": 2.1324999999999656,
+                "observed_duration_s": 0.034999999999999254,
+                "native_samples": 14,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.162499999999965,
+                "end_s": 2.1874999999999645,
+                "observed_duration_s": 0.024999999999999467,
+                "native_samples": 10,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.2249999999999637,
+                "end_s": 2.2899999999999623,
+                "observed_duration_s": 0.06499999999999861,
+                "native_samples": 26,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.302499999999962,
+                "end_s": 2.357499999999961,
+                "observed_duration_s": 0.05499999999999883,
+                "native_samples": 22,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.359999999999961,
+                "end_s": 2.3624999999999607,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.40749999999996,
+                "end_s": 2.4599999999999587,
+                "observed_duration_s": 0.05249999999999888,
+                "native_samples": 21,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.4624999999999586,
+                "end_s": 2.4649999999999586,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.4724999999999584,
+                "end_s": 2.4799999999999582,
+                "observed_duration_s": 0.00749999999999984,
+                "native_samples": 3,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.482499999999958,
+                "end_s": 2.487499999999958,
+                "observed_duration_s": 0.004999999999999893,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.542499999999957,
+                "end_s": 2.577499999999956,
+                "observed_duration_s": 0.034999999999999254,
+                "native_samples": 14,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.579999999999956,
+                "end_s": 2.582499999999956,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.5974999999999557,
+                "end_s": 2.6199999999999553,
+                "observed_duration_s": 0.02249999999999952,
+                "native_samples": 9,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.6424999999999548,
+                "end_s": 2.6449999999999547,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.6599999999999544,
+                "end_s": 2.7024999999999535,
+                "observed_duration_s": 0.042499999999999094,
+                "native_samples": 17,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.7049999999999534,
+                "end_s": 2.729999999999953,
+                "observed_duration_s": 0.024999999999999467,
+                "native_samples": 10,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.762499999999952,
+                "end_s": 2.779999999999952,
+                "observed_duration_s": 0.017499999999999627,
+                "native_samples": 7,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.8024999999999514,
+                "end_s": 2.809999999999951,
+                "observed_duration_s": 0.00749999999999984,
+                "native_samples": 3,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.822499999999951,
+                "end_s": 2.8399999999999506,
+                "observed_duration_s": 0.017499999999999627,
+                "native_samples": 7,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.002499999999947,
+                "end_s": 3.004999999999947,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.007499999999947,
+                "end_s": 3.012499999999947,
+                "observed_duration_s": 0.004999999999999893,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.014999999999947,
+                "end_s": 3.0199999999999467,
+                "observed_duration_s": 0.004999999999999893,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.062499999999946,
+                "end_s": 3.0899999999999452,
+                "observed_duration_s": 0.027499999999999414,
+                "native_samples": 11,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.1224999999999445,
+                "end_s": 3.1724999999999435,
+                "observed_duration_s": 0.049999999999998934,
+                "native_samples": 20,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.194999999999943,
+                "end_s": 3.197499999999943,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.199999999999943,
+                "end_s": 3.234999999999942,
+                "observed_duration_s": 0.034999999999999254,
+                "native_samples": 14,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.237499999999942,
+                "end_s": 3.239999999999942,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.242499999999942,
+                "end_s": 3.2524999999999418,
+                "observed_duration_s": 0.009999999999999787,
+                "native_samples": 4,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.2549999999999417,
+                "end_s": 3.2574999999999417,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.282499999999941,
+                "end_s": 3.284999999999941,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.3024999999999407,
+                "end_s": 3.33749999999994,
+                "observed_duration_s": 0.034999999999999254,
+                "native_samples": 14,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.3624999999999394,
+                "end_s": 3.3649999999999394,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.387499999999939,
+                "end_s": 3.4049999999999385,
+                "observed_duration_s": 0.017499999999999627,
+                "native_samples": 7,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.622499999999934,
+                "end_s": 3.6299999999999337,
+                "observed_duration_s": 0.00749999999999984,
+                "native_samples": 3,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.6324999999999337,
+                "end_s": 3.6424999999999335,
+                "observed_duration_s": 0.009999999999999787,
+                "native_samples": 4,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.6824999999999326,
+                "end_s": 3.6999999999999322,
+                "observed_duration_s": 0.017499999999999627,
+                "native_samples": 7,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.702499999999932,
+                "end_s": 3.704999999999932,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.7424999999999313,
+                "end_s": 3.7724999999999307,
+                "observed_duration_s": 0.02999999999999936,
+                "native_samples": 12,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.80249999999993,
+                "end_s": 3.842499999999929,
+                "observed_duration_s": 0.03999999999999915,
+                "native_samples": 16,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.8649999999999287,
+                "end_s": 3.8699999999999286,
+                "observed_duration_s": 0.004999999999999893,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.8724999999999286,
+                "end_s": 3.8749999999999285,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              }
+            ],
+            "minimum_anywheel_normal_force_n": 0.0,
+            "single_wheel_lift_is_failure": false,
+            "flight_or_height_inferred": false,
+            "last_sample_no_future_extension": true
+          },
+          "full_contact": {
+            "interval_s": [
+              0.02,
+              6.96
+            ],
+            "force_threshold_n_strict": 5.0,
+            "definition": "Any wheel upward actual floor-normal Fz>threshold; no bilateral or count requirement",
+            "native_samples": 2777,
+            "any_wheel_support_sample_fraction": 0.8786460208858481,
+            "any_wheel_support_time_fraction_zoh": 0.8786023054755125,
+            "unsupported_physical_samples": 337,
+            "every_physical_sample_supported": false,
+            "longest_no_support_observed_s": 0.06499999999999861,
+            "no_support_gaps": [
+              {
+                "onset_s": 0.04750000000000001,
+                "end_s": 0.05000000000000001,
+                "observed_duration_s": 0.0025000000000000022,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 0.05250000000000001,
+                "end_s": 0.055000000000000014,
+                "observed_duration_s": 0.0025000000000000022,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 0.057500000000000016,
+                "end_s": 0.06000000000000002,
+                "observed_duration_s": 0.0025000000000000022,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 0.06250000000000001,
+                "end_s": 0.06500000000000002,
+                "observed_duration_s": 0.0025000000000000022,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 0.08250000000000003,
+                "end_s": 0.09250000000000004,
+                "observed_duration_s": 0.010000000000000009,
+                "native_samples": 4,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 0.09500000000000004,
+                "end_s": 0.09750000000000004,
+                "observed_duration_s": 0.0025000000000000022,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 0.10500000000000005,
+                "end_s": 0.11000000000000006,
+                "observed_duration_s": 0.0050000000000000044,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.022499999999968,
+                "end_s": 2.0499999999999674,
+                "observed_duration_s": 0.027499999999999414,
+                "native_samples": 11,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.0524999999999674,
+                "end_s": 2.0549999999999673,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.0899999999999666,
+                "end_s": 2.0949999999999664,
+                "observed_duration_s": 0.004999999999999893,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.0974999999999664,
+                "end_s": 2.1324999999999656,
+                "observed_duration_s": 0.034999999999999254,
+                "native_samples": 14,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.162499999999965,
+                "end_s": 2.1874999999999645,
+                "observed_duration_s": 0.024999999999999467,
+                "native_samples": 10,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.2249999999999637,
+                "end_s": 2.2899999999999623,
+                "observed_duration_s": 0.06499999999999861,
+                "native_samples": 26,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.302499999999962,
+                "end_s": 2.357499999999961,
+                "observed_duration_s": 0.05499999999999883,
+                "native_samples": 22,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.359999999999961,
+                "end_s": 2.3624999999999607,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.40749999999996,
+                "end_s": 2.4599999999999587,
+                "observed_duration_s": 0.05249999999999888,
+                "native_samples": 21,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.4624999999999586,
+                "end_s": 2.4649999999999586,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.4724999999999584,
+                "end_s": 2.4799999999999582,
+                "observed_duration_s": 0.00749999999999984,
+                "native_samples": 3,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.482499999999958,
+                "end_s": 2.487499999999958,
+                "observed_duration_s": 0.004999999999999893,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.542499999999957,
+                "end_s": 2.577499999999956,
+                "observed_duration_s": 0.034999999999999254,
+                "native_samples": 14,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.579999999999956,
+                "end_s": 2.582499999999956,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.5974999999999557,
+                "end_s": 2.6199999999999553,
+                "observed_duration_s": 0.02249999999999952,
+                "native_samples": 9,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.6424999999999548,
+                "end_s": 2.6449999999999547,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.6599999999999544,
+                "end_s": 2.7024999999999535,
+                "observed_duration_s": 0.042499999999999094,
+                "native_samples": 17,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.7049999999999534,
+                "end_s": 2.729999999999953,
+                "observed_duration_s": 0.024999999999999467,
+                "native_samples": 10,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.762499999999952,
+                "end_s": 2.779999999999952,
+                "observed_duration_s": 0.017499999999999627,
+                "native_samples": 7,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.8024999999999514,
+                "end_s": 2.809999999999951,
+                "observed_duration_s": 0.00749999999999984,
+                "native_samples": 3,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.822499999999951,
+                "end_s": 2.8399999999999506,
+                "observed_duration_s": 0.017499999999999627,
+                "native_samples": 7,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.002499999999947,
+                "end_s": 3.004999999999947,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.007499999999947,
+                "end_s": 3.012499999999947,
+                "observed_duration_s": 0.004999999999999893,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.014999999999947,
+                "end_s": 3.0199999999999467,
+                "observed_duration_s": 0.004999999999999893,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.062499999999946,
+                "end_s": 3.0899999999999452,
+                "observed_duration_s": 0.027499999999999414,
+                "native_samples": 11,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.1224999999999445,
+                "end_s": 3.1724999999999435,
+                "observed_duration_s": 0.049999999999998934,
+                "native_samples": 20,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.194999999999943,
+                "end_s": 3.197499999999943,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.199999999999943,
+                "end_s": 3.234999999999942,
+                "observed_duration_s": 0.034999999999999254,
+                "native_samples": 14,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.237499999999942,
+                "end_s": 3.239999999999942,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.242499999999942,
+                "end_s": 3.2524999999999418,
+                "observed_duration_s": 0.009999999999999787,
+                "native_samples": 4,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.2549999999999417,
+                "end_s": 3.2574999999999417,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.282499999999941,
+                "end_s": 3.284999999999941,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.3024999999999407,
+                "end_s": 3.33749999999994,
+                "observed_duration_s": 0.034999999999999254,
+                "native_samples": 14,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.3624999999999394,
+                "end_s": 3.3649999999999394,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.387499999999939,
+                "end_s": 3.4049999999999385,
+                "observed_duration_s": 0.017499999999999627,
+                "native_samples": 7,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.622499999999934,
+                "end_s": 3.6299999999999337,
+                "observed_duration_s": 0.00749999999999984,
+                "native_samples": 3,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.6324999999999337,
+                "end_s": 3.6424999999999335,
+                "observed_duration_s": 0.009999999999999787,
+                "native_samples": 4,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.6824999999999326,
+                "end_s": 3.6999999999999322,
+                "observed_duration_s": 0.017499999999999627,
+                "native_samples": 7,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.702499999999932,
+                "end_s": 3.704999999999932,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.7424999999999313,
+                "end_s": 3.7724999999999307,
+                "observed_duration_s": 0.02999999999999936,
+                "native_samples": 12,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.80249999999993,
+                "end_s": 3.842499999999929,
+                "observed_duration_s": 0.03999999999999915,
+                "native_samples": 16,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.8649999999999287,
+                "end_s": 3.8699999999999286,
+                "observed_duration_s": 0.004999999999999893,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.8724999999999286,
+                "end_s": 3.8749999999999285,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 4.342499999999979,
+                "end_s": 4.344999999999979,
+                "observed_duration_s": 0.002500000000000391,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 4.34999999999998,
+                "end_s": 4.357499999999981,
+                "observed_duration_s": 0.007500000000001172,
+                "native_samples": 3,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 4.482500000000001,
+                "end_s": 4.492500000000002,
+                "observed_duration_s": 0.010000000000001563,
+                "native_samples": 4,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 4.495000000000003,
+                "end_s": 4.502500000000004,
+                "observed_duration_s": 0.007500000000001172,
+                "native_samples": 3,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 4.562500000000013,
+                "end_s": 4.565000000000014,
+                "observed_duration_s": 0.002500000000000391,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 4.625000000000023,
+                "end_s": 4.630000000000024,
+                "observed_duration_s": 0.005000000000000782,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 4.632500000000024,
+                "end_s": 4.637500000000025,
+                "observed_duration_s": 0.005000000000000782,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 4.640000000000025,
+                "end_s": 4.642500000000026,
+                "observed_duration_s": 0.002500000000000391,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              }
+            ],
+            "minimum_anywheel_normal_force_n": 0.0,
+            "single_wheel_lift_is_failure": false,
+            "flight_or_height_inferred": false,
+            "last_sample_no_future_extension": true
+          }
+        },
+        "persistent_xy_departure_gt0p30m": {
+          "core": {
+            "minimum_persistence_s": 0.1,
+            "first_true_sample_s": null,
+            "first_persistent_event": null,
+            "persistent_event_count": 0,
+            "longest_observed_run_s": 0.0,
+            "events": []
+          },
+          "whole_reference_overlap": {
+            "minimum_persistence_s": 0.1,
+            "first_true_sample_s": null,
+            "first_persistent_event": null,
+            "persistent_event_count": 0,
+            "longest_observed_run_s": 0.0,
+            "events": []
+          }
+        },
+        "nonwheel_ground_contact_diagnostic": {
+          "available": true,
+          "threshold_n_strict": 1.0,
+          "maximum_n": 0.0,
+          "sample_fraction_over_threshold": 0.0,
+          "persistent_events": {
+            "minimum_persistence_s": 0.1,
+            "first_true_sample_s": null,
+            "first_persistent_event": null,
+            "persistent_event_count": 0,
+            "longest_observed_run_s": 0.0,
+            "events": []
+          },
+          "used_as_automatic_failure_gate": false
+        },
+        "nonzero_beta_is_intended": true,
+        "bilateral_support_required": false,
+        "height_contact_tilt_or_beta_used_as_XY_failure_gate": false,
+        "trajectory_aligned_smoothed_or_extrapolated": false,
+        "root_heading_and_reference_beta_only_no_wheel_FK_inferred": true,
+        "whole_tracking_reference_end_s": 6.96,
+        "physical_recording_end_s": 6.98,
+        "support_force_source": "wheel_ground_contact_force_w_n"
+      },
+      "nominal_screen": {
+        "criteria": {
+          "mu": 0.7,
+          "validation_backends": [
+            "PhysX",
+            "native CPU MuJoCo"
+          ],
+          "core_interval_s": [
+            1.44,
+            4
+          ],
+          "reference_overlap_interval_s": [
+            0,
+            6.96
+          ],
+          "full_contact_interval_s": [
+            0.02,
+            6.96
+          ],
+          "native_recording_interval_s": [
+            0,
+            6.98
+          ],
+          "core_and_whole_xy_rmse_m_max": 0.15,
+          "core_and_whole_xy_peak_m_max": 0.3,
+          "core_speed_ratio_range": [
+            0.95,
+            1.1
+          ],
+          "core_reference_beta_rmse_deg_max": 10,
+          "contact_force_definition": "Ground-filtered normal force in worldZ N; at least one wheel exceeds5N each physical sample.",
+          "contact_force_threshold_n_strict": 5,
+          "any_wheel_support_fraction_min": 1,
+          "longest_no_support_interval_s_max": 0,
+          "core_10_to_100hz_angular_xy_rms_ratio_to_original_baseline_max": 0.7,
+          "single_wheel_lift_is_failure": false,
+          "absolute_height_or_flight_gate": false,
+          "full_horizon_no_auto_reset": true,
+          "qualitative_review": "Render whole-body and fixed-world XY; cannot declare task complete solely from lower HF or summed reward.",
+          "results_are_single_seed_not_statistical_qualification": true
+        },
+        "checks": {
+          "core_xy_rmse": true,
+          "core_xy_peak": true,
+          "whole_xy_rmse": true,
+          "whole_xy_peak": true,
+          "core_speed_retention": true,
+          "core_reference_beta": true,
+          "any_wheel_every_physical_sample": false,
+          "longest_no_support_gap": false,
+          "core_HF_reduction": false
+        },
+        "failed_checks": [
+          "any_wheel_every_physical_sample",
+          "longest_no_support_gap",
+          "core_HF_reduction"
+        ],
+        "numeric_nominal_episode_pass": false,
+        "core_HF_ratio_to_original_same_engine_PPO": 0.7928314131879713,
+        "baseline": "Original PhysX-trained400Hz beta-ON policy evaluated in native CPU MuJoCo",
+        "core_beta_valid_samples": 1025,
+        "core_native_samples": 1025,
+        "qualitative_whole_body_review_complete": false,
+        "overall_task_goal_complete_claimed": false
+      }
+    },
+    {
+      "id": "ramp_mujoco",
+      "engine": "mujoco",
+      "title": "ramp PPO | mujoco",
+      "variant": "ramp",
+      "actor_sha256": "7102f7510766088eaa6e75dc8fd04e78325c2571234aad774f8b03e1651005ee",
+      "recording_sha256": "02934737beae0ae159ad3484ff9d5253e49097b422f90f7e135ba1f70e6b4d12",
+      "metrics": {
+        "windows": {
+          "core": {
+            "interval_s": [
+              1.44,
+              4.0
+            ],
+            "native_samples": 1025,
+            "tracking": {
+              "available": true,
+              "coverage_complete": true,
+              "samples": 1025,
+              "xy_rmse_m": 0.3661530598436475,
+              "xy_peak_m": 0.8100458037547525,
+              "mean_speed_m_s": 0.879358856866304,
+              "reference_mean_speed_m_s": 1.0282628655553003,
+              "speed_retention": 0.8551887715904409,
+              "beta_rmse_deg": 65.873904017174,
+              "beta_valid_samples": 872,
+              "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+            },
+            "world_angular_xy_common10_100": {
+              "samples": 1025,
+              "sample_hz": 400.0,
+              "native_nyquist_hz": 200.0,
+              "frequency_resolution_hz": 0.3902439024390244,
+              "common_band_hz_exclusive": [
+                10.0,
+                100.0
+              ],
+              "common_band_mean_square": 1.1031948795769784,
+              "common_band_rms": 1.0503308429142593,
+              "native_high_frequency_cutoff_hz_exclusive": 10.0,
+              "native_high_frequency_mean_square": 1.1378195909564992,
+              "native_high_frequency_rms": 1.066686266414122,
+              "at_or_above100hz_mean_square": 0.03462471137952095,
+              "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+              "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+            },
+            "contact": {
+              "measured_force_bearing_contact": {
+                "left": {
+                  "sample_duty_fraction": 0.20195121951219513,
+                  "time_duty_fraction_zoh": 0.2021484375,
+                  "state_switch_count": 57,
+                  "state_switches_per_s": 22.265625000000476
+                },
+                "right": {
+                  "sample_duty_fraction": 0.3824390243902439,
+                  "time_duty_fraction_zoh": 0.3828125,
+                  "state_switch_count": 71,
+                  "state_switches_per_s": 27.73437500000059
+                },
+                "both": {
+                  "sample_duty_fraction": 0.1824390243902439,
+                  "time_duty_fraction_zoh": 0.1826171875,
+                  "state_switch_count": 29,
+                  "state_switches_per_s": 11.328125000000242
+                },
+                "none": {
+                  "sample_duty_fraction": 0.5980487804878049,
+                  "time_duty_fraction_zoh": 0.59765625,
+                  "state_switch_count": 99,
+                  "state_switches_per_s": 38.671875000000824
+                }
+              },
+              "load_eligibility": {
+                "left": {
+                  "sample_duty_fraction": 0.20195121951219513,
+                  "time_duty_fraction_zoh": 0.2021484375,
+                  "state_switch_count": 57,
+                  "state_switches_per_s": 22.265625000000476
+                },
+                "right": {
+                  "sample_duty_fraction": 0.3824390243902439,
+                  "time_duty_fraction_zoh": 0.3828125,
+                  "state_switch_count": 71,
+                  "state_switches_per_s": 27.73437500000059
+                },
+                "both": {
+                  "sample_duty_fraction": 0.1824390243902439,
+                  "time_duty_fraction_zoh": 0.1826171875,
+                  "state_switch_count": 29,
+                  "state_switches_per_s": 11.328125000000242
+                },
+                "none": {
+                  "sample_duty_fraction": 0.5980487804878049,
+                  "time_duty_fraction_zoh": 0.59765625,
+                  "state_switch_count": 99,
+                  "state_switches_per_s": 38.671875000000824
+                }
+              }
+            },
+            "maximum_tilt_deg": 115.30056474043185,
+            "persistent_tilt_diagnostics": {
+              "30": {
+                "first_persistent_event": {
+                  "onset_s": 2.5199999999999574,
+                  "confirmation_s": 2.6199999999999575,
+                  "end_s": 3.384999999999939,
+                  "observed_duration_s": 0.8649999999999816,
+                  "native_samples": 346,
+                  "left_window_censored": false,
+                  "right_window_censored": false,
+                  "duration_is_lower_bound": false
+                },
+                "persistent_event_count": 1
+              },
+              "45": {
+                "first_persistent_event": {
+                  "onset_s": 2.584999999999956,
+                  "confirmation_s": 2.684999999999956,
+                  "end_s": 3.3124999999999405,
+                  "observed_duration_s": 0.7274999999999845,
+                  "native_samples": 291,
+                  "left_window_censored": false,
+                  "right_window_censored": false,
+                  "duration_is_lower_bound": false
+                },
+                "persistent_event_count": 1
+              },
+              "60": {
+                "first_persistent_event": {
+                  "onset_s": 2.6449999999999547,
+                  "confirmation_s": 2.744999999999955,
+                  "end_s": 3.2074999999999427,
+                  "observed_duration_s": 0.562499999999988,
+                  "native_samples": 225,
+                  "left_window_censored": false,
+                  "right_window_censored": false,
+                  "duration_is_lower_bound": false
+                },
+                "persistent_event_count": 1
+              }
+            },
+            "height_or_airborne_failure_gate": false
+          },
+          "whole_reference_overlap": {
+            "interval_s": [
+              0.0,
+              6.96
+            ],
+            "native_samples": 2785,
+            "tracking": {
+              "available": true,
+              "coverage_complete": true,
+              "samples": 2785,
+              "xy_rmse_m": 1.2147373861453175,
+              "xy_peak_m": 2.384608518894051,
+              "mean_speed_m_s": 0.7439087965052511,
+              "reference_mean_speed_m_s": 0.8741363103669761,
+              "speed_retention": 0.8510215028053766,
+              "beta_rmse_deg": 51.20665506270539,
+              "beta_valid_samples": 1728,
+              "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+            },
+            "world_angular_xy_common10_100": {
+              "samples": 2785,
+              "sample_hz": 400.0,
+              "native_nyquist_hz": 200.0,
+              "frequency_resolution_hz": 0.1436265709156194,
+              "common_band_hz_exclusive": [
+                10.0,
+                100.0
+              ],
+              "common_band_mean_square": 0.45118468618627006,
+              "common_band_rms": 0.6717028257989317,
+              "native_high_frequency_cutoff_hz_exclusive": 10.0,
+              "native_high_frequency_mean_square": 0.47276563092854806,
+              "native_high_frequency_rms": 0.6875795451644472,
+              "at_or_above100hz_mean_square": 0.02158094474227798,
+              "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+              "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+            },
+            "contact": {
+              "measured_force_bearing_contact": {
+                "left": {
+                  "sample_duty_fraction": 0.29156193895870736,
+                  "time_duty_fraction_zoh": 0.2913074712643489,
+                  "state_switch_count": 83,
+                  "state_switches_per_s": 11.925287356321174
+                },
+                "right": {
+                  "sample_duty_fraction": 0.3651705565529623,
+                  "time_duty_fraction_zoh": 0.3653017241379077,
+                  "state_switch_count": 126,
+                  "state_switches_per_s": 18.10344827586106
+                },
+                "both": {
+                  "sample_duty_fraction": 0.27289048473967686,
+                  "time_duty_fraction_zoh": 0.272988505747107,
+                  "state_switch_count": 34,
+                  "state_switches_per_s": 4.885057471264095
+                },
+                "none": {
+                  "sample_duty_fraction": 0.6161579892280071,
+                  "time_duty_fraction_zoh": 0.6163793103448504,
+                  "state_switch_count": 173,
+                  "state_switches_per_s": 24.856321839079072
+                }
+              },
+              "load_eligibility": {
+                "left": {
+                  "sample_duty_fraction": 0.29156193895870736,
+                  "time_duty_fraction_zoh": 0.2913074712643489,
+                  "state_switch_count": 83,
+                  "state_switches_per_s": 11.925287356321174
+                },
+                "right": {
+                  "sample_duty_fraction": 0.3651705565529623,
+                  "time_duty_fraction_zoh": 0.3653017241379077,
+                  "state_switch_count": 126,
+                  "state_switches_per_s": 18.10344827586106
+                },
+                "both": {
+                  "sample_duty_fraction": 0.27289048473967686,
+                  "time_duty_fraction_zoh": 0.272988505747107,
+                  "state_switch_count": 34,
+                  "state_switches_per_s": 4.885057471264095
+                },
+                "none": {
+                  "sample_duty_fraction": 0.6161579892280071,
+                  "time_duty_fraction_zoh": 0.6163793103448504,
+                  "state_switch_count": 173,
+                  "state_switches_per_s": 24.856321839079072
+                }
+              }
+            },
+            "maximum_tilt_deg": 115.30056474043185,
+            "persistent_tilt_diagnostics": {
+              "30": {
+                "first_persistent_event": {
+                  "onset_s": 2.5199999999999574,
+                  "confirmation_s": 2.6199999999999575,
+                  "end_s": 3.384999999999939,
+                  "observed_duration_s": 0.8649999999999816,
+                  "native_samples": 346,
+                  "left_window_censored": false,
+                  "right_window_censored": false,
+                  "duration_is_lower_bound": false
+                },
+                "persistent_event_count": 2
+              },
+              "45": {
+                "first_persistent_event": {
+                  "onset_s": 2.584999999999956,
+                  "confirmation_s": 2.684999999999956,
+                  "end_s": 3.3124999999999405,
+                  "observed_duration_s": 0.7274999999999845,
+                  "native_samples": 291,
+                  "left_window_censored": false,
+                  "right_window_censored": false,
+                  "duration_is_lower_bound": false
+                },
+                "persistent_event_count": 3
+              },
+              "60": {
+                "first_persistent_event": {
+                  "onset_s": 2.6449999999999547,
+                  "confirmation_s": 2.744999999999955,
+                  "end_s": 3.2074999999999427,
+                  "observed_duration_s": 0.562499999999988,
+                  "native_samples": 225,
+                  "left_window_censored": false,
+                  "right_window_censored": false,
+                  "duration_is_lower_bound": false
+                },
+                "persistent_event_count": 3
+              }
+            },
+            "height_or_airborne_failure_gate": false
+          },
+          "full_native": {
+            "interval_s": [
+              0.0,
+              6.98
+            ],
+            "native_samples": 2793,
+            "tracking": {
+              "available": false,
+              "coverage_complete": false,
+              "reason": "Physical/reference clock does not fully cover this window; no extrapolation or endpoint hold"
+            },
+            "world_angular_xy_common10_100": {
+              "samples": 2793,
+              "sample_hz": 400.0,
+              "native_nyquist_hz": 200.0,
+              "frequency_resolution_hz": 0.14321518080916576,
+              "common_band_hz_exclusive": [
+                10.0,
+                100.0
+              ],
+              "common_band_mean_square": 0.4508227661544344,
+              "common_band_rms": 0.671433366875995,
+              "native_high_frequency_cutoff_hz_exclusive": 10.0,
+              "native_high_frequency_mean_square": 0.4723851039960487,
+              "native_high_frequency_rms": 0.6873027746168705,
+              "at_or_above100hz_mean_square": 0.021562337841614248,
+              "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+              "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+            },
+            "contact": {
+              "measured_force_bearing_contact": {
+                "left": {
+                  "sample_duty_fraction": 0.2921589688506982,
+                  "time_duty_fraction_zoh": 0.2922636103151675,
+                  "state_switch_count": 88,
+                  "state_switches_per_s": 12.607449856732817
+                },
+                "right": {
+                  "sample_duty_fraction": 0.364124597207304,
+                  "time_duty_fraction_zoh": 0.36425501432662416,
+                  "state_switch_count": 126,
+                  "state_switches_per_s": 18.05157593123108
+                },
+                "both": {
+                  "sample_duty_fraction": 0.272108843537415,
+                  "time_duty_fraction_zoh": 0.2722063037249089,
+                  "state_switch_count": 34,
+                  "state_switches_per_s": 4.871060171919498
+                },
+                "none": {
+                  "sample_duty_fraction": 0.6158252774794128,
+                  "time_duty_fraction_zoh": 0.6156876790831173,
+                  "state_switch_count": 178,
+                  "state_switches_per_s": 25.50143266475502
+                }
+              },
+              "load_eligibility": {
+                "left": {
+                  "sample_duty_fraction": 0.2921589688506982,
+                  "time_duty_fraction_zoh": 0.2922636103151675,
+                  "state_switch_count": 88,
+                  "state_switches_per_s": 12.607449856732817
+                },
+                "right": {
+                  "sample_duty_fraction": 0.364124597207304,
+                  "time_duty_fraction_zoh": 0.36425501432662416,
+                  "state_switch_count": 126,
+                  "state_switches_per_s": 18.05157593123108
+                },
+                "both": {
+                  "sample_duty_fraction": 0.272108843537415,
+                  "time_duty_fraction_zoh": 0.2722063037249089,
+                  "state_switch_count": 34,
+                  "state_switches_per_s": 4.871060171919498
+                },
+                "none": {
+                  "sample_duty_fraction": 0.6158252774794128,
+                  "time_duty_fraction_zoh": 0.6156876790831173,
+                  "state_switch_count": 178,
+                  "state_switches_per_s": 25.50143266475502
+                }
+              }
+            },
+            "maximum_tilt_deg": 115.30056474043185,
+            "persistent_tilt_diagnostics": {
+              "30": {
+                "first_persistent_event": {
+                  "onset_s": 2.5199999999999574,
+                  "confirmation_s": 2.6199999999999575,
+                  "end_s": 3.384999999999939,
+                  "observed_duration_s": 0.8649999999999816,
+                  "native_samples": 346,
+                  "left_window_censored": false,
+                  "right_window_censored": false,
+                  "duration_is_lower_bound": false
+                },
+                "persistent_event_count": 2
+              },
+              "45": {
+                "first_persistent_event": {
+                  "onset_s": 2.584999999999956,
+                  "confirmation_s": 2.684999999999956,
+                  "end_s": 3.3124999999999405,
+                  "observed_duration_s": 0.7274999999999845,
+                  "native_samples": 291,
+                  "left_window_censored": false,
+                  "right_window_censored": false,
+                  "duration_is_lower_bound": false
+                },
+                "persistent_event_count": 3
+              },
+              "60": {
+                "first_persistent_event": {
+                  "onset_s": 2.6449999999999547,
+                  "confirmation_s": 2.744999999999955,
+                  "end_s": 3.2074999999999427,
+                  "observed_duration_s": 0.562499999999988,
+                  "native_samples": 225,
+                  "left_window_censored": false,
+                  "right_window_censored": false,
+                  "duration_is_lower_bound": false
+                },
+                "persistent_event_count": 3
+              }
+            },
+            "height_or_airborne_failure_gate": false
+          }
+        },
+        "any_wheel_ground_support": {
+          "core": {
+            "interval_s": [
+              1.44,
+              4.0
+            ],
+            "force_threshold_n_strict": 5.0,
+            "definition": "Any wheel upward actual floor-normal Fz>threshold; no bilateral or count requirement",
+            "native_samples": 1025,
+            "any_wheel_support_sample_fraction": 0.40195121951219515,
+            "any_wheel_support_time_fraction_zoh": 0.40234375,
+            "unsupported_physical_samples": 613,
+            "every_physical_sample_supported": false,
+            "longest_no_support_observed_s": 0.4549999999999903,
+            "no_support_gaps": [
+              {
+                "onset_s": 2.172499999999965,
+                "end_s": 2.1749999999999647,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.1774999999999647,
+                "end_s": 2.1849999999999645,
+                "observed_duration_s": 0.00749999999999984,
+                "native_samples": 3,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.1874999999999645,
+                "end_s": 2.1924999999999644,
+                "observed_duration_s": 0.004999999999999893,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.219999999999964,
+                "end_s": 2.2224999999999637,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.2274999999999636,
+                "end_s": 2.2299999999999636,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.2324999999999635,
+                "end_s": 2.2349999999999635,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.2449999999999632,
+                "end_s": 2.247499999999963,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.249999999999963,
+                "end_s": 2.2799999999999625,
+                "observed_duration_s": 0.02999999999999936,
+                "native_samples": 12,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.2824999999999624,
+                "end_s": 2.2849999999999624,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.2924999999999622,
+                "end_s": 2.297499999999962,
+                "observed_duration_s": 0.004999999999999893,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.299999999999962,
+                "end_s": 2.3149999999999618,
+                "observed_duration_s": 0.01499999999999968,
+                "native_samples": 6,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.3174999999999617,
+                "end_s": 2.3224999999999616,
+                "observed_duration_s": 0.004999999999999893,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.3299999999999614,
+                "end_s": 2.352499999999961,
+                "observed_duration_s": 0.02249999999999952,
+                "native_samples": 9,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.354999999999961,
+                "end_s": 2.3649999999999607,
+                "observed_duration_s": 0.009999999999999787,
+                "native_samples": 4,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.3724999999999605,
+                "end_s": 2.3849999999999603,
+                "observed_duration_s": 0.012499999999999734,
+                "native_samples": 5,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.38749999999996,
+                "end_s": 2.40249999999996,
+                "observed_duration_s": 0.01499999999999968,
+                "native_samples": 6,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.434999999999959,
+                "end_s": 2.439999999999959,
+                "observed_duration_s": 0.004999999999999893,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.442499999999959,
+                "end_s": 2.4549999999999588,
+                "observed_duration_s": 0.012499999999999734,
+                "native_samples": 5,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.4574999999999587,
+                "end_s": 2.4699999999999585,
+                "observed_duration_s": 0.012499999999999734,
+                "native_samples": 5,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.5124999999999575,
+                "end_s": 2.5149999999999575,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.5174999999999574,
+                "end_s": 2.534999999999957,
+                "observed_duration_s": 0.017499999999999627,
+                "native_samples": 7,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.537499999999957,
+                "end_s": 2.5499999999999567,
+                "observed_duration_s": 0.012499999999999734,
+                "native_samples": 5,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.5724999999999563,
+                "end_s": 2.8774999999999498,
+                "observed_duration_s": 0.3049999999999935,
+                "native_samples": 122,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.8799999999999497,
+                "end_s": 2.8824999999999497,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.8849999999999496,
+                "end_s": 2.8874999999999496,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.907499999999949,
+                "end_s": 3.3624999999999394,
+                "observed_duration_s": 0.4549999999999903,
+                "native_samples": 182,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.3649999999999394,
+                "end_s": 3.382499999999939,
+                "observed_duration_s": 0.017499999999999627,
+                "native_samples": 7,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.387499999999939,
+                "end_s": 3.4024999999999386,
+                "observed_duration_s": 0.01499999999999968,
+                "native_samples": 6,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.4049999999999385,
+                "end_s": 3.424999999999938,
+                "observed_duration_s": 0.019999999999999574,
+                "native_samples": 8,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.427499999999938,
+                "end_s": 3.4549999999999375,
+                "observed_duration_s": 0.027499999999999414,
+                "native_samples": 11,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.4574999999999374,
+                "end_s": 3.5074999999999363,
+                "observed_duration_s": 0.049999999999998934,
+                "native_samples": 20,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.5099999999999363,
+                "end_s": 3.5124999999999362,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.514999999999936,
+                "end_s": 3.517499999999936,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.519999999999936,
+                "end_s": 3.522499999999936,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.524999999999936,
+                "end_s": 3.527499999999936,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.529999999999936,
+                "end_s": 3.5574999999999353,
+                "observed_duration_s": 0.027499999999999414,
+                "native_samples": 11,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.559999999999935,
+                "end_s": 3.5824999999999347,
+                "observed_duration_s": 0.02249999999999952,
+                "native_samples": 9,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.5849999999999347,
+                "end_s": 3.6024999999999343,
+                "observed_duration_s": 0.017499999999999627,
+                "native_samples": 7,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.6049999999999343,
+                "end_s": 3.617499999999934,
+                "observed_duration_s": 0.012499999999999734,
+                "native_samples": 5,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.619999999999934,
+                "end_s": 3.6324999999999337,
+                "observed_duration_s": 0.012499999999999734,
+                "native_samples": 5,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.6349999999999336,
+                "end_s": 3.6424999999999335,
+                "observed_duration_s": 0.00749999999999984,
+                "native_samples": 3,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.6449999999999334,
+                "end_s": 3.6499999999999333,
+                "observed_duration_s": 0.004999999999999893,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.6524999999999332,
+                "end_s": 3.654999999999933,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.667499999999933,
+                "end_s": 3.6774999999999327,
+                "observed_duration_s": 0.009999999999999787,
+                "native_samples": 4,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.6799999999999327,
+                "end_s": 3.7299999999999316,
+                "observed_duration_s": 0.049999999999998934,
+                "native_samples": 20,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.7324999999999315,
+                "end_s": 3.79999999999993,
+                "observed_duration_s": 0.06749999999999856,
+                "native_samples": 27,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.80249999999993,
+                "end_s": 3.80499999999993,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.81249999999993,
+                "end_s": 3.894999999999928,
+                "observed_duration_s": 0.08249999999999824,
+                "native_samples": 33,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.897499999999928,
+                "end_s": 3.989999999999926,
+                "observed_duration_s": 0.09249999999999803,
+                "native_samples": 37,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.992499999999926,
+                "end_s": 3.999999999999926,
+                "observed_duration_s": 0.00749999999999984,
+                "native_samples": 4,
+                "right_window_censored": true,
+                "left_window_censored": false
+              }
+            ],
+            "minimum_anywheel_normal_force_n": 0.0,
+            "single_wheel_lift_is_failure": false,
+            "flight_or_height_inferred": false,
+            "last_sample_no_future_extension": true
+          },
+          "full_contact": {
+            "interval_s": [
+              0.02,
+              6.96
+            ],
+            "force_threshold_n_strict": 5.0,
+            "definition": "Any wheel upward actual floor-normal Fz>threshold; no bilateral or count requirement",
+            "native_samples": 2777,
+            "any_wheel_support_sample_fraction": 0.38242707958228306,
+            "any_wheel_support_time_fraction_zoh": 0.38220461095098585,
+            "unsupported_physical_samples": 1715,
+            "every_physical_sample_supported": false,
+            "longest_no_support_observed_s": 0.5725000000000895,
+            "no_support_gaps": [
+              {
+                "onset_s": 2.172499999999965,
+                "end_s": 2.1749999999999647,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.1774999999999647,
+                "end_s": 2.1849999999999645,
+                "observed_duration_s": 0.00749999999999984,
+                "native_samples": 3,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.1874999999999645,
+                "end_s": 2.1924999999999644,
+                "observed_duration_s": 0.004999999999999893,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.219999999999964,
+                "end_s": 2.2224999999999637,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.2274999999999636,
+                "end_s": 2.2299999999999636,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.2324999999999635,
+                "end_s": 2.2349999999999635,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.2449999999999632,
+                "end_s": 2.247499999999963,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.249999999999963,
+                "end_s": 2.2799999999999625,
+                "observed_duration_s": 0.02999999999999936,
+                "native_samples": 12,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.2824999999999624,
+                "end_s": 2.2849999999999624,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.2924999999999622,
+                "end_s": 2.297499999999962,
+                "observed_duration_s": 0.004999999999999893,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.299999999999962,
+                "end_s": 2.3149999999999618,
+                "observed_duration_s": 0.01499999999999968,
+                "native_samples": 6,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.3174999999999617,
+                "end_s": 2.3224999999999616,
+                "observed_duration_s": 0.004999999999999893,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.3299999999999614,
+                "end_s": 2.352499999999961,
+                "observed_duration_s": 0.02249999999999952,
+                "native_samples": 9,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.354999999999961,
+                "end_s": 2.3649999999999607,
+                "observed_duration_s": 0.009999999999999787,
+                "native_samples": 4,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.3724999999999605,
+                "end_s": 2.3849999999999603,
+                "observed_duration_s": 0.012499999999999734,
+                "native_samples": 5,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.38749999999996,
+                "end_s": 2.40249999999996,
+                "observed_duration_s": 0.01499999999999968,
+                "native_samples": 6,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.434999999999959,
+                "end_s": 2.439999999999959,
+                "observed_duration_s": 0.004999999999999893,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.442499999999959,
+                "end_s": 2.4549999999999588,
+                "observed_duration_s": 0.012499999999999734,
+                "native_samples": 5,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.4574999999999587,
+                "end_s": 2.4699999999999585,
+                "observed_duration_s": 0.012499999999999734,
+                "native_samples": 5,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.5124999999999575,
+                "end_s": 2.5149999999999575,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.5174999999999574,
+                "end_s": 2.534999999999957,
+                "observed_duration_s": 0.017499999999999627,
+                "native_samples": 7,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.537499999999957,
+                "end_s": 2.5499999999999567,
+                "observed_duration_s": 0.012499999999999734,
+                "native_samples": 5,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.5724999999999563,
+                "end_s": 2.8774999999999498,
+                "observed_duration_s": 0.3049999999999935,
+                "native_samples": 122,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.8799999999999497,
+                "end_s": 2.8824999999999497,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.8849999999999496,
+                "end_s": 2.8874999999999496,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 2.907499999999949,
+                "end_s": 3.3624999999999394,
+                "observed_duration_s": 0.4549999999999903,
+                "native_samples": 182,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.3649999999999394,
+                "end_s": 3.382499999999939,
+                "observed_duration_s": 0.017499999999999627,
+                "native_samples": 7,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.387499999999939,
+                "end_s": 3.4024999999999386,
+                "observed_duration_s": 0.01499999999999968,
+                "native_samples": 6,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.4049999999999385,
+                "end_s": 3.424999999999938,
+                "observed_duration_s": 0.019999999999999574,
+                "native_samples": 8,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.427499999999938,
+                "end_s": 3.4549999999999375,
+                "observed_duration_s": 0.027499999999999414,
+                "native_samples": 11,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.4574999999999374,
+                "end_s": 3.5074999999999363,
+                "observed_duration_s": 0.049999999999998934,
+                "native_samples": 20,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.5099999999999363,
+                "end_s": 3.5124999999999362,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.514999999999936,
+                "end_s": 3.517499999999936,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.519999999999936,
+                "end_s": 3.522499999999936,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.524999999999936,
+                "end_s": 3.527499999999936,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.529999999999936,
+                "end_s": 3.5574999999999353,
+                "observed_duration_s": 0.027499999999999414,
+                "native_samples": 11,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.559999999999935,
+                "end_s": 3.5824999999999347,
+                "observed_duration_s": 0.02249999999999952,
+                "native_samples": 9,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.5849999999999347,
+                "end_s": 3.6024999999999343,
+                "observed_duration_s": 0.017499999999999627,
+                "native_samples": 7,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.6049999999999343,
+                "end_s": 3.617499999999934,
+                "observed_duration_s": 0.012499999999999734,
+                "native_samples": 5,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.619999999999934,
+                "end_s": 3.6324999999999337,
+                "observed_duration_s": 0.012499999999999734,
+                "native_samples": 5,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.6349999999999336,
+                "end_s": 3.6424999999999335,
+                "observed_duration_s": 0.00749999999999984,
+                "native_samples": 3,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.6449999999999334,
+                "end_s": 3.6499999999999333,
+                "observed_duration_s": 0.004999999999999893,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.6524999999999332,
+                "end_s": 3.654999999999933,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.667499999999933,
+                "end_s": 3.6774999999999327,
+                "observed_duration_s": 0.009999999999999787,
+                "native_samples": 4,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.6799999999999327,
+                "end_s": 3.7299999999999316,
+                "observed_duration_s": 0.049999999999998934,
+                "native_samples": 20,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.7324999999999315,
+                "end_s": 3.79999999999993,
+                "observed_duration_s": 0.06749999999999856,
+                "native_samples": 27,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.80249999999993,
+                "end_s": 3.80499999999993,
+                "observed_duration_s": 0.0024999999999999467,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.81249999999993,
+                "end_s": 3.894999999999928,
+                "observed_duration_s": 0.08249999999999824,
+                "native_samples": 33,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.897499999999928,
+                "end_s": 3.989999999999926,
+                "observed_duration_s": 0.09249999999999803,
+                "native_samples": 37,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 3.992499999999926,
+                "end_s": 4.087499999999939,
+                "observed_duration_s": 0.09500000000001307,
+                "native_samples": 38,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 4.0899999999999395,
+                "end_s": 4.204999999999957,
+                "observed_duration_s": 0.11500000000001798,
+                "native_samples": 46,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 4.207499999999958,
+                "end_s": 4.329999999999977,
+                "observed_duration_s": 0.12250000000001915,
+                "native_samples": 49,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 4.332499999999977,
+                "end_s": 4.459999999999997,
+                "observed_duration_s": 0.12750000000001993,
+                "native_samples": 51,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 4.462499999999998,
+                "end_s": 4.510000000000005,
+                "observed_duration_s": 0.047500000000007425,
+                "native_samples": 19,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 4.5125000000000055,
+                "end_s": 4.620000000000022,
+                "observed_duration_s": 0.1075000000000168,
+                "native_samples": 43,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 4.622500000000023,
+                "end_s": 4.642500000000026,
+                "observed_duration_s": 0.020000000000003126,
+                "native_samples": 8,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 4.645000000000026,
+                "end_s": 4.67000000000003,
+                "observed_duration_s": 0.025000000000003908,
+                "native_samples": 10,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 4.675000000000031,
+                "end_s": 4.910000000000068,
+                "observed_duration_s": 0.23500000000003674,
+                "native_samples": 94,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 4.9350000000000716,
+                "end_s": 4.937500000000072,
+                "observed_duration_s": 0.002500000000000391,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 4.9475000000000735,
+                "end_s": 4.950000000000074,
+                "observed_duration_s": 0.002500000000000391,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 4.955000000000075,
+                "end_s": 4.9600000000000755,
+                "observed_duration_s": 0.005000000000000782,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 4.962500000000076,
+                "end_s": 5.3250000000001325,
+                "observed_duration_s": 0.36250000000005667,
+                "native_samples": 145,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 5.332500000000134,
+                "end_s": 5.335000000000134,
+                "observed_duration_s": 0.002500000000000391,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 5.3375000000001345,
+                "end_s": 5.342500000000135,
+                "observed_duration_s": 0.005000000000000782,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 5.347500000000136,
+                "end_s": 5.355000000000137,
+                "observed_duration_s": 0.007500000000001172,
+                "native_samples": 3,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 5.357500000000138,
+                "end_s": 5.367500000000139,
+                "observed_duration_s": 0.010000000000001563,
+                "native_samples": 4,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 5.3700000000001396,
+                "end_s": 5.717500000000194,
+                "observed_duration_s": 0.3475000000000543,
+                "native_samples": 139,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 5.720000000000194,
+                "end_s": 5.762500000000201,
+                "observed_duration_s": 0.042500000000006644,
+                "native_samples": 17,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 5.765000000000201,
+                "end_s": 5.782500000000204,
+                "observed_duration_s": 0.017500000000002736,
+                "native_samples": 7,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 5.785000000000204,
+                "end_s": 5.790000000000205,
+                "observed_duration_s": 0.005000000000000782,
+                "native_samples": 2,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 5.792500000000206,
+                "end_s": 5.802500000000207,
+                "observed_duration_s": 0.010000000000001563,
+                "native_samples": 4,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 5.8050000000002075,
+                "end_s": 5.827500000000211,
+                "observed_duration_s": 0.022500000000003517,
+                "native_samples": 9,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 5.8300000000002115,
+                "end_s": 5.832500000000212,
+                "observed_duration_s": 0.002500000000000391,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 5.842500000000213,
+                "end_s": 5.845000000000214,
+                "observed_duration_s": 0.002500000000000391,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 5.857500000000216,
+                "end_s": 5.860000000000216,
+                "observed_duration_s": 0.002500000000000391,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 5.8625000000002165,
+                "end_s": 5.872500000000218,
+                "observed_duration_s": 0.010000000000001563,
+                "native_samples": 4,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 5.8750000000002185,
+                "end_s": 6.447500000000308,
+                "observed_duration_s": 0.5725000000000895,
+                "native_samples": 229,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 6.450000000000308,
+                "end_s": 6.475000000000312,
+                "observed_duration_s": 0.025000000000003908,
+                "native_samples": 10,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 6.477500000000313,
+                "end_s": 6.497500000000316,
+                "observed_duration_s": 0.020000000000003126,
+                "native_samples": 8,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 6.500000000000316,
+                "end_s": 6.517500000000319,
+                "observed_duration_s": 0.017500000000002736,
+                "native_samples": 7,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 6.520000000000319,
+                "end_s": 6.5400000000003224,
+                "observed_duration_s": 0.020000000000003126,
+                "native_samples": 8,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 6.542500000000323,
+                "end_s": 6.615000000000334,
+                "observed_duration_s": 0.07250000000001133,
+                "native_samples": 29,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 6.617500000000335,
+                "end_s": 6.695000000000347,
+                "observed_duration_s": 0.07750000000001211,
+                "native_samples": 31,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 6.697500000000347,
+                "end_s": 6.897500000000378,
+                "observed_duration_s": 0.20000000000003126,
+                "native_samples": 80,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 6.900000000000379,
+                "end_s": 6.902500000000379,
+                "observed_duration_s": 0.002500000000000391,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              },
+              {
+                "onset_s": 6.955000000000387,
+                "end_s": 6.957500000000388,
+                "observed_duration_s": 0.002500000000000391,
+                "native_samples": 1,
+                "right_window_censored": false,
+                "left_window_censored": false
+              }
+            ],
+            "minimum_anywheel_normal_force_n": 0.0,
+            "single_wheel_lift_is_failure": false,
+            "flight_or_height_inferred": false,
+            "last_sample_no_future_extension": true
+          }
+        },
+        "persistent_xy_departure_gt0p30m": {
+          "core": {
+            "minimum_persistence_s": 0.1,
+            "first_true_sample_s": 2.639999999999955,
+            "first_persistent_event": {
+              "onset_s": 2.639999999999955,
+              "confirmation_s": 2.739999999999955,
+              "end_s": 3.999999999999926,
+              "observed_duration_s": 1.359999999999971,
+              "native_samples": 545,
+              "left_window_censored": false,
+              "right_window_censored": true,
+              "duration_is_lower_bound": true
+            },
+            "persistent_event_count": 1,
+            "longest_observed_run_s": 1.359999999999971,
+            "events": [
+              {
+                "onset_s": 2.639999999999955,
+                "confirmation_s": 2.739999999999955,
+                "end_s": 3.999999999999926,
+                "observed_duration_s": 1.359999999999971,
+                "native_samples": 545,
+                "left_window_censored": false,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              }
+            ]
+          },
+          "whole_reference_overlap": {
+            "minimum_persistence_s": 0.1,
+            "first_true_sample_s": 2.639999999999955,
+            "first_persistent_event": {
+              "onset_s": 2.639999999999955,
+              "confirmation_s": 2.739999999999955,
+              "end_s": 6.960000000000388,
+              "observed_duration_s": 4.320000000000434,
+              "native_samples": 1729,
+              "left_window_censored": false,
+              "right_window_censored": true,
+              "duration_is_lower_bound": true
+            },
+            "persistent_event_count": 1,
+            "longest_observed_run_s": 4.320000000000434,
+            "events": [
+              {
+                "onset_s": 2.639999999999955,
+                "confirmation_s": 2.739999999999955,
+                "end_s": 6.960000000000388,
+                "observed_duration_s": 4.320000000000434,
+                "native_samples": 1729,
+                "left_window_censored": false,
+                "right_window_censored": true,
+                "duration_is_lower_bound": true
+              }
+            ]
+          }
+        },
+        "nonwheel_ground_contact_diagnostic": {
+          "available": true,
+          "threshold_n_strict": 1.0,
+          "maximum_n": 12830.667065159636,
+          "sample_fraction_over_threshold": 0.2814178302900107,
+          "persistent_events": {
+            "minimum_persistence_s": 0.1,
+            "first_true_sample_s": 2.824999999999951,
+            "first_persistent_event": {
+              "onset_s": 3.044999999999946,
+              "confirmation_s": 3.1449999999999463,
+              "end_s": 3.2699999999999414,
+              "observed_duration_s": 0.2249999999999952,
+              "native_samples": 90,
+              "left_window_censored": false,
+              "right_window_censored": false,
+              "duration_is_lower_bound": false
+            },
+            "persistent_event_count": 3,
+            "longest_observed_run_s": 0.28500000000004455,
+            "events": [
+              {
+                "onset_s": 3.044999999999946,
+                "confirmation_s": 3.1449999999999463,
+                "end_s": 3.2699999999999414,
+                "observed_duration_s": 0.2249999999999952,
+                "native_samples": 90,
+                "left_window_censored": false,
+                "right_window_censored": false,
+                "duration_is_lower_bound": false
+              },
+              {
+                "onset_s": 5.535000000000165,
+                "confirmation_s": 5.635000000000165,
+                "end_s": 5.6700000000001864,
+                "observed_duration_s": 0.1350000000000211,
+                "native_samples": 54,
+                "left_window_censored": false,
+                "right_window_censored": false,
+                "duration_is_lower_bound": false
+              },
+              {
+                "onset_s": 6.117500000000256,
+                "confirmation_s": 6.217500000000256,
+                "end_s": 6.402500000000301,
+                "observed_duration_s": 0.28500000000004455,
+                "native_samples": 114,
+                "left_window_censored": false,
+                "right_window_censored": false,
+                "duration_is_lower_bound": false
+              }
+            ]
+          },
+          "used_as_automatic_failure_gate": false
+        },
+        "nonzero_beta_is_intended": true,
+        "bilateral_support_required": false,
+        "height_contact_tilt_or_beta_used_as_XY_failure_gate": false,
+        "trajectory_aligned_smoothed_or_extrapolated": false,
+        "root_heading_and_reference_beta_only_no_wheel_FK_inferred": true,
+        "whole_tracking_reference_end_s": 6.96,
+        "physical_recording_end_s": 6.98,
+        "support_force_source": "wheel_ground_contact_force_w_n"
+      },
+      "nominal_screen": {
+        "criteria": {
+          "mu": 0.7,
+          "validation_backends": [
+            "PhysX",
+            "native CPU MuJoCo"
+          ],
+          "core_interval_s": [
+            1.44,
+            4
+          ],
+          "reference_overlap_interval_s": [
+            0,
+            6.96
+          ],
+          "full_contact_interval_s": [
+            0.02,
+            6.96
+          ],
+          "native_recording_interval_s": [
+            0,
+            6.98
+          ],
+          "core_and_whole_xy_rmse_m_max": 0.15,
+          "core_and_whole_xy_peak_m_max": 0.3,
+          "core_speed_ratio_range": [
+            0.95,
+            1.1
+          ],
+          "core_reference_beta_rmse_deg_max": 10,
+          "contact_force_definition": "Ground-filtered normal force in worldZ N; at least one wheel exceeds5N each physical sample.",
+          "contact_force_threshold_n_strict": 5,
+          "any_wheel_support_fraction_min": 1,
+          "longest_no_support_interval_s_max": 0,
+          "core_10_to_100hz_angular_xy_rms_ratio_to_original_baseline_max": 0.7,
+          "single_wheel_lift_is_failure": false,
+          "absolute_height_or_flight_gate": false,
+          "full_horizon_no_auto_reset": true,
+          "qualitative_review": "Render whole-body and fixed-world XY; cannot declare task complete solely from lower HF or summed reward.",
+          "results_are_single_seed_not_statistical_qualification": true
+        },
+        "checks": {
+          "core_xy_rmse": false,
+          "core_xy_peak": false,
+          "whole_xy_rmse": false,
+          "whole_xy_peak": false,
+          "core_speed_retention": false,
+          "core_reference_beta": false,
+          "any_wheel_every_physical_sample": false,
+          "longest_no_support_gap": false,
+          "core_HF_reduction": false
+        },
+        "failed_checks": [
+          "core_xy_rmse",
+          "core_xy_peak",
+          "whole_xy_rmse",
+          "whole_xy_peak",
+          "core_speed_retention",
+          "core_reference_beta",
+          "any_wheel_every_physical_sample",
+          "longest_no_support_gap",
+          "core_HF_reduction"
+        ],
+        "numeric_nominal_episode_pass": false,
+        "core_HF_ratio_to_original_same_engine_PPO": 0.8959545323342624,
+        "baseline": "Original PhysX-trained400Hz beta-ON policy evaluated in native CPU MuJoCo",
+        "core_beta_valid_samples": 872,
+        "core_native_samples": 1025,
+        "qualitative_whole_body_review_complete": false,
+        "overall_task_goal_complete_claimed": false
+      },
+      "independent_command_audit": {
+        "all_native_command_fractions_and_exact_endpoints_verified": true,
+        "unchanged_desired_raw_action_mapping_and_wheel_effort_verified": true,
+        "actual_native_leg_PD_and_motor_envelope_verified": true,
+        "maximum_leg_torque_reconstruction_error_nm": 0.0,
+        "torque_check_tolerance": {
+          "rtol": 2e-05,
+          "atol_nm": 0.005
+        },
+        "native_applications": 2792
+      }
+    }
+  ],
+  "analyzer_sha256": "d781323e96810323e4a21d1b4760a9c34b00f387c96b21ec9f68f5d4f094fa4b",
+  "reference_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+  "completed_training_proof": {
+    "kind": "strict_K_PPO_leg_ramp_training_verification",
+    "cohort_id": "tron1_ppo_k_leg_ramp_400hz_v1",
+    "formal_or_smoke": "formal",
+    "transitions": 12288000,
+    "actor_sha256": "7102f7510766088eaa6e75dc8fd04e78325c2571234aad774f8b03e1651005ee",
+    "checkpoint_sha256": "fcf247aa07d856328f163a50c746ca645d29ac37fdc77f3a98078e6d7262f3c3",
+    "CPU_actor_output_shape": [
+      1,
+      8
+    ],
+    "initial_policy_state_sha256": "7dcdf78ffeb61806eeefcb31c4739d707c1caef934d152f2296ba2ee488b4d5d",
+    "verifier_sha256": "113b6db2659a8000c1b18a5fa38e26e82db97767bf28cdc8c66a841fae2fe164",
+    "task_success_claimed": false
+  },
+  "all_original_nominal_gates_retained": true,
+  "qualitative_review_complete": false,
+  "task_success_claimed": false
+}

@@ -52,6 +52,20 @@ class NumpyRamp:
         return command
 
 
+class EvaluationPhysicalClock:
+    """Read original native counters; owns neither env.step nor scene.update."""
+    def __init__(self,env):
+        self.env,self.robot=env,env.scene['robot']
+        self.initial_counter=int(env._sim_step_counter)
+        self.inside_step=False  # True only inside an actual action application.
+
+    @property
+    def samples(self):return (int(self.env._sim_step_counter)-self.initial_counter-1)%8
+
+    @property
+    def total_samples(self):return int(self.env._sim_step_counter)-self.initial_counter
+
+
 def save_targets(rows,output,*,names):
     assert len(rows)==2792
     arrays={k:np.asarray([r[k] for r in rows]) for k in ('start','desired','actual','wheel_effort')}
@@ -86,9 +100,9 @@ def materialize_mujoco(source):
 
 
 def materialize_physx(source):
-    old='            reward_accumulator = install_drift_reward_sampling(env, task_profile)'
-    assert source.count(old)==1
-    source=source.replace(old,'            reward_accumulator = _leg_ramp_install(env, _new_plan)')
+    # Validation needs the target execution, not the training reward owner.
+    # Keep the legacy recorder, reward and lifecycle exactly as materialized
+    # by the pinned native helper. Ramp installation is read-only-clock based.
     compile(source,'<K_leg_ramp_native_physx>','exec');return source
 
 
@@ -135,22 +149,24 @@ def main(argv=None):
     runtime=[];target_rows=[]
     def configure(cfg,profile,current):
         physx.configure(cfg,profile,current)
-        import ppo_ground_contact_v2k as contact
-        contact.configure_sensors(cfg.scene);cfg.rewards.drift_grounded=contact.reward_term(.4)
-    def install(env,current):
-        import ppo_ground_contact_v2k as contact
+    def materials(env,current):
+        import torch
+        torch.cuda.set_device(current['args'].physical_gpu_index)
+        result=physx.audit_materials(env,current)
         import ppo_batched_leg_ramp as ramp_module
-        owner=contact.install(env,current['cohort']['protocol']['ground_contact_reward_v2'])
+        owner=EvaluationPhysicalClock(env)
         r=ramp_module.BatchedLegRamp(env,owner);runtime.append(r)
         sources[str(Path(ramp_module.__file__).resolve())]=sha(ramp_module.__file__)
         original=r.apply
         def observe():
-            result=original()
+            owner.inside_step=True
+            try:result=original()
+            finally:owner.inside_step=False
             target_rows.append({k:v[0].detach().clone() for k,v in dict(start=r.start,desired=r.desired,
                 actual=r.robot.data.joint_pos_target[:,r.ids],wheel_effort=r.wheels.processed_actions).items()})
             return result
         r.apply=observe
-        return owner
+        return result
     def runner(cohort,device):
         result=parent.common.StrictPPOExportRunner(cohort,device)
         result.inference_provenance=parent.provenance(cohort);return result
@@ -159,8 +175,8 @@ def main(argv=None):
         r=runtime[0];rows=[{k:v.cpu().numpy() for k,v in row.items()} for row in target_rows]
         metadata(report,current,contract,rows,[r.robot.joint_names[i] for i in r.ids],r.audit())
     namespace=dict(__name__='_K_leg_ramp_native_physx',__file__=str(Path(__file__).resolve()),_new_plan=plan,
-        _new_configure=configure,_new_audit_materials=physx.audit_materials,_new_runner=runner,
-        _new_finish_report=finish,_leg_ramp_install=install)
+        _new_configure=configure,_new_audit_materials=materials,_new_runner=runner,
+        _new_finish_report=finish)
     previous=sys.argv
     try:
         os.environ.setdefault('CUDA_DEVICE_ORDER','PCI_BUS_ID')

@@ -24,8 +24,16 @@ def sha(data):return hashlib.sha256(data).hexdigest()
 def read(path):return json.loads(Path(path).read_text())
 
 
-def verify_completed(root):
-    root=Path(root);driver=read(root/'driver_status.json');status=read(root/'nominal_v1/status.json')
+def layout(root):
+    p=Path(root)/'collection_layout.json'
+    return read(p) if p.exists() else dict(nominal_directory='nominal_v1',evaluation_snapshot='evaluation_snapshot_v1',
+        continuation_launch='evaluation_continuation_v1_launch.json')
+
+
+def verify_completed(root,*,nominal_name=None):
+    root=Path(root);nominal_name=nominal_name or layout(root)['nominal_directory']
+    assert nominal_name.replace('_','').isalnum()
+    driver=read(root/'driver_status.json');status=read(root/nominal_name/'status.json')
     assert driver['status']=='formal_completed_verified_nominal_validation_pending'
     assert status['status']=='two_nominal_episodes_completed_require_analysis_and_render'
     proof=read(root/'formal_v1_strict_verification.json')
@@ -47,7 +55,7 @@ def verify_completed(root):
         assert audit[key+'_sha256']==sha((folder/name).read_bytes())
     for row in status['cases']:
         assert row['status']=='completed_requires_independent_analysis' and row['returncode']==0
-        f=root/'nominal_v1'/row['id'];m=read(f/'leg_ramp_evaluation_status.json');report=read(f/'report.json')
+        f=root/nominal_name/row['id'];m=read(f/'leg_ramp_evaluation_status.json');report=read(f/'report.json')
         assert sha((f/'leg_ramp_evaluation_status.json').read_bytes())==row['metadata_sha256']
         assert m==report['leg_ramp_evaluation'] and m['normalized_actor_sha256']==proof['actor_sha256']
         assert not m['smoke_policy_only'] and m['training_cohort_id']==COHORT
@@ -60,9 +68,12 @@ def verify_completed(root):
     return driver,status,proof
 
 
-def collect(workspace,idle_audit_source,output_prefix='completed_evidence_v1'):
+def collect(workspace,idle_audit_source,output_prefix='completed_evidence_v1',*,nominal_name='nominal_v1',
+            evaluation_snapshot_name='evaluation_snapshot_v1',continuation_launch_name='evaluation_continuation_v1_launch.json'):
     root=Path(workspace).resolve();assert output_prefix.replace('_','').isalnum()
-    driver,status,proof=verify_completed(root)
+    assert nominal_name.replace('_','').isalnum() and evaluation_snapshot_name.replace('_','').isalnum()
+    assert Path(continuation_launch_name).name==continuation_launch_name and continuation_launch_name.endswith('.json')
+    driver,status,proof=verify_completed(root,nominal_name=nominal_name)
     # Read exact final neural files on the execution host; do not package them.
     actual_weights={name:sha((root/'formal_v1'/name).read_bytes()) for name in ['policy.pt','model_final.pt']}
     assert actual_weights=={'policy.pt':proof['actor_sha256'],'model_final.pt':proof['checkpoint_sha256']}
@@ -70,26 +81,36 @@ def collect(workspace,idle_audit_source,output_prefix='completed_evidence_v1'):
     assert sha(helper.read_bytes())=='6f5285f9e9515d98ea4ae6e99c3bf58a436fd98a3ca266e1f297f4501cce3866'
     spec=importlib.util.spec_from_file_location('_ramp_collection_process_audit',helper)
     observer=importlib.util.module_from_spec(spec);spec.loader.exec_module(observer)
-    launches=['driver_v1_launch.json','evaluation_continuation_v1_launch.json']
+    launches=['driver_v1_launch.json',continuation_launch_name]
     pids={read(root/n)['pid'] for n in launches}
     pids.update(r['pid'] for r in driver['children']);pids.update(r['pid'] for r in status['cases'])
     processes={str(p):observer.process_snapshot(p) for p in sorted(pids)}
     assert all(p is None or p['state']=='Z' for p in processes.values()),'Owned compute or continuation still live'
     names=launches+['driver_status.json','formal_v1_strict_verification.json','smoke_v1_strict_verification.json',
-        'formal_CPU_verification.log','nominal_v1/status.json']
-    names.append(str(Path(__file__).resolve().relative_to(root)))
+        'formal_CPU_verification.log',nominal_name+'/status.json']
     names.extend(str(p.relative_to(root)) for p in sorted((root/'formal_v1').glob('*.json')))
-    for snapshot in ['source_snapshot_v1','evaluation_snapshot_v1']:
+    for snapshot in ['source_snapshot_v1',evaluation_snapshot_name]:
         names.append(snapshot+'.manifest.json')
         for row in read(root/(snapshot+'.manifest.json'))['files']:
             p=Path(row['path']);assert not p.is_absolute() and '..' not in p.parts and p.suffix in ['.py','.json']
             assert sha((root/snapshot/p).read_bytes())==row['sha256'];names.append(snapshot+'/'+str(p))
+    collector_name=str(Path(__file__).resolve().relative_to(root))
+    if collector_name not in names:names.append(collector_name)
     for case in CASES:
-        f=root/'nominal_v1'/case
+        f=root/nominal_name/case
         names.extend(str(p.relative_to(root)) for p in sorted(f.rglob('*.json')))
         for name in ['rollout.npz' if case=='mujoco' else 'physics_trajectory.npz','leg_command_trajectory.npz']:
             names.append(str((f/name).relative_to(root)))
-        names.append('nominal_v1/'+case+'.log')
+        names.append(nominal_name+'/'+case+'.log')
+    if nominal_name!='nominal_v1':
+        # Preserve the failed pre-rollout integration attempt, never relabel it
+        # as a task trajectory or replace its source/status/log bytes.
+        prior=read(root/'nominal_v1/status.json')
+        assert prior['status']=='failed_no_retry_or_process_signal'
+        names+=['nominal_v1/status.json','nominal_v1/physx.log','evaluation_continuation_v1.log',
+            'evaluation_continuation_v1_launch.json','collection_waiter_status.json','collection_waiter_v1.log',
+            'evaluation_snapshot_v1.manifest.json']
+        names.extend('evaluation_snapshot_v1/'+r['path'] for r in read(root/'evaluation_snapshot_v1.manifest.json')['files'])
     assert len(names)==len(set(names))
     payload={}
     for name in names:
@@ -98,7 +119,9 @@ def collect(workspace,idle_audit_source,output_prefix='completed_evidence_v1'):
         if p.suffix=='.npz':assert p.name in ['rollout.npz','physics_trajectory.npz','leg_command_trajectory.npz']
         payload[name]=p.read_bytes()
     assert sum(map(len,payload.values()))<=256*1024**2
-    assert read(root/'driver_status.json')==driver and read(root/'nominal_v1/status.json')==status
+    assert read(root/'driver_status.json')==driver and read(root/nominal_name/'status.json')==status
+    payload['collection_layout.json']=(json.dumps(dict(nominal_directory=nominal_name,evaluation_snapshot=evaluation_snapshot_name,
+        continuation_launch=continuation_launch_name),indent=2)+'\n').encode()
     payload['completion_process_audit.json']=(json.dumps(dict(processes=processes,observed_unix_time=time.time(),
         final_neural_files_read_and_hash_verified_on_execution_host_only=actual_weights,
         all_owned_compute_and_continuation_terminal=True),indent=2)+'\n').encode()
@@ -120,5 +143,8 @@ def collect(workspace,idle_audit_source,output_prefix='completed_evidence_v1'):
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__,allow_abbrev=False)
     p.add_argument('--workspace',type=Path,required=True);p.add_argument('--idle-audit-source',type=Path,required=True)
-    p.add_argument('--output-prefix',default='completed_evidence_v1');a=p.parse_args()
-    collect(a.workspace,a.idle_audit_source,a.output_prefix)
+    p.add_argument('--output-prefix',default='completed_evidence_v1')
+    p.add_argument('--nominal-name',default='nominal_v1');p.add_argument('--evaluation-snapshot-name',default='evaluation_snapshot_v1')
+    p.add_argument('--continuation-launch-name',default='evaluation_continuation_v1_launch.json');a=p.parse_args()
+    collect(a.workspace,a.idle_audit_source,a.output_prefix,nominal_name=a.nominal_name,
+        evaluation_snapshot_name=a.evaluation_snapshot_name,continuation_launch_name=a.continuation_launch_name)
