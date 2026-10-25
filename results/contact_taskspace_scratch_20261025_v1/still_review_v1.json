@@ -1,0 +1,30 @@
+{
+  "inspected_frame_indices": [
+    112,
+    150,
+    200,
+    348
+  ],
+  "inspected_times_s": [
+    2.24,
+    3.0,
+    4.0,
+    6.96
+  ],
+  "frame_sha256": {
+    "frame_112.png": "7935b3cc87df66e6b2970c6ef42a8d3f02803be591d1826847b8946087557cf7",
+    "frame_150.png": "68fa8403c9f522d50aa7997a31077a6dcaa8ef97a5a91d6f7ce509b01c1f222f",
+    "frame_200.png": "a089dfee82cb9f1940eb1dac70f0a1315da42c52f43556bf86e642e6eed77ac1",
+    "frame_348.png": "8a046083fe0ccd70aba7b20e5c62ff50737bba4382dbae35e0ac3296aa54c625"
+  },
+  "case_notes": {
+    "K_physx": "At2.24s upright withXY0.083m andbeta-21.1deg; at3.00s XY0.173m. By4.00s XY0.623m andbeta0.1deg. At6.96s it is upright and slow(0.15m/s),XY0.199m. Native post-initial nonwheel force never exceeds5N and peak root tilt is6.81deg,but path,beta,speed and continuous support fail. Low angularHF is not task success.",
+    "M_physx": "At2.24s XY0.470m,beta+19.7deg; at3.00s XY0.861m,beta+25.6deg. Wheels/legs are strongly splayed/tilted. At4.00s XY1.169m,then it accelerates away:6.96s XY7.750m,speed3.99m/s instead of the planned stop. Native nonwheel contact first exceeds5N at3.305s. Root remains raised; this is not labelled a complete torso collapse. Large loaded wheel camber and uncontrolled sliding accompany failed tracking.",
+    "K_mujoco": "Torso stays upright in all inspected frames. At2.24s XY0.115m,beta-20.1deg; at3.00s XY0.455m,beta+26.9deg; at4.00s XY0.699m,beta-1.8deg. At6.96s XY0.219m,speed0.15m/s. No post-initial nonwheel force above5N; root tilt peaks7.49deg. The same actor has different core beta/leg behavior in this engine. All path/beta/speed/support checks still fail.",
+    "M_mujoco": "At2.24s XY0.339m,speed0.79m/s; at3.00s XY0.716m; at4.00s XY1.015m. At6.96s XY1.223m,speed1.60m/s and only1/8 preceding physical samples is wheel-supported. Wheels/legs are tilted/splayed; root stays mostly upright rather than showing a complete torso fall. Actual nonwheel load first exceeds5N at6.3575s. Continuous support and intended stopping/turn tracking fail."
+  },
+  "analysis_and_contact_slip_plots_inspected": true,
+  "full_manual_video_playback_claimed": false,
+  "task_success_claimed": false,
+  "height_used_as_failure_gate": false
+}

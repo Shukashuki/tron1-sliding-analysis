@@ -1,0 +1,84 @@
+{
+  "kind": "native_replay_loaded_wheel_camber_diagnostic",
+  "definition": "asin(abs(worldZ dot wheel_localY_axle));0deg vertical wheel,90deg horizontal wheel",
+  "rows": {
+    "K_physx": {
+      "left": {
+        "core_loaded_samples": 644,
+        "loaded_camber_deg_median": 18.700521145022027,
+        "loaded_camber_deg_p95": 56.74313500212055,
+        "core_max_camber_deg": 62.070273485158765,
+        "loaded_fraction_camber_above60deg": 0.0
+      },
+      "right": {
+        "core_loaded_samples": 773,
+        "loaded_camber_deg_median": 11.090348869138323,
+        "loaded_camber_deg_p95": 28.777856269785268,
+        "core_max_camber_deg": 29.484005366059,
+        "loaded_fraction_camber_above60deg": 0.0
+      }
+    },
+    "M_physx": {
+      "left": {
+        "core_loaded_samples": 679,
+        "loaded_camber_deg_median": 66.14174973969855,
+        "loaded_camber_deg_p95": 67.28132607017298,
+        "core_max_camber_deg": 67.66058809640991,
+        "loaded_fraction_camber_above60deg": 0.9160530191458026
+      },
+      "right": {
+        "core_loaded_samples": 422,
+        "loaded_camber_deg_median": 36.27428869555308,
+        "loaded_camber_deg_p95": 47.862123829591816,
+        "core_max_camber_deg": 49.999666945468306,
+        "loaded_fraction_camber_above60deg": 0.0
+      }
+    },
+    "K_mujoco": {
+      "left": {
+        "core_loaded_samples": 506,
+        "loaded_camber_deg_median": 56.304251036545935,
+        "loaded_camber_deg_p95": 57.627696509194436,
+        "core_max_camber_deg": 60.474855237816314,
+        "loaded_fraction_camber_above60deg": 0.0
+      },
+      "right": {
+        "core_loaded_samples": 836,
+        "loaded_camber_deg_median": 13.689396720065442,
+        "loaded_camber_deg_p95": 29.67454831397323,
+        "core_max_camber_deg": 29.696644867071473,
+        "loaded_fraction_camber_above60deg": 0.0
+      }
+    },
+    "M_mujoco": {
+      "left": {
+        "core_loaded_samples": 234,
+        "loaded_camber_deg_median": 63.25793188533284,
+        "loaded_camber_deg_p95": 67.38605132150737,
+        "core_max_camber_deg": 68.15496618150405,
+        "loaded_fraction_camber_above60deg": 0.6794871794871795
+      },
+      "right": {
+        "core_loaded_samples": 377,
+        "loaded_camber_deg_median": 33.518404957683806,
+        "loaded_camber_deg_p95": 46.81018944543482,
+        "core_max_camber_deg": 49.110230538632464,
+        "loaded_fraction_camber_above60deg": 0.0
+      }
+    }
+  },
+  "core_interval_s": [
+    1.44,
+    4.0
+  ],
+  "load_threshold_strict_n": 5.0,
+  "descriptive_camber_threshold_deg": 60.0,
+  "new_acceptance_gate": false,
+  "reference_target": "Original reference wheel axles are horizontal; current tracking reward constrains world axial heading but not axle tilt.",
+  "inference": "A wheel can carry load on a highly tilted cylinder. Loaded-wheel support and small root tilt do not establish upright tire-like rolling/sliding. The current heading-only reward permits this geometry.",
+  "task_success_claimed": false,
+  "new_physics_or_policy_steps": 0,
+  "analyzer_sha256": "8811d3a94ee40be04f07bb748d7a24d2f85fc70032e9ce08ecf53feca0f7d9c9",
+  "replay_states_sha256": "aab2281eaac0ec134c1dd1c278d2d7c9d5bbcdcc0f0646c1d9dfedb0a4cd5518",
+  "model_sha256": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513"
+}
