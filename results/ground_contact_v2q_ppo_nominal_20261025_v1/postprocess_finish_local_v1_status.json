@@ -1,0 +1,80 @@
+{
+  "status": "ready_for_visual_review",
+  "source_sha256": {
+    "scripts/collect_ppo_ground_contact_v2q.py": "f1cb129f6b9307ae2053fa16da2aaf3cb9016bfbd77bd81d9c55d91e2a2e211b",
+    "scripts/analyze_ppo_ground_contact_v2q.py": "cf783e206b50a18fbd634dcc8a27f95caf9733c3e096f1280746e7c5ca0f409c",
+    "scripts/render_ppo_ground_contact_v2q.py": "d40bb7ae1d5531162f264fa1aef34508a74489d1a07a9eb82252482e8dcce66a",
+    "scripts/verify_ppo_ground_contact_v2q_artifacts.py": "9c7657e570d9919a571e0a866de1fd3a3bab55189669b0e6ee3a3bd18b0b7173",
+    "scripts/ground_contact_reward_v2q.py": "6c8909537556d76e68b8b21a32297a1926c3ad9d4eef6640e58aff338685f6c9",
+    "scripts/wheel_ground_geometry_torch.py": "3f0d045080c7615e9d10cab0c1c50c74118f51e028bec35111f1f85a419baa8d"
+  },
+  "children": [
+    {
+      "name": "analysis",
+      "pid": 156237,
+      "argv": [
+        "/home/roy/miniconda3/bin/python",
+        "-B",
+        "scripts/analyze_ppo_ground_contact_v2q.py",
+        "--collection",
+        "/home/roy/tron1-sliding-analysis/results/ground_contact_v2q_ppo_nominal_20261025_v1/evidence",
+        "--k-raw-root",
+        "/home/roy/tron1-sliding-analysis/results/ground_contact_v2q_ppo_nominal_20261025_v1/baseline_K",
+        "--output-dir",
+        "/home/roy/tron1-sliding-analysis/results/ground_contact_v2q_ppo_nominal_20261025_v1/analysis"
+      ],
+      "status": "completed",
+      "returncode": 0
+    },
+    {
+      "name": "render",
+      "pid": 156256,
+      "argv": [
+        "/home/roy/miniconda3/bin/python",
+        "-B",
+        "scripts/render_ppo_ground_contact_v2q.py",
+        "--collection",
+        "/home/roy/tron1-sliding-analysis/results/ground_contact_v2q_ppo_nominal_20261025_v1/evidence",
+        "--k-raw-root",
+        "/home/roy/tron1-sliding-analysis/results/ground_contact_v2q_ppo_nominal_20261025_v1/baseline_K",
+        "--analysis",
+        "/home/roy/tron1-sliding-analysis/results/ground_contact_v2q_ppo_nominal_20261025_v1/analysis/analysis.json",
+        "--output-dir",
+        "/home/roy/tron1-sliding-analysis/results/ground_contact_v2q_ppo_nominal_20261025_v1/render"
+      ],
+      "status": "completed",
+      "returncode": 0
+    },
+    {
+      "name": "artifact_verification",
+      "pid": 156679,
+      "argv": [
+        "/home/roy/miniconda3/bin/python",
+        "-B",
+        "scripts/verify_ppo_ground_contact_v2q_artifacts.py",
+        "--result",
+        "/home/roy/tron1-sliding-analysis/results/ground_contact_v2q_ppo_nominal_20261025_v1"
+      ],
+      "status": "completed",
+      "returncode": 0
+    }
+  ],
+  "task_success_claimed": false,
+  "last_remote_observation": {
+    "time": 1792916083.843855,
+    "processes": {
+      "driver": null,
+      "formal": null,
+      "nominal": null
+    },
+    "training": "smoke_and_formal_completed_require_nominal_validation",
+    "nominal": "both_nominal_engines_completed_require_analysis"
+  },
+  "remote_collection": {
+    "archive": "/data/zengxiong/workspaces/tron1-ground-contact-v2q-20261025/completed_collection_v1.tar.gz",
+    "bytes": 2472525,
+    "sha256": "f64b58a65eae11a6416bc1f43086a19585d94a2da502e2e0769c3bb9ece221e4",
+    "files": 68
+  },
+  "result": "/home/roy/tron1-sliding-analysis/results/ground_contact_v2q_ppo_nominal_20261025_v1"
+}

@@ -29,11 +29,21 @@ def run(args):
     lead=('Q passes the original numerical nominal gates in both engines. Qualitative review and broader qualification remain separate.' if passed else
         'Q does not pass the original nominal task in both engines. Individual metric improvements do not establish continuous support or task completion.')
     runtime=data['completed_training_proof']['contact_runtime_audit']
+    review=audit.read(root/'still_review.json')
+    assert review['frames']==[112,150,200,348]
+    for name,digest in review['images_sha256'].items():assert audit.sha(root/'render'/name)==digest
+    timing=[]
+    for row in rows:
+        if row['variant']!='Q':continue
+        event=row['metrics']['persistent_xy_departure_gt0p30m']['whole_reference_overlap']['first_persistent_event']
+        if event:
+            timing.append(row['id']+f": persistent XY error over0.30m begins at{event['onset_s']:.4f}s.")
     text='''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>K versus Q: unsupported wheel-gap reward</title>
 <style>body{font:16px/1.55 system-ui;max-width:1450px;margin:30px auto;padding:0 20px}table{border-collapse:collapse;width:100%;font-size:14px}td,th{padding:8px;border:1px solid #ccd4da;text-align:right}th{background:#eef3f6}video,img{max-width:100%}pre{background:#eef3f6;padding:16px;white-space:pre-wrap}</style>
-<h1>K versus Q: add a geometric signal while wheel support is absent</h1><p>LEAD</p>
+<h1>K versus Q: add a geometric signal while wheel support is absent</h1><p>LEAD</p><p>TIMING</p>
 <video controls loop playsinline preload="metadata" poster="render/comparison.png" src="render/fullbody_comparison.mp4"></video>
 <p>Four actual episodes, same policy within each training arm: K→PhysX, Q→PhysX, K→native CPU MuJoCo, Q→native CPU MuJoCo. Original opaque poses/heights, common fixed camera distance and world angles, translation-only following, identical map bounds, body/wheel/velocity headings and all native support samples are retained. Rendering runs no dynamics or inference.</p>
+<p>All350 frames were decoded; stills at2.24,3.00,4.00 and6.96s were inspected. Q departs from the path during the turn and shows late overturning in both engines at6.96s. K remains upright in these stills. This is a still review, not a claim of full manual video playback. Core HF is measured over1.44–4s, before the late overturning; its reduction accompanies worse tracking and support. <a href="still_review.json">Still-review evidence</a></p>
 <h2>Matched 12,288,000-transition PPO comparison at μ=0.7</h2>
 <table><tr><th>Cell</th><th>Core XY RMSE(cm)</th><th>Whole XY RMSE(cm)</th><th>Core speed(%)</th><th>Core β RMSE(°)</th><th>Any-wheel support(%)</th><th>Longest gap(ms)</th><th>HF/original PPO</th><th>Original numerical gates</th></tr>TABLE</table>
 <p>Core=1.44–4s; whole XY=0–6.96s; support=0.02–6.96s. At least one wheel must exceed5N at every native2.5ms sample; the other wheel may lift. Required support fraction remains100% and longest gap0. Body β tracks the intended nonzero reference. HF is angular-XY10–100Hz RMS relative to the original same-engine PPO baseline, not K. Single-wheel lift, geometric flight and body height are not substituted for the declared task gates. N=1 per cell.</p>
@@ -50,7 +60,7 @@ grounded_reward = 0.4*raw_Q   # unchanged policy-step dt multiplication follows<
 <h2>Reproduce metrics and replay</h2><pre>python -B scripts/analyze_ppo_ground_contact_v2q.py --collection RESULT/evidence --k-raw-root RESULT/baseline_K --output-dir /tmp/K-Q-analysis
 python -B scripts/render_ppo_ground_contact_v2q.py --collection RESULT/evidence --k-raw-root RESULT/baseline_K --analysis /tmp/K-Q-analysis/analysis.json --output-dir /tmp/K-Q-render</pre>
 <p>Restore pinned source into a fresh checkout if hashes differ. Reference data and original visual assets are needed for metrics/FK and graphics; no policy weights are needed for offline replay. This single-seed comparison does not establish population robustness, real-tire fidelity, hardware readiness or overall task completion. Friction-range qualification follows nominal success.</p></html>'''
-    text=text.replace('LEAD',html.escape(lead)).replace('TABLE','\n'.join(table))
+    text=text.replace('LEAD',html.escape(lead)).replace('TABLE','\n'.join(table)).replace('TIMING',html.escape(' '.join(timing)))
     text=text.replace('COST',format(runtime['mean_unsupported_geometry_gap_cost'],'.6g')).replace('POSITIVE',str(runtime['positive_geometry_cost_environment_windows']))
     target=root/'report.html';assert not target.exists();target.write_text(text)
     print(json.dumps(dict(report=str(target),Q_numeric_nominal_both_engines_pass=passed,task_success_claimed=False)))
