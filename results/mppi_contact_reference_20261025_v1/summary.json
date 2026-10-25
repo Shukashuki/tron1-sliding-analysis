@@ -1,0 +1,299 @@
+{
+  "kind": "two_native_MPPI_reference_generation_attempts",
+  "status": "completed_both_attempts_no_feasible_reference_certified",
+  "primary_task": "traj4 large turn with original nonzero beta",
+  "mu": 0.7,
+  "physics_dt_s": 0.0025,
+  "control_dt_s": 0.02,
+  "planner": "63 Gaussian samples plus weighted-mean verification,3 iterations,H30/B10;fixed covariance;final mean deployed",
+  "model": "MuJoCo3.8.1 original rigid cylinders; no nonlinear tire, contact force optimization or hidden root forces",
+  "no_PPO_training_or_inference": true,
+  "no_CEM_seed": true,
+  "no_new_native_compilation": true,
+  "PhysX_validation_performed": false,
+  "absolute_height_cost": false,
+  "wheel_XY_cost": false,
+  "source_sha256": "0d32ffd0ddab9dbb39c727d562964d344daa9c7c549223154e31d2e80eada06f",
+  "inputs": {
+    "model": {
+      "path": "outputs/car_failure_sideslip_20261015/raw/mujoco_model.xml",
+      "sha256": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513"
+    },
+    "reference": {
+      "path": "results/contact_wheel_axis_20261025_v1/reference.npz",
+      "sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254"
+    },
+    "native_library": {
+      "path": "outputs/native_ground_contact_v2_20261023_v1/libtron1_nmpc_batch_ground_contact_400hz.so",
+      "sha256": "1c4c0a66da7770a9579e6a19d0aded25a6656426f76e068c686a0ad977435095"
+    }
+  },
+  "rows": [
+    {
+      "id": "independent_v1",
+      "title": "Independent MPPI",
+      "core_XY_RMSE_m": 0.09001617416052553,
+      "core_XY_peak_m": 0.17516268724709408,
+      "whole_XY_RMSE_m": 0.08288712664692319,
+      "core_speed_retention": 0.9791132943185009,
+      "core_beta_RMSE_deg": 8.194522877787758,
+      "HF_ratio_to_original_same_engine_PPO": 0.9206236251985026,
+      "any_wheel_support_sample_fraction": 0.39323010442924017,
+      "longest_no_support_s": 0.3099999999999934,
+      "maximum_root_tilt_deg": 91.40853971036736,
+      "first_tilt_gt45_s": 5.30750000000013,
+      "first_nonwheel_floor_force_gt5N_s": 5.610000000000177,
+      "first_tilt_is_not_automatic_fall_time": true,
+      "nine_numeric_checks": {
+        "core_XY_RMSE": true,
+        "core_XY_peak": true,
+        "whole_XY_RMSE": true,
+        "whole_XY_peak": true,
+        "core_speed": true,
+        "core_beta": true,
+        "every_sample_support": false,
+        "zero_support_gap": false,
+        "core_HF_ratio": false
+      },
+      "nine_numeric_checks_pass": false,
+      "sustained_lateral_sliding_observed": false,
+      "slip_screen": [
+        {
+          "side": "L",
+          "core_force_supported_samples": 29,
+          "core_supported_but_slip_unobserved_samples": 0,
+          "core_loaded_moving_valid_samples": 29,
+          "lateral": {
+            "sliding_samples": 24,
+            "loaded_sample_sliding_fraction": 0.8275862068965517,
+            "loaded_speed_m_s_p05_p50_p95": [
+              0.024966989563069822,
+              0.9526850392384463,
+              4.444843007103688
+            ],
+            "longest_contiguous_sliding_s": 0.0024999999999999467,
+            "persistent_events": [],
+            "persistent_event_count": 0
+          },
+          "all_tangent": {
+            "sliding_samples": 27,
+            "loaded_sample_sliding_fraction": 0.9310344827586207,
+            "loaded_speed_m_s_p05_p50_p95": [
+              0.04412023578017806,
+              0.9954969113280333,
+              10.125011517080907
+            ],
+            "longest_contiguous_sliding_s": 0.00749999999999984,
+            "persistent_events": [],
+            "persistent_event_count": 0
+          },
+          "longest_contiguous_core_support_s": 0.00749999999999984
+        },
+        {
+          "side": "R",
+          "core_force_supported_samples": 546,
+          "core_supported_but_slip_unobserved_samples": 0,
+          "core_loaded_moving_valid_samples": 546,
+          "lateral": {
+            "sliding_samples": 109,
+            "loaded_sample_sliding_fraction": 0.19963369963369965,
+            "loaded_speed_m_s_p05_p50_p95": [
+              0.0018354047668800964,
+              0.01990685817202302,
+              0.27017462173528956
+            ],
+            "longest_contiguous_sliding_s": 0.01499999999999968,
+            "persistent_events": [],
+            "persistent_event_count": 0
+          },
+          "all_tangent": {
+            "sliding_samples": 156,
+            "loaded_sample_sliding_fraction": 0.2857142857142857,
+            "loaded_speed_m_s_p05_p50_p95": [
+              0.0076143687084577385,
+              0.028846595333602905,
+              0.599234901324222
+            ],
+            "longest_contiguous_sliding_s": 0.019999999999999574,
+            "persistent_events": [],
+            "persistent_event_count": 0
+          },
+          "longest_contiguous_core_support_s": 0.187499999999996
+        }
+      ],
+      "sliding_duration_threshold_s": 0.05,
+      "lateral_slip_threshold_m_s": 0.05,
+      "independent_L_R": true,
+      "candidate_motion_sha256": "931982e4900d05a47be69755d036cf57d29338f779a9ad3e21546034cf6b5377",
+      "learned_policy_used": false,
+      "CEM_seed_used": false,
+      "controller_fallbacks": 0,
+      "candidate_evaluations": 68054,
+      "failed_candidate_evaluations": 0,
+      "ESS_p05_p50_p95": [
+        1.0,
+        1.001254265212423,
+        1.9639444956262864
+      ],
+      "compute_ms_p50_p95_max": [
+        1233.9627850160468,
+        1430.7786511955783,
+        1579.5083669945598
+      ],
+      "wall_s": 430.98614301599446,
+      "exact_continuous_replay_errors": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "audit": "independent_audit_v2",
+      "render": "independent_render_v2",
+      "artifact_sha256": {
+        "report.json": "e8de35cab2d5761a73194593da9a76c9ab23702b951a428dda14fc9efb68afb1",
+        "rollout.npz": "f9081387466fcebea058bdc2a3ef929eadbd169cc1152ddd756bf4c04f0154b8",
+        "solver_log.json": "80f722ea564e8f120f16f53b8c687e8ebe2cd3689f2bcf924b7c5c31570a13c6",
+        "candidate_motion.npz": "931982e4900d05a47be69755d036cf57d29338f779a9ad3e21546034cf6b5377"
+      }
+    },
+    {
+      "id": "smooth_v1",
+      "title": "MPPI with predicted command smoothing",
+      "core_XY_RMSE_m": 0.09320993688467737,
+      "core_XY_peak_m": 0.13043437265504843,
+      "whole_XY_RMSE_m": 0.0740444881941434,
+      "core_speed_retention": 0.9928170513422487,
+      "core_beta_RMSE_deg": 14.030965625564626,
+      "HF_ratio_to_original_same_engine_PPO": 0.41928098482009263,
+      "any_wheel_support_sample_fraction": 0.5570759812747569,
+      "longest_no_support_s": 0.3225000000000504,
+      "maximum_root_tilt_deg": 103.66271544000352,
+      "first_tilt_gt45_s": 1.3374999999999826,
+      "first_nonwheel_floor_force_gt5N_s": 5.812500000000209,
+      "first_tilt_is_not_automatic_fall_time": true,
+      "nine_numeric_checks": {
+        "core_XY_RMSE": true,
+        "core_XY_peak": true,
+        "whole_XY_RMSE": true,
+        "whole_XY_peak": true,
+        "core_speed": true,
+        "core_beta": false,
+        "every_sample_support": false,
+        "zero_support_gap": false,
+        "core_HF_ratio": true
+      },
+      "nine_numeric_checks_pass": false,
+      "sustained_lateral_sliding_observed": false,
+      "slip_screen": [
+        {
+          "side": "L",
+          "core_force_supported_samples": 353,
+          "core_supported_but_slip_unobserved_samples": 0,
+          "core_loaded_moving_valid_samples": 353,
+          "lateral": {
+            "sliding_samples": 42,
+            "loaded_sample_sliding_fraction": 0.11898016997167139,
+            "loaded_speed_m_s_p05_p50_p95": [
+              0.0008228490310037897,
+              0.00941492079380191,
+              0.6160178713048522
+            ],
+            "longest_contiguous_sliding_s": 0.004999999999999893,
+            "persistent_events": [],
+            "persistent_event_count": 0
+          },
+          "all_tangent": {
+            "sliding_samples": 45,
+            "loaded_sample_sliding_fraction": 0.1274787535410765,
+            "loaded_speed_m_s_p05_p50_p95": [
+              0.0040499077072453865,
+              0.01306730782081216,
+              1.184095178929822
+            ],
+            "longest_contiguous_sliding_s": 0.004999999999999893,
+            "persistent_events": [],
+            "persistent_event_count": 0
+          },
+          "longest_contiguous_core_support_s": 0.24999999999999467
+        },
+        {
+          "side": "R",
+          "core_force_supported_samples": 253,
+          "core_supported_but_slip_unobserved_samples": 0,
+          "core_loaded_moving_valid_samples": 253,
+          "lateral": {
+            "sliding_samples": 29,
+            "loaded_sample_sliding_fraction": 0.11462450592885376,
+            "loaded_speed_m_s_p05_p50_p95": [
+              0.0010637160819120164,
+              0.009893999083974588,
+              0.43131886771485584
+            ],
+            "longest_contiguous_sliding_s": 0.004999999999999893,
+            "persistent_events": [],
+            "persistent_event_count": 0
+          },
+          "all_tangent": {
+            "sliding_samples": 29,
+            "loaded_sample_sliding_fraction": 0.11462450592885376,
+            "loaded_speed_m_s_p05_p50_p95": [
+              0.005438983047501053,
+              0.014010415712505631,
+              0.5160877114656808
+            ],
+            "longest_contiguous_sliding_s": 0.004999999999999893,
+            "persistent_events": [],
+            "persistent_event_count": 0
+          },
+          "longest_contiguous_core_support_s": 0.26999999999999424
+        }
+      ],
+      "sliding_duration_threshold_s": 0.05,
+      "lateral_slip_threshold_m_s": 0.05,
+      "independent_L_R": true,
+      "candidate_motion_sha256": "f571a5b6b89e1d4de08deb3f65e1986c7a0490a0f75e33e739039e64b97b1533",
+      "learned_policy_used": false,
+      "CEM_seed_used": false,
+      "controller_fallbacks": 0,
+      "candidate_evaluations": 68054,
+      "failed_candidate_evaluations": 0,
+      "ESS_p05_p50_p95": [
+        1.0,
+        1.0005399619936433,
+        1.968539989813735
+      ],
+      "compute_ms_p50_p95_max": [
+        1274.0387469821144,
+        1464.2320209823083,
+        1578.1779270037077
+      ],
+      "wall_s": 449.1373739450064,
+      "exact_continuous_replay_errors": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "audit": "smooth_audit_v1",
+      "render": "smooth_render_v1",
+      "artifact_sha256": {
+        "report.json": "fce649dec24d753706f3d440e891e1454093cd7f01c3be328ac3dcc97a0ee8ea",
+        "rollout.npz": "12a0c370b309ff4ec716697e37b86650d6251696230d05e2d89e48a2f176ab5e",
+        "solver_log.json": "5082ed84db36075b8c44d9f69668e889c39981e3fbcb072a54199dff58010fbb",
+        "candidate_motion.npz": "f571a5b6b89e1d4de08deb3f65e1986c7a0490a0f75e33e739039e64b97b1533"
+      }
+    }
+  ],
+  "policy_training_reference_approved": false,
+  "nominal_task_success_claimed": false,
+  "limitations": [
+    "N=1,seed42; no controller-wide or statistical ranking.",
+    "New planning cost is not the PPO reward; do not pool with earlier equal-reward controller comparisons.",
+    "The filter is the sole intended difference between these two attempts; plant motor parameters and MPPI budget are unchanged.",
+    "Prediction cold-resets each20ms, whereas execution and verification replay integrate continuously.",
+    "MPPI importance ESS is near1 for many updates; no well-mixed-search or real-time claim.",
+    "Tilt>45deg is a diagnostic, not an automatic fall-time label; whole-body video must also be reviewed.",
+    "Contact continuity and slip must hold on the same wheel; airborne samples and geometric tangency are not sliding evidence.",
+    "Point normal force>5N is the slip-estimator validity gate; wheel summed Fz>5N is the separate support gate.",
+    "Force-cone saturation corroborates friction demand but cannot alone distinguish rolling/static contact from sliding.",
+    "Both full-body recordings show loss of posture, so neither candidate should be used as a successful imitation demonstration."
+  ]
+}

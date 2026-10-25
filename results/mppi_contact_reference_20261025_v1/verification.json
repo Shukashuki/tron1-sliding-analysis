@@ -1,0 +1,55 @@
+{
+  "kind": "MPPI_reference_generation_local_verification",
+  "test_runs": [
+    {
+      "files": [
+        "tests/test_mppi_contact_sliding.py",
+        "tests/test_mppi_smooth_contact_reference.py",
+        "tests/test_mppi_contact_reference.py",
+        "tests/test_mppi_shooting.py"
+      ],
+      "exit_code": 0,
+      "passed": 80,
+      "elapsed_s": 2.04
+    },
+    {
+      "files": [
+        "tests/test_mppi_contact_point_velocity.py"
+      ],
+      "exit_code": 0,
+      "passed": 2,
+      "elapsed_s": 0.33
+    }
+  ],
+  "sources": {
+    "scripts/generate_mppi_contact_reference.py": "8843963f280afcc7cca6b354ad7a39cd4a7c6b05ba7d754e93d812adc0a66c65",
+    "scripts/generate_mppi_smooth_contact_reference.py": "d8d8cf6c9604aa99394ff8768e569a22709e9bba7d6d7e7636d8b19ab7bcf5b8",
+    "scripts/audit_mppi_contact_reference.py": "78fce1a29d2319fe35b82972639ab3f909f1f3738b90576ff87dcb14faab71dd",
+    "scripts/screen_mppi_sliding.py": "16bf32d340486d610e739686e890d6dc062b9507bdb05a77bc2a32067dd76464",
+    "scripts/render_mppi_contact_reference.py": "72e1da594fa5938767dcc0fd3f54192a74c4e32ea6c2a753938789ef8fb8f6ad",
+    "scripts/report_mppi_contact_reference.py": "0d32ffd0ddab9dbb39c727d562964d344daa9c7c549223154e31d2e80eada06f",
+    "config/mppi_contact_reference_v1.json": "d53fe86e6a1a0e317b84cfc98b75b40a170b3e92777c2341b65e4f2403797b77",
+    "config/mppi_smooth_contact_reference_v1.json": "f1d1ba19b3a3736b83af9976c0ffaca025566a3d26d3317d4346c4a13801e3eb",
+    "tests/test_mppi_contact_reference.py": "039d577543de22404a0c95807ee7fcb0239fed95253630bfa0cc9e3308731230",
+    "tests/test_mppi_smooth_contact_reference.py": "d0fd03a00696e059809068e59b0a7b408845f7fd00d8135b014112a21b25941a",
+    "tests/test_mppi_contact_sliding.py": "eef1bacea0554257fbb2fb58dbf99c764ab13f2a83b8449c3ecce0a3060d8dbb",
+    "tests/test_mppi_contact_point_velocity.py": "4122512c0831f5efefc3c24c47019506a5d4cfe09043457c6fafb01429f2f2de"
+  },
+  "same_action_continuous_replay_max_error_both_cases": [
+    0,
+    0,
+    0
+  ],
+  "manual_still_review": {
+    "independent_frames": [
+      150,
+      348
+    ],
+    "smooth_frames": [
+      150,
+      348
+    ],
+    "conclusion": "Both lose full-body posture; neither is a stable-contact successful demonstration"
+  },
+  "no_active_training_or_MPPI_job_remaining": true
+}
