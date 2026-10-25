@@ -1,0 +1,464 @@
+{
+  "kind": "PhysX_single_wheel_offset_and_free_camber_controls",
+  "status": "completed",
+  "law": "native_coulomb",
+  "parameters": {
+    "mu": 0.7,
+    "B": 4.5,
+    "C": 1.8,
+    "E": 1.0,
+    "speed_regularization_m_s": 0.2,
+    "coulomb_regularization_m_s": 0.02
+  },
+  "episode_rotation": "free",
+  "initial_camber_deg": 15.0,
+  "compound_geometry": {
+    "radius_m": 0.127,
+    "width_m": 0.05,
+    "mass_kg": 1.08,
+    "slices": 9,
+    "body_local_axle": "Y",
+    "COM_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "diagonal_inertia_kg_m2": [
+      0.004579830000000001,
+      0.008709660000000001,
+      0.004579830000000001
+    ],
+    "segments": [
+      {
+        "center_y_m": -0.022222222222222223,
+        "height_m": 0.005555555555555557,
+        "radius_m": 0.127,
+        "mass_fraction": 0.1111111111111111
+      },
+      {
+        "center_y_m": -0.016666666666666666,
+        "height_m": 0.005555555555555555,
+        "radius_m": 0.127,
+        "mass_fraction": 0.1111111111111111
+      },
+      {
+        "center_y_m": -0.01111111111111111,
+        "height_m": 0.005555555555555558,
+        "radius_m": 0.127,
+        "mass_fraction": 0.1111111111111111
+      },
+      {
+        "center_y_m": -0.005555555555555555,
+        "height_m": 0.005555555555555553,
+        "radius_m": 0.127,
+        "mass_fraction": 0.1111111111111111
+      },
+      {
+        "center_y_m": -1.734723475976807e-18,
+        "height_m": 0.005555555555555553,
+        "radius_m": 0.127,
+        "mass_fraction": 0.1111111111111111
+      },
+      {
+        "center_y_m": 0.005555555555555557,
+        "height_m": 0.005555555555555564,
+        "radius_m": 0.127,
+        "mass_fraction": 0.1111111111111111
+      },
+      {
+        "center_y_m": 0.011111111111111113,
+        "height_m": 0.00555555555555555,
+        "radius_m": 0.127,
+        "mass_fraction": 0.1111111111111111
+      },
+      {
+        "center_y_m": 0.016666666666666666,
+        "height_m": 0.005555555555555557,
+        "radius_m": 0.127,
+        "mass_fraction": 0.1111111111111111
+      },
+      {
+        "center_y_m": 0.022222222222222223,
+        "height_m": 0.005555555555555557,
+        "radius_m": 0.127,
+        "mass_fraction": 0.1111111111111111
+      }
+    ],
+    "rigid_bodies": 1,
+    "additional_DOF": 0,
+    "profile_changes_outer_envelope": false,
+    "new_collider_paths": [
+      "/World/Wheel/contact_slices/slice_00",
+      "/World/Wheel/contact_slices/slice_01",
+      "/World/Wheel/contact_slices/slice_02",
+      "/World/Wheel/contact_slices/slice_03",
+      "/World/Wheel/contact_slices/slice_04",
+      "/World/Wheel/contact_slices/slice_05",
+      "/World/Wheel/contact_slices/slice_06",
+      "/World/Wheel/contact_slices/slice_07",
+      "/World/Wheel/contact_slices/slice_08"
+    ],
+    "disabled_original_collider": "/World/Wheel/geometry/mesh",
+    "original_collision_API_removed": true,
+    "physics_material_path": "/World/Wheel/geometry/material",
+    "copied_collision_offsets_m": {
+      "ContactOffset": null,
+      "RestOffset": null
+    },
+    "explicit_mass_COM_principal_inertia_authored": true,
+    "cooked_collision_geometry_readback_verified": false,
+    "approximation_mode": "smooth",
+    "installed_setting_key": "/physics/collisionApproximateCylinders",
+    "approximation_setting_before": false,
+    "approximation_setting_after": false,
+    "runtime_inertia_kg_m2": [
+      [
+        0.0045798299834132195,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.008709659799933434,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0045798299834132195
+      ]
+    ],
+    "runtime_COM_and_principal_frame": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "runtime_contact_offsets_m": [
+      [
+        0.0010000000474974513,
+        0.0010000000474974513,
+        0.0010000000474974513,
+        0.0010000000474974513,
+        0.0010000000474974513,
+        0.0010000000474974513,
+        0.0010000000474974513,
+        0.0010000000474974513,
+        0.0010000000474974513
+      ]
+    ],
+    "runtime_rest_offsets_m": [
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "offsets_native_readback_verified": true
+  },
+  "physics_dt_s": 0.0025,
+  "native_tangential_friction_coefficient": 0.7,
+  "intended_tire_mu": 0.7,
+  "external_normal_load_delay_physical_steps": 0,
+  "mass_kg_readback": 1.0800000429153442,
+  "radius_m": 0.127,
+  "width_m": 0.05,
+  "normal_force_source": "ground-filtered PhysX contact impulse divided by physical dt",
+  "native_contact_tangent_force_source": "m*delta_COM_velocity_xy/dt; single unactuated body, zero damping, gravity only",
+  "source_sha256": {
+    "/data/zengxiong/workspaces/tron1-wheel-camber-controls-20261025/source_snapshot_v3/scripts/probe_physx_wheel_geometry_controls.py": "05f3bdeb4ea6b93a5114f6bf67425eb10a796a9a9a8940e9729d94a479729ec9",
+    "/data/zengxiong/workspaces/tron1-wheel-camber-controls-20261025/source_snapshot_v3/scripts/nonlinear_tire_contact.py": "66502784ac1ff000295a24987a3fca3f5f3acb4a38192ae2a6f4fd5ea4066410",
+    "/data/zengxiong/workspaces/tron1-wheel-camber-controls-20261025/source_snapshot_v3/scripts/wheel_contact_geometry.py": "d8e60415a50ffd453b6a95fd7c76f57f32f4cc1bbe819a25dd9557b762df69a9"
+  },
+  "native_frictions_and_material_combine_authored": true,
+  "wheel_native_static_dynamic_friction_readback": [
+    [
+      [
+        0.699999988079071,
+        0.699999988079071,
+        0.0
+      ],
+      [
+        0.699999988079071,
+        0.699999988079071,
+        0.0
+      ],
+      [
+        0.699999988079071,
+        0.699999988079071,
+        0.0
+      ],
+      [
+        0.699999988079071,
+        0.699999988079071,
+        0.0
+      ],
+      [
+        0.699999988079071,
+        0.699999988079071,
+        0.0
+      ],
+      [
+        0.699999988079071,
+        0.699999988079071,
+        0.0
+      ],
+      [
+        0.699999988079071,
+        0.699999988079071,
+        0.0
+      ],
+      [
+        0.699999988079071,
+        0.699999988079071,
+        0.0
+      ],
+      [
+        0.699999988079071,
+        0.699999988079071,
+        0.0
+      ]
+    ]
+  ],
+  "axle_fixture_locked_world_rotation_bitmask_XZ": 0,
+  "axle_fixture_locked_translation_bitmask": 0,
+  "fixture_is_not_a_robot_height_or_orientation_control_target": true,
+  "shutdown_mode": "SimulationApp.close(skip_cleanup=True) after all physical artifacts are closed",
+  "torch_current_cuda_device": 3,
+  "native_tensor_devices": {
+    "root_state": "cuda:3",
+    "force_buffer": "cuda:3",
+    "indices": "cuda:3"
+  },
+  "canonical_initial_pose_w": [
+    0.0,
+    0.0,
+    0.1291530560662747,
+    0.9914448613738104,
+    0.13052619222005157,
+    0.0,
+    0.0
+  ],
+  "canonical_initial_velocity_w": [
+    0.9396926207859084,
+    0.3420201433256687,
+    0.0,
+    0.0,
+    7.147034418821801,
+    1.9150421008007399
+  ],
+  "external_force_application_position": "explicit current COM in world coordinates",
+  "settled_state_w_before_velocity_initialization": [
+    0.00862574391067028,
+    0.00015047578199300915,
+    0.12726746499538422,
+    0.999396562576294,
+    -0.0006928403163328767,
+    0.03472263738512993,
+    0.0005674826097674668,
+    0.02487073838710785,
+    0.01053760014474392,
+    -0.04916335269808769,
+    -0.08329761773347855,
+    0.19491511583328247,
+    -0.00530313141644001
+  ],
+  "authored_geometry_audit": {
+    "floor_shape": "static_triangle_mesh_Z0",
+    "floor_bbox_min": [
+      -10.0,
+      -10.0,
+      0.0
+    ],
+    "floor_bbox_max": [
+      10.0,
+      10.0,
+      0.0
+    ],
+    "wheel_bbox_min": [
+      -0.12700000405311584,
+      -0.025000000372529058,
+      0.0019999891519546452
+    ],
+    "wheel_bbox_max": [
+      0.12700000405311584,
+      0.025000000372529058,
+      0.25599999725818634
+    ],
+    "cylinder_axis": "Y",
+    "geometry_rotation_about_X_deg": 0.0,
+    "cooked_geometry_readback": false,
+    "compound": {
+      "radius_m": 0.127,
+      "width_m": 0.05,
+      "mass_kg": 1.08,
+      "slices": 9,
+      "body_local_axle": "Y",
+      "COM_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "diagonal_inertia_kg_m2": [
+        0.004579830000000001,
+        0.008709660000000001,
+        0.004579830000000001
+      ],
+      "segments": [
+        {
+          "center_y_m": -0.022222222222222223,
+          "height_m": 0.005555555555555557,
+          "radius_m": 0.127,
+          "mass_fraction": 0.1111111111111111
+        },
+        {
+          "center_y_m": -0.016666666666666666,
+          "height_m": 0.005555555555555555,
+          "radius_m": 0.127,
+          "mass_fraction": 0.1111111111111111
+        },
+        {
+          "center_y_m": -0.01111111111111111,
+          "height_m": 0.005555555555555558,
+          "radius_m": 0.127,
+          "mass_fraction": 0.1111111111111111
+        },
+        {
+          "center_y_m": -0.005555555555555555,
+          "height_m": 0.005555555555555553,
+          "radius_m": 0.127,
+          "mass_fraction": 0.1111111111111111
+        },
+        {
+          "center_y_m": -1.734723475976807e-18,
+          "height_m": 0.005555555555555553,
+          "radius_m": 0.127,
+          "mass_fraction": 0.1111111111111111
+        },
+        {
+          "center_y_m": 0.005555555555555557,
+          "height_m": 0.005555555555555564,
+          "radius_m": 0.127,
+          "mass_fraction": 0.1111111111111111
+        },
+        {
+          "center_y_m": 0.011111111111111113,
+          "height_m": 0.00555555555555555,
+          "radius_m": 0.127,
+          "mass_fraction": 0.1111111111111111
+        },
+        {
+          "center_y_m": 0.016666666666666666,
+          "height_m": 0.005555555555555557,
+          "radius_m": 0.127,
+          "mass_fraction": 0.1111111111111111
+        },
+        {
+          "center_y_m": 0.022222222222222223,
+          "height_m": 0.005555555555555557,
+          "radius_m": 0.127,
+          "mass_fraction": 0.1111111111111111
+        }
+      ],
+      "rigid_bodies": 1,
+      "additional_DOF": 0,
+      "profile_changes_outer_envelope": false,
+      "new_collider_paths": [
+        "/World/Wheel/contact_slices/slice_00",
+        "/World/Wheel/contact_slices/slice_01",
+        "/World/Wheel/contact_slices/slice_02",
+        "/World/Wheel/contact_slices/slice_03",
+        "/World/Wheel/contact_slices/slice_04",
+        "/World/Wheel/contact_slices/slice_05",
+        "/World/Wheel/contact_slices/slice_06",
+        "/World/Wheel/contact_slices/slice_07",
+        "/World/Wheel/contact_slices/slice_08"
+      ],
+      "disabled_original_collider": "/World/Wheel/geometry/mesh",
+      "original_collision_API_removed": true,
+      "physics_material_path": "/World/Wheel/geometry/material",
+      "copied_collision_offsets_m": {
+        "ContactOffset": null,
+        "RestOffset": null
+      },
+      "explicit_mass_COM_principal_inertia_authored": true,
+      "cooked_collision_geometry_readback_verified": false,
+      "approximation_mode": "smooth",
+      "installed_setting_key": "/physics/collisionApproximateCylinders",
+      "approximation_setting_before": false,
+      "approximation_setting_after": false,
+      "runtime_inertia_kg_m2": [
+        [
+          0.0045798299834132195,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.008709659799933434,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0045798299834132195
+        ]
+      ],
+      "runtime_COM_and_principal_frame": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "runtime_contact_offsets_m": [
+        [
+          0.0010000000474974513,
+          0.0010000000474974513,
+          0.0010000000474974513,
+          0.0010000000474974513,
+          0.0010000000474974513,
+          0.0010000000474974513,
+          0.0010000000474974513,
+          0.0010000000474974513,
+          0.0010000000474974513
+        ]
+      ],
+      "runtime_rest_offsets_m": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "offsets_native_readback_verified": true
+    }
+  },
+  "cooked_collision_geometry_runtime_readback_verified": false,
+  "static_adhesion_modeled_by_external_law": false,
+  "car_or_TRON1_task_result": false,
+  "policy_training": false,
+  "task_success_claimed": false,
+  "physical_steps": 800,
+  "native_states": 801,
+  "native_trace_sha256": "450743c3d8e604f6eabfc3b919600172a1d0d8343b76a7d2142804a864f0ee53",
+  "root_pose_prescribed_during_episode": false,
+  "automatic_retry": false
+}

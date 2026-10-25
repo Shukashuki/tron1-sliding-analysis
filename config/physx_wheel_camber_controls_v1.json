@@ -1,0 +1,28 @@
+{
+  "kind": "wheel_contact_offset_and_free_camber_controls_v1",
+  "physics_dt_s": 0.0025,
+  "mu": 0.7,
+  "speed_m_s": 1.0,
+  "initial_hub_side_angle_deg": 20.0,
+  "rotation_during_free_camber_episodes": "all axes free; initial wheel spin follows tilted axle",
+  "initial_camber_deg": [0, -15, 15],
+  "geometry_slices": [1, 9],
+  "force_law": "native_coulomb",
+  "offset_readback_phase_duration_s": 0.1,
+  "free_camber_phase_duration_s": 2.0,
+  "explicit_contact_offset_m_after_readback": 0.001,
+  "explicit_rest_offset_m_after_readback": 0.0,
+  "require_auto_offsets_match_explicit_values_before_proceeding": false,
+  "require_explicit_offsets_match_native_readback_in_both_geometries": true,
+  "offset_calibration": "Native automatic offsets measured in controls_v2: one cylinder0.001 m, nine cylinders0.000122625 m per shape, rest0. Read both automatic values, then deliberately match both geometries to the one-cylinder baseline0.001 m.",
+  "one_owned_GPU_job_at_a_time": true,
+  "GPU_order": [3, 5, 4],
+  "automatic_retry": false,
+  "purpose": "Validate native offsets, tilted rolling and compound-cylinder seams before fixed-policy TRON1 transfer.",
+  "limits": [
+    "No steering, stance controller or policy; this is a free single-wheel diagnostic.",
+    "Settling is a startup diagnostic; the same analytic pose and velocity initialize each corresponding episode.",
+    "Camber and body height evolve dynamically during each episode; no pose is prescribed after initialization.",
+    "The free-body episodes are a new fixture cohort; do not compare them as only a camber change against the old rotation-constrained fixture."
+  ]
+}
