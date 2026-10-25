@@ -48,6 +48,19 @@ def verify_training(directory, protocol_path, k_snapshot, *, allow_smoke=False):
             ("policy_contract_sha256", directory/"policy_contract.json"),
             ("actor_sha256", directory/"policy.pt"), ("checkpoint_sha256", directory/"model_final.pt")):
         assert audit[key] == sha(path)
+    for key,name in (("pre_export_runtime_audit_sha256","pre_export_runtime_audit.json"),
+                     ("export_precision_audit_sha256","export_precision_audit.json")):
+        assert audit[key]==sha(directory/name)
+    precision=read(directory/"export_precision_audit.json")
+    assert precision==payload["export_precision"]
+    assert precision["exported_weights_and_normalizer_bit_identical"]
+    assert precision["CPU_source_module_export_bit_identical"] and precision["CPU_max_abs_error"]==0.
+    assert precision["GPU_FP32_max_abs_error"]<=precision["GPU_FP32_absolute_tolerance"]==1e-4
+    assert precision["GPU_reference_TF32"] is False and precision["original_precision_restored"]
+    pre=read(directory/"pre_export_runtime_audit.json")
+    assert pre["status"]=="live_native_health_verified_before_export" and pre["invalid_measurement_count"]==0
+    assert pre["physical_writes"]==payload["final_runtime"]["physical_writes"]
+    assert pre["tire_runtime"]==payload["final_runtime"]
     assert audit["smoke_only"] == cohort["smoke_only"] and audit["trained_policy_claimed"] == (not cohort["smoke_only"])
     assert audit["training_environment_steps"] == cohort["training_audit"]["training_environment_steps"]
     assert all(sha(path) == digest for path, digest in payload["source_sha256"].items())

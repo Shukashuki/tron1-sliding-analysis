@@ -1,0 +1,620 @@
+{
+  "id": "tron1_ppo_k_nonlinear_tire_400hz_v1",
+  "run_kind": "smoke",
+  "protocol_sha256": "91199d0530cd2f795185f1440192bdeccf4ed784429ab86e7cf05f7477b8987c",
+  "wrapper_sha256": "5234070be219e59c61e6c4e4435e0dd0b2ab71df60d9c23886e507ed73692390",
+  "base_trainer_sha256": "65367115de9b5608dc2ef57cab701bea31c152c6af576bdb43a5cef025cc6878",
+  "counted_generated_source_sha256": "9e851ea24cbccafe28825cb85736f1f2a14774f5101f2e7e8f4d1e69e1147db8",
+  "source_files_sha256": {
+    "scripts/train_ppo_backend.py": "65367115de9b5608dc2ef57cab701bea31c152c6af576bdb43a5cef025cc6878",
+    "scripts/train_ppo_backend_400hz.py": "5234070be219e59c61e6c4e4435e0dd0b2ab71df60d9c23886e507ed73692390",
+    "scripts/mujoco_ppo_env.py": "aa82be7322d7ab21dd17f6ba6d2462bcd13de7b368c89c903eb7aed1a52871c5",
+    "scripts/mjlab_tron1_env.py": "bc88f6919f3c4bfa57a362bc52d411b6a6871ee01a99e3d0954100bb7596a410",
+    "scripts/mjlab_gpu_ppo_env.py": "d45526f3af6d1689856285cebbdbd1943e96d0da570d078d54d9d8ba17aab3bf",
+    "scripts/mjlab_tron1_gpu.py": "57c23780e8da39e124acf491dfa339d66410ebf0df774334a768e8029cbf02e2",
+    "scripts/tron1_torch_task.py": "48d0b0506900f008bf9c32f95d4c1f688e3bdb983129a43106f7896df625fd9f",
+    "scripts/physx_mjlab_recipe.py": "1365f4eecc6129bef4738e05a491763a2884407d8cf00a3a7d0faffbc24fa699",
+    "scripts/height_smoothness.py": "e133aca58f671fc22ae1dfc97a03461e7724e4072bf8b74f58a2c14281d198b8",
+    "scripts/nmpc_batch_objective.py": "1c9da90ae66778a71ceb2e6bb9d0dcf7f0a2259fafee39b37cbe958b79178fae",
+    "scripts/nmpc_tracking_objective.py": "ff22eebb2b22b9af7dba114c64fcd10f6b0a90822559af8f32cbe6884015b860",
+    "scripts/mujoco_ppo_native.py": "f1b79830fac22623c861de2eba0c77bc3832f634ff2a494cf0a45481864886c4",
+    "scripts/classical_tracking.py": "3fcafdb6a16058280aa1e5a0ade6113f6963ddf3085c25ebe2ed6fbb30661c57"
+  },
+  "original_input_sha256": {
+    "contract": "6e105cbd6efe7d35117a895fa097e8ec64b6ac822a9de07c00acfaef4d09642f",
+    "task_profile": "31de29a61eec847e0e39783f3a0d9d8f2db551acd679a1b38dfde2b24e8ae7d6"
+  },
+  "derived_input_sha256": {
+    "contract": "646e9166bf62480fba60295765ed25ba976afae0c5215fbf495a0de8fc5ad2d2",
+    "task_profile": "b22c900361be59946bc2df8df755386bcbc55202bcc33b8e5b545a3c163d1ed4"
+  },
+  "runtime": {
+    "status": "verified",
+    "fields": {
+      "physics_dt_s": 0.0025,
+      "decimation": 8,
+      "policy_dt_s": 0.02,
+      "actor_dim": 51,
+      "critic_dim": 120,
+      "action_dim": 8,
+      "action_rate_weight": -0.5,
+      "grounded_reward_weight": 0.4,
+      "reward_term_count": 15,
+      "leg_kp": [
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ]
+      ],
+      "leg_kd": [
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      ],
+      "absolute_height_termination": false,
+      "absolute_xy_termination": false
+    },
+    "device": {
+      "schema_version": 1,
+      "status": "verified",
+      "requested_device": "cuda:5",
+      "environment_device": "cuda:5",
+      "physics_sim_view_frontend_device": "cuda:5",
+      "robot_native_transform_tensor_device": "cuda:5",
+      "native_physics_backend_device_ordinal": 5,
+      "torch_current_device": 5,
+      "physics_cudaDevice_setting": 5,
+      "physics_sceneMultiGPUMode_setting": 0,
+      "cuda_visible_devices": null,
+      "required_unmasked": true,
+      "device_index": 5,
+      "index_scope": "unmasked_cuda_ordinal",
+      "native_and_tensor_device_consistency_verified": true,
+      "physical_mapping_verified": false,
+      "exclusivity_verified": false
+    },
+    "shared_DR_recipe": "tron1_mjlab_tracking_dr_v1",
+    "no_extra_environment_steps": true
+  },
+  "from_scratch": true,
+  "historical_checkpoint_used": false,
+  "smoke_only": true,
+  "trained_policy_claimed": false,
+  "network_seed_after_environment_setup_and_smoke": true,
+  "initial_policy_state_sha256": "7dcdf78ffeb61806eeefcb31c4739d707c1caef934d152f2296ba2ee488b4d5d",
+  "physical_substeps_per_environment_transition": 8,
+  "wheel_contact_model": {
+    "model_id": "authored_cylinder_external_combined_slip_v1",
+    "geometry": "authored",
+    "force_law": "combined_slip_magic_formula",
+    "normal_contact": "native_PhysX",
+    "native_wheel_static_dynamic_mu": 0,
+    "sampled_mu_application": "external_mu_times_preceding_normal_load",
+    "shared_wheel_mu_range": [
+      0.3,
+      1.2
+    ],
+    "normal_load_delay_physical_steps": 1,
+    "physics_dt_s": 0.0025,
+    "parameters": {
+      "B": 4.5,
+      "C": 1.8,
+      "E": 1.0,
+      "speed_regularization_m_s": 0.2
+    },
+    "contact_offset_m": 0.001,
+    "rest_offset_m": 0.0,
+    "parameters_identified_from_real_tire": false,
+    "static_adhesion_modeled": false,
+    "reset_first_physical_step_zero_external_force": true,
+    "new_mass_inertia_or_DOF": false,
+    "backend_training": "PhysX",
+    "default_native_MuJoCo_is_cross_law_transfer": true
+  },
+  "reward_definition_version": "ground_contact_v2k_any_wheel"
+}

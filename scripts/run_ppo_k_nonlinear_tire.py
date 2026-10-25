@@ -35,7 +35,8 @@ def run(a):
             assert sha(a.idle_audit_source)=='6f5285f9e9515d98ea4ae6e99c3bf58a436fd98a3ca266e1f297f4501cce3866'
             spec=importlib.util.spec_from_file_location('_nonlinear_full_idle_GPU_audit',a.idle_audit_source)
             audit=importlib.util.module_from_spec(spec);spec.loader.exec_module(audit)
-            for pid in (528887,528956,529379,530031,547996,550510,587951,588047,594180,594183,596504,596511,597440):
+            for pid in (528887,528956,529379,530031,547996,550510,587951,588047,594180,594183,596504,596511,597440,
+                        625241,625713,638442,658783):
                 process=audit.process_snapshot(pid)
                 assert process is None or process['state']=='Z',('Prior owned process still active',process)
             manifest=json.loads((root/(snapshot.name+'.manifest.json')).read_text())

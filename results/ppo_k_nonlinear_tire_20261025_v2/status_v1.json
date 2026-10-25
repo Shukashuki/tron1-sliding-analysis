@@ -1,0 +1,48 @@
+{
+  "kind": "corrected_nonlinear_tire_export_trial_interim",
+  "dated_interim_snapshot": true,
+  "status": "native_smoke_verified_formal_training_active_at_collection",
+  "CPU_tests_passed": 21,
+  "independent_postprocessing_tests_passed": 9,
+  "smoke_proof": {
+    "kind": "strict_completed_K_nonlinear_tire_training_verification",
+    "cohort_id": "tron1_ppo_k_nonlinear_tire_400hz_v1",
+    "model_id": "authored_cylinder_external_combined_slip_v1",
+    "formal_or_smoke": "smoke",
+    "transitions": 1536,
+    "actor_sha256": "48b4938595741120292863fb9d9323f55a2b4df5c7a5eca390d03677d324bf09",
+    "checkpoint_sha256": "f32b28bf4a7e3ca37fb80e600c40280185418bfef91f38acf88e106dee97b2b1",
+    "initial_policy_state_sha256": "7dcdf78ffeb61806eeefcb31c4739d707c1caef934d152f2296ba2ee488b4d5d",
+    "training_audit_sha256": "3aeff431b8eb44f94440330ad232d06268cfbc014687d5a0b1fab5681cf29043",
+    "native_environment_count": 32,
+    "CPU_actor_output_shape": [
+      1,
+      8
+    ],
+    "task_success_claimed": false
+  },
+  "pre_export_health_verified": true,
+  "export_precision": {
+    "kind": "independent_CPU_export_and_full_FP32_GPU_verification",
+    "exported_weights_and_normalizer_bit_identical": true,
+    "CPU_source_module_export_bit_identical": true,
+    "CPU_max_abs_error": 0.0,
+    "GPU_reference_device": "cuda:5",
+    "GPU_reference_TF32": false,
+    "GPU_FP32_max_abs_error": 1.4007091522216797e-06,
+    "GPU_FP32_absolute_tolerance": 0.0001,
+    "GPU_FP32_max_clipped_action_difference": 1.4007091522216797e-06,
+    "original_precision": {
+      "allow_tf32": false,
+      "matmul_precision": "highest"
+    },
+    "original_precision_restored": true,
+    "training_precision_or_policy_parameters_changed": false,
+    "parent_verifier_reference": "independent_CPU_source_modules_not_export_itself"
+  },
+  "first_attempt_was_not_admitted_to_nominal_validation": true,
+  "first_attempt_discarded_training_transitions": 12288000,
+  "new_attempt_declared_training_transitions": 12288000,
+  "reward_training_and_task_gates_unchanged": true,
+  "task_success_claimed": false
+}

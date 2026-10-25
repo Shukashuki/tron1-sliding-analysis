@@ -1,0 +1,155 @@
+{
+  "kind": "owned_nonlinear_actor_export_precision_diagnostic",
+  "checkpoint_iteration": 999,
+  "checkpoint_sha256": "fe7dccab416f09a4ed35002448054632d1928999be83d720705dcb1ae847ad1f",
+  "actor_sha256": "3cfa0cf2707e9c9363cf9b4e6c0954dbb86a218d59675ff2b427c7e687aa37f1",
+  "CPU_module_and_TorchScript_bit_identical": true,
+  "export_all_weights_and_normalizer_equal_checkpoint": true,
+  "original_precision": {
+    "allow_tf32": false,
+    "precision": "highest"
+  },
+  "gpu_tests": [
+    {
+      "allow_tf32": true,
+      "max_abs_error": 0.0041980743408203125,
+      "old_allclose_rtol1e5_atol1e6": false,
+      "predeclared_max_abs_error1e4_pass": false,
+      "max_clipped_action_error": 0.0027724504470825195,
+      "gpu_outputs": [
+        [
+          13.807458877563477,
+          -6.003406524658203,
+          -6.170876502990723,
+          10.445304870605469,
+          1.2717136144638062,
+          10.482177734375,
+          0.08905883133411407,
+          11.964759826660156
+        ],
+        [
+          13.807458877563477,
+          -6.003406524658203,
+          -6.170876502990723,
+          10.445304870605469,
+          1.2717136144638062,
+          10.482177734375,
+          0.08905883133411407,
+          11.964759826660156
+        ]
+      ]
+    },
+    {
+      "allow_tf32": false,
+      "max_abs_error": 3.814697265625e-06,
+      "old_allclose_rtol1e5_atol1e6": false,
+      "predeclared_max_abs_error1e4_pass": true,
+      "max_clipped_action_error": 2.562999725341797e-06,
+      "gpu_outputs": [
+        [
+          13.806684494018555,
+          -6.001471042633057,
+          -6.1687397956848145,
+          10.446113586425781,
+          1.2694114446640015,
+          10.484570503234863,
+          0.09182871878147125,
+          11.968954086303711
+        ],
+        [
+          13.806684494018555,
+          -6.001471042633057,
+          -6.1687397956848145,
+          10.446113586425781,
+          1.2694114446640015,
+          10.484570503234863,
+          0.09182871878147125,
+          11.968954086303711
+        ]
+      ]
+    }
+  ],
+  "selected_gpu": {
+    "physical_index": 5,
+    "uuid": "GPU-f3fe90b7-ba72-b055-11a3-440d7726d34e",
+    "pci_bus_id": "00000000:67:02.0",
+    "memory_used_mib": 6,
+    "utilization_percent": 0,
+    "all_reported_compute_and_graphics_processes": [],
+    "idle": true,
+    "pci_bus_id_cuda_ordinal_verified": true,
+    "observed_unix_time": 1792925855.6469593,
+    "reservation_claimed": false,
+    "source": "nvidia-smi -q -x full NVML-derived snapshot"
+  },
+  "full_GPU_audit": [
+    {
+      "physical_index": 3,
+      "uuid": "GPU-b4d62527-06da-c4d8-85c6-6cf86db11ff1",
+      "pci_bus_id": "00000000:65:04.0",
+      "memory_used_mib": 4397,
+      "utilization_percent": 97,
+      "idle": false,
+      "pci_bus_id_cuda_ordinal_verified": true,
+      "observed_unix_time": 1792925855.6469474,
+      "reservation_claimed": false,
+      "source": "nvidia-smi -q -x full NVML-derived snapshot",
+      "reported_process_count": 2
+    },
+    {
+      "physical_index": 5,
+      "uuid": "GPU-f3fe90b7-ba72-b055-11a3-440d7726d34e",
+      "pci_bus_id": "00000000:67:02.0",
+      "memory_used_mib": 6,
+      "utilization_percent": 0,
+      "idle": true,
+      "pci_bus_id_cuda_ordinal_verified": true,
+      "observed_unix_time": 1792925855.6469593,
+      "reservation_claimed": false,
+      "source": "nvidia-smi -q -x full NVML-derived snapshot",
+      "reported_process_count": 0
+    },
+    {
+      "physical_index": 4,
+      "uuid": "GPU-901b3cb3-840c-254b-7d4c-a961d061d3ee",
+      "pci_bus_id": "00000000:67:01.0",
+      "memory_used_mib": 8,
+      "utilization_percent": 0,
+      "idle": true,
+      "pci_bus_id_cuda_ordinal_verified": true,
+      "observed_unix_time": 1792925855.6469674,
+      "reservation_claimed": false,
+      "source": "nvidia-smi -q -x full NVML-derived snapshot",
+      "reported_process_count": 0
+    }
+  ],
+  "CPU_outputs": [
+    [
+      13.806683540344238,
+      -6.001469135284424,
+      -6.168739318847656,
+      10.44611644744873,
+      1.2694109678268433,
+      10.484569549560547,
+      0.0918312817811966,
+      11.968957901000977
+    ],
+    [
+      13.806683540344238,
+      -6.001469135284424,
+      -6.168739318847656,
+      10.44611644744873,
+      1.2694109678268433,
+      10.484569549560547,
+      0.0918312817811966,
+      11.968957901000977
+    ]
+  ],
+  "normalizer_samples": 12288000,
+  "checkpoint_all_tensors_finite": true,
+  "source_sha256": "4c94958d88957704b7c04aa923c0a6983566adaf6afb7e8f70254221b61a6a05",
+  "training_or_simulation_executed": false,
+  "task_success_claimed": false,
+  "unrelated_process_names_and_paths_omitted": true,
+  "raw_diagnostic_sha256": "a24adfd57e3d471bc929fb9dad2e5d5a95b09e7614614f17bb796831c5c5f847"
+}

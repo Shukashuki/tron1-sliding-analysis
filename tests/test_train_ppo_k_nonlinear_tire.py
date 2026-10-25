@@ -18,8 +18,14 @@ def test_counted_hooks_preserve_K_and_replace_both_native_material_audits():
     assert source.count('owner = contact.install(env, current["contact_settings"])') == 1
     assert source.count('"_tire_audit": _tire_recipe_audit') == 1
     with pytest.raises(AssertionError): training.materialize_parent(parent+"\n")
-    generated = 'x = a if b else recipe_audit(env)\ny = a if b else recipe_audit(env)\n'
-    assert training.materialize_generated(generated).count('_tire_audit(env)') == 2
+    generated = ('def body():\n    if True:\n'
+        '        x = a if b else recipe_audit(env)\n        y = a if b else recipe_audit(env)\n'
+        '        runner.save(str(args.output_dir/"model_final.pt"))\n'
+        '        with mode:\n            expected = runner.alg.policy.act_inference({"policy": probe.to(args.device)})\n')
+    modified=training.materialize_generated(generated)
+    assert modified.count('_tire_audit(env)') == 2
+    assert modified.count('_tire_pre_export_audit(args, manifest, _cohort_plan)')==1
+    assert modified.count('_tire_export_expected(')==1
     with pytest.raises(AssertionError): training.materialize_generated(generated.splitlines()[0])
 
 

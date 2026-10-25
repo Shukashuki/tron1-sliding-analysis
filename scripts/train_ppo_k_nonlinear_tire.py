@@ -31,6 +31,12 @@ def materialize_generated(source):
     old = 'else recipe_audit(env)'
     assert source.count(old) == 2, "Need honest startup AND final substituted material audits"
     source = source.replace(old, 'else _tire_audit(env)')
+    old='        runner.save(str(args.output_dir/"model_final.pt"))\n'
+    assert source.count(old)==1
+    source=source.replace(old,'        _tire_pre_export_audit(args, manifest, _cohort_plan)\n'+old,1)
+    old='            expected = runner.alg.policy.act_inference({"policy": probe.to(args.device)})\n'
+    assert source.count(old)==1
+    source=source.replace(old,'            expected = _tire_export_expected(runner.alg.policy, exported, probe, args, manifest, _cohort_plan)\n',1)
     compile(source, "<K_nonlinear_tire_trainer>", "exec")
     return source
 
@@ -61,7 +67,9 @@ def materialize_parent(source):
          '        _tire_seal(args, manifest, report, current)\n'),
         ('        "_cohort_plan": plan, "_cohort_before_start": before_start,\n',
          '        "_cohort_plan": plan, "_cohort_before_start": before_start,\n'
-         '        "_tire_audit": _tire_recipe_audit,\n')]
+         '        "_tire_audit": _tire_recipe_audit,\n'
+         '        "_tire_pre_export_audit": _tire_pre_export,\n'
+         '        "_tire_export_expected": _tire_export,\n')]
     for old, new in pairs:
         assert source.count(old) == 1, "Missing/ambiguous nonlinear model hook: " + old[:100]
         source = source.replace(old, new, 1)
@@ -118,7 +126,7 @@ def run(argv):
     source = materialize_parent(parent.read_text())
     here = Path(__file__).resolve().parent
     paths = [Path(__file__), here/"physx_batched_tire.py", here/"nonlinear_tire_torch.py",
-             here/"verify_ppo_k_nonlinear_tire.py", protocol_path, own.authored_native_report]
+             here/"verify_ppo_k_nonlinear_tire.py",here/"policy_export_precision.py", protocol_path, own.authored_native_report]
     ledger = {str(path.resolve()):sha(path) for path in paths}
 
     def configure(cfg):
@@ -152,6 +160,28 @@ def run(argv):
         payload["final_geometry"] = native_geometry_audit(tire.env, own.authored_native_report)
         assert all(sha(path) == digest for path, digest in ledger.items())
 
+    def pre_export(args,manifest,current):
+        tire=current["nonlinear_tire"]
+        # Preserve the actual live counters/health before any export can fail.
+        pending=dict(kind="pre_export_live_nonlinear_tire_audit",
+            physical_writes=tire.calls,invalid_measurement_count=int(tire.fault.sum().item()),
+            maximum_capacity_excess_n=float(tire.maximum_capacity_excess),
+            maximum_contact_power_w=float(tire.maximum_power),
+            contact_owner=current["contact_owner"].audit(health=True))
+        write(args.output_dir/"pre_export_runtime_audit.json",pending)
+        pending["tire_runtime"]=tire.audit()
+        assert tire.calls==current["contact_owner"].total_samples
+        pending["status"]="live_native_health_verified_before_export"
+        write(args.output_dir/"pre_export_runtime_audit.json",pending)
+
+    def export_expected(policy,exported,probe,args,manifest,current):
+        from policy_export_precision import verify_export
+        reference,precision=verify_export(policy,exported,probe)
+        current["export_precision"]=precision
+        manifest["nonlinear_tire_training"]["export_precision"]=precision
+        write(args.output_dir/"export_precision_audit.json",precision)
+        return reference
+
     def seal(args, manifest, report, current):
         smoke = current["run_kind"] == "smoke"
         audit = dict(kind="model_specific_K_nonlinear_tire_PPO_training", status="completed_verified",
@@ -164,13 +194,16 @@ def run(argv):
             manifest_sha256=sha(args.output_dir/"manifest.json"),
             policy_contract_sha256=sha(args.output_dir/"policy_contract.json"),
             actor_sha256=sha(args.output_dir/"policy.pt"), checkpoint_sha256=sha(args.output_dir/"model_final.pt"),
+            pre_export_runtime_audit_sha256=sha(args.output_dir/"pre_export_runtime_audit.json"),
+            export_precision_audit_sha256=sha(args.output_dir/"export_precision_audit.json"),
             task_success_claimed=False)
         write(args.output_dir/"nonlinear_tire_training_audit.json", audit)
 
     namespace = dict(__name__="_K_nonlinear_tire_parent", __file__=str(parent), _tire_sources=ledger,
         _tire_materialize=materialize_generated, _tire_configure=configure, _tire_install=install,
         _tire_recipe_audit=recipe_audit, _tire_before_learn=before_learn,
-        _tire_before_complete=before_complete, _tire_seal=seal)
+        _tire_before_complete=before_complete, _tire_seal=seal,
+        _tire_pre_export=pre_export,_tire_export=export_expected)
     previous_path, previous_argv = list(sys.path), sys.argv
     try:
         sys.path.append(str(parent.parent))
