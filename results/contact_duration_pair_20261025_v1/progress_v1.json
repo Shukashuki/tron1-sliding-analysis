@@ -1,0 +1,108 @@
+{
+  "observed_unix_time": 1792961882.344857,
+  "processes": {
+    "driver_v1_launch.json": {
+      "actual": {
+        "pid": 1096294,
+        "uid": 1030,
+        "state": "S",
+        "start_ticks": 2036022694,
+        "argv": [
+          "/usr/bin/python3",
+          "-B",
+          "-u",
+          "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3/scripts/run_contact_duration_pair.py",
+          "--workspace",
+          "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2",
+          "--snapshot",
+          "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3",
+          "--idle-audit-source",
+          "/data/zengxiong/workspaces/tron1-ground-contact-v2o-20261025/continuation_snapshot_v1/scripts/continue_ground_contact_v2o_validation.py",
+          "--python",
+          "/data/zengxiong/.conda/envs/regrind/bin/python"
+        ]
+      },
+      "identity_matches": true
+    },
+    "nominal_continuation_v1_launch.json": {
+      "actual": {
+        "pid": 1096296,
+        "uid": 1030,
+        "state": "S",
+        "start_ticks": 2036022724,
+        "argv": [
+          "/usr/bin/python3",
+          "-B",
+          "-u",
+          "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3/scripts/continue_contact_duration_pair.py",
+          "--workspace",
+          "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2",
+          "--evaluation-snapshot",
+          "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3",
+          "--training-snapshot",
+          "/data/zengxiong/workspaces/tron1-contact-duration-credit-20261025-v2/source_snapshot_v3",
+          "--idle-audit-source",
+          "/data/zengxiong/workspaces/tron1-ground-contact-v2o-20261025/continuation_snapshot_v1/scripts/continue_ground_contact_v2o_validation.py",
+          "--python",
+          "/data/zengxiong/.conda/envs/regrind/bin/python",
+          "--legacy-physx",
+          "/data/zengxiong/workspaces/tron1-controller-comparison-20261015/controller_evaluation_source_v2/scripts/eval_tracking_friction_isaac.py",
+          "--legacy-mujoco",
+          "/data/zengxiong/workspaces/tron1-controller-comparison-20261015/controller_evaluation_source_v2/scripts/eval_tracking_mujoco.py",
+          "--expected-driver-pid",
+          "1096294"
+        ]
+      },
+      "identity_matches": true
+    }
+  },
+  "statuses": {
+    "driver_status.json": "running_formal_S",
+    "nominal_v1/status.json": "waiting_for_exact_paired_training_driver"
+  },
+  "logs": {
+    "driver_v1.log": "",
+    "smoke_S.log": "ply_inverse' instead....\n2026-10-25T20:55:12Z [16,229ms] [Warning] [isaaclab.utils.math] The function 'quat_rotate_inverse' will be deprecated in favor of the faster method 'quat_apply_inverse'. Please use 'quat_apply_inverse' instead....\n2026-10-25T20:55:12Z [16,229ms] [Warning] [isaaclab.utils.math] The function 'quat_rotate_inverse' will be deprecated in favor of the faster method 'quat_apply_inverse'. Please use 'quat_apply_inverse' instead....\n2026-10-25T20:55:12Z [16,278ms] [Warning] [isaaclab.utils.math] The function 'quat_rotate_inverse' will be deprecated in favor of the faster method 'quat_apply_inverse'. Please use 'quat_apply_inverse' instead....\n2026-10-25T20:55:12Z [16,278ms] [Warning] [isaaclab.utils.math] The function 'quat_rotate_inverse' will be deprecated in favor of the faster method 'quat_apply_inverse'. Please use 'quat_apply_inverse' instead....\n################################################################################\n                        \u001b[1m Learning iteration 1/2 \u001b[0m                        \n\n                       Computation: 527 steps/s (collection: 1.380s, learning 0.076s)\n             Mean action noise std: 0.15\n          Mean value_function loss: 17.0807\n               Mean surrogate loss: 0.0019\n                 Mean entropy loss: -3.9350\n                       Mean reward: 2.77\n               Mean episode length: 30.35\nEpisode_Reward/motion_global_anchor_pos: 0.1609\nEpisode_Reward/motion_global_anchor_ori: 0.1321\n    Episode_Reward/motion_body_pos: 0.0747\n    Episode_Reward/motion_body_ori: 0.0671\nEpisode_Reward/motion_body_lin_vel: 0.0162\nEpisode_Reward/motion_body_ang_vel: 0.0013\n     Episode_Reward/action_rate_l2: -0.0263\n        Episode_Reward/joint_limit: 0.0000\n Episode_Reward/undesired_contacts: -0.0002\n     Episode_Reward/drift_sideslip: 0.0080\n     Episode_Reward/drift_yaw_rate: 0.0183\n        Episode_Reward/drift_speed: 0.0677\n     Episode_Reward/drift_grounded: -0.0363\n         Episode_Reward/drift_tilt: -0.0018\nEpisode_Reward/height_vertical_acceleration: -0.0075\n   Metrics/motion/error_anchor_pos: 0.2637\n   Metrics/motion/error_anchor_rot: 0.5702\nMetrics/motion/error_anchor_lin_vel: 0.8493\nMetrics/motion/error_anchor_ang_vel: 3.9581\n     Metrics/motion/error_body_pos: 0.1977\n     Metrics/motion/error_body_rot: 0.6717\n    Metrics/motion/error_joint_pos: 0.8598\n    Metrics/motion/error_joint_vel: 10.2832\n   Metrics/motion/sampling_entropy: 0.9974\n Metrics/motion/sampling_top1_prob: 0.0422\n  Metrics/motion/sampling_top1_bin: 0.2690\n Metrics/motion/error_body_lin_vel: 1.2421\n Metrics/motion/error_body_ang_vel: 5.0193\n      Episode_Termination/time_out: 0.0000\n    Episode_Termination/anchor_ori: 0.2188\n    Episode_Termination/motion_end: 0.1654\n--------------------------------------------------------------------------------\n                   Total timesteps: 1536\n                    Iteration time: 1.46s\n                      Time elapsed: 00:00:03\n                               ETA: 00:00:01\n\n",
+    "smoke_S_CPU_verification.log": "{\"kind\": \"strict_contact_duration_pair_training_verification\", \"status\": \"completed_verified\", \"cohort_id\": \"tron1_contact_duration_credit_pair_400hz_v1\", \"variant\": \"S\", \"run_kind\": \"smoke\", \"transitions\": 1536, \"cumulative_transitions\": 12289536, \"actor_sha256\": \"13a550561a9be6ed773d3e20501e01b44d26ee00a35790da7cb75391661436fb\", \"checkpoint_sha256\": \"dcda2116ca58686be8db4e2b9d877e0109466d1089330d178e49bdf46523289b\", \"completion_audit_sha256\": \"42b30cb4629a2057b63d314adf363b53ab0b4009e88bb699d1fa742ca354c970\", \"initial_policy_state_sha256\": \"1c4894073146a9bd1abd131c60de7efdba493fc33d75599c679792435a110db8\", \"CPU_actor_output_shape\": [1, 8], \"task_space_tracking_verified\": true, \"three_dimensional_axial_orientation_verified\": true, \"independent_camber_reference_verified\": true, \"matched_scale_duration_verified\": true, \"from_scratch\": false, \"historical_checkpoint_used\": true, \"verifier_sha256\": \"1131aaa09cd8fa6367c23fbcca09befda1a2d5131d7d966e351f422a33196764\", \"task_success_claimed\": false}\n",
+    "smoke_T.log": "pply_inverse' instead....\n2026-10-25T20:55:33Z [16,733ms] [Warning] [isaaclab.utils.math] The function 'quat_rotate_inverse' will be deprecated in favor of the faster method 'quat_apply_inverse'. Please use 'quat_apply_inverse' instead....\n2026-10-25T20:55:33Z [16,734ms] [Warning] [isaaclab.utils.math] The function 'quat_rotate_inverse' will be deprecated in favor of the faster method 'quat_apply_inverse'. Please use 'quat_apply_inverse' instead....\n2026-10-25T20:55:33Z [16,783ms] [Warning] [isaaclab.utils.math] The function 'quat_rotate_inverse' will be deprecated in favor of the faster method 'quat_apply_inverse'. Please use 'quat_apply_inverse' instead....\n2026-10-25T20:55:33Z [16,784ms] [Warning] [isaaclab.utils.math] The function 'quat_rotate_inverse' will be deprecated in favor of the faster method 'quat_apply_inverse'. Please use 'quat_apply_inverse' instead....\n################################################################################\n                        \u001b[1m Learning iteration 1/2 \u001b[0m                        \n\n                       Computation: 508 steps/s (collection: 1.435s, learning 0.076s)\n             Mean action noise std: 0.15\n          Mean value_function loss: 17.3634\n               Mean surrogate loss: 0.0107\n                 Mean entropy loss: -3.9350\n                       Mean reward: 2.90\n               Mean episode length: 31.33\nEpisode_Reward/motion_global_anchor_pos: 0.1597\nEpisode_Reward/motion_global_anchor_ori: 0.1300\n    Episode_Reward/motion_body_pos: 0.0740\n    Episode_Reward/motion_body_ori: 0.0662\nEpisode_Reward/motion_body_lin_vel: 0.0155\nEpisode_Reward/motion_body_ang_vel: 0.0013\n     Episode_Reward/action_rate_l2: -0.0263\n        Episode_Reward/joint_limit: 0.0000\n Episode_Reward/undesired_contacts: -0.0002\n     Episode_Reward/drift_sideslip: 0.0127\n     Episode_Reward/drift_yaw_rate: 0.0183\n        Episode_Reward/drift_speed: 0.0665\n     Episode_Reward/drift_grounded: -0.0428\n         Episode_Reward/drift_tilt: -0.0019\nEpisode_Reward/height_vertical_acceleration: -0.0075\n   Metrics/motion/error_anchor_pos: 0.2768\n   Metrics/motion/error_anchor_rot: 0.6134\nMetrics/motion/error_anchor_lin_vel: 0.8912\nMetrics/motion/error_anchor_ang_vel: 4.3067\n     Metrics/motion/error_body_pos: 0.2106\n     Metrics/motion/error_body_rot: 0.7112\n    Metrics/motion/error_joint_pos: 0.9127\n    Metrics/motion/error_joint_vel: 9.8370\n   Metrics/motion/sampling_entropy: 0.9974\n Metrics/motion/sampling_top1_prob: 0.0421\n  Metrics/motion/sampling_top1_bin: 0.2690\n Metrics/motion/error_body_lin_vel: 1.2352\n Metrics/motion/error_body_ang_vel: 5.1237\n      Episode_Termination/time_out: 0.0000\n    Episode_Termination/anchor_ori: 0.2201\n    Episode_Termination/motion_end: 0.1654\n--------------------------------------------------------------------------------\n                   Total timesteps: 1536\n                    Iteration time: 1.51s\n                      Time elapsed: 00:00:03\n                               ETA: 00:00:01\n\n",
+    "formal_S.log": "motion/error_body_ang_vel: 4.4152\n      Episode_Termination/time_out: 0.0000\n    Episode_Termination/anchor_ori: 0.3481\n    Episode_Termination/motion_end: 0.6519\n--------------------------------------------------------------------------------\n                   Total timesteps: 946176\n                    Iteration time: 1.71s\n                      Time elapsed: 00:02:06\n                               ETA: 00:03:23\n\n2026-10-25T20:58:01Z [141,735ms] [Warning] [isaaclab.utils.math] The function 'quat_rotate_inverse' will be deprecated in favor of the faster method 'quat_apply_inverse'. Please use 'quat_apply_inverse' instead....\n2026-10-25T20:58:01Z [141,736ms] [Warning] [isaaclab.utils.math] The function 'quat_rotate_inverse' will be deprecated in favor of the faster method 'quat_apply_inverse'. Please use 'quat_apply_inverse' instead....\n2026-10-25T20:58:02Z [141,802ms] [Warning] [isaaclab.utils.math] The function 'quat_rotate_inverse' will be deprecated in favor of the faster method 'quat_apply_inverse'. Please use 'quat_apply_inverse' instead....\n2026-10-25T20:58:02Z [141,802ms] [Warning] [isaaclab.utils.math] The function 'quat_rotate_inverse' will be deprecated in favor of the faster method 'quat_apply_inverse'. Please use 'quat_apply_inverse' instead....\n2026-10-25T20:58:02Z [141,870ms] [Warning] [isaaclab.utils.math] The function 'quat_rotate_inverse' will be deprecated in favor of the faster method 'quat_apply_inverse'. Please use 'quat_apply_inverse' instead....\n2026-10-25T20:58:02Z [141,871ms] [Warning] [isaaclab.utils.math] The function 'quat_rotate_inverse' will be deprecated in favor of the faster method 'quat_apply_inverse'. Please use 'quat_apply_inverse' instead....\n2026-10-25T20:58:02Z [141,935ms] [Warning] [isaaclab.utils.math] The function 'quat_rotate_inverse' will be deprecated in favor of the faster method 'quat_apply_inverse'. Please use 'quat_apply_inverse' instead....\n2026-10-25T20:58:02Z [141,936ms] [Warning] [isaaclab.utils.math] The function 'quat_rotate_inverse' will be deprecated in favor of the faster method 'quat_apply_inverse'. Please use 'quat_apply_inverse' instead....\n2026-10-25T20:58:02Z [142,001ms] [Warning] [isaaclab.utils.math] The function 'quat_rotate_inverse' will be deprecated in favor of the faster method 'quat_apply_inverse'. Please use 'quat_apply_inverse' instead....\n2026-10-25T20:58:02Z [142,001ms] [Warning] [isaaclab.utils.math] The function 'quat_rotate_inverse' will be deprecated in favor of the faster method 'quat_apply_inverse'. Please use 'quat_apply_inverse' instead....\n2026-10-25T20:58:02Z [142,064ms] [Warning] [isaaclab.utils.math] The function 'quat_rotate_inverse' will be deprecated in favor of the faster method 'quat_apply_inverse'. Please use 'quat_apply_inverse' instead....\n2026-10-25T20:58:02Z [142,064ms] [Warning] [isaaclab.utils.math] The function 'quat_rotate_inverse' will be deprecated in favor of the faster method 'quat_apply_inverse'. Please use 'quat_apply_inverse' instead....\n",
+    "nominal_continuation_v1.log": ""
+  },
+  "children": [
+    {
+      "label": "smoke_S",
+      "pid": 1096301,
+      "status": "completed_strictly_verified",
+      "returncode": 0,
+      "gpu": 3
+    },
+    {
+      "label": "smoke_S_CPU_verification",
+      "pid": 1096688,
+      "status": "completed_strictly_verified",
+      "returncode": 0,
+      "gpu": null
+    },
+    {
+      "label": "smoke_T",
+      "pid": 1096712,
+      "status": "completed_strictly_verified",
+      "returncode": 0,
+      "gpu": 3
+    },
+    {
+      "label": "smoke_T_CPU_verification",
+      "pid": 1097085,
+      "status": "completed_strictly_verified",
+      "returncode": 0,
+      "gpu": null
+    },
+    {
+      "label": "formal_S",
+      "pid": 1097098,
+      "status": "running",
+      "returncode": null,
+      "gpu": 3
+    }
+  ]
+}
