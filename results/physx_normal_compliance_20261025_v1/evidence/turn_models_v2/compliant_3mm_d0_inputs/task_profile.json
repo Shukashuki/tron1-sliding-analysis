@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "task": "car_drift",
+  "contact_friction": 1.0,
+  "env_spacing_m": 8.0,
+  "reward_weights": {
+    "sideslip": 2.0,
+    "yaw_rate": 1.0,
+    "speed": 1.0,
+    "grounded": 0.4,
+    "tilt": -0.2
+  },
+  "height_regularization": {
+    "mode": "vertical_acceleration_only",
+    "weight": -0.1,
+    "acceleration_scale_m_s2": 5.0
+  },
+  "description": "K branches from G: replace only ungated mean8 support-gap occupancy by max8 any-gap event; keep G positive bonus and held-reference beta gate, grounded+.4, beta+2/std.12, all other14 terms, clocks and DR unchanged. Seed42 from scratch, no checkpoint resume.",
+  "action_rate_weight": -0.5,
+  "ground_contact_reward_v2": {
+    "schema_version": 1,
+    "candidate": "ground_contact_v2k",
+    "physics_substeps": 8,
+    "support_load_fraction": 0.5,
+    "mean_weight": 0.75,
+    "minimum_weight": 0.25,
+    "impact_multiple": 3,
+    "negative_force_tolerance_n": 0.0001,
+    "external_reward_weight": 0.4,
+    "reward_dt_s": 0.02,
+    "support_gap_weight": 1,
+    "support_force_threshold_n": 5,
+    "beta_gate_low_reference_speed_m_s": 0.3,
+    "support_gap_aggregation": "max8",
+    "support_gap_cost_mode": "worst_substep_continuous_anywheel_load_margin"
+  }
+}

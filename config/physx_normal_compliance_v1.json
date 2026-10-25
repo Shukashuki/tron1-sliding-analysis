@@ -1,0 +1,32 @@
+{
+  "kind": "predeclared_native_normal_compliance_model_sensitivity",
+  "reference_report_sha256": "29499d653e272b74aadb491be2f41c940b5232674ffb7e5f1c3a4dbc333d9130",
+  "reference_supported_mass": "half of the recorded original TRON1 total native mass",
+  "profiles": ["rigid", "compliant_1mm_d1", "compliant_3mm_d0", "compliant_3mm_d1"],
+  "single_point_force_spring_rule": "k=(m_ref*g)/delta_ref; c=2*zeta_ref*sqrt(k*m_ref); accelerationSpring=False",
+  "contact_manifold_caveat": "each native contact may contribute stiffness; nominal delta_ref is not claimed to equal observed wheel compression",
+  "identified_physical_tire_parameters": false,
+  "bench": {
+    "physics_dt_s": 0.0025,
+    "main_steps": 1200,
+    "main_duration_s": 3.0,
+    "fixture_mass": "fixed half-robot-equivalent vertical mass for all profiles",
+    "radius_m": 0.127,
+    "width_m": 0.05,
+    "slices": 1,
+    "contact_offset_m": 0.001,
+    "rest_offset_m": 0.0,
+    "initial_center_z_m": 0.1271,
+    "initial_vertical_velocity_m_s": -0.3,
+    "extra_downward_load": "zero from0to1s, m_ref*g from1to2s, zero from2to3s",
+    "locked_axes": "fixture XY translations and all rotations; Z is free",
+    "live_material_switch": "rigid arm only, after main trace: switch to3mm_d1 without advancing physics; if native readback confirms consumption, record another0.5s",
+    "vertical_impulse_balance_abs_tolerance_n": 0.1,
+    "minimum_native_normal_force_n": -0.0001,
+    "fixture_is_not_robot_height_control": true
+  },
+  "robot_transfer": "only after bench force/readback validation; original robot mass_COM_inertia, friction0.7, actor, references, raw actions and existing rewards retained",
+  "official_model_documentation": "https://docs.omniverse.nvidia.com/kit/docs/omni_physics/107.3/dev_guide/rigid_bodies_articulations/rigid_bodies.html",
+  "launch_constraints": "freshly fully idle GPU3/5/4; one owned job at a time; no stopping other processes",
+  "task_success_claimed": false
+}

@@ -1,0 +1,92 @@
+{
+  "pid": 432603,
+  "argv": [
+    "/data/zengxiong/.conda/envs/regrind/bin/python",
+    "-B",
+    "-u",
+    "/data/zengxiong/workspaces/tron1-normal-compliance-20261025/source_snapshot_v2/scripts/probe_physx_normal_compliance.py",
+    "--profile",
+    "rigid",
+    "--protocol",
+    "/data/zengxiong/workspaces/tron1-normal-compliance-20261025/source_snapshot_v2/config/physx_normal_compliance_v1.json",
+    "--reference-report",
+    "/data/zengxiong/workspaces/tron1-wheel-model-transfer-20261025/matched_models_v1/authored__native_coulomb/report.json",
+    "--device",
+    "cuda:5",
+    "--output-dir",
+    "/data/zengxiong/workspaces/tron1-normal-compliance-20261025/rigid_diagnostic_v2"
+  ],
+  "selected_gpu": {
+    "physical_index": 5,
+    "uuid": "GPU-f3fe90b7-ba72-b055-11a3-440d7726d34e",
+    "pci_bus_id": "00000000:67:02.0",
+    "memory_used_mib": 6,
+    "utilization_percent": 0,
+    "all_reported_compute_and_graphics_processes": [],
+    "idle": true,
+    "pci_bus_id_cuda_ordinal_verified": true,
+    "observed_unix_time": 1792905170.25625,
+    "reservation_claimed": false,
+    "source": "nvidia-smi -q -x full NVML-derived snapshot"
+  },
+  "gpu_audit": [
+    {
+      "physical_index": 3,
+      "uuid": "GPU-b4d62527-06da-c4d8-85c6-6cf86db11ff1",
+      "pci_bus_id": "00000000:65:04.0",
+      "memory_used_mib": 4453,
+      "utilization_percent": 100,
+      "all_reported_compute_and_graphics_processes": [
+        {
+          "gpu_instance_id": "N/A",
+          "compute_instance_id": "N/A",
+          "pid": "420938",
+          "type": "C",
+          "process_name": "/data/ChenZihan/miniforge3/envs/hilserl/bin/python",
+          "used_memory": "2750 MiB"
+        },
+        {
+          "gpu_instance_id": "N/A",
+          "compute_instance_id": "N/A",
+          "pid": "422112",
+          "type": "C+G",
+          "process_name": "/data/ChenZihan/miniforge3/envs/hilserl/bin/python",
+          "used_memory": "1686 MiB"
+        }
+      ],
+      "idle": false,
+      "pci_bus_id_cuda_ordinal_verified": true,
+      "observed_unix_time": 1792905170.2562382,
+      "reservation_claimed": false,
+      "source": "nvidia-smi -q -x full NVML-derived snapshot"
+    },
+    {
+      "physical_index": 5,
+      "uuid": "GPU-f3fe90b7-ba72-b055-11a3-440d7726d34e",
+      "pci_bus_id": "00000000:67:02.0",
+      "memory_used_mib": 6,
+      "utilization_percent": 0,
+      "all_reported_compute_and_graphics_processes": [],
+      "idle": true,
+      "pci_bus_id_cuda_ordinal_verified": true,
+      "observed_unix_time": 1792905170.25625,
+      "reservation_claimed": false,
+      "source": "nvidia-smi -q -x full NVML-derived snapshot"
+    },
+    {
+      "physical_index": 4,
+      "uuid": "GPU-901b3cb3-840c-254b-7d4c-a961d061d3ee",
+      "pci_bus_id": "00000000:67:01.0",
+      "memory_used_mib": 8,
+      "utilization_percent": 0,
+      "all_reported_compute_and_graphics_processes": [],
+      "idle": true,
+      "pci_bus_id_cuda_ordinal_verified": true,
+      "observed_unix_time": 1792905170.2562578,
+      "reservation_claimed": false,
+      "source": "nvidia-smi -q -x full NVML-derived snapshot"
+    }
+  ],
+  "launched_unix_time": 1792905170.257336,
+  "purpose": "preserve_impulse_failure_trace_no_physics_parameter_change"
+}

@@ -1,0 +1,111 @@
+{
+  "kind": "serial_native_normal_compliance_bench",
+  "status": "failed_no_retry_or_process_signal",
+  "cases": [
+    {
+      "id": "rigid",
+      "pid": 431147,
+      "argv": [
+        "/data/zengxiong/.conda/envs/regrind/bin/python",
+        "-B",
+        "-u",
+        "/data/zengxiong/workspaces/tron1-normal-compliance-20261025/source_snapshot_v1/scripts/probe_physx_normal_compliance.py",
+        "--profile",
+        "rigid",
+        "--protocol",
+        "/data/zengxiong/workspaces/tron1-normal-compliance-20261025/source_snapshot_v1/config/physx_normal_compliance_v1.json",
+        "--reference-report",
+        "/data/zengxiong/workspaces/tron1-wheel-model-transfer-20261025/matched_models_v1/authored__native_coulomb/report.json",
+        "--device",
+        "cuda:5",
+        "--output-dir",
+        "/data/zengxiong/workspaces/tron1-normal-compliance-20261025/bench_v1/rigid"
+      ],
+      "status": "running",
+      "gpu_audit": [
+        {
+          "physical_index": 3,
+          "uuid": "GPU-b4d62527-06da-c4d8-85c6-6cf86db11ff1",
+          "pci_bus_id": "00000000:65:04.0",
+          "memory_used_mib": 4451,
+          "utilization_percent": 94,
+          "all_reported_compute_and_graphics_processes": [
+            {
+              "gpu_instance_id": "N/A",
+              "compute_instance_id": "N/A",
+              "pid": "420938",
+              "type": "C",
+              "process_name": "/data/ChenZihan/miniforge3/envs/hilserl/bin/python",
+              "used_memory": "2750 MiB"
+            },
+            {
+              "gpu_instance_id": "N/A",
+              "compute_instance_id": "N/A",
+              "pid": "422112",
+              "type": "C+G",
+              "process_name": "/data/ChenZihan/miniforge3/envs/hilserl/bin/python",
+              "used_memory": "1684 MiB"
+            }
+          ],
+          "idle": false,
+          "pci_bus_id_cuda_ordinal_verified": true,
+          "observed_unix_time": 1792904941.9903476,
+          "reservation_claimed": false,
+          "source": "nvidia-smi -q -x full NVML-derived snapshot"
+        },
+        {
+          "physical_index": 5,
+          "uuid": "GPU-f3fe90b7-ba72-b055-11a3-440d7726d34e",
+          "pci_bus_id": "00000000:67:02.0",
+          "memory_used_mib": 6,
+          "utilization_percent": 0,
+          "all_reported_compute_and_graphics_processes": [],
+          "idle": true,
+          "pci_bus_id_cuda_ordinal_verified": true,
+          "observed_unix_time": 1792904941.9903595,
+          "reservation_claimed": false,
+          "source": "nvidia-smi -q -x full NVML-derived snapshot"
+        },
+        {
+          "physical_index": 4,
+          "uuid": "GPU-901b3cb3-840c-254b-7d4c-a961d061d3ee",
+          "pci_bus_id": "00000000:67:01.0",
+          "memory_used_mib": 8,
+          "utilization_percent": 0,
+          "all_reported_compute_and_graphics_processes": [],
+          "idle": true,
+          "pci_bus_id_cuda_ordinal_verified": true,
+          "observed_unix_time": 1792904941.9903674,
+          "reservation_claimed": false,
+          "source": "nvidia-smi -q -x full NVML-derived snapshot"
+        }
+      ],
+      "selected_gpu": {
+        "physical_index": 5,
+        "uuid": "GPU-f3fe90b7-ba72-b055-11a3-440d7726d34e",
+        "pci_bus_id": "00000000:67:02.0",
+        "memory_used_mib": 6,
+        "utilization_percent": 0,
+        "all_reported_compute_and_graphics_processes": [],
+        "idle": true,
+        "pci_bus_id_cuda_ordinal_verified": true,
+        "observed_unix_time": 1792904941.9903595,
+        "reservation_claimed": false,
+        "source": "nvidia-smi -q -x full NVML-derived snapshot"
+      },
+      "launched_unix_time": 1792904941.991194,
+      "returncode": 0
+    }
+  ],
+  "task_success_claimed": false,
+  "source_sha256": {
+    "/data/zengxiong/workspaces/tron1-normal-compliance-20261025/source_snapshot_v1/scripts/physx_normal_compliance.py": "68f7ea381adada3adecd9c0dfc7afa988010ab9318dda1b03780250a32357adc",
+    "/data/zengxiong/workspaces/tron1-normal-compliance-20261025/source_snapshot_v1/scripts/probe_physx_normal_compliance.py": "00dc053c2aa6fa625f5cb92b4295cf4aecb81ad5af49efa7ea892180a8c5f50a",
+    "/data/zengxiong/workspaces/tron1-normal-compliance-20261025/source_snapshot_v1/scripts/wheel_contact_geometry.py": "d8e60415a50ffd453b6a95fd7c76f57f32f4cc1bbe819a25dd9557b762df69a9",
+    "/data/zengxiong/workspaces/tron1-normal-compliance-20261025/source_snapshot_v1/tests/test_physx_normal_compliance.py": "8e5d221234381785936d51bac14b48e58db94ed59f69dd2c351700a77fb7cf76",
+    "/data/zengxiong/workspaces/tron1-normal-compliance-20261025/source_snapshot_v1/config/physx_normal_compliance_v1.json": "8690cd0464b6c0f15e7d56cef50c9d2221be6d9f24ad8e93f85dd2eb756314f6",
+    "/data/zengxiong/workspaces/tron1-normal-compliance-20261025/run_physx_normal_compliance.py": "40642d698f18431afb370b7e3a80a6af6d29ee90e424dd9d3d3d6c6b30fe542a"
+  },
+  "protocol_sha256": "8690cd0464b6c0f15e7d56cef50c9d2221be6d9f24ad8e93f85dd2eb756314f6",
+  "error": "FileNotFoundError(2, 'No such file or directory')"
+}
