@@ -1,0 +1,115 @@
+{
+  "kind": "conditional_camber_reference_kinetic_Coulomb_force_audit",
+  "rows": [
+    {
+      "id": "zero",
+      "reference_sha256": "21e4440fe0f798556e141f3cd1f418c83111424c5c3147daf602b041561a45d7",
+      "core_best_force_residual_over_mg_median_p95": [
+        0.6539319499055963,
+        0.7000003165842396
+      ],
+      "core_required_COM_XY_acceleration_over_g_median_p95": [
+        0.04661420526619847,
+        0.10361812851341459
+      ],
+      "core_required_total_normal_over_mg_median_p95": [
+        0.9999992780426498,
+        1.0000131458189467
+      ],
+      "core_material_lateral_velocity_m_s_median_L_R": [
+        -0.37595357748148905,
+        -0.37595357748148917
+      ]
+    },
+    {
+      "id": "opposed10",
+      "reference_sha256": "f863ccbbf5872131ca96e811f5b8e23ab7201b81e56c2fce6ab2abba7fd5cfd5",
+      "core_best_force_residual_over_mg_median_p95": [
+        0.6539188971982459,
+        0.7000014654319677
+      ],
+      "core_required_COM_XY_acceleration_over_g_median_p95": [
+        0.04659720592528281,
+        0.10361343404365812
+      ],
+      "core_required_total_normal_over_mg_median_p95": [
+        0.9999985285914333,
+        1.00001157527989
+      ],
+      "core_material_lateral_velocity_m_s_median_L_R": [
+        -0.3759535774814888,
+        -0.3759535774814885
+      ]
+    },
+    {
+      "id": "fit_both90",
+      "reference_sha256": "6dc5ece7d6b1c4a30b077c5917cc6b80996cff8d56fc40a543c5cea846d22266",
+      "core_best_force_residual_over_mg_median_p95": [
+        0.6534276886624139,
+        0.7003443624295974
+      ],
+      "core_required_COM_XY_acceleration_over_g_median_p95": [
+        0.047147762764751557,
+        0.10344452992122954
+      ],
+      "core_required_total_normal_over_mg_median_p95": [
+        0.9999589098146522,
+        0.9999842810169822
+      ],
+      "core_material_lateral_velocity_m_s_median_L_R": [
+        -0.3381238897242933,
+        -0.33798840160863564
+      ]
+    },
+    {
+      "id": "fit_differential",
+      "reference_sha256": "0c8f2cfc2876bbd103bad206e708d91bf6753f8faa75c3107b0ec37c56c448b9",
+      "core_best_force_residual_over_mg_median_p95": [
+        0.6539513050235887,
+        0.699993182112004
+      ],
+      "core_required_COM_XY_acceleration_over_g_median_p95": [
+        0.04659496939832781,
+        0.1036112831929493
+      ],
+      "core_required_total_normal_over_mg_median_p95": [
+        0.999973711325468,
+        1.0000159788497636
+      ],
+      "core_material_lateral_velocity_m_s_median_L_R": [
+        -0.41391880345695353,
+        -0.33798835150603435
+      ]
+    }
+  ],
+  "mu": 0.7,
+  "mass_kg": 22.273000011220574,
+  "ground_normal": [
+    0,
+    0,
+    1
+  ],
+  "core_interval_s": [
+    1.44,
+    4.0
+  ],
+  "new_physics_steps": 0,
+  "new_policy_inference_or_updates": 0,
+  "source_sha256": "39082ab7db9c900ba1e67682ee8440544ccac35bcda12d711f5d39e1cf2d7656",
+  "load_projection_source_sha256": "efe31c5c947408b55e8b327d35a244b0a01c66cacc3770375b70050dbdd9acdf",
+  "reference_generation_sha256": "ac825323e8104df81049bd3ad29d6daef99ffc6bb50bf9c9ed3895a2abba00a8",
+  "model_sha256": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513",
+  "law": "Ft_i=-0.7*Fn_i*v_surface_XY_i/|v_surface_XY_i|;FnL+FnR=m*(g+aCOMz);Fn_i>=0",
+  "force_equilibrium_proven": false,
+  "native_PhysX_forces_predicted": false,
+  "task_impossibility_claimed": false,
+  "task_success_claimed": false,
+  "inference": "Small kinematic slip-target error does not establish force consistency.When both surface velocities slide nearly together,saturated Coulomb forces can require much more horizontal acceleration than the fixed body path.",
+  "limitations": [
+    "Conditional fully-sliding law excludes static adhesion and tire deformation/camber thrust.",
+    "Load split is ideal and unconstrained by angular momentum,joint torques or actual contact solvers.",
+    "Reference derivatives are sampled at50Hz and not measured contact forces.",
+    "A policy can deviate from reference wheel motions while retaining body task objectives;this is not a task infeasibility proof.",
+    "No friction change,reference scaling or relaxed task gate is introduced."
+  ]
+}

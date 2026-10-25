@@ -1,0 +1,22 @@
+{
+  "inspected_frame_indices": [
+    112,
+    150,
+    200,
+    348
+  ],
+  "frame_sha256": {
+    "frame_112.png": "025f9625d374cf38b2f422d34626e45f0920ef312cbb1120da5591255cedd19c",
+    "frame_150.png": "82f3bd94449c96adb4b76fb1fbb7f004539c0b6beba67693574c44b1ced59267",
+    "frame_200.png": "6ba7be8afdda5e2cd4e120d5153e0ef5f9565500cb977a21fa17e078c1f1ff67",
+    "frame_348.png": "6da58540d15db723df300ee84bc4097fdcaed06c00ce853ff02072d31c2dc89a"
+  },
+  "case_notes": {
+    "control_physx": "At3.00s the old-reference3D-axis actor is almost sideways with wheels above the body.At4.00s it is low and off the route;its6.96s endpoint is far from the target.Lower angular HF after this fall is not a task improvement.",
+    "camber_physx": "The new-reference actor remains upright in the inspected core and tail poses and follows the turn much more closely than the old3D control,but has visible sampled support gaps and a lateral path offset.It does not pass the0.15m core RMSE or continuous-support criteria.",
+    "control_mujoco": "The old-reference3D actor is upright through the inspected turn and tail;recorded support gaps and the HF check remain failures.",
+    "camber_mujoco": "The new-reference actor remains upright in the inspected core and tail poses,but its path is laterally displaced and tracking is worse than the old3D MuJoCo control.Measured support gaps remain;neither geometric wheel proximity nor upright appearance proves continuous bearing."
+  },
+  "full_manual_video_playback_claimed": false,
+  "task_success_claimed": false
+}

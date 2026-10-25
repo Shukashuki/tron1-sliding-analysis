@@ -1,0 +1,64 @@
+{
+  "reason": "Original preferred3/5/4 became occupied;read-only full NVML audit found GPU0 fully idle.Prepare a prospective scheduler with explicit GPU0 fallback.",
+  "before": {
+    "1016544": {
+      "pid": 1016544,
+      "uid": 1030,
+      "state": "S",
+      "start_ticks": 2035612857,
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-u",
+        "/data/zengxiong/workspaces/tron1-contact-camber-reference-20261025-v1/source_snapshot_v3/scripts/run_contact_camber_reference.py",
+        "--workspace",
+        "/data/zengxiong/workspaces/tron1-contact-camber-reference-20261025-v1",
+        "--snapshot",
+        "/data/zengxiong/workspaces/tron1-contact-camber-reference-20261025-v1/source_snapshot_v3",
+        "--idle-audit-source",
+        "/data/zengxiong/workspaces/tron1-ground-contact-v2o-20261025/continuation_snapshot_v1/scripts/continue_ground_contact_v2o_validation.py",
+        "--python",
+        "/data/zengxiong/.conda/envs/regrind/bin/python"
+      ]
+    },
+    "1020053": {
+      "pid": 1020053,
+      "uid": 1030,
+      "state": "S",
+      "start_ticks": 2035632979,
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-u",
+        "/data/zengxiong/workspaces/tron1-contact-camber-reference-20261025-v1/source_snapshot_v3/scripts/continue_contact_camber_reference.py",
+        "--workspace",
+        "/data/zengxiong/workspaces/tron1-contact-camber-reference-20261025-v1",
+        "--evaluation-snapshot",
+        "/data/zengxiong/workspaces/tron1-contact-camber-reference-20261025-v1/source_snapshot_v3",
+        "--training-snapshot",
+        "/data/zengxiong/workspaces/tron1-contact-camber-reference-20261025-v1/source_snapshot_v3",
+        "--idle-audit-source",
+        "/data/zengxiong/workspaces/tron1-ground-contact-v2o-20261025/continuation_snapshot_v1/scripts/continue_ground_contact_v2o_validation.py",
+        "--python",
+        "/data/zengxiong/.conda/envs/regrind/bin/python",
+        "--legacy-physx",
+        "/data/zengxiong/workspaces/tron1-controller-comparison-20261015/controller_evaluation_source_v2/scripts/eval_tracking_friction_isaac.py",
+        "--legacy-mujoco",
+        "/data/zengxiong/workspaces/tron1-controller-comparison-20261015/controller_evaluation_source_v2/scripts/eval_tracking_mujoco.py",
+        "--expected-driver-pid",
+        "1016544"
+      ]
+    }
+  },
+  "after": {
+    "1016544": null,
+    "1020053": null
+  },
+  "only_owned_idle_waiters_signalled": true,
+  "all_old_waiters_terminal": true,
+  "training_or_evaluation_children_ever_launched": 0,
+  "no_other_user_process_signalled": true,
+  "source_snapshot_v3_preserved": true,
+  "observed_unix_time": 1792958264.2860708,
+  "task_success_claimed": false
+}
