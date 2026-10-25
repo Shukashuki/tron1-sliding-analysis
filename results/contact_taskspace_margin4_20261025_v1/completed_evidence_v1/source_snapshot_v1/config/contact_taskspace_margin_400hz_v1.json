@@ -1,0 +1,301 @@
+{
+  "schema_version": 1,
+  "kind": "paired_warm_start_K_vs_M_contact_refinement",
+  "cohort_id": "tron1_contact_taskspace_margin4_refinement_400hz_v1",
+  "task": "traj_4_high_speed_large_turn",
+  "base_trainer_sha256": "65367115de9b5608dc2ef57cab701bea31c152c6af576bdb43a5cef025cc6878",
+  "training_backends": [
+    "physx"
+  ],
+  "validation_backends": [
+    "PhysX",
+    "native CPU MuJoCo"
+  ],
+  "physics_dt_s": 0.0025,
+  "decimation": 8,
+  "policy_dt_s": 0.02,
+  "policy_fps": 50,
+  "action_rate_weight": -0.5,
+  "grounded_reward_weight": 0.4,
+  "shared_dr_recipe": "tron1_mjlab_tracking_dr_v1",
+  "mjlab_commit": "4360096b49c1bcc478668c11ce7d458db747e49d",
+  "mjlab_task_implementation": "gpu",
+  "algorithm": {
+    "implementation": "rsl-rl-lib",
+    "version": "3.0.1",
+    "seed": 42,
+    "num_envs": 512,
+    "steps_per_env": 24,
+    "iterations": 200,
+    "transitions": 2457600,
+    "seed_network_after_environment_setup": true
+  },
+  "smoke": {
+    "num_envs": 32,
+    "iterations": 2,
+    "transitions": 1536,
+    "setup_smoke_steps": 8
+  },
+  "training_randomization": {
+    "source": "mjlab v1.4.0 tracking events adapted to TRON1",
+    "sliding_friction": {
+      "range": [
+        0.3,
+        1.2
+      ],
+      "distribution": "uniform_continuous",
+      "sampling": "startup_once_per_environment",
+      "shared_between_wheels": true,
+      "scope": "colliding_wheel_shapes",
+      "mujoco_wheel_priority": 1,
+      "physx_static_equals_dynamic": true,
+      "physx_floor_mu": 1,
+      "physx_combine": "multiply"
+    },
+    "encoder_position_bias_rad": [
+      -0.01,
+      0.01
+    ],
+    "encoder_bias_signs": {
+      "actor": "+b",
+      "position_target": "-b",
+      "critic": "unbiased"
+    },
+    "base_com_xyz_range_m": [
+      [
+        -0.025,
+        0.025
+      ],
+      [
+        -0.05,
+        0.05
+      ],
+      [
+        -0.05,
+        0.05
+      ]
+    ],
+    "root_link_velocity_push_interval_s": [
+      1,
+      3
+    ],
+    "root_link_velocity_push_ranges": {
+      "x": [
+        -0.5,
+        0.5
+      ],
+      "y": [
+        -0.5,
+        0.5
+      ],
+      "z": [
+        -0.2,
+        0.2
+      ],
+      "roll": [
+        -0.52,
+        0.52
+      ],
+      "pitch": [
+        -0.52,
+        0.52
+      ],
+      "yaw": [
+        -0.78,
+        0.78
+      ]
+    },
+    "push_timer_reset_correction": "resample all interval timers at episode reset; do not reproduce v1.4 function-event reset bug",
+    "restitution_randomization": false,
+    "contact_law_equivalence_claimed": false
+  },
+  "validation": {
+    "friction_grid": [
+      0.01,
+      0.03,
+      0.05,
+      0.1,
+      0.15,
+      0.2,
+      0.3,
+      0.45,
+      0.6,
+      0.7,
+      0.8,
+      1,
+      1.2,
+      1.4,
+      1.6,
+      1.8,
+      2
+    ],
+    "randomization": false,
+    "observation_noise": false,
+    "deterministic_start_frame": 0,
+    "mu_semantics": "target_effective_pair_coefficient_native_material_mapping_not_law_equivalence",
+    "physx_material_mapping": "robot_mu_times_unit_ground_mu_multiply",
+    "mujoco_material_mapping": "fixed_mu_all_colliding_geoms_with_native_priority_and_max_rules",
+    "xy_failure_core_rmse_m": 0.15,
+    "xy_failure_core_peak_m": 0.3,
+    "failure_rule": "XY RMSE exceeds threshold OR peak exceeds threshold; tilt/contact are separate diagnostics, not flight/height gates",
+    "full_horizon_s": 6.98,
+    "turn_core_s": [
+      1.44,
+      4
+    ],
+    "absolute_height_gate": false,
+    "airborne_failure": false,
+    "additional_metrics": [
+      "speed_retention",
+      "actual_course_change",
+      "body_heading",
+      "left_wheel_heading",
+      "right_wheel_heading",
+      "velocity_heading",
+      "contact_history",
+      "tilt",
+      "world_angular_xy_common10to100hz_rms"
+    ]
+  },
+  "backend_diagnostic": {
+    "same_observable_initial_state_and_actions": true,
+    "same_hidden_contact_solver_state_claimed": false,
+    "same_actual_joint_torque_claimed": false,
+    "closed_loop_transfer_result": false
+  },
+  "historical_cohorts": {
+    "old_matched_200hz_actionrate0p1": "completed; separate cohort, not part of new four-cell matrix",
+    "best_historical_actor_refined_to400hz": "trained at200Hz with action-rate-0.5 and historical DR; diagnostic only",
+    "dense_grounded_replacement": "historical200Hz negative example at unchanged+0.4 weight, not a weight-increase ablation"
+  },
+  "user_contact_preference": "At least one wheel continuously supports; the other may lift. Do not impose bilateral contact.",
+  "nominal_acceptance_before_training": {
+    "mu": 0.7,
+    "validation_backends": [
+      "PhysX",
+      "native CPU MuJoCo"
+    ],
+    "core_interval_s": [
+      1.44,
+      4
+    ],
+    "reference_overlap_interval_s": [
+      0,
+      6.96
+    ],
+    "full_contact_interval_s": [
+      0.02,
+      6.96
+    ],
+    "native_recording_interval_s": [
+      0,
+      6.98
+    ],
+    "core_and_whole_xy_rmse_m_max": 0.15,
+    "core_and_whole_xy_peak_m_max": 0.3,
+    "core_speed_ratio_range": [
+      0.95,
+      1.1
+    ],
+    "core_reference_beta_rmse_deg_max": 10,
+    "contact_force_definition": "Ground-filtered normal force in worldZ N; at least one wheel exceeds5N each physical sample.",
+    "contact_force_threshold_n_strict": 5,
+    "any_wheel_support_fraction_min": 1,
+    "longest_no_support_interval_s_max": 0,
+    "core_10_to_100hz_angular_xy_rms_ratio_to_original_baseline_max": 0.7,
+    "single_wheel_lift_is_failure": false,
+    "absolute_height_or_flight_gate": false,
+    "full_horizon_no_auto_reset": true,
+    "qualitative_review": "Render whole-body and fixed-world XY; cannot declare task complete solely from lower HF or summed reward.",
+    "results_are_single_seed_not_statistical_qualification": true
+  },
+  "experiment_design": {
+    "comparison": "Task-space K coefficient1 versus task-space M coefficient4; all other14 rewards unchanged",
+    "control_result": "results/contact_taskspace_refinement_20261025_v2",
+    "same_original_K_checkpoint_and_fresh_Adam": true,
+    "same_task_space_tracking_targets": true,
+    "same_additional_training_transitions": 2457600,
+    "same_cumulative_training_transitions": 14745600,
+    "only_contact_setting_differences": [
+      "candidate",
+      "support_gap_weight"
+    ],
+    "coefficient_control": 1.0,
+    "coefficient_candidate": 4.0,
+    "external_grounded_weight": 0.4,
+    "all_reward_weights_unchanged": true,
+    "other14_reward_definitions_unchanged": true,
+    "new_actuator_filter": false,
+    "fixed_validation_mu": 0.7,
+    "nominal_both_engines_required_before_friction_sweep": true
+  },
+  "variant_contact_settings": {
+    "M": {
+      "schema_version": 1,
+      "candidate": "ground_contact_v2m",
+      "physics_substeps": 8,
+      "support_load_fraction": 0.5,
+      "mean_weight": 0.75,
+      "minimum_weight": 0.25,
+      "impact_multiple": 3.0,
+      "negative_force_tolerance_n": 0.0001,
+      "external_reward_weight": 0.4,
+      "reward_dt_s": 0.02,
+      "support_gap_weight": 4.0,
+      "support_force_threshold_n": 5.0,
+      "beta_gate_low_reference_speed_m_s": 0.3,
+      "support_gap_aggregation": "max8",
+      "support_gap_cost_mode": "worst_substep_continuous_anywheel_load_margin"
+    }
+  },
+  "variants": [
+    "M"
+  ],
+  "refinement_optimizer": {
+    "learning_rate": 0.0001,
+    "schedule": "fixed",
+    "clip_param": 0.1
+  },
+  "warm_start": {
+    "checkpoint_sha256": "8cb011e4c5e2a33a685bc58280df410141ab99aa245892042762b8956595fe5a",
+    "actor_sha256": "fafdccb45571b99da53a02455f2402a8cd8b960f16809ba8e6e0fe6996dce912",
+    "policy_state_sha256": "1c4894073146a9bd1abd131c60de7efdba493fc33d75599c679792435a110db8",
+    "base_training_transitions": 12288000,
+    "load_actor_critic_normalizers": true,
+    "load_optimizer": false,
+    "reset_stage_iteration_counter": true
+  },
+  "leg_command_execution": "original_position_target_hold",
+  "task_space_tracking": {
+    "mode": "base_wheel_targets_free_leg_links_v1",
+    "position_bodies": [
+      "base_Link",
+      "wheel_L_Link",
+      "wheel_R_Link"
+    ],
+    "linear_velocity_bodies": [
+      "base_Link",
+      "wheel_L_Link",
+      "wheel_R_Link"
+    ],
+    "angular_velocity_bodies": [
+      "base_Link"
+    ],
+    "orientation_term": "world_axial_wheel_plane_heading",
+    "wheel_bodies": [
+      "wheel_L_Link",
+      "wheel_R_Link"
+    ],
+    "wheel_axle_local": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "wheel_heading_std_rad": 0.4,
+    "wheel_heading_min_projection": 1e-06,
+    "all_reward_weights_unchanged": true,
+    "root_global_orientation_and_nonzero_beta_retained": true,
+    "intermediate_leg_reference_observations_retained": true,
+    "contact_reward_formula_changed": false
+  }
+}

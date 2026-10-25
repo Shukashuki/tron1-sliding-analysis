@@ -1,0 +1,33 @@
+F..............                                                          [100%]
+=================================== FAILURES ===================================
+_ test_margin_arm_changes_only_contact_coefficient_and_keeps_targets_and_budget _
+
+    def test_margin_arm_changes_only_contact_coefficient_and_keeps_targets_and_budget():
+        control = read("contact_taskspace_refinement_400hz_v1.json")
+        candidate = read("contact_taskspace_margin_400hz_v1.json")
+        validate = training.namespace()["validate_protocol"]
+        original = read("ppo_ground_contact_v2k_400hz_v1.json")
+        assert validate(candidate, original) == candidate
+        for key in ("algorithm", "warm_start", "refinement_optimizer", "task_space_tracking", "training_randomization",
+                    "nominal_acceptance_before_training", "validation", "leg_command_execution"):
+            assert control[key] == candidate[key], key
+        old, new = control["variant_contact_settings"]["K"], candidate["variant_contact_settings"]["M"]
+        assert {k for k in old if old[k] != new[k]} == {"candidate", "support_gap_weight"}
+        assert old["support_gap_weight"] == 1. and new["support_gap_weight"] == 4.
+        bad = copy.deepcopy(candidate);bad["variant_contact_settings"]["M"]["support_force_threshold_n"] = 1.
+>       with pytest.raises(ValueError): validate(bad, original)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_contact_taskspace_margin.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+protocol = {'action_rate_weight': -0.5, 'algorithm': {'implementation': 'rsl-rl-lib', 'iterations': 200, 'num_envs': 512, 'seed':...te_and_actions': True}, 'base_trainer_sha256': '65367115de9b5608dc2ef57cab701bea31c152c6af576bdb43a5cef025cc6878', ...}
+k_protocol = {'action_rate_weight': -0.5, 'algorithm': {'implementation': 'rsl-rl-lib', 'iterations': 1000, 'num_envs': 512, 'seed'...te_and_actions': True}, 'base_trainer_sha256': '65367115de9b5608dc2ef57cab701bea31c152c6af576bdb43a5cef025cc6878', ...}
+
+>   ???
+E   AssertionError
+
+<taskspace_M_margin4_warm_parent>:71: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_contact_taskspace_margin.py::test_margin_arm_changes_only_contact_coefficient_and_keeps_targets_and_budget
+1 failed, 14 passed in 4.05s

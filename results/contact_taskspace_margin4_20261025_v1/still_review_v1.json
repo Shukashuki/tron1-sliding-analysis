@@ -1,0 +1,30 @@
+{
+  "inspected_frame_indices": [
+    112,
+    150,
+    200,
+    348
+  ],
+  "inspected_times_s": [
+    2.24,
+    3.0,
+    4.0,
+    6.96
+  ],
+  "frame_sha256": {
+    "frame_112.png": "41d3f4c9831e64887e50d93b22bcfc7fe9729773d25df21aecf9cb95b5c67908",
+    "frame_150.png": "6dc98c9e5e56cb3eb2729925f6eac23b0d578d39ea26e581287b2d88e6c60831",
+    "frame_200.png": "1684cdeb8540d8b1547b8a1e7eb3e1aa1791be5136d361d53e8aaeae11510d32",
+    "frame_348.png": "766c133aa58d6d56c106cb7d0e322820295bf48a91108a61015d5eb9390e238b"
+  },
+  "case_notes": {
+    "control_physx": "All four inspected frames are upright with low tilt. At 3.00 and 4.00 s both wheel forces are zero and the preceding eight native samples are unsupported. The control passes tracking/beta/HF but not continuous support.",
+    "margin4_physx": "All inspected frames remain upright. At 2.24 s the body tilt is 10.9 degrees, higher than the control, with right-wheel support. At 3.00 and 4.00 s at least one wheel is loaded. The full trace nevertheless contains 65 ms gaps and increased root HF; maximum core tilt reaches 15.14 degrees. Speed visibly oscillates in the plotted core profile. No collapse is visible in these stills; support duty alone is not task success.",
+    "control_mujoco": "Upright with low body tilt in the inspected frames and good path tracking. At 3.00 s only one of the preceding eight physical samples is supported even though the instantaneous left force is153 N. Native support is intermittent.",
+    "margin4_mujoco": "Upright in all inspected frames. At 2.24 s the right wheel is loaded but only two of eight preceding native samples are supported; at 3.00 s both forces and all eight preceding support indicators are zero. At 4.00 s support returns. The time plot shows core speed overshoots followed by a slowdown near3.6 s, despite a passing mean speed ratio. Root HF and maximum15-degree tilt are larger than the K control, and 65 ms gaps remain."
+  },
+  "analysis_plot_inspected": true,
+  "total_normal_load_plot_inspected": true,
+  "full_manual_video_playback_claimed": false,
+  "task_success_claimed": false
+}
