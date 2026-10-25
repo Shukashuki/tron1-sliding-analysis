@@ -1,0 +1,29 @@
+{
+  "inspected_frame_indices": [
+    112,
+    150,
+    200,
+    348
+  ],
+  "inspected_times_s": [
+    2.24,
+    3.0,
+    4.0,
+    6.96
+  ],
+  "frame_sha256": {
+    "frame_112.png": "b336c9af4ae65f29c587088e6b0ef6fa70c00e3abd6b6b0d0e71f6bf3e0424a0",
+    "frame_150.png": "11f87d80e6d025141178ecc923f1eacfd4e659058a1a8896e24b18ff2c1dcbd4",
+    "frame_200.png": "a1bb0faeb5c3df573c1e3261f550a0080fe420baef8589fe6d6da6a5e0d3141b",
+    "frame_348.png": "ecd945b7542e84c9dd7b2a8eaeee4c4ed9690df0401b3d5f00d68b30fbb71293"
+  },
+  "case_notes": {
+    "control_physx": "The four inspected frames remain upright. Both wheel forces are zero at 3.00 s despite close XY/speed tracking. At 4.00 s support returns. Original control fails continuous support and the HF threshold.",
+    "taskspace_physx": "Upright with visibly more crouched legs and smaller body tilt in the inspected frames. At 2.24 s tilt is 1.2 degrees, XY error .083 m and speed 1.06 m/s. At 3.00 s both forces are zero and none of the preceding eight native samples is supported; the same occurs at 4.00 s despite XY error .021 m and speed .95 m/s. At 6.96 s it stands loaded at the planned stop. Better tracking/low body tilt do not remove intermittent wheel loading.",
+    "control_mujoco": "Upright in the inspected frames; both forces are zero at 2.24 s, and support is intermittent in the full trace. Tracking is close but continuous support and HF gates fail.",
+    "taskspace_mujoco": "Upright with low tilt and close XY path in the inspected frames. At 2.24 s the right wheel carries 262 N with all eight preceding samples supported. At 3.00 s the left wheel reads 153 N but only one of the preceding eight samples is supported. At 4.00 s both wheels carry load; at 6.96 s it stands at the planned stop. The full native trace still contains 52.5 ms support gaps."
+  },
+  "analysis_plot_inspected": true,
+  "full_manual_video_playback_claimed": false,
+  "task_success_claimed": false
+}

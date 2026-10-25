@@ -1,0 +1,192 @@
+{
+  "recipe": {
+    "name": "tron1_mjlab_tracking_dr_v1",
+    "source_repository": "https://github.com/mujocolab/mjlab",
+    "source_commit": "4360096b49c1bcc478668c11ce7d458db747e49d",
+    "source_configuration": "src/mjlab/tasks/tracking/tracking_env_cfg.py",
+    "training": true,
+    "wheel_contact_friction": {
+      "distribution": "uniform_continuous",
+      "range": [
+        0.3,
+        1.2
+      ],
+      "sampling": "startup_once_per_environment_shared_between_both_wheels",
+      "physx_static_equals_dynamic": true,
+      "physx_ground_friction": 1.0,
+      "physx_ground_friction_combine_mode": "multiply",
+      "mujoco_wheel_geom_priority": 1,
+      "mujoco_tangential_axis": 0,
+      "buckets": null
+    },
+    "nonwheel_friction": 1.0,
+    "nonwheel_plane_contact_mapping": {
+      "mujoco_raw_nonwheel_friction": 0.6,
+      "mujoco_raw_ground_friction": 1.0,
+      "mujoco_nonwheel_and_ground_priority": 0,
+      "mujoco_combine_rule": "max_for_equal_priority",
+      "physx_combine_rule": "multiply_by_unit_ground",
+      "effective_plane_friction": 1.0,
+      "raw_material_values_identical": false,
+      "purpose": "match_nonwheel_plane_contact_coefficient_not_solver_dynamics"
+    },
+    "restitution_randomization": false,
+    "physx_robot_and_ground_restitution": 0.0,
+    "mujoco_restitution_equivalence_claimed": false,
+    "encoder_bias_range_rad": [
+      -0.01,
+      0.01
+    ],
+    "encoder_bias_semantics": {
+      "applies_to": "six_position_controlled_leg_joints",
+      "actor_joint_position": "q + b - nominal_q0",
+      "critic_joint_position": "q - nominal_q0",
+      "position_control_target": "nominal_q0 + clipped_action - b",
+      "default_joint_positions_mutated": false,
+      "wheel_velocity_noise": false
+    },
+    "base_com_offset_range_m": {
+      "x": [
+        -0.025,
+        0.025
+      ],
+      "y": [
+        -0.05,
+        0.05
+      ],
+      "z": [
+        -0.05,
+        0.05
+      ]
+    },
+    "base_com_body": "base_Link",
+    "push_interval_s": [
+      1.0,
+      3.0
+    ],
+    "push_velocity_range": {
+      "x": [
+        -0.5,
+        0.5
+      ],
+      "y": [
+        -0.5,
+        0.5
+      ],
+      "z": [
+        -0.2,
+        0.2
+      ],
+      "roll": [
+        -0.52,
+        0.52
+      ],
+      "pitch": [
+        -0.52,
+        0.52
+      ],
+      "yaw": [
+        -0.78,
+        0.78
+      ]
+    },
+    "push_semantics": "add_world_root_LINK_velocity_delta_not_COM_velocity",
+    "push_timer_reset": "resample_per_episode_matching_intended_recipe_and_Isaac",
+    "mjlab_v1_4_function_interval_reset_bug_reproduced": false,
+    "task_action_reward_termination_changed": false,
+    "additional_observation_corruption": false,
+    "physics_equivalence_claimed": false
+  },
+  "wheel_mu_range": [
+    0.30149295926094055,
+    1.1993049383163452
+  ],
+  "wheel_shape_slots": [
+    7,
+    8
+  ],
+  "all_wheel_shapes_share_one_draw_per_environment": true,
+  "encoder_bias_range_rad": [
+    -0.009999463334679604,
+    0.009991807863116264
+  ],
+  "position_target_bias_sign_verified": true,
+  "live_physx_materials_verified": true,
+  "ground_material_usd_verified": true,
+  "ground_colliders": [
+    {
+      "collider": "/World/ground/terrain/GroundPlane/CollisionPlane",
+      "material": "/World/ground/terrain/physicsMaterial",
+      "friction": 1.0,
+      "restitution": 0.0,
+      "combine": "multiply"
+    }
+  ],
+  "robot_collision_geometry_materials": [
+    {
+      "collider": "/World/envs/env_0/Robot/base_Link/collisions/mesh_0/box",
+      "material": "/physicsScene/defaultMaterial",
+      "binding_source": "verified_physics_scene_default_material",
+      "friction_combine_mode": "multiply"
+    },
+    {
+      "collider": "/World/envs/env_0/Robot/abad_L_Link/collisions/mesh_0/cylinder",
+      "material": "/physicsScene/defaultMaterial",
+      "binding_source": "verified_physics_scene_default_material",
+      "friction_combine_mode": "multiply"
+    },
+    {
+      "collider": "/World/envs/env_0/Robot/hip_L_Link/collisions/mesh_0/cylinder",
+      "material": "/physicsScene/defaultMaterial",
+      "binding_source": "verified_physics_scene_default_material",
+      "friction_combine_mode": "multiply"
+    },
+    {
+      "collider": "/World/envs/env_0/Robot/knee_L_Link/collisions/mesh_0/cylinder",
+      "material": "/physicsScene/defaultMaterial",
+      "binding_source": "verified_physics_scene_default_material",
+      "friction_combine_mode": "multiply"
+    },
+    {
+      "collider": "/World/envs/env_0/Robot/wheel_L_Link/collisions/mesh_0/cylinder",
+      "material": "/physicsScene/defaultMaterial",
+      "binding_source": "verified_physics_scene_default_material",
+      "friction_combine_mode": "multiply"
+    },
+    {
+      "collider": "/World/envs/env_0/Robot/abad_R_Link/collisions/mesh_0/cylinder",
+      "material": "/physicsScene/defaultMaterial",
+      "binding_source": "verified_physics_scene_default_material",
+      "friction_combine_mode": "multiply"
+    },
+    {
+      "collider": "/World/envs/env_0/Robot/hip_R_Link/collisions/mesh_0/cylinder",
+      "material": "/physicsScene/defaultMaterial",
+      "binding_source": "verified_physics_scene_default_material",
+      "friction_combine_mode": "multiply"
+    },
+    {
+      "collider": "/World/envs/env_0/Robot/knee_R_Link/collisions/mesh_0/cylinder",
+      "material": "/physicsScene/defaultMaterial",
+      "binding_source": "verified_physics_scene_default_material",
+      "friction_combine_mode": "multiply"
+    },
+    {
+      "collider": "/World/envs/env_0/Robot/wheel_R_Link/collisions/mesh_0/cylinder",
+      "material": "/physicsScene/defaultMaterial",
+      "binding_source": "verified_physics_scene_default_material",
+      "friction_combine_mode": "multiply"
+    }
+  ],
+  "ignored_non_geometry_collision_containers": [
+    "/World/envs/env_0/Robot/base_Link/collisions",
+    "/World/envs/env_0/Robot/abad_L_Link/collisions",
+    "/World/envs/env_0/Robot/hip_L_Link/collisions",
+    "/World/envs/env_0/Robot/knee_L_Link/collisions",
+    "/World/envs/env_0/Robot/wheel_L_Link/collisions",
+    "/World/envs/env_0/Robot/abad_R_Link/collisions",
+    "/World/envs/env_0/Robot/hip_R_Link/collisions",
+    "/World/envs/env_0/Robot/knee_R_Link/collisions",
+    "/World/envs/env_0/Robot/wheel_R_Link/collisions"
+  ]
+}
