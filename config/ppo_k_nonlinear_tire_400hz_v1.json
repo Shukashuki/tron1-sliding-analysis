@@ -1,0 +1,267 @@
+{
+  "schema_version": 1,
+  "kind": "matched_ppo_backend_400hz_action_rate_cohort",
+  "cohort_id": "tron1_ppo_k_nonlinear_tire_400hz_v1",
+  "task": "traj_4_high_speed_large_turn",
+  "base_trainer_sha256": "65367115de9b5608dc2ef57cab701bea31c152c6af576bdb43a5cef025cc6878",
+  "training_backends": [
+    "physx"
+  ],
+  "validation_backends": [
+    "PhysX",
+    "native CPU MuJoCo"
+  ],
+  "physics_dt_s": 0.0025,
+  "decimation": 8,
+  "policy_dt_s": 0.02,
+  "policy_fps": 50,
+  "action_rate_weight": -0.5,
+  "grounded_reward_weight": 0.4,
+  "shared_dr_recipe": "tron1_mjlab_tracking_dr_v1",
+  "mjlab_commit": "4360096b49c1bcc478668c11ce7d458db747e49d",
+  "mjlab_task_implementation": "gpu",
+  "algorithm": {
+    "implementation": "rsl-rl-lib",
+    "version": "3.0.1",
+    "seed": 42,
+    "num_envs": 512,
+    "steps_per_env": 24,
+    "iterations": 1000,
+    "transitions": 12288000,
+    "seed_network_after_environment_setup": true
+  },
+  "smoke": {
+    "num_envs": 32,
+    "iterations": 2,
+    "transitions": 1536,
+    "setup_smoke_steps": 8
+  },
+  "training_randomization": {
+    "source": "mjlab v1.4.0 tracking events adapted to TRON1",
+    "sliding_friction": {
+      "range": [
+        0.3,
+        1.2
+      ],
+      "distribution": "uniform_continuous",
+      "sampling": "startup_once_per_environment",
+      "shared_between_wheels": true,
+      "scope": "colliding_wheel_shapes",
+      "mujoco_wheel_priority": 1,
+      "physx_static_equals_dynamic": true,
+      "physx_floor_mu": 1,
+      "physx_combine": "multiply"
+    },
+    "encoder_position_bias_rad": [
+      -0.01,
+      0.01
+    ],
+    "encoder_bias_signs": {
+      "actor": "+b",
+      "position_target": "-b",
+      "critic": "unbiased"
+    },
+    "base_com_xyz_range_m": [
+      [
+        -0.025,
+        0.025
+      ],
+      [
+        -0.05,
+        0.05
+      ],
+      [
+        -0.05,
+        0.05
+      ]
+    ],
+    "root_link_velocity_push_interval_s": [
+      1,
+      3
+    ],
+    "root_link_velocity_push_ranges": {
+      "x": [
+        -0.5,
+        0.5
+      ],
+      "y": [
+        -0.5,
+        0.5
+      ],
+      "z": [
+        -0.2,
+        0.2
+      ],
+      "roll": [
+        -0.52,
+        0.52
+      ],
+      "pitch": [
+        -0.52,
+        0.52
+      ],
+      "yaw": [
+        -0.78,
+        0.78
+      ]
+    },
+    "push_timer_reset_correction": "resample all interval timers at episode reset; do not reproduce v1.4 function-event reset bug",
+    "restitution_randomization": false,
+    "contact_law_equivalence_claimed": false
+  },
+  "validation": {
+    "friction_grid": [
+      0.01,
+      0.03,
+      0.05,
+      0.1,
+      0.15,
+      0.2,
+      0.3,
+      0.45,
+      0.6,
+      0.7,
+      0.8,
+      1,
+      1.2,
+      1.4,
+      1.6,
+      1.8,
+      2
+    ],
+    "randomization": false,
+    "observation_noise": false,
+    "deterministic_start_frame": 0,
+    "mu_semantics": "target_effective_pair_coefficient_native_material_mapping_not_law_equivalence",
+    "physx_material_mapping": "robot_mu_times_unit_ground_mu_multiply",
+    "mujoco_material_mapping": "fixed_mu_all_colliding_geoms_with_native_priority_and_max_rules",
+    "xy_failure_core_rmse_m": 0.15,
+    "xy_failure_core_peak_m": 0.3,
+    "failure_rule": "XY RMSE exceeds threshold OR peak exceeds threshold; tilt/contact are separate diagnostics, not flight/height gates",
+    "full_horizon_s": 6.98,
+    "turn_core_s": [
+      1.44,
+      4
+    ],
+    "absolute_height_gate": false,
+    "airborne_failure": false,
+    "additional_metrics": [
+      "speed_retention",
+      "actual_course_change",
+      "body_heading",
+      "left_wheel_heading",
+      "right_wheel_heading",
+      "velocity_heading",
+      "contact_history",
+      "tilt",
+      "world_angular_xy_common10to100hz_rms"
+    ]
+  },
+  "backend_diagnostic": {
+    "same_observable_initial_state_and_actions": true,
+    "same_hidden_contact_solver_state_claimed": false,
+    "same_actual_joint_torque_claimed": false,
+    "closed_loop_transfer_result": false
+  },
+  "historical_cohorts": {
+    "old_matched_200hz_actionrate0p1": "completed; separate cohort, not part of new four-cell matrix",
+    "best_historical_actor_refined_to400hz": "trained at200Hz with action-rate-0.5 and historical DR; diagnostic only",
+    "dense_grounded_replacement": "historical200Hz negative example at unchanged+0.4 weight, not a weight-increase ablation"
+  },
+  "reward_definition_version": "ground_contact_v2k_any_wheel",
+  "ground_contact_reward_v2": {
+    "schema_version": 1,
+    "candidate": "ground_contact_v2k",
+    "physics_substeps": 8,
+    "support_load_fraction": 0.5,
+    "mean_weight": 0.75,
+    "minimum_weight": 0.25,
+    "impact_multiple": 3,
+    "negative_force_tolerance_n": 0.0001,
+    "external_reward_weight": 0.4,
+    "reward_dt_s": 0.02,
+    "support_gap_weight": 1,
+    "support_force_threshold_n": 5,
+    "beta_gate_low_reference_speed_m_s": 0.3,
+    "support_gap_aggregation": "max8",
+    "support_gap_cost_mode": "worst_substep_continuous_anywheel_load_margin"
+  },
+  "user_contact_preference": "At least one wheel continuously supports; the other may lift. Do not impose bilateral contact.",
+  "nominal_acceptance_before_training": {
+    "mu": 0.7,
+    "validation_backends": [
+      "PhysX",
+      "native CPU MuJoCo"
+    ],
+    "core_interval_s": [
+      1.44,
+      4
+    ],
+    "reference_overlap_interval_s": [
+      0,
+      6.96
+    ],
+    "full_contact_interval_s": [
+      0.02,
+      6.96
+    ],
+    "native_recording_interval_s": [
+      0,
+      6.98
+    ],
+    "core_and_whole_xy_rmse_m_max": 0.15,
+    "core_and_whole_xy_peak_m_max": 0.3,
+    "core_speed_ratio_range": [
+      0.95,
+      1.1
+    ],
+    "core_reference_beta_rmse_deg_max": 10,
+    "contact_force_definition": "Ground-filtered normal force in worldZ N; at least one wheel exceeds5N each physical sample.",
+    "contact_force_threshold_n_strict": 5,
+    "any_wheel_support_fraction_min": 1,
+    "longest_no_support_interval_s_max": 0,
+    "core_10_to_100hz_angular_xy_rms_ratio_to_original_baseline_max": 0.7,
+    "single_wheel_lift_is_failure": false,
+    "absolute_height_or_flight_gate": false,
+    "full_horizon_no_auto_reset": true,
+    "qualitative_review": "Render whole-body and fixed-world XY; cannot declare task complete solely from lower HF or summed reward.",
+    "results_are_single_seed_not_statistical_qualification": true
+  },
+  "experiment_design": {
+    "parent_reward_protocol": "config/ppo_ground_contact_v2k_400hz_v1.json",
+    "comparison": "K PPO retrained from scratch with external nonlinear tire forces on authored wheels",
+    "other14_rewards_and_K_arithmetic_unchanged": true,
+    "training_native_friction_is_zero": true,
+    "friction_DR_mu_used_in_external_force_capacity": true,
+    "initial_policy_matches_K": true,
+    "nominal_qualification_required_before_friction_sweep": true
+  },
+  "wheel_contact_model": {
+    "model_id": "authored_cylinder_external_combined_slip_v1",
+    "geometry": "authored",
+    "force_law": "combined_slip_magic_formula",
+    "normal_contact": "native_PhysX",
+    "native_wheel_static_dynamic_mu": 0,
+    "sampled_mu_application": "external_mu_times_preceding_normal_load",
+    "shared_wheel_mu_range": [
+      0.3,
+      1.2
+    ],
+    "normal_load_delay_physical_steps": 1,
+    "physics_dt_s": 0.0025,
+    "parameters": {
+      "B": 4.5,
+      "C": 1.8,
+      "E": 1.0,
+      "speed_regularization_m_s": 0.2
+    },
+    "contact_offset_m": 0.001,
+    "rest_offset_m": 0.0,
+    "parameters_identified_from_real_tire": false,
+    "static_adhesion_modeled": false,
+    "reset_first_physical_step_zero_external_force": true,
+    "new_mass_inertia_or_DOF": false,
+    "backend_training": "PhysX",
+    "default_native_MuJoCo_is_cross_law_transfer": true
+  }
+}
