@@ -43,6 +43,9 @@ def run(a):
     launch = read(a.predecessor_launch)
     protocol = read(source/"config/physx_wheel_geometry_bench_v1.json")
     assert protocol["kind"] == "PhysX_single_wheel_geometry_force_factorial_v1"
+    geometry_levels = [g for g in protocol["geometry_levels"]
+                       if a.geometry_filter == "all" or g["approximation"] == "smooth"]
+    expected_cases = len(protocol["force_levels"])*len(geometry_levels)
     a.output_dir.mkdir()
     target = a.output_dir/"status.json"
     status = dict(kind="serial_PhysX_single_wheel_geometry_force_factorial", status="waiting_for_predecessor",
@@ -50,6 +53,7 @@ def run(a):
         source_manifest_sha256=sha(a.source_manifest), driver_sha256=sha(__file__),
         task_success_claimed=False, policy_training=False, automatic_retry=False,
         signals_sent=False, GPU_reservation_claimed=False)
+    status.update(geometry_filter=a.geometry_filter, expected_cases=expected_cases)
     write(target, status)
     deadline = time.monotonic()+a.deadline_seconds
     try:
@@ -67,7 +71,7 @@ def run(a):
         assert all(c["status"] == "completed_verified" and c["returncode"] == 0 for c in predecessor["children"])
         status["predecessor_completed_status_sha256"] = sha(a.predecessor_status)
         for law in protocol["force_levels"]:
-            for geometry in protocol["geometry_levels"]:
+            for geometry in geometry_levels:
                 if len(status["cases"]) >= a.case_limit:
                     break
                 assert all(sha(source/r["path"]) == r["sha256"] for r in entries), "Frozen source changed"
@@ -112,8 +116,8 @@ def run(a):
                 case.update(status="completed_verified", report_sha256=sha(folder/"status.json"),
                     native_trace_sha256=result["native_trace_sha256"])
                 write(target, status)
-        status["status"] = ("all_nine_single_wheel_cases_completed_require_analysis"
-                            if len(status["cases"]) == 9 else "limited_single_wheel_preflight_completed")
+        status["status"] = ("selected_single_wheel_cases_completed_require_analysis"
+                            if len(status["cases"]) == expected_cases else "limited_single_wheel_preflight_completed")
     except BaseException as error:
         if status["cases"] and status["cases"][-1]["status"] == "running":
             status["cases"][-1]["status"] = "failed_validation"
@@ -131,4 +135,5 @@ if __name__ == "__main__":
     parser.add_argument("--gpu-audit-sha256", required=True)
     parser.add_argument("--deadline-seconds", type=float, default=1800)
     parser.add_argument("--case-limit", type=int, choices=range(1,10), default=9)
+    parser.add_argument("--geometry-filter", choices=("all", "smooth"), default="all")
     run(parser.parse_args())
