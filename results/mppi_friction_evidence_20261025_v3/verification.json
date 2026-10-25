@@ -1,0 +1,48 @@
+{
+  "status": "completed_both_fixed_trajectory_joint_friction_audits",
+  "sources": {
+    "scripts/analyze_mppi_friction_evidence.py": "bc5109a891c9a1eae05bc33ac64855328a3b737e2e37f59f3c34b3a701a6650f",
+    "scripts/plot_mppi_friction_sections.py": "141818ef3fe05b7291f3c168852a1705f839851bb0c7b9acb0b7451edf05c7c5",
+    "config/mppi_friction_evidence_v1.json": "1060d76d1875e4ca68f799218c19fa28eb4d749e88f2f4a711fb7bfeb6aa5d96",
+    "tests/test_mppi_friction_evidence.py": "c5816c2d5450a2fdbee34f656a8412f432715b0366fc7d3c6c8ebb180ad0dec5"
+  },
+  "tests": {
+    "files": [
+      "tests/test_mppi_friction_evidence.py",
+      "tests/test_mppi_contact_sliding.py"
+    ],
+    "passed": 16,
+    "exit_code": 0,
+    "elapsed_s": 0.33
+  },
+  "cases": [
+    {
+      "id": "independent_v1",
+      "same_action_replay_max_error_qpos_qvel_Fz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "world_vs_native_frame_power_max_error_w": 0.0,
+      "max_point_jacobian_error_m_s": 1.3655743202889425e-14,
+      "native_cone_max_utilization": 1.0000000000000002,
+      "sensitivity_events_duration_ge50ms": 0
+    },
+    {
+      "id": "smooth_v1",
+      "same_action_replay_max_error_qpos_qvel_Fz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "world_vs_native_frame_power_max_error_w": 0.0,
+      "max_point_jacobian_error_m_s": 5.329070518200751e-15,
+      "native_cone_max_utilization": 1.0000000000000002,
+      "sensitivity_events_duration_ge50ms": 0
+    }
+  ],
+  "manual_figure_review": true,
+  "new_policy_training": false,
+  "new_MPPI_search": false,
+  "original_results_overwritten": false
+}
