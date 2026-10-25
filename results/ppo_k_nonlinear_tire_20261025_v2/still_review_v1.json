@@ -1,0 +1,25 @@
+{
+  "inspected_frame_indices": [
+    112,
+    150,
+    200,
+    348
+  ],
+  "frame_sha256": {
+    "frame_112.png": "db8c29f87820a984473b68bd41b0a8ab893adc80c18ab7117041b4f12d333ecd",
+    "frame_150.png": "4d7b3712e36db736113dafc37fadcdf7ec885d5636d0ed5e808383d62abeb2d6",
+    "frame_200.png": "b539821ca2f2636cdf2dec83fd362869be6ceef3c1c98a2cface533d24382e9b",
+    "frame_348.png": "28178e64db841072e854dfec59257baf3bee39f474ee04918c2783abf5677498"
+  },
+  "full_manual_video_playback_claimed": false,
+  "case_notes": {
+    "physx_nonlinear": "All four inspected poses remain upright. At 3.00 s, speed/reference is 0.62 and body beta is -55.3 degrees despite 8/8 supported substeps. Early outward path deviation and the large within-core slowdown are visible in the recorded plots. Improved aggregate support does not establish successful turning.",
+    "physx_native": "Upright in all inspected poses and closest recorded XY tracking. At 2.24 and 3.00 s the displayed XY errors are 0.030 and 0.065 m. This does not remove the native-record 60 ms longest support gap.",
+    "mujoco_native": "Upright in the inspected poses, with outward path deviation and speed loss in the core. At 4.00 s both displayed wheel loads are zero and 0/8 substeps are supported despite an upright body. At 6.96 s both wheels bear load and the reference is stopped."
+  },
+  "baseline_case_notes": "At 2.24 s the K baseline displays zero wheel load and 0/8 supported substeps. At 3.00 s only 1/8 substeps is supported, ending with an 884 N right-wheel normal force. It remains upright in the inspected stills.",
+  "plots_inspected": [
+    "analysis/comparison.png"
+  ],
+  "scope": "Actual saved stills and diagnostic plot inspected in this session; no pose edits, smoothing or full manual video-playback claim."
+}

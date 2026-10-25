@@ -1,0 +1,51 @@
+{
+  "kind": "K_nonlinear_tire_trained_full_horizon_evaluation",
+  "status": "completed_requires_analysis",
+  "training_model_id": "authored_cylinder_external_combined_slip_v1",
+  "training_cohort_id": "tron1_ppo_k_nonlinear_tire_400hz_v1",
+  "training_model": {
+    "model_id": "authored_cylinder_external_combined_slip_v1",
+    "geometry": "authored",
+    "force_law": "combined_slip_magic_formula",
+    "normal_contact": "native_PhysX",
+    "native_wheel_static_dynamic_mu": 0,
+    "sampled_mu_application": "external_mu_times_preceding_normal_load",
+    "shared_wheel_mu_range": [
+      0.3,
+      1.2
+    ],
+    "normal_load_delay_physical_steps": 1,
+    "physics_dt_s": 0.0025,
+    "parameters": {
+      "B": 4.5,
+      "C": 1.8,
+      "E": 1.0,
+      "speed_regularization_m_s": 0.2
+    },
+    "contact_offset_m": 0.001,
+    "rest_offset_m": 0.0,
+    "parameters_identified_from_real_tire": false,
+    "static_adhesion_modeled": false,
+    "reset_first_physical_step_zero_external_force": true,
+    "new_mass_inertia_or_DOF": false,
+    "backend_training": "PhysX",
+    "default_native_MuJoCo_is_cross_law_transfer": true
+  },
+  "normalized_actor_sha256": "570fcbd541d910f9c8da98dbabe7a913c7ff13e879aef0a955d873c4ddca263f",
+  "model_training_audit_sha256": "b7f3a244aeebc567fdb8bce392d76f45446fd5441f3f3a27ed885a442c2f1a1c",
+  "validation_backend": "mujoco",
+  "validation_force_law": "native",
+  "mu": 0.7,
+  "cross_law_transfer": true,
+  "native_states": 2793,
+  "policy_decisions": 349,
+  "physics_dt_s": 0.0025,
+  "policy_dt_s": 0.02,
+  "source_sha256": {
+    "/data/zengxiong/workspaces/tron1-ppo-k-nonlinear-tire-20261025-v2/evaluation_snapshot_v1/scripts/eval_ppo_k_nonlinear_tire.py": "e78b7d2e0a2f50c876c7bfdf7d3e779500926547409c24f326ff115d3db035b9",
+    "/data/zengxiong/workspaces/tron1-ppo-k-nonlinear-tire-20261025-v2/source_snapshot_v1/scripts/train_ppo_k_nonlinear_tire.py": "adf5dac81bb3b1e1d0f74be7c88271f8dcae8d19782cd943323e9b66ea5e5153",
+    "/data/zengxiong/workspaces/tron1-ppo-k-nonlinear-tire-20261025-v2/source_snapshot_v1/scripts/verify_ppo_k_nonlinear_tire.py": "8c289c277024d3f6777ff279427aa00fdd94d76ec7ef55b4cbdf1e86cca320f7"
+  },
+  "task_success_claimed": false,
+  "recording_sha256": "2c7a2dc26ef12ac6c8bab399877c555c76edd94ce1d802e7f6a1c9301de9dd32"
+}
