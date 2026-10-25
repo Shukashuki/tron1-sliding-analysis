@@ -1,0 +1,89 @@
+{
+  "collections": {
+    "single_wheel_bench_collection_v1": {
+      "archive_sha256": "4ef056a6fbfbd124f7037acc714630543f5003a118968997440f9d798cede092",
+      "manifest_sha256": "b8c9455012b2904f4f9d45e298ec72dc7ca722da0c2dd5d031b4c4706a444b7e"
+    },
+    "tron1_tire_collection_v1": {
+      "archive_sha256": "79ef2e6ceecc094914417fc57bf4246904d54b23c07f46f735ac7242e9c4e885",
+      "manifest_sha256": "d959fef1e3f33bf145159a6a7141f567cf33815d0bf9056f510613eb658a8bbb"
+    },
+    "tron1_tire_800hz_collection_v1": {
+      "archive_sha256": "ee38010b4a4644f905e316f856ac266cf3307660b0024e6c952a0d6670f6b72f",
+      "manifest_sha256": "cda8aa1b5cee4c2e069585af06ef9795abb2237e1c51bac87d1c19423b4dd9ba"
+    },
+    "car_tire_collection_v1": {
+      "archive_sha256": "4cf7bfbd5305f8a06426dfc743cecf7c726bda0d01c7edd73d43e29d7ef2df53",
+      "manifest_sha256": "967582b2dff8ddbb535c4681e719d892b509d36f527f2de5edc8cc31b2f48fac"
+    },
+    "vehicle_sdk_collection_v1": {
+      "archive_sha256": "2bd47b344b05808a55e7f0cfbd876ee68965318838b1ab9c6f613faa294b26a5",
+      "manifest_sha256": "0db2d4c2ba992ca10840dfda98c391d19c857aa41d274026ca2a124d7dcb5139"
+    }
+  },
+  "instructions": [
+    "Use scripts/extract_tire_collection.py with the listed archive/manifest hashes and a fresh directory for each collection.",
+    "Run the recorded NumPy-only analyzers using reference/tron1_motion.npz or reference/car_source_reference_v1.npz; no simulator or actor is needed for offline metrics/rendering.",
+    "Reproduce rollout execution only in the recorded installed Isaac environment, with fresh GPU audit and the exact source snapshots embedded in the raw collections.",
+    "TRON1 evaluation requires the completed M normalized actor identified by SHA; weights are not redistributed. Existing M training protocol and source provide its from-scratch reproduction.",
+    "Vehicle SDK must enable scene-query support; sleeping is_on_ground=false is not a stationary unloaded-wheel label."
+  ],
+  "offline_commands": [
+    [
+      "python",
+      "scripts/analyze_physx_tire_bench.py",
+      "--collection",
+      "<extracted_single_wheel>",
+      "--output-dir",
+      "<fresh_bench_analysis>"
+    ],
+    [
+      "python",
+      "scripts/analyze_physx_tire_tron1.py",
+      "--collection",
+      "<extracted_tron1_400>",
+      "--motion",
+      "reference/tron1_motion.npz",
+      "--output-dir",
+      "<fresh_tron1_analysis>",
+      "--render"
+    ],
+    [
+      "python",
+      "scripts/analyze_physx_tire_timestep.py",
+      "--coarse",
+      "<extracted_tron1_400>",
+      "--fine",
+      "<extracted_tron1_800>",
+      "--motion",
+      "reference/tron1_motion.npz",
+      "--output-dir",
+      "<fresh_dt_analysis>"
+    ],
+    [
+      "python",
+      "scripts/analyze_physx_car_tires.py",
+      "--collection",
+      "<extracted_car>",
+      "--reference",
+      "reference/car_source_reference_v1.npz",
+      "--output-dir",
+      "<fresh_car_analysis>",
+      "--render"
+    ],
+    [
+      "python",
+      "scripts/analyze_physx_vehicle_sdk.py",
+      "--sdk-collection",
+      "<extracted_Vehicle>",
+      "--rigid-collection",
+      "<extracted_car>",
+      "--reference",
+      "reference/car_source_reference_v1.npz",
+      "--output-dir",
+      "<fresh_vehicle_analysis>"
+    ]
+  ],
+  "new_simulation_or_training_performed_by_packager": false,
+  "models_weights_credentials_or_native_binaries_published": false
+}

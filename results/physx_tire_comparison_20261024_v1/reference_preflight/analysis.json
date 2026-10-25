@@ -1,0 +1,56 @@
+{
+  "kind": "source_and_reference_kinematics_plus_contact_law_arithmetic_not_PhysX_task_result",
+  "analyzer_source_sha256": "114fbdc8fc6c7c6aefd5c229b6de1b3f9096859cda8ae2004251ce1e01e2dbb0",
+  "source_csv_sha256": "eb67a507817605d9b0018bdf2196c04f58f9a9238e7e1906350a7568ab87cf27",
+  "source_config_sha256": "5a2130b616f4d800934a21fa775877c0f38459d4cd07bf22532578fd39f0904d",
+  "motion_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+  "source_decode_code_sha256": "3c89ed739b5bc7ad7acba33fc82abc61ca94246d17b2705e920e865336719ac9",
+  "source_clock": "reconstructed estimate, not recorded timestamps",
+  "source_is_real_car_capture": false,
+  "core_source_rows": [
+    1553,
+    1584
+  ],
+  "estimated_core_duration_s": 1.2877769071239342,
+  "source_core_speed_range_m_s": [
+    22.30459563181169,
+    31.70287220972069
+  ],
+  "source_core_beta_range_deg": [
+    -26.69029788343402,
+    -8.07899242311498
+  ],
+  "scale": {
+    "space": 0.08,
+    "time": 2.0,
+    "speed": 0.04,
+    "acceleration": 0.02
+  },
+  "kinematic_flat_floor_lateral_acceleration_over_g_quantiles_50_95_100": [
+    2.236563177308298,
+    2.5174838027362028,
+    2.6150118710569332
+  ],
+  "uniformly_scaled_lateral_acceleration_over_g_quantiles_50_95_100": [
+    0.04473126354616596,
+    0.050349676054724055,
+    0.052300237421138665
+  ],
+  "load_force_or_tire_mu_identified": false,
+  "interpretation": "Scaling preserves path shape and sideslip angle but changes acceleration/gravity and friction utilization. Derivatives use an estimated clock; these numbers are kinematic demand diagnostics, not measured tire forces.",
+  "source_mu_caution": "The source code default test tire coefficient3.5 is not proof of traj_4 capture friction. Current robot mu0.7 must not be described as equal dynamic conditions.",
+  "paper_review": {
+    "source": "https://arxiv.org/html/2607.10815v1",
+    "geometry": "9 cylinder slices",
+    "platform": "humanoid with passive skate wheels",
+    "motion_prior": "GMR retargeting followed by AMP style reward plus task rewards",
+    "drift_task_evidence": "No reported high-speed large-beta turn comparison establishes transfer to this TRON1 task.",
+    "assessment": "Potentially useful for posture/load-transfer/support timing; cannot infer tire parameters or drift feasibility from motion imitation alone.",
+    "necessary_test": "Matched physics/task/budget: task-only PPO versus phase-aligned imitation versus AMP. Preserve speed/nonzero-beta/XY criteria and measure per-wheel contact slip.",
+    "code_and_motion_data_release_located": false,
+    "website_videos_redistributed": false
+  },
+  "physics_cases_completed_by_this_script": 0,
+  "human_prior_benefit_verified": false,
+  "task_success_claimed": false
+}

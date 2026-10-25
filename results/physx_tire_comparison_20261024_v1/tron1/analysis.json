@@ -1,0 +1,1485 @@
+{
+  "study": "TRON1_PhysX_three_tire_laws_frozen_M_PPO_transfer",
+  "status": "completed_three_full_horizon_episodes",
+  "rows": [
+    {
+      "case": "tron1_native_coulomb_v2",
+      "label": "Native cylinder + Coulomb",
+      "law": "native_coulomb",
+      "core": {
+        "interval_s": [
+          1.44,
+          4.0
+        ],
+        "native_samples": 1025,
+        "tracking": {
+          "available": true,
+          "coverage_complete": true,
+          "samples": 1025,
+          "xy_rmse_m": 0.15426514463939095,
+          "xy_peak_m": 0.22775461186977475,
+          "mean_speed_m_s": 0.9534860681191447,
+          "reference_mean_speed_m_s": 1.0282628655552946,
+          "speed_retention": 0.9272785199767298,
+          "beta_rmse_deg": 5.344220847948536,
+          "beta_valid_samples": 1025,
+          "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+        },
+        "world_angular_xy_common10_100": {
+          "samples": 1025,
+          "sample_hz": 400.0,
+          "native_nyquist_hz": 200.0,
+          "frequency_resolution_hz": 0.3902439024390244,
+          "common_band_hz_exclusive": [
+            10.0,
+            100.0
+          ],
+          "common_band_mean_square": 0.35893448274919376,
+          "common_band_rms": 0.5991114109656014,
+          "native_high_frequency_cutoff_hz_exclusive": 10.0,
+          "native_high_frequency_mean_square": 0.3604951380365356,
+          "native_high_frequency_rms": 0.60041247325196,
+          "at_or_above100hz_mean_square": 0.001560655287341849,
+          "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+          "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+        },
+        "contact": {
+          "measured_force_bearing_contact": {
+            "left": {
+              "sample_duty_fraction": 0.6624390243902439,
+              "time_duty_fraction_zoh": 0.662109375,
+              "state_switch_count": 76,
+              "state_switches_per_s": 29.6875
+            },
+            "right": {
+              "sample_duty_fraction": 0.8029268292682927,
+              "time_duty_fraction_zoh": 0.8027343749999999,
+              "state_switch_count": 38,
+              "state_switches_per_s": 14.84375
+            },
+            "both": {
+              "sample_duty_fraction": 0.535609756097561,
+              "time_duty_fraction_zoh": 0.5351562499999997,
+              "state_switch_count": 88,
+              "state_switches_per_s": 34.375
+            },
+            "none": {
+              "sample_duty_fraction": 0.0702439024390244,
+              "time_duty_fraction_zoh": 0.07031249999999971,
+              "state_switch_count": 24,
+              "state_switches_per_s": 9.375
+            }
+          },
+          "load_eligibility": {
+            "left": {
+              "sample_duty_fraction": 0.6624390243902439,
+              "time_duty_fraction_zoh": 0.662109375,
+              "state_switch_count": 76,
+              "state_switches_per_s": 29.6875
+            },
+            "right": {
+              "sample_duty_fraction": 0.8029268292682927,
+              "time_duty_fraction_zoh": 0.8027343749999999,
+              "state_switch_count": 38,
+              "state_switches_per_s": 14.84375
+            },
+            "both": {
+              "sample_duty_fraction": 0.535609756097561,
+              "time_duty_fraction_zoh": 0.5351562499999997,
+              "state_switch_count": 88,
+              "state_switches_per_s": 34.375
+            },
+            "none": {
+              "sample_duty_fraction": 0.0702439024390244,
+              "time_duty_fraction_zoh": 0.07031249999999971,
+              "state_switch_count": 24,
+              "state_switches_per_s": 9.375
+            }
+          }
+        },
+        "maximum_tilt_deg": 7.897705145875721,
+        "persistent_tilt_diagnostics": {
+          "30": {
+            "first_persistent_event": null,
+            "persistent_event_count": 0
+          },
+          "45": {
+            "first_persistent_event": null,
+            "persistent_event_count": 0
+          },
+          "60": {
+            "first_persistent_event": null,
+            "persistent_event_count": 0
+          }
+        },
+        "height_or_airborne_failure_gate": false
+      },
+      "whole": {
+        "interval_s": [
+          0.0,
+          6.96
+        ],
+        "native_samples": 2785,
+        "tracking": {
+          "available": true,
+          "coverage_complete": true,
+          "samples": 2785,
+          "xy_rmse_m": 0.1540308079862176,
+          "xy_peak_m": 0.2540290217439494,
+          "mean_speed_m_s": 0.8792949110632355,
+          "reference_mean_speed_m_s": 0.8741363103669996,
+          "speed_retention": 1.0059013687396994,
+          "beta_rmse_deg": 4.537676323623258,
+          "beta_valid_samples": 2362,
+          "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+        },
+        "world_angular_xy_common10_100": {
+          "samples": 2785,
+          "sample_hz": 400.0,
+          "native_nyquist_hz": 200.0,
+          "frequency_resolution_hz": 0.1436265709156194,
+          "common_band_hz_exclusive": [
+            10.0,
+            100.0
+          ],
+          "common_band_mean_square": 0.24577663152501225,
+          "common_band_rms": 0.4957586424108129,
+          "native_high_frequency_cutoff_hz_exclusive": 10.0,
+          "native_high_frequency_mean_square": 0.24674275196929618,
+          "native_high_frequency_rms": 0.4967320726199348,
+          "at_or_above100hz_mean_square": 0.0009661204442839227,
+          "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+          "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+        },
+        "contact": {
+          "measured_force_bearing_contact": {
+            "left": {
+              "sample_duty_fraction": 0.8430879712746858,
+              "time_duty_fraction_zoh": 0.8430316091954025,
+              "state_switch_count": 89,
+              "state_switches_per_s": 12.78735632183908
+            },
+            "right": {
+              "sample_duty_fraction": 0.8983842010771993,
+              "time_duty_fraction_zoh": 0.8983477011494252,
+              "state_switch_count": 51,
+              "state_switches_per_s": 7.327586206896552
+            },
+            "both": {
+              "sample_duty_fraction": 0.7831238779174147,
+              "time_duty_fraction_zoh": 0.7830459770114943,
+              "state_switch_count": 97,
+              "state_switches_per_s": 13.936781609195402
+            },
+            "none": {
+              "sample_duty_fraction": 0.04165170556552962,
+              "time_duty_fraction_zoh": 0.041666666666666505,
+              "state_switch_count": 41,
+              "state_switches_per_s": 5.890804597701149
+            }
+          },
+          "load_eligibility": {
+            "left": {
+              "sample_duty_fraction": 0.8430879712746858,
+              "time_duty_fraction_zoh": 0.8430316091954025,
+              "state_switch_count": 89,
+              "state_switches_per_s": 12.78735632183908
+            },
+            "right": {
+              "sample_duty_fraction": 0.8983842010771993,
+              "time_duty_fraction_zoh": 0.8983477011494252,
+              "state_switch_count": 51,
+              "state_switches_per_s": 7.327586206896552
+            },
+            "both": {
+              "sample_duty_fraction": 0.7831238779174147,
+              "time_duty_fraction_zoh": 0.7830459770114943,
+              "state_switch_count": 97,
+              "state_switches_per_s": 13.936781609195402
+            },
+            "none": {
+              "sample_duty_fraction": 0.04165170556552962,
+              "time_duty_fraction_zoh": 0.041666666666666505,
+              "state_switch_count": 41,
+              "state_switches_per_s": 5.890804597701149
+            }
+          }
+        },
+        "maximum_tilt_deg": 8.571209962424993,
+        "persistent_tilt_diagnostics": {
+          "30": {
+            "first_persistent_event": null,
+            "persistent_event_count": 0
+          },
+          "45": {
+            "first_persistent_event": null,
+            "persistent_event_count": 0
+          },
+          "60": {
+            "first_persistent_event": null,
+            "persistent_event_count": 0
+          }
+        },
+        "height_or_airborne_failure_gate": false
+      },
+      "support": {
+        "interval_s": [
+          0.02,
+          6.96
+        ],
+        "force_threshold_n_strict": 5.0,
+        "definition": "Any wheel upward actual floor-normal Fz>threshold; no bilateral or count requirement",
+        "native_samples": 2777,
+        "any_wheel_support_sample_fraction": 0.958588404753331,
+        "any_wheel_support_time_fraction_zoh": 0.9585734870317003,
+        "unsupported_physical_samples": 115,
+        "every_physical_sample_supported": false,
+        "longest_no_support_observed_s": 0.039999999999999994,
+        "no_support_gaps": [
+          {
+            "onset_s": 0.0825,
+            "end_s": 0.09,
+            "observed_duration_s": 0.007499999999999993,
+            "native_samples": 3,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 0.105,
+            "end_s": 0.145,
+            "observed_duration_s": 0.039999999999999994,
+            "native_samples": 16,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 2.0825,
+            "end_s": 2.11,
+            "observed_duration_s": 0.027499999999999858,
+            "native_samples": 11,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 2.1825,
+            "end_s": 2.195,
+            "observed_duration_s": 0.012499999999999734,
+            "native_samples": 5,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 2.5325,
+            "end_s": 2.5425,
+            "observed_duration_s": 0.009999999999999787,
+            "native_samples": 4,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 2.6225,
+            "end_s": 2.6325,
+            "observed_duration_s": 0.009999999999999787,
+            "native_samples": 4,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 2.7325,
+            "end_s": 2.7425,
+            "observed_duration_s": 0.010000000000000231,
+            "native_samples": 4,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 2.8225000000000002,
+            "end_s": 2.8525,
+            "observed_duration_s": 0.029999999999999805,
+            "native_samples": 12,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 2.9025,
+            "end_s": 2.9050000000000002,
+            "observed_duration_s": 0.002500000000000391,
+            "native_samples": 1,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 2.9625,
+            "end_s": 2.965,
+            "observed_duration_s": 0.0024999999999999467,
+            "native_samples": 1,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 2.9825,
+            "end_s": 3.0025,
+            "observed_duration_s": 0.020000000000000018,
+            "native_samples": 8,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 3.2225,
+            "end_s": 3.255,
+            "observed_duration_s": 0.03249999999999975,
+            "native_samples": 13,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 3.3025,
+            "end_s": 3.31,
+            "observed_duration_s": 0.00749999999999984,
+            "native_samples": 3,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 3.8075,
+            "end_s": 3.8225000000000002,
+            "observed_duration_s": 0.015000000000000124,
+            "native_samples": 6,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 4.8625,
+            "end_s": 4.87,
+            "observed_duration_s": 0.007500000000000284,
+            "native_samples": 3,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 4.8825,
+            "end_s": 4.8875,
+            "observed_duration_s": 0.004999999999999893,
+            "native_samples": 2,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 4.9225,
+            "end_s": 4.945,
+            "observed_duration_s": 0.022499999999999964,
+            "native_samples": 9,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 4.9625,
+            "end_s": 4.9825,
+            "observed_duration_s": 0.019999999999999574,
+            "native_samples": 8,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 5.0025,
+            "end_s": 5.005,
+            "observed_duration_s": 0.0024999999999995026,
+            "native_samples": 1,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 5.0225,
+            "end_s": 5.025,
+            "observed_duration_s": 0.002500000000000391,
+            "native_samples": 1,
+            "right_window_censored": false,
+            "left_window_censored": false
+          }
+        ],
+        "minimum_anywheel_normal_force_n": 0.0,
+        "single_wheel_lift_is_failure": false,
+        "flight_or_height_inferred": false,
+        "last_sample_no_future_extension": true
+      },
+      "contact": {
+        "core_loaded_wheel_samples": 1502,
+        "core_contact_patch_speed_xy_m_s_quantiles_50_95_100": [
+          0.023963327519595623,
+          0.6489523202180862,
+          1.7736141681671143
+        ],
+        "core_force_over_used_muFn_quantiles_50_95_100": [
+          0.5386493504047394,
+          1.0000001192092896,
+          1.0000003576278687
+        ],
+        "core_fraction_loaded_wheel_samples_force_utilization_ge_0p9": 0.4014647137150466,
+        "core_fraction_loaded_wheel_samples_patch_speed_ge_0p1_m_s": 0.3055925432756325,
+        "force_time_semantics": "native friction patch sum divided by same-sample normal load",
+        "pointwise_cone_edge_identified": false,
+        "drift_not_classified_from_utilization_alone": true
+      },
+      "recording_sha256": "1927fd568e2b40684e54dad6546e5b0676668efff566f5ad10305094c2ff89fd",
+      "tire_recording_sha256": "b60f66d1182bc272da8a4fb20597fa6feb03a96953c078c6ed3241c065d8bee8"
+    },
+    {
+      "case": "tron1_external_coulomb_v2",
+      "label": "External regularized Coulomb",
+      "law": "external_coulomb_regularized",
+      "core": {
+        "interval_s": [
+          1.44,
+          4.0
+        ],
+        "native_samples": 1025,
+        "tracking": {
+          "available": true,
+          "coverage_complete": true,
+          "samples": 1025,
+          "xy_rmse_m": 0.30392396602615523,
+          "xy_peak_m": 0.526843217849364,
+          "mean_speed_m_s": 1.0256512108579954,
+          "reference_mean_speed_m_s": 1.0282628655552946,
+          "speed_retention": 0.9974601293260855,
+          "beta_rmse_deg": 13.478012428347915,
+          "beta_valid_samples": 1025,
+          "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+        },
+        "world_angular_xy_common10_100": {
+          "samples": 1025,
+          "sample_hz": 400.0,
+          "native_nyquist_hz": 200.0,
+          "frequency_resolution_hz": 0.3902439024390244,
+          "common_band_hz_exclusive": [
+            10.0,
+            100.0
+          ],
+          "common_band_mean_square": 0.25068708371035986,
+          "common_band_rms": 0.5006866122739452,
+          "native_high_frequency_cutoff_hz_exclusive": 10.0,
+          "native_high_frequency_mean_square": 0.25310651971059017,
+          "native_high_frequency_rms": 0.5030969287429512,
+          "at_or_above100hz_mean_square": 0.0024194360002303327,
+          "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+          "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+        },
+        "contact": {
+          "measured_force_bearing_contact": {
+            "left": {
+              "sample_duty_fraction": 0.7521951219512195,
+              "time_duty_fraction_zoh": 0.7519531249999997,
+              "state_switch_count": 86,
+              "state_switches_per_s": 33.59375
+            },
+            "right": {
+              "sample_duty_fraction": 0.6995121951219512,
+              "time_duty_fraction_zoh": 0.6992187499999998,
+              "state_switch_count": 58,
+              "state_switches_per_s": 22.65625
+            },
+            "both": {
+              "sample_duty_fraction": 0.5551219512195122,
+              "time_duty_fraction_zoh": 0.5546874999999993,
+              "state_switch_count": 94,
+              "state_switches_per_s": 36.71875
+            },
+            "none": {
+              "sample_duty_fraction": 0.10341463414634146,
+              "time_duty_fraction_zoh": 0.10351562499999988,
+              "state_switch_count": 48,
+              "state_switches_per_s": 18.75
+            }
+          },
+          "load_eligibility": {
+            "left": {
+              "sample_duty_fraction": 0.7521951219512195,
+              "time_duty_fraction_zoh": 0.7519531249999997,
+              "state_switch_count": 86,
+              "state_switches_per_s": 33.59375
+            },
+            "right": {
+              "sample_duty_fraction": 0.6995121951219512,
+              "time_duty_fraction_zoh": 0.6992187499999998,
+              "state_switch_count": 58,
+              "state_switches_per_s": 22.65625
+            },
+            "both": {
+              "sample_duty_fraction": 0.5551219512195122,
+              "time_duty_fraction_zoh": 0.5546874999999993,
+              "state_switch_count": 94,
+              "state_switches_per_s": 36.71875
+            },
+            "none": {
+              "sample_duty_fraction": 0.10341463414634146,
+              "time_duty_fraction_zoh": 0.10351562499999988,
+              "state_switch_count": 48,
+              "state_switches_per_s": 18.75
+            }
+          }
+        },
+        "maximum_tilt_deg": 18.623893159227674,
+        "persistent_tilt_diagnostics": {
+          "30": {
+            "first_persistent_event": null,
+            "persistent_event_count": 0
+          },
+          "45": {
+            "first_persistent_event": null,
+            "persistent_event_count": 0
+          },
+          "60": {
+            "first_persistent_event": null,
+            "persistent_event_count": 0
+          }
+        },
+        "height_or_airborne_failure_gate": false
+      },
+      "whole": {
+        "interval_s": [
+          0.0,
+          6.96
+        ],
+        "native_samples": 2785,
+        "tracking": {
+          "available": true,
+          "coverage_complete": true,
+          "samples": 2785,
+          "xy_rmse_m": 0.3507138850683937,
+          "xy_peak_m": 0.6125684236125835,
+          "mean_speed_m_s": 0.9155358516360721,
+          "reference_mean_speed_m_s": 0.8741363103669996,
+          "speed_retention": 1.0473605097718584,
+          "beta_rmse_deg": 11.264265729092326,
+          "beta_valid_samples": 2362,
+          "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+        },
+        "world_angular_xy_common10_100": {
+          "samples": 2785,
+          "sample_hz": 400.0,
+          "native_nyquist_hz": 200.0,
+          "frequency_resolution_hz": 0.1436265709156194,
+          "common_band_hz_exclusive": [
+            10.0,
+            100.0
+          ],
+          "common_band_mean_square": 0.35482478807984325,
+          "common_band_rms": 0.595671711666622,
+          "native_high_frequency_cutoff_hz_exclusive": 10.0,
+          "native_high_frequency_mean_square": 0.3586776939075751,
+          "native_high_frequency_rms": 0.598897064534111,
+          "at_or_above100hz_mean_square": 0.003852905827731836,
+          "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+          "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+        },
+        "contact": {
+          "measured_force_bearing_contact": {
+            "left": {
+              "sample_duty_fraction": 0.8423698384201077,
+              "time_duty_fraction_zoh": 0.8423132183908048,
+              "state_switch_count": 139,
+              "state_switches_per_s": 19.971264367816094
+            },
+            "right": {
+              "sample_duty_fraction": 0.8484739676840215,
+              "time_duty_fraction_zoh": 0.848778735632184,
+              "state_switch_count": 86,
+              "state_switches_per_s": 12.35632183908046
+            },
+            "both": {
+              "sample_duty_fraction": 0.7385996409335727,
+              "time_duty_fraction_zoh": 0.7388649425287355,
+              "state_switch_count": 148,
+              "state_switches_per_s": 21.264367816091955
+            },
+            "none": {
+              "sample_duty_fraction": 0.04775583482944345,
+              "time_duty_fraction_zoh": 0.047772988505746905,
+              "state_switch_count": 63,
+              "state_switches_per_s": 9.051724137931034
+            }
+          },
+          "load_eligibility": {
+            "left": {
+              "sample_duty_fraction": 0.8423698384201077,
+              "time_duty_fraction_zoh": 0.8423132183908048,
+              "state_switch_count": 139,
+              "state_switches_per_s": 19.971264367816094
+            },
+            "right": {
+              "sample_duty_fraction": 0.8484739676840215,
+              "time_duty_fraction_zoh": 0.848778735632184,
+              "state_switch_count": 86,
+              "state_switches_per_s": 12.35632183908046
+            },
+            "both": {
+              "sample_duty_fraction": 0.7385996409335727,
+              "time_duty_fraction_zoh": 0.7388649425287355,
+              "state_switch_count": 148,
+              "state_switches_per_s": 21.264367816091955
+            },
+            "none": {
+              "sample_duty_fraction": 0.04775583482944345,
+              "time_duty_fraction_zoh": 0.047772988505746905,
+              "state_switch_count": 63,
+              "state_switches_per_s": 9.051724137931034
+            }
+          }
+        },
+        "maximum_tilt_deg": 22.66830175596235,
+        "persistent_tilt_diagnostics": {
+          "30": {
+            "first_persistent_event": null,
+            "persistent_event_count": 0
+          },
+          "45": {
+            "first_persistent_event": null,
+            "persistent_event_count": 0
+          },
+          "60": {
+            "first_persistent_event": null,
+            "persistent_event_count": 0
+          }
+        },
+        "height_or_airborne_failure_gate": false
+      },
+      "support": {
+        "interval_s": [
+          0.02,
+          6.96
+        ],
+        "force_threshold_n_strict": 5.0,
+        "definition": "Any wheel upward actual floor-normal Fz>threshold; no bilateral or count requirement",
+        "native_samples": 2777,
+        "any_wheel_support_sample_fraction": 0.9524666906733885,
+        "any_wheel_support_time_fraction_zoh": 0.9524495677233431,
+        "unsupported_physical_samples": 132,
+        "every_physical_sample_supported": false,
+        "longest_no_support_observed_s": 0.032500000000000195,
+        "no_support_gaps": [
+          {
+            "onset_s": 0.0825,
+            "end_s": 0.09,
+            "observed_duration_s": 0.007499999999999993,
+            "native_samples": 3,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 0.1125,
+            "end_s": 0.1325,
+            "observed_duration_s": 0.020000000000000004,
+            "native_samples": 8,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 1.9225,
+            "end_s": 1.9275,
+            "observed_duration_s": 0.004999999999999893,
+            "native_samples": 2,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 2.025,
+            "end_s": 2.045,
+            "observed_duration_s": 0.020000000000000018,
+            "native_samples": 8,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 2.14,
+            "end_s": 2.1425,
+            "observed_duration_s": 0.0024999999999999467,
+            "native_samples": 1,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 2.2225,
+            "end_s": 2.2325,
+            "observed_duration_s": 0.009999999999999787,
+            "native_samples": 4,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 2.245,
+            "end_s": 2.2475,
+            "observed_duration_s": 0.0024999999999999467,
+            "native_samples": 1,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 2.3225000000000002,
+            "end_s": 2.34,
+            "observed_duration_s": 0.017499999999999627,
+            "native_samples": 7,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 2.4225,
+            "end_s": 2.455,
+            "observed_duration_s": 0.032500000000000195,
+            "native_samples": 13,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 2.5225,
+            "end_s": 2.5500000000000003,
+            "observed_duration_s": 0.027500000000000302,
+            "native_samples": 11,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 2.6225,
+            "end_s": 2.65,
+            "observed_duration_s": 0.027499999999999858,
+            "native_samples": 11,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 2.7225,
+            "end_s": 2.7525,
+            "observed_duration_s": 0.029999999999999805,
+            "native_samples": 12,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 2.8225000000000002,
+            "end_s": 2.845,
+            "observed_duration_s": 0.022499999999999964,
+            "native_samples": 9,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 2.935,
+            "end_s": 2.9425,
+            "observed_duration_s": 0.00749999999999984,
+            "native_samples": 3,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 3.4225,
+            "end_s": 3.4250000000000003,
+            "observed_duration_s": 0.002500000000000391,
+            "native_samples": 1,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 3.4625,
+            "end_s": 3.4675000000000002,
+            "observed_duration_s": 0.0050000000000003375,
+            "native_samples": 2,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 3.5025,
+            "end_s": 3.5075000000000003,
+            "observed_duration_s": 0.0050000000000003375,
+            "native_samples": 2,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 3.5425,
+            "end_s": 3.5500000000000003,
+            "observed_duration_s": 0.007500000000000284,
+            "native_samples": 3,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 3.5825,
+            "end_s": 3.5875,
+            "observed_duration_s": 0.004999999999999893,
+            "native_samples": 2,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 3.6225,
+            "end_s": 3.6275,
+            "observed_duration_s": 0.004999999999999893,
+            "native_samples": 2,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 3.6625,
+            "end_s": 3.6675,
+            "observed_duration_s": 0.004999999999999893,
+            "native_samples": 2,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 3.7025,
+            "end_s": 3.71,
+            "observed_duration_s": 0.00749999999999984,
+            "native_samples": 3,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 3.7425,
+            "end_s": 3.75,
+            "observed_duration_s": 0.00749999999999984,
+            "native_samples": 3,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 3.7825,
+            "end_s": 3.7875,
+            "observed_duration_s": 0.004999999999999893,
+            "native_samples": 2,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 3.8225000000000002,
+            "end_s": 3.825,
+            "observed_duration_s": 0.0024999999999999467,
+            "native_samples": 1,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 3.8625000000000003,
+            "end_s": 3.865,
+            "observed_duration_s": 0.0024999999999999467,
+            "native_samples": 1,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 4.0025,
+            "end_s": 4.005,
+            "observed_duration_s": 0.0024999999999995026,
+            "native_samples": 1,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 4.985,
+            "end_s": 4.9875,
+            "observed_duration_s": 0.0024999999999995026,
+            "native_samples": 1,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 5.025,
+            "end_s": 5.0275,
+            "observed_duration_s": 0.0024999999999995026,
+            "native_samples": 1,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 5.305,
+            "end_s": 5.33,
+            "observed_duration_s": 0.025000000000000355,
+            "native_samples": 10,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 6.9225,
+            "end_s": 6.9275,
+            "observed_duration_s": 0.004999999999999893,
+            "native_samples": 2,
+            "right_window_censored": false,
+            "left_window_censored": false
+          }
+        ],
+        "minimum_anywheel_normal_force_n": 0.0,
+        "single_wheel_lift_is_failure": false,
+        "flight_or_height_inferred": false,
+        "last_sample_no_future_extension": true
+      },
+      "contact": {
+        "core_loaded_wheel_samples": 1488,
+        "core_contact_patch_speed_xy_m_s_quantiles_50_95_100": [
+          0.35001419484615326,
+          1.3732218086719508,
+          2.4737977981567383
+        ],
+        "core_force_over_used_muFn_quantiles_50_95_100": [
+          0.9999999999999987,
+          1.0000000000000002,
+          1.0000000000000004
+        ],
+        "core_fraction_loaded_wheel_samples_force_utilization_ge_0p9": 0.9885752688172043,
+        "core_fraction_loaded_wheel_samples_patch_speed_ge_0p1_m_s": 0.894489247311828,
+        "force_time_semantics": "applied force divided by lagged load",
+        "pointwise_cone_edge_identified": false,
+        "drift_not_classified_from_utilization_alone": true,
+        "core_applied_force_over_next_actual_muFn_quantiles_50_95_100": [
+          0.988879422538099,
+          1.9218189044752898,
+          37.240149258230964
+        ]
+      },
+      "recording_sha256": "5effc90e6d822bc6b9ca0a64377fae0d5ad6e2f2c298a539e707d3b6bb52216a",
+      "tire_recording_sha256": "e7c832137105c5852b3cb926ad78d566d36c213dd32ec8e0b2448a1184a7d700"
+    },
+    {
+      "case": "tron1_magic_formula_v1",
+      "label": "Combined-slip Magic Formula",
+      "law": "combined_slip_magic_formula",
+      "core": {
+        "interval_s": [
+          1.44,
+          4.0
+        ],
+        "native_samples": 1025,
+        "tracking": {
+          "available": true,
+          "coverage_complete": true,
+          "samples": 1025,
+          "xy_rmse_m": 0.3574028888664395,
+          "xy_peak_m": 0.592852928090976,
+          "mean_speed_m_s": 1.0471731769348975,
+          "reference_mean_speed_m_s": 1.0282628655552946,
+          "speed_retention": 1.0183905419645694,
+          "beta_rmse_deg": 15.35038392938399,
+          "beta_valid_samples": 1025,
+          "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+        },
+        "world_angular_xy_common10_100": {
+          "samples": 1025,
+          "sample_hz": 400.0,
+          "native_nyquist_hz": 200.0,
+          "frequency_resolution_hz": 0.3902439024390244,
+          "common_band_hz_exclusive": [
+            10.0,
+            100.0
+          ],
+          "common_band_mean_square": 0.26522651142729675,
+          "common_band_rms": 0.515001467403052,
+          "native_high_frequency_cutoff_hz_exclusive": 10.0,
+          "native_high_frequency_mean_square": 0.2686965438008852,
+          "native_high_frequency_rms": 0.5183594735324948,
+          "at_or_above100hz_mean_square": 0.0034700323735884758,
+          "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+          "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+        },
+        "contact": {
+          "measured_force_bearing_contact": {
+            "left": {
+              "sample_duty_fraction": 0.7804878048780488,
+              "time_duty_fraction_zoh": 0.7802734374999996,
+              "state_switch_count": 68,
+              "state_switches_per_s": 26.5625
+            },
+            "right": {
+              "sample_duty_fraction": 0.686829268292683,
+              "time_duty_fraction_zoh": 0.6865234374999999,
+              "state_switch_count": 62,
+              "state_switches_per_s": 24.21875
+            },
+            "both": {
+              "sample_duty_fraction": 0.5492682926829269,
+              "time_duty_fraction_zoh": 0.5488281250000002,
+              "state_switch_count": 86,
+              "state_switches_per_s": 33.59375
+            },
+            "none": {
+              "sample_duty_fraction": 0.08195121951219513,
+              "time_duty_fraction_zoh": 0.08203125000000068,
+              "state_switch_count": 38,
+              "state_switches_per_s": 14.84375
+            }
+          },
+          "load_eligibility": {
+            "left": {
+              "sample_duty_fraction": 0.7804878048780488,
+              "time_duty_fraction_zoh": 0.7802734374999996,
+              "state_switch_count": 68,
+              "state_switches_per_s": 26.5625
+            },
+            "right": {
+              "sample_duty_fraction": 0.686829268292683,
+              "time_duty_fraction_zoh": 0.6865234374999999,
+              "state_switch_count": 62,
+              "state_switches_per_s": 24.21875
+            },
+            "both": {
+              "sample_duty_fraction": 0.5492682926829269,
+              "time_duty_fraction_zoh": 0.5488281250000002,
+              "state_switch_count": 86,
+              "state_switches_per_s": 33.59375
+            },
+            "none": {
+              "sample_duty_fraction": 0.08195121951219513,
+              "time_duty_fraction_zoh": 0.08203125000000068,
+              "state_switch_count": 38,
+              "state_switches_per_s": 14.84375
+            }
+          }
+        },
+        "maximum_tilt_deg": 24.372910039790018,
+        "persistent_tilt_diagnostics": {
+          "30": {
+            "first_persistent_event": null,
+            "persistent_event_count": 0
+          },
+          "45": {
+            "first_persistent_event": null,
+            "persistent_event_count": 0
+          },
+          "60": {
+            "first_persistent_event": null,
+            "persistent_event_count": 0
+          }
+        },
+        "height_or_airborne_failure_gate": false
+      },
+      "whole": {
+        "interval_s": [
+          0.0,
+          6.96
+        ],
+        "native_samples": 2785,
+        "tracking": {
+          "available": true,
+          "coverage_complete": true,
+          "samples": 2785,
+          "xy_rmse_m": 0.41848137406981345,
+          "xy_peak_m": 0.6845677837378591,
+          "mean_speed_m_s": 0.9014644960104236,
+          "reference_mean_speed_m_s": 0.8741363103669996,
+          "speed_retention": 1.0312630711244,
+          "beta_rmse_deg": 13.071526443446562,
+          "beta_valid_samples": 2362,
+          "beta_definition": "world-XY COM course minus projected body +X heading; error against intended nonzero reference, not zero slip"
+        },
+        "world_angular_xy_common10_100": {
+          "samples": 2785,
+          "sample_hz": 400.0,
+          "native_nyquist_hz": 200.0,
+          "frequency_resolution_hz": 0.1436265709156194,
+          "common_band_hz_exclusive": [
+            10.0,
+            100.0
+          ],
+          "common_band_mean_square": 0.42406066109854534,
+          "common_band_rms": 0.6511994019488542,
+          "native_high_frequency_cutoff_hz_exclusive": 10.0,
+          "native_high_frequency_mean_square": 0.4287602342378874,
+          "native_high_frequency_rms": 0.6547978575391702,
+          "at_or_above100hz_mean_square": 0.004699573139342164,
+          "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+          "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+        },
+        "contact": {
+          "measured_force_bearing_contact": {
+            "left": {
+              "sample_duty_fraction": 0.8538599640933573,
+              "time_duty_fraction_zoh": 0.8538074712643676,
+              "state_switch_count": 103,
+              "state_switches_per_s": 14.798850574712644
+            },
+            "right": {
+              "sample_duty_fraction": 0.8269299820466787,
+              "time_duty_fraction_zoh": 0.8268678160919541,
+              "state_switch_count": 103,
+              "state_switches_per_s": 14.798850574712644
+            },
+            "both": {
+              "sample_duty_fraction": 0.7242369838420107,
+              "time_duty_fraction_zoh": 0.7241379310344825,
+              "state_switch_count": 133,
+              "state_switches_per_s": 19.10919540229885
+            },
+            "none": {
+              "sample_duty_fraction": 0.04344703770197487,
+              "time_duty_fraction_zoh": 0.043462643678160696,
+              "state_switch_count": 65,
+              "state_switches_per_s": 9.339080459770114
+            }
+          },
+          "load_eligibility": {
+            "left": {
+              "sample_duty_fraction": 0.8538599640933573,
+              "time_duty_fraction_zoh": 0.8538074712643676,
+              "state_switch_count": 103,
+              "state_switches_per_s": 14.798850574712644
+            },
+            "right": {
+              "sample_duty_fraction": 0.8269299820466787,
+              "time_duty_fraction_zoh": 0.8268678160919541,
+              "state_switch_count": 103,
+              "state_switches_per_s": 14.798850574712644
+            },
+            "both": {
+              "sample_duty_fraction": 0.7242369838420107,
+              "time_duty_fraction_zoh": 0.7241379310344825,
+              "state_switch_count": 133,
+              "state_switches_per_s": 19.10919540229885
+            },
+            "none": {
+              "sample_duty_fraction": 0.04344703770197487,
+              "time_duty_fraction_zoh": 0.043462643678160696,
+              "state_switch_count": 65,
+              "state_switches_per_s": 9.339080459770114
+            }
+          }
+        },
+        "maximum_tilt_deg": 24.483193903575316,
+        "persistent_tilt_diagnostics": {
+          "30": {
+            "first_persistent_event": null,
+            "persistent_event_count": 0
+          },
+          "45": {
+            "first_persistent_event": null,
+            "persistent_event_count": 0
+          },
+          "60": {
+            "first_persistent_event": null,
+            "persistent_event_count": 0
+          }
+        },
+        "height_or_airborne_failure_gate": false
+      },
+      "support": {
+        "interval_s": [
+          0.02,
+          6.96
+        ],
+        "force_threshold_n_strict": 5.0,
+        "definition": "Any wheel upward actual floor-normal Fz>threshold; no bilateral or count requirement",
+        "native_samples": 2777,
+        "any_wheel_support_sample_fraction": 0.9567879006121714,
+        "any_wheel_support_time_fraction_zoh": 0.9567723342939484,
+        "unsupported_physical_samples": 120,
+        "every_physical_sample_supported": false,
+        "longest_no_support_observed_s": 0.029999999999999805,
+        "no_support_gaps": [
+          {
+            "onset_s": 0.0825,
+            "end_s": 0.0925,
+            "observed_duration_s": 0.009999999999999995,
+            "native_samples": 4,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 0.11750000000000001,
+            "end_s": 0.1275,
+            "observed_duration_s": 0.009999999999999995,
+            "native_samples": 4,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 2.0025,
+            "end_s": 2.0300000000000002,
+            "observed_duration_s": 0.027500000000000302,
+            "native_samples": 11,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 2.1025,
+            "end_s": 2.1325,
+            "observed_duration_s": 0.029999999999999805,
+            "native_samples": 12,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 2.2025,
+            "end_s": 2.22,
+            "observed_duration_s": 0.01750000000000007,
+            "native_samples": 7,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 2.2225,
+            "end_s": 2.2325,
+            "observed_duration_s": 0.009999999999999787,
+            "native_samples": 4,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 2.4025,
+            "end_s": 2.4125,
+            "observed_duration_s": 0.010000000000000231,
+            "native_samples": 4,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 2.5025,
+            "end_s": 2.5275,
+            "observed_duration_s": 0.02499999999999991,
+            "native_samples": 10,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 2.61,
+            "end_s": 2.6225,
+            "observed_duration_s": 0.012500000000000178,
+            "native_samples": 5,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 2.7225,
+            "end_s": 2.7375000000000003,
+            "observed_duration_s": 0.015000000000000124,
+            "native_samples": 6,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 3.2425,
+            "end_s": 3.245,
+            "observed_duration_s": 0.0024999999999999467,
+            "native_samples": 1,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 3.2825,
+            "end_s": 3.285,
+            "observed_duration_s": 0.0024999999999999467,
+            "native_samples": 1,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 3.3225000000000002,
+            "end_s": 3.325,
+            "observed_duration_s": 0.0024999999999999467,
+            "native_samples": 1,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 3.4025,
+            "end_s": 3.4050000000000002,
+            "observed_duration_s": 0.002500000000000391,
+            "native_samples": 1,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 3.4425,
+            "end_s": 3.4450000000000003,
+            "observed_duration_s": 0.002500000000000391,
+            "native_samples": 1,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 3.4825,
+            "end_s": 3.49,
+            "observed_duration_s": 0.007500000000000284,
+            "native_samples": 3,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 3.5225,
+            "end_s": 3.5325,
+            "observed_duration_s": 0.010000000000000231,
+            "native_samples": 4,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 3.5625,
+            "end_s": 3.5725000000000002,
+            "observed_duration_s": 0.010000000000000231,
+            "native_samples": 4,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 3.6025,
+            "end_s": 3.615,
+            "observed_duration_s": 0.012500000000000178,
+            "native_samples": 5,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 3.6425,
+            "end_s": 3.65,
+            "observed_duration_s": 0.00749999999999984,
+            "native_samples": 3,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 3.7225,
+            "end_s": 3.725,
+            "observed_duration_s": 0.0024999999999999467,
+            "native_samples": 1,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 4.9625,
+            "end_s": 4.9750000000000005,
+            "observed_duration_s": 0.012500000000000178,
+            "native_samples": 5,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 4.9825,
+            "end_s": 4.9875,
+            "observed_duration_s": 0.004999999999999893,
+            "native_samples": 2,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 5.0025,
+            "end_s": 5.0125,
+            "observed_duration_s": 0.009999999999999787,
+            "native_samples": 4,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 5.045,
+            "end_s": 5.05,
+            "observed_duration_s": 0.004999999999999893,
+            "native_samples": 2,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 5.5025,
+            "end_s": 5.51,
+            "observed_duration_s": 0.007499999999999396,
+            "native_samples": 3,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 5.5225,
+            "end_s": 5.5325,
+            "observed_duration_s": 0.009999999999999787,
+            "native_samples": 4,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 6.6225000000000005,
+            "end_s": 6.625,
+            "observed_duration_s": 0.0024999999999995026,
+            "native_samples": 1,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 6.6450000000000005,
+            "end_s": 6.6475,
+            "observed_duration_s": 0.0024999999999995026,
+            "native_samples": 1,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 6.6625000000000005,
+            "end_s": 6.665,
+            "observed_duration_s": 0.0024999999999995026,
+            "native_samples": 1,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 6.6825,
+            "end_s": 6.6875,
+            "observed_duration_s": 0.004999999999999893,
+            "native_samples": 2,
+            "right_window_censored": false,
+            "left_window_censored": false
+          },
+          {
+            "onset_s": 6.702500000000001,
+            "end_s": 6.71,
+            "observed_duration_s": 0.007499999999999396,
+            "native_samples": 3,
+            "right_window_censored": false,
+            "left_window_censored": false
+          }
+        ],
+        "minimum_anywheel_normal_force_n": 0.0,
+        "single_wheel_lift_is_failure": false,
+        "flight_or_height_inferred": false,
+        "last_sample_no_future_extension": true
+      },
+      "contact": {
+        "core_loaded_wheel_samples": 1504,
+        "core_contact_patch_speed_xy_m_s_quantiles_50_95_100": [
+          0.33660805225372314,
+          1.4238713562488554,
+          3.4680864810943604
+        ],
+        "core_force_over_used_muFn_quantiles_50_95_100": [
+          0.9843912321605257,
+          0.9998701051624702,
+          0.9999999995260039
+        ],
+        "core_fraction_loaded_wheel_samples_force_utilization_ge_0p9": 0.7533244680851063,
+        "core_fraction_loaded_wheel_samples_patch_speed_ge_0p1_m_s": 0.8882978723404256,
+        "force_time_semantics": "applied force divided by lagged load",
+        "pointwise_cone_edge_identified": false,
+        "drift_not_classified_from_utilization_alone": true,
+        "core_applied_force_over_next_actual_muFn_quantiles_50_95_100": [
+          0.928257582115503,
+          1.6488314538307705,
+          19.82656271046957
+        ]
+      },
+      "recording_sha256": "9b9a5d9f32de050523f24ac3eb465876f97d509d4985242aadf195ba0b55b5f1",
+      "tire_recording_sha256": "4cac796faa8fdc9ae79ea62687eee56c524f35731ea5061188baffa07fa05f92"
+    }
+  ],
+  "actor_sha256": "53c5a0f59428c5a5ba03092a19c269d64cdca0c9e96360d5d8abac195999dc69",
+  "baseline_instrumentation_matches_previous_raw_recording_exactly": true,
+  "same_initial_mechanical_state_verified": true,
+  "native_states_per_case": 2793,
+  "tire_pre_step_samples_per_case": 2792,
+  "policy_decisions": 349,
+  "physx_only": true,
+  "dynamics_or_FK_or_inference_executed_by_analyzer": false,
+  "tire_parameters_identified": false,
+  "external_load_coupling_delay_physical_steps": 1,
+  "one_seed_and_one_episode_per_law": true,
+  "policy_retrained_for_each_law": false,
+  "limitations": [
+    "External Coulomb control measures the combined influence of load delay, regularization and force application.",
+    "Difference between external Coulomb and Magic Formula isolates the chosen steady combined-slip curve within the same coupling.",
+    "Neither external law includes static adhesion, camber thrust, tire relaxation, or a calibrated load-dependent tire model.",
+    "Force utilization from aggregated patches is not per-contact friction-cone identification.",
+    "Successful physical rollout completion does not establish stable support or task acceptance."
+  ],
+  "analyzer_sha256": "14962f129bba80d9334e7c45d06bfbf9880ad30df2c326d64341612967a520ec",
+  "reference_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+  "task_success_claimed": false
+}

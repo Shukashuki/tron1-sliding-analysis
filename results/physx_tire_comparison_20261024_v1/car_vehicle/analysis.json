@@ -1,0 +1,78 @@
+{
+  "study": "native_PhysX_Vehicle_SDK_component_model_contrast",
+  "status": "two_full_car_reference_duration_episodes_analyzed",
+  "rows": [
+    {
+      "mu": 0.7,
+      "core_XY_RMSE_m": 16.350735868589652,
+      "whole_XY_RMSE_m": 22.009213551085146,
+      "core_XY_peak_m": 32.30463183439415,
+      "core_speed_ratio": 1.4352126833018901,
+      "core_beta_RMSE_deg": 20.12006782299057,
+      "core_any_wheel_native_on_ground_fraction": 1.0,
+      "core_any_wheel_suspension_Fup_gt5N_fraction": 1.0,
+      "core_maximum_body_tilt_deg": 0.9056863188743591,
+      "core_loaded_wheel_samples": 2060,
+      "core_native_tire_force_over_mu_suspension_force_quantiles_50_95_100": [
+        0.8117008159966825,
+        1.2006299610092894,
+        1.2054187870435689
+      ],
+      "core_abs_native_tire_lateral_slip_rad_quantiles_50_95_100": [
+        0.016469493508338928,
+        0.25511044412851336,
+        0.2653487026691437
+      ],
+      "native_trace_sha256": "59b5c290dfb818f54dbf4bf6b56e411e4e55ac9bc4e24a1dd5328f072bd34ea8",
+      "physics_device": "CPU PhysX with native Vehicle SDK update",
+      "external_measured_load_delay": false,
+      "matched_tire_curve_only_ablation": false,
+      "source_plant_identified": false,
+      "rollover_observed_core_tilt_gt90deg": false
+    },
+    {
+      "mu": 3.5,
+      "core_XY_RMSE_m": 7.464671193750107,
+      "whole_XY_RMSE_m": 10.310878824563687,
+      "core_XY_peak_m": 15.040140009083874,
+      "core_speed_ratio": 1.259246951504841,
+      "core_beta_RMSE_deg": 10.866166246136192,
+      "core_any_wheel_native_on_ground_fraction": 0.512621359223301,
+      "core_any_wheel_suspension_Fup_gt5N_fraction": 0.49320388349514566,
+      "core_maximum_body_tilt_deg": 171.44190979003906,
+      "core_loaded_wheel_samples": 566,
+      "core_native_tire_force_over_mu_suspension_force_quantiles_50_95_100": [
+        0.7322250885247636,
+        3.7803571220453986,
+        74.03112577905308
+      ],
+      "core_abs_native_tire_lateral_slip_rad_quantiles_50_95_100": [
+        0.31417442858219147,
+        0.4112670049071312,
+        0.42691290378570557
+      ],
+      "native_trace_sha256": "3fbbb5650a7ea6281a8171c3c2557b54c8fcf582c9ebd040456d90a22eb80741",
+      "physics_device": "CPU PhysX with native Vehicle SDK update",
+      "external_measured_load_delay": false,
+      "matched_tire_curve_only_ablation": false,
+      "source_plant_identified": false,
+      "rollover_observed_core_tilt_gt90deg": true
+    }
+  ],
+  "same_normalized_source_controls_as_rigid_surrogate_verified": true,
+  "reference_is_not_real_car_measurement": true,
+  "source_vehicle_calibration_not_identified": true,
+  "native_Vehicle_default_tire_is_not_Pacejka": true,
+  "native_Vehicle_has_no_external_Fn_sample_delay": true,
+  "suspension_force_ratio_is_not_actual_tire_cone_utilization": true,
+  "filtered_tire_normal_load_exposed_by_wheel_state_binding": false,
+  "force_ratio_caution": "Vehicle tire load filtering/normalization and suspension-force projection differ from measured rigid contact Fn. A tire-force/(mu*suspension-up-force) ratio above1 is not proof of an SDK friction-cone violation.",
+  "model_changes": [
+    "native suspension/road query and Vehicle tire update replace rigid wheel-ground contacts",
+    "Vehicle lumped chassis inertia and virtual wheel mechanics differ from the multi-body rigid-axle articulation",
+    "Vehicle SDK uses CPU PhysX here; rigid-axle arms use GPU PhysX, so this is not an execution-path-controlled tire-law ablation"
+  ],
+  "wheel_render": "analytic composition of recorded root, steer angle and suspension jounce; no IK or optimization",
+  "analyzer_sha256": "6e74b6e4717ed4665e09b8c2cb435c83e4d7fde08f1ed753a7bcec19f22353e7",
+  "task_success_claimed": false
+}
