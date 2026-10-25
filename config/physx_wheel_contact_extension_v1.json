@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "study": "Separate nonlinear tire forces from sliced-cylinder contact geometry in PhysX",
+  "status": "queued_not_executed",
+  "user_authorized_extension": true,
+  "previous_measured_protocol": "config/physx_tire_comparison_v2.json",
+  "contact_command_diagnostic": "results/native_contact_dynamics_20261025_v1/analysis.json",
+  "preserve_all_previous_sources_and_results": true,
+  "sequence": [
+    "Freeze and record the current contact-reward/control checkpoint, including failures; a perfect baseline is not required for a contact-model diagnostic.",
+    "Validate each new contact representation on a single wheel before the full robot.",
+    "Replay one declared frozen policy under each contact-model arm at nominal mu0.7.",
+    "After the model comparisons and coupling checks, train separate matched-budget policies under the declared contact models.",
+    "Validate within each model and transfer between models; extend friction evaluation after nominal results are recorded."
+  ],
+  "main_system": "TRON1 WF driven two-wheel articulation, traj_4",
+  "initial_diagnostic_policy": {
+    "candidate": "K",
+    "normalized_actor_sha256": "fafdccb45571b99da53a02455f2402a8cd8b960f16809ba8e6e0fe6996dce912",
+    "selection_reason": "Declared existing tracking baseline; does not satisfy continuous-support acceptance.",
+    "same_actor_in_all_primary_arms": true,
+    "switching_actors_per_arm_or_calling_transfer_a_retrained_result": false,
+    "later_training_cohorts_must_have_new_identities": true
+  },
+  "primary_geometry_levels": [
+    {
+      "id": "authored_wheel",
+      "definition": "Existing authored wheel collision geometry, audited from the USD; do not assume an ideal analytic cylinder if its collider is a convex approximation."
+    },
+    {
+      "id": "uniform_axial_slices9",
+      "slices": 9,
+      "definition": "Nine contiguous, coaxial cylinder colliders with equal radius and total axial width matched to the declared cylinder envelope.",
+      "purpose": "Study contact representation and manifold changes with a matched envelope.",
+      "required_additional_control": "If the authored wheel is not an analytic cylinder, include one unsliced analytic cylinder with the same declared envelope."
+    }
+  ],
+  "primary_force_levels": [
+    {
+      "id": "native_coulomb",
+      "definition": "Unchanged native PhysX wheel-ground friction."
+    },
+    {
+      "id": "nonlinear_combined_slip",
+      "definition": "An explicitly declared nonlinear longitudinal/lateral tire-force law using wheel contact kinematics and measured normal load.",
+      "parameters_identified": false,
+      "parameters_and_load_coupling_must_be_frozen_before_the_primary_comparison": true
+    }
+  ],
+  "minimum_primary_factorial": [
+    {"geometry": "authored_wheel", "force": "native_coulomb"},
+    {"geometry": "uniform_axial_slices9", "force": "native_coulomb"},
+    {"geometry": "authored_wheel", "force": "nonlinear_combined_slip"},
+    {"geometry": "uniform_axial_slices9", "force": "nonlinear_combined_slip"}
+  ],
+  "nonlinear_force_controls": {
+    "no_native_and_external_tangent_force_double_counting": true,
+    "retain_and_measure_native_normal_contact": true,
+    "external_regularized_coulomb_control_with_identical_load_coupling_required": true,
+    "previous_external_implementation_has_one_physical_step_load_delay": true,
+    "load_delay_regularization_and_wrench_application_are_explicit_confounders": true,
+    "compare_nonlinear_to_external_coulomb_with_the_same_coupling_before_attributing_a_difference_to_the_curve": true,
+    "record_force_against_both_used_load_and_current_actual_load": true,
+    "native_PhysX_Vehicle_SDK_is_a_separate_plant_not_an_isolated_curve_replacement": true
+  },
+  "geometry_controls": {
+    "one_rigid_body_and_one_existing_wheel_joint_per_wheel": true,
+    "no_new_actuated_or_passive_DOF": true,
+    "audit_and_hold_total_mass_COM_and_inertia_fixed": true,
+    "hold_radius_total_width_axle_pose_material_and_actuation_fixed_for_uniform_slicing": true,
+    "do_not_allow_automatic_inertia_recomputation_to_create_an_unreported_plant_change": true,
+    "record_contact_and_rest_offsets_solver_settings_and_collision_approximation": true,
+    "detect_contact_buffer_overflow_and_duplicate_force_application": true,
+    "record_manifold_counts_and_seam_effects_under_camber_and_rolling": true
+  },
+  "additional_geometry_sensitivity": {
+    "slice_counts": [3, 5, 9],
+    "status": "optional_after_primary_geometry_validation",
+    "profiled_or_crowned_slices": {
+      "status": "separate_optional_shape_arm",
+      "definition": "Declare a radius-versus-axial-position profile for each slice.",
+      "changes_the_outer_shape": true,
+      "must_not_be_called_only_a_slice_count_change": true,
+      "matches_real_TRON1_tread_or_the_humanoid_paper_without_measurement": false
+    }
+  },
+  "fixed_primary_conditions": {
+    "backend": "PhysX",
+    "mu": 0.7,
+    "physics_dt_s": 0.0025,
+    "policy_dt_s": 0.02,
+    "same_reference_initial_state_and_actuator_contract": true,
+    "same_reward_within_each_declared_comparison": true,
+    "nonzero_reference_beta_retained": true,
+    "absolute_height_failure_gate_added": false,
+    "at_least_one_wheel_continuous_support_other_wheel_may_lift": true,
+    "step_refinement_is_a_separate_evaluation_sensitivity_not_a_training_clock_relabel": true
+  },
+  "measurements": [
+    "Core and whole-trajectory XY error, speed retention and intended reference-beta error",
+    "Body heading, velocity direction and each wheel rolling-plane heading",
+    "Per-wheel hub angle and actual contact-point longitudinal/lateral velocity",
+    "Physical-substep normal and tangential forces, impulses and support gaps",
+    "Aggregate friction utilization with its patch-versus-point limitations",
+    "Support-gap onset relative to control updates and stance-leg target changes",
+    "Body angular high-frequency motion and normal-force discontinuities"
+  ],
+  "presentation": {
+    "reuse_existing_four_horizontal_fullbody_and_XY_format": true,
+    "fixed_relative_camera_distance_and_world_angles": true,
+    "opaque_original_poses_and_wheel_headings": true,
+    "no_pose_smoothing_alignment_or_height_correction": true,
+    "model_transfer_and_model_specific_training_results_are_separate": true
+  },
+  "car_and_human_extensions": {
+    "original_scale_car": "Separate source/surrogate study; preserve clock and plant-identification caveats from the previous measured protocol.",
+    "human_motion_prior": "Assess GMR/AMP posture, load-transfer and support-timing value after the tire/contact comparison is defined; do not infer benefit from slicing alone.",
+    "reference_assessment": "config/roller_amp_drift_assessment_v1.json"
+  },
+  "execution": {
+    "fresh_full_GPU_process_memory_PCI_audit": true,
+    "approved_GPU_order": [3, 5, 4],
+    "one_owned_GPU_job_at_a_time": true,
+    "other_users_processes_stopped": false,
+    "existing_assets_and_environment_only": true,
+    "new_native_compilation_or_package_installation_authorized_by_this_plan": false
+  },
+  "new_rollouts_or_training_executed_by_this_plan": false,
+  "improvement_or_task_completion_claimed": false
+}
