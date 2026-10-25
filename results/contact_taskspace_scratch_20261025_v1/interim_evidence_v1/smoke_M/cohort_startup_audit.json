@@ -1,0 +1,1458 @@
+{
+  "id": "tron1_contact_taskspace_scratch_K_M_400hz_v1",
+  "run_kind": "smoke",
+  "protocol_sha256": "a56a89030ae202b821ba949260ae914dc25502bac6b08b6feda1f22969cde17e",
+  "wrapper_sha256": "5234070be219e59c61e6c4e4435e0dd0b2ab71df60d9c23886e507ed73692390",
+  "base_trainer_sha256": "65367115de9b5608dc2ef57cab701bea31c152c6af576bdb43a5cef025cc6878",
+  "counted_generated_source_sha256": "2a4ec5d1f55a763ee0b24a4cae2e1deee6772b57d275c66a99d9b3e213b57bc5",
+  "source_files_sha256": {
+    "scripts/train_ppo_backend.py": "65367115de9b5608dc2ef57cab701bea31c152c6af576bdb43a5cef025cc6878",
+    "scripts/train_ppo_backend_400hz.py": "5234070be219e59c61e6c4e4435e0dd0b2ab71df60d9c23886e507ed73692390",
+    "scripts/mujoco_ppo_env.py": "aa82be7322d7ab21dd17f6ba6d2462bcd13de7b368c89c903eb7aed1a52871c5",
+    "scripts/mjlab_tron1_env.py": "bc88f6919f3c4bfa57a362bc52d411b6a6871ee01a99e3d0954100bb7596a410",
+    "scripts/mjlab_gpu_ppo_env.py": "d45526f3af6d1689856285cebbdbd1943e96d0da570d078d54d9d8ba17aab3bf",
+    "scripts/mjlab_tron1_gpu.py": "57c23780e8da39e124acf491dfa339d66410ebf0df774334a768e8029cbf02e2",
+    "scripts/tron1_torch_task.py": "48d0b0506900f008bf9c32f95d4c1f688e3bdb983129a43106f7896df625fd9f",
+    "scripts/physx_mjlab_recipe.py": "1365f4eecc6129bef4738e05a491763a2884407d8cf00a3a7d0faffbc24fa699",
+    "scripts/height_smoothness.py": "e133aca58f671fc22ae1dfc97a03461e7724e4072bf8b74f58a2c14281d198b8",
+    "scripts/nmpc_batch_objective.py": "1c9da90ae66778a71ceb2e6bb9d0dcf7f0a2259fafee39b37cbe958b79178fae",
+    "scripts/nmpc_tracking_objective.py": "ff22eebb2b22b9af7dba114c64fcd10f6b0a90822559af8f32cbe6884015b860",
+    "scripts/mujoco_ppo_native.py": "f1b79830fac22623c861de2eba0c77bc3832f634ff2a494cf0a45481864886c4",
+    "scripts/classical_tracking.py": "3fcafdb6a16058280aa1e5a0ade6113f6963ddf3085c25ebe2ed6fbb30661c57"
+  },
+  "original_input_sha256": {
+    "contract": "6e105cbd6efe7d35117a895fa097e8ec64b6ac822a9de07c00acfaef4d09642f",
+    "task_profile": "31de29a61eec847e0e39783f3a0d9d8f2db551acd679a1b38dfde2b24e8ae7d6"
+  },
+  "derived_input_sha256": {
+    "task_profile": "b123bb6c03318266831022f5af8fae0314baa719e4a478bc162b75ec1b52d820",
+    "contract": "ebcf95d8b395f92f4e1395f34def1a5056e86dc9a5cc0c5894fcc6f3f0cba889"
+  },
+  "runtime": {
+    "status": "verified",
+    "fields": {
+      "physics_dt_s": 0.0025,
+      "decimation": 8,
+      "policy_dt_s": 0.02,
+      "actor_dim": 51,
+      "critic_dim": 120,
+      "action_dim": 8,
+      "action_rate_weight": -0.5,
+      "grounded_reward_weight": 0.4,
+      "reward_term_count": 15,
+      "leg_kp": [
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ],
+        [
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0,
+          500.0
+        ]
+      ],
+      "leg_kd": [
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        [
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0,
+          10.0
+        ]
+      ],
+      "absolute_height_termination": false,
+      "absolute_xy_termination": false
+    },
+    "device": {
+      "schema_version": 1,
+      "status": "verified",
+      "requested_device": "cuda:3",
+      "environment_device": "cuda:3",
+      "physics_sim_view_frontend_device": "cuda:3",
+      "robot_native_transform_tensor_device": "cuda:3",
+      "native_physics_backend_device_ordinal": 3,
+      "torch_current_device": 3,
+      "physics_cudaDevice_setting": 3,
+      "physics_sceneMultiGPUMode_setting": 0,
+      "cuda_visible_devices": null,
+      "required_unmasked": true,
+      "device_index": 3,
+      "index_scope": "unmasked_cuda_ordinal",
+      "native_and_tensor_device_consistency_verified": true,
+      "physical_mapping_verified": false,
+      "exclusivity_verified": false
+    },
+    "shared_DR_recipe": "tron1_mjlab_tracking_dr_v1",
+    "no_extra_environment_steps": true
+  },
+  "from_scratch": true,
+  "historical_checkpoint_used": false,
+  "smoke_only": true,
+  "trained_policy_claimed": false,
+  "network_seed_after_environment_setup_and_smoke": true,
+  "initial_policy_state_sha256": "7dcdf78ffeb61806eeefcb31c4739d707c1caef934d152f2296ba2ee488b4d5d",
+  "physical_substeps_per_environment_transition": 8,
+  "variant": "M",
+  "live_startup": {
+    "contact": {
+      "reward_definition_version": "ground_contact_v2m_any_wheel",
+      "settings": {
+        "schema_version": 1,
+        "candidate": "ground_contact_v2m",
+        "physics_substeps": 8,
+        "support_load_fraction": 0.5,
+        "mean_weight": 0.75,
+        "minimum_weight": 0.25,
+        "impact_multiple": 3.0,
+        "negative_force_tolerance_n": 0.0001,
+        "external_reward_weight": 0.4,
+        "reward_dt_s": 0.02,
+        "support_gap_weight": 4.0,
+        "support_force_threshold_n": 5.0,
+        "beta_gate_low_reference_speed_m_s": 0.3,
+        "support_gap_aggregation": "max8",
+        "support_gap_cost_mode": "worst_substep_continuous_anywheel_load_margin"
+      },
+      "module_sha256": "1ff4d39e46be8b19e12db13143401a22cc933a2f1834a2eabbb947d1454c6add",
+      "definition_sha256": "83912fa9a4a44b997fe241a1bd99d9ecf1ad866e1f8e07932439363825da4542",
+      "immutable_v2a_definition_sha256": "5794ceb435c6ddc9cc374fa5ebe7718edc99d4c3181ebeac111cafe128461bf5",
+      "immutable_v2b_definition_sha256": "359997a5e4e1734f14ffd8c64a61bbaf0f8fb1d0dd6b274001a77689bb62ba6c",
+      "immutable_v2c_definition_sha256": "758eba1c7234cd43b211262541fce0cab6ad91be8ae0f10a44714d037322ebfb",
+      "immutable_v2d_definition_sha256": "1f6245ca3ca08483704d4f42a044ba38b8d09f01d81dc6e71bbf423d206898a7",
+      "immutable_v2f_definition_sha256": "a9e561a09ca2f0cbcd6c412a8e1860817aeccaff50660e9796866996a844d3e1",
+      "immutable_v2g_definition_sha256": "81056b23fbf2052f2e0630d1888aa6b71556027ca108ab3b08dd768a912e493a",
+      "support_gap_aggregation": "max8",
+      "support_gap_is_window_event_not_duration_fraction": false,
+      "support_gap_is_continuous_load_margin": true,
+      "support_gap_cost_mode": "worst_substep_continuous_anywheel_load_margin",
+      "immutable_v2i_definition_sha256": "2d805c5d878541da7a7ccc1f6af421ebe4b425fb9006756081f786ae79bf5101",
+      "immutable_v2k_definition_sha256": "dbea1148c00a394b990964f7e7b26d3a7e9bdbe75e43975b3e9e79e7e0ebe18f",
+      "support_gap_coefficient_previous": 1.0,
+      "support_gap_coefficient_current": 4.0,
+      "force_slew_cost_added": false,
+      "load_margin_target_range_n": [
+        109.24906158447266,
+        109.24906158447266
+      ],
+      "load_margin_gravity_w_m_s2": [
+        0.0,
+        0.0,
+        -9.81
+      ],
+      "beta_quality_source": "training.tron1_drift.sideslip_tracking_unweighted",
+      "beta_quality_source_sha256": "d5da59c7af58f8a45e3deeb8f69fb0af8d382335e7b0974a5637106fc8c56bb6",
+      "beta_quality_source_path": "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/source_snapshot_v2/upstream/tron1-learning-from-human/training/tron1_drift.py",
+      "beta_quality_source_verified": true,
+      "beta_quality_std_rad": 0.12,
+      "beta_low_reference_speed_m_s": 0.3,
+      "beta_num_envs": 32,
+      "beta_unique_reward_reads": 8,
+      "beta_quality_is_unweighted_existing_term": true,
+      "reference_beta_not_zero_beta_is_intended": true,
+      "physics_dt_s": 0.0025,
+      "policy_dt_s": 0.02,
+      "substeps": 8,
+      "device": "cuda:3",
+      "cpu_fixture_only": false,
+      "floor_filter": "/World/ground/terrain/GroundPlane/CollisionPlane",
+      "force_units": "normal force N; impulse converted with physical dt2.5ms",
+      "mass_kg_range": [
+        22.272998809814453,
+        22.272998809814453
+      ],
+      "steps_started": 8,
+      "steps_completed": 8,
+      "physics_samples": 64,
+      "unique_reward_windows": 8,
+      "reset_calls": 4,
+      "single_wheel_support_allowed": true,
+      "bilateral_constraint": false,
+      "height_or_zero_slip_target": false,
+      "observation_action_or_physics_change": false,
+      "closed": false,
+      "device_held_reference_phase_health": true,
+      "device_low_reference_speed_gate_health": true,
+      "beta_moving_reference_samples": 246,
+      "beta_low_reference_samples": 10,
+      "beta_environment_reward_samples": 256,
+      "beta_gate_mean": 0.7858583927154541,
+      "device_finite_normal_force_health": true,
+      "device_finite_reward_health": true,
+      "ground_fz_min_N": [
+        1.276206612586975,
+        0.0
+      ],
+      "ground_fz_max_N": [
+        162.20982360839844,
+        235.5822296142578
+      ],
+      "force_bearing_samples_L_R_any_both": [
+        2042,
+        2043,
+        2048,
+        2037
+      ],
+      "sampled_environment_substeps": 2048,
+      "mean_raw_reward": 0.18456639349460602
+    },
+    "runtime": {
+      "status": "verified",
+      "fields": {
+        "physics_dt_s": 0.0025,
+        "decimation": 8,
+        "policy_dt_s": 0.02,
+        "actor_dim": 51,
+        "critic_dim": 120,
+        "action_dim": 8,
+        "action_rate_weight": -0.5,
+        "grounded_reward_weight": 0.4,
+        "reward_term_count": 15,
+        "leg_kp": [
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ],
+          [
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0,
+            500.0
+          ]
+        ],
+        "leg_kd": [
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ],
+          [
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0,
+            10.0
+          ]
+        ],
+        "absolute_height_termination": false,
+        "absolute_xy_termination": false
+      },
+      "device": {
+        "schema_version": 1,
+        "status": "verified",
+        "requested_device": "cuda:3",
+        "environment_device": "cuda:3",
+        "physics_sim_view_frontend_device": "cuda:3",
+        "robot_native_transform_tensor_device": "cuda:3",
+        "native_physics_backend_device_ordinal": 3,
+        "torch_current_device": 3,
+        "physics_cudaDevice_setting": 3,
+        "physics_sceneMultiGPUMode_setting": 0,
+        "cuda_visible_devices": null,
+        "required_unmasked": true,
+        "device_index": 3,
+        "index_scope": "unmasked_cuda_ordinal",
+        "native_and_tensor_device_consistency_verified": true,
+        "physical_mapping_verified": false,
+        "exclusivity_verified": false
+      },
+      "shared_DR_recipe": "tron1_mjlab_tracking_dr_v1",
+      "no_extra_environment_steps": true
+    },
+    "task_space_tracking": {
+      "status": "live_target_selection_verified",
+      "configured": {
+        "settings": {
+          "mode": "base_wheel_targets_free_leg_links_v1",
+          "position_bodies": [
+            "base_Link",
+            "wheel_L_Link",
+            "wheel_R_Link"
+          ],
+          "linear_velocity_bodies": [
+            "base_Link",
+            "wheel_L_Link",
+            "wheel_R_Link"
+          ],
+          "angular_velocity_bodies": [
+            "base_Link"
+          ],
+          "orientation_term": "world_axial_wheel_plane_heading",
+          "wheel_bodies": [
+            "wheel_L_Link",
+            "wheel_R_Link"
+          ],
+          "wheel_axle_local": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "wheel_heading_std_rad": 0.4,
+          "wheel_heading_min_projection": 1e-06,
+          "all_reward_weights_unchanged": true,
+          "root_global_orientation_and_nonzero_beta_retained": true,
+          "intermediate_leg_reference_observations_retained": true,
+          "contact_reward_formula_changed": false
+        },
+        "original_tracking_params": {
+          "motion_body_pos": {
+            "command_name": "motion",
+            "std": 0.3
+          },
+          "motion_body_ori": {
+            "command_name": "motion",
+            "std": 0.4,
+            "body_names": [
+              "base_Link",
+              "abad_L_Link",
+              "abad_R_Link",
+              "hip_L_Link",
+              "hip_R_Link",
+              "knee_L_Link",
+              "knee_R_Link"
+            ]
+          },
+          "motion_body_lin_vel": {
+            "command_name": "motion",
+            "std": 0.5
+          },
+          "motion_body_ang_vel": {
+            "command_name": "motion",
+            "std": 0.8,
+            "body_names": [
+              "base_Link",
+              "abad_L_Link",
+              "abad_R_Link",
+              "hip_L_Link",
+              "hip_R_Link",
+              "knee_L_Link",
+              "knee_R_Link"
+            ]
+          }
+        },
+        "four_tracking_terms_changed": [
+          "motion_body_pos",
+          "motion_body_ori",
+          "motion_body_lin_vel",
+          "motion_body_ang_vel"
+        ],
+        "contact_reward_and_other_eleven_terms_unchanged": true
+      },
+      "active_term_weights": {
+        "motion_global_anchor_pos": 2.0,
+        "motion_global_anchor_ori": 2.0,
+        "motion_body_pos": 1.0,
+        "motion_body_ori": 1.0,
+        "motion_body_lin_vel": 1.0,
+        "motion_body_ang_vel": 1.0,
+        "action_rate_l2": -0.5,
+        "joint_limit": -10.0,
+        "undesired_contacts": -0.1,
+        "drift_sideslip": 2.0,
+        "drift_yaw_rate": 1.0,
+        "drift_speed": 1.0,
+        "drift_grounded": 0.4,
+        "drift_tilt": -0.2,
+        "height_vertical_acceleration": -0.1
+      },
+      "active_tracking_params": {
+        "motion_body_pos": {
+          "command_name": "motion",
+          "std": 0.3,
+          "body_names": [
+            "base_Link",
+            "wheel_L_Link",
+            "wheel_R_Link"
+          ]
+        },
+        "motion_body_ori": {
+          "command_name": "motion",
+          "std": 0.4,
+          "body_names": [
+            "wheel_L_Link",
+            "wheel_R_Link"
+          ]
+        },
+        "motion_body_lin_vel": {
+          "command_name": "motion",
+          "std": 0.5,
+          "body_names": [
+            "base_Link",
+            "wheel_L_Link",
+            "wheel_R_Link"
+          ]
+        },
+        "motion_body_ang_vel": {
+          "command_name": "motion",
+          "std": 0.8,
+          "body_names": [
+            "base_Link"
+          ]
+        }
+      },
+      "live_heading_reward_range": [
+        1.0,
+        1.0
+      ],
+      "live_heading_reward_shape": [
+        32
+      ],
+      "num_envs": 32,
+      "extra_simulation_steps": 0,
+      "absolute_height_gate": false,
+      "observation_layout_changed": false,
+      "task_success_claimed": false
+    }
+  },
+  "source_sha256": {
+    "/data/zengxiong/workspaces/tron1-contact-taskspace-scratch-20261025-v1/source_snapshot_v1/scripts/train_ppo_ground_contact_v2k.py": "65e6d41695219b676200f61d6d6941ca546fb8f1e95fbd6c60ca89347cf1d1e8",
+    "/data/zengxiong/workspaces/tron1-contact-taskspace-scratch-20261025-v1/source_snapshot_v1/scripts/ground_contact_reward_v2.py": "5794ceb435c6ddc9cc374fa5ebe7718edc99d4c3181ebeac111cafe128461bf5",
+    "/data/zengxiong/workspaces/tron1-contact-taskspace-scratch-20261025-v1/source_snapshot_v1/scripts/ground_contact_reward_v2b.py": "359997a5e4e1734f14ffd8c64a61bbaf0f8fb1d0dd6b274001a77689bb62ba6c",
+    "/data/zengxiong/workspaces/tron1-contact-taskspace-scratch-20261025-v1/source_snapshot_v1/scripts/ground_contact_reward_v2c.py": "758eba1c7234cd43b211262541fce0cab6ad91be8ae0f10a44714d037322ebfb",
+    "/data/zengxiong/workspaces/tron1-contact-taskspace-scratch-20261025-v1/source_snapshot_v1/scripts/ground_contact_reward_v2d.py": "1f6245ca3ca08483704d4f42a044ba38b8d09f01d81dc6e71bbf423d206898a7",
+    "/data/zengxiong/workspaces/tron1-contact-taskspace-scratch-20261025-v1/source_snapshot_v1/scripts/ground_contact_reward_v2f.py": "a9e561a09ca2f0cbcd6c412a8e1860817aeccaff50660e9796866996a844d3e1",
+    "/data/zengxiong/workspaces/tron1-contact-taskspace-scratch-20261025-v1/source_snapshot_v1/scripts/ground_contact_beta_contract.py": "6168e4369ffaae16f06fe375bec78813d8a1e7854d20f4e6ff8c073e1233d126",
+    "/data/zengxiong/workspaces/tron1-contact-taskspace-scratch-20261025-v1/source_snapshot_v1/scripts/ground_contact_reward_v2g.py": "81056b23fbf2052f2e0630d1888aa6b71556027ca108ab3b08dd768a912e493a",
+    "/data/zengxiong/workspaces/tron1-contact-taskspace-scratch-20261025-v1/source_snapshot_v1/scripts/ground_contact_reward_v2i.py": "2d805c5d878541da7a7ccc1f6af421ebe4b425fb9006756081f786ae79bf5101",
+    "/data/zengxiong/workspaces/tron1-contact-taskspace-scratch-20261025-v1/source_snapshot_v1/scripts/ground_contact_reward_v2k.py": "dbea1148c00a394b990964f7e7b26d3a7e9bdbe75e43975b3e9e79e7e0ebe18f",
+    "/data/zengxiong/workspaces/tron1-contact-taskspace-scratch-20261025-v1/source_snapshot_v1/scripts/ppo_ground_contact_v2k.py": "3fb2ce270ed5783101bc558cc615e311dd9f586c3096a28184e9174e3d595f2d",
+    "/data/zengxiong/workspaces/tron1-ppo-beta-ablation-400hz-20261022/source_snapshot_v4/scripts/train_ppo_backend_400hz.py": "5234070be219e59c61e6c4e4435e0dd0b2ab71df60d9c23886e507ed73692390",
+    "/data/zengxiong/workspaces/tron1-ppo-beta-ablation-400hz-20261022/source_snapshot_v4/scripts/train_ppo_backend.py": "65367115de9b5608dc2ef57cab701bea31c152c6af576bdb43a5cef025cc6878",
+    "/data/zengxiong/workspaces/tron1-ppo-beta-ablation-400hz-20261022/source_snapshot_v4/scripts/physx_mjlab_recipe.py": "1365f4eecc6129bef4738e05a491763a2884407d8cf00a3a7d0faffbc24fa699",
+    "/data/zengxiong/workspaces/tron1-ppo-beta-ablation-400hz-20261022/source_snapshot_v4/scripts/height_smoothness.py": "e133aca58f671fc22ae1dfc97a03461e7724e4072bf8b74f58a2c14281d198b8",
+    "/data/zengxiong/workspaces/tron1-contact-taskspace-scratch-20261025-v1/source_snapshot_v1/scripts/train_contact_taskspace_scratch.py": "0c8bcde2725daee56f576b5da8e02d3658e5522181c82974a709affab3113f55",
+    "/data/zengxiong/workspaces/tron1-contact-taskspace-scratch-20261025-v1/source_snapshot_v1/scripts/car_taskspace_tracking.py": "e431bb7eaafa0175e521796b22a14ffa796f3c90953855d2f5d30e7983e172a4",
+    "/data/zengxiong/workspaces/tron1-contact-taskspace-scratch-20261025-v1/source_snapshot_v1/scripts/verify_contact_taskspace_scratch.py": "306d39af68c96ecf820d863e999fdf0e925f5d3aaf96ea0a57a71724325a18de",
+    "/data/zengxiong/workspaces/tron1-contact-taskspace-scratch-20261025-v1/source_snapshot_v1/scripts/policy_export_precision.py": "6af734bb14b9fe2f04814edec14b720ceee21acd15391abf679c57bf49cce352",
+    "/data/zengxiong/workspaces/tron1-contact-taskspace-scratch-20261025-v1/source_snapshot_v1/scripts/ground_contact_reward_v2m.py": "83912fa9a4a44b997fe241a1bd99d9ecf1ad866e1f8e07932439363825da4542",
+    "/data/zengxiong/workspaces/tron1-contact-taskspace-scratch-20261025-v1/source_snapshot_v1/scripts/ppo_ground_contact_v2m.py": "1ff4d39e46be8b19e12db13143401a22cc933a2f1834a2eabbb947d1454c6add",
+    "/data/zengxiong/workspaces/tron1-ground-contact-v2k-20261024/source_snapshot_v1/config/ppo_ground_contact_v2k_400hz_v1.json": "855ca5a08e2b228c5146c65fb76f55cf6c9152d70480dc43a32a875aa4ff17d9",
+    "/data/zengxiong/workspaces/tron1-contact-taskspace-scratch-20261025-v1/source_snapshot_v1/config/contact_taskspace_scratch_400hz_v1.json": "a56a89030ae202b821ba949260ae914dc25502bac6b08b6feda1f22969cde17e",
+    "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/source_snapshot_v2/upstream/tron1-learning-from-human/training/tron1_drift.py": "d5da59c7af58f8a45e3deeb8f69fb0af8d382335e7b0974a5637106fc8c56bb6"
+  },
+  "normalizer_initial_count": 0,
+  "optimizer_initial_state_empty": true,
+  "initial_checkpoint": null,
+  "optimizer": {
+    "learning_rate": 0.001,
+    "schedule": "adaptive",
+    "clip_param": 0.2
+  },
+  "task_space_tracking": {
+    "mode": "base_wheel_targets_free_leg_links_v1",
+    "position_bodies": [
+      "base_Link",
+      "wheel_L_Link",
+      "wheel_R_Link"
+    ],
+    "linear_velocity_bodies": [
+      "base_Link",
+      "wheel_L_Link",
+      "wheel_R_Link"
+    ],
+    "angular_velocity_bodies": [
+      "base_Link"
+    ],
+    "orientation_term": "world_axial_wheel_plane_heading",
+    "wheel_bodies": [
+      "wheel_L_Link",
+      "wheel_R_Link"
+    ],
+    "wheel_axle_local": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "wheel_heading_std_rad": 0.4,
+    "wheel_heading_min_projection": 1e-06,
+    "all_reward_weights_unchanged": true,
+    "root_global_orientation_and_nonzero_beta_retained": true,
+    "intermediate_leg_reference_observations_retained": true,
+    "contact_reward_formula_changed": false
+  }
+}

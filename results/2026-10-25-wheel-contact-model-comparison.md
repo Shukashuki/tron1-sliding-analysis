@@ -85,6 +85,8 @@ Retain the existing complete nominal gates: core/whole XY RMSE ≤0.15 m and pea
 
 The later [task-space M/R leg-velocity comparison](contact_taskspace_leg_velocity_20261025_v1/report.html) uses a different task-space reward and additional warm-adaptation budget, so it is not another matched wheel-model cell. Its lower HF score accompanies large XY/beta errors and collapse in both native engines. It does not supply a successful stable-contact policy to attribute to a wheel-model change.
 
+The subsequent [reference force-balance diagnostic](reference_contact_dynamics_20261025_v1/report.html) finds substantial disagreement between the exact static-leg reference and an explicitly assumed saturated kinetic-Coulomb law at mu 0.7. It includes wheel spin and mass-weighted COM kinematics, allows arbitrary nonnegative wheel-load allocation, and does not claim native-solver force reconstruction or task impossibility. [Fresh task-space K/M training](contact_taskspace_scratch_20261025_v1/report.html) now tests the contact coefficient from identical random networks instead of inheriting the static-leg imitation checkpoint. Both native smokes passed; the linked record is an interim training observation, not completed nominal validation or another wheel-model arm.
+
 This evidence covers the two-wheel TRON1 task. It does not supply a calibrated four-wheel car comparison or establish the value of human motion retargeting/AMP; those remain separate experiments.
 
 ## Reproduction entry points

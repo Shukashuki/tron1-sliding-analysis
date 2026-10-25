@@ -1,0 +1,117 @@
+{
+  "kind": "conditional_reference_centroidal_kinetic_friction_audit",
+  "physics_rollouts": 0,
+  "integration_steps": 0,
+  "task_success_claimed": false,
+  "task_impossibility_claimed": false,
+  "controller_or_reward_or_reference_changed": false,
+  "mu": 0.7,
+  "reference_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+  "model_sha256": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513",
+  "analyzer_sha256": "efe31c5c947408b55e8b327d35a244b0a01c66cacc3770375b70050dbdd9acdf",
+  "mujoco_version": "3.8.1",
+  "kinematic_reconstruction": {
+    "link_origin_FK_max_abs_error_m": 2.3816932515074996e-07,
+    "exported_COM_velocity_max_abs_error_m_s": 5.992971252588575e-08,
+    "max_wheel_axle_vertical_component": 2.220446049250313e-16,
+    "body_names_in_model_order": [
+      "base_Link",
+      "abad_L_Link",
+      "hip_L_Link",
+      "knee_L_Link",
+      "wheel_L_Link",
+      "abad_R_Link",
+      "hip_R_Link",
+      "knee_R_Link",
+      "wheel_R_Link",
+      "limx_imu"
+    ],
+    "body_masses_kg": [
+      9.585000038146973,
+      1.468999981880188,
+      2.299999952316284,
+      1.4900000095367432,
+      1.0800000429153442,
+      1.468999981880188,
+      2.299999952316284,
+      1.4900000095367432,
+      1.0800000429153442,
+      0.009999999776482582
+    ],
+    "total_mass_kg": 22.273000011220574
+  },
+  "core_interval_s": [
+    1.44,
+    4.0
+  ],
+  "core_samples": 129,
+  "all_core_samples_two_sliding_wheels": true,
+  "quantile_order": [
+    0.5,
+    0.95,
+    1.0
+  ],
+  "core_surface_abs_lateral_speed_m_s_quantiles_L_R": [
+    [
+      0.37595357748148883,
+      0.37595357748148883
+    ],
+    [
+      0.4772789822504284,
+      0.4772789822504284
+    ],
+    [
+      0.4869987166621894,
+      0.4869987166621894
+    ]
+  ],
+  "core_required_COM_acceleration_XY_over_g_quantiles": [
+    0.04661420647587861,
+    0.10361814142112039,
+    0.12173074358517845
+  ],
+  "core_required_total_normal_over_mg_range": [
+    0.9999756760960798,
+    1.0000180819933997
+  ],
+  "core_best_load_split_force_residual_over_mg_quantiles": [
+    0.6539094701884278,
+    0.700000049262731,
+    0.7000144825941064
+  ],
+  "core_equal_load_scalar_mu_fit_quantiles": [
+    0.04610772879233536,
+    0.10269716075281543,
+    0.12014268895078442
+  ],
+  "core_reference_lowest_surface_z_range_m": [
+    -5.551115123125783e-16,
+    -2.220446049250313e-16
+  ],
+  "reference_named_leg_max_abs_velocity_rad_s": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "assumed_law": "Fully sliding isotropic kinetic Coulomb: Ft_i=-mu*Fn_i*surface_vxy_i/|surface_vxy_i|; FnL+FnR=m*(g+aCOMz), Fn_i>=0.",
+  "assumptions": [
+    "Flat floor, horizontal reference wheel axles, original rigid cylinders.",
+    "Surface-point velocity includes the actual reference wheel spin via the Jacobian.",
+    "Only gravity and wheel-ground external forces; no air force or other-body contact.",
+    "Kinetic friction is saturated and exactly opposite the instantaneous XY material-point velocity.",
+    "Best nonnegative load split allows a single supporting wheel; no bilateral constraint.",
+    "Reference derivatives are at 50 Hz, not measured contact forces.",
+    "The scalar mu fit assumes equal wheel loads and is not a road/tire coefficient estimate."
+  ],
+  "limits": [
+    "A centroidal force-only check omits angular momentum, joint limits, motor authority and discrete contact-solver behavior.",
+    "Actual policies may move legs, shift height/lean/wheel headings and change surface slip while retaining task-level tracking.",
+    "This conditional calculation cannot prove task infeasibility or attribute native PhysX/MuJoCo support gaps.",
+    "No friction change, reference scaling or relaxed acceptance follows from this audit."
+  ],
+  "next_experiment": "Test fresh task-space K/M learning with identical scratch seed/budget; previous low-rate warm refinements retained the old static-leg imitation checkpoint.",
+  "primary_API_documentation": "https://mujoco.readthedocs.io/en/stable/APIreference/APIfunctions.html#mj-jac"
+}
