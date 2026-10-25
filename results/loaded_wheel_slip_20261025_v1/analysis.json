@@ -1,0 +1,198 @@
+{
+  "kind": "historical_frozen_K_loaded_surface_slip_diagnostic",
+  "actor_sha256": "fafdccb45571b99da53a02455f2402a8cd8b960f16809ba8e6e0fe6996dce912",
+  "new_fresh_K_M_policies_evaluated": false,
+  "physics_jobs_launched": 0,
+  "task_success_claimed": false,
+  "new_failure_or_acceptance_gate": false,
+  "evaluation_mu": 0.7,
+  "core_interval_s": [
+    1.44,
+    4.0
+  ],
+  "load_threshold_strict_n": 5.0,
+  "selected_hub_XY_speed_min_m_s": 0.3,
+  "descriptive_slip_speed_threshold_m_s": 0.1,
+  "analyzer_sha256": "a3973f35ce32df935e173530ecdb9e49ab2965869b6023f50aaa915790739a82",
+  "frozen_native_analysis_sha256": "3477b559a6087ca4166bb1a04e03128d1e3fcf8695636353097d639195010ea3",
+  "all_six_existing_native_cases_reverified": true,
+  "cached_contact_slip_reconstructed": true,
+  "limitations": [
+    "Aggregate reported contact point, not per-patch or per-slice identification.",
+    "Uses instantaneous post-solve body velocities at each physical sample; within-step slip is not resolved.",
+    "Normal load is the preceding solver sample, paired with the recorded pre-next-step kinematics.",
+    "The0.1m/s cutoff and0.3m/s hub-speed selection describe these data and are not task acceptance criteria.",
+    "These are frozen historical K model transfers, not this round's fresh K/M policies.",
+    "Beta quality alone cannot establish sustained loaded-wheel sliding; these numbers alone do not classify a successful drift."
+  ],
+  "rows": [
+    {
+      "case": "authored__native_coulomb",
+      "geometry": "authored",
+      "law": "native_coulomb",
+      "core_body_beta_rmse_deg": 3.771785420227817,
+      "wheels": {
+        "left": {
+          "core_loaded_samples": 496,
+          "loaded_moving_samples": 496,
+          "abs_lateral_contact_speed_m_s_median": 0.00946222515614509,
+          "abs_lateral_contact_speed_m_s_p95": 0.4610116223382546,
+          "loaded_moving_fraction_abs_lateral_speed_above_0p1_m_s": 0.1431451612903226
+        },
+        "right": {
+          "core_loaded_samples": 614,
+          "loaded_moving_samples": 614,
+          "abs_lateral_contact_speed_m_s_median": 0.007540379498656083,
+          "abs_lateral_contact_speed_m_s_p95": 0.27897766912154875,
+          "loaded_moving_fraction_abs_lateral_speed_above_0p1_m_s": 0.08631921824104234
+        }
+      },
+      "input_sha256": {
+        "wheel_contact_model_status.json": "fdc4726f4e2a7d61dda5ec56fe2c81f809b2c38a1f94af4867633a0b9de03991",
+        "report.json": "29499d653e272b74aadb491be2f41c940b5232674ffb7e5f1c3a4dbc333d9130",
+        "physics_trajectory.npz": "cbd7d2b249737919bc21f2bccb05b3d82e8b869fbbe3d0a91c45e6b8eda4a67a",
+        "tire_trajectory.npz": "2f525361b671caa85075f6420209afd8c06894faddf9954ba44ee758a20ed629"
+      }
+    },
+    {
+      "case": "slices9__native_coulomb",
+      "geometry": "slices9",
+      "law": "native_coulomb",
+      "core_body_beta_rmse_deg": 4.216274415364914,
+      "wheels": {
+        "left": {
+          "core_loaded_samples": 492,
+          "loaded_moving_samples": 492,
+          "abs_lateral_contact_speed_m_s_median": 0.005805110195043981,
+          "abs_lateral_contact_speed_m_s_p95": 0.20613859286233863,
+          "loaded_moving_fraction_abs_lateral_speed_above_0p1_m_s": 0.10772357723577236
+        },
+        "right": {
+          "core_loaded_samples": 649,
+          "loaded_moving_samples": 649,
+          "abs_lateral_contact_speed_m_s_median": 0.007047547195219947,
+          "abs_lateral_contact_speed_m_s_p95": 0.06920293268520337,
+          "loaded_moving_fraction_abs_lateral_speed_above_0p1_m_s": 0.04468412942989214
+        }
+      },
+      "input_sha256": {
+        "wheel_contact_model_status.json": "9c7e24763b9ec83cd1c19fdcb8e0d5355e13647098b3ab7d79bd20cdbfca6945",
+        "report.json": "2bbc05dfeeaac0f77747d15b8d1305966014dd033dcbcccc1981db5cb3bd7fd1",
+        "physics_trajectory.npz": "35cdd9c4c055ec99776a55d0b58861e4a920f4485836c0a6f996d2b23cd0f401",
+        "tire_trajectory.npz": "088204efedbd6c4d4bdae9cc0b8a007a4812f0b573da3a8ef6f710d79ce0d1be"
+      }
+    },
+    {
+      "case": "authored__external_coulomb_regularized",
+      "geometry": "authored",
+      "law": "external_coulomb_regularized",
+      "core_body_beta_rmse_deg": 3.153794112858626,
+      "wheels": {
+        "left": {
+          "core_loaded_samples": 383,
+          "loaded_moving_samples": 382,
+          "abs_lateral_contact_speed_m_s_median": 0.0588402035301552,
+          "abs_lateral_contact_speed_m_s_p95": 1.0277389838943105,
+          "loaded_moving_fraction_abs_lateral_speed_above_0p1_m_s": 0.39267015706806285
+        },
+        "right": {
+          "core_loaded_samples": 611,
+          "loaded_moving_samples": 610,
+          "abs_lateral_contact_speed_m_s_median": 0.06752241206959972,
+          "abs_lateral_contact_speed_m_s_p95": 0.5432043713295517,
+          "loaded_moving_fraction_abs_lateral_speed_above_0p1_m_s": 0.37540983606557377
+        }
+      },
+      "input_sha256": {
+        "wheel_contact_model_status.json": "a3b045731aea8df9a368da1cc22e43899ef6b5b7b60a664177e2d60f04330042",
+        "report.json": "1c3c7bd9090823828c7a8acdd84ef4db6c5c918457ac91c494fa71660e5842ac",
+        "physics_trajectory.npz": "d43af51eb49acfe490350d08424418c3aa901774efea1e1d6525efdafc497c2b",
+        "tire_trajectory.npz": "812ae413ae05a6094ad1a47dd2ea73cdec1322e4a8664d41f9457f135b6e0b5a"
+      }
+    },
+    {
+      "case": "slices9__external_coulomb_regularized",
+      "geometry": "slices9",
+      "law": "external_coulomb_regularized",
+      "core_body_beta_rmse_deg": 4.050118012888946,
+      "wheels": {
+        "left": {
+          "core_loaded_samples": 523,
+          "loaded_moving_samples": 519,
+          "abs_lateral_contact_speed_m_s_median": 0.020348693988794197,
+          "abs_lateral_contact_speed_m_s_p95": 0.6843379213473603,
+          "loaded_moving_fraction_abs_lateral_speed_above_0p1_m_s": 0.22157996146435452
+        },
+        "right": {
+          "core_loaded_samples": 748,
+          "loaded_moving_samples": 747,
+          "abs_lateral_contact_speed_m_s_median": 0.04981445800455947,
+          "abs_lateral_contact_speed_m_s_p95": 0.7442156897260849,
+          "loaded_moving_fraction_abs_lateral_speed_above_0p1_m_s": 0.31994645247657294
+        }
+      },
+      "input_sha256": {
+        "wheel_contact_model_status.json": "56d923af788781409d6a772e28a28520c545fec54ef9aa9f44529d03c3a9ab2d",
+        "report.json": "d24a949d9b2f2638b2cb7d46042d9325424966b3dae8980ec80163edca6ccd74",
+        "physics_trajectory.npz": "50dd6563cd357d5921628e5cca8bcfc68c2cecc98ad34372169d38a037459335",
+        "tire_trajectory.npz": "30a4c264d8c9669e736a1ecbd930177f547abf120700caa3aabe58f8e39107fe"
+      }
+    },
+    {
+      "case": "authored__combined_slip_magic_formula",
+      "geometry": "authored",
+      "law": "combined_slip_magic_formula",
+      "core_body_beta_rmse_deg": 3.418742551224346,
+      "wheels": {
+        "left": {
+          "core_loaded_samples": 436,
+          "loaded_moving_samples": 433,
+          "abs_lateral_contact_speed_m_s_median": 0.046010717420559955,
+          "abs_lateral_contact_speed_m_s_p95": 0.7246036073351247,
+          "loaded_moving_fraction_abs_lateral_speed_above_0p1_m_s": 0.3810623556581986
+        },
+        "right": {
+          "core_loaded_samples": 661,
+          "loaded_moving_samples": 658,
+          "abs_lateral_contact_speed_m_s_median": 0.050340106538244,
+          "abs_lateral_contact_speed_m_s_p95": 0.6884138006899385,
+          "loaded_moving_fraction_abs_lateral_speed_above_0p1_m_s": 0.30851063829787234
+        }
+      },
+      "input_sha256": {
+        "wheel_contact_model_status.json": "e4f96c95c686bf6019e8c2129c0fbba42733939b40dbe792430e4208853557e9",
+        "report.json": "b098c2b8e2f4ad1e8a6f42fec20cbf5240a0b2208508da0142c8354e8ab86436",
+        "physics_trajectory.npz": "104ab208756a0bd5da687d90cc868628c069c9c89d36f0dda9df4e8a0745eca1",
+        "tire_trajectory.npz": "02c025061fef052bf5490909c35103f99d449b1e381d488de0be9bf4ebacf358"
+      }
+    },
+    {
+      "case": "slices9__combined_slip_magic_formula",
+      "geometry": "slices9",
+      "law": "combined_slip_magic_formula",
+      "core_body_beta_rmse_deg": 3.9596683025592605,
+      "wheels": {
+        "left": {
+          "core_loaded_samples": 477,
+          "loaded_moving_samples": 476,
+          "abs_lateral_contact_speed_m_s_median": 0.030256386398512605,
+          "abs_lateral_contact_speed_m_s_p95": 0.8741359775106397,
+          "loaded_moving_fraction_abs_lateral_speed_above_0p1_m_s": 0.35084033613445376
+        },
+        "right": {
+          "core_loaded_samples": 656,
+          "loaded_moving_samples": 656,
+          "abs_lateral_contact_speed_m_s_median": 0.04044433855973275,
+          "abs_lateral_contact_speed_m_s_p95": 0.5285872509503144,
+          "loaded_moving_fraction_abs_lateral_speed_above_0p1_m_s": 0.3003048780487805
+        }
+      },
+      "input_sha256": {
+        "wheel_contact_model_status.json": "c74a4cee453213214136fb8cb1a3cf6d0e67ffa0c08d77d0f8633a4352dfe3a0",
+        "report.json": "fa90928010cdc4035102f286a38c54d0cc35c16e8ecc7e64a53ea6f42bf56e6d",
+        "physics_trajectory.npz": "2d4bd75ae548ea7326ad853aae5c2f3ccf48d75e670cac0682dfc852508e30f9",
+        "tire_trajectory.npz": "0b244c4b8b3e351aad28084bef1b5aef8a16818cf098a39dca7ab49c7d528afe"
+      }
+    }
+  ]
+}
