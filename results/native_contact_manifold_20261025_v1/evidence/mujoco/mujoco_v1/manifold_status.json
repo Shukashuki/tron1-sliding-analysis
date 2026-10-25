@@ -1,0 +1,107 @@
+{
+  "kind": "K_readonly_MuJoCo_native_contact_manifold_probe",
+  "status": "completed_verified_requires_analysis",
+  "normalized_actor_sha256": "fafdccb45571b99da53a02455f2402a8cd8b960f16809ba8e6e0fe6996dce912",
+  "physics_trajectory_sha256": "af790839128d5d02a8233a7a7b2cd8b23eb508e9056cd4d1c619b8d4173d14ef",
+  "read_only_baseline_byte_identical": true,
+  "source_sha256": {
+    "/data/zengxiong/workspaces/tron1-contact-manifold-probe-20261025/mujoco_snapshot_v1/scripts/eval_mujoco_contact_manifold_probe.py": "8d7af7e2fcbad19597ce81618f9676816363be953a6c38b4505a13c23fe830da",
+    "/data/zengxiong/workspaces/tron1-contact-manifold-probe-20261025/mujoco_snapshot_v1/scripts/mujoco_contact_manifold_probe.py": "7244d4f3914f59197819c4b563463ededc6a6abdd5f456b38f6d2025eb174209",
+    "/data/zengxiong/workspaces/tron1-contact-manifold-probe-20261025/mujoco_snapshot_v1/scripts/wheel_ground_geometry.py": "3041d8fb0ce55e22363c849c736079fecf346363345e9842534b47127e78cb37",
+    "/data/zengxiong/workspaces/tron1-ground-contact-v2k-20261024/source_snapshot_v1/scripts/eval_ppo_ground_contact_v2k.py": "cbb17fc4d2a7b1a4033fc8011222c8f2d99616ace4cba504c9e2537f53f5020c"
+  },
+  "manifold_probe": {
+    "kind": "K_readonly_MuJoCo_native_contact_manifold_probe",
+    "native_states": 2793,
+    "padded_inactive_points_are_NaN": true,
+    "max_point_to_parent_force_vector_error_n": 0.0,
+    "native_trace_sha256": "2074be3c33bd0331dafad5fcea1ffa2c1bbad12baec881b1ff16a71a0054c940",
+    "geometry": [
+      {
+        "body": "wheel_L_Link",
+        "geom_id": 5,
+        "radius_m": 0.127,
+        "half_width_m": 0.025,
+        "geom_body_position_m": [
+          0.0,
+          0.00707,
+          0.0
+        ],
+        "geom_body_quaternion_wxyz": [
+          0.7071067811865475,
+          0.7071067811865475,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "body": "wheel_R_Link",
+        "geom_id": 9,
+        "radius_m": 0.127,
+        "half_width_m": 0.025,
+        "geom_body_position_m": [
+          0.0,
+          -0.00707,
+          0.0
+        ],
+        "geom_body_quaternion_wxyz": [
+          0.7071067811865475,
+          0.7071067811865475,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "native_points_source": "actual data.contact after the existing mj_step + mj_forward and before parent record",
+    "no_new_step_forward_or_state_write": true,
+    "authored_geometry_gap_is_not_native_manifold_separation": true,
+    "body_state_writes_action_reward_model_force_changes": false,
+    "task_success_claimed": false
+  },
+  "original_native_provenance": {
+    "kind": "ground_contact_v2k_any_wheel_ppo_evaluation",
+    "cohort_id": "tron1_ground_contact_v2k_any_wheel_400hz_v1",
+    "reward_definition_version": "ground_contact_v2k_any_wheel",
+    "training_backend": "physx",
+    "smoke_only": false,
+    "trained_policy_claimed": true,
+    "additional_training_updates": 0,
+    "checkpoint_sha256": "8cb011e4c5e2a33a685bc58280df410141ab99aa245892042762b8956595fe5a",
+    "initial_policy_state_sha256": "7dcdf78ffeb61806eeefcb31c4739d707c1caef934d152f2296ba2ee488b4d5d",
+    "normalized_actor_sha256": "fafdccb45571b99da53a02455f2402a8cd8b960f16809ba8e6e0fe6996dce912",
+    "protocol_sha256": "855ca5a08e2b228c5146c65fb76f55cf6c9152d70480dc43a32a875aa4ff17d9",
+    "cohort_input_sha256": {
+      "ground_contact_v2k_training_audit.json": "67b8c1a2054e09478d04186dcb3dbf15690e3616d4a94579ada4155d1e8323e4",
+      "cohort_completion_audit.json": "81ba6612dbdb37f3ba3a8f722647ee4deeae62cc456b0e876e5edd53d5285ca8",
+      "manifest.json": "f7396bef28b4aaecde9bd1d536b9cc6c4c93942ca118c535e9a4a9801d7b9d03",
+      "policy_contract.json": "0030be8d79159113deb6e0b1d5c35aa447d8ec63c44db1d78fdfa426f4d4ec5d",
+      "final_policy_contract.json": "0030be8d79159113deb6e0b1d5c35aa447d8ec63c44db1d78fdfa426f4d4ec5d",
+      "run_status.json": "4a6c864cfdbead4fc999dd24df9cb15725fc10037dff04245e18714001c4e185",
+      "policy.pt": "fafdccb45571b99da53a02455f2402a8cd8b960f16809ba8e6e0fe6996dce912",
+      "model_final.pt": "8cb011e4c5e2a33a685bc58280df410141ab99aa245892042762b8956595fe5a"
+    },
+    "normalizer_included_in_actor": true,
+    "normalization_applications_per_inference": 1,
+    "extra_normalization": false,
+    "physics_dt_s": 0.0025,
+    "decimation": 8,
+    "policy_dt_s": 0.02,
+    "single_wheel_support_allowed": true,
+    "bilateral_support_required": false,
+    "support_count_definition": "recorded legacy count includes contacts exceeding 5 N; not raw geometric point count",
+    "absolute_height_gate": false,
+    "airborne_failure": false,
+    "hardware_ready": false,
+    "status": "verified",
+    "validation_backend": "native CPU MuJoCo",
+    "wrapper_sha256": "cbb17fc4d2a7b1a4033fc8011222c8f2d99616ace4cba504c9e2537f53f5020c",
+    "legacy_evaluator_sha256": "2251d740d7568874a47a232556241cc8d1ee5f5b7be1351d1c657aea8fa85f87",
+    "generated_source_sha256": "eb404ec26b622240e4c5c3f7b52aa415dacba365b65f7d80459847e9957cdcb6",
+    "recording_sha256": "af790839128d5d02a8233a7a7b2cd8b23eb508e9056cd4d1c619b8d4173d14ef",
+    "native_states": 2793,
+    "policy_decisions": 349,
+    "duration_s": 6.98
+  },
+  "additional_training_updates": 0,
+  "task_success_claimed": false
+}
