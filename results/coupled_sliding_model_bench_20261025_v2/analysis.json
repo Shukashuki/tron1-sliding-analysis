@@ -1,0 +1,678 @@
+{
+  "kind": "fixed_normal_two_wheel_coulomb_dynamics_bench_v1",
+  "source_sha256": "1abedb99b3823d9238b9f5910aa2f521ad1fd5f78af8b68869f15db50602e1f6",
+  "config_sha256": "148c755b6d4e437cb6ddef8b1f0dc291697db58a5854a01c02f8884a92d562b5",
+  "config": {
+    "kind": "fixed_normal_two_wheel_coulomb_dynamics_bench_v1",
+    "duration_s": 4.0,
+    "physics_dt_s": [
+      0.0025,
+      0.00125
+    ],
+    "control_dt_s": 0.02,
+    "turn_ramp_s": [
+      0.5,
+      1.0
+    ],
+    "steady_interval_s": [
+      2.0,
+      4.0
+    ],
+    "speed_feedback_gain_per_s": 2.0,
+    "yaw_rate_feedback_gain_per_s": 5.0,
+    "solver_velocity_tolerance_m_s": 1e-09,
+    "solver_max_iterations": 800,
+    "sliding_speed_threshold_m_s": 0.05,
+    "constitutive_boundary_tolerance": 1e-06,
+    "cases": [
+      {
+        "id": "nominal_demand_mu0p7",
+        "title": "Nominal-speed turn / mu0.7",
+        "mu": 0.7,
+        "speed_multiplier": 1.0,
+        "yaw_multiplier": 1.0,
+        "control": "speed_yaw_feedback"
+      },
+      {
+        "id": "nominal_demand_mu0p03",
+        "title": "Same turn / low grip mu0.03",
+        "mu": 0.03,
+        "speed_multiplier": 1.0,
+        "yaw_multiplier": 1.0,
+        "control": "speed_yaw_feedback"
+      },
+      {
+        "id": "time_compressed5_mu0p7",
+        "title": "5x speed and yaw rate / mu0.7",
+        "mu": 0.7,
+        "speed_multiplier": 5.0,
+        "yaw_multiplier": 5.0,
+        "control": "speed_yaw_feedback"
+      },
+      {
+        "id": "straight_drive_mu0p1",
+        "title": "Straight max drive / mu0.1",
+        "mu": 0.1,
+        "speed_multiplier": 1.0,
+        "yaw_multiplier": 0.0,
+        "control": "max_drive"
+      }
+    ],
+    "normal_load_assumption": "planar fixture carries mg, equal wheel loads; no full-body normal solve",
+    "camber_assumption": "zero camber; no camber thrust claimed",
+    "TRON1_task_success_claimed": false
+  },
+  "parameters": {
+    "mass_kg": 22.273000011220574,
+    "yaw_inertia_kg_m2": 0.40350119066653933,
+    "wheel_inertia_kg_m2": [
+      0.009742720052556407,
+      0.009742720052556407
+    ],
+    "track_m": 0.31113999999999997,
+    "wheel_radius_m": 0.127,
+    "nominal_speed_m_s": 1.0285872220993042,
+    "nominal_yaw_rate_rad_s": 0.4097970724105835,
+    "reference_50Hz_core_samples": 129,
+    "reference_lateral_acceleration_m_s2_p50_p95_max": [
+      0.4009391963481903,
+      0.9493225932121276,
+      1.1163851022720337
+    ],
+    "reference_lateral_demand_over_0p7g_p50_p95_max": [
+      0.058386366814374924,
+      0.1382441520690918,
+      0.1625724583864212
+    ],
+    "reference_derivative_method": "gradient of original50Hz COM velocity; kinematic estimate, not measured tire force",
+    "model_sha256": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513",
+    "reference_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+    "material_sha256": "220edda86e0e4fab5bfbcf4b18864ce6229addf781a462f5daf96a14e1f3d6b9"
+  },
+  "rows": [
+    {
+      "id": "nominal_demand_mu0p7",
+      "title": "Nominal-speed turn / mu0.7",
+      "dt_s": 0.0025,
+      "mu": 0.7,
+      "steady_interval_s": [
+        2.0,
+        4.0
+      ],
+      "wheels": [
+        {
+          "side": "L",
+          "steady_saturated_fraction": 0.0,
+          "steady_lateral_sliding_fraction": 0.0,
+          "steady_joint_lateral_fraction": 0.0,
+          "steady_joint_longitudinal_fraction": 0.0,
+          "longest_joint_lateral_s": 0.0,
+          "steady_lateral_speed_abs_m_s_p50_p95": [
+            5.129467961495493e-10,
+            9.635752751258053e-10
+          ],
+          "steady_rho_p50_p95": [
+            0.061388293658741655,
+            0.06138904091664786
+          ]
+        },
+        {
+          "side": "R",
+          "steady_saturated_fraction": 0.0,
+          "steady_lateral_sliding_fraction": 0.0,
+          "steady_joint_lateral_fraction": 0.0,
+          "steady_joint_longitudinal_fraction": 0.0,
+          "longest_joint_lateral_s": 0.0,
+          "steady_lateral_speed_abs_m_s_p50_p95": [
+            5.129467961495493e-10,
+            9.635752751258053e-10
+          ],
+          "steady_rho_p50_p95": [
+            0.06138829405894991,
+            0.06138904092006389
+          ]
+        }
+      ],
+      "commanded_speed_m_s": 1.0285872220993042,
+      "commanded_yaw_rate_rad_s": 0.4097970724105835,
+      "nominal_demand_ratio": 0.06138226770572732,
+      "steady_speed_mean_m_s": 1.028696296110498,
+      "steady_yaw_rate_mean_rad_s": 0.4097221833912168,
+      "steady_body_beta_deg_p50_p95": [
+        -0.058698569194350084,
+        -0.0586328286114708
+      ],
+      "max_KKT_velocity_residual_m_s": 9.992679993474912e-10,
+      "max_positive_friction_power_w": 9.080920344554556e-30,
+      "maximum_rho": 0.061389047870944756,
+      "minimum_contact_energy_loss_j": 0.0,
+      "max_abs_energy_balance_error_j": 7.39686852486163e-15,
+      "peak_solver_iterations": 42,
+      "max_wheel_speed_rad_s": 8.601992630083613,
+      "max_applied_torque_nm": 0.13460662296867942,
+      "normal_support_fraction": 1.0,
+      "late_window_motor_envelope_clip_fraction_per_wheel": [
+        0.0,
+        0.0
+      ],
+      "late_window_is_not_a_verified_steady_equilibrium": true,
+      "frame_discretization": "constraints solved at interval-start heading; momentum implicit; pose semi-implicit; geometric end-pose slip separately retained",
+      "full_TRON1_feasibility_or_task_success_claimed": false,
+      "trace_sha256": "8ed87307a7ea3b577d66d6e07fe3a6b8e4c23ec7a58ef7c55e14c3f9d2ea175a",
+      "trace_file": "nominal_demand_mu0p7__dt0.00250.npz"
+    },
+    {
+      "id": "nominal_demand_mu0p7",
+      "title": "Nominal-speed turn / mu0.7",
+      "dt_s": 0.00125,
+      "mu": 0.7,
+      "steady_interval_s": [
+        2.0,
+        4.0
+      ],
+      "wheels": [
+        {
+          "side": "L",
+          "steady_saturated_fraction": 0.0,
+          "steady_lateral_sliding_fraction": 0.0,
+          "steady_joint_lateral_fraction": 0.0,
+          "steady_joint_longitudinal_fraction": 0.0,
+          "longest_joint_lateral_s": 0.0,
+          "steady_lateral_speed_abs_m_s_p50_p95": [
+            1.4787793212178713e-10,
+            9.600805150888903e-10
+          ],
+          "steady_rho_p50_p95": [
+            0.06138497271690043,
+            0.06138564413642396
+          ]
+        },
+        {
+          "side": "R",
+          "steady_saturated_fraction": 0.0,
+          "steady_lateral_sliding_fraction": 0.0,
+          "steady_joint_lateral_fraction": 0.0,
+          "steady_joint_longitudinal_fraction": 0.0,
+          "longest_joint_lateral_s": 0.0,
+          "steady_lateral_speed_abs_m_s_p50_p95": [
+            1.4787793212178713e-10,
+            9.600805150888903e-10
+          ],
+          "steady_rho_p50_p95": [
+            0.061384972917001554,
+            0.061385644138131565
+          ]
+        }
+      ],
+      "commanded_speed_m_s": 1.0285872220993042,
+      "commanded_yaw_rate_rad_s": 0.4097970724105835,
+      "nominal_demand_ratio": 0.06138226770572732,
+      "steady_speed_mean_m_s": 1.0286416262799967,
+      "steady_yaw_rate_mean_rad_s": 0.4097223815153681,
+      "steady_body_beta_deg_p50_p95": [
+        -0.029349272704301852,
+        -0.029316444677997055
+      ],
+      "max_KKT_velocity_residual_m_s": 9.99392446568276e-10,
+      "max_positive_friction_power_w": 1.8162985007751617e-29,
+      "maximum_rho": 0.0613856486883343,
+      "minimum_contact_energy_loss_j": 0.0,
+      "max_abs_energy_balance_error_j": 6.760203833354461e-15,
+      "peak_solver_iterations": 36,
+      "max_wheel_speed_rad_s": 8.601543849482969,
+      "max_applied_torque_nm": 0.13449093971566306,
+      "normal_support_fraction": 1.0,
+      "late_window_motor_envelope_clip_fraction_per_wheel": [
+        0.0,
+        0.0
+      ],
+      "late_window_is_not_a_verified_steady_equilibrium": true,
+      "frame_discretization": "constraints solved at interval-start heading; momentum implicit; pose semi-implicit; geometric end-pose slip separately retained",
+      "full_TRON1_feasibility_or_task_success_claimed": false,
+      "trace_sha256": "c92ae1164421b089283888d6e80247d33fd5b5acd3190e3fafd41d794020bf5a",
+      "trace_file": "nominal_demand_mu0p7__dt0.00125.npz"
+    },
+    {
+      "id": "nominal_demand_mu0p03",
+      "title": "Same turn / low grip mu0.03",
+      "dt_s": 0.0025,
+      "mu": 0.03,
+      "steady_interval_s": [
+        2.0,
+        4.0
+      ],
+      "wheels": [
+        {
+          "side": "L",
+          "steady_saturated_fraction": 1.0,
+          "steady_lateral_sliding_fraction": 1.0,
+          "steady_joint_lateral_fraction": 1.0,
+          "steady_joint_longitudinal_fraction": 0.6754057428214731,
+          "longest_joint_lateral_s": 2.3925,
+          "steady_lateral_speed_abs_m_s_p50_p95": [
+            0.2353529584233689,
+            0.3745958809138055
+          ],
+          "steady_rho_p50_p95": [
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "side": "R",
+          "steady_saturated_fraction": 1.0,
+          "steady_lateral_sliding_fraction": 1.0,
+          "steady_joint_lateral_fraction": 1.0,
+          "steady_joint_longitudinal_fraction": 0.6754057428214731,
+          "longest_joint_lateral_s": 2.3925,
+          "steady_lateral_speed_abs_m_s_p50_p95": [
+            0.2353529584233689,
+            0.3745958809138055
+          ],
+          "steady_rho_p50_p95": [
+            1.0,
+            1.0000000000000002
+          ]
+        }
+      ],
+      "commanded_speed_m_s": 1.0285872220993042,
+      "commanded_yaw_rate_rad_s": 0.4097970724105835,
+      "nominal_demand_ratio": 1.4322529131336375,
+      "steady_speed_mean_m_s": 1.0589433290092751,
+      "steady_yaw_rate_mean_rad_s": 0.40973812713589175,
+      "steady_body_beta_deg_p50_p95": [
+        -12.946463362683515,
+        -6.314265508775801
+      ],
+      "max_KKT_velocity_residual_m_s": 9.999369149013986e-10,
+      "max_positive_friction_power_w": 9.080920344554556e-30,
+      "maximum_rho": 1.0000000000000002,
+      "minimum_contact_energy_loss_j": 0.0,
+      "max_abs_energy_balance_error_j": 7.39686852486163e-15,
+      "peak_solver_iterations": 46,
+      "max_wheel_speed_rad_s": 10.556145668927588,
+      "max_applied_torque_nm": 0.24212144146037248,
+      "normal_support_fraction": 1.0,
+      "late_window_motor_envelope_clip_fraction_per_wheel": [
+        0.0,
+        0.0
+      ],
+      "late_window_is_not_a_verified_steady_equilibrium": true,
+      "frame_discretization": "constraints solved at interval-start heading; momentum implicit; pose semi-implicit; geometric end-pose slip separately retained",
+      "full_TRON1_feasibility_or_task_success_claimed": false,
+      "trace_sha256": "2024e6adaab9c829578c6dab3116c8c4e5ec94c845c20dab00034210059c4628",
+      "trace_file": "nominal_demand_mu0p03__dt0.00250.npz"
+    },
+    {
+      "id": "nominal_demand_mu0p03",
+      "title": "Same turn / low grip mu0.03",
+      "dt_s": 0.00125,
+      "mu": 0.03,
+      "steady_interval_s": [
+        2.0,
+        4.0
+      ],
+      "wheels": [
+        {
+          "side": "L",
+          "steady_saturated_fraction": 1.0,
+          "steady_lateral_sliding_fraction": 1.0,
+          "steady_joint_lateral_fraction": 1.0,
+          "steady_joint_longitudinal_fraction": 0.6752029981261711,
+          "longest_joint_lateral_s": 2.39375,
+          "steady_lateral_speed_abs_m_s_p50_p95": [
+            0.23535670955768456,
+            0.3744914699174759
+          ],
+          "steady_rho_p50_p95": [
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "side": "R",
+          "steady_saturated_fraction": 1.0,
+          "steady_lateral_sliding_fraction": 1.0,
+          "steady_joint_lateral_fraction": 1.0,
+          "steady_joint_longitudinal_fraction": 0.6752029981261711,
+          "longest_joint_lateral_s": 2.39375,
+          "steady_lateral_speed_abs_m_s_p50_p95": [
+            0.23535670955768456,
+            0.3744914699174759
+          ],
+          "steady_rho_p50_p95": [
+            1.0,
+            1.0000000000000002
+          ]
+        }
+      ],
+      "commanded_speed_m_s": 1.0285872220993042,
+      "commanded_yaw_rate_rad_s": 0.4097970724105835,
+      "nominal_demand_ratio": 1.4322529131336375,
+      "steady_speed_mean_m_s": 1.0587823875535036,
+      "steady_yaw_rate_mean_rad_s": 0.4097382919978374,
+      "steady_body_beta_deg_p50_p95": [
+        -12.9192003266344,
+        -6.288920618151176
+      ],
+      "max_KKT_velocity_residual_m_s": 9.998809248552524e-10,
+      "max_positive_friction_power_w": 1.8162985007751617e-29,
+      "maximum_rho": 1.0000000000000002,
+      "minimum_contact_energy_loss_j": 0.0,
+      "max_abs_energy_balance_error_j": 7.47646336388217e-15,
+      "peak_solver_iterations": 40,
+      "max_wheel_speed_rad_s": 10.551210144406724,
+      "max_applied_torque_nm": 0.2418098270065237,
+      "normal_support_fraction": 1.0,
+      "late_window_motor_envelope_clip_fraction_per_wheel": [
+        0.0,
+        0.0
+      ],
+      "late_window_is_not_a_verified_steady_equilibrium": true,
+      "frame_discretization": "constraints solved at interval-start heading; momentum implicit; pose semi-implicit; geometric end-pose slip separately retained",
+      "full_TRON1_feasibility_or_task_success_claimed": false,
+      "trace_sha256": "ae21139bb6cca7cfe3ef48798c7d08ebb61975bdd6c15d040f862ae1e8d9f0ef",
+      "trace_file": "nominal_demand_mu0p03__dt0.00125.npz"
+    },
+    {
+      "id": "time_compressed5_mu0p7",
+      "title": "5x speed and yaw rate / mu0.7",
+      "dt_s": 0.0025,
+      "mu": 0.7,
+      "steady_interval_s": [
+        2.0,
+        4.0
+      ],
+      "wheels": [
+        {
+          "side": "L",
+          "steady_saturated_fraction": 1.0,
+          "steady_lateral_sliding_fraction": 1.0,
+          "steady_joint_lateral_fraction": 1.0,
+          "steady_joint_longitudinal_fraction": 1.0,
+          "longest_joint_lateral_s": 2.91,
+          "steady_lateral_speed_abs_m_s_p50_p95": [
+            3.1918515357084223,
+            3.6432338098676684
+          ],
+          "steady_rho_p50_p95": [
+            1.0,
+            1.0000000000000002
+          ]
+        },
+        {
+          "side": "R",
+          "steady_saturated_fraction": 1.0,
+          "steady_lateral_sliding_fraction": 1.0,
+          "steady_joint_lateral_fraction": 1.0,
+          "steady_joint_longitudinal_fraction": 1.0,
+          "longest_joint_lateral_s": 2.91,
+          "steady_lateral_speed_abs_m_s_p50_p95": [
+            3.1918515357084223,
+            3.6432338098676684
+          ],
+          "steady_rho_p50_p95": [
+            1.0,
+            1.0000000000000002
+          ]
+        }
+      ],
+      "commanded_speed_m_s": 5.142936110496521,
+      "commanded_yaw_rate_rad_s": 2.0489853620529175,
+      "nominal_demand_ratio": 1.5345566926431828,
+      "steady_speed_mean_m_s": 5.462785738282098,
+      "steady_yaw_rate_mean_rad_s": 1.2298341944005355,
+      "steady_body_beta_deg_p50_p95": [
+        -36.003692748210064,
+        -29.7999994286524
+      ],
+      "max_KKT_velocity_residual_m_s": 9.992732259706084e-10,
+      "max_positive_friction_power_w": 1.4488830656001518e-28,
+      "maximum_rho": 1.0000000000000004,
+      "minimum_contact_energy_loss_j": 0.0,
+      "max_abs_energy_balance_error_j": 2.0830906444224695e-13,
+      "peak_solver_iterations": 66,
+      "max_wheel_speed_rad_s": 55.91467354908408,
+      "max_applied_torque_nm": 6.12880127625824,
+      "normal_support_fraction": 1.0,
+      "late_window_motor_envelope_clip_fraction_per_wheel": [
+        0.5705368289637952,
+        1.0
+      ],
+      "late_window_is_not_a_verified_steady_equilibrium": true,
+      "frame_discretization": "constraints solved at interval-start heading; momentum implicit; pose semi-implicit; geometric end-pose slip separately retained",
+      "full_TRON1_feasibility_or_task_success_claimed": false,
+      "trace_sha256": "dd743b23d23f34580dbc8cb1da5926440397b66a3a9a44d7e3fa0f550c50705e",
+      "trace_file": "time_compressed5_mu0p7__dt0.00250.npz"
+    },
+    {
+      "id": "time_compressed5_mu0p7",
+      "title": "5x speed and yaw rate / mu0.7",
+      "dt_s": 0.00125,
+      "mu": 0.7,
+      "steady_interval_s": [
+        2.0,
+        4.0
+      ],
+      "wheels": [
+        {
+          "side": "L",
+          "steady_saturated_fraction": 1.0,
+          "steady_lateral_sliding_fraction": 1.0,
+          "steady_joint_lateral_fraction": 1.0,
+          "steady_joint_longitudinal_fraction": 1.0,
+          "longest_joint_lateral_s": 2.91,
+          "steady_lateral_speed_abs_m_s_p50_p95": [
+            3.1940335532253843,
+            3.6459965570153265
+          ],
+          "steady_rho_p50_p95": [
+            1.0,
+            1.0000000000000002
+          ]
+        },
+        {
+          "side": "R",
+          "steady_saturated_fraction": 1.0,
+          "steady_lateral_sliding_fraction": 1.0,
+          "steady_joint_lateral_fraction": 1.0,
+          "steady_joint_longitudinal_fraction": 1.0,
+          "longest_joint_lateral_s": 2.91,
+          "steady_lateral_speed_abs_m_s_p50_p95": [
+            3.1940335532253843,
+            3.6459965570153265
+          ],
+          "steady_rho_p50_p95": [
+            1.0,
+            1.0000000000000002
+          ]
+        }
+      ],
+      "commanded_speed_m_s": 5.142936110496521,
+      "commanded_yaw_rate_rad_s": 2.0489853620529175,
+      "nominal_demand_ratio": 1.5345566926431828,
+      "steady_speed_mean_m_s": 5.457377311068533,
+      "steady_yaw_rate_mean_rad_s": 1.231320300873434,
+      "steady_body_beta_deg_p50_p95": [
+        -36.00604914601851,
+        -29.759237278111346
+      ],
+      "max_KKT_velocity_residual_m_s": 9.999331910864234e-10,
+      "max_positive_friction_power_w": 2.910869454844958e-28,
+      "maximum_rho": 1.0000000000000002,
+      "minimum_contact_energy_loss_j": 0.0,
+      "max_abs_energy_balance_error_j": 2.2506215641149296e-13,
+      "peak_solver_iterations": 62,
+      "max_wheel_speed_rad_s": 55.88396876835773,
+      "max_applied_torque_nm": 6.150158782737203,
+      "normal_support_fraction": 1.0,
+      "late_window_motor_envelope_clip_fraction_per_wheel": [
+        0.5702685821361649,
+        1.0
+      ],
+      "late_window_is_not_a_verified_steady_equilibrium": true,
+      "frame_discretization": "constraints solved at interval-start heading; momentum implicit; pose semi-implicit; geometric end-pose slip separately retained",
+      "full_TRON1_feasibility_or_task_success_claimed": false,
+      "trace_sha256": "e2de118a0231ccaf2afe5c272f1e1389812078d258077e87b4ca6668d68029a1",
+      "trace_file": "time_compressed5_mu0p7__dt0.00125.npz"
+    },
+    {
+      "id": "straight_drive_mu0p1",
+      "title": "Straight max drive / mu0.1",
+      "dt_s": 0.0025,
+      "mu": 0.1,
+      "steady_interval_s": [
+        2.0,
+        4.0
+      ],
+      "wheels": [
+        {
+          "side": "L",
+          "steady_saturated_fraction": 1.0,
+          "steady_lateral_sliding_fraction": 0.0,
+          "steady_joint_lateral_fraction": 0.0,
+          "steady_joint_longitudinal_fraction": 1.0,
+          "longest_joint_lateral_s": 0.0,
+          "steady_lateral_speed_abs_m_s_p50_p95": [
+            8.319462504166792e-16,
+            2.000684124979596e-15
+          ],
+          "steady_rho_p50_p95": [
+            1.0,
+            1.0000000000000002
+          ]
+        },
+        {
+          "side": "R",
+          "steady_saturated_fraction": 1.0,
+          "steady_lateral_sliding_fraction": 0.0,
+          "steady_joint_lateral_fraction": 0.0,
+          "steady_joint_longitudinal_fraction": 1.0,
+          "longest_joint_lateral_s": 0.0,
+          "steady_lateral_speed_abs_m_s_p50_p95": [
+            8.319462504166792e-16,
+            2.000684124979596e-15
+          ],
+          "steady_rho_p50_p95": [
+            1.0,
+            1.0
+          ]
+        }
+      ],
+      "commanded_speed_m_s": 1.0285872220993042,
+      "commanded_yaw_rate_rad_s": 0.0,
+      "nominal_demand_ratio": 0.0,
+      "steady_speed_mean_m_s": 3.9715872220993087,
+      "steady_yaw_rate_mean_rad_s": -2.665094016308332e-16,
+      "steady_body_beta_deg_p50_p95": [
+        1.2038106294353168e-14,
+        2.3674718417173515e-14
+      ],
+      "max_KKT_velocity_residual_m_s": 1.2319677353276865e-17,
+      "max_positive_friction_power_w": 0.0,
+      "maximum_rho": 1.0000000000000002,
+      "minimum_contact_energy_loss_j": 0.018329527299613346,
+      "max_abs_energy_balance_error_j": 1.2063613996637912e-13,
+      "peak_solver_iterations": 1,
+      "max_wheel_speed_rad_s": 88.43780728167489,
+      "max_applied_torque_nm": 11.028106561795934,
+      "normal_support_fraction": 1.0,
+      "late_window_motor_envelope_clip_fraction_per_wheel": [
+        1.0,
+        1.0
+      ],
+      "late_window_is_not_a_verified_steady_equilibrium": true,
+      "frame_discretization": "constraints solved at interval-start heading; momentum implicit; pose semi-implicit; geometric end-pose slip separately retained",
+      "full_TRON1_feasibility_or_task_success_claimed": false,
+      "trace_sha256": "d5ffad12cee092691aa91981e7ee3c37068832cc83d30a039ae4cf226cb94c81",
+      "trace_file": "straight_drive_mu0p1__dt0.00250.npz"
+    },
+    {
+      "id": "straight_drive_mu0p1",
+      "title": "Straight max drive / mu0.1",
+      "dt_s": 0.00125,
+      "mu": 0.1,
+      "steady_interval_s": [
+        2.0,
+        4.0
+      ],
+      "wheels": [
+        {
+          "side": "L",
+          "steady_saturated_fraction": 1.0,
+          "steady_lateral_sliding_fraction": 0.0,
+          "steady_joint_lateral_fraction": 0.0,
+          "steady_joint_longitudinal_fraction": 1.0,
+          "longest_joint_lateral_s": 0.0,
+          "steady_lateral_speed_abs_m_s_p50_p95": [
+            1.1352218155200108e-15,
+            2.451453205246012e-15
+          ],
+          "steady_rho_p50_p95": [
+            1.0,
+            1.0000000000000002
+          ]
+        },
+        {
+          "side": "R",
+          "steady_saturated_fraction": 1.0,
+          "steady_lateral_sliding_fraction": 0.0,
+          "steady_joint_lateral_fraction": 0.0,
+          "steady_joint_longitudinal_fraction": 1.0,
+          "longest_joint_lateral_s": 0.0,
+          "steady_lateral_speed_abs_m_s_p50_p95": [
+            1.1352218155200108e-15,
+            2.451453205246012e-15
+          ],
+          "steady_rho_p50_p95": [
+            1.0,
+            1.0000000000000002
+          ]
+        }
+      ],
+      "commanded_speed_m_s": 1.0285872220993042,
+      "commanded_yaw_rate_rad_s": 0.0,
+      "nominal_demand_ratio": 0.0,
+      "steady_speed_mean_m_s": 3.9715872220996236,
+      "steady_yaw_rate_mean_rad_s": -3.186617597716366e-16,
+      "steady_body_beta_deg_p50_p95": [
+        1.6399257787139484e-14,
+        2.896736992917914e-14
+      ],
+      "max_KKT_velocity_residual_m_s": 6.159838676638433e-18,
+      "max_positive_friction_power_w": 0.0,
+      "maximum_rho": 1.0000000000000002,
+      "minimum_contact_energy_loss_j": 0.0045823818249033366,
+      "max_abs_energy_balance_error_j": 1.103310151573389e-13,
+      "peak_solver_iterations": 1,
+      "max_wheel_speed_rad_s": 88.43780728167467,
+      "max_applied_torque_nm": 11.028106561795934,
+      "normal_support_fraction": 1.0,
+      "late_window_motor_envelope_clip_fraction_per_wheel": [
+        1.0,
+        1.0
+      ],
+      "late_window_is_not_a_verified_steady_equilibrium": true,
+      "frame_discretization": "constraints solved at interval-start heading; momentum implicit; pose semi-implicit; geometric end-pose slip separately retained",
+      "full_TRON1_feasibility_or_task_success_claimed": false,
+      "trace_sha256": "d9b54d49f1b7d61c242f0f7d1a40d32f87f493611b7f61d6fc9b38b2a27c517c",
+      "trace_file": "straight_drive_mu0p1__dt0.00125.npz"
+    }
+  ],
+  "wall_s": 15.184532501007197,
+  "no_tangent_force_or_slip_prescribed": true,
+  "only_wheel_torques_and_initial_state_applied": true,
+  "tire_or_full_body_model_calibrated": false,
+  "new_PPO_or_MPPI": false,
+  "new_physics_engine_or_package_installed": false,
+  "contact_law_source": "https://nonsmooth.gricad-pages.univ-grenoble-alpes.fr/siconos/users_guide/problems_and_solvers/friction_contact.html",
+  "limitations": [
+    "This original five-velocity tangential fixture is not Siconos runtime or full unilateral contact.",
+    "Normal loads are fixed equal mg/2 by a planar fixture; no roll,pitch,height,leg control,load transfer or loss of support is represented.",
+    "The hard Coulomb graph uses identical static/dynamic mu and circular cones; it is a different model from the earlier MuJoCo soft pyramidal contact.",
+    "No finite contact patch,tire deformation,camber thrust,relaxation or identified tire coefficients are present.",
+    "This tests whether a coupled model can sustain saturation and sliding; it does not validate the exact turning task or a TRON1 controller.",
+    "Changing time/space scaling changes inertia/friction demand even when the geometric reference beta is unchanged."
+  ],
+  "full_TRON1_feasibility_or_task_success_claimed": false
+}

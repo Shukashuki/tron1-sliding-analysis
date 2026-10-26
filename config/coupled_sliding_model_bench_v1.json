@@ -1,0 +1,23 @@
+{
+  "kind": "fixed_normal_two_wheel_coulomb_dynamics_bench_v1",
+  "duration_s": 4.0,
+  "physics_dt_s": [0.0025, 0.00125],
+  "control_dt_s": 0.02,
+  "turn_ramp_s": [0.5, 1.0],
+  "steady_interval_s": [2.0, 4.0],
+  "speed_feedback_gain_per_s": 2.0,
+  "yaw_rate_feedback_gain_per_s": 5.0,
+  "solver_velocity_tolerance_m_s": 1e-9,
+  "solver_max_iterations": 800,
+  "sliding_speed_threshold_m_s": 0.05,
+  "constitutive_boundary_tolerance": 1e-6,
+  "cases": [
+    {"id": "nominal_demand_mu0p7", "title": "Nominal-speed turn / mu0.7", "mu": 0.7, "speed_multiplier": 1.0, "yaw_multiplier": 1.0, "control": "speed_yaw_feedback"},
+    {"id": "nominal_demand_mu0p03", "title": "Same turn / low grip mu0.03", "mu": 0.03, "speed_multiplier": 1.0, "yaw_multiplier": 1.0, "control": "speed_yaw_feedback"},
+    {"id": "time_compressed5_mu0p7", "title": "5x speed and yaw rate / mu0.7", "mu": 0.7, "speed_multiplier": 5.0, "yaw_multiplier": 5.0, "control": "speed_yaw_feedback"},
+    {"id": "straight_drive_mu0p1", "title": "Straight max drive / mu0.1", "mu": 0.1, "speed_multiplier": 1.0, "yaw_multiplier": 0.0, "control": "max_drive"}
+  ],
+  "normal_load_assumption": "planar fixture carries mg, equal wheel loads; no full-body normal solve",
+  "camber_assumption": "zero camber; no camber thrust claimed",
+  "TRON1_task_success_claimed": false
+}

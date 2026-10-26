@@ -1,0 +1,54 @@
+{
+  "kind": "audited_model_options_not_installed_runtimes",
+  "Chrono_submodule_commit": "da8025269cc8a7f43c0bc53c469f884b521852ab",
+  "Chrono_sources": {
+    "ChFialaTire": {
+      "path": "upstream/chrono/src/chrono_vehicle/wheeled_vehicle/tire/ChFialaTire.cpp",
+      "sha256": "c4220068e735967b1a3d1263d3fb12a463937a30065b6bb385cfa2aa96df9d34",
+      "url": "https://github.com/projectchrono/chrono/blob/da8025269cc8a7f43c0bc53c469f884b521852ab/src/chrono_vehicle/wheeled_vehicle/tire/ChFialaTire.cpp"
+    },
+    "ChTMeasyTire": {
+      "path": "upstream/chrono/src/chrono_vehicle/wheeled_vehicle/tire/ChTMeasyTire.cpp",
+      "sha256": "4e254282b6e45eeb17e7206d08eb512b08f1c5e20402b198b26de7026b93322a",
+      "url": "https://github.com/projectchrono/chrono/blob/da8025269cc8a7f43c0bc53c469f884b521852ab/src/chrono_vehicle/wheeled_vehicle/tire/ChTMeasyTire.cpp"
+    },
+    "ChPac02Tire": {
+      "path": "upstream/chrono/src/chrono_vehicle/wheeled_vehicle/tire/ChPac02Tire.cpp",
+      "sha256": "913ce41c0fe0a6d1ef5c420c61251110a4bea34587932bd1d148683a39bcf623",
+      "url": "https://github.com/projectchrono/chrono/blob/da8025269cc8a7f43c0bc53c469f884b521852ab/src/chrono_vehicle/wheeled_vehicle/tire/ChPac02Tire.cpp"
+    }
+  },
+  "existing_external_MF": {
+    "path": "scripts/nonlinear_tire_contact.py",
+    "sha256": "66502784ac1ff000295a24987a3fca3f5f3acb4a38192ae2a6f4fd5ea4066410",
+    "findings": [
+      "Steady dissipative combined-slip shape only.",
+      "No static adhesion,tread memory,camber thrust or identified real TRON1 tire coefficients."
+    ]
+  },
+  "findings": [
+    {
+      "model": "Chrono Fiala",
+      "finding": "Coupled longitudinal/lateral effects; documented zero-camber assumption. Not a camber-steering model."
+    },
+    {
+      "model": "Chrono basic TMeasy",
+      "finding": "Audited file has low-speed Dahl bristle state and combined force curve. gamma enters overturning Mx; no explicit gamma-to-Fy term in this file. Do not infer commercial-version capability."
+    },
+    {
+      "model": "Chrono Pac02",
+      "finding": "Has gamma-dependent tire forces. Current default camber clamp is3deg and is adjustable; the code says this avoids extrapolation beyond tire testing. Large-TRON1-camber use needs identified parameters and validation."
+    },
+    {
+      "model": "PhysX Vehicle default tire",
+      "finding": "Documented combined-force normalization and camber stiffness. Separate Vehicle force model, not automatically part of an articulated rigid cylinder; not full Pacejka."
+    }
+  ],
+  "official_sources": [
+    "https://nonsmooth.gricad-pages.univ-grenoble-alpes.fr/siconos/users_guide/problems_and_solvers/friction_contact.html",
+    "https://api.projectchrono.org/wheeled_tire.html",
+    "https://nvidia-omniverse.github.io/PhysX/physx/5.6.1/docs/Vehicles.html"
+  ],
+  "native_libraries_built_or_installed": false,
+  "Chrono_used_to_simulate_current_bench": false
+}
