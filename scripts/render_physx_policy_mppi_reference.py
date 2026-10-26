@@ -23,7 +23,9 @@ def run(a):
     base=read(a.baseline_validation/'final_rollout.npz');final=read(a.validation/'final_rollout.npz')
     ref=read(a.reference)
     report=json.loads((a.validation/'report.json').read_text())
-    assert report['single_world_validation'] and report['steps']==349
+    steps=len(ref['joint_pos']);duration=steps*.02
+    speed_scale=getattr(a,'speed_scale',1.)
+    assert report['single_world_validation'] and report['steps']==steps and speed_scale>=1.
     a.output_dir.mkdir(parents=True)
     runtime=create_runtime(a.model,width=640,height=400)
     body_names=final['body_names'].astype(str).tolist()
@@ -45,7 +47,7 @@ def run(a):
     lo,hi=allxy.min(0)-.4,allxy.max(0)+.4;center=(lo+hi)/2;scale=min(570/(hi[0]-lo[0]),470/(hi[1]-lo[1]))
     xy=lambda p:(320+(p[0]-center[0])*scale,300-(p[1]-center[1])*scale)
     def yaw(q):return np.arctan2(2*(q[...,0]*q[...,3]+q[...,1]*q[...,2]),1-2*(q[...,2]**2+q[...,3]**2))
-    metrics=[trajectory_metrics(r,ref) for r in traces]
+    metrics=[trajectory_metrics(r,ref,core_interval_s=(1.44/speed_scale,4./speed_scale)) for r in traces]
     font=ImageFont.load_default(size=18);small=ImageFont.load_default(size=15)
     colors=['#b57b20','#157ab5'];time=np.arange(len(final['root_pos']))*.0025
     def frame(i):
@@ -87,18 +89,18 @@ def run(a):
         for row,(key,limit,title) in enumerate(fields):
             top=65+row*170;draw.text((x0,top),title,font=small,fill='#333333')
             for side,color in enumerate(['#d62728','#9467bd']):
-                path=[(x0+600*time[k]/6.98,top+140-110*np.clip(final[key][k,side],0,limit)/limit) for k in range(1,len(time),4)]
+                path=[(x0+600*time[k]/duration,top+140-110*np.clip(final[key][k,side],0,limit)/limit) for k in range(1,len(time),4)]
                 draw.line(path,fill=color,width=2)
-            tick=x0+600*time[i]/6.98;draw.line((tick,top+25,tick,top+140),fill='#111111',width=1)
+            tick=x0+600*time[i]/duration;draw.line((tick,top+25,tick,top+140),fill='#111111',width=1)
         draw.text((x0,590),'Proxy does not prove pointwise friction-cone saturation.',font=small,fill='#8b2222')
         return im
     writer=imageio_ffmpeg.write_frames(str(a.output_dir/'physx_reference_4x1.mp4'),(2560,640),fps=50,
         codec='libx264',quality=7,macro_block_size=2,output_params=['-movflags','+faststart'])
     writer.send(None)
     try:
-        for f,i in enumerate(range(0,2785,8)):
+        for f,i in enumerate(range(0,steps*8,8)):
             im=frame(i);writer.send(np.asarray(im))
-            if f==150:im.save(a.output_dir/'comparison.png')
+            if f==min(150,steps-1):im.save(a.output_dir/'comparison.png')
             if f%100==0:print('render',f,flush=True)
     finally:writer.close();runtime.renderer.close()
     fig,axes=plt.subplots(1,4,figsize=(22,4.5),layout='constrained')
@@ -121,7 +123,7 @@ def run(a):
         maximum_wheel_FK_error_m=fk_errors,FK_tolerance_m=2e-5,physics_steps_during_render=0,
         dynamics_backend='PhysX',graphics_backend='MuJoCo OSMesa mesh rendering only',
         camera_distance_m=1.9,camera_root_relative_offset_m=[0,0,-.25],camera_zoom=False,
-        world_XY_scale_fixed=True,frames=349,fps=50,artifacts={})
+        world_XY_scale_fixed=True,frames=steps,fps=50,speed_scale=speed_scale,artifacts={})
     provenance['artifacts']={p.name:sha(p) for p in a.output_dir.iterdir() if p.is_file()}
     (a.output_dir/'provenance.json').write_text(json.dumps(provenance,indent=2)+'\n')
 
@@ -129,4 +131,5 @@ def run(a):
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__,allow_abbrev=False)
     for name in ('search','validation','baseline-validation','reference','model','output-dir'):p.add_argument('--'+name,type=Path,required=True)
+    p.add_argument('--speed-scale',type=float,default=1.)
     run(p.parse_args())

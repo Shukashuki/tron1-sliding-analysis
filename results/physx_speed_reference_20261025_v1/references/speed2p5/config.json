@@ -1,0 +1,62 @@
+{
+  "kind": "physx_policy_assisted_mppi_reference_v1",
+  "physics_dt_s": 0.0025,
+  "decimation": 8,
+  "mu": 0.7,
+  "samples": 16,
+  "iterations": 4,
+  "knots": 12,
+  "temperature": 0.5,
+  "noise_std": [
+    0.018,
+    0.018,
+    0.018,
+    0.018,
+    0.018,
+    0.018,
+    0.08,
+    0.08
+  ],
+  "seed": 42,
+  "description": "Full-rollout Gaussian MPPI over smooth independent L/R residuals around fixed PPO feedback; native PhysX cylinder Coulomb contact. No fitted tire or external force. Final mean deployed and freshly evaluated; no elite selection.",
+  "planning_weights": {
+    "xy": 12.0,
+    "speed": 2.0,
+    "beta": 2.0,
+    "upright": 4.0,
+    "support_gap": 8.0,
+    "action_rate": 0.1
+  },
+  "actor_sha256": "e5b94e87ed070f28c391cc7b0a11b216ce6b6d887141a28e7c83157085a9d8d0",
+  "training_export_actor_sha256": "04df92fd46ff28cc2471972f3c9ad6c66fa3b64e83f5dc0520b0a5c927467aba",
+  "actor_cache_validation": "Cached TorchScript export; checked against all349 recorded51D observations: maximum unclipped action error4.10e-7. Archive hash differs from training export; behavioral equivalence only on these recorded observations.",
+  "motion_sha256": "339875cfeb3a9d993f5cf10c985dd95580222bd34ab63737c43067322c69996c",
+  "original_car_motion_sha256": "36c1562a772c6883a76d7c3d215425d3fdfd6122901e96d0577764003df90c02",
+  "asset_sha256": "327ca5080e753bbc95d8c3c797e9cd49a0f134d400cfe80494af0ba840e23a8e",
+  "tracking_sha256": "0a29fa27c1d65c0b9add0886221491e549553e3529d6970f1ec5ba35e2532817",
+  "speed_reference": {
+    "requested_scale": 2.5,
+    "effective_scale": 2.5035971223021583,
+    "frames": 140,
+    "policy_dt_s": 0.02,
+    "source_motion_sha256": "0c8f2cfc2876bbd103bad206e708d91bf6753f8faa75c3107b0ec37c56c448b9",
+    "source_car_reference_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+    "source_config_sha256": "ee67c4ff2277bb2a87e5e002644c79284980be58e4c6027930328e4e5df663b5",
+    "source_sha256": "21b66b2c694b70ae9de7d0df740acdc3213d2b605f47a73787652ce3ed4f51e9",
+    "original_path_shape_preserved": true,
+    "physical_time_retimed": true,
+    "video_playback_speed_changed": false,
+    "initial_velocity_scaling": "all root COM linear/angular and joint velocities scaled; same initial pose; preaccelerated entry",
+    "initial_kinetic_energy_multiplier": 6.267998550799648,
+    "reference_demand": {
+      "core_interval_s": [
+        0.5751724137931035,
+        1.5977011494252873
+      ],
+      "core_mean_speed_m_s": 2.5798733149453774,
+      "core_peak_lateral_acceleration_m_s2": 3.6279264014694195,
+      "peak_lateral_demand_over_mu_g": 0.5283131500610775,
+      "force_capacity_assumption": "planar total normal load=mg, no simultaneous longitudinal demand; feasibility NOT certified"
+    }
+  }
+}

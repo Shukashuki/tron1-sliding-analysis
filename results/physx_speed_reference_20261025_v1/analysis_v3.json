@@ -1,0 +1,604 @@
+{
+  "kind": "single_world_PhysX_speed_ladder_diagnostic",
+  "cases": [
+    {
+      "id": "speed1p5",
+      "requested_scale": 1.5,
+      "effective_scale": 1.5,
+      "reference_demand": {
+        "core_interval_s": [
+          0.96,
+          2.6666666666666665
+        ],
+        "core_mean_speed_m_s": 1.5439257666261588,
+        "core_peak_lateral_acceleration_m_s2": 1.7559596468553826,
+        "peak_lateral_demand_over_mu_g": 0.2557098655679893,
+        "force_capacity_assumption": "planar total normal load=mg, no simultaneous longitudinal demand; feasibility NOT certified"
+      },
+      "metrics": {
+        "core": {
+          "xy_rmse_m": 0.4730907904777835,
+          "xy_peak_m": 0.5699591884412863,
+          "speed_retention": 0.9046796195827207,
+          "beta_rmse_deg": 20.608955531668844
+        },
+        "whole": {
+          "xy_rmse_m": 0.9807674091960032,
+          "xy_peak_m": 1.7934758434416969,
+          "speed_retention": 0.6925242301736076,
+          "beta_rmse_deg": 52.22906207831242
+        },
+        "support_fraction": 0.879394267171444,
+        "longest_support_gap_s": 0.19,
+        "maximum_root_tilt_deg": 96.31536739480477,
+        "wheel_aggregate_utilization_proxy_p95": 1.000000238418579,
+        "pointwise_friction_cone_saturation_certified": false,
+        "task_success_claimed": false,
+        "core_interval_s": [
+          0.96,
+          2.6666666666666665
+        ],
+        "actual_core_mean_speed_m_s": 1.3955413103103638,
+        "actual_core_peak_speed_m_s": 1.6796026229858398,
+        "initial_speed_m_s": 1.9611914157867432,
+        "initial_joint_velocity_rad_s": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          15.282506942749023,
+          15.602384567260742
+        ],
+        "whole_body_inverted_observed": true,
+        "first_inversion_s": 2.7725,
+        "persistent_xy_departures_gt0p30m_ge0p10s": [
+          {
+            "start_s": 0.7725,
+            "duration_s": 3.87
+          }
+        ],
+        "core_angular_xy_10_to_100Hz": {
+          "samples": 683,
+          "sample_hz": 400.0,
+          "native_nyquist_hz": 200.0,
+          "frequency_resolution_hz": 0.5856515373352855,
+          "common_band_hz_exclusive": [
+            10.0,
+            100.0
+          ],
+          "common_band_mean_square": 0.4270770855956419,
+          "common_band_rms": 0.6535113507779662,
+          "native_high_frequency_cutoff_hz_exclusive": 10.0,
+          "native_high_frequency_mean_square": 0.4286091081437237,
+          "native_high_frequency_rms": 0.6546824483241656,
+          "at_or_above100hz_mean_square": 0.0015320225480817521,
+          "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+          "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+        },
+        "beta_core_valid_moving": {
+          "samples": 683,
+          "core_coverage_fraction": 1.0,
+          "beta_rmse_deg": 20.608955625479904
+        },
+        "beta_core_valid_moving_anywheel_loaded": {
+          "samples": 537,
+          "core_coverage_fraction": 0.7862371888726208,
+          "beta_rmse_deg": 17.808328138291518
+        },
+        "sliding_aggregate_evidence": [
+          {
+            "wheel": "left",
+            "core_support_fraction": 0.30453879941434847,
+            "core_loaded_slip_fraction": 0.5336538461538461,
+            "core_loaded_utilization_proxy_p95": 1.000000238418579,
+            "longest_continuous_core_aggregate_corroboration_s": 0.0725,
+            "aggregate_corroboration_events_ge50ms": [
+              {
+                "start_s": 1.6300000000000001,
+                "end_exclusive_s": 1.7025000000000001,
+                "duration_s": 0.0725
+              }
+            ],
+            "core_corroborated_samples": 111,
+            "core_poststep_friction_power_integral_proxy_j": -4.436403274536133
+          },
+          {
+            "wheel": "right",
+            "core_support_fraction": 0.7847730600292826,
+            "core_loaded_slip_fraction": 0.14738805970149255,
+            "core_loaded_utilization_proxy_p95": 1.0000001192092896,
+            "longest_continuous_core_aggregate_corroboration_s": 0.0325,
+            "aggregate_corroboration_events_ge50ms": [],
+            "core_corroborated_samples": 76,
+            "core_poststep_friction_power_integral_proxy_j": -9.78911304473877
+          }
+        ],
+        "listed_screens": {
+          "core_xy_rmse": false,
+          "whole_xy_rmse": false,
+          "xy_peak": false,
+          "speed_retention": false,
+          "beta": false,
+          "continuous_anywheel_support": false
+        },
+        "nonwheel_ground_contact_measured": false,
+        "listed_screens_all_pass": false
+      },
+      "native_contact_verification": {
+        "physical_samples_checked": 1864,
+        "wheels": 2,
+        "maximum_absolute_errors": {
+          "normal_fz_N": 3.0517578125e-05,
+          "slip_RMS_m_s": 5.289912223815918e-07,
+          "anchor_power_W": 3.0517578125e-05,
+          "aggregate_friction_N": 1.52587890625e-05
+        },
+        "all_recorded_buffers_reduced_independently_in_NumPy": true,
+        "raw_buffers_sha256": "e1381b22b53a47ab5c26c91a74b8e58aca66b1c090e6f9c60ae02369cd1fadb5"
+      },
+      "ideal_source_peak_lateral_demand_over_mu_g": 0.36564751696814723,
+      "ideal_source_core_mean_speed_m_s": 1.542880619138441,
+      "reference_duration_s": 4.64,
+      "physical_duration_s": 4.66,
+      "source_recording_sha256": "cedb07cb5fd964c3c6b0c8ac7416b365cd7a151a66f87396037229efc7bfc0d4",
+      "maximum_source_XY_resampling_error_m": 0.00031143323909798746
+    },
+    {
+      "id": "speed2p0",
+      "requested_scale": 2.0,
+      "effective_scale": 2.0,
+      "reference_demand": {
+        "core_interval_s": [
+          0.72,
+          2.0
+        ],
+        "core_mean_speed_m_s": 2.0579153149889264,
+        "core_peak_lateral_acceleration_m_s2": 2.454279075957103,
+        "peak_lateral_demand_over_mu_g": 0.3574019332979617,
+        "force_capacity_assumption": "planar total normal load=mg, no simultaneous longitudinal demand; feasibility NOT certified"
+      },
+      "metrics": {
+        "core": {
+          "xy_rmse_m": 1.3577061492063252,
+          "xy_peak_m": 1.9780863883918756,
+          "speed_retention": 0.5576551346476966,
+          "beta_rmse_deg": 69.63361395180759
+        },
+        "whole": {
+          "xy_rmse_m": 1.9502890821415786,
+          "xy_peak_m": 3.103211935365647,
+          "speed_retention": 0.5481597339384185,
+          "beta_rmse_deg": 87.87248091055936
+        },
+        "support_fraction": 0.7819494584837545,
+        "longest_support_gap_s": 0.3725,
+        "maximum_root_tilt_deg": 93.37126324866433,
+        "wheel_aggregate_utilization_proxy_p95": 1.000000238418579,
+        "pointwise_friction_cone_saturation_certified": false,
+        "task_success_claimed": false,
+        "core_interval_s": [
+          0.72,
+          2.0
+        ],
+        "actual_core_mean_speed_m_s": 1.1468538045883179,
+        "actual_core_peak_speed_m_s": 2.250009059906006,
+        "initial_speed_m_s": 2.614922046661377,
+        "initial_joint_velocity_rad_s": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          20.376676559448242,
+          20.803178787231445
+        ],
+        "whole_body_inverted_observed": true,
+        "first_inversion_s": 1.51,
+        "persistent_xy_departures_gt0p30m_ge0p10s": [
+          {
+            "start_s": 0.5375,
+            "duration_s": 2.945
+          }
+        ],
+        "core_angular_xy_10_to_100Hz": {
+          "samples": 513,
+          "sample_hz": 400.0,
+          "native_nyquist_hz": 200.0,
+          "frequency_resolution_hz": 0.7797270955165693,
+          "common_band_hz_exclusive": [
+            10.0,
+            100.0
+          ],
+          "common_band_mean_square": 1.7654949900844947,
+          "common_band_rms": 1.3287193044749877,
+          "native_high_frequency_cutoff_hz_exclusive": 10.0,
+          "native_high_frequency_mean_square": 1.8024349283111227,
+          "native_high_frequency_rms": 1.3425479240277134,
+          "at_or_above100hz_mean_square": 0.03693993822662803,
+          "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+          "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+        },
+        "beta_core_valid_moving": {
+          "samples": 503,
+          "core_coverage_fraction": 0.9805068226120858,
+          "beta_rmse_deg": 69.10503135023106
+        },
+        "beta_core_valid_moving_anywheel_loaded": {
+          "samples": 354,
+          "core_coverage_fraction": 0.6900584795321637,
+          "beta_rmse_deg": 75.98009149582414
+        },
+        "sliding_aggregate_evidence": [
+          {
+            "wheel": "left",
+            "core_support_fraction": 0.24366471734892786,
+            "core_loaded_slip_fraction": 0.904,
+            "core_loaded_utilization_proxy_p95": 1.000000238418579,
+            "longest_continuous_core_aggregate_corroboration_s": 0.04,
+            "aggregate_corroboration_events_ge50ms": [],
+            "core_corroborated_samples": 107,
+            "core_poststep_friction_power_integral_proxy_j": -134.56192016601562
+          },
+          {
+            "wheel": "right",
+            "core_support_fraction": 0.6023391812865497,
+            "core_loaded_slip_fraction": 0.8478964401294499,
+            "core_loaded_utilization_proxy_p95": 1.000000238418579,
+            "longest_continuous_core_aggregate_corroboration_s": 0.27,
+            "aggregate_corroboration_events_ge50ms": [
+              {
+                "start_s": 1.5525,
+                "end_exclusive_s": 1.8225,
+                "duration_s": 0.27
+              }
+            ],
+            "core_corroborated_samples": 251,
+            "core_poststep_friction_power_integral_proxy_j": -180.83071899414062
+          }
+        ],
+        "listed_screens": {
+          "core_xy_rmse": false,
+          "whole_xy_rmse": false,
+          "xy_peak": false,
+          "speed_retention": false,
+          "beta": false,
+          "continuous_anywheel_support": false
+        },
+        "nonwheel_ground_contact_measured": false,
+        "listed_screens_all_pass": false
+      },
+      "native_contact_verification": {
+        "physical_samples_checked": 1400,
+        "wheels": 2,
+        "maximum_absolute_errors": {
+          "normal_fz_N": 0.0,
+          "slip_RMS_m_s": 2.3245811462402344e-06,
+          "anchor_power_W": 0.00048828125,
+          "aggregate_friction_N": 3.0517578125e-05
+        },
+        "all_recorded_buffers_reduced_independently_in_NumPy": true,
+        "raw_buffers_sha256": "64f527a6a3a291744fbeabb5725e52d53a323f964ad02847a8f91a284610ffcf"
+      },
+      "ideal_source_peak_lateral_demand_over_mu_g": 0.6500400301655951,
+      "ideal_source_core_mean_speed_m_s": 2.0571741588512547,
+      "reference_duration_s": 3.48,
+      "physical_duration_s": 3.5,
+      "source_recording_sha256": "1338e079aa73251fcf5cfdfa5d4e623886f3221450a68116675923cafc7f1f1f",
+      "maximum_source_XY_resampling_error_m": 0.0004671498586470936
+    },
+    {
+      "id": "speed2p5",
+      "requested_scale": 2.5,
+      "effective_scale": 2.5035971223021583,
+      "reference_demand": {
+        "core_interval_s": [
+          0.5751724137931035,
+          1.5977011494252873
+        ],
+        "core_mean_speed_m_s": 2.5798733149453774,
+        "core_peak_lateral_acceleration_m_s2": 3.6279264014694195,
+        "peak_lateral_demand_over_mu_g": 0.5283131500610775,
+        "force_capacity_assumption": "planar total normal load=mg, no simultaneous longitudinal demand; feasibility NOT certified"
+      },
+      "metrics": {
+        "core": {
+          "xy_rmse_m": 0.9291091483411841,
+          "xy_peak_m": 1.2560562604504484,
+          "speed_retention": 0.584533517749328,
+          "beta_rmse_deg": 7.955601169862938
+        },
+        "whole": {
+          "xy_rmse_m": 0.8892640357061509,
+          "xy_peak_m": 1.275019552372534,
+          "speed_retention": 0.7801445664953527,
+          "beta_rmse_deg": 53.637899806410765
+        },
+        "support_fraction": 0.6714932126696832,
+        "longest_support_gap_s": 0.81,
+        "maximum_root_tilt_deg": 90.96756131934573,
+        "wheel_aggregate_utilization_proxy_p95": 1.000000238418579,
+        "pointwise_friction_cone_saturation_certified": false,
+        "task_success_claimed": false,
+        "core_interval_s": [
+          0.5751724137931035,
+          1.5977011494252873
+        ],
+        "actual_core_mean_speed_m_s": 1.5042201280593872,
+        "actual_core_peak_speed_m_s": 2.4105007648468018,
+        "initial_speed_m_s": 3.273355484008789,
+        "initial_joint_velocity_rad_s": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          25.50749397277832,
+          26.0413875579834
+        ],
+        "whole_body_inverted_observed": true,
+        "first_inversion_s": 2.355,
+        "persistent_xy_departures_gt0p30m_ge0p10s": [
+          {
+            "start_s": 0.485,
+            "duration_s": 2.2975
+          }
+        ],
+        "core_angular_xy_10_to_100Hz": {
+          "samples": 409,
+          "sample_hz": 400.0,
+          "native_nyquist_hz": 200.0,
+          "frequency_resolution_hz": 0.9779951100244499,
+          "common_band_hz_exclusive": [
+            10.0,
+            100.0
+          ],
+          "common_band_mean_square": 0.14828660460382037,
+          "common_band_rms": 0.3850799976677838,
+          "native_high_frequency_cutoff_hz_exclusive": 10.0,
+          "native_high_frequency_mean_square": 0.1505645354891505,
+          "native_high_frequency_rms": 0.38802646235682237,
+          "at_or_above100hz_mean_square": 0.002277930885330143,
+          "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+          "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+        },
+        "beta_core_valid_moving": {
+          "samples": 409,
+          "core_coverage_fraction": 1.0,
+          "beta_rmse_deg": 7.955601258045232
+        },
+        "beta_core_valid_moving_anywheel_loaded": {
+          "samples": 378,
+          "core_coverage_fraction": 0.9242053789731052,
+          "beta_rmse_deg": 8.085839151349305
+        },
+        "sliding_aggregate_evidence": [
+          {
+            "wheel": "left",
+            "core_support_fraction": 0.6674816625916871,
+            "core_loaded_slip_fraction": 0.989010989010989,
+            "core_loaded_utilization_proxy_p95": 1.000000238418579,
+            "longest_continuous_core_aggregate_corroboration_s": 0.215,
+            "aggregate_corroboration_events_ge50ms": [
+              {
+                "start_s": 0.85,
+                "end_exclusive_s": 1.0425,
+                "duration_s": 0.1925
+              },
+              {
+                "start_s": 1.105,
+                "end_exclusive_s": 1.1625,
+                "duration_s": 0.0575
+              },
+              {
+                "start_s": 1.3675,
+                "end_exclusive_s": 1.5825,
+                "duration_s": 0.215
+              }
+            ],
+            "core_corroborated_samples": 270,
+            "core_poststep_friction_power_integral_proxy_j": -92.98410034179688
+          },
+          {
+            "wheel": "right",
+            "core_support_fraction": 0.8655256723716381,
+            "core_loaded_slip_fraction": 0.307909604519774,
+            "core_loaded_utilization_proxy_p95": 1.000000238418579,
+            "longest_continuous_core_aggregate_corroboration_s": 0.045,
+            "aggregate_corroboration_events_ge50ms": [],
+            "core_corroborated_samples": 109,
+            "core_poststep_friction_power_integral_proxy_j": -26.865297317504883
+          }
+        ],
+        "listed_screens": {
+          "core_xy_rmse": false,
+          "whole_xy_rmse": false,
+          "xy_peak": false,
+          "speed_retention": false,
+          "beta": true,
+          "continuous_anywheel_support": false
+        },
+        "nonwheel_ground_contact_measured": false,
+        "listed_screens_all_pass": false
+      },
+      "native_contact_verification": {
+        "physical_samples_checked": 1120,
+        "wheels": 2,
+        "maximum_absolute_errors": {
+          "normal_fz_N": 3.0517578125e-05,
+          "slip_RMS_m_s": 7.152557373046875e-07,
+          "anchor_power_W": 0.0001220703125,
+          "aggregate_friction_N": 3.0517578125e-05
+        },
+        "all_recorded_buffers_reduced_independently_in_NumPy": true,
+        "raw_buffers_sha256": "4b3b77b14728cdc3b5354e8431a1df9b50803e3fddcda6f33bca6cc33f03ef3b"
+      },
+      "ideal_source_peak_lateral_demand_over_mu_g": 1.0186124917599273,
+      "ideal_source_core_mean_speed_m_s": 2.575167652087182,
+      "reference_duration_s": 2.7800000000000002,
+      "physical_duration_s": 2.8000000000000003,
+      "source_recording_sha256": "88c8b3368d147016089013406308f706cad772bdf6cb32a70b355cd31797223a",
+      "maximum_source_XY_resampling_error_m": 0.0005227125602024335
+    },
+    {
+      "id": "speed3p0",
+      "requested_scale": 3.0,
+      "effective_scale": 3.0,
+      "reference_demand": {
+        "core_interval_s": [
+          0.48,
+          1.3333333333333333
+        ],
+        "core_mean_speed_m_s": 3.0942339246205566,
+        "core_peak_lateral_acceleration_m_s2": 5.380868625995023,
+        "peak_lateral_demand_over_mu_g": 0.7835836065232304,
+        "force_capacity_assumption": "planar total normal load=mg, no simultaneous longitudinal demand; feasibility NOT certified"
+      },
+      "metrics": {
+        "core": {
+          "xy_rmse_m": 1.2131610276424336,
+          "xy_peak_m": 2.117666743347599,
+          "speed_retention": 0.31879922682777795,
+          "beta_rmse_deg": 36.034104374345176
+        },
+        "whole": {
+          "xy_rmse_m": 2.4208362212003967,
+          "xy_peak_m": 4.133589827767766,
+          "speed_retention": 0.586244169829934,
+          "beta_rmse_deg": 50.41449423137177
+        },
+        "support_fraction": 0.6731813246471227,
+        "longest_support_gap_s": 0.3,
+        "maximum_root_tilt_deg": 73.89193758411236,
+        "wheel_aggregate_utilization_proxy_p95": 1.000000238418579,
+        "pointwise_friction_cone_saturation_certified": false,
+        "task_success_claimed": false,
+        "core_interval_s": [
+          0.48,
+          1.3333333333333333
+        ],
+        "actual_core_mean_speed_m_s": 0.9835762977600098,
+        "actual_core_peak_speed_m_s": 2.6209943294525146,
+        "initial_speed_m_s": 3.9223828315734863,
+        "initial_joint_velocity_rad_s": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          30.565013885498047,
+          31.204769134521484
+        ],
+        "whole_body_inverted_observed": false,
+        "first_inversion_s": null,
+        "persistent_xy_departures_gt0p30m_ge0p10s": [
+          {
+            "start_s": 0.425,
+            "duration_s": 1.8975
+          }
+        ],
+        "core_angular_xy_10_to_100Hz": {
+          "samples": 342,
+          "sample_hz": 400.0,
+          "native_nyquist_hz": 200.0,
+          "frequency_resolution_hz": 1.1695906432748537,
+          "common_band_hz_exclusive": [
+            10.0,
+            100.0
+          ],
+          "common_band_mean_square": 0.18176180768066771,
+          "common_band_rms": 0.42633532305060967,
+          "native_high_frequency_cutoff_hz_exclusive": 10.0,
+          "native_high_frequency_mean_square": 0.20158154100093756,
+          "native_high_frequency_rms": 0.4489783302130934,
+          "at_or_above100hz_mean_square": 0.019819733320269824,
+          "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+          "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+        },
+        "beta_core_valid_moving": {
+          "samples": 342,
+          "core_coverage_fraction": 1.0,
+          "beta_rmse_deg": 36.03410384810987
+        },
+        "beta_core_valid_moving_anywheel_loaded": {
+          "samples": 286,
+          "core_coverage_fraction": 0.8362573099415205,
+          "beta_rmse_deg": 38.74571873356434
+        },
+        "sliding_aggregate_evidence": [
+          {
+            "wheel": "left",
+            "core_support_fraction": 0.21052631578947367,
+            "core_loaded_slip_fraction": 1.0,
+            "core_loaded_utilization_proxy_p95": 1.000000238418579,
+            "longest_continuous_core_aggregate_corroboration_s": 0.1625,
+            "aggregate_corroboration_events_ge50ms": [
+              {
+                "start_s": 0.48,
+                "end_exclusive_s": 0.6425,
+                "duration_s": 0.1625
+              }
+            ],
+            "core_corroborated_samples": 72,
+            "core_poststep_friction_power_integral_proxy_j": -50.35128402709961
+          },
+          {
+            "wheel": "right",
+            "core_support_fraction": 0.7748538011695907,
+            "core_loaded_slip_fraction": 0.49433962264150944,
+            "core_loaded_utilization_proxy_p95": 1.000000238418579,
+            "longest_continuous_core_aggregate_corroboration_s": 0.045,
+            "aggregate_corroboration_events_ge50ms": [],
+            "core_corroborated_samples": 118,
+            "core_poststep_friction_power_integral_proxy_j": -21.805986404418945
+          }
+        ],
+        "listed_screens": {
+          "core_xy_rmse": false,
+          "whole_xy_rmse": false,
+          "xy_peak": false,
+          "speed_retention": false,
+          "beta": false,
+          "continuous_anywheel_support": false
+        },
+        "nonwheel_ground_contact_measured": false,
+        "listed_screens_all_pass": false
+      },
+      "native_contact_verification": {
+        "physical_samples_checked": 936,
+        "wheels": 2,
+        "maximum_absolute_errors": {
+          "normal_fz_N": 0.0,
+          "slip_RMS_m_s": 4.76837158203125e-07,
+          "anchor_power_W": 0.00048828125,
+          "aggregate_friction_N": 1.52587890625e-05
+        },
+        "all_recorded_buffers_reduced_independently_in_NumPy": true,
+        "raw_buffers_sha256": "7838b04bd0086b65ab28edb7f1e6d0a28eacb0af5da7a42151660e59d6c9dc30"
+      },
+      "ideal_source_peak_lateral_demand_over_mu_g": 1.462590067872589,
+      "ideal_source_core_mean_speed_m_s": 3.085761238276882,
+      "reference_duration_s": 2.32,
+      "physical_duration_s": 2.34,
+      "source_recording_sha256": "fe52e9fca1a4de0b95647d0dc96533149e69453adb2b72d736c3aba3d5046cb6",
+      "maximum_source_XY_resampling_error_m": 0.0006301446295020628
+    }
+  ],
+  "mu": 0.7,
+  "actor_unchanged": true,
+  "policy_training": false,
+  "independent_model_controller": false,
+  "MPPI_search_executed": false,
+  "entry_state": "same pose; initial COM and joint velocities scaled; initial kinetic energy grows as scale squared; not acceleration from rest",
+  "reference_demand_note": "Retiming a discrete50Hz reference can undersample sharp curvature peaks. Report both derivative of resampled50Hz velocity and ideal source-resolution peak times effective_scale^2. Neither is a full-body friction feasibility proof.",
+  "friction_saturation_certified": false,
+  "contact_evidence_scope": "wheel aggregate; no pointwise normal-to-friction-anchor mapping",
+  "slide_power_note": "dt-averaged native force with post-step anchor velocity; integral is a proxy, not exact contact work",
+  "source_sha256": "3959b2668fdbd105d80658925f41597778c4a24bec8df0c6f2bf8287efcb1fa9",
+  "source_manifest_sha256": "85376c0c2f41258ec11a12a2da0d48e6d58f1542b7e1422d910bb43e6faca675",
+  "driver_status_sha256": "fcd025a9efcbfe36a2d1141265d50ed19c819f0c22126c78332da73b61d6f196"
+}

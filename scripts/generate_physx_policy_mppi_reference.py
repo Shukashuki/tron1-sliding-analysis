@@ -34,6 +34,10 @@ def run(a):
         assert sha(path)==cfg[key+'_sha256'], f'{key} input changed'
     assert sha(a.tracking_root/'training/tron1_tracking.py')==cfg['tracking_sha256']
     assert sha(a.seed_trace)==json.loads(a.seed_report.read_text())['physics_trajectory_sha256']
+    speed_spec=cfg.get('speed_reference')
+    speed_scale=1. if speed_spec is None else float(speed_spec['effective_scale'])
+    core_interval=(1.44/speed_scale,4./speed_scale)
+    assert np.isfinite(speed_scale) and speed_scale>=1.
     sys.path.insert(0,str(a.tracking_root))
     os.environ['TRON1_BEYONDMIMIC_ROOT']=str(a.beyondmimic_root)
     from isaaclab.app import AppLauncher
@@ -57,7 +61,8 @@ def run(a):
         steps=min(a.steps,frames) if a.steps else frames
         samples=a.samples if a.samples is not None else cfg['samples']
         iterations=a.iterations if a.iterations is not None else cfg['iterations']
-        n=1 if a.validate_mean is not None else samples+1
+        serial=getattr(a,'serial_candidates',False)
+        n=1 if a.validate_mean is not None or serial else samples+1
         assert n>=1 and steps>=2 and iterations>=0
         # The old recipe is used only to construct the EXACT actor command/obs
         # and motor ABI. Planning costs below are explicit and independent.
@@ -89,11 +94,17 @@ def run(a):
                    'root_angular_velocity_w_rad_s','joint_position_rad','joint_velocity_rad_s')}
             seed_names=z['joint_names'].astype(str).tolist()
         seed_order=[seed_names.index(k) for k in names]
+        if speed_spec is not None:
+            # Pre-accelerated entry state, explicitly NOT acceleration from rest.
+            # Positions and orientation are unchanged. All initial COM angular/
+            # linear and joint velocities follow the same physical time scaling.
+            for key in ('root_linear_velocity_w_m_s','root_angular_velocity_w_rad_s','joint_velocity_rad_s'):
+                seed[key]*=speed_scale
 
         def heading(q):
             return torch.atan2(2*(q[...,0]*q[...,3]+q[...,1]*q[...,2]),1-2*(q[...,2].square()+q[...,3].square()))
 
-        def rollout(latent,label):
+        def rollout(latent,label,light=False):
             """Every world starts once; all subsequent steps are real dynamics."""
             env.reset()
             root=torch.cat((seed['root_position_m'],seed['root_quaternion_wxyz'])).repeat(n,1)
@@ -111,6 +122,7 @@ def run(a):
                 'body_pos','body_com_pos','body_quat','body_com_vel','body_omega','normal_fz','lateral_slip_rms',
                 'utilization_proxy','friction_anchor_power','friction_force_w','normal_points_count','friction_anchors_count')}
             actions=[];observations=[];raw_contacts=[]
+            force_readback_error=torch.zeros((),device=a.device)
             previous=torch.zeros((n,8),device=a.device)
             def record(contacts=None):
                 state=dict(root_pos=robot.data.root_pos_w-env.scene.env_origins,
@@ -132,7 +144,8 @@ def run(a):
                 assert obs.shape==(n,51)
                 action=torch.clamp(actor(obs)+residual[frame],-1,1)
                 env.action_manager.process_action(action)
-                actions.append(action.detach().clone());observations.append(obs.detach().clone())
+                if not light:
+                    actions.append(action.detach().clone());observations.append(obs.detach().clone())
                 costs+=weights['action_rate']*(action-previous).square().sum(-1)/steps
                 previous=action
                 rq=originals['body_quat_w'][frame,0];rv=originals['body_lin_vel_w'][frame,0]
@@ -144,6 +157,10 @@ def run(a):
                     readings=[]
                     raw_step={}
                     for side,sensor in enumerate(sensors):
+                        if light:
+                            force=sensor.contact_physx_view.get_contact_force_matrix(.0025)
+                            readings.append({'normal_fz':force.reshape(n,-1,3).sum(1)[:,2]})
+                            continue
                         i=wid[side]
                         normal_data=sensor.contact_physx_view.get_contact_data(.0025)
                         friction_data=sensor.contact_physx_view.get_friction_data(.0025)
@@ -155,9 +172,11 @@ def run(a):
                             robot.data.body_com_lin_vel_w[:,i],robot.data.body_com_ang_vel_w[:,i],
                             robot.data.body_link_quat_w[:,i],cfg['mu'])
                         fault|=data.pop('fault');readings.append(data)
+                        matrix=sensor.contact_physx_view.get_contact_force_matrix(.0025)
+                        force_readback_error=torch.maximum(force_readback_error,(matrix.reshape(n,-1,3).sum(1)[:,2]-data['normal_fz']).abs().max())
                     if raw_step:raw_contacts.append(raw_step)
                     contact={k:torch.stack([d[k] for d in readings],1) for k in readings[0]}
-                    record(contact)
+                    if not light:record(contact)
                     v=robot.data.root_com_lin_vel_w;q=robot.data.root_quat_w
                     beta=torch.atan2(v[:,1],v[:,0])-heading(q)
                     eb=torch.atan2(torch.sin(beta-refbeta),torch.cos(beta-refbeta))
@@ -170,11 +189,13 @@ def run(a):
                     costs+=cost/(steps*8)
                 if frame%100==0:print(label,'frame',frame,'wall_s',round(time.monotonic()-start,2),flush=True)
             if bool(fault.any()):raise RuntimeError('Invalid contact buffer, overflow, geometry, or normal force')
+            if not light and float(force_readback_error)>1e-3:raise RuntimeError('Lightweight force-matrix readback differs from actual normal-point sum')
             values={k:torch.stack(v).cpu().numpy() for k,v in records.items()}
             cost_array=costs.detach().cpu().numpy()
             if not np.isfinite(cost_array).all():raise RuntimeError('Nonfinite dynamic rollout')
-            values['actions']=torch.stack(actions).cpu().numpy()
-            values['observations']=torch.stack(observations).cpu().numpy()
+            if not light:
+                values['actions']=torch.stack(actions).cpu().numpy()
+                values['observations']=torch.stack(observations).cpu().numpy()
             if raw_contacts:
                 np.savez_compressed(a.output_dir/'native_contact_buffers.npz',
                     **{k:torch.stack([d[k] for d in raw_contacts]).cpu().numpy() for k in raw_contacts[0]},
@@ -191,10 +212,18 @@ def run(a):
                 clone_error=float(np.max(abs(base['root_pos']-base['root_pos'][:,0:1])))
                 history.append(dict(kind='zero_residual_baseline',costs=baseline_cost.tolist(),
                                     maximum_clone_root_position_difference_m=clone_error))
+                if serial:
+                    repeat,_=rollout(np.zeros((1,cfg['knots'],8)),'same_world_baseline_repeat',light=True)
+                    history.append(dict(kind='same_world_baseline_repeat',costs=repeat.tolist(),
+                        cost_difference_from_full_baseline=(repeat-baseline_cost).tolist(),
+                        lightweight_normal_force_readback_verified_on_full_baseline=True))
                 for iteration in range(iterations):
                     noise=rng.normal(size=(samples,cfg['knots'],8))*std
                     candidates=np.concatenate((mean[None],mean[None]+noise),0)
-                    cost,_=rollout(candidates,f'search_{iteration}')
+                    if serial:
+                        cost=np.array([rollout(z[None],f'search_{iteration}_candidate_{i}',light=True)[0][0]
+                                       for i,z in enumerate(candidates)])
+                    else:cost,_=rollout(candidates,f'search_{iteration}')
                     probability,stats=_mppi_weights(cost[1:],mean,noise,std,cfg['temperature'])
                     if probability is None:raise RuntimeError('No finite MPPI samples')
                     mean=mean+np.einsum('n,nka->ka',probability,noise)
@@ -222,11 +251,15 @@ def run(a):
             seed_trace_sha256=sha(a.seed_trace),seed_report_sha256=sha(a.seed_report),
             original_motion_sha256=sha(a.original_motion),tracking_source_sha256=cfg['tracking_sha256'],
             search_history=history,final_costs=final_cost.tolist(),
-            metrics=trajectory_metrics(trace,original) if steps>=201 else {'short_smoke_only':True,'task_success_claimed':False},
+            metrics=trajectory_metrics(trace,original,core_interval_s=core_interval) if steps==frames else {'short_smoke_only':True,'task_success_claimed':False},
             steps=steps,physical_substeps_per_rollout=steps*8,worlds=n,iterations=iterations,
+            serial_candidate_search=serial,planning_lightweight_contact_readback=serial,
+            lightweight_planning_note='same cost at every400Hz step; direct native normal-force matrix; omit slip/anchor telemetry and state recording during proposal evaluation only; verify force sum on full baseline and fully record final mean',
             residual_interpolation='piecewise_cubic_smoothstep_times_sine_squared_endpoint_envelope',
             seed_initial_velocity_semantics='root_COM_linear_and_angular_via_legacy_COM_writer',
             initial_state_writes='only once per complete rollout; no writes within trajectory',
+            speed_reference=speed_spec,initial_velocity_multiplier=speed_scale,
+            starts_preaccelerated=speed_spec is not None,core_interval_s=list(core_interval),
             action_interface='clip(PPO(normalized_51D_observation)+smooth_independent_8D_residual,-1,1)',
             controller_label='PPO-assisted reference generation; NOT independent pure-model control baseline',
             material_audit=material,friction_law='native_PhysX_Coulomb_rigid_cylinder',
@@ -255,4 +288,5 @@ if __name__=='__main__':
     p.add_argument('--samples',type=int)
     p.add_argument('--iterations',type=int)
     p.add_argument('--validate-mean',type=Path)
+    p.add_argument('--serial-candidates',action='store_true')
     run(p.parse_args())

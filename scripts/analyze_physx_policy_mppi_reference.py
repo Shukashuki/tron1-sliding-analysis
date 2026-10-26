@@ -17,9 +17,9 @@ def longest_run(mask,dt=.0025):
     return float(np.max(edges[1::2]-edges[::2],initial=0)*dt)
 
 
-def sliding(trace):
+def sliding(trace,core_interval_s=(1.44,4.)):
     time=np.arange(len(trace['root_pos']))*.0025
-    core=(time>=1.44-1e-9)&(time<=4.+1e-9)
+    core=(time>=core_interval_s[0]-1e-9)&(time<=core_interval_s[1]+1e-9)
     speed=np.linalg.norm(trace['root_com_vel'][:,:2],axis=-1)
     rows=[]
     for side in range(2):

@@ -22,12 +22,14 @@ def wrap_angle(x):
     return np.arctan2(np.sin(x), np.cos(x))
 
 
-def trajectory_metrics(trace, reference, dt=.0025):
+def trajectory_metrics(trace, reference, dt=.0025, *, core_interval_s=(1.44,4.), support_interval_s=None):
     """One continuous rollout, no interpolation across missing contact samples."""
     t = np.arange(len(trace['root_pos'])) * dt
-    core = (t >= 1.44-1e-9) & (t <= 4.+1e-9)
-    window = (t >= .02-1e-9) & (t <= 6.96+1e-9)
     ref_time=np.arange(len(reference['body_pos_w']))*.02
+    core = (t >= core_interval_s[0]-1e-9) & (t <= core_interval_s[1]+1e-9)
+    support_interval_s=(.02,float(ref_time[-1])) if support_interval_s is None else support_interval_s
+    window = (t >= support_interval_s[0]-1e-9) & (t <= support_interval_s[1]+1e-9)
+    if not np.any(core) or not np.any(window):raise ValueError('Requested analysis window has no physical samples')
     interp=lambda x:np.column_stack([np.interp(t,ref_time,x[:,j]) for j in range(x.shape[-1])])
     pos, vel = trace['root_pos'].astype(float), trace['root_com_vel'].astype(float)
     q = trace['root_quat'].astype(float)
@@ -49,7 +51,7 @@ def trajectory_metrics(trace, reference, dt=.0025):
                     xy_peak_m=float(np.max(error[mask])),
                     speed_retention=float(np.mean(speed[mask])/np.mean(rs[mask])),
                     beta_rmse_deg=float(np.degrees(np.sqrt(np.mean(wrap_angle(beta-rb)[mask]**2)))))
-    return dict(core=tracking(core), whole=tracking(t<=6.96+1e-9),
+    return dict(core=tracking(core), whole=tracking(t<=ref_time[-1]+1e-9),
                 support_fraction=float(np.mean(supported[window])), longest_support_gap_s=longest,
                 maximum_root_tilt_deg=float(tilt.max()),
                 wheel_aggregate_utilization_proxy_p95=float(np.quantile(trace['utilization_proxy'][window], .95)),
