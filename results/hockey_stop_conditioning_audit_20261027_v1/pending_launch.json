@@ -1,0 +1,30 @@
+{
+  "status": "approved_uploaded_waiting_for_idle_GPU",
+  "archive_local": "outputs/hockey_conditioning_probe_bundle_20261027_v1.tar.gz",
+  "archive_sha256": "94555eff1ae646cb3edd1166a8ef378f1ef573d6570f0962f61e98fa1f8a487c",
+  "archive_remote": "zengxiong@14.103.233.29:/data/zengxiong/workspaces/hockey_conditioning_probe_bundle_20261027_v1.tar.gz",
+  "extract_remote": "/data/zengxiong/workspaces/tron1-hockey-stop-20261027-v1/source_snapshot_v1",
+  "argv": [
+    "/usr/bin/python3",
+    "-u",
+    "/data/zengxiong/workspaces/tron1-hockey-stop-20261027-v1/source_snapshot_v1/dispatch_hockey_conditioning_probe.py",
+    "--bundle",
+    "/data/zengxiong/workspaces/tron1-hockey-stop-20261027-v1/source_snapshot_v1",
+    "--engine-scripts",
+    "/data/zengxiong/workspaces/tron1-physx-reference-generation-20261025-v1/source_snapshot_v2/scripts",
+    "--prior-launch",
+    "/data/zengxiong/workspaces/tron1-physx-reference-generation-20261025-v1/validation_v1.launch.json",
+    "--audit-helper",
+    "/data/zengxiong/workspaces/tron1-ground-contact-v2o-20261025/continuation_snapshot_v1/scripts/continue_ground_contact_v2o_validation.py",
+    "--output",
+    "/data/zengxiong/workspaces/tron1-hockey-stop-20261027-v1/conditioning_probes_v1"
+  ],
+  "environment": {
+    "CUDA_DEVICE_ORDER": "PCI_BUS_ID"
+  },
+  "CUDA_VISIBLE_DEVICES_must_be_absent": true,
+  "scope": "reference_dq then nominal_command; 139 control steps each; single environment, freshly idle GPU; no training/search/no other process changes",
+  "queue_pid": 2485141,
+  "queue_identity_start_ticks": 2052218368,
+  "last_snapshot": "queue_evidence.json"
+}

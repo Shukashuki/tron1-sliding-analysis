@@ -10,6 +10,10 @@ MPPI search, external tire forces or in-trajectory state resets.
 The robot lost stability before planned braking. This run does **not** demonstrate
 a successful hockey stop or establish that the task is physically impossible.
 
+**Follow-up:** the [conditioning audit](../hockey_stop_conditioning_audit_20261027_v1/README.md)
+isolates the first-action difference to reference joint-velocity inputs and prepares
+two controlled input interventions. No new physical improvement is claimed there.
+
 ![Fixed-follow replay: command, PhysX, XY, contact evidence](render/preview.gif)
 
 [Full-resolution 4x1 video](render/hockey_command_physx_xy_contact_4x1.mp4) ·

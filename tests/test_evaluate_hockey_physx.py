@@ -10,6 +10,22 @@ from evaluate_hockey_physx import heading_offsets,segments,qualify_stop,reconstr
 from prepare_hockey_physx_reference import stopping_speed
 
 
+def test_actor_input_reconstruction_preserves_real_state_and_intervention_scope():
+    from evaluate_hockey_physx import audit_actor_observations,load
+    root=Path(__file__).resolve().parents[1]
+    trace=load(root/'results/hockey_stop_physx_probe_20261026_v2/evidence/probes_v2/baseline/final_rollout.npz')
+    reference=load(root/'results/hockey_stop_evaluation_audit_20261026_v1/physx_command_v2/motion.npz')
+    assert audit_actor_observations(trace,reference)['maximum_error']<2e-6
+    conditioning=load(root/'results/hockey_stop_conditioning_audit_20261027_v1/nominal_conditioning.npz')['command']
+    trace['observations'][:,6:12]=conditioning[:,6:12]
+    assert audit_actor_observations(trace,reference,conditioning,'reference_dq')['maximum_error']<2e-6
+    with pytest.raises(ValueError,match='physical states/reference intervention'):
+        audit_actor_observations(trace,reference,conditioning,'nominal_command')
+    trace['observations'][20,23]+=.01
+    with pytest.raises(ValueError,match='physical states/reference intervention'):
+        audit_actor_observations(trace,reference,conditioning,'reference_dq')
+
+
 def test_collected_execution_evidence_recovers_missing_annotation_without_editing_report():
     from evaluate_hockey_physx import verify_execution_evidence,sha
     root=Path(__file__).resolve().parents[1]/'results/hockey_stop_physx_probe_20261026_v2/evidence'

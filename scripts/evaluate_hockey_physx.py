@@ -89,6 +89,33 @@ def q_matrix(q):
         2*(x*z-w*y),2*(y*z+w*x),1-2*(x*x+y*y)),axis=-1).reshape(q.shape[:-1]+(3,3))
 
 
+def audit_actor_observations(trace,reference,conditioning=None,mode=None):
+    """Reconstruct all actor fields from PRE-action physical states and targets."""
+    n=len(trace['actions']);index=np.arange(n)*8
+    if trace['observations'].shape!=(n,51) or len(reference['joint_pos'])<n:raise ValueError('Invalid actor-input clock')
+    if trace['joint_names'].astype(str).tolist()!=reference['joint_names'].astype(str).tolist():raise ValueError('Actor joint order mismatch')
+    R=q_matrix(trace['root_quat'][index]);inv=np.swapaxes(R,-1,-2)
+    target_R=q_matrix(reference['body_quat_w'][:n,0])
+    rotate=lambda v:np.einsum('nij,nj->ni',inv,v)
+    phase=np.arange(n)/(len(reference['joint_pos'])-1)*2*np.pi
+    expected=np.column_stack((reference['joint_pos'][:n,:6],reference['joint_vel'][:n,:6],np.sin(phase),np.cos(phase),
+        rotate(reference['body_pos_w'][:n,0]-trace['root_pos'][index]),
+        np.einsum('nij,njk->nik',inv,target_R)[:,:,:2].reshape(n,6),
+        rotate(trace['root_com_vel'][index]),rotate(trace['root_omega'][index]),
+        trace['joint_pos'][index,:6]-reference['joint_pos'][0,:6],trace['joint_vel'][index],
+        np.vstack((np.zeros((1,8)),trace['actions'][:-1]))))
+    if mode is not None:
+        if mode not in ('reference_dq','nominal_command') or conditioning is None or conditioning.shape!=(n,14):
+            raise ValueError('Invalid conditioning intervention')
+        sl=slice(6,12) if mode=='reference_dq' else slice(0,14)
+        expected[:,sl]=conditioning[:,sl]
+    error=abs(expected-trace['observations'])
+    if not np.isfinite(error).all() or error.max()>5e-5:raise ValueError('Recorded actor inputs do not match physical states/reference intervention')
+    return dict(control_samples_checked=n,maximum_error=float(error.max()),tolerance=5e-5,
+        conditioning_mode=mode,all_51_input_columns_reconstructed=True,
+        state_anchor_and_previous_action_fields_unmodified=True)
+
+
 def heading_offsets(velocity,heading_deg,valid_heading=None):
     v=np.asarray(velocity);speed=np.linalg.norm(v[...,:2],axis=-1)
     valid=(speed>=.25)&np.isfinite(heading_deg)
@@ -299,6 +326,7 @@ def main():
     p.add_argument('--run-dir',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
     p.add_argument('--command-dir',type=Path)
     p.add_argument('--execution-evidence',type=Path,help='Collected v2 launch/payload audit when Kit shutdown skipped post-run annotations')
+    p.add_argument('--conditioning-table',type=Path,help='Required for the approved input-intervention probes')
     p.add_argument('--instrumentation-only',action='store_true')
     a=p.parse_args()
     if (a.command_dir is None)!=a.instrumentation_only:p.error('Choose a hockey command directory or instrumentation-only')
@@ -326,11 +354,23 @@ def main():
         if a.execution_evidence:
             report['execution_evidence']=verify_execution_evidence(a.execution_evidence,a.run_dir)
             wrapper_sha=report['execution_evidence']['wrapper_sha256']
+        base_wrapper='dd29fe1ddd736f0faf8fd78e6290020374346e24753bb6259dac6e59cc97bf2e'
+        conditioning_wrapper='51447598d9c840de94df203dfa21679c22f99a8d5d5b2876de7d9c671ab9d266'
         if (run['source_sha256']!='3aacb6b4f3b62d32ce6fa2326f2cb6bfe372b693b53c9830a27a85f26f3f7763'
-                or wrapper_sha!='dd29fe1ddd736f0faf8fd78e6290020374346e24753bb6259dac6e59cc97bf2e'
+                or wrapper_sha not in (base_wrapper,conditioning_wrapper)
                 or not run['single_world_validation'] or run['worlds']!=1 or run['external_forces']!=0):
             raise ValueError('Hockey probe is not the frozen single-world native engine')
         if len(trace['root_pos'])!=8*len(trace['actions'])+1:raise ValueError('Physical/action clock mismatch')
+        mode=None;conditioning=None
+        if wrapper_sha==conditioning_wrapper:
+            if (a.conditioning_table is None or sha(a.conditioning_table)!=run['conditioning_table_sha256']
+                    or run['conditioning_adapter_sha256']!='47bf422eb4acc93cb34cea52297e6648f24c881368f1160f6cbf596733da85df'
+                    or not run['actual_actor_input_archived'] or run['policy_weights_changed'] or run['MPPI_search_run']):
+                raise ValueError('Unverified reference-conditioning intervention')
+            mode=run['conditioning_mode'];conditioning=load(a.conditioning_table)['command']
+            report['conditioning_table_sha256']=sha(a.conditioning_table)
+        elif a.conditioning_table is not None:raise ValueError('Unexpected conditioning table for unadapted probe')
+        report['actor_observation_audit']=audit_actor_observations(trace,reference,conditioning,mode)
         report['new_hockey_physics_run']=True
         report['frozen_run_inline_success_flag_superseded']=True
         report['qualification']=qualify_stop(trace,signals,reference,command)

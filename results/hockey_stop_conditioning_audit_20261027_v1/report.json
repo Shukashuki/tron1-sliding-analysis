@@ -1,0 +1,157 @@
+{
+  "kind": "frozen_PPO_command_conditioning_intervention_audit",
+  "runner_sha256": "bd104646552511e3dfd2a0d1d3a5b27992b9f0919baf1ddcd28ee71fc22976fc",
+  "actor_sha256": "e5b94e87ed070f28c391cc7b0a11b216ce6b6d887141a28e7c83157085a9d8d0",
+  "input_sha256": {
+    "hockey": "85a2933caa0030bed3391968e934236e41776905665fe0ae4e2502176c0411cc",
+    "car": "2fbd0c34ba5a34e2b28fd4cf84872677a370053923b4ba4c7af0f397fa3c5ed9",
+    "reference": "0c8f2cfc2876bbd103bad206e708d91bf6753f8faa75c3107b0ec37c56c448b9"
+  },
+  "physics_run": false,
+  "policy_weights_changed": false,
+  "normalizer_epsilon": 0.01,
+  "normalization_definition": "(x-mean)/(std+eps); magnitude is NOT a number of standard deviations",
+  "original_reference_frames": 349,
+  "hockey_reference_frames": 139,
+  "phase_rate_multiplier": 2.5217391304347827,
+  "initial_physical_states_bit_identical": true,
+  "initial_observation_differing_columns": [
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "maximum_cpu_action_replay_error": 1.0505318641662598e-06,
+  "cpu_torch_version": "2.3.0+cu121",
+  "interventions": [
+    {
+      "intervention": "reference_q",
+      "first_action_error_vs_original_car": 0.06653422862291336,
+      "action_delta_vs_hockey_RMS_before_first_tilt": 0.03500080108642578,
+      "changed_input_columns": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "intervention": "reference_dq",
+      "first_action_error_vs_original_car": 1.4901161193847656e-08,
+      "action_delta_vs_hockey_RMS_before_first_tilt": 0.7404696345329285,
+      "changed_input_columns": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    {
+      "intervention": "reference_q_dq",
+      "first_action_error_vs_original_car": 1.4901161193847656e-08,
+      "action_delta_vs_hockey_RMS_before_first_tilt": 0.7981750965118408,
+      "changed_input_columns": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    {
+      "intervention": "nominal_command",
+      "first_action_error_vs_original_car": 1.4901161193847656e-08,
+      "action_delta_vs_hockey_RMS_before_first_tilt": 0.8018425703048706,
+      "changed_input_columns": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ]
+    },
+    {
+      "intervention": "reference_phase",
+      "first_action_error_vs_original_car": 0.06653422862291336,
+      "action_delta_vs_hockey_RMS_before_first_tilt": 0.007369175553321838,
+      "changed_input_columns": [
+        12,
+        13
+      ]
+    }
+  ],
+  "selected_times": [
+    {
+      "time_s": 0.0,
+      "ref_q_max_abs_normalized": 0.02053181827068329,
+      "ref_dq_max_abs_normalized": 0.880286455154419,
+      "unclipped_action_max": 0.2817993462085724
+    },
+    {
+      "time_s": 0.02,
+      "ref_q_max_abs_normalized": 0.02113553322851658,
+      "ref_dq_max_abs_normalized": 3.126129388809204,
+      "unclipped_action_max": 0.14390355348587036
+    },
+    {
+      "time_s": 0.04,
+      "ref_q_max_abs_normalized": 0.14655667543411255,
+      "ref_dq_max_abs_normalized": 8.619431495666504,
+      "unclipped_action_max": 0.6000503897666931
+    },
+    {
+      "time_s": 0.1,
+      "ref_q_max_abs_normalized": 1.4006394147872925,
+      "ref_dq_max_abs_normalized": 31.354568481445312,
+      "unclipped_action_max": 1.504677653312683
+    },
+    {
+      "time_s": 0.2,
+      "ref_q_max_abs_normalized": 8.146214485168457,
+      "ref_dq_max_abs_normalized": 84.26681518554688,
+      "unclipped_action_max": 2.431196689605713
+    },
+    {
+      "time_s": 0.3,
+      "ref_q_max_abs_normalized": 14.568076133728027,
+      "ref_dq_max_abs_normalized": 39.815582275390625,
+      "unclipped_action_max": 2.300117254257202
+    },
+    {
+      "time_s": 1.0,
+      "ref_q_max_abs_normalized": 18.058284759521484,
+      "ref_dq_max_abs_normalized": 41.39922332763672,
+      "unclipped_action_max": 2.625361204147339
+    }
+  ],
+  "inference": "Reference-velocity input alone explains the first-action difference. Closed-loop stabilization by an adapter remains untested.",
+  "training_coverage_quantiles_available": false,
+  "dynamic_task_success_claimed": false,
+  "artifacts": {
+    "interventions.npz": "9bb849a47f92c0244713d9ec0663faba6360c9e6bad20f917157a718acaab72b",
+    "nominal_conditioning.npz": "1476cdeffaa078dfb362f5dfb7b6ee0339c0e4b7e7abc3ac85120ef6a4564d38",
+    "conditioning_4x1.png": "e05d6a1f23ba59939689a9a0eed8ba236e3e77d6fbbd5b13384d2e1300858c01"
+  }
+}
