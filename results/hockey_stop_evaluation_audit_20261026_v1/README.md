@@ -1,9 +1,10 @@
 # Hockey-stop evaluation and wheel-geometry correction
 
-The next physical probe is prepared, but **no hockey-stop PhysX rollout has run**.
-The remote upload requires explicit approval of the corrected v2 payload.
-The original v1 request is superseded; neither payload has been uploaded to the
-PhysX host or indirectly deployed from Git.
+**Follow-up:** the user approved the exact corrected v2 payload and both physical
+probes have now completed. The baseline failed before planned braking; see the
+[PhysX results and fixed-follow replay](../hockey_stop_physx_probe_20261026_v2/README.md).
+The sections below document the pre-run geometry correction and prospective
+qualification protocol. The original v1 request was superseded.
 
 ## Contact geometry corrected before the physical probe
 
@@ -105,7 +106,7 @@ The **v2** upload contains six payload files (109,866 bytes), plus its manifest;
 no models, weights, RGB, binaries or credentials. Archive SHA-256:
 `fc87c10983c54ca74900fab66e86d498eb0e66def04e7b6a4cfffa5b12d3642c`.
 Local manifest: `outputs/hockey_physx_probe_bundle_20261026_v2/manifest.json`.
-The pending request covers only one 16-step smoke and one 139-step baseline on a
-freshly idle RTX, one environment at a time. Automatic review previously rejected
-the SSH upload because older approvals did not cover this payload/destination;
-the replacement approval question explicitly names v2.
+The subsequent explicit v2 approval covered one 16-step smoke and one 139-step
+baseline on a freshly idle RTX, one environment at a time. Both completed without
+training or search. See the follow-up above for the archived execution evidence;
+this preparation's historical preflight files remain unchanged.

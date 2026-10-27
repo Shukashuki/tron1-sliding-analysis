@@ -3,12 +3,13 @@
 **Follow-up:** the [evaluation and geometry audit](../hockey_stop_evaluation_audit_20261026_v1/README.md)
 found a 10 mm / 50 mm wheel-width mismatch and prepared a corrected v2 command.
 The v1 upload request below is historical and superseded. Independent evaluation
-also replaces the earlier inline success screen; no hockey physics result exists yet.
+also replaces the earlier inline success screen. The approved v2 probes are now
+complete: see [physical results and replay](../hockey_stop_physx_probe_20261026_v2/README.md).
 
 The user-provided SMPL-X models enabled the first GVHMR reconstruction and GMR
 preview. This follow-up corrects the foot-frame and ground-geometry mapping.
-**No hockey-stop physics result is available yet.** The reference is not admitted
-for policy training, and neither loaded sliding nor friction saturation is claimed.
+This page records the pre-run reference audit. The reference alone is not admitted
+for policy training and makes no loaded-sliding or friction-saturation claim.
 
 ## What the reference supports
 

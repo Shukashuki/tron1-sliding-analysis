@@ -10,6 +10,26 @@ from evaluate_hockey_physx import heading_offsets,segments,qualify_stop,reconstr
 from prepare_hockey_physx_reference import stopping_speed
 
 
+def test_collected_execution_evidence_recovers_missing_annotation_without_editing_report():
+    from evaluate_hockey_physx import verify_execution_evidence,sha
+    root=Path(__file__).resolve().parents[1]/'results/hockey_stop_physx_probe_20261026_v2/evidence'
+    run=root/'probes_v2/baseline';before=sha(run/'report.json')
+    audit=verify_execution_evidence(root,run)
+    assert not audit['wrapper_post_run_annotations_present']
+    assert sha(run/'report.json')==before
+
+
+@pytest.mark.parametrize('target',['probes_v2/status.json','probes_v2/baseline/report.json'])
+def test_collected_execution_evidence_rejects_changed_launch_or_report(tmp_path,target):
+    import shutil
+    from evaluate_hockey_physx import verify_execution_evidence
+    root=Path(__file__).resolve().parents[1]/'results/hockey_stop_physx_probe_20261026_v2/evidence'
+    copied=tmp_path/'evidence';shutil.copytree(root,copied)
+    with (copied/target).open('a') as f:f.write(' ')
+    with pytest.raises(ValueError,match='Execution collection changed'):
+        verify_execution_evidence(copied,copied/'probes_v2/baseline')
+
+
 def ideal_signals():
     t=np.arange(1105)*.0025;rt=np.arange(139)*.02
     speed=stopping_speed(t,1.3,.4,1.8);ref_speed=stopping_speed(rt,1.3,.4,1.8)

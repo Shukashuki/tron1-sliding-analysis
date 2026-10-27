@@ -1,0 +1,284 @@
+{
+  "kind": "hockey_stop_independent_physical_evaluator_v1",
+  "mode": "hockey_stop",
+  "analyzer_sha256": "ebd40fb2bc110d9f2e10369e36ccb9105676133d66fe149845bc238f497b3333",
+  "run_report_sha256": "2146924e6414ba52101787b6ff69a909ceacc39db5ef814ab43a802769df1ae8",
+  "input_sha256": {
+    "final_rollout.npz": "85a2933caa0030bed3391968e934236e41776905665fe0ae4e2502176c0411cc",
+    "native_contact_buffers.npz": "46f2faf8a7461c3571838094ee75e29258989b2f428d9de30fd5588e335581fb"
+  },
+  "mu": 0.699999988079071,
+  "native_reconstruction": {
+    "physical_samples_checked": 1112,
+    "maximum_readback_errors": {
+      "normal_fz": 1.9073474106789945e-06,
+      "normal_point_lateral_rms": 3.006218087797663e-06,
+      "anchor_power": 0.00041682086612127023,
+      "friction_force": 3.814697265625e-06,
+      "aggregate_utilization": 1.796663600117654e-07
+    },
+    "pointwise_normal_load_at_friction_anchors_available": false,
+    "force_velocity_timing": "completed-substep force/impulse divided by dt, paired with post-step material velocity; power proxy, not exact step work"
+  },
+  "friction_indicator": "wheel aggregate force utilization; exact force/velocity pairing at friction anchors; no per-anchor Fn",
+  "forces_from_native_buffers": true,
+  "physics_rerun": false,
+  "new_hockey_physics_run": true,
+  "physical_step_timing_warning": "instantaneous post-state force-power proxy; not exact substep work",
+  "pointwise_cone_saturation_certified": false,
+  "execution_evidence": {
+    "wrapper_sha256": "dd29fe1ddd736f0faf8fd78e6290020374346e24753bb6259dac6e59cc97bf2e",
+    "collection_manifest_sha256": "7466c8cba36ca7da58ef2af2b69a5bcf9c306b46a1df7a97a17b4b96135f5bc7",
+    "execution_record_sha256": "c4498a0c6e9ee2cab7624cfa4708520f207b2e69a879657ac173067c1a64ec68",
+    "source": "collected frozen payload + dispatcher execution record; original run report unchanged",
+    "wrapper_post_run_annotations_present": false
+  },
+  "frozen_run_inline_success_flag_superseded": true,
+  "qualification": {
+    "gates": {
+      "full_reference_observed": true,
+      "entry_speed_at_least_0p8": false,
+      "approach_speed_retained": true,
+      "xy_rmse_le_0p15": false,
+      "xy_peak_le_0p3": false,
+      "anywheel_continuously_supported": false,
+      "upright_supported_terminal_hold_ge_0p5": false,
+      "loaded_lateral_sliding_during_braking_ge_0p05": true,
+      "braking_body_heading_RMSE_le_15deg": false,
+      "loaded_braking_wheel_heading_RMSE_le_20deg": false,
+      "tilt_below_45deg_during_task": false
+    },
+    "task_success_claimed": false,
+    "failed_gates": [
+      "entry_speed_at_least_0p8",
+      "xy_rmse_le_0p15",
+      "xy_peak_le_0p3",
+      "anywheel_continuously_supported",
+      "upright_supported_terminal_hold_ge_0p5",
+      "braking_body_heading_RMSE_le_15deg",
+      "loaded_braking_wheel_heading_RMSE_le_20deg",
+      "tilt_below_45deg_during_task"
+    ],
+    "entry_mean_speed_last_0p1s_m_s": 0.7153523564338684,
+    "approach_COM_speed_ratio": 1.0063804388046265,
+    "braking_body_heading_RMSE_deg": 78.68585861978532,
+    "loaded_braking_wheel_heading_RMSE_deg": 58.116366700908934,
+    "braking_COM_speed_RMSE_m_s": 0.5796034657528633,
+    "xy_RMSE_m": 0.722483540756116,
+    "xy_peak_m": 1.1706626929980823,
+    "support_fraction": 0.4990875912408759,
+    "longest_support_gap_s": 0.4925,
+    "terminal_stop_hold_s": 0.0,
+    "stop_events": [],
+    "bilateral_loaded_slip_events": [
+      [
+        {
+          "first_index": 577,
+          "last_index": 605,
+          "start_s": 1.4400000000000002,
+          "end_s": 1.5125,
+          "duration_s": 0.07249999999999979
+        },
+        {
+          "first_index": 617,
+          "last_index": 624,
+          "start_s": 1.54,
+          "end_s": 1.56,
+          "duration_s": 0.020000000000000018
+        },
+        {
+          "first_index": 631,
+          "last_index": 632,
+          "start_s": 1.5750000000000002,
+          "end_s": 1.58,
+          "duration_s": 0.004999999999999893
+        },
+        {
+          "first_index": 636,
+          "last_index": 649,
+          "start_s": 1.5875000000000001,
+          "end_s": 1.6225,
+          "duration_s": 0.03499999999999992
+        },
+        {
+          "first_index": 667,
+          "last_index": 672,
+          "start_s": 1.665,
+          "end_s": 1.68,
+          "duration_s": 0.014999999999999902
+        },
+        {
+          "first_index": 719,
+          "last_index": 720,
+          "start_s": 1.7950000000000002,
+          "end_s": 1.8,
+          "duration_s": 0.004999999999999893
+        }
+      ],
+      [
+        {
+          "first_index": 564,
+          "last_index": 564,
+          "start_s": 1.4075,
+          "end_s": 1.41,
+          "duration_s": 0.0024999999999999467
+        },
+        {
+          "first_index": 566,
+          "last_index": 568,
+          "start_s": 1.4125,
+          "end_s": 1.42,
+          "duration_s": 0.00749999999999984
+        },
+        {
+          "first_index": 570,
+          "last_index": 578,
+          "start_s": 1.4225,
+          "end_s": 1.445,
+          "duration_s": 0.022499999999999964
+        },
+        {
+          "first_index": 588,
+          "last_index": 617,
+          "start_s": 1.4675,
+          "end_s": 1.5425,
+          "duration_s": 0.07499999999999996
+        },
+        {
+          "first_index": 623,
+          "last_index": 624,
+          "start_s": 1.5550000000000002,
+          "end_s": 1.56,
+          "duration_s": 0.004999999999999893
+        },
+        {
+          "first_index": 628,
+          "last_index": 632,
+          "start_s": 1.5675000000000001,
+          "end_s": 1.58,
+          "duration_s": 0.012499999999999956
+        },
+        {
+          "first_index": 642,
+          "last_index": 656,
+          "start_s": 1.6025,
+          "end_s": 1.6400000000000001,
+          "duration_s": 0.03750000000000009
+        },
+        {
+          "first_index": 684,
+          "last_index": 686,
+          "start_s": 1.7075,
+          "end_s": 1.715,
+          "duration_s": 0.007500000000000062
+        },
+        {
+          "first_index": 691,
+          "last_index": 696,
+          "start_s": 1.725,
+          "end_s": 1.74,
+          "duration_s": 0.014999999999999902
+        },
+        {
+          "first_index": 703,
+          "last_index": 704,
+          "start_s": 1.7550000000000001,
+          "end_s": 1.76,
+          "duration_s": 0.004999999999999893
+        },
+        {
+          "first_index": 713,
+          "last_index": 720,
+          "start_s": 1.78,
+          "end_s": 1.8,
+          "duration_s": 0.020000000000000018
+        }
+      ]
+    ],
+    "bilateral_loaded_slip_longest_s": [
+      0.07249999999999979,
+      0.07499999999999996
+    ],
+    "wheel_beta_gate": "axial abs(beta)>=20 degrees and speed>=.25 m/s; prospective hockey distinction from reverse rolling",
+    "aggregate_utilization_screen_range": [
+      0.9,
+      1.05
+    ],
+    "absolute_height_gate": false,
+    "pointwise_cone_saturation_certified": false
+  },
+  "loaded_beta_summary": [
+    {
+      "side": "left",
+      "samples": 447,
+      "abs_axial_beta_deg_p50_p95_max": [
+        76.47517375611301,
+        89.31666442122376,
+        89.98649840271239
+      ],
+      "before_first_45deg_tilt_samples": 22,
+      "loaded_aggregate_ratio_above_1p05_samples": 0,
+      "before_first_45deg_tilt_abs_axial_beta_deg_p50_p95_max": [
+        11.50729171454853,
+        58.27211580326857,
+        74.86467186387235
+      ],
+      "before_first_45deg_tilt_same_anchor_corroboration_events": [
+        {
+          "first_index": 72,
+          "last_index": 72,
+          "start_s": 0.17750000000000005,
+          "end_s": 0.18,
+          "duration_s": 0.0024999999999999467
+        },
+        {
+          "first_index": 74,
+          "last_index": 74,
+          "start_s": 0.18250000000000005,
+          "end_s": 0.185,
+          "duration_s": 0.0024999999999999467
+        },
+        {
+          "first_index": 87,
+          "last_index": 93,
+          "start_s": 0.21500000000000005,
+          "end_s": 0.2325,
+          "duration_s": 0.01749999999999996
+        }
+      ]
+    },
+    {
+      "side": "right",
+      "samples": 497,
+      "abs_axial_beta_deg_p50_p95_max": [
+        55.87673785135422,
+        86.22957206721743,
+        89.727603887899
+      ],
+      "before_first_45deg_tilt_samples": 31,
+      "loaded_aggregate_ratio_above_1p05_samples": 1,
+      "before_first_45deg_tilt_abs_axial_beta_deg_p50_p95_max": [
+        35.413487027210635,
+        88.02018333130749,
+        89.27314969929992
+      ],
+      "before_first_45deg_tilt_same_anchor_corroboration_events": [
+        {
+          "first_index": 73,
+          "last_index": 85,
+          "start_s": 0.18000000000000005,
+          "end_s": 0.2125,
+          "duration_s": 0.032499999999999946
+        },
+        {
+          "first_index": 87,
+          "last_index": 95,
+          "start_s": 0.21500000000000005,
+          "end_s": 0.23750000000000002,
+          "duration_s": 0.022499999999999964
+        }
+      ]
+    }
+  ],
+  "first_45deg_tilt_diagnostic_s": 0.275
+}

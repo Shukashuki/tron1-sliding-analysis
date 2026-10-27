@@ -21,6 +21,54 @@ def load(path):
     with np.load(path,allow_pickle=False) as z:return {k:z[k] for k in z.files}
 
 
+def verify_execution_evidence(root,run_dir):
+    """Bind unmodified engine output to the launched wrapper via the collected audit.
+
+    Kit shutdown did not return to the wrapper's post-run annotation code in the
+    approved v2 probes. Never manufacture missing fields in the original report.
+    """
+    root=Path(root).resolve();run_dir=Path(run_dir).resolve()
+    manifest=json.loads((root/'collection_manifest_v2.json').read_text())
+    if manifest['approved_payload_sha256']!='fc87c10983c54ca74900fab66e86d498eb0e66def04e7b6a4cfffa5b12d3642c':
+        raise ValueError('Unexpected approved payload')
+    for row in manifest['files']:
+        path=(root/row['path']).resolve()
+        if not path.is_relative_to(root) or path.stat().st_size!=row['bytes'] or sha(path)!=row['sha256']:
+            raise ValueError('Execution collection changed: '+row['path'])
+    bundle=root/'source_snapshot_v2'
+    frozen={'hockey_physx_probe.py':'dd29fe1ddd736f0faf8fd78e6290020374346e24753bb6259dac6e59cc97bf2e',
+        'dispatch_hockey_physx_probe.py':'d0648de412fdfed7efaabc645f0c3609e538a2215f3bd71df1bdff6c300f1de2'}
+    for name,digest in frozen.items():
+        if sha(bundle/name)!=digest:raise ValueError('Frozen probe source changed')
+    payload=json.loads((bundle/'manifest.json').read_text())
+    for row in payload['files']:
+        if sha(bundle/row['path'])!=row['sha256']:raise ValueError('Frozen payload changed')
+    report=json.loads((run_dir/'report.json').read_text())
+    records=json.loads((root/'probes_v2/status.json').read_text())
+    matches=[r for r in records if (root/'probes_v2'/r['id']).resolve()==run_dir]
+    if len(matches)!=1:raise ValueError('Missing unique execution record')
+    row=matches[0];argv=row['argv'];get=lambda flag:argv[argv.index(flag)+1]
+    remote_root='/data/zengxiong/workspaces/tron1-hockey-stop-20261026-v1'
+    if (row['status']!='completed' or row['returncode']!=0 or not row['gpu_before_launch']['idle']
+            or row['report_sha256']!=sha(run_dir/'report.json')
+            or argv[3]!=remote_root+'/source_snapshot_v2/hockey_physx_probe.py'
+            or get('--bundle')!=remote_root+'/source_snapshot_v2'
+            or get('--output-dir')!=remote_root+'/probes_v2/'+row['id']
+            or report['iterations']!=0 or report['search_history']
+            or report['motion_sha256']!=sha(bundle/'motion.npz')
+            or report['config_sha256']!=sha(bundle/'config.json')):
+        raise ValueError('Probe execution identity mismatch')
+    expected_steps={'smoke':16,'baseline':139}
+    if report['steps']!=expected_steps.get(row['id']):raise ValueError('Unexpected probe length')
+    for name,digest in report['artifacts'].items():
+        if sha(run_dir/name)!=digest:raise ValueError('Probe artifact changed')
+    return dict(wrapper_sha256=frozen['hockey_physx_probe.py'],
+        collection_manifest_sha256=sha(root/'collection_manifest_v2.json'),
+        execution_record_sha256=sha(root/'probes_v2/status.json'),
+        source='collected frozen payload + dispatcher execution record; original run report unchanged',
+        wrapper_post_run_annotations_present='hockey_wrapper_sha256' in report)
+
+
 def segments(time,mask,*,interval_samples=False):
     """States span first-to-last timestamps; force intervals represent one dt each."""
     t=np.asarray(time,dtype=float);mask=np.asarray(mask,dtype=bool)
@@ -250,6 +298,7 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--run-dir',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
     p.add_argument('--command-dir',type=Path)
+    p.add_argument('--execution-evidence',type=Path,help='Collected v2 launch/payload audit when Kit shutdown skipped post-run annotations')
     p.add_argument('--instrumentation-only',action='store_true')
     a=p.parse_args()
     if (a.command_dir is None)!=a.instrumentation_only:p.error('Choose a hockey command directory or instrumentation-only')
@@ -273,8 +322,12 @@ def main():
     if a.command_dir:
         reference=load(a.command_dir/'motion.npz');command=json.loads((a.command_dir/'report.json').read_text())
         if sha(a.command_dir/'motion.npz')!=run['motion_sha256'] or sha(a.command_dir/'motion.npz')!=command['motion_sha256']:raise ValueError('Hockey command/run mismatch')
+        wrapper_sha=run.get('hockey_wrapper_sha256')
+        if a.execution_evidence:
+            report['execution_evidence']=verify_execution_evidence(a.execution_evidence,a.run_dir)
+            wrapper_sha=report['execution_evidence']['wrapper_sha256']
         if (run['source_sha256']!='3aacb6b4f3b62d32ce6fa2326f2cb6bfe372b693b53c9830a27a85f26f3f7763'
-                or run.get('hockey_wrapper_sha256')!='dd29fe1ddd736f0faf8fd78e6290020374346e24753bb6259dac6e59cc97bf2e'
+                or wrapper_sha!='dd29fe1ddd736f0faf8fd78e6290020374346e24753bb6259dac6e59cc97bf2e'
                 or not run['single_world_validation'] or run['worlds']!=1 or run['external_forces']!=0):
             raise ValueError('Hockey probe is not the frozen single-world native engine')
         if len(trace['root_pos'])!=8*len(trace['actions'])+1:raise ValueError('Physical/action clock mismatch')
