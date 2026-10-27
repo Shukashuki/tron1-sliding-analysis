@@ -52,7 +52,8 @@ def hockey_metrics(trace, reference):
         per_wheel_loaded_slip_saturation_dissipation_longest_s=event_duration,
         slip_event_definition='same wheel: Fz>5N, normal-point lateral slip RMS>.05m/s, aggregate utilization>=.9, anchor power<-.05W',
         friction_utilization_is_aggregate_proxy=True,pointwise_cone_saturation_certified=False,
-        task_success_claimed=success)
+        legacy_inline_screen_passed=success,task_success_claimed=False,
+        independent_hockey_evaluation_required=True)
 
 
 def main():
@@ -80,6 +81,7 @@ def main():
         car_core_interval_not_used=True,old_PPO_51D_command_has_no_explicit_braking_velocity=True,
         legacy_turn_cost_not_used_for_hockey_success_or_ranking=True,
         baseline_zero_residual=True,MPPI_search_run=False)
+    report['independent_hockey_evaluation_required']=True
     (args.output_dir/'report.json').write_text(json.dumps(report,indent=2)+'\n')
 
 

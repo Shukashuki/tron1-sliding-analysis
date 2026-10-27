@@ -1,0 +1,44 @@
+{
+  "status": "pending_explicit_v2_approval_no_remote_execution",
+  "supersedes_v1": true,
+  "remote_archive": "/data/zengxiong/workspaces/hockey_physx_probe_bundle_20261026_v2.tar.gz",
+  "archive_sha256": "fc87c10983c54ca74900fab66e86d498eb0e66def04e7b6a4cfffa5b12d3642c",
+  "extract_only_to": "/data/zengxiong/workspaces/tron1-hockey-stop-20261026-v1/source_snapshot_v2",
+  "argv": [
+    "/usr/bin/python3",
+    "-u",
+    "/data/zengxiong/workspaces/tron1-hockey-stop-20261026-v1/source_snapshot_v2/dispatch_hockey_physx_probe.py",
+    "--bundle",
+    "/data/zengxiong/workspaces/tron1-hockey-stop-20261026-v1/source_snapshot_v2",
+    "--engine-scripts",
+    "/data/zengxiong/workspaces/tron1-physx-reference-generation-20261025-v1/source_snapshot_v2/scripts",
+    "--prior-launch",
+    "/data/zengxiong/workspaces/tron1-physx-reference-generation-20261025-v1/validation_v1.launch.json",
+    "--audit-helper",
+    "/data/zengxiong/workspaces/tron1-ground-contact-v2o-20261025/continuation_snapshot_v1/scripts/continue_ground_contact_v2o_validation.py",
+    "--output",
+    "/data/zengxiong/workspaces/tron1-hockey-stop-20261026-v1/probes_v2"
+  ],
+  "required_environment": {
+    "CUDA_DEVICE_ORDER": "PCI_BUS_ID"
+  },
+  "require_absent_environment": [
+    "CUDA_VISIBLE_DEVICES"
+  ],
+  "jobs": [
+    {
+      "name": "smoke",
+      "policy_steps": 16,
+      "worlds": 1
+    },
+    {
+      "name": "baseline",
+      "policy_steps": 139,
+      "worlds": 1
+    }
+  ],
+  "GPU_policy": "freshly completely idle RTX before each job; sequential; no signals to other processes",
+  "do_not_indirectly_deploy_via_git": true,
+  "training": false,
+  "MPPI_search": false
+}

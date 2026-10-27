@@ -21,6 +21,8 @@ def sample():
 def test_stationary_beta_unavailable_and_fallen_stop_not_success():
     trace,ref=sample();report=hockey_metrics(trace,ref)
     assert report['body_beta_absolute_peak_deg'] is None
+    assert report['independent_hockey_evaluation_required']
+    assert not report['task_success_claimed']
     trace['root_quat'][:]=[0.,1.,0.,0.]
     report=hockey_metrics(trace,ref)
     assert not report['task_success_claimed']

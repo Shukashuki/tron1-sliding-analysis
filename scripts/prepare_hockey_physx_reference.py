@@ -31,12 +31,24 @@ def main():
     p.add_argument("--seed-trace", type=Path, required=True)
     p.add_argument("--model", type=Path, required=True)
     p.add_argument("--output", type=Path, required=True)
+    p.add_argument("--physics-geometry", type=Path)
     args=p.parse_args()
     if args.output.exists():raise FileExistsError(args.output)
     g=np.load(args.retarget/"retarget_trace.npz",allow_pickle=False)
     actor=np.load(args.actor_reference,allow_pickle=False)
     seed=np.load(args.seed_trace,allow_pickle=False)
     model=mujoco.MjModel.from_xml_path(str(args.model.resolve()));data=mujoco.MjData(model)
+    geometry_source=None
+    if args.physics_geometry:
+        geometry_source=json.loads(args.physics_geometry.read_text())
+        if geometry_source['model_sha256']!=sha(args.model) or geometry_source['asset_sha256']!='327ca5080e753bbc95d8c3c797e9cd49a0f134d400cfe80494af0ba840e23a8e':
+            raise ValueError('Physics geometry does not match the frozen model pair')
+        if {row['side'] for row in geometry_source['geometry']}!={'L','R'}:raise ValueError('Both wheel geometries are required')
+        for row in geometry_source['geometry']:
+            gid=model.geom(f"wheel_{row['side']}_collision").id
+            model.geom_size[gid,:2]=[row['USD_radius_m'],row['USD_width_m']/2]
+            model.geom_pos[gid]=row['USD_center_in_link_m']
+            model.geom_quat[gid]=Rotation.from_matrix(row['USD_rotation_cylinder_to_link']).as_quat(scalar_first=True)
     names=actor["joint_names"].astype(str).tolist();bodies=actor["body_names"].astype(str).tolist()
     qids=[int(model.jnt_qposadr[model.joint(k).id]) for k in names]
     # The Isaac reference has a separate coincident IMU link; this MJCF uses a
@@ -89,10 +101,14 @@ def main():
         designed_root_link_speed_m_s=speed,root_link_velocity_w_m_s=link_velocity[:,0],
         wheel_bottom_proxy_m=bottoms,wheel_heading_deg=headings,source_sample_time_s=sample_t,
         posture_blend=blend)
-    report=dict(kind="human_pose_inspired_designed_hockey_stop_command_v1",
+    report=dict(kind="human_pose_inspired_designed_hockey_stop_command_v2" if geometry_source else "human_pose_inspired_designed_hockey_stop_command_v1",
         runner_sha256=sha(__file__),retarget_sha256=sha(args.retarget/"retarget_trace.npz"),
         actor_reference_sha256=sha(args.actor_reference),seed_trace_sha256=sha(args.seed_trace),
         model_sha256=sha(args.model),motion_sha256=sha(args.output/"motion.npz"),
+        support_geometry_source="PhysX authored USD wheel cylinders" if geometry_source else "original MJCF thin wheels",
+        support_geometry_audit_sha256=sha(args.physics_geometry) if args.physics_geometry else None,
+        physics_asset_sha256=geometry_source['asset_sha256'] if geometry_source else None,
+        original_model_file_mutated=False,kinematic_joint_targets_changed_by_geometry_correction=False,
         coincident_imu_link_verified_in_actor_reference=True,
         entry_speed_m_s=entry_speed,entry_speed_origin="existing PhysX seed COM planar speed; designed command, not measured human speed",
         brake_start_s=.4,brake_end_s=1.8,stop_hold_s=float(t[-1]-1.8),
