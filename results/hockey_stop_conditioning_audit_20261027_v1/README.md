@@ -116,4 +116,39 @@ fields** from pre-action physical states, the unchanged hockey target and, when
 applicable, `--conditioning-table`. This checks that the adapter does not filter
 or substitute velocities, poses or previous actions. The existing hockey trace
 matches within 1.26e-6; a deliberately changed state field is rejected. Twenty-two
-evaluator tests pass. The physical hockey success criteria remain unchanged.
+evaluator tests passed at the input-audit stage. The physical hockey success criteria remain unchanged.
+
+## Posture fidelity in the original failed run
+
+The subsequent [pose audit](baseline_posture_fidelity/report.json) compares all
+six leg joints, the body up axis and both signed wheel cambers with the unchanged
+GMR command. It uses linear joint interpolation and quaternion Slerp on the native
+clock. Root height and continuous wheel spin are not penalized. The independent
+evaluator now reports these diagnostics for future input-intervention runs too;
+the existing stop thresholds have not been changed or replaced by a pose score.
+
+![Pose fidelity, four horizontal panels](baseline_posture_fidelity/posture_fidelity_4x1.png)
+
+| Window in original run | Leg-joint RMS error | Body up-axis RMS error | Loaded camber RMS, left / right |
+|---|---:|---:|---:|
+| Before first 45-degree tilt | 0.536 rad | 16.60 degrees | 20.20 / 55.17 degrees |
+| Declared braking, 0.4–1.8 s | 0.802 rad | 72.82 degrees | 44.35 / 49.41 degrees |
+
+There are **zero braking samples before the first tilt diagnostic**. The second
+row therefore describes an already destabilized trajectory. These numbers do not
+prove that reference conditioning is the sole cause; they show that the existing
+failed motion also lacks posture fidelity. Merely retaining a familiar car stance
+in the new nominal-command intervention must not be called hockey imitation.
+No new GPU rollout was used for this analysis.
+
+Twenty-four evaluator tests now pass, including invariance to root-height offsets
+and wheel spin, and separation of pre-instability versus later braking samples.
+Reproduce the pose audit with:
+
+```bash
+python scripts/analyze_hockey_posture_fidelity.py \
+  --run-dir results/hockey_stop_physx_probe_20261026_v2/evidence/probes_v2/baseline \
+  --qualification results/hockey_stop_physx_probe_20261026_v2/qualification \
+  --command-dir results/hockey_stop_evaluation_audit_20261026_v1/physx_command_v2 \
+  --output /tmp/hockey-baseline-posture
+```

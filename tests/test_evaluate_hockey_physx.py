@@ -10,6 +10,39 @@ from evaluate_hockey_physx import heading_offsets,segments,qualify_stop,reconstr
 from prepare_hockey_physx_reference import stopping_speed
 
 
+def posture_fixture():
+    from evaluate_hockey_physx import load
+    root=Path(__file__).resolve().parents[1]
+    return (load(root/'results/hockey_stop_physx_probe_20261026_v2/evidence/probes_v2/baseline/final_rollout.npz'),
+        load(root/'results/hockey_stop_physx_probe_20261026_v2/qualification/signals.npz'),
+        load(root/'results/hockey_stop_evaluation_audit_20261026_v1/physx_command_v2/motion.npz'),
+        dict(brake_start_s=.4,brake_end_s=1.8))
+
+
+def test_posture_fidelity_does_not_penalize_absolute_height_or_wheel_spin():
+    from evaluate_hockey_physx import imitation_metrics
+    from scipy.spatial.transform import Rotation
+    trace,s,ref,command=posture_fixture();expected,signals=imitation_metrics(trace,s,ref,command)
+    trace['root_pos'][:,2]+=10;trace['body_pos'][:,:,2]+=10;trace['joint_pos'][:,-2:]+=1000
+    names=trace['body_names'].astype(str).tolist()
+    for name in ('wheel_L_Link','wheel_R_Link'):
+        k=names.index(name);q=trace['body_quat'][:,k]
+        rotation=Rotation.from_quat(q[:,[1,2,3,0]])*Rotation.from_rotvec([0,1.234,0])
+        trace['body_quat'][:,k]=rotation.as_quat()[:,[3,0,1,2]]
+    actual,changed=imitation_metrics(trace,s,ref,command)
+    np.testing.assert_allclose(changed['wheel_camber_deg'],signals['wheel_camber_deg'],atol=2e-5)
+    assert actual['windows']['whole_reference']['leg_joint_RMSE_rad']==expected['windows']['whole_reference']['leg_joint_RMSE_rad']
+    assert actual['windows']['whole_reference']['body_up_axis_RMSE_deg']==expected['windows']['whole_reference']['body_up_axis_RMSE_deg']
+
+
+def test_posture_fidelity_does_not_count_post_fall_braking_as_pre_fall():
+    from evaluate_hockey_physx import imitation_metrics
+    report,_=imitation_metrics(*posture_fixture())
+    assert report['windows']['braking']['samples']>0
+    assert report['windows']['braking_before_first_45deg_tilt']['samples']==0
+    assert report['windows']['braking_before_first_45deg_tilt']['leg_joint_RMSE_rad'] is None
+
+
 def test_actor_input_reconstruction_preserves_real_state_and_intervention_scope():
     from evaluate_hockey_physx import audit_actor_observations,load
     root=Path(__file__).resolve().parents[1]

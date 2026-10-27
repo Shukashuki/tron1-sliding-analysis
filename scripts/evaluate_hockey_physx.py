@@ -222,6 +222,61 @@ def derive_signals(trace,contact):
         wheel_beta_valid=valid,wheel_com_speed_m_s=np.linalg.norm(trace['body_com_vel'][:,ids,:2],axis=-1),**contact)
 
 
+def imitation_metrics(trace,signals,reference,command):
+    """Posture fidelity independent of root height and continuous wheel spin.
+
+    These diagnostics do not relax or retrospectively alter the frozen stop
+    gates. A stable car-like stance alone is not evidence of GMR imitation.
+    """
+    from scipy.spatial.transform import Rotation,Slerp
+    t=signals['time_s'];rt=np.arange(len(reference['joint_pos']))/float(reference['fps'])
+    inside=(t>=rt[0])&(t<=rt[-1]+1e-9)&signals['native_sample_valid']
+    sample_t=np.clip(t,rt[0],rt[-1])
+    leg_names=('abad_L_Joint','abad_R_Joint','hip_L_Joint','hip_R_Joint','knee_L_Joint','knee_R_Joint')
+    ids=[trace['joint_names'].astype(str).tolist().index(n) for n in leg_names]
+    ref_ids=[reference['joint_names'].astype(str).tolist().index(n) for n in leg_names]
+    target_joint=np.column_stack([np.interp(sample_t,rt,reference['joint_pos'][:,i]) for i in ref_ids])
+    joint_error=trace['joint_pos'][:,ids]-target_joint
+    def interpolated_matrix(name):
+        i=reference['body_names'].astype(str).tolist().index(name)
+        q=reference['body_quat_w'][:,i]
+        return Slerp(rt,Rotation.from_quat(q[:,[1,2,3,0]]))(sample_t).as_matrix()
+    target_root=interpolated_matrix('base_Link')
+    root=q_matrix(trace['root_quat'])
+    up_error=np.degrees(np.arccos(np.clip((root[:,:,2]*target_root[:,:,2]).sum(-1),-1,1)))
+    # Both robot wheels use the link's local +Y axle; spinning about that axle
+    # has no effect on camber. The sign convention is recorded, not inferred.
+    wheel_ids=[trace['body_names'].astype(str).tolist().index('wheel_'+s+'_Link') for s in ('L','R')]
+    wheel_R=q_matrix(trace['body_quat'][:,wheel_ids])
+    camber=np.degrees(np.arcsin(np.clip(wheel_R[...,2,1],-1,1)))
+    target_camber=np.column_stack([np.degrees(np.arcsin(np.clip(interpolated_matrix('wheel_'+s+'_Link')[:,2,1],-1,1))) for s in ('L','R')])
+    tilt_indices=np.flatnonzero(signals['root_tilt_deg']>=45)
+    first=signals['time_s'][tilt_indices[0]] if len(tilt_indices) else np.inf
+    windows={'whole_reference':inside,'before_first_45deg_tilt':inside&(t<first),
+        'braking':inside&(t>=command['brake_start_s'])&(t<=command['brake_end_s']),
+        'braking_before_first_45deg_tilt':inside&(t>=command['brake_start_s'])&(t<=command['brake_end_s'])&(t<first)}
+    rows={}
+    for name,mask in windows.items():
+        row=dict(samples=int(mask.sum()),leg_joint_RMSE_rad=None,leg_joint_max_abs_error_rad=None,body_up_axis_RMSE_deg=None,loaded_wheel_camber_RMSE_deg=[None,None])
+        if mask.any():
+            row.update(leg_joint_RMSE_rad=float(np.sqrt(np.mean(joint_error[mask]**2))),
+                leg_joint_max_abs_error_rad=float(abs(joint_error[mask]).max()),
+                per_joint_RMSE_rad=np.sqrt(np.mean(joint_error[mask]**2,axis=0)).tolist(),
+                body_up_axis_RMSE_deg=float(np.sqrt(np.mean(up_error[mask]**2))))
+        for k in (0,1):
+            loaded=mask&(signals['normal_fz'][:,k]>5)
+            if loaded.any():row['loaded_wheel_camber_RMSE_deg'][k]=float(np.sqrt(np.mean((camber[loaded,k]-target_camber[loaded,k])**2)))
+        rows[name]=row
+    return dict(kind='GMR_posture_fidelity_diagnostics',leg_joint_names=list(leg_names),windows=rows,
+        camber_definition='asin(world_z component of local +Y wheel axle), degrees',
+        reference_orientation_interpolation='quaternion Slerp on original clock',
+        reference_joint_interpolation='linear on original clock',
+        absolute_height_error_used=False,wheel_spin_error_used=False,prospective_stop_gates_changed=False,
+        posture_success_threshold_established=False),dict(time_s=t,leg_joint_error_rad=joint_error,
+            body_up_axis_error_deg=up_error,wheel_camber_deg=camber,target_wheel_camber_deg=target_camber,
+            native_sample_valid=signals['native_sample_valid'],normal_fz=signals['normal_fz'])
+
+
 def qualify_stop(trace,signals,reference,command):
     t=signals['time_s'];dt=float(np.median(np.diff(t)))
     rt=np.arange(len(reference['body_pos_w']))/float(reference['fps'])
@@ -374,6 +429,7 @@ def main():
         report['new_hockey_physics_run']=True
         report['frozen_run_inline_success_flag_superseded']=True
         report['qualification']=qualify_stop(trace,signals,reference,command)
+        report['imitation'],_=imitation_metrics(trace,signals,reference,command)
     else:report['task_success_claimed']=False
     report['loaded_beta_summary']=[]
     tilted=np.flatnonzero(signals['root_tilt_deg']>=45)
