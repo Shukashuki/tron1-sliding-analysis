@@ -1,5 +1,9 @@
 # Video-based hockey-stop reference: first GMR preview
 
+The subsequent [foot-frame and ground-geometry audit](../hockey_stop_reference_audit_20261026_v1/README.md)
+retains this original preview and adds a support-adapted GMR comparison. No
+hockey-stop physical success has been established.
+
 The car-turn task remains separate. This task targets approach, foot rotation,
 loaded skid-braking and a stable stop. Constant speed is required during approach,
 not throughout braking. The [protocol](../../config/hockey_stop_imitation_v1.json)
