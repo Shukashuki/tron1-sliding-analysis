@@ -1,0 +1,25 @@
+{
+  "source": "VVYG0XKA0YA_000241_000251.mp4",
+  "source_sha256": "ae90bba60de82e0a0e8b0b6e65fc7e9f58b5460587f69e2c5342b93e7530897c",
+  "source_fps": 29.97002997002997,
+  "selected_frame_range_start_inclusive_end_exclusive": [
+    40,
+    105
+  ],
+  "source_time_range_s": [
+    1.3346666666666653,
+    3.5034999999999963
+  ],
+  "output": "outputs/hockey_stop_source_discovery_20261026_v1/clips/VVYG_stop_episode_40_105_30fps.mp4",
+  "output_sha256": "8a3afa47169ab209a751029239088c7bc49efe407d92c2271ce5020c89dab681",
+  "output_fps": 30,
+  "output_frame_count": 65,
+  "resampling": "ffmpeg trim=start_frame=40:end_frame=105,setpts=PTS-STARTPTS,fps=30, lossless libx264rgb crf=0; explicit ~0.1% temporal normalization",
+  "visual_review": "single shot: approach, turn/braking, brief standing hold; next movement begins near end",
+  "calibrated_world_motion": false,
+  "source_admission_for_training": false,
+  "rejected_primary_fullclip": "OeJuSv has crossfades and slow-motion replay; interrupted before global reconstruction",
+  "episode_selection_script": "scripts/select_hockey_stop_episode.py",
+  "episode_selection_script_sha256": "46c9ce32b65376f8467e2b7d9e1fc3692e4cc2916dfb746df647e6b24dfcd97e",
+  "cut_boundary_review": "Hard cut at source frame 35. Initial [33,105) included two frames from previous shot; final starts at 40, beyond tracking smoothing boundary."
+}

@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "task": "ice_hockey_stop_imitation",
+  "status": "raw_GVHMR_and_GMR_kinematic_preview_completed_not_admitted_for_training",
+  "existing_car_turn_task_retained": true,
+  "primary_backend": "PhysX",
+  "source": {
+    "dataset": "Kinetics-700-2020",
+    "label": "hockey stop",
+    "candidate_count": 50,
+    "metadata_url": "https://s3.amazonaws.com/kinetics/700_2020/annotations/val.csv",
+    "source_video_is_not_metric_mocap": true,
+    "visual_label_review_required": true,
+    "accepted_world_motion_sources": [
+      "calibrated_multi_view_3D",
+      "audited_monocular_world_reconstruction"
+    ],
+    "MediaPipe_role": "2D and hip-relative3D source qualification only; not global trajectory",
+    "selected_episode": {
+      "video_id": "VVYG0XKA0YA",
+      "start_frame": 40,
+      "end_frame_exclusive": 105,
+      "normalized_fps": 30,
+      "frame_count": 65
+    }
+  },
+  "world_reconstruction": {
+    "preferred_method": "GVHMR",
+    "submodule": "upstream/GVHMR",
+    "commit": "ee960bb6e2ea2d381aa97f08e9b71ef320b624b1",
+    "source_locks": {
+      "hmr4d/model/gvhmr/gvhmr_pl_demo.py": "0e866c8f486b46ab7fe3a67bd956e6a84a1212f17d3773f0de163dbfd384f250",
+      "hmr4d/model/gvhmr/pipeline/gvhmr_pipeline.py": "c99d514136d3b0ea321493b7f6486d645685176442b8ae8c478724ef694d77e4",
+      "hmr4d/model/gvhmr/utils/postprocess.py": "4125839f39255fc25e9c773182d443f1ce619f14bcd016fe322c53d550815f44"
+    },
+    "required_pipeline_arguments": {
+      "train": false,
+      "postproc": false
+    },
+    "upstream_demo_forces_postproc_true": true,
+    "static_camera_flag_alone_does_not_disable_foot_lock": true,
+    "raw_and_standard_postproc_comparison_required": true,
+    "calibrated_or_estimated_scale_and_camera_motion_must_be_reported": true,
+    "SMPL_and_SMPLX_assets": "user-provided SMPL v1.1 PKLs and SMPL-X v1.1 NPZs (neutral/female/male) verified and available locally; no parameter substitution"
+  },
+  "retarget": {
+    "method": "pinned existing GMR",
+    "GMR_commit": "bb1bbe40774794fceb2a7c579a3464a28e68c844",
+    "standalone_IK_baseline": false,
+    "required_targets": [
+      "pelvis_global_position_orientation",
+      "left_ankle_position",
+      "right_ankle_position",
+      "left_foot_heading_and_camber",
+      "right_foot_heading_and_camber"
+    ],
+    "heel_toe_landmarks_not_equal_measured_blade_edges": true,
+    "wheel_realized_orientation_error_must_be_measured": true,
+    "sidecar_heading_not_execution_proof": true,
+    "wheel_spin_is_not_measured_by_human_video": "leave wheel angle/spin out of imitation constraints; physical controller/search determines spin and torque",
+    "no_sliding_feet_zero_velocity_assumption": true
+  },
+  "phases": [
+    "approach",
+    "foot_rotation_and_edge_setting",
+    "loaded_skid_braking",
+    "stable_stop_hold"
+  ],
+  "evaluation": {
+    "retain": [
+      "whole/core_XY_tracking",
+      "actual_vs_reference_velocity_profile",
+      "body_and_each_wheel_heading",
+      "per_wheel_actual_contact_point_slip",
+      "wheel_aggregate_friction_utilization_and_anchor_power",
+      "continuous_anywheel_support",
+      "fullbody_jitter_and_fall_diagnostics",
+      "cross_engine_same_policy_and_friction_sweep_after_nominal_success"
+    ],
+    "replace_turn_speed_retention_with": "approach speed retention; braking velocity-profile error; stop time and stop distance; no constant-speed reward during braking",
+    "initial_prospective_robot_thresholds": {
+      "XY_RMSE_m_max": 0.15,
+      "XY_peak_m_max": 0.3,
+      "approach_speed_ratio_range": [
+        0.95,
+        1.1
+      ],
+      "minimum_entry_speed_m_s": 0.8,
+      "stop_speed_m_s_max": 0.1,
+      "stop_hold_duration_s_min": 0.5,
+      "beta_valid_speed_m_s_min": 0.25,
+      "support_normal_force_n_strict": 5.0,
+      "same_wheel_loaded_lateral_slip_m_s_strict": 0.05,
+      "wheel_utilization_proxy_min": 0.9,
+      "continuous_slip_event_s_min": 0.05
+    },
+    "new_thresholds_status": "initial protocol values; freeze against selected scaled reference before any policy training; no empirical success claim",
+    "human_video_contact_force_observed": false,
+    "retarget_near_ground_is_force_contact": false,
+    "pointwise_friction_cone_certificate_claimed": false,
+    "foot_lock_postprocessing_is_forbidden_in_primary_reference": true,
+    "absolute_height_limit": false,
+    "single_wheel_lift_allowed": true,
+    "terminal_beta_undefined_at_zero_speed": true,
+    "report_stop_distance_as_unavailable_without_global_calibration": true
+  },
+  "physics_models": {
+    "robot_baseline": "native PhysX rigid-cylinder Coulomb,initial mu=.7",
+    "ice_blade_force_law_reproduced": false,
+    "ice_edge_cutting_vs_cylinder_geometry_is_separate_model_difference": true,
+    "fitted_anisotropic_or_edge_law_requires_data": true
+  },
+  "learning": {
+    "not_started": true,
+    "existing_car_PPO_not_a_trained_hockey_stop_policy": true,
+    "new_actor_ABI_must_explicitly_condition_on": [
+      "desired_root_planar_velocity",
+      "desired_yaw_rate",
+      "stop_phase_or_braking_command"
+    ],
+    "beyondmimic_style_PPO_and_shared_DR": "keep matched recipe when a calibrated feasible reference is admitted"
+  },
+  "display": {
+    "layout": "4x1_horizontal",
+    "show": [
+      "source_video_keypoints",
+      "pure_kinematic_reference",
+      "actual_PhysX_motion",
+      "contact_and_stop_diagnostics"
+    ],
+    "fixed_relative_robot_camera": true,
+    "fixed_XY_plot_scale": true
+  },
+  "new_GPU_or_remote_jobs": false
+}
