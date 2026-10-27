@@ -25,22 +25,31 @@ def text(image,value,y,x=16,scale=.51,color=(35,35,35)):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--result',type=Path,required=True)
+    p.add_argument('--run-dir',type=Path)
+    p.add_argument('--qualification',type=Path)
+    p.add_argument('--xy-center',type=float,nargs=2)
+    p.add_argument('--xy-extent',type=float)
     p.add_argument('--command-dir',type=Path,required=True)
     p.add_argument('--model',type=Path,required=True)
     p.add_argument('--output',type=Path,required=True)
     p.add_argument('--ffmpeg',required=True)
     a=p.parse_args()
     if a.output.exists():raise FileExistsError(a.output)
-    trace=load(a.result/'evidence/probes_v2/baseline/final_rollout.npz')
-    raw=load(a.result/'evidence/probes_v2/baseline/native_contact_buffers.npz')
-    signals=load(a.result/'qualification/signals.npz')
+    run_dir=a.run_dir or a.result/'evidence/probes_v2/baseline'
+    qualification_dir=a.qualification or a.result/'qualification'
+    trace=load(run_dir/'final_rollout.npz')
+    raw=load(run_dir/'native_contact_buffers.npz')
+    signals=load(qualification_dir/'signals.npz')
     command=load(a.command_dir/'command_diagnostics.npz')
     reference=load(a.command_dir/'motion.npz')
     command_report=json.loads((a.command_dir/'report.json').read_text())
-    qualification=json.loads((a.result/'qualification/report.json').read_text())
+    qualification=json.loads((qualification_dir/'report.json').read_text())
+    run=json.loads((run_dir/'report.json').read_text())
+    label=run.get('conditioning_mode','old PPO / zero residual')
+    stop_screen=qualification['qualification']['task_success_claimed']
     if sha(a.model)!=command_report['model_sha256']:raise ValueError('Visual model mismatch')
     for file,digest in qualification['input_sha256'].items():
-        if sha(a.result/'evidence/probes_v2/baseline'/file)!=digest:raise ValueError('Recording changed')
+        if sha(run_dir/file)!=digest:raise ValueError('Recording changed')
     if sha(a.command_dir/'motion.npz')!=command_report['motion_sha256']:raise ValueError('Reference changed')
     runtime=create_runtime(a.model,640,420);model=runtime.model
     import mujoco
@@ -58,6 +67,10 @@ def main():
     rt=command['time_s'];t=signals['time_s'];fps=50;times=np.arange(round(rt[-1]*fps)+1)/fps
     xy=np.concatenate((qpos[:,:2],command['qpos'][:,:2],trace['body_pos'][:,ids,:2].reshape(-1,2)))
     center=(xy.min(0)+xy.max(0))/2;extent=max(float(np.ptp(xy,axis=0).max()*1.3),2.)
+    if a.xy_center is not None:center=np.asarray(a.xy_center,dtype=float)
+    if a.xy_extent is not None:
+        if not np.isfinite(a.xy_extent) or a.xy_extent<=0:raise ValueError('Invalid XY extent')
+        extent=a.xy_extent
     def project(points):
         v=(np.asarray(points)-center)*450/extent
         return np.stack((320+v[...,0],300-v[...,1]),axis=-1).astype(int)
@@ -130,9 +143,10 @@ def main():
             text(panels[0],'Braking 0.40-1.80 s | kinematics only',550)
             text(panels[0],'Human-inspired posture; global path designed',580,scale=.49)
             text(panels[0],'Fixed follow camera: 2.4 m / no zoom',610)
-            text(panels[1],'PhysX | old PPO + zero residual | mu=0.7',28,scale=.55)
+            text(panels[1],f'PhysX | {label} | mu=0.7',28,scale=.55)
             text(panels[1],f't = {now:.2f} s | COM speed {signals["body_speed_m_s"][i]:.2f} m/s',520)
-            text(panels[1],f'Tilt {signals["root_tilt_deg"][i]:.1f} deg | full episode FAILED',550,color=(190,45,45))
+            text(panels[1],f'Tilt {signals["root_tilt_deg"][i]:.1f} deg | stop gates: {"PASS" if stop_screen else "FAIL"}',550,
+                color=(30,130,70) if stop_screen else (190,45,45))
             fz=signals['normal_fz'][i];text(panels[1],f'Wheel load L / R: {fz[0]:.1f} / {fz[1]:.1f} N',580)
             text(panels[1],'Green dots: native loaded contacts | graphics only',610,scale=.47)
             cv2.polylines(panels[2],[project(qpos[:i+1,:2])],False,(180,50,55),3,cv2.LINE_AA)
@@ -150,13 +164,13 @@ def main():
     finally:
         runtime.renderer.close();proc.stdin.close()
     if proc.wait()!=0:raise RuntimeError('FFmpeg failed')
-    provenance=dict(renderer_sha256=sha(__file__),model_sha256=sha(a.model),qualification_sha256=sha(a.result/'qualification/report.json'),
-        trace_sha256=sha(a.result/'evidence/probes_v2/baseline/final_rollout.npz'),
+    provenance=dict(renderer_sha256=sha(__file__),model_sha256=sha(a.model),qualification_sha256=sha(qualification_dir/'report.json'),
+        trace_sha256=sha(run_dir/'final_rollout.npz'),conditioning_mode=run.get('conditioning_mode'),
         command_diagnostics_sha256=sha(a.command_dir/'command_diagnostics.npz'),video_sha256=sha(video),
         frame_count=len(times),fps=fps,physics_steps_performed=0,source_RGB_included=False,
         fixed_camera=dict(distance_m=2.4,azimuth_deg=135,elevation_deg=-18,lookat='current root + [0,0,-.24]'),
         maximum_wheel_origin_FK_error_m=maximum,all_1113_native_poses_checked=True,
-        collision_proxies_displayed=False,visual_meshes_opaque=True,XY_extent_m=extent,
+        collision_proxies_displayed=False,visual_meshes_opaque=True,XY_extent_m=extent,XY_center_m=center.tolist(),
         chart_limits=dict(load_N=[0,2500],slip_m_s=[0,5],utilization=[0,1.4],axial_beta_deg=[-90,90]),
         native_normal_contact_markers='reported normal points with per-point load >5 N; 12 mm marker radius',
         chart_clipping_is_visual_only=True)

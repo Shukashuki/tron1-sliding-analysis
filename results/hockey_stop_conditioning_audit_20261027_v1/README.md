@@ -152,3 +152,20 @@ python scripts/analyze_hockey_posture_fidelity.py \
   --command-dir results/hockey_stop_evaluation_audit_20261026_v1/physx_command_v2 \
   --output /tmp/hockey-baseline-posture
 ```
+
+## Automatic retrieval and comparison
+
+The local [collector](../../scripts/collect_hockey_conditioning_results.py) now
+watches the identity-verified remote queue. It launches **no physics**. After both
+approved cases complete, it verifies and retrieves the original reports/buffers,
+runs independent stop/contact/input/posture analysis, and renders the historical
+baseline plus both interventions with a common XY extent and fixed follow cameras.
+Failed or partial jobs cannot produce a complete comparison; no physics retry is
+performed. Queue expiry is recorded as such, not as a simulated failure.
+
+[Collection readiness tests and render preflight](collection_pipeline_preflight.json)
+cover incomplete-job rejection and the generic renderer on 139 existing baseline
+frames. The preflight contains **no new intervention trajectory**. The running
+collector's local output is `outputs/hockey_conditioning_results_20261027_v1/`;
+`comparison.json` appears only after all analysis/rendering succeeds and still
+requires interpretation before any task-success or goal-completion claim.
