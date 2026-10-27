@@ -1,0 +1,16 @@
+{
+  "pid": 2485141,
+  "identity": {
+    "pid": 2485141,
+    "uid": 1030,
+    "state": "R",
+    "start_ticks": 2052218368,
+    "argv": [
+      "/usr/bin/python3",
+      "-u",
+      "-c",
+      "\nfrom pathlib import Path\nimport os,json,time,subprocess,importlib.util,hashlib\nroot=Path('/data/zengxiong/workspaces/tron1-hockey-stop-20261027-v1')\nhelper=Path('/data/zengxiong/workspaces/tron1-ground-contact-v2o-20261025/continuation_snapshot_v1/scripts/continue_ground_contact_v2o_validation.py')\nassert hashlib.sha256(helper.read_bytes()).hexdigest()=='6f5285f9e9515d98ea4ae6e99c3bf58a436fd98a3ca266e1f297f4501cce3866'\nspec=importlib.util.spec_from_file_location('audit',helper);audit=importlib.util.module_from_spec(spec);spec.loader.exec_module(audit);audit.GPU_ORDER=(3,5,4,0,1,2,6,7)\nargv=['/usr/bin/python3','-u',str(root/'source_snapshot_v1/dispatch_hockey_conditioning_probe.py'),'--bundle',str(root/'source_snapshot_v1'),'--engine-scripts','/data/zengxiong/workspaces/tron1-physx-reference-generation-20261025-v1/source_snapshot_v2/scripts','--prior-launch','/data/zengxiong/workspaces/tron1-physx-reference-generation-20261025-v1/validation_v1.launch.json','--audit-helper',str(helper),'--output',str(root/'conditioning_probes_v1')]\nstart=time.time();record=dict(status='waiting_for_completely_idle_RTX',created_unix=start,deadline_unix=start+3600,pid=os.getpid(),argv=argv,automatic_physics_retries=0)\ndef save(): (root/'queue.status.json').write_text(json.dumps(record,indent=2)+'\\n')\nwhile time.time()<start+3600:\n gpus=audit.query_gpus();record.update(observed_unix=time.time(),gpus=[dict(index=g['physical_index'],idle=g['idle'],process_count=len(g['all_reported_compute_and_graphics_processes'])) for g in gpus]);save()\n if any(g['idle'] for g in gpus):\n  with (root/'dispatch.log').open('xb') as log:\n   child=subprocess.Popen(argv,cwd=root,stdout=log,stderr=subprocess.STDOUT,env=dict(os.environ,CUDA_DEVICE_ORDER='PCI_BUS_ID'))\n  record.update(status='dispatch_running',child_pid=child.pid,child_identity=audit.process_snapshot(child.pid));save()\n  code=child.wait();record.update(status='dispatch_completed' if code==0 else 'dispatch_failed_no_retry',returncode=code,finished_unix=time.time());save();break\n time.sleep(30)\nelse:record.update(status='expired_without_idle_GPU',finished_unix=time.time());save()\n"
+    ]
+  },
+  "scope": "CPU-only idle-GPU wait, at most one hour, then exactly the approved serial dispatcher; no physics retries"
+}

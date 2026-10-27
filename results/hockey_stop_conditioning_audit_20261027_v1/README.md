@@ -1,5 +1,10 @@
 # Hockey-stop failure: the car stabilizer receives unfamiliar reference inputs
 
+**Completed:** both approved physical interventions have now finished. The
+[reviewed results and four-panel animation](../hockey_stop_conditioning_physx_20261027_v1/README.md)
+show delayed instability, but neither case completes the hockey stop. Queue and
+preflight statements below describe the historical preparation snapshots.
+
 The archived hockey rollout and the original car baseline start from **bit-identical
 physical states**. Their first 51D actor observations differ only in the six
 reference leg-velocity fields (columns 6–11). Replacing only those fields with the
