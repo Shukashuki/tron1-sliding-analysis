@@ -54,6 +54,31 @@ def verify_hockey_search_source(source,run):
                 planning_costs_used_for_success=False,qualification_thresholds_unchanged=True)
 
 
+def verify_control_replay(path,run_dir,run,source_audit):
+    """Bind a separately executed CPU actor replay to this exact physical trace."""
+    path=Path(path);run_dir=Path(run_dir)
+    report=json.loads(path.read_text())
+    files={'run_report_sha256':'report.json','trace_sha256':'final_rollout.npz','plan_sha256':'mean.npz'}
+    if (report.get('kind')!='hockey_recorded_action_replay_v1' or report.get('status')!='passed'
+            or report.get('audit_script_sha256')!=sha(Path(__file__).with_name('audit_hockey_control_replay.py'))
+            or report.get('actor_sha256')!=run['actor_sha256'] or report.get('motion_sha256')!=run['motion_sha256']
+            or any(report.get(k)!=sha(run_dir/v) for k,v in files.items())
+            or report.get('source_audit')!=source_audit or report.get('control_steps_checked')!=run['steps']
+            or report.get('tolerance')!=5e-5 or not 0<=report.get('maximum_action_error',float('inf'))<=5e-5):
+        raise ValueError('Action replay does not certify this native validation trace')
+    replay_path=path.parent/'replay.npz'
+    if sha(replay_path)!=report['replay_sha256']:raise ValueError('Action replay arrays changed')
+    replay=load(replay_path);trace=load(run_dir/'final_rollout.npz')
+    expected=np.clip(np.clip(replay['raw_actor'],-1,1)+replay['residual'],-1,1)
+    if (expected.shape!=trace['actions'].shape or not np.isfinite(expected).all()
+            or np.max(abs(expected-trace['actions']),initial=0)>5e-5
+            or not np.allclose(replay['decoded_actions'],expected,atol=1e-7,rtol=0)):
+        raise ValueError('Replayed actions disagree with native applied actions')
+    return dict(report_sha256=sha(path),maximum_action_error=report['maximum_action_error'],
+                control_steps_checked=report['control_steps_checked'],independent_residual_interpolation=True,
+                physics_replay_performed=False)
+
+
 def verify_execution_evidence(root,run_dir):
     """Bind unmodified engine output to the launched wrapper via the collected audit.
 
@@ -416,9 +441,11 @@ def main():
     p.add_argument('--execution-evidence',type=Path,help='Collected v2 launch/payload audit when Kit shutdown skipped post-run annotations')
     p.add_argument('--conditioning-table',type=Path,help='Required for the approved input-intervention probes')
     p.add_argument('--search-source',type=Path,help='Reviewed native hockey MPPI snapshot for single-world plan validation')
+    p.add_argument('--action-replay',type=Path,help='CPU control-replay report required for native MPPI qualification')
     p.add_argument('--instrumentation-only',action='store_true')
     a=p.parse_args()
     if (a.command_dir is None)!=a.instrumentation_only:p.error('Choose a hockey command directory or instrumentation-only')
+    if a.action_replay is not None and a.search_source is None:p.error('--action-replay requires --search-source')
     if a.output.exists():raise FileExistsError(a.output)
     run=json.loads((a.run_dir/'report.json').read_text());files=('final_rollout.npz','native_contact_buffers.npz')
     for name in files:
@@ -448,6 +475,8 @@ def main():
         if a.search_source:
             if a.execution_evidence:raise ValueError('Search validation cannot use historical probe identity')
             report['search_source_audit']=verify_hockey_search_source(a.search_source,run)
+            if a.action_replay is None:raise ValueError('Native MPPI qualification requires a separate control replay')
+            report['control_replay_audit']=verify_control_replay(a.action_replay,a.run_dir,run,report['search_source_audit'])
         elif (run['source_sha256']!='3aacb6b4f3b62d32ce6fa2326f2cb6bfe372b693b53c9830a27a85f26f3f7763'
                 or wrapper_sha not in (base_wrapper,conditioning_wrapper)
                 or not run['single_world_validation'] or run['worlds']!=1 or run['external_forces']!=0):

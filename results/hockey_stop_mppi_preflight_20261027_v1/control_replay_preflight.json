@@ -1,0 +1,36 @@
+{
+  "status": "local_control_replay_verified_remote_upload_still_requires_approval",
+  "physics_jobs_started": 0,
+  "previous_goal_turn": "progress: prepared task-specific search and fixed-state initialization; remote transfer rejected",
+  "current_goal_turn": "progress: independently reconstructed applied controls in 417 existing physical samples; added MPPI action-plan admission",
+  "replay_contract_tests_passed": 4,
+  "evaluator_source_binding_tests_passed": 33,
+  "cases": [
+    {
+      "case": "baseline",
+      "report_sha256": "831b263042acf97f7b07aee0cc489525f4a43510db435c18e07701409b303276",
+      "controls": 139,
+      "max_action_error": 1.0505318641662598e-06
+    },
+    {
+      "case": "nominal_command",
+      "report_sha256": "fdf5a60b458f25389270a076e5ccb0ee5c94490019f4611c789f98d0b839fd2d",
+      "controls": 139,
+      "max_action_error": 8.940696716308594e-07
+    },
+    {
+      "case": "reference_dq",
+      "report_sha256": "0e4c488c81533e0bdeed55408c49f458074b98b32f3ff8f082ebe82336521791",
+      "controls": 139,
+      "max_action_error": 1.0728836059570312e-06
+    }
+  ],
+  "pending_remote_payload_changed": false,
+  "source_sha256": {
+    "scripts/audit_hockey_control_replay.py": "6980db1b9e71452faadfed41656447429c74cb6e264ed6bbd16d15eb7c16febe",
+    "scripts/evaluate_hockey_physx.py": "39861d94d6f36e91232610b5d10caebcb6a6a64faa4bcaf2cb69c3145ef333eb",
+    "tests/test_hockey_control_replay.py": "d5bc04cb2ee061aea6d58b2c70a671d9db2f388a2216dd3a13051ad834be6ee1",
+    "tests/test_hockey_control_replay_binding.py": "d3110a6d65768f86f336c6d9bbcad7914cd2c8c5054a4a192902d8f40c8cf9a5"
+  },
+  "task_success_claimed": false
+}

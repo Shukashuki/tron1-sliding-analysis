@@ -91,10 +91,21 @@ CUDA_VISIBLE_DEVICES='' python tests/test_hockey_mppi_math.py
 # Existing scientific Python environment.
 python -m pytest -q tests/test_evaluate_hockey_physx.py tests/test_hockey_mppi_source.py
 
-# After a completed single-world validation, use the unchanged hockey target.
+# After a completed single-world validation, first replay controls on CPU
+# in the Torch environment. The actor remains local and outside Git.
+CUDA_VISIBLE_DEVICES='' python scripts/audit_hockey_control_replay.py \
+  --run-dir /path/to/returned/validation \
+  --actor /path/to/actor_normalized.pt \
+  --search-source results/hockey_stop_mppi_preflight_20261027_v1/source_snapshot_v1 \
+  --conditioning-table results/hockey_stop_mppi_preflight_20261027_v1/source_snapshot_v1/nominal_conditioning.npz \
+  --command-dir results/hockey_stop_evaluation_audit_20261026_v1/physx_command_v2 \
+  --output /tmp/hockey-mppi-action-replay
+
+# Scientific Python environment; same locked hockey target and stop gates.
 python scripts/evaluate_hockey_physx.py \
   --run-dir /path/to/returned/validation \
   --search-source results/hockey_stop_mppi_preflight_20261027_v1/source_snapshot_v1 \
+  --action-replay /tmp/hockey-mppi-action-replay/report.json \
   --conditioning-table results/hockey_stop_mppi_preflight_20261027_v1/source_snapshot_v1/nominal_conditioning.npz \
   --command-dir results/hockey_stop_evaluation_audit_20261026_v1/physx_command_v2 \
   --output /tmp/hockey-mppi-qualified
@@ -104,3 +115,33 @@ python scripts/evaluate_hockey_physx.py \
 progress by completing and reviewing the two probes. This turn adds the concrete
 search implementation and independent qualification support; no new physical
 result or successful motion is claimed.
+
+## Applied-action replay
+
+The subsequent local audit replays all **417 control steps** in the three already
+completed physical trajectories using the exact frozen actor. Its saved normalizer
+is applied once, and all 51 observed fields are first reconstructed from the
+recorded pre-action states. All cases reproduce the applied actions:
+
+| Existing run | Maximum action error | Raw actor elements clipped, whole rollout | Clipped before first sampled 45-degree tilt |
+|---|---:|---:|---:|
+| Original hockey | 1.05e-6 | 41.5% | 28.6% (14 control samples) |
+| Reference dq replacement | 1.07e-6 | 38.1% | 22.0% (59 control samples) |
+| Reference q/dq/phase replacement | 8.94e-7 | 24.7% | 10.2% (75 control samples) |
+
+These percentages count individual action components; their windows differ and
+they are not independent performance estimates. The replay confirms the recorded
+controller outputs, not motor torque accuracy or the cause of the subsequent
+falls. No new physics or improvement in stop performance is claimed.
+
+For the pending MPPI experiment, the new local verifier reconstructs the saved
+plan independently with SciPy cubic Hermite interpolation. It preserves the full
+139-frame clock even for a 16-step smoke prefix and checks the two-stage action
+clipping. Native MPPI qualification now requires this replay report, bound to the
+exact actor, reference, trace, mean and source snapshot. Altered controls, a changed
+plan or a falsely low summary error cannot pass using stale replay arrays.
+
+Four replay contract tests and 33 evaluator/source/binding tests passed. The
+[replay preflight](control_replay_preflight.json) and [three actual CPU audit
+reports](control_replay/) record the evidence. The 12-file remote archive and its
+SHA remain unchanged: all new replay tooling runs locally after results return.
