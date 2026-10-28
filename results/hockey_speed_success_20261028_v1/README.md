@@ -38,6 +38,8 @@ Entry speed, approach-speed retention and both braking-heading gates pass in all
 
 Both animations keep the camera 2.4 m from the robot with identical orientation, fixed relative target and identical XY bounds. The four panels show the GMR-based reference, earlier PPO, hockey PPO and shared XY paths with body headings, wheel-plane directions and COM velocity directions. `trial_022` is selected because it has the earlier recipe's largest perturbed XY RMSE; the hockey panel uses exactly the same initial-state draw. All other trials remain in the reported denominator. Rendering adds no physics, retiming or pose correction.
 
+[Pre-fall friction-capacity analysis](original_prefall_friction_v1/README.md): in the original policy's last 100 ms before first tilt ≥45°, the left wheel has zero capacity and right-wheel capacity medians are 72.1 N (nominal) and 43.6 N (`trial_022`). The right wheel is near its friction limit for 64.1% and 100% of loaded samples, respectively. The diagnostic separates force saturation, support loss and measured lateral/tangential sliding; it does not attribute the fall solely to friction.
+
 <details>
 <summary>Archived first-cell analysis before its matched policy completed</summary>
 
