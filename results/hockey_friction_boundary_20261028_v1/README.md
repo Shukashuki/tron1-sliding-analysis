@@ -8,6 +8,26 @@ The objective is to let PPO coordinate wheel camber, leg posture, wheel torque a
 \rho_i=\frac{\|\sum_a F_{t,ia}\|}{\mu_i\sum_j F_{n,ij}}.
 \]
 
+## Control objective: allocate friction capacity
+
+The intended mechanism is coordinated friction-capacity allocation through independent wheel actuation, wheel camber/contact geometry, and whole-body load transfer. The available actions are six leg joint-position targets and two independent wheel-torque commands. Wheel speed and normal load are resulting states, not directly prescribed independent controls. The robot has no independent wheel-yaw steering joint; achievable wheel directions follow from its leg and body kinematics.
+
+For a flat, isotropic Coulomb approximation, write `C_i = mu_i F_ni` and `F_long,i² + F_lat,i² <= C_i²`. Three coupled effects must be distinguished:
+
+| Mechanism | Physical role | Evidence to report separately for each wheel |
+| --- | --- | --- |
+| Wheel torque and resulting speed | Change longitudinal contact slip and force; longitudinal and lateral demands share the same tangential capacity | Joint speed/torque, loaded contact-point longitudinal and lateral slip, `F_long / C` and `F_lat / C` |
+| Wheel camber and body/leg posture | Change contact locations, effective moment arms and material-point motion | Camber, projected wheel direction, native contact/anchor positions and resulting force direction |
+| COM motion and leg support | Redistribute normal load and available capacity between wheels, while satisfying whole-body force and moment balance | `F_nL`, `F_nR`, their load fractions, `C_L`, `C_R`, COM motion and angular-momentum response |
+
+With equal coefficients, only wheel contacts, negligible vertical COM acceleration and no other vertical external forces, `C_L + C_R ≈ mu mg`: shifting load redistributes capacity rather than creating additional total grip. In dynamic motion, normal loads also depend on vertical acceleration, angular-momentum change and contact geometry; COM position alone does not determine them.
+
+The current rigid-cylinder Coulomb model does not contain a nonlinear tire camber-thrust law. Its ground-normal friction cone does not simply rotate with wheel camber, nor does camber automatically increase the material coefficient. Any measured camber benefit must therefore be attributed to the modeled contact geometry and dynamics. A tire model with camber stiffness would be a separate modeling experiment; see the [PhysX Vehicle tire-force documentation](https://nvidia-omniverse.github.io/PhysX/physx/5.4.1/docs/Vehicles.html#pxvehicletireforceparams).
+
+The frozen boundary bonus takes the better-scoring wheel at each substep. It permits learned coordination but does **not** explicitly optimize a left/right force allocation or establish that such allocation is optimal. Existing tracking and stopping rewards provide the task objective. Evidence of effective allocation must additionally show the required braking/turning response, stable support and a low-slip terminal phase; a high friction-utilization ratio by itself is insufficient. Interventions restricting wheel actuation, camber or load transfer would be needed to test each mechanism's causal contribution, with any loss of task feasibility reported.
+
+This clarification changes the interpretation and requested analysis, not the approved immutable payload, reward weights, observation inputs, success gates or training queue. Tests with unequal static/dynamic coefficients remain a separate extension: use the corresponding coefficient for the relevant force-limit diagnostic and distinguish observed slip-state changes from an internal solver mode flag.
+
 Only the new reward weight differs between the two arms: 0 versus +0.5. Both use identical native contact instrumentation, 1.5× reference speed, seed 42, 400 Hz physics, 50 Hz actions and fresh 12,288,000-transition PPO training. All existing soft imitation, velocity, stopping and action-smoothness rewards remain unchanged, as do the 56/125 actor/critic inputs and friction DR [0.3, 1.2]. No absolute height constraint, wheel-XY target, bilateral-support requirement or additional support-deficit penalty is introduced. The actor does not receive privileged contact forces or the sampled friction coefficient; those are used by the training reward.
 
 ## Bounded boundary-sliding reward
