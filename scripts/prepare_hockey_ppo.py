@@ -17,6 +17,7 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--output", type=Path, required=True)
     p.add_argument("--archive", type=Path, required=True)
+    p.add_argument("--protocol", type=Path, default=ROOT/"config/hockey_ppo_learning_v1.json")
     a = p.parse_args()
     if a.output.exists() or a.archive.exists():
         raise FileExistsError("Use a new snapshot/archive")
@@ -24,12 +25,14 @@ def main():
         "train_hockey_ppo.py", "hockey_ppo_task.py", "dispatch_hockey_ppo.py",
         "physx_mjlab_recipe.py", "height_smoothness.py", "physx_reference_math.py")}
     reference = ROOT/"results/hockey_stop_evaluation_audit_20261026_v1/physx_command_v2"
-    files.update({"protocol.json": ROOT/"config/hockey_ppo_learning_v1.json",
+    files.update({"protocol.json": a.protocol,
                   "motion.npz": reference/"motion.npz", "command_report.json": reference/"report.json"})
+    cfg = json.loads(a.protocol.read_text())
+    if cfg.get("adaptive_sampling") == "fall_only":
+        files["hockey_ppo_sampling.py"] = ROOT/"scripts/hockey_ppo_sampling.py"
     for source in files.values():
         if not source.is_file():
             raise FileNotFoundError(source)
-    cfg = json.loads(files["protocol.json"].read_text())
     if sha(files["motion.npz"]) != cfg["reference_sha256"]:
         raise ValueError("Wrong reference")
     a.output.mkdir(parents=True)

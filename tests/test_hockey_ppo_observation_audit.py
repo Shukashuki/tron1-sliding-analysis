@@ -14,6 +14,7 @@ from analyze_hockey_ppo import audit_observations
 def fixture():
     n, samples = 139, 1113
     protocol = json.loads((ROOT/"config/hockey_ppo_learning_v1.json").read_text())
+    protocol["phase_clock"] = "integer_reference_frames"
     # Facing world +Y while both actual and requested velocities point world +X.
     # The desired velocity in yaw coordinates must be [0,-1].
     q = np.tile([2**-.5, 0, 0, 2**-.5], (samples, 1))
@@ -39,6 +40,11 @@ def fixture():
 
 
 class ObservationAuditTests(unittest.TestCase):
+    def test_archived_float32_phase_boundary_is_replayed_honestly(self):
+        t, r, p = fixture(); p.pop("phase_clock")
+        t["observations"][20, 54] = 0
+        self.assertTrue(audit_observations(t, r, p)["all_56_fields_reconstructed"])
+
     def test_yaw_coordinates_and_phase_boundaries(self):
         t, r, p = fixture()
         result = audit_observations(t, r, p)

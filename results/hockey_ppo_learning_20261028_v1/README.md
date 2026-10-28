@@ -1,8 +1,41 @@
 # Direct PPO learning of the hockey stop
 
-Status: both 32-environment smoke runs passed; the first 512-environment training arm has started. No learned hockey stop has passed physical qualification yet.
+Status: the tracking arm completed 12,288,000 transitions and **passed all frozen nominal hockey-stop gates** in a complete single-environment PhysX rollout at μ = 0.7. The support arm is training with the same immutable v1 recipe. This is one successful nominal rollout, not a multi-seed or friction-robustness result.
+
+![Directly trained hockey stop: GMR, physical motion, XY and native contact evidence](render/tracking_diagnostic/hockey_command_physx_xy_contact_4x1.gif)
+
+[Full-rate video](render/tracking_diagnostic/hockey_command_physx_xy_contact_4x1.mp4) · [Independent qualification](qualification/tracking_diagnostic/report.json) · [Contact events](qualification/tracking_diagnostic/event_details.json)
+
+![Loaded beta, material slip and the wheel-aggregate friction disk](friction_section/tracking_diagnostic/beta_slip_friction_disk_4x1.png)
+
+The dashed disk is the wheel-level normalized section `||sum(Ft)|| / (mu Fz) = 1` on the stationary flat floor. It is not a pointwise contact-cone reconstruction. Native API forces are already in newtons; no second impulse-to-force division is applied. In the longest left-wheel event, 0.9800–1.1775 s, median |β| is **61.86°**, lateral slip is **0.525 m/s**, normal load is **53.82 N**, and friction utilization is **0.99986**. All friction-anchor force in those samples satisfies the same-anchor lateral-slip/opposing-force/dissipation check. Force–velocity power uses completed-step force with post-step velocity and is a proxy, not an exact integral of work.
+
+| Nominal tracking-arm metric | Result |
+| --- | ---: |
+| XY RMSE / peak error | 0.01788 / 0.03976 m |
+| Entry COM speed | 1.3818 m/s |
+| Approach speed / reference speed | 1.0218 |
+| Braking body / loaded-wheel heading RMSE | 2.05° / 3.12° |
+| Any-wheel support fraction / maximum gap | 100% / 0 s |
+| Maximum body tilt | 6.49° |
+| First supported stop / uninterrupted stop duration | 1.52 s / 1.24 s |
+| Longest loaded high-β saturated dissipative sliding event, L / R | 0.1975 / 0.0300 s |
+
+The left-wheel qualifying samples have median lateral material-point slip **0.787 m/s**, aggregate friction utilization **0.9999**, and anchor force–velocity power **−39.98 W**. The corresponding right-wheel medians are 0.506 m/s, 1.0000 and −61.04 W. These medians refer only to qualifying braking samples, not the whole task. The left wheel supplies a continuous event longer than 50 ms; the right wheel's qualifying samples are more fragmented. Both wheels may briefly unload individually, but they never lose support simultaneously after the protocol's initialization grace period.
+
+Posture imitation remains approximate: braking leg-angle RMSE is **0.0872 rad**, body-up-axis RMSE is **11.03°**, and loaded wheel-camber RMSE is **7.04° / 9.55°**. The physical policy stays more upright than the GMR reference. Passing the stop/slide gates is not exact human-pose reconstruction or evidence of an ice-blade force law.
 
 The previous experiments used a car-turn policy, with command substitutions or MPPI residuals, to attempt this motion. This experiment trains a new policy directly on the locked hockey reference. It uses the GMR posture and the designed global stopping path, whose speed and distance are **not measured human motion**. The failed MPPI trajectory is not a training target.
+
+## Recorded v1 sampling and timing limitations
+
+The inherited adaptive sampler counts `termination_manager.terminated` as failure. In this finite task, that flag also includes successful clip completion. The final training log assigns 99.03% of adaptive sampling probability to the last bin; the separate 20% full-clip-start mixture remains enabled. The dispatcher was stopped before launching the support arm while this was diagnosed. The current training child was left untouched and finished normally. Its original authorized full-horizon validation was then launched separately and passed. The support arm was subsequently started with **the same v1 snapshot**, so its comparison still changes only the support weight. No additional formal-training budget was launched.
+
+V1 also uses float32 time for the binary braking flag. At frame 20 the computed value is 0.39999998 s, so that flag starts at frame 21 (0.42 s). The continuous reference velocity and the independent 0.40 s braking evaluation interval are unchanged. The observation audit reproduces the archived numerical behavior rather than silently treating this flag as corrected.
+
+The opt-in [`hockey_ppo_learning_v2.json`](../../config/hockey_ppo_learning_v2.json) and [`hockey_ppo_sampling.py`](../../scripts/hockey_ppo_sampling.py) prepare fall-only adaptive sampling and integer-frame phase boundaries. They are **not deployed or trained** in the results here. A future corrected-recipe study must be reported separately.
+
+The 139 recorded actions were independently replayed through the exported actor (maximum error 2.68e−7). All 56 input fields were reconstructed from physical states and the source command. All 1,112 completed physical substeps were independently reconstructed from native normal/friction buffers. The graphics renderer checked all 1,113 poses against the robot's forward kinematics and performs no physics or pose correction.
 
 The actor now has 56 inputs: the existing 51 observations, followed by target planar velocity in the actual body's yaw frame, target world yaw rate, braking-phase indicator, and stop-hold indicator. The critic has 125 inputs. Both actors are trained from scratch; their observation normalizers are learned independently. Existing car checkpoints do not initialize either arm.
 

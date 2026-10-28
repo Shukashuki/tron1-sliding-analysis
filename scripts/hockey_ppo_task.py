@@ -41,11 +41,18 @@ def desired_command(env):
     angle = yaw(c.robot_anchor_quat_w)
     x, y = velocity.unbind(-1)
     t = c.time_steps * env.step_dt
+    if cfg.get("phase_clock") == "integer_reference_frames":
+        brake_start = round(cfg["brake_start_s"]/env.step_dt)
+        brake_end = round(cfg["brake_end_s"]/env.step_dt)
+        braking = (c.time_steps >= brake_start) & (c.time_steps < brake_end)
+        holding = c.time_steps >= brake_end
+    else:
+        braking = (t >= cfg["brake_start_s"]) & (t < cfg["brake_end_s"])
+        holding = t >= cfg["brake_end_s"]
     return torch.stack((torch.cos(angle)*x+torch.sin(angle)*y,
                         -torch.sin(angle)*x+torch.cos(angle)*y,
                         c.anchor_ang_vel_w[:, 2],
-                        ((t >= cfg["brake_start_s"]) & (t < cfg["brake_end_s"])).float(),
-                        (t >= cfg["brake_end_s"]).float()), -1)
+                        braking.float(), holding.float()), -1)
 
 
 def support_deficit(forces, mg, fraction):
@@ -162,6 +169,8 @@ def rewards(env):
     supported = (force.amax(-1) > 5).float().mean(-1)
     exp = lambda error, scale: torch.exp(-error/scale**2)
     phase_hold = index*env.step_dt >= cfg["brake_end_s"]
+    if cfg.get("phase_clock") == "integer_reference_frames":
+        phase_hold = index >= round(cfg["brake_end_s"]/env.step_dt)
     values = {
         "xy": exp((robot.data.root_pos_w[:, :2]-p[:, :2]).square().sum(-1), s["xy_m"]),
         "velocity": exp((actual_v[:, :2]-v[:, :2]).square().sum(-1), s["velocity_m_s"]),
@@ -191,6 +200,9 @@ def configure(cfg, protocol, variant, *, training):
     cfg.scene.env_spacing = 8.
     cfg.scene.contact_forces.update_period = .0025
     cfg.commands.motion.start_fraction = protocol["rsi_full_clip_start_fraction"]
+    if protocol.get("adaptive_sampling") == "fall_only":
+        from hockey_ppo_sampling import motion_command_class
+        cfg.commands.motion.class_type = motion_command_class()
     install_physx_mjlab_recipe(cfg, training=training, fixed_mu=protocol["evaluation_mu"])
     for group in (cfg.observations.policy, cfg.observations.critic):
         group.hockey_target = ObservationTermCfg(func=desired_command)

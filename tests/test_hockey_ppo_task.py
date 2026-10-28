@@ -96,6 +96,11 @@ class RewardTests(unittest.TestCase):
         self.assertEqual(tuple(result.shape), (2, 5))
         self.assertTrue(torch.equal(result[:, -2:], torch.tensor([[0., 1.], [0., 1.]])))
 
+    def test_integer_braking_boundary_is_not_delayed_by_float32(self):
+        e = fixture(frame=20)
+        e.cfg.hockey_protocol["phase_clock"] = "integer_reference_frames"
+        self.assertTrue(torch.equal(task.desired_command(e)[:, -2:], torch.tensor([[1., 0.], [1., 0.]])))
+
     def test_pair_uses_identical_hyperparameters(self):
         cfg = fixture().cfg.hockey_protocol
         self.assertEqual(runner_config(cfg)["algorithm"]["learning_rate"], .0003)

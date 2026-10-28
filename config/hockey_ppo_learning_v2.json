@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "kind": "hockey_ppo_learning_v1",
+  "seed": 42,
+  "physics_dt_s": 0.0025,
+  "decimation": 8,
+  "policy_dt_s": 0.02,
+  "reference_sha256": "e23fbd82639d243f0c485cf391b1eff0e275d31f6bb6ba940647874a0ac83050",
+  "asset_sha256": "327ca5080e753bbc95d8c3c797e9cd49a0f134d400cfe80494af0ba840e23a8e",
+  "tracking_sha256": "0a29fa27c1d65c0b9add0886221491e549553e3529d6970f1ec5ba35e2532817",
+  "initialization": "from_scratch_no_car_policy_or_MPPI_candidate",
+  "actor_dim": 56,
+  "critic_dim": 125,
+  "extra_observation": [
+    "target_vx_in_actual_yaw_frame",
+    "target_vy_in_actual_yaw_frame",
+    "target_world_yaw_rate",
+    "braking_phase",
+    "stop_hold_phase"
+  ],
+  "brake_start_s": 0.4,
+  "brake_end_s": 1.8,
+  "rsi_full_clip_start_fraction": 0.2,
+  "training_dr": "tron1_mjlab_tracking_dr_v1",
+  "evaluation_mu": 0.7,
+  "variants": {
+    "tracking": 0.0,
+    "support": 0.4
+  },
+  "support_load_fraction": 0.5,
+  "reward_weights": {
+    "xy": 2.0,
+    "velocity": 2.0,
+    "heading": 1.0,
+    "yaw_rate": 0.5,
+    "leg_pose": 1.0,
+    "wheel_axis": 0.5,
+    "beta": 1.0,
+    "stop_hold": 1.5,
+    "tilt": -0.2,
+    "fall": -2.0,
+    "action_rate": -0.5,
+    "joint_limit": -10.0,
+    "undesired_contacts": -0.1,
+    "vertical_acceleration": -0.1
+  },
+  "reward_scales": {
+    "xy_m": 0.3,
+    "velocity_m_s": 0.5,
+    "heading_rad": 0.4,
+    "yaw_rate_rad_s": 0.8,
+    "leg_pose_rad": 0.3,
+    "wheel_axis_rad": 0.4,
+    "beta_rad": 0.35,
+    "stop_speed_m_s": 0.1,
+    "stop_tilt_rad": 0.35
+  },
+  "ppo": {
+    "steps_per_env": 24,
+    "learning_rate": 0.0003,
+    "schedule": "fixed",
+    "clip_param": 0.2,
+    "entropy_coef": 0.005,
+    "init_noise_std": 0.5,
+    "gamma": 0.99,
+    "lam": 0.95,
+    "epochs": 5,
+    "mini_batches": 4
+  },
+  "smoke": {
+    "num_envs": 32,
+    "iterations": 2
+  },
+  "formal": {
+    "num_envs": 512,
+    "iterations": 1000
+  },
+  "evaluation_steps": 139,
+  "no_absolute_height_constraint": true,
+  "no_wheel_XY_or_spin_imitation": true,
+  "friction_saturation_is_evaluation_only": true,
+  "source_global_speed_is_designed_not_measured": true,
+  "status": "prepared_sampling_correction_not_trained",
+  "protocol_revision": 2,
+  "adaptive_sampling": "fall_only",
+  "sampling_failure_terms": [
+    "hockey_fall"
+  ],
+  "successful_clip_is_sampling_failure": false,
+  "phase_clock": "integer_reference_frames"
+}
