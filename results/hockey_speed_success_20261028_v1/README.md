@@ -25,6 +25,36 @@ This update covers contact eligibility and contact-conditioned sliding for four 
 
 [Contact report](ground_contact_analysis_v2_validated/report.json) · [Per-wheel signals](ground_contact_analysis_v2_validated/contact_signals.npz) · [Evaluation specification](../../config/hockey_contact_evaluation_v2.json) · [Analysis code](../../scripts/analyze_hockey_ground_contact.py)
 
+### Recorded full-body motion and contact transitions
+
+The four columns are earlier tracking PPO at 1×, then hockey PPO at 1×, 1.5× and 2×. They share a fixed 2.4 m follow camera, 135° azimuth and −18° elevation. Green dots mark valid native touching points using the 0.1 mm separation tolerance, without a force threshold. Left/right labels distinguish contact, contact-conditioned material sliding, and sliding corroborated by near-limit aggregate friction and dissipative anchor evidence. Green/red/amber timelines mean touching/not touching/unknown.
+
+![Four recorded motions, real time](ground_contact_renders_v2/hockey_contact_fullbody_4x1.gif)
+
+[Full-resolution real-time MP4](ground_contact_renders_v2/hockey_contact_fullbody_4x1.mp4) · [8× slow contact-transition MP4](ground_contact_renders_v2/hockey_contact_transition_8x_slow_4x1.mp4) · [Slow GIF](ground_contact_renders_v2/hockey_contact_transition_8x_slow_4x1.gif)
+
+The slow MP4 excerpt covers 0.480–0.920 s and displays every 400 Hz physical sample at 50 video frames/s, making short contact gaps visible. The real-time MP4s sample every eighth physical state at 50 frames/s. GIF previews are reduced to 12.5 frames/s. Both playback modes use the original recorded poses, including wheel spin, without smoothing or height adjustment. MuJoCo supplies mesh graphics and forward kinematics only; no physics or policy inference is performed. Every recorded wheel-origin pose is checked against the display model. Contact marker spheres are display annotations, not changes to wheel geometry.
+
+Each motion also retains the reference / recorded full body / common-scale XY and headings / contact-signal layout:
+
+| Motion | Four-panel MP4 |
+| --- | --- |
+| Earlier tracking PPO, 1× | [Reference / PhysX / XY / contact](ground_contact_renders_v2/beyondmimic_s100_seed42_reference_physx_xy_contact_4x1.mp4) |
+| Hockey PPO, 1× | [Reference / PhysX / XY / contact](ground_contact_renders_v2/hockey_s100_seed42_reference_physx_xy_contact_4x1.mp4) |
+| Hockey PPO, 1.5× | [Reference / PhysX / XY / contact](ground_contact_renders_v2/hockey_s150_seed42_reference_physx_xy_contact_4x1.mp4) |
+| Hockey PPO, 2× | [Reference / PhysX / XY / contact](ground_contact_renders_v2/hockey_s200_seed42_reference_physx_xy_contact_4x1.mp4) |
+
+[Render and frame-count verification](ground_contact_renders_v2/provenance.json) · [Renderer](../../scripts/render_hockey_contact_comparison.py)
+
+```bash
+MUJOCO_GL=osmesa python scripts/render_hockey_contact_comparison.py \
+  --runs outputs/hockey_support_evidence/runs_v1 \
+  --analysis results/hockey_speed_success_20261028_v1/ground_contact_analysis_v2_validated \
+  --references results/hockey_speed_success_20261028_v1/source_snapshot_v1/references \
+  --model /path/to/WF_TRON1A/mujoco/robot.xml \
+  --output outputs/hockey_contact_renders
+```
+
 ```bash
 python scripts/analyze_hockey_ground_contact.py \
   --runs outputs/hockey_support_evidence/runs_v1 \
