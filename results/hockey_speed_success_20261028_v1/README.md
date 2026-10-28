@@ -1,8 +1,33 @@
 # Hockey-stop learning success and increased speed
 
-Status: **explicitly approved, uploaded and launched** in tmux `hockey_speed_success_20261028_v1` on the authorized RTX host. The original-recipe, original-speed, seed-42 smoke passed; its formal training is running. No success-rate result exists yet. Previous single-rollout successes do not establish a success rate. [Launch evidence](preflight/launch.json) · [Upload receipt](preflight/upload_receipt.json) · [CPU checks](preflight/local_tests.json).
+Status at the first collection (2026-10-28, approximately 19:02 UTC): **1/18 cells independently qualified; the remaining queue is running** in tmux `hockey_speed_success_20261028_v1` on the authorized RTX host. The original-recipe, original-speed, seed-42 policy completed all 12,288,000 transitions and 33 validation episodes. Its nominal episode failed, with **0/32 perturbed-reset successes**. The matched hockey-policy formal training has started. This is a partial result from one training seed, not the completed comparison. [Launch evidence](preflight/launch.json) · [Upload receipt](preflight/upload_receipt.json) · [CPU checks](preflight/local_tests.json) · [Collected process status](first_cell_evidence_v1/verified_process_status.json).
 
 The requested baseline is the earlier **TRON1 BeyondMimic-style PPO tracking recipe**, rather than the previous hockey experiment's zero-support-weight arm. The second method is the directly trained hockey tracking PPO, without the additional continuous support penalty. The full recipes differ in observations, rewards, learning-rate schedule and episode-end semantics; this is not a single-reward causal ablation.
+
+## First completed cell — preliminary failure analysis
+
+Only `beyondmimic_s100_seed42` is included here. Every recorded observation, actor output and native contact sample passed independent reconstruction before qualification. The maximum CPU actor-replay discrepancy over the 33 episodes was 1.02e-6, below the frozen 5e-5 tolerance. [All 33 outcomes](first_cell_evidence_v1/runs_v1/beyondmimic_s100_seed42/analyze/report.json) · [Partial summary](partial_first_cell_v1/report.json) · [CSV](partial_first_cell_v1/summary.csv).
+
+| Nominal episode, original speed / seed 42 / μ = 0.7 | Measured result |
+| --- | ---: |
+| Entry COM speed | 1.399 m/s |
+| Approach-speed retention | 1.021× reference |
+| XY RMSE / peak error | 0.259 / 0.942 m |
+| At-least-one-wheel support fraction | 95.44% |
+| Longest support interruption | 95 ms |
+| First tilt ≥45° | 2.6575 s |
+| Supported terminal stop | Not achieved |
+| Longest pre-fall high-β, loaded, near-limit dissipative slide, left / right | 60 / 27.5 ms |
+
+The nominal episode passes the sliding-evidence gate and both braking-heading gates, but fails XY accuracy, continuous support, terminal stopping and whole-task tilt. Sliding occurs before the fall; detecting sliding alone does not establish successful stopping. Near-limit friction is assessed at wheel aggregate level, not as a pointwise friction-cone certificate.
+
+Across the 32 paired initial-state perturbations, full success is **0/32** (conditional Wilson 95% interval **0–10.72%**, conditional on this single policy). Failure counts are nonexclusive: support interruption 32/32, terminal stop 30/32, peak XY error 28/32, XY RMSE 26/32, tilt 22/32, and sliding evidence 5/32. All 32 pass entry-speed, approach-speed and braking-heading gates. XY RMSE ranges from 0.093 to 0.490 m, with a median of 0.284 m. The remaining training seeds and faster conditions are pending; this does not establish that the earlier recipe cannot learn the task.
+
+The nominal episode and `trial_022` (the largest perturbed-trial XY RMSE) are retained without early truncation. Both renders use the same XY bounds and a fixed 2.4 m follow camera. MuJoCo is used only for mesh rendering and forward kinematics; these are recorded PhysX trajectories.
+
+- [Nominal 4×1 video](first_cell_nominal_render_v1/hockey_command_physx_xy_contact_4x1.mp4): reference, full body, XY/headings, native contact diagnostics.
+- [Worst-XY perturbed episode, 4×1 video](first_cell_failure_render_v1/hockey_command_physx_xy_contact_4x1.mp4).
+- [Partial 4×1 success/failure chart](partial_first_cell_v1/learning_and_rollout_success_4x1.png). Missing conditions remain pending and are excluded from denominators.
 
 | Shared reference condition | Original speed | 1.5× speed | 2× speed |
 | --- | ---: | ---: | ---: |
