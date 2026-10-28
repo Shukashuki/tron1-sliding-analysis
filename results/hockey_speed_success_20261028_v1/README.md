@@ -1,6 +1,6 @@
 # Hockey-stop learning success and increased speed
 
-Latest deployment inspection, October 28: **5/18 cells independently qualified, covering 165 full episodes**. The queue is running in tmux `hockey_speed_success_20261028_v1`; hockey PPO at 2× speed / seed 42 is training on GPU 3. Each completed policy used 12,288,000 training transitions from scratch. The remote snapshot still matches all 41 approved file hashes. This remains a partial, seed-42-only comparison. [Deployment report and evidence](deployment_status_20261028_v1/report.json) · [Verified process status](deployment_status_20261028_v1/verified_process_status.json) · [Remote snapshot audit](deployment_status_20261028_v1/remote_snapshot_audit.json) · [Launch evidence](preflight/launch.json) · [Upload receipt](preflight/upload_receipt.json) · [CPU checks](preflight/local_tests.json).
+Earlier deployment inspection, October 28, retained below: **5/18 cells independently qualified, covering 165 full episodes**. At that inspection the queue was running in tmux `hockey_speed_success_20261028_v1`, with hockey PPO at 2× speed / seed 42 training on GPU 3. Each completed policy used 12,288,000 training transitions from scratch. The remote snapshot matched all 41 approved file hashes. Later results are discussed in the support-interruption analysis below; this historical status is not a live progress indicator. [Deployment report and evidence](deployment_status_20261028_v1/report.json) · [Verified process status](deployment_status_20261028_v1/verified_process_status.json) · [Remote snapshot audit](deployment_status_20261028_v1/remote_snapshot_audit.json) · [Launch evidence](preflight/launch.json) · [Upload receipt](preflight/upload_receipt.json) · [CPU checks](preflight/local_tests.json).
 
 | Recipe / speed, seed 42 | Nominal full success | Perturbed successes | Nominal XY RMSE | Longest qualifying slide, L / R | Longest support interruption |
 | --- | --- | ---: | ---: | ---: | ---: |
@@ -17,6 +17,41 @@ Deployment distinction: 400 Hz validation already records native normal forces, 
 The requested baseline is the earlier **TRON1 BeyondMimic-style PPO tracking recipe**, rather than the previous hockey experiment's zero-support-weight arm. The second method is the directly trained hockey tracking PPO, without the additional continuous support penalty. The full recipes differ in observations, rewards, learning-rate schedule and episode-end semantics; this is not a single-reward causal ablation.
 
 A separate [friction-boundary reward ablation](../hockey_friction_boundary_20261028_v1/README.md) is uploaded and queued for 1.5× speed, with identical instrumentation and reward weights 0 versus +0.5. The user approved its exact payload and execution scope; its dependency wrapper waits for this entire 18-cell study to complete. It has not changed this running study or produced new training results.
+
+## Why continuous wheel support fails
+
+The later seed-42 diagnosis reconstructs native PhysX contact buffers for four nominal recordings and checks the original qualification hashes. The 2× hockey policy has now completed validation. No policy, simulator setting, training job or success gate was changed for this analysis.
+
+![Raw wheel loads and support gaps, common axes](support_failure_analysis_v1/support_force_comparison_4x1.png)
+
+| Seed-42 nominal policy | Support fraction | Gap count | Total / longest gap | Both wheel forces effectively zero | Perturbed support failures |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Earlier tracking, 1× | 95.44% | 9 | 125 / 95 ms | 117.5 ms | 32/32 |
+| Hockey PPO, 1× | 100% | 0 | 0 / 0 ms | 0 ms | 0/32 |
+| Hockey PPO, 1.5× | 97.90% | 4 | 57.5 / 37.5 ms | 55 ms | 32/32 |
+| Hockey PPO, 2× | 98.36% | 3 | 45 / 25 ms | 45 ms | 32/32 |
+
+The frozen gate requires at least one wheel's summed floor-normal force to exceed 5 N in every completed 2.5 ms physical interval after the first 20 ms, through 2.76 s. Either wheel may lift. A single unsupported interval fails this gate. Forces at or below 1e-6 N count as effectively zero only for the descriptive sensitivity analysis.
+
+For hockey 1.5×, all gaps occur during braking: 0.620–0.625, 0.640–0.6425, 0.720–0.7325 and 0.800–0.8375 s. The 12.5 ms gap separates right-wheel support from left-wheel support; the 37.5 ms gap occurs between two left-wheel support intervals. Both wheels report zero force throughout those two longer gaps. The first returning left-wheel loads are respectively 860.9 and 572.3 N, each representing a 2.5 ms step rather than an instantaneous peak. The 2.5 ms gap at 0.640 s has 1.923 N on the right wheel; all other unsupported samples have zero wheel force. Reducing the diagnostic threshold from 5 to 1 N therefore removes only 2.5 ms and does not restore continuous support.
+
+For hockey 2×, gaps occur at 0.540–0.565, 0.680–0.6975 and 1.240–1.2425 s. Both longer gaps separate right-wheel support from left-wheel support. All three contain zero wheel force. The first returning left-wheel loads are 358.6 and 345.7 N. Thus the failure persists for every tested threshold from 1e-6 to 10 N. These patterns establish interrupted force transfer and recontact, without proving geometric separation or identifying a particular joint action as the cause.
+
+Both faster hockey nominal runs remain upright and pass the sliding and terminal-stop gates; their only failed gate is continuous support. All 32 perturbed starts for each also fail only that gate. Their longest support gaps range over 30–37.5 ms at 1.5× and 17.5–35 ms at 2×. This is not a single nominal-reset artifact, although the results still condition on one training seed. At zero wheel load the wheel friction budget `0.7 * (Fn_left + Fn_right)` is zero, so these intervals cannot count as loaded sliding, and a friction-utilization ratio is undefined there.
+
+The frozen hockey tracking arm has support-deficit weight zero. Its beta reward is multiplied by each wheel's loaded fraction over eight physical substeps; its stop reward uses the mean any-wheel supported fraction and activates during the hold phase. XY, velocity and posture rewards can remain positive during a short support gap. This provides a plausible objective-level explanation for good tracking with interrupted support, not a causal ablation result. The separately queued friction-boundary reward adds an all-eight-substeps support gate to its bonus; its effectiveness has not yet been measured.
+
+[Audited report and per-trial support statistics](support_failure_analysis_v1/report.json) · [Every nominal gap](support_failure_analysis_v1/gap_events.csv) · [Plot signals](support_failure_analysis_v1/plot_signals.npz) · [Analysis code](../../scripts/analyze_hockey_support_failure.py)
+
+Reproduce from a fresh read-only collection containing nominal traces:
+
+```bash
+python scripts/collect_hockey_speed_study.py --case nominal --output outputs/hockey_support_evidence
+python scripts/analyze_hockey_support_failure.py \
+  --runs outputs/hockey_support_evidence/runs_v1 \
+  --references results/hockey_speed_success_20261028_v1/source_snapshot_v1/references \
+  --output outputs/hockey_support_analysis
+```
 
 ## Matched original-speed comparison — seed 42, μ = 0.7
 

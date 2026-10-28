@@ -1,0 +1,1999 @@
+{
+  "kind": "hockey_native_support_failure_diagnosis_v1",
+  "source_sha256": "69fbcded4edd2cfd9ae43cffecd0c84d9b8d0fa4c3061a1ae7939600e718c67c",
+  "physics_hz": 400,
+  "policy_hz": 50,
+  "friction": 0.7,
+  "support_definition": "At least one wheel has summed floor-normal force >5 N at every full 2.5 ms interval after 20 ms, through reference end.",
+  "original_success_gates_changed": false,
+  "physics_rerun": false,
+  "limitations": [
+    "Wheel-floor forces only; no all-body external force balance or geometric separation certificate.",
+    "Forces represent each completed 2.5 ms step; first recontact load is not an instantaneous continuous-time peak.",
+    "Zero wheel load eliminates wheel Coulomb friction capacity; no utilization ratio is defined at zero load.",
+    "Recorded ordering identifies support handoff gaps, not a causal proof about individual actions.",
+    "Nominal force sensitivity is not recomputed for the 32 perturbed episodes; those use frozen qualification reports."
+  ],
+  "cells": [
+    {
+      "cell": "beyondmimic_s100_seed42",
+      "provenance": {
+        "run_report_sha256": "13a1ec003cd372151678719549774391001d425fc035003d5a3984f26d2300f7",
+        "qualification_sha256": "35b4c244c6b139a9fc7a5da534c508fae3817b9bd8b7ef9aa220c0951aeb9118",
+        "recorded_artifacts": {
+          "final_rollout.npz": "bc2fbe29dc298fb113c28604920f67be4035dde3d029383f5e6c226312564c63",
+          "native_contact_buffers.npz": "0343d30925e4f366fd2b79ea6fb177d05eb9199bb4521fd03f837ef160d11e2f",
+          "case.json": "147fea4b1170385a3184584d956ba2b5bf172e563d3ecca1097136798aadd3cb"
+        }
+      },
+      "native_audit": {
+        "physical_samples_checked": 1112,
+        "maximum_readback_errors": {
+          "normal_fz": 1.5258791393080173e-05,
+          "normal_point_lateral_rms": 8.297908578036584e-07,
+          "anchor_power": 4.231078344218986e-05,
+          "friction_force": 1.52587890625e-05,
+          "aggregate_utilization": 1.8175926830288347e-07
+        },
+        "pointwise_normal_load_at_friction_anchors_available": false,
+        "force_velocity_timing": "completed-substep force/impulse divided by dt, paired with post-step material velocity; power proxy, not exact step work",
+        "archived_support_fields_verified": [
+          "time_s",
+          "normal_fz",
+          "friction_force",
+          "native_sample_valid",
+          "body_speed_m_s",
+          "root_tilt_deg"
+        ]
+      },
+      "reference_sha256": "e23fbd82639d243f0c485cf391b1eff0e275d31f6bb6ba940647874a0ac83050",
+      "support_fraction": 0.9543795620437956,
+      "gap_count": 9,
+      "total_gap_s": 0.12499999999999734,
+      "longest_gap_s": 0.09499999999999975,
+      "zero_force_duration_s": 0.1174999999999975,
+      "xy_rmse_m": 0.25850064713969145,
+      "first_45deg_tilt_s": 2.6575,
+      "failed_gates": [
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "anywheel_continuously_supported",
+        "upright_supported_terminal_hold_ge_0p5",
+        "tilt_below_45deg_during_task"
+      ],
+      "events": [
+        {
+          "first_index": 249,
+          "last_index": 251,
+          "start_s": 0.6200000000000001,
+          "end_s": 0.6275000000000001,
+          "duration_s": 0.007499999999999951,
+          "phase": "braking",
+          "support_before": "L",
+          "support_after": "L",
+          "force_before_N": [
+            86.0201568603508,
+            0.0
+          ],
+          "force_after_N": [
+            42.96962738037071,
+            0.0
+          ],
+          "force_max_during_N": [
+            0.0,
+            0.0
+          ],
+          "zero_force_duration_s": 0.00749999999999984,
+          "combined_capacity_max_during_N": 0.0,
+          "maximum_wheel_force_next_20ms_N": [
+            79.42572021484304,
+            0.0
+          ],
+          "speed_mean_m_s": 1.2749347686767578,
+          "base_com_vertical_velocity_first_last_m_s": [
+            -0.3717461824417114,
+            -0.4088517725467682
+          ],
+          "tilt_max_deg": 11.975649442906898
+        },
+        {
+          "first_index": 257,
+          "last_index": 259,
+          "start_s": 0.64,
+          "end_s": 0.6475,
+          "duration_s": 0.007499999999999951,
+          "phase": "braking",
+          "support_before": "L",
+          "support_after": "L",
+          "force_before_N": [
+            79.42572021484304,
+            0.0
+          ],
+          "force_after_N": [
+            41.539886474609006,
+            0.0
+          ],
+          "force_max_during_N": [
+            0.0,
+            0.0
+          ],
+          "zero_force_duration_s": 0.00749999999999984,
+          "combined_capacity_max_during_N": 0.0,
+          "maximum_wheel_force_next_20ms_N": [
+            93.68744659423744,
+            1179.8334960937395
+          ],
+          "speed_mean_m_s": 1.2674051523208618,
+          "base_com_vertical_velocity_first_last_m_s": [
+            -0.5129382014274597,
+            -0.541581928730011
+          ],
+          "tilt_max_deg": 12.124474625336276
+        },
+        {
+          "first_index": 377,
+          "last_index": 377,
+          "start_s": 0.9400000000000001,
+          "end_s": 0.9425,
+          "duration_s": 0.0024999999999999467,
+          "phase": "braking",
+          "support_before": "L",
+          "support_after": "L",
+          "force_before_N": [
+            125.6029586791981,
+            0.0
+          ],
+          "force_after_N": [
+            61.16617965698188,
+            0.0
+          ],
+          "force_max_during_N": [
+            0.0,
+            0.0
+          ],
+          "zero_force_duration_s": 0.0024999999999999467,
+          "combined_capacity_max_during_N": 0.0,
+          "maximum_wheel_force_next_20ms_N": [
+            61.16617965698188,
+            0.0
+          ],
+          "speed_mean_m_s": 0.8344424366950989,
+          "base_com_vertical_velocity_first_last_m_s": [
+            0.009530166164040565,
+            0.009530166164040565
+          ],
+          "tilt_max_deg": 16.265906223105468
+        },
+        {
+          "first_index": 379,
+          "last_index": 379,
+          "start_s": 0.9450000000000001,
+          "end_s": 0.9475,
+          "duration_s": 0.0024999999999999467,
+          "phase": "braking",
+          "support_before": "L",
+          "support_after": "L",
+          "force_before_N": [
+            61.16617965698188,
+            0.0
+          ],
+          "force_after_N": [
+            7.843804359435966,
+            0.0
+          ],
+          "force_max_during_N": [
+            3.878619194030727,
+            0.0
+          ],
+          "zero_force_duration_s": 0.0,
+          "combined_capacity_max_during_N": 2.7150334358215087,
+          "maximum_wheel_force_next_20ms_N": [
+            33.680068969726264,
+            766.9196166992119
+          ],
+          "speed_mean_m_s": 0.8315344452857971,
+          "base_com_vertical_velocity_first_last_m_s": [
+            -0.0289890319108963,
+            -0.0289890319108963
+          ],
+          "tilt_max_deg": 16.219662021196832
+        },
+        {
+          "first_index": 385,
+          "last_index": 385,
+          "start_s": 0.9600000000000001,
+          "end_s": 0.9625,
+          "duration_s": 0.0024999999999999467,
+          "phase": "braking",
+          "support_before": "L",
+          "support_after": "R",
+          "force_before_N": [
+            33.680068969726264,
+            0.0
+          ],
+          "force_after_N": [
+            0.0,
+            766.9196166992119
+          ],
+          "force_max_during_N": [
+            0.0,
+            0.0
+          ],
+          "zero_force_duration_s": 0.0024999999999999467,
+          "combined_capacity_max_during_N": 0.0,
+          "maximum_wheel_force_next_20ms_N": [
+            0.0,
+            766.9196166992119
+          ],
+          "speed_mean_m_s": 0.8152611255645752,
+          "base_com_vertical_velocity_first_last_m_s": [
+            -0.1541697382926941,
+            -0.1541697382926941
+          ],
+          "tilt_max_deg": 16.070318649590956
+        },
+        {
+          "first_index": 401,
+          "last_index": 401,
+          "start_s": 1.0,
+          "end_s": 1.0025,
+          "duration_s": 0.0024999999999999467,
+          "phase": "braking",
+          "support_before": "R",
+          "support_after": "R",
+          "force_before_N": [
+            0.0,
+            271.56570434570074
+          ],
+          "force_after_N": [
+            0.0,
+            30.934364318847383
+          ],
+          "force_max_during_N": [
+            0.0,
+            1.9116083383560012
+          ],
+          "zero_force_duration_s": 0.0,
+          "combined_capacity_max_during_N": 1.3381258368492008,
+          "maximum_wheel_force_next_20ms_N": [
+            235.40013122558383,
+            113.1738052368154
+          ],
+          "speed_mean_m_s": 0.6432201266288757,
+          "base_com_vertical_velocity_first_last_m_s": [
+            -0.02608596347272396,
+            -0.02608596347272396
+          ],
+          "tilt_max_deg": 14.196804602698194
+        },
+        {
+          "first_index": 907,
+          "last_index": 944,
+          "start_s": 2.265,
+          "end_s": 2.36,
+          "duration_s": 0.09499999999999975,
+          "phase": "other_or_cross_phase",
+          "support_before": "R",
+          "support_after": "R",
+          "force_before_N": [
+            0.0,
+            29.112478256225327
+          ],
+          "force_after_N": [
+            0.0,
+            575.4792480468699
+          ],
+          "force_max_during_N": [
+            0.0,
+            0.0
+          ],
+          "zero_force_duration_s": 0.09499999999999797,
+          "combined_capacity_max_during_N": 0.0,
+          "maximum_wheel_force_next_20ms_N": [
+            0.0,
+            575.4792480468699
+          ],
+          "speed_mean_m_s": 0.7539989948272705,
+          "base_com_vertical_velocity_first_last_m_s": [
+            0.6417787671089172,
+            -0.35083308815956116
+          ],
+          "tilt_max_deg": 23.79952632336419
+        },
+        {
+          "first_index": 1060,
+          "last_index": 1060,
+          "start_s": 2.6475,
+          "end_s": 2.65,
+          "duration_s": 0.0024999999999999467,
+          "phase": "other_or_cross_phase",
+          "support_before": "R",
+          "support_after": "R",
+          "force_before_N": [
+            0.0,
+            29.460494995116925
+          ],
+          "force_after_N": [
+            0.0,
+            27.020771026611087
+          ],
+          "force_max_during_N": [
+            0.0,
+            2.8049917221069087
+          ],
+          "zero_force_duration_s": 0.0,
+          "combined_capacity_max_during_N": 1.9634942054748359,
+          "maximum_wheel_force_next_20ms_N": [
+            0.0,
+            64.65991973876896
+          ],
+          "speed_mean_m_s": 1.603440284729004,
+          "base_com_vertical_velocity_first_last_m_s": [
+            -1.6739619970321655,
+            -1.6739619970321655
+          ],
+          "tilt_max_deg": 44.137564706428456
+        },
+        {
+          "first_index": 1067,
+          "last_index": 1067,
+          "start_s": 2.665,
+          "end_s": 2.6675,
+          "duration_s": 0.0024999999999999467,
+          "phase": "other_or_cross_phase",
+          "support_before": "R",
+          "support_after": "R",
+          "force_before_N": [
+            0.0,
+            19.556341171264474
+          ],
+          "force_after_N": [
+            0.0,
+            22.689968109130657
+          ],
+          "force_max_during_N": [
+            0.0,
+            0.0
+          ],
+          "zero_force_duration_s": 0.0024999999999999467,
+          "combined_capacity_max_during_N": 0.0,
+          "maximum_wheel_force_next_20ms_N": [
+            0.0,
+            53.87035751342726
+          ],
+          "speed_mean_m_s": 1.588338851928711,
+          "base_com_vertical_velocity_first_last_m_s": [
+            -1.8713995218276978,
+            -1.8713995218276978
+          ],
+          "tilt_max_deg": 47.00994061520698
+        }
+      ],
+      "threshold_sensitivity": [
+        {
+          "threshold_N": 1e-06,
+          "total_gap_s": 0.1174999999999975,
+          "longest_gap_s": 0.09499999999999975,
+          "continuous_support": false
+        },
+        {
+          "threshold_N": 0.1,
+          "total_gap_s": 0.1174999999999975,
+          "longest_gap_s": 0.09499999999999975,
+          "continuous_support": false
+        },
+        {
+          "threshold_N": 1.0,
+          "total_gap_s": 0.1174999999999975,
+          "longest_gap_s": 0.09499999999999975,
+          "continuous_support": false
+        },
+        {
+          "threshold_N": 2.0,
+          "total_gap_s": 0.11999999999999744,
+          "longest_gap_s": 0.09499999999999975,
+          "continuous_support": false
+        },
+        {
+          "threshold_N": 5.0,
+          "total_gap_s": 0.12499999999999734,
+          "longest_gap_s": 0.09499999999999975,
+          "continuous_support": false
+        },
+        {
+          "threshold_N": 10.0,
+          "total_gap_s": 0.13249999999999718,
+          "longest_gap_s": 0.09499999999999975,
+          "continuous_support": false
+        }
+      ],
+      "perturbed_cases": [
+        {
+          "id": "trial_000",
+          "support_fraction": 0.8968978102189781,
+          "longest_support_gap_s": 0.15249999999999986,
+          "failed_gates": [
+            "xy_rmse_le_0p15",
+            "xy_peak_le_0p3",
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5",
+            "tilt_below_45deg_during_task"
+          ]
+        },
+        {
+          "id": "trial_001",
+          "support_fraction": 0.9571167883211679,
+          "longest_support_gap_s": 0.07249999999999979,
+          "failed_gates": [
+            "xy_rmse_le_0p15",
+            "xy_peak_le_0p3",
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5",
+            "tilt_below_45deg_during_task"
+          ]
+        },
+        {
+          "id": "trial_002",
+          "support_fraction": 0.9087591240875912,
+          "longest_support_gap_s": 0.11500000000000021,
+          "failed_gates": [
+            "xy_rmse_le_0p15",
+            "xy_peak_le_0p3",
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5",
+            "tilt_below_45deg_during_task"
+          ]
+        },
+        {
+          "id": "trial_003",
+          "support_fraction": 0.9005474452554745,
+          "longest_support_gap_s": 0.1549999999999998,
+          "failed_gates": [
+            "xy_rmse_le_0p15",
+            "xy_peak_le_0p3",
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5",
+            "tilt_below_45deg_during_task"
+          ]
+        },
+        {
+          "id": "trial_004",
+          "support_fraction": 0.9844890510948905,
+          "longest_support_gap_s": 0.020000000000000018,
+          "failed_gates": [
+            "xy_peak_le_0p3",
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5"
+          ]
+        },
+        {
+          "id": "trial_005",
+          "support_fraction": 0.9552919708029197,
+          "longest_support_gap_s": 0.07500000000000018,
+          "failed_gates": [
+            "xy_rmse_le_0p15",
+            "xy_peak_le_0p3",
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5",
+            "tilt_below_45deg_during_task"
+          ]
+        },
+        {
+          "id": "trial_006",
+          "support_fraction": 0.958941605839416,
+          "longest_support_gap_s": 0.08250000000000002,
+          "failed_gates": [
+            "xy_rmse_le_0p15",
+            "xy_peak_le_0p3",
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5",
+            "loaded_lateral_sliding_during_braking_ge_0p05",
+            "tilt_below_45deg_during_task"
+          ]
+        },
+        {
+          "id": "trial_007",
+          "support_fraction": 0.9826642335766423,
+          "longest_support_gap_s": 0.02499999999999991,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_008",
+          "support_fraction": 0.947992700729927,
+          "longest_support_gap_s": 0.10999999999999988,
+          "failed_gates": [
+            "xy_rmse_le_0p15",
+            "xy_peak_le_0p3",
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5",
+            "loaded_lateral_sliding_during_braking_ge_0p05",
+            "tilt_below_45deg_during_task"
+          ]
+        },
+        {
+          "id": "trial_009",
+          "support_fraction": 0.8978102189781022,
+          "longest_support_gap_s": 0.16749999999999998,
+          "failed_gates": [
+            "xy_rmse_le_0p15",
+            "xy_peak_le_0p3",
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5",
+            "tilt_below_45deg_during_task"
+          ]
+        },
+        {
+          "id": "trial_010",
+          "support_fraction": 0.8859489051094891,
+          "longest_support_gap_s": 0.1875,
+          "failed_gates": [
+            "xy_rmse_le_0p15",
+            "xy_peak_le_0p3",
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5",
+            "tilt_below_45deg_during_task"
+          ]
+        },
+        {
+          "id": "trial_011",
+          "support_fraction": 0.9498175182481752,
+          "longest_support_gap_s": 0.10250000000000004,
+          "failed_gates": [
+            "xy_rmse_le_0p15",
+            "xy_peak_le_0p3",
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5",
+            "tilt_below_45deg_during_task"
+          ]
+        },
+        {
+          "id": "trial_012",
+          "support_fraction": 0.9114963503649635,
+          "longest_support_gap_s": 0.13250000000000028,
+          "failed_gates": [
+            "xy_rmse_le_0p15",
+            "xy_peak_le_0p3",
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5",
+            "tilt_below_45deg_during_task"
+          ]
+        },
+        {
+          "id": "trial_013",
+          "support_fraction": 0.9516423357664233,
+          "longest_support_gap_s": 0.08499999999999996,
+          "failed_gates": [
+            "xy_rmse_le_0p15",
+            "xy_peak_le_0p3",
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5",
+            "tilt_below_45deg_during_task"
+          ]
+        },
+        {
+          "id": "trial_014",
+          "support_fraction": 0.8932481751824818,
+          "longest_support_gap_s": 0.1875,
+          "failed_gates": [
+            "xy_rmse_le_0p15",
+            "xy_peak_le_0p3",
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5",
+            "tilt_below_45deg_during_task"
+          ]
+        },
+        {
+          "id": "trial_015",
+          "support_fraction": 0.9854014598540146,
+          "longest_support_gap_s": 0.012499999999999956,
+          "failed_gates": [
+            "xy_rmse_le_0p15",
+            "xy_peak_le_0p3",
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5"
+          ]
+        },
+        {
+          "id": "trial_016",
+          "support_fraction": 0.9178832116788321,
+          "longest_support_gap_s": 0.125,
+          "failed_gates": [
+            "xy_rmse_le_0p15",
+            "xy_peak_le_0p3",
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5",
+            "tilt_below_45deg_during_task"
+          ]
+        },
+        {
+          "id": "trial_017",
+          "support_fraction": 0.9808394160583942,
+          "longest_support_gap_s": 0.019999999999999907,
+          "failed_gates": [
+            "xy_peak_le_0p3",
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5"
+          ]
+        },
+        {
+          "id": "trial_018",
+          "support_fraction": 0.9571167883211679,
+          "longest_support_gap_s": 0.03750000000000009,
+          "failed_gates": [
+            "xy_rmse_le_0p15",
+            "xy_peak_le_0p3",
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5",
+            "tilt_below_45deg_during_task"
+          ]
+        },
+        {
+          "id": "trial_019",
+          "support_fraction": 0.9826642335766423,
+          "longest_support_gap_s": 0.012499999999999956,
+          "failed_gates": [
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5"
+          ]
+        },
+        {
+          "id": "trial_020",
+          "support_fraction": 0.9461678832116789,
+          "longest_support_gap_s": 0.10999999999999988,
+          "failed_gates": [
+            "xy_rmse_le_0p15",
+            "xy_peak_le_0p3",
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5",
+            "tilt_below_45deg_during_task"
+          ]
+        },
+        {
+          "id": "trial_021",
+          "support_fraction": 0.9826642335766423,
+          "longest_support_gap_s": 0.01749999999999996,
+          "failed_gates": [
+            "xy_rmse_le_0p15",
+            "xy_peak_le_0p3",
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5",
+            "loaded_lateral_sliding_during_braking_ge_0p05"
+          ]
+        },
+        {
+          "id": "trial_022",
+          "support_fraction": 0.9014598540145985,
+          "longest_support_gap_s": 0.16500000000000004,
+          "failed_gates": [
+            "xy_rmse_le_0p15",
+            "xy_peak_le_0p3",
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5",
+            "tilt_below_45deg_during_task"
+          ]
+        },
+        {
+          "id": "trial_023",
+          "support_fraction": 0.8932481751824818,
+          "longest_support_gap_s": 0.18500000000000005,
+          "failed_gates": [
+            "xy_rmse_le_0p15",
+            "xy_peak_le_0p3",
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5",
+            "tilt_below_45deg_during_task"
+          ]
+        },
+        {
+          "id": "trial_024",
+          "support_fraction": 0.9844890510948905,
+          "longest_support_gap_s": 0.01749999999999996,
+          "failed_gates": [
+            "xy_rmse_le_0p15",
+            "xy_peak_le_0p3",
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5"
+          ]
+        },
+        {
+          "id": "trial_025",
+          "support_fraction": 0.9854014598540146,
+          "longest_support_gap_s": 0.012499999999999956,
+          "failed_gates": [
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5"
+          ]
+        },
+        {
+          "id": "trial_026",
+          "support_fraction": 0.9571167883211679,
+          "longest_support_gap_s": 0.0625,
+          "failed_gates": [
+            "xy_rmse_le_0p15",
+            "xy_peak_le_0p3",
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5",
+            "loaded_lateral_sliding_during_braking_ge_0p05",
+            "tilt_below_45deg_during_task"
+          ]
+        },
+        {
+          "id": "trial_027",
+          "support_fraction": 0.9251824817518248,
+          "longest_support_gap_s": 0.10250000000000004,
+          "failed_gates": [
+            "xy_rmse_le_0p15",
+            "xy_peak_le_0p3",
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5",
+            "tilt_below_45deg_during_task"
+          ]
+        },
+        {
+          "id": "trial_028",
+          "support_fraction": 0.9854014598540146,
+          "longest_support_gap_s": 0.022499999999999964,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_029",
+          "support_fraction": 0.9571167883211679,
+          "longest_support_gap_s": 0.0674999999999999,
+          "failed_gates": [
+            "xy_rmse_le_0p15",
+            "xy_peak_le_0p3",
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5",
+            "loaded_lateral_sliding_during_braking_ge_0p05",
+            "tilt_below_45deg_during_task"
+          ]
+        },
+        {
+          "id": "trial_030",
+          "support_fraction": 0.9854014598540146,
+          "longest_support_gap_s": 0.012499999999999956,
+          "failed_gates": [
+            "xy_rmse_le_0p15",
+            "xy_peak_le_0p3",
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5"
+          ]
+        },
+        {
+          "id": "trial_031",
+          "support_fraction": 0.9571167883211679,
+          "longest_support_gap_s": 0.04499999999999993,
+          "failed_gates": [
+            "xy_rmse_le_0p15",
+            "xy_peak_le_0p3",
+            "anywheel_continuously_supported",
+            "upright_supported_terminal_hold_ge_0p5",
+            "tilt_below_45deg_during_task"
+          ]
+        }
+      ],
+      "perturbed_support_failures": 32,
+      "perturbed_longest_gap_min_median_max_s": [
+        0.012499999999999956,
+        0.0787500000000001,
+        0.1875
+      ]
+    },
+    {
+      "cell": "hockey_s100_seed42",
+      "provenance": {
+        "run_report_sha256": "3b362e5fa293ecacb14fddc993970b2b0c2cce096142a12db739a2f3ba933ba1",
+        "qualification_sha256": "36f384522893d04a4e450f3197148aab5383841997290ffe5e76c1bf46b7937f",
+        "recorded_artifacts": {
+          "final_rollout.npz": "33c320189496e0702aea2d1ff539592dc1897e5ecf78be1e0c120386bf861589",
+          "native_contact_buffers.npz": "efc9e71468df0dd1f8bc8f8156d6ac6dc632f5e4d60ceca0232d7ac9f79c8e7f",
+          "case.json": "147fea4b1170385a3184584d956ba2b5bf172e563d3ecca1097136798aadd3cb"
+        }
+      },
+      "native_audit": {
+        "physical_samples_checked": 1112,
+        "maximum_readback_errors": {
+          "normal_fz": 3.814698033011155e-06,
+          "normal_point_lateral_rms": 3.956796394977147e-07,
+          "anchor_power": 9.070817804968101e-05,
+          "friction_force": 3.0517578125e-05,
+          "aggregate_utilization": 1.6711486872100778e-07
+        },
+        "pointwise_normal_load_at_friction_anchors_available": false,
+        "force_velocity_timing": "completed-substep force/impulse divided by dt, paired with post-step material velocity; power proxy, not exact step work",
+        "archived_support_fields_verified": [
+          "time_s",
+          "normal_fz",
+          "friction_force",
+          "native_sample_valid",
+          "body_speed_m_s",
+          "root_tilt_deg"
+        ]
+      },
+      "reference_sha256": "e23fbd82639d243f0c485cf391b1eff0e275d31f6bb6ba940647874a0ac83050",
+      "support_fraction": 1.0,
+      "gap_count": 0,
+      "total_gap_s": 0.0,
+      "longest_gap_s": 0.0,
+      "zero_force_duration_s": 0.0,
+      "xy_rmse_m": 0.017875582711005703,
+      "first_45deg_tilt_s": null,
+      "failed_gates": [],
+      "events": [],
+      "threshold_sensitivity": [
+        {
+          "threshold_N": 1e-06,
+          "total_gap_s": 0.0,
+          "longest_gap_s": 0,
+          "continuous_support": true
+        },
+        {
+          "threshold_N": 0.1,
+          "total_gap_s": 0.0,
+          "longest_gap_s": 0,
+          "continuous_support": true
+        },
+        {
+          "threshold_N": 1.0,
+          "total_gap_s": 0.0,
+          "longest_gap_s": 0,
+          "continuous_support": true
+        },
+        {
+          "threshold_N": 2.0,
+          "total_gap_s": 0.0,
+          "longest_gap_s": 0,
+          "continuous_support": true
+        },
+        {
+          "threshold_N": 5.0,
+          "total_gap_s": 0.0,
+          "longest_gap_s": 0,
+          "continuous_support": true
+        },
+        {
+          "threshold_N": 10.0,
+          "total_gap_s": 0.0,
+          "longest_gap_s": 0,
+          "continuous_support": true
+        }
+      ],
+      "perturbed_cases": [
+        {
+          "id": "trial_000",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_001",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_002",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_003",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_004",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_005",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_006",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_007",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_008",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_009",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_010",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_011",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_012",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_013",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_014",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_015",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_016",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_017",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_018",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_019",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_020",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_021",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_022",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_023",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_024",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_025",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_026",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_027",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_028",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_029",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_030",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        },
+        {
+          "id": "trial_031",
+          "support_fraction": 1.0,
+          "longest_support_gap_s": 0.0,
+          "failed_gates": []
+        }
+      ],
+      "perturbed_support_failures": 0,
+      "perturbed_longest_gap_min_median_max_s": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "cell": "hockey_s150_seed42",
+      "provenance": {
+        "run_report_sha256": "152fd28bf4237ce7bb41b1a9eb8b8aa36d9daec3e2a70d5dc194b10c295bc216",
+        "qualification_sha256": "c65b71bcb97db8c204f6986df072293ec55647eea0c3e61df225ca729ac72ed2",
+        "recorded_artifacts": {
+          "final_rollout.npz": "bf74ad8be78d534e2b75d81c81ed32b8984d990dce7449044a99d58e63c35158",
+          "native_contact_buffers.npz": "5a8b3be3e2006b01b9f39d42c5baffc5850c69384f5a0b138e661c7e16254bc2",
+          "case.json": "da7a8046732774af52c55a81a6e56ee0af7ea35181bfd5734e5003be865583e0"
+        }
+      },
+      "native_audit": {
+        "physical_samples_checked": 1112,
+        "maximum_readback_errors": {
+          "normal_fz": 3.814698175119702e-06,
+          "normal_point_lateral_rms": 9.359465646952003e-07,
+          "anchor_power": 0.0003151519476887188,
+          "friction_force": 7.62939453125e-06,
+          "aggregate_utilization": 1.7401217733414853e-07
+        },
+        "pointwise_normal_load_at_friction_anchors_available": false,
+        "force_velocity_timing": "completed-substep force/impulse divided by dt, paired with post-step material velocity; power proxy, not exact step work",
+        "archived_support_fields_verified": [
+          "time_s",
+          "normal_fz",
+          "friction_force",
+          "native_sample_valid",
+          "body_speed_m_s",
+          "root_tilt_deg"
+        ]
+      },
+      "reference_sha256": "8ae3b37abe4ebda528ad9005984f90920a0f71df4463ed84118ad7d59ab210d4",
+      "support_fraction": 0.9790145985401459,
+      "gap_count": 4,
+      "total_gap_s": 0.057499999999998774,
+      "longest_gap_s": 0.03749999999999998,
+      "zero_force_duration_s": 0.05499999999999883,
+      "xy_rmse_m": 0.02529870074835287,
+      "first_45deg_tilt_s": null,
+      "failed_gates": [
+        "anywheel_continuously_supported"
+      ],
+      "events": [
+        {
+          "first_index": 249,
+          "last_index": 250,
+          "start_s": 0.6200000000000001,
+          "end_s": 0.625,
+          "duration_s": 0.004999999999999893,
+          "phase": "braking",
+          "support_before": "R",
+          "support_after": "R",
+          "force_before_N": [
+            0.0,
+            193.94874572753733
+          ],
+          "force_after_N": [
+            0.0,
+            42.655769348144155
+          ],
+          "force_max_during_N": [
+            0.0,
+            0.0
+          ],
+          "zero_force_duration_s": 0.004999999999999893,
+          "combined_capacity_max_during_N": 0.0,
+          "maximum_wheel_force_next_20ms_N": [
+            0.0,
+            112.84257507324118
+          ],
+          "speed_mean_m_s": 1.7111644744873047,
+          "base_com_vertical_velocity_first_last_m_s": [
+            -0.023571476340293884,
+            -0.041983336210250854
+          ],
+          "tilt_max_deg": 11.264810144016199
+        },
+        {
+          "first_index": 257,
+          "last_index": 257,
+          "start_s": 0.64,
+          "end_s": 0.6425,
+          "duration_s": 0.0024999999999999467,
+          "phase": "braking",
+          "support_before": "R",
+          "support_after": "R",
+          "force_before_N": [
+            0.0,
+            112.84257507324118
+          ],
+          "force_after_N": [
+            0.0,
+            43.2760581970211
+          ],
+          "force_max_during_N": [
+            0.0,
+            1.923010468482954
+          ],
+          "zero_force_duration_s": 0.0,
+          "combined_capacity_max_during_N": 1.3461073279380678,
+          "maximum_wheel_force_next_20ms_N": [
+            184.23982238769366,
+            417.05813598632443
+          ],
+          "speed_mean_m_s": 1.7387052774429321,
+          "base_com_vertical_velocity_first_last_m_s": [
+            -0.16933512687683105,
+            -0.16933512687683105
+          ],
+          "tilt_max_deg": 11.810376722093071
+        },
+        {
+          "first_index": 289,
+          "last_index": 293,
+          "start_s": 0.7200000000000001,
+          "end_s": 0.7325,
+          "duration_s": 0.012499999999999956,
+          "phase": "braking",
+          "support_before": "R",
+          "support_after": "L",
+          "force_before_N": [
+            0.0,
+            237.28921508788852
+          ],
+          "force_after_N": [
+            860.8706665038986,
+            0.0
+          ],
+          "force_max_during_N": [
+            0.0,
+            0.0
+          ],
+          "zero_force_duration_s": 0.012499999999999734,
+          "combined_capacity_max_during_N": 0.0,
+          "maximum_wheel_force_next_20ms_N": [
+            860.8706665038986,
+            0.0
+          ],
+          "speed_mean_m_s": 1.4217580556869507,
+          "base_com_vertical_velocity_first_last_m_s": [
+            0.06946677714586258,
+            -0.050400570034980774
+          ],
+          "tilt_max_deg": 8.978206785975678
+        },
+        {
+          "first_index": 321,
+          "last_index": 335,
+          "start_s": 0.8,
+          "end_s": 0.8375,
+          "duration_s": 0.03749999999999998,
+          "phase": "braking",
+          "support_before": "L",
+          "support_after": "L",
+          "force_before_N": [
+            69.4502716064447,
+            0.0
+          ],
+          "force_after_N": [
+            572.3416748046824,
+            0.0
+          ],
+          "force_max_during_N": [
+            0.0,
+            0.0
+          ],
+          "zero_force_duration_s": 0.0374999999999992,
+          "combined_capacity_max_during_N": 0.0,
+          "maximum_wheel_force_next_20ms_N": [
+            572.3416748046824,
+            2310.6176757812295
+          ],
+          "speed_mean_m_s": 1.596448540687561,
+          "base_com_vertical_velocity_first_last_m_s": [
+            -0.22632133960723877,
+            -0.3401382863521576
+          ],
+          "tilt_max_deg": 9.830003899611174
+        }
+      ],
+      "threshold_sensitivity": [
+        {
+          "threshold_N": 1e-06,
+          "total_gap_s": 0.05499999999999883,
+          "longest_gap_s": 0.03749999999999998,
+          "continuous_support": false
+        },
+        {
+          "threshold_N": 0.1,
+          "total_gap_s": 0.05499999999999883,
+          "longest_gap_s": 0.03749999999999998,
+          "continuous_support": false
+        },
+        {
+          "threshold_N": 1.0,
+          "total_gap_s": 0.05499999999999883,
+          "longest_gap_s": 0.03749999999999998,
+          "continuous_support": false
+        },
+        {
+          "threshold_N": 2.0,
+          "total_gap_s": 0.057499999999998774,
+          "longest_gap_s": 0.03749999999999998,
+          "continuous_support": false
+        },
+        {
+          "threshold_N": 5.0,
+          "total_gap_s": 0.057499999999998774,
+          "longest_gap_s": 0.03749999999999998,
+          "continuous_support": false
+        },
+        {
+          "threshold_N": 10.0,
+          "total_gap_s": 0.057499999999998774,
+          "longest_gap_s": 0.03749999999999998,
+          "continuous_support": false
+        }
+      ],
+      "perturbed_cases": [
+        {
+          "id": "trial_000",
+          "support_fraction": 0.9771897810218978,
+          "longest_support_gap_s": 0.030000000000000027,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_001",
+          "support_fraction": 0.9799270072992701,
+          "longest_support_gap_s": 0.03499999999999992,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_002",
+          "support_fraction": 0.9781021897810219,
+          "longest_support_gap_s": 0.03249999999999997,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_003",
+          "support_fraction": 0.9790145985401459,
+          "longest_support_gap_s": 0.03499999999999992,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_004",
+          "support_fraction": 0.9771897810218978,
+          "longest_support_gap_s": 0.03499999999999992,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_005",
+          "support_fraction": 0.9762773722627737,
+          "longest_support_gap_s": 0.03499999999999992,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_006",
+          "support_fraction": 0.9781021897810219,
+          "longest_support_gap_s": 0.03499999999999992,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_007",
+          "support_fraction": 0.9790145985401459,
+          "longest_support_gap_s": 0.03749999999999998,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_008",
+          "support_fraction": 0.9808394160583942,
+          "longest_support_gap_s": 0.03499999999999992,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_009",
+          "support_fraction": 0.9771897810218978,
+          "longest_support_gap_s": 0.03499999999999992,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_010",
+          "support_fraction": 0.9781021897810219,
+          "longest_support_gap_s": 0.03499999999999992,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_011",
+          "support_fraction": 0.9799270072992701,
+          "longest_support_gap_s": 0.03499999999999992,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_012",
+          "support_fraction": 0.9771897810218978,
+          "longest_support_gap_s": 0.03499999999999992,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_013",
+          "support_fraction": 0.9799270072992701,
+          "longest_support_gap_s": 0.03499999999999992,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_014",
+          "support_fraction": 0.9790145985401459,
+          "longest_support_gap_s": 0.03249999999999997,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_015",
+          "support_fraction": 0.9781021897810219,
+          "longest_support_gap_s": 0.03249999999999997,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_016",
+          "support_fraction": 0.9771897810218978,
+          "longest_support_gap_s": 0.03249999999999997,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_017",
+          "support_fraction": 0.9799270072992701,
+          "longest_support_gap_s": 0.03749999999999998,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_018",
+          "support_fraction": 0.9781021897810219,
+          "longest_support_gap_s": 0.03499999999999992,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_019",
+          "support_fraction": 0.9799270072992701,
+          "longest_support_gap_s": 0.03749999999999998,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_020",
+          "support_fraction": 0.9826642335766423,
+          "longest_support_gap_s": 0.03249999999999997,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_021",
+          "support_fraction": 0.9808394160583942,
+          "longest_support_gap_s": 0.03249999999999997,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_022",
+          "support_fraction": 0.9771897810218978,
+          "longest_support_gap_s": 0.030000000000000027,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_023",
+          "support_fraction": 0.9762773722627737,
+          "longest_support_gap_s": 0.03749999999999998,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_024",
+          "support_fraction": 0.9781021897810219,
+          "longest_support_gap_s": 0.03249999999999997,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_025",
+          "support_fraction": 0.9799270072992701,
+          "longest_support_gap_s": 0.03499999999999992,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_026",
+          "support_fraction": 0.9790145985401459,
+          "longest_support_gap_s": 0.03249999999999997,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_027",
+          "support_fraction": 0.9781021897810219,
+          "longest_support_gap_s": 0.03749999999999998,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_028",
+          "support_fraction": 0.9762773722627737,
+          "longest_support_gap_s": 0.030000000000000027,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_029",
+          "support_fraction": 0.9808394160583942,
+          "longest_support_gap_s": 0.03249999999999997,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_030",
+          "support_fraction": 0.9790145985401459,
+          "longest_support_gap_s": 0.03249999999999997,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_031",
+          "support_fraction": 0.9790145985401459,
+          "longest_support_gap_s": 0.03499999999999992,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        }
+      ],
+      "perturbed_support_failures": 32,
+      "perturbed_longest_gap_min_median_max_s": [
+        0.030000000000000027,
+        0.03499999999999992,
+        0.03749999999999998
+      ]
+    },
+    {
+      "cell": "hockey_s200_seed42",
+      "provenance": {
+        "run_report_sha256": "69fa644a054ca0fe9e67dade77a058cf255985d7057257043342141590972561",
+        "qualification_sha256": "536ea0fc7f767a8c713c8ac40fe6b7e63fb42514bf1358255c6fcd499a066c78",
+        "recorded_artifacts": {
+          "final_rollout.npz": "e01784b3bf70cf4e1a429eee340195b8b976b7c0ec5d5e0bdd26b261290fa7dc",
+          "native_contact_buffers.npz": "68ad080718ae27797f46b3f007af5e9bd1f6f41b3cd201853f427e3292085a63",
+          "case.json": "ad554fc4284c2011f7f23040848f1d5cadec24ce06a584db9b8b6a87a8e9204c"
+        }
+      },
+      "native_audit": {
+        "physical_samples_checked": 1112,
+        "maximum_readback_errors": {
+          "normal_fz": 4.529951525000797e-06,
+          "normal_point_lateral_rms": 5.04000576162511e-07,
+          "anchor_power": 0.00010620235070746276,
+          "friction_force": 3.0517578125e-05,
+          "aggregate_utilization": 1.5165561739749478e-07
+        },
+        "pointwise_normal_load_at_friction_anchors_available": false,
+        "force_velocity_timing": "completed-substep force/impulse divided by dt, paired with post-step material velocity; power proxy, not exact step work",
+        "archived_support_fields_verified": [
+          "time_s",
+          "normal_fz",
+          "friction_force",
+          "native_sample_valid",
+          "body_speed_m_s",
+          "root_tilt_deg"
+        ]
+      },
+      "reference_sha256": "367a4c6655ce0e93595fa69cc5e46747a945f212fa06a8628625fd9735a15157",
+      "support_fraction": 0.9835766423357665,
+      "gap_count": 3,
+      "total_gap_s": 0.04499999999999904,
+      "longest_gap_s": 0.025000000000000022,
+      "zero_force_duration_s": 0.04499999999999904,
+      "xy_rmse_m": 0.01966852072354376,
+      "first_45deg_tilt_s": null,
+      "failed_gates": [
+        "anywheel_continuously_supported"
+      ],
+      "events": [
+        {
+          "first_index": 217,
+          "last_index": 226,
+          "start_s": 0.54,
+          "end_s": 0.5650000000000001,
+          "duration_s": 0.025000000000000022,
+          "phase": "braking",
+          "support_before": "R",
+          "support_after": "L",
+          "force_before_N": [
+            0.0,
+            47.84712600707965
+          ],
+          "force_after_N": [
+            358.6469726562468,
+            0.0
+          ],
+          "force_max_during_N": [
+            0.0,
+            0.0
+          ],
+          "zero_force_duration_s": 0.024999999999999467,
+          "combined_capacity_max_during_N": 0.0,
+          "maximum_wheel_force_next_20ms_N": [
+            358.6469726562468,
+            0.0
+          ],
+          "speed_mean_m_s": 2.391780376434326,
+          "base_com_vertical_velocity_first_last_m_s": [
+            0.34370410442352295,
+            -0.06325110793113708
+          ],
+          "tilt_max_deg": 7.994109493461248
+        },
+        {
+          "first_index": 273,
+          "last_index": 279,
+          "start_s": 0.68,
+          "end_s": 0.6975,
+          "duration_s": 0.01749999999999996,
+          "phase": "braking",
+          "support_before": "R",
+          "support_after": "L",
+          "force_before_N": [
+            0.0,
+            356.68228149413744
+          ],
+          "force_after_N": [
+            345.7028503417938,
+            0.0
+          ],
+          "force_max_during_N": [
+            0.0,
+            0.0
+          ],
+          "zero_force_duration_s": 0.017499999999999627,
+          "combined_capacity_max_during_N": 0.0,
+          "maximum_wheel_force_next_20ms_N": [
+            345.7028503417938,
+            0.0
+          ],
+          "speed_mean_m_s": 2.1277432441711426,
+          "base_com_vertical_velocity_first_last_m_s": [
+            -0.08651767671108246,
+            -0.28070300817489624
+          ],
+          "tilt_max_deg": 11.35045885497421
+        },
+        {
+          "first_index": 497,
+          "last_index": 497,
+          "start_s": 1.24,
+          "end_s": 1.2425,
+          "duration_s": 0.0024999999999999467,
+          "phase": "braking",
+          "support_before": "R",
+          "support_after": "R",
+          "force_before_N": [
+            0.0,
+            166.73944091796727
+          ],
+          "force_after_N": [
+            0.0,
+            11.909040451049698
+          ],
+          "force_max_during_N": [
+            0.0,
+            0.0
+          ],
+          "zero_force_duration_s": 0.0024999999999999467,
+          "combined_capacity_max_during_N": 0.0,
+          "maximum_wheel_force_next_20ms_N": [
+            0.0,
+            94.24416351318276
+          ],
+          "speed_mean_m_s": 0.9179866313934326,
+          "base_com_vertical_velocity_first_last_m_s": [
+            -0.12874449789524078,
+            -0.12874449789524078
+          ],
+          "tilt_max_deg": 3.7243645993793075
+        }
+      ],
+      "threshold_sensitivity": [
+        {
+          "threshold_N": 1e-06,
+          "total_gap_s": 0.04499999999999904,
+          "longest_gap_s": 0.025000000000000022,
+          "continuous_support": false
+        },
+        {
+          "threshold_N": 0.1,
+          "total_gap_s": 0.04499999999999904,
+          "longest_gap_s": 0.025000000000000022,
+          "continuous_support": false
+        },
+        {
+          "threshold_N": 1.0,
+          "total_gap_s": 0.04499999999999904,
+          "longest_gap_s": 0.025000000000000022,
+          "continuous_support": false
+        },
+        {
+          "threshold_N": 2.0,
+          "total_gap_s": 0.04499999999999904,
+          "longest_gap_s": 0.025000000000000022,
+          "continuous_support": false
+        },
+        {
+          "threshold_N": 5.0,
+          "total_gap_s": 0.04499999999999904,
+          "longest_gap_s": 0.025000000000000022,
+          "continuous_support": false
+        },
+        {
+          "threshold_N": 10.0,
+          "total_gap_s": 0.04499999999999904,
+          "longest_gap_s": 0.025000000000000022,
+          "continuous_support": false
+        }
+      ],
+      "perturbed_cases": [
+        {
+          "id": "trial_000",
+          "support_fraction": 0.9799270072992701,
+          "longest_support_gap_s": 0.025000000000000022,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_001",
+          "support_fraction": 0.9781021897810219,
+          "longest_support_gap_s": 0.025000000000000022,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_002",
+          "support_fraction": 0.9826642335766423,
+          "longest_support_gap_s": 0.025000000000000022,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_003",
+          "support_fraction": 0.9762773722627737,
+          "longest_support_gap_s": 0.02749999999999997,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_004",
+          "support_fraction": 0.9826642335766423,
+          "longest_support_gap_s": 0.020000000000000018,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_005",
+          "support_fraction": 0.9753649635036497,
+          "longest_support_gap_s": 0.03249999999999997,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_006",
+          "support_fraction": 0.9790145985401459,
+          "longest_support_gap_s": 0.022499999999999964,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_007",
+          "support_fraction": 0.9799270072992701,
+          "longest_support_gap_s": 0.022499999999999964,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_008",
+          "support_fraction": 0.9808394160583942,
+          "longest_support_gap_s": 0.022499999999999964,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_009",
+          "support_fraction": 0.9726277372262774,
+          "longest_support_gap_s": 0.030000000000000027,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_010",
+          "support_fraction": 0.9790145985401459,
+          "longest_support_gap_s": 0.02749999999999997,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_011",
+          "support_fraction": 0.9744525547445255,
+          "longest_support_gap_s": 0.02750000000000008,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_012",
+          "support_fraction": 0.9781021897810219,
+          "longest_support_gap_s": 0.02749999999999997,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_013",
+          "support_fraction": 0.9762773722627737,
+          "longest_support_gap_s": 0.025000000000000133,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_014",
+          "support_fraction": 0.9781021897810219,
+          "longest_support_gap_s": 0.025000000000000022,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_015",
+          "support_fraction": 0.9762773722627737,
+          "longest_support_gap_s": 0.025000000000000133,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_016",
+          "support_fraction": 0.9762773722627737,
+          "longest_support_gap_s": 0.02749999999999997,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_017",
+          "support_fraction": 0.9835766423357665,
+          "longest_support_gap_s": 0.020000000000000018,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_018",
+          "support_fraction": 0.9781021897810219,
+          "longest_support_gap_s": 0.022499999999999964,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_019",
+          "support_fraction": 0.9854014598540146,
+          "longest_support_gap_s": 0.01749999999999996,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_020",
+          "support_fraction": 0.9762773722627737,
+          "longest_support_gap_s": 0.02749999999999997,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_021",
+          "support_fraction": 0.9826642335766423,
+          "longest_support_gap_s": 0.01749999999999996,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_022",
+          "support_fraction": 0.9826642335766423,
+          "longest_support_gap_s": 0.025000000000000022,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_023",
+          "support_fraction": 0.9781021897810219,
+          "longest_support_gap_s": 0.030000000000000027,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_024",
+          "support_fraction": 0.9835766423357665,
+          "longest_support_gap_s": 0.022499999999999964,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_025",
+          "support_fraction": 0.9698905109489051,
+          "longest_support_gap_s": 0.03500000000000014,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_026",
+          "support_fraction": 0.9744525547445255,
+          "longest_support_gap_s": 0.03249999999999997,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_027",
+          "support_fraction": 0.9717153284671532,
+          "longest_support_gap_s": 0.03249999999999997,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_028",
+          "support_fraction": 0.9708029197080292,
+          "longest_support_gap_s": 0.03500000000000014,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_029",
+          "support_fraction": 0.9744525547445255,
+          "longest_support_gap_s": 0.02749999999999997,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_030",
+          "support_fraction": 0.9744525547445255,
+          "longest_support_gap_s": 0.02750000000000008,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        },
+        {
+          "id": "trial_031",
+          "support_fraction": 0.9762773722627737,
+          "longest_support_gap_s": 0.025000000000000133,
+          "failed_gates": [
+            "anywheel_continuously_supported"
+          ]
+        }
+      ],
+      "perturbed_support_failures": 32,
+      "perturbed_longest_gap_min_median_max_s": [
+        0.01749999999999996,
+        0.025000000000000133,
+        0.03500000000000014
+      ]
+    }
+  ]
+}
