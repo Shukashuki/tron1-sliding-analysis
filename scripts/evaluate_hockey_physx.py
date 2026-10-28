@@ -21,6 +21,39 @@ def load(path):
     with np.load(path,allow_pickle=False) as z:return {k:z[k] for k in z.files}
 
 
+def verify_hockey_search_source(source,run):
+    """Accept only the reviewed native-search implementation, not arbitrary costs."""
+    source=Path(source).resolve()
+    expected={
+        'generate_hockey_physx_mppi.py':'260dc6112940382938e9e671ed2d2944a9771c7edcba3d1f4af257ffd0adbee3',
+        'hockey_mppi_math.py':'8895c0482289d80e476e7cd8e016fd63a857920150b672c286faeb1b51f4ec4c',
+        'dispatch_hockey_physx_mppi.py':'601bfe51d6558cdf7563a796f6aa9217876213a27e38d2a5a6cc20e0bcf6b8ba',
+    }
+    manifest=json.loads((source/'manifest.json').read_text())
+    if manifest['kind']!='hockey_native_physx_mppi_snapshot_v1':raise ValueError('Wrong search snapshot')
+    for row in manifest['files']:
+        p=(source/row['path']).resolve()
+        if not p.is_relative_to(source) or p.stat().st_size!=row['bytes'] or sha(p)!=row['sha256']:
+            raise ValueError('Search snapshot changed')
+    for name,digest in expected.items():
+        if sha(source/name)!=digest:raise ValueError('Unreviewed native hockey search source')
+    fields={'source_sha256':'generate_hockey_physx_mppi.py','task_math_sha256':'hockey_mppi_math.py',
+            'config_sha256':'config.json','motion_sha256':'motion.npz',
+            'conditioning_table_sha256':'nominal_conditioning.npz','initial_mean_sha256':'initial_mean.npz',
+            'math_source_sha256':'physx_reference_math.py'}
+    if any(run.get(k)!=sha(source/v) for k,v in fields.items()):raise ValueError('Search report/source mismatch')
+    cfg=json.loads((source/'config.json').read_text())
+    if (run.get('kind')!='hockey_native_physx_mppi_v1' or run.get('conditioning_mode')!='reference_dq'
+            or not run.get('actual_actor_input_archived') or run.get('policy_weights_changed') is not False
+            or run.get('policy_training') is not False or run.get('external_forces')!=0
+            or not run.get('single_world_validation') or run.get('worlds')!=1 or run.get('iterations')!=0
+            or run.get('search_history') or run.get('actor_sha256')!=cfg['actor_sha256']
+            or run.get('asset_sha256')!=cfg['asset_sha256'] or run.get('tracking_source_sha256')!=cfg['tracking_sha256']):
+        raise ValueError('Not an independent native hockey search-plan validation')
+    return dict(source_manifest_sha256=sha(source/'manifest.json'),reviewed_source_sha256=expected,
+                planning_costs_used_for_success=False,qualification_thresholds_unchanged=True)
+
+
 def verify_execution_evidence(root,run_dir):
     """Bind unmodified engine output to the launched wrapper via the collected audit.
 
@@ -382,6 +415,7 @@ def main():
     p.add_argument('--command-dir',type=Path)
     p.add_argument('--execution-evidence',type=Path,help='Collected v2 launch/payload audit when Kit shutdown skipped post-run annotations')
     p.add_argument('--conditioning-table',type=Path,help='Required for the approved input-intervention probes')
+    p.add_argument('--search-source',type=Path,help='Reviewed native hockey MPPI snapshot for single-world plan validation')
     p.add_argument('--instrumentation-only',action='store_true')
     a=p.parse_args()
     if (a.command_dir is None)!=a.instrumentation_only:p.error('Choose a hockey command directory or instrumentation-only')
@@ -411,13 +445,21 @@ def main():
             wrapper_sha=report['execution_evidence']['wrapper_sha256']
         base_wrapper='dd29fe1ddd736f0faf8fd78e6290020374346e24753bb6259dac6e59cc97bf2e'
         conditioning_wrapper='51447598d9c840de94df203dfa21679c22f99a8d5d5b2876de7d9c671ab9d266'
-        if (run['source_sha256']!='3aacb6b4f3b62d32ce6fa2326f2cb6bfe372b693b53c9830a27a85f26f3f7763'
+        if a.search_source:
+            if a.execution_evidence:raise ValueError('Search validation cannot use historical probe identity')
+            report['search_source_audit']=verify_hockey_search_source(a.search_source,run)
+        elif (run['source_sha256']!='3aacb6b4f3b62d32ce6fa2326f2cb6bfe372b693b53c9830a27a85f26f3f7763'
                 or wrapper_sha not in (base_wrapper,conditioning_wrapper)
                 or not run['single_world_validation'] or run['worlds']!=1 or run['external_forces']!=0):
             raise ValueError('Hockey probe is not the frozen single-world native engine')
         if len(trace['root_pos'])!=8*len(trace['actions'])+1:raise ValueError('Physical/action clock mismatch')
         mode=None;conditioning=None
-        if wrapper_sha==conditioning_wrapper:
+        if a.search_source:
+            if a.conditioning_table is None or sha(a.conditioning_table)!=run['conditioning_table_sha256']:
+                raise ValueError('Unverified search conditioning table')
+            mode=run['conditioning_mode'];conditioning=load(a.conditioning_table)['command'][:len(trace['actions'])]
+            report['conditioning_table_sha256']=sha(a.conditioning_table)
+        elif wrapper_sha==conditioning_wrapper:
             if (a.conditioning_table is None or sha(a.conditioning_table)!=run['conditioning_table_sha256']
                     or run['conditioning_adapter_sha256']!='47bf422eb4acc93cb34cea52297e6648f24c881368f1160f6cbf596733da85df'
                     or not run['actual_actor_input_archived'] or run['policy_weights_changed'] or run['MPPI_search_run']):

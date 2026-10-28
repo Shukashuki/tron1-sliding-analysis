@@ -46,6 +46,7 @@ def main():
     qualification=json.loads((qualification_dir/'report.json').read_text())
     run=json.loads((run_dir/'report.json').read_text())
     label=run.get('conditioning_mode','old PPO / zero residual')
+    if run.get('kind')=='hockey_native_physx_mppi_v1':label='PPO+MPPI (dq adapter)'
     stop_screen=qualification['qualification']['task_success_claimed']
     if sha(a.model)!=command_report['model_sha256']:raise ValueError('Visual model mismatch')
     for file,digest in qualification['input_sha256'].items():
