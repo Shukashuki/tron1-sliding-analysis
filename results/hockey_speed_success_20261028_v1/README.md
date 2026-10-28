@@ -1,10 +1,45 @@
 # Hockey-stop learning success and increased speed
 
-Status at the first collection (2026-10-28, approximately 19:02 UTC): **1/18 cells independently qualified; the remaining queue is running** in tmux `hockey_speed_success_20261028_v1` on the authorized RTX host. The original-recipe, original-speed, seed-42 policy completed all 12,288,000 transitions and 33 validation episodes. Its nominal episode failed, with **0/32 perturbed-reset successes**. The matched hockey-policy formal training has started. This is a partial result from one training seed, not the completed comparison. [Launch evidence](preflight/launch.json) · [Upload receipt](preflight/upload_receipt.json) · [CPU checks](preflight/local_tests.json) · [Collected process status](first_cell_evidence_v1/verified_process_status.json).
+Latest published comparison: **2/18 cells independently qualified, covering 66 full episodes; the remaining queue is running** in tmux `hockey_speed_success_20261028_v1` on the authorized RTX host. At original speed and training seed 42, the earlier tracking recipe achieved **0/32 perturbed-reset successes**, versus **32/32 for hockey PPO**. Each completed 12,288,000 training transitions from scratch. The 1.5× original-recipe cell is next in progress. This is one matched training-seed pair, not the completed three-seed or increased-speed comparison. [Launch evidence](preflight/launch.json) · [Upload receipt](preflight/upload_receipt.json) · [CPU checks](preflight/local_tests.json) · [Collected process status](paired_s100_seed42_evidence_v1/verified_process_status.json).
 
 The requested baseline is the earlier **TRON1 BeyondMimic-style PPO tracking recipe**, rather than the previous hockey experiment's zero-support-weight arm. The second method is the directly trained hockey tracking PPO, without the additional continuous support penalty. The full recipes differ in observations, rewards, learning-rate schedule and episode-end semantics; this is not a single-reward causal ablation.
 
-## First completed cell — preliminary failure analysis
+## Matched original-speed comparison — seed 42, μ = 0.7
+
+![Reference, earlier recipe, hockey PPO and common-scale XY](paired_s100_seed42_nominal_comparison_v1/hockey_ppo_fullbody_xy_4x1.gif)
+
+[Nominal 4×1 MP4](paired_s100_seed42_nominal_comparison_v1/hockey_ppo_fullbody_xy_4x1.mp4) · [Identical perturbed start, trial 022](paired_s100_seed42_trial022_comparison_v1/hockey_ppo_fullbody_xy_4x1.mp4) · [Nominal physics chart](paired_s100_seed42_analysis_v1/nominal_physics_comparison_4x1.png) · [All paired trial metrics](paired_s100_seed42_analysis_v1/paired_trials.csv) · [Machine-readable comparison](paired_s100_seed42_analysis_v1/report.json) · [Study-wide partial summary](partial_pair_summary_v1/report.json)
+
+| Metric | Earlier BeyondMimic-style PPO | Hockey PPO |
+| --- | ---: | ---: |
+| Nominal episode, all eleven gates | Fail | Pass |
+| Perturbed-reset success | 0/32 | 32/32 |
+| Conditional Wilson 95% interval | 0–10.72% | 89.28–100% |
+| Nominal entry COM speed | 1.399 m/s | 1.382 m/s |
+| Nominal XY RMSE / peak | 0.259 / 0.942 m | 0.0179 / 0.0398 m |
+| Nominal at-least-one-wheel support | 95.44% | 100% |
+| Nominal longest support interruption | 95 ms | 0 ms |
+| Nominal supported final 0.5 s stop | Fail | Pass |
+| Nominal pre-fall high-β saturated dissipative slide, longest left / right | 60 / 27.5 ms | 197.5 / 30 ms |
+| Perturbed XY RMSE, median [min, max] | 0.284 [0.093, 0.490] m | 0.0196 [0.0117, 0.0304] m |
+
+All 32 paired perturbations favor hockey PPO under the unchanged complete success definition. In the nominal recording, the earlier recipe brakes initially, then accelerates away during the stop/hold phase and exceeds 45° tilt at 2.6575 s. Hockey PPO maintains support and a supported stop while preserving the required loaded sliding. Across its 32 perturbed trials, its longest qualifying left-wheel slide is 192.5–337.5 ms; all trials retain continuous at-least-one-wheel support.
+
+| Failed gate, nonexclusive counts over 32 perturbations | Earlier recipe | Hockey PPO |
+| --- | ---: | ---: |
+| Continuous at-least-one-wheel support | 32 | 0 |
+| Supported terminal stop | 30 | 0 |
+| Peak XY error ≤0.30 m | 28 | 0 |
+| XY RMSE ≤0.15 m | 26 | 0 |
+| Whole-task tilt <45° | 22 | 0 |
+| Corroborated loaded high-β sliding ≥50 ms | 5 | 0 |
+
+Entry speed, approach-speed retention and both braking-heading gates pass in all 32 perturbed trials of both methods. Thus this pair primarily differs in tracking and stop/support stability, rather than simply entering more slowly. Near-limit friction remains a wheel-aggregate diagnostic, not a pointwise friction-cone certificate. These results establish conditional robustness for this trained hockey policy; one training seed cannot establish repeatable learning success, and the full-recipe difference cannot isolate a β-reward effect.
+
+Both animations keep the camera 2.4 m from the robot with identical orientation, fixed relative target and identical XY bounds. The four panels show the GMR-based reference, earlier PPO, hockey PPO and shared XY paths with body headings, wheel-plane directions and COM velocity directions. `trial_022` is selected because it has the earlier recipe's largest perturbed XY RMSE; the hockey panel uses exactly the same initial-state draw. All other trials remain in the reported denominator. Rendering adds no physics, retiming or pose correction.
+
+<details>
+<summary>Archived first-cell analysis before its matched policy completed</summary>
 
 Only `beyondmimic_s100_seed42` is included here. Every recorded observation, actor output and native contact sample passed independent reconstruction before qualification. The maximum CPU actor-replay discrepancy over the 33 episodes was 1.02e-6, below the frozen 5e-5 tolerance. [All 33 outcomes](first_cell_evidence_v1/runs_v1/beyondmimic_s100_seed42/analyze/report.json) · [Partial summary](partial_first_cell_v1/report.json) · [CSV](partial_first_cell_v1/summary.csv).
 
@@ -28,6 +63,10 @@ The nominal episode and `trial_022` (the largest perturbed-trial XY RMSE) are re
 - [Nominal 4×1 video](first_cell_nominal_render_v1/hockey_command_physx_xy_contact_4x1.mp4): reference, full body, XY/headings, native contact diagnostics.
 - [Worst-XY perturbed episode, 4×1 video](first_cell_failure_render_v1/hockey_command_physx_xy_contact_4x1.mp4).
 - [Partial 4×1 success/failure chart](partial_first_cell_v1/learning_and_rollout_success_4x1.png). Missing conditions remain pending and are excluded from denominators.
+
+</details>
+
+## Shared reference and recipes
 
 | Shared reference condition | Original speed | 1.5× speed | 2× speed |
 | --- | ---: | ---: | ---: |
@@ -110,6 +149,16 @@ Read-only live progress and evidence retrieval:
 python scripts/collect_hockey_speed_study.py --status-only
 python scripts/collect_hockey_speed_study.py --representative-traces \
   --output outputs/hockey_speed_success_collection
+```
+
+For a matched failure example, add `--case trial_022` to retrieve that same audited episode from each completed policy. To reproduce the original-speed pair's metrics and physics chart from this committed evidence:
+
+```bash
+python scripts/compare_hockey_speed_pair.py \
+  --runs results/hockey_speed_success_20261028_v1/paired_s100_seed42_evidence_v1/runs_v1 \
+  --command-dir results/hockey_speed_success_20261028_v1/source_snapshot_v1/references/s100 \
+  --seed 42 --speed-scale 1 \
+  --output outputs/hockey_original_speed_pair_reproduction
 ```
 
 The collector downloads completed reports and optionally nominal / worst failed-XY traces. Actor weights and checkpoints remain on the authorized host; no remote process is started, stopped or modified by collection.

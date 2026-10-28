@@ -21,6 +21,8 @@ def main():
     p.add_argument('--output', type=Path)
     p.add_argument('--representative-traces', action='store_true',
                    help='Also retrieve nominal and worst failed XY trial for completed analyzed cells')
+    p.add_argument('--case', action='append', default=[],
+                   help='Also retrieve this declared case from every completed analyzed cell; repeatable')
     a = p.parse_args()
     probe = r'''from pathlib import Path
 import json,re
@@ -72,9 +74,12 @@ for row in s['completed']:
    f=directory/(case['id']+'.json')
    assert hashlib.sha256(f.read_bytes()).hexdigest()==case['report_sha256']
    files.append(str(f.relative_to(root)))
-  if INCLUDE_TRACES:
+  if INCLUDE_TRACES or EXTRA_CASES:
    failed=[c for c in report['cases'][1:] if not c['success']]
-   chosen=['nominal']+([max(failed,key=lambda c:c['xy_rmse_m'])['id']] if failed else [])
+   chosen=(['nominal']+([max(failed,key=lambda c:c['xy_rmse_m'])['id']] if failed else [])) if INCLUDE_TRACES else []
+   declared={c['id'] for c in report['cases']}
+   if set(EXTRA_CASES)-declared:raise ValueError('Requested case is not in the audited suite')
+   chosen=list(dict.fromkeys(chosen+EXTRA_CASES))
    for case_id in chosen:
     for name in ('report.json','case.json','final_rollout.npz','native_contact_buffers.npz'):
      files.append(str((root/'runs_v1'/cell/'eval-suite'/case_id/name).relative_to(root)))
@@ -89,7 +94,7 @@ with tarfile.open(fileobj=sys.stdout.buffer,mode='w|') as tar:
   manifest.append(dict(path=name,bytes=len(raw),sha256=hashlib.sha256(raw).hexdigest()))
  raw=(json.dumps(manifest,indent=2)+'\\n').encode();info=tarfile.TarInfo('collection_manifest.json');info.size=len(raw)
  tar.addfile(info,io.BytesIO(raw))
-'''.replace('REMOTE', repr(REMOTE)).replace('INCLUDE_TRACES', repr(a.representative_traces))
+'''.replace('REMOTE', repr(REMOTE)).replace('INCLUDE_TRACES', repr(a.representative_traces)).replace('EXTRA_CASES', repr(a.case))
     raw = remote(collect)
     with tarfile.open(fileobj=io.BytesIO(raw), mode='r:') as tar:
         members = tar.getmembers()

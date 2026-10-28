@@ -1,0 +1,156 @@
+{
+  "seed": 42,
+  "speed_scale": 1.0,
+  "evaluated_friction": 0.7,
+  "summaries": [
+    {
+      "method": "beyondmimic",
+      "nominal": {
+        "method": "beyondmimic",
+        "case_id": "nominal",
+        "kind": "nominal",
+        "success": false,
+        "xy_rmse_m": 0.25850064713969145,
+        "xy_peak_m": 0.9424263372196324,
+        "entry_speed_m_s": 1.399350881576538,
+        "approach_speed_ratio": 1.0208110750993828,
+        "support_fraction": 0.9543795620437956,
+        "longest_support_gap_s": 0.09499999999999975,
+        "terminal_stop_hold_s": 0.0,
+        "first_45deg_tilt_s": 2.6575,
+        "body_heading_rmse_deg": 3.192849245194187,
+        "loaded_wheel_heading_rmse_deg": 2.93908343087918,
+        "high_beta_slide_left_s": 0.06000000000000005,
+        "high_beta_slide_right_s": 0.027499999999999858,
+        "failed_gates": "xy_rmse_le_0p15;xy_peak_le_0p3;anywheel_continuously_supported;upright_supported_terminal_hold_ge_0p5;tilt_below_45deg_during_task",
+        "maximum_tilt_deg": 65.80868142568559
+      },
+      "perturbed_successes": 0,
+      "perturbed_trials": 32,
+      "conditional_Wilson_95_interval": [
+        0.0,
+        0.1071791982550706
+      ],
+      "failure_counts_nonexclusive": {
+        "xy_rmse_le_0p15": 26,
+        "xy_peak_le_0p3": 28,
+        "anywheel_continuously_supported": 32,
+        "upright_supported_terminal_hold_ge_0p5": 30,
+        "tilt_below_45deg_during_task": 22,
+        "loaded_lateral_sliding_during_braking_ge_0p05": 5
+      },
+      "perturbed_median_min_max": {
+        "xy_rmse_m": [
+          0.28385892957780573,
+          0.09307404786711194,
+          0.48967468128230657
+        ],
+        "xy_peak_m": [
+          1.014447475324535,
+          0.1190759375110661,
+          1.1072461200648696
+        ],
+        "support_fraction": [
+          0.9562043795620438,
+          0.8859489051094891,
+          0.9854014598540146
+        ],
+        "longest_support_gap_s": [
+          0.0787500000000001,
+          0.012499999999999956,
+          0.1875
+        ],
+        "high_beta_slide_left_s": [
+          0.07499999999999996,
+          0.039999999999999813,
+          0.13000000000000012
+        ],
+        "high_beta_slide_right_s": [
+          0.039999999999999925,
+          0.012499999999999956,
+          0.05499999999999994
+        ]
+      }
+    },
+    {
+      "method": "hockey",
+      "nominal": {
+        "method": "hockey",
+        "case_id": "nominal",
+        "kind": "nominal",
+        "success": true,
+        "xy_rmse_m": 0.017875582711005703,
+        "xy_peak_m": 0.03975949213587411,
+        "entry_speed_m_s": 1.381827712059021,
+        "approach_speed_ratio": 1.0217516252921905,
+        "support_fraction": 1.0,
+        "longest_support_gap_s": 0.0,
+        "terminal_stop_hold_s": 0.5,
+        "first_45deg_tilt_s": null,
+        "body_heading_rmse_deg": 2.0498544795659495,
+        "loaded_wheel_heading_rmse_deg": 3.1161855839242163,
+        "high_beta_slide_left_s": 0.1974999999999999,
+        "high_beta_slide_right_s": 0.029999999999999916,
+        "failed_gates": "",
+        "maximum_tilt_deg": 6.494038286791358
+      },
+      "perturbed_successes": 32,
+      "perturbed_trials": 32,
+      "conditional_Wilson_95_interval": [
+        0.8928208017449293,
+        1.0
+      ],
+      "failure_counts_nonexclusive": {},
+      "perturbed_median_min_max": {
+        "xy_rmse_m": [
+          0.019613136202859524,
+          0.011677785063107463,
+          0.030433517220205403
+        ],
+        "xy_peak_m": [
+          0.04088719921906952,
+          0.025008153473360904,
+          0.062142535494698864
+        ],
+        "support_fraction": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "longest_support_gap_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "high_beta_slide_left_s": [
+          0.1974999999999999,
+          0.1925,
+          0.3375
+        ],
+        "high_beta_slide_right_s": [
+          0.02749999999999997,
+          0.010000000000000009,
+          0.03499999999999992
+        ]
+      }
+    }
+  ],
+  "paired_perturbation_outcomes": {
+    "both_success": 0,
+    "original_only": 0,
+    "hockey_only": 32,
+    "neither_success": 0
+  },
+  "input_report_and_signal_sha256": {
+    "results/hockey_speed_success_20261028_v1/paired_s100_seed42_evidence_v1/runs_v1/beyondmimic_s100_seed42/analyze/report.json": "706692aac67e573264caf1f140ecd8f9d8a7835714f19fbff6e49cea1ad262d9",
+    "results/hockey_speed_success_20261028_v1/paired_s100_seed42_evidence_v1/runs_v1/beyondmimic_s100_seed42/analyze/nominal.signals.npz": "991293ea1940bf78431ce1864752de72c0b42cef0137781d8df6e0027836e7c0",
+    "results/hockey_speed_success_20261028_v1/paired_s100_seed42_evidence_v1/runs_v1/hockey_s100_seed42/analyze/report.json": "03264bb1467ed58e7d9627f6f6a92837592779bf088ea78f15cff9d701cf8fbb",
+    "results/hockey_speed_success_20261028_v1/paired_s100_seed42_evidence_v1/runs_v1/hockey_s100_seed42/analyze/nominal.signals.npz": "550fb21272714fd63caa11934eca798c25c1b8b6df659afc72f940c83f8daa05"
+  },
+  "motion_sha256": "e23fbd82639d243f0c485cf391b1eff0e275d31f6bb6ba940647874a0ac83050",
+  "script_sha256": "79623410892bee5212a227941f56077e3d4e1e1a15715f1ffbd8a9867604ed74",
+  "interpretation": "One training seed per recipe; conditional reset success is not training reliability. Complete recipes differ, so no single-reward causal attribution.",
+  "physics_steps_performed": 0,
+  "success_criteria_changed": false,
+  "pointwise_friction_cone_certified": false
+}
