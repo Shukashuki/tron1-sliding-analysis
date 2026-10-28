@@ -1,0 +1,27 @@
+{
+  "kind": "hockey_friction_boundary_ablation_v1",
+  "speed_scale": 1.5,
+  "seed": 42,
+  "arms": {"boundary_off": 0.0, "boundary_on": 0.5},
+  "friction_boundary": {
+    "load_threshold_N": 5.0,
+    "load_full_fraction_mg": 0.25,
+    "rho_width": 0.1,
+    "rho_upper_screen": 1.05,
+    "slip_threshold_m_s": 0.05,
+    "slip_ramp_m_s": 0.1,
+    "power_threshold_W": 0.05,
+    "power_ramp_W": 1.0,
+    "braking_power_ramp_W": 1.0,
+    "xy_scale_m": 0.3,
+    "velocity_scale_m_s": 0.5,
+    "zero_at_tilt_deg": 45.0
+  },
+  "retain_actor_critic_dimensions": [56, 125],
+  "retain_all_previous_reward_terms": true,
+  "retain_training_DR_and_evaluation_gates": true,
+  "absolute_height_target": false,
+  "require_bilateral_support": false,
+  "per_anchor_cone_certified": false,
+  "rationale": "Add one bounded reward for supported, dissipative lateral sliding near the wheel-aggregate friction boundary during braking. Other actions remain learned by PPO under the existing soft imitation terms. Stop/hold earns no boundary reward."
+}

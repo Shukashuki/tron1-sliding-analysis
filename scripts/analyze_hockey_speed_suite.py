@@ -47,6 +47,8 @@ def main():
             raise ValueError("Study cell identity differs")
         if cfg["method"] == "beyondmimic" and report["baseline_adapter_sha256"] != sha(a.bundle/"hockey_beyondmimic_task.py"):
             raise ValueError("Baseline adapter differs")
+        if cfg.get("friction_boundary") is not None and report.get("friction_boundary_source_sha256") != sha(a.bundle/"hockey_friction_boundary.py"):
+            raise ValueError("Friction-boundary implementation differs")
     if not training["actor_sha256"] == suite["actor_sha256"] == sha(a.actor):
         raise ValueError("Different actor")
     reference = load(a.command_dir/"motion.npz")
@@ -121,6 +123,8 @@ def main():
         evaluator_sha256=sha(Path(__file__).with_name("evaluate_hockey_physx.py")),
         analyzer_sha256=sha(__file__), source_manifest_sha256=sha(a.bundle/"manifest.json"),
         pointwise_friction_cone_certified=False)
+    if cfg.get("friction_boundary") is not None:
+        report["friction_boundary"] = cfg["friction_boundary"]
     (a.output/"report.json").write_text(json.dumps(report, indent=2, allow_nan=False)+"\n")
     print(json.dumps({k: report[k] for k in ("method", "seed", "speed_scale", "nominal_success", "perturbation_success_rate")}))
 

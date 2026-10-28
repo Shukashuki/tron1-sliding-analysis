@@ -43,8 +43,22 @@ def main():
         if not path.is_relative_to(a.bundle.resolve()) or sha(path) != row["sha256"]:
             raise ValueError("Payload changed")
     plan = read(a.bundle/"plan.json")
-    if (plan["formal_training_runs"], plan["total_formal_transitions"], plan["total_evaluation_episodes"]) != (18, 221184000, 594):
+    boundary = plan["kind"] == "hockey_friction_boundary_ablation_v1"
+    budget = (2, 24576000, 66) if boundary else (18, 221184000, 594)
+    if (plan["formal_training_runs"], plan["total_formal_transitions"], plan["total_evaluation_episodes"]) != budget:
         raise ValueError("Unreviewed study budget")
+    if boundary:
+        if len(plan['cells']) != 2:
+            raise ValueError('Boundary comparison must have exactly two cells')
+        protocols = [read(a.bundle/c['protocol']) for c in plan['cells']]
+        if [c['friction_boundary']['weight'] for c in protocols] != [0., .5]:
+            raise ValueError('Expected boundary-off and boundary-on weights')
+        import copy
+        compare = copy.deepcopy(protocols)
+        for c in compare:
+            c['friction_boundary'].pop('weight')
+        if compare[0] != compare[1] or any(c['method'] != 'hockey' or c['speed_scale'] != 1.5 or c['seed'] != 42 for c in protocols):
+            raise ValueError('Boundary arms must differ only in their reward weight')
     old = read(a.prior_launch)["argv"]
     get = lambda key: old[old.index("--"+key)+1]
     paths = {key: Path(get(key)) for key in ("asset", "tracking-root", "beyondmimic-root")}
@@ -126,7 +140,7 @@ def main():
                     raise ValueError("Incomplete independent success evaluation")
                 row["report_sha256"] = sha(cell_dir/mode/"report.json")
                 status["completed"].append(row); status["current"] = None; save()
-        status["status"] = "completed_all_18_cells"; save()
+        status["status"] = "completed_all_2_cells" if boundary else "completed_all_18_cells"; save()
     except BaseException as exc:
         status.update(status="stopped", error=f"{type(exc).__name__}: {exc}"); save()
         raise

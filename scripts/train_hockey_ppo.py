@@ -217,8 +217,14 @@ def main():
             report["baseline_adapter_sha256"] = sha(Path(__file__).with_name("hockey_beyondmimic_task.py"))
         else:
             configure(ecfg, cfg, a.variant, training=training)
+        boundary = cfg.get("friction_boundary")
+        if boundary is not None:
+            from hockey_friction_boundary import configure as configure_boundary, FrictionBoundaryWindow
+            configure_boundary(ecfg, cfg)
+            report["friction_boundary_source_sha256"] = sha(Path(__file__).with_name("hockey_friction_boundary.py"))
         env = ManagerBasedRLEnv(cfg=ecfg)
-        collector = SupportWindow(env) if training else None
+        collector = ((FrictionBoundaryWindow(env) if boundary is not None else SupportWindow(env))
+                     if training else None)
         wrapped = RslRlVecEnvWrapper(env, clip_actions=1.)
         obs, _ = wrapped.reset()
         if tuple(obs["policy"].shape) != (n, cfg["actor_dim"]) or tuple(obs["critic"].shape) != (n, cfg["critic_dim"]):
@@ -228,6 +234,8 @@ def main():
         report["termination_terms"] = list(env.termination_manager.active_terms)
         allowed = {"action_rate_l2", "joint_limit", "undesired_contacts", "hockey_vertical_acceleration"}
         allowed.update("hockey_"+k for k in ("xy", "velocity", "heading", "yaw_rate", "leg_pose", "wheel_axis", "beta", "stop_hold", "tilt", "fall", "support"))
+        if boundary is not None:
+            allowed.add("hockey_friction_boundary")
         expected_terminations = {"time_out", "motion_end", "hockey_fall"}
         if method == "beyondmimic":
             allowed = {"motion_global_anchor_pos", "motion_global_anchor_ori", "motion_body_pos",
@@ -295,6 +303,8 @@ def main():
             report.update(status="training_completed_not_task_success", transitions=transitions,
                 checkpoint_sha256=sha(a.output_dir/"model_final.pt"),
                 actor_sha256=sha(a.output_dir/"actor_normalized.pt"), actor_includes_normalizer=True)
+            if boundary is not None:
+                report["friction_boundary_audit"] = collector.audit()
             if runner.writer is not None:
                 runner.writer.flush()
                 runner.writer.close()
