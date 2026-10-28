@@ -1,10 +1,40 @@
 # Hockey-stop learning success and increased speed
 
-The current requested evaluation is **contact-first**, replacing the 5 N load threshold as the condition for evaluating sliding. The new offline analysis below uses valid native wheel-ground contact points and their separation. The running training snapshots and their historical qualification reports remain unchanged; their old support-based success rates must not be relabeled as contact-based rates.
+The primary acceptance requirement is now **continuous contact of both wheels**, with free left/right load redistribution. Any confirmed interruption fails the primary gate; missing or unknown contact evidence cannot pass. Sliding, tracking and stopping results from a failed-contact episode remain diagnostic and cannot compensate for that failure. Existing training snapshots and historical success reports are preserved separately.
 
-## Contact-first evaluation — current definition
+## Current priority: bilateral contact, stability, then useful sliding
 
-A wheel is touching when it has at least one valid native wheel-ground point with separation **≤0.1 mm**. This declared numerical tolerance is independent of force; results at 0, 0.5 and 1 mm are also recorded. Either wheel can provide contact. Native contact count alone is insufficient: PhysX can generate points before surfaces meet. See the official [contact-data API](https://docs.omniverse.nvidia.com/kit/docs/omni_physics/107.3/extensions/runtime/source/omni.physics.tensors/docs/api/python.html#omni.physics.tensors.impl.api.RigidContactView.get_contact_data) and [contact/rest-offset description](https://nvidia-omniverse.github.io/PhysX/physx/5.1.2/docs/AdvancedCollisionDetection.html#tuning-shape-collision-behavior).
+The v4 gate uses the aligned v3 native geometry at every 400 Hz sample from 0 to 2.76 s, including startup and the terminal sample. Both wheels must have a valid native wheel-ground point with separation **≤0.1 mm**. There is no 5 N contact threshold, equal-load target, startup grace or permitted interruption. One wheel may carry much more normal load than the other while both remain touching. This establishes sampled continuity at 2.5 ms resolution, not a continuous-time certificate between samples.
+
+| Nominal policy, seed 42, mu=0.7 | Both-wheel contact | Total / longest interruption of bilateral contact | Primary gate |
+| --- | ---: | ---: | --- |
+| Earlier tracking, 1× | 60.60% | 1087.5 / 735 ms | Fail |
+| Hockey PPO, 1× | 93.48% | 180 / 72.5 ms | Fail |
+| Hockey PPO, 1.5× | 90.04% | 275 / 172.5 ms | Fail |
+| Hockey PPO, 2× | 79.35% | 570 / 132.5 ms | Fail |
+
+An interruption here means **at least one wheel is not touching**, rather than both wheels leaving the ground. All four records are complete, with no ambiguous bilateral-only intervals that change these decisions. The three hockey policies touch bilaterally at the terminal sample; the earlier policy still lacks left-wheel contact then. Fractions use the complete 2.76 s interval; the terminal sample is checked separately. The previous 100% figure for Hockey PPO at 1× meant *at least one wheel touching*, so it does not satisfy this stricter requirement. This is four nominal policies, not a new estimate of learning success across all seeds or perturbed resets.
+
+![Bilateral contact before secondary performance comparisons](bilateral_contact_priority_v4/bilateral_contact_priority_4x1.png)
+
+Optimization follows this order: maintain bilateral contact, satisfy tracking/posture/entry-speed/terminal-stop requirements, then increase useful dissipative lateral sliding during braking. Load transfer, wheel torque and camber remain available to PPO; neither equal normal forces nor simultaneous sliding of both wheels is required. Greater raw slip speed or a larger beta cannot compensate for contact loss, divergence or instability. Useful sliding is measured by qualifying duration, continuous-slide length and friction dissipation evidence, with body angular acceleration and action variation retained as stability diagnostics. Wheel-level saturation and anchor power remain proxies; zero normal load leaves friction utilization undefined without invalidating geometric contact.
+
+The new specification changes **evaluation priority and the optimization contract**, not the reward weights or remote training. The previously queued any-wheel load-based boundary ablation is a historical recipe and does not implement the new bilateral objective. A future reward revision must use aligned substep contact geometry, preserve unequal-load freedom, and separately validate that its training incentives produce episode-wide bilateral continuity. No new model is claimed to satisfy that requirement yet.
+
+[Specification](../../config/hockey_contact_priority_v4.json) · [Evaluation report](bilateral_contact_priority_v4/report.json) · [Summary CSV](bilateral_contact_priority_v4/summary.csv) · [Evaluator](../../scripts/evaluate_hockey_contact_priority.py)
+
+```bash
+python scripts/evaluate_hockey_contact_priority.py \
+  --audit results/hockey_speed_success_20261028_v1/contact_timing_audit_v3 \
+  --config config/hockey_contact_priority_v4.json \
+  --output outputs/hockey_bilateral_contact_priority
+```
+
+Twelve contact, timestamp and priority tests pass, including alternating single-wheel support, a single missing sample, unknown contact, and startup/terminal interruptions. Passing the primary gate alone would still not establish full-task success.
+
+## Contact geometry and historical any-wheel summary
+
+A wheel is touching when it has at least one valid native wheel-ground point with separation **≤0.1 mm**. This declared numerical tolerance is independent of force; results at 0, 0.5 and 1 mm are also recorded. The earlier summary below accepted either wheel; the current v4 gate requires both. Native contact count alone is insufficient: PhysX can generate points before surfaces meet. See the official [contact-data API](https://docs.omniverse.nvidia.com/kit/docs/omni_physics/107.3/extensions/runtime/source/omni.physics.tensors/docs/api/python.html#omni.physics.tensors.impl.api.RigidContactView.get_contact_data) and [contact/rest-offset description](https://nvidia-omniverse.github.io/PhysX/physx/5.1.2/docs/AdvancedCollisionDetection.html#tuning-shape-collision-behavior).
 
 Sliding is evaluated independently for each touching wheel from contact material-point tangential velocity, including wheel rotation. Points are selected by valid geometry and separation, not by force or force weighting. Off-contact velocity is **not applicable**, not zero sliding. All-zero or zero-normal native entries cannot certify touching; without another valid touching point they yield an unknown state. At the main 0.1 mm tolerance these four nominal episodes have no unknown any-wheel intervals, although individual-wheel states can be unknown.
 

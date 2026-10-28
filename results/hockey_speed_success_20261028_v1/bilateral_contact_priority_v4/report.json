@@ -1,0 +1,783 @@
+{
+  "kind": "hockey_bilateral_contact_priority_v4",
+  "config": {
+    "kind": "hockey_bilateral_contact_priority_v4",
+    "required_contact": "both_wheels_at_every_physical_sample",
+    "contact_separation_tolerance_m": 0.0001,
+    "physics_dt_s": 0.0025,
+    "evaluation_window_s": [
+      0.0,
+      2.76
+    ],
+    "check_terminal_contact": true,
+    "initial_grace_s": 0.0,
+    "allowed_contact_interruption_s": 0.0,
+    "unknown_contact_can_pass": false,
+    "force_threshold_for_contact_N": null,
+    "required_left_right_load_ratio": null,
+    "load_redistribution_allowed": true,
+    "absolute_height_target": false,
+    "priority_order": [
+      "complete_record_and_continuous_bilateral_geometric_contact",
+      "tracking_posture_speed_retention_and_terminal_stop",
+      "maximize_useful_dissipative_lateral_sliding_within_the_braking_phase"
+    ],
+    "sliding_optimization": {
+      "both_wheels_must_touch_but_need_not_both_slide": true,
+      "reward_unbounded_slip_speed": false,
+      "reward_equal_wheel_load": false,
+      "effective_slide_evidence": "Contact material-point lateral motion, near-limit wheel friction, opposing dissipative friction, and material-displacement cross-check",
+      "comparison_quantities": [
+        "qualifying_slide_duration",
+        "longest_qualifying_slide",
+        "friction_dissipation_proxy"
+      ],
+      "stability_diagnostics": [
+        "contact_interruptions",
+        "XY_error",
+        "terminal_stop",
+        "body_tilt",
+        "body_angular_acceleration",
+        "action_change"
+      ],
+      "secondary_score_cannot_compensate_for_contact_failure": true
+    },
+    "failed_or_unverified_contact_secondary_metrics": "diagnostic_only_excluded_from_task_performance_ranking",
+    "training_recipe_changed_by_this_specification": false,
+    "historical_success_rates_reused": false,
+    "scope": "New evaluation priority and optimization contract; no new PPO reward weights or training runs are claimed"
+  },
+  "config_sha256": "3488baea0ab49352ea5648a700697f72aa4dcdb983aefdedb0f6f354f8875c23",
+  "script_sha256": "f86122f0bc66c1f7ec8e42f5d8654170483d6327917e23b1530f673ce76e301d",
+  "audit_sha256": "30918a373f32dfbebd62a9336dc11025fea86805eb236c4134135666c0a1266d",
+  "aligned_signals_sha256": "f855e33594498ea473e49b6ac48e2c7823af1aeaa39d5a20c61e2acfe3f168ea",
+  "scope": "Four nominal episodes only, seed42, mu=0.7; primary contact gate, no secondary ranking for failed cases",
+  "physics_steps": 0,
+  "training_changed": false,
+  "perturbed_success_rates_recomputed": false,
+  "sampling_limit": "400 Hz contact evidence cannot certify continuity between samples",
+  "cells": [
+    {
+      "cell": "beyondmimic_s100_seed42",
+      "source_provenance": {
+        "run_report_sha256": "13a1ec003cd372151678719549774391001d425fc035003d5a3984f26d2300f7",
+        "qualification_sha256": "35b4c244c6b139a9fc7a5da534c508fae3817b9bd8b7ef9aa220c0951aeb9118",
+        "recorded_artifacts": {
+          "final_rollout.npz": "bc2fbe29dc298fb113c28604920f67be4035dde3d029383f5e6c226312564c63",
+          "native_contact_buffers.npz": "0343d30925e4f366fd2b79ea6fb177d05eb9199bb4521fd03f837ef160d11e2f",
+          "case.json": "147fea4b1170385a3184584d956ba2b5bf172e563d3ecca1097136798aadd3cb"
+        }
+      },
+      "record_complete": true,
+      "gate_status": "fail",
+      "eligible_for_task_comparison": false,
+      "secondary_metrics_scope": "diagnostic_only",
+      "window_s": [
+        0.0,
+        2.76
+      ],
+      "terminal_contact_checked": true,
+      "primary_gate_only": true,
+      "full_task_success_claimed": false,
+      "reason": "At least one wheel has a confirmed contact interruption",
+      "checked_intervals": 1104,
+      "both_touch_fraction": 0.6059782608695652,
+      "first_nonbilateral_contact_s": 0.2625,
+      "bilateral_interruption": {
+        "total_s": 1.0875000000000001,
+        "count": 7,
+        "longest_s": 0.7350000000000003,
+        "events": [
+          {
+            "first_index": 106,
+            "last_index": 124,
+            "start_s": 0.26250000000000007,
+            "end_s": 0.31,
+            "duration_s": 0.04749999999999993
+          },
+          {
+            "first_index": 210,
+            "last_index": 263,
+            "start_s": 0.5225000000000001,
+            "end_s": 0.6575,
+            "duration_s": 0.1349999999999999
+          },
+          {
+            "first_index": 299,
+            "last_index": 316,
+            "start_s": 0.7450000000000001,
+            "end_s": 0.79,
+            "duration_s": 0.04499999999999993
+          },
+          {
+            "first_index": 339,
+            "last_index": 345,
+            "start_s": 0.8450000000000001,
+            "end_s": 0.8625,
+            "duration_s": 0.01749999999999996
+          },
+          {
+            "first_index": 355,
+            "last_index": 362,
+            "start_s": 0.8850000000000001,
+            "end_s": 0.905,
+            "duration_s": 0.019999999999999907
+          },
+          {
+            "first_index": 370,
+            "last_index": 404,
+            "start_s": 0.9225000000000001,
+            "end_s": 1.01,
+            "duration_s": 0.08749999999999991
+          },
+          {
+            "first_index": 811,
+            "last_index": 1104,
+            "start_s": 2.025,
+            "end_s": 2.7600000000000002,
+            "duration_s": 0.7350000000000003
+          }
+        ]
+      },
+      "unknown_only": {
+        "total_s": 0.0,
+        "count": 0,
+        "longest_s": 0.0,
+        "events": []
+      },
+      "terminal_touching": [
+        false,
+        true
+      ],
+      "terminal_unknown": [
+        false,
+        false
+      ],
+      "wheels": [
+        {
+          "side": "left",
+          "contact_fraction": 0.6902173913043478,
+          "interruption": {
+            "total_s": 0.855,
+            "count": 5,
+            "longest_s": 0.7350000000000003,
+            "events": [
+              {
+                "first_index": 106,
+                "last_index": 124,
+                "start_s": 0.26250000000000007,
+                "end_s": 0.31,
+                "duration_s": 0.04749999999999993
+              },
+              {
+                "first_index": 259,
+                "last_index": 260,
+                "start_s": 0.645,
+                "end_s": 0.65,
+                "duration_s": 0.0050000000000000044
+              },
+              {
+                "first_index": 355,
+                "last_index": 362,
+                "start_s": 0.8850000000000001,
+                "end_s": 0.905,
+                "duration_s": 0.019999999999999907
+              },
+              {
+                "first_index": 386,
+                "last_index": 404,
+                "start_s": 0.9625,
+                "end_s": 1.01,
+                "duration_s": 0.04749999999999999
+              },
+              {
+                "first_index": 811,
+                "last_index": 1104,
+                "start_s": 2.025,
+                "end_s": 2.7600000000000002,
+                "duration_s": 0.7350000000000003
+              }
+            ]
+          },
+          "unknown": {
+            "total_s": 0.0,
+            "count": 0,
+            "longest_s": 0.0,
+            "events": []
+          }
+        },
+        {
+          "side": "right",
+          "contact_fraction": 0.8804347826086957,
+          "interruption": {
+            "total_s": 0.33,
+            "count": 5,
+            "longest_s": 0.1349999999999999,
+            "events": [
+              {
+                "first_index": 210,
+                "last_index": 263,
+                "start_s": 0.5225000000000001,
+                "end_s": 0.6575,
+                "duration_s": 0.1349999999999999
+              },
+              {
+                "first_index": 299,
+                "last_index": 316,
+                "start_s": 0.7450000000000001,
+                "end_s": 0.79,
+                "duration_s": 0.04499999999999993
+              },
+              {
+                "first_index": 339,
+                "last_index": 345,
+                "start_s": 0.8450000000000001,
+                "end_s": 0.8625,
+                "duration_s": 0.01749999999999996
+              },
+              {
+                "first_index": 370,
+                "last_index": 386,
+                "start_s": 0.9225000000000001,
+                "end_s": 0.965,
+                "duration_s": 0.04249999999999987
+              },
+              {
+                "first_index": 910,
+                "last_index": 945,
+                "start_s": 2.2725,
+                "end_s": 2.3625000000000003,
+                "duration_s": 0.0900000000000003
+              }
+            ]
+          },
+          "unknown": {
+            "total_s": 0.0,
+            "count": 0,
+            "longest_s": 0.0,
+            "events": []
+          }
+        }
+      ]
+    },
+    {
+      "cell": "hockey_s100_seed42",
+      "source_provenance": {
+        "run_report_sha256": "3b362e5fa293ecacb14fddc993970b2b0c2cce096142a12db739a2f3ba933ba1",
+        "qualification_sha256": "36f384522893d04a4e450f3197148aab5383841997290ffe5e76c1bf46b7937f",
+        "recorded_artifacts": {
+          "final_rollout.npz": "33c320189496e0702aea2d1ff539592dc1897e5ecf78be1e0c120386bf861589",
+          "native_contact_buffers.npz": "efc9e71468df0dd1f8bc8f8156d6ac6dc632f5e4d60ceca0232d7ac9f79c8e7f",
+          "case.json": "147fea4b1170385a3184584d956ba2b5bf172e563d3ecca1097136798aadd3cb"
+        }
+      },
+      "record_complete": true,
+      "gate_status": "fail",
+      "eligible_for_task_comparison": false,
+      "secondary_metrics_scope": "diagnostic_only",
+      "window_s": [
+        0.0,
+        2.76
+      ],
+      "terminal_contact_checked": true,
+      "primary_gate_only": true,
+      "full_task_success_claimed": false,
+      "reason": "At least one wheel has a confirmed contact interruption",
+      "checked_intervals": 1104,
+      "both_touch_fraction": 0.9347826086956522,
+      "first_nonbilateral_contact_s": 0.645,
+      "bilateral_interruption": {
+        "total_s": 0.18,
+        "count": 5,
+        "longest_s": 0.0724999999999999,
+        "events": [
+          {
+            "first_index": 259,
+            "last_index": 261,
+            "start_s": 0.645,
+            "end_s": 0.6525,
+            "duration_s": 0.007499999999999951
+          },
+          {
+            "first_index": 266,
+            "last_index": 291,
+            "start_s": 0.6625000000000001,
+            "end_s": 0.7275,
+            "duration_s": 0.06499999999999995
+          },
+          {
+            "first_index": 299,
+            "last_index": 303,
+            "start_s": 0.7450000000000001,
+            "end_s": 0.7575000000000001,
+            "duration_s": 0.012499999999999956
+          },
+          {
+            "first_index": 306,
+            "last_index": 334,
+            "start_s": 0.7625000000000001,
+            "end_s": 0.835,
+            "duration_s": 0.0724999999999999
+          },
+          {
+            "first_index": 354,
+            "last_index": 362,
+            "start_s": 0.8825000000000001,
+            "end_s": 0.905,
+            "duration_s": 0.022499999999999964
+          }
+        ]
+      },
+      "unknown_only": {
+        "total_s": 0.0,
+        "count": 0,
+        "longest_s": 0.0,
+        "events": []
+      },
+      "terminal_touching": [
+        true,
+        true
+      ],
+      "terminal_unknown": [
+        false,
+        false
+      ],
+      "wheels": [
+        {
+          "side": "left",
+          "contact_fraction": 0.9927536231884058,
+          "interruption": {
+            "total_s": 0.02,
+            "count": 2,
+            "longest_s": 0.012499999999999956,
+            "events": [
+              {
+                "first_index": 259,
+                "last_index": 261,
+                "start_s": 0.645,
+                "end_s": 0.6525,
+                "duration_s": 0.007499999999999951
+              },
+              {
+                "first_index": 299,
+                "last_index": 303,
+                "start_s": 0.7450000000000001,
+                "end_s": 0.7575000000000001,
+                "duration_s": 0.012499999999999956
+              }
+            ]
+          },
+          "unknown": {
+            "total_s": 0.0,
+            "count": 0,
+            "longest_s": 0.0,
+            "events": []
+          }
+        },
+        {
+          "side": "right",
+          "contact_fraction": 0.9420289855072463,
+          "interruption": {
+            "total_s": 0.16,
+            "count": 3,
+            "longest_s": 0.0724999999999999,
+            "events": [
+              {
+                "first_index": 266,
+                "last_index": 291,
+                "start_s": 0.6625000000000001,
+                "end_s": 0.7275,
+                "duration_s": 0.06499999999999995
+              },
+              {
+                "first_index": 306,
+                "last_index": 334,
+                "start_s": 0.7625000000000001,
+                "end_s": 0.835,
+                "duration_s": 0.0724999999999999
+              },
+              {
+                "first_index": 354,
+                "last_index": 362,
+                "start_s": 0.8825000000000001,
+                "end_s": 0.905,
+                "duration_s": 0.022499999999999964
+              }
+            ]
+          },
+          "unknown": {
+            "total_s": 0.0,
+            "count": 0,
+            "longest_s": 0.0,
+            "events": []
+          }
+        }
+      ]
+    },
+    {
+      "cell": "hockey_s150_seed42",
+      "source_provenance": {
+        "run_report_sha256": "152fd28bf4237ce7bb41b1a9eb8b8aa36d9daec3e2a70d5dc194b10c295bc216",
+        "qualification_sha256": "c65b71bcb97db8c204f6986df072293ec55647eea0c3e61df225ca729ac72ed2",
+        "recorded_artifacts": {
+          "final_rollout.npz": "bf74ad8be78d534e2b75d81c81ed32b8984d990dce7449044a99d58e63c35158",
+          "native_contact_buffers.npz": "5a8b3be3e2006b01b9f39d42c5baffc5850c69384f5a0b138e661c7e16254bc2",
+          "case.json": "da7a8046732774af52c55a81a6e56ee0af7ea35181bfd5734e5003be865583e0"
+        }
+      },
+      "record_complete": true,
+      "gate_status": "fail",
+      "eligible_for_task_comparison": false,
+      "secondary_metrics_scope": "diagnostic_only",
+      "window_s": [
+        0.0,
+        2.76
+      ],
+      "terminal_contact_checked": true,
+      "primary_gate_only": true,
+      "full_task_success_claimed": false,
+      "reason": "At least one wheel has a confirmed contact interruption",
+      "checked_intervals": 1104,
+      "both_touch_fraction": 0.9003623188405797,
+      "first_nonbilateral_contact_s": 0.5850000000000001,
+      "bilateral_interruption": {
+        "total_s": 0.275,
+        "count": 4,
+        "longest_s": 0.1725,
+        "events": [
+          {
+            "first_index": 235,
+            "last_index": 260,
+            "start_s": 0.5850000000000001,
+            "end_s": 0.65,
+            "duration_s": 0.06499999999999995
+          },
+          {
+            "first_index": 271,
+            "last_index": 339,
+            "start_s": 0.675,
+            "end_s": 0.8475,
+            "duration_s": 0.1725
+          },
+          {
+            "first_index": 361,
+            "last_index": 373,
+            "start_s": 0.9,
+            "end_s": 0.9325,
+            "duration_s": 0.03249999999999997
+          },
+          {
+            "first_index": 547,
+            "last_index": 548,
+            "start_s": 1.365,
+            "end_s": 1.37,
+            "duration_s": 0.0050000000000001155
+          }
+        ]
+      },
+      "unknown_only": {
+        "total_s": 0.0,
+        "count": 0,
+        "longest_s": 0.0,
+        "events": []
+      },
+      "terminal_touching": [
+        true,
+        true
+      ],
+      "terminal_unknown": [
+        false,
+        false
+      ],
+      "wheels": [
+        {
+          "side": "left",
+          "contact_fraction": 0.9393115942028986,
+          "interruption": {
+            "total_s": 0.1675,
+            "count": 4,
+            "longest_s": 0.06499999999999995,
+            "events": [
+              {
+                "first_index": 235,
+                "last_index": 260,
+                "start_s": 0.5850000000000001,
+                "end_s": 0.65,
+                "duration_s": 0.06499999999999995
+              },
+              {
+                "first_index": 271,
+                "last_index": 294,
+                "start_s": 0.675,
+                "end_s": 0.735,
+                "duration_s": 0.05999999999999994
+              },
+              {
+                "first_index": 322,
+                "last_index": 336,
+                "start_s": 0.8025000000000001,
+                "end_s": 0.84,
+                "duration_s": 0.03749999999999987
+              },
+              {
+                "first_index": 547,
+                "last_index": 548,
+                "start_s": 1.365,
+                "end_s": 1.37,
+                "duration_s": 0.0050000000000001155
+              }
+            ]
+          },
+          "unknown": {
+            "total_s": 0.0,
+            "count": 0,
+            "longest_s": 0.0,
+            "events": []
+          }
+        },
+        {
+          "side": "right",
+          "contact_fraction": 0.9429347826086957,
+          "interruption": {
+            "total_s": 0.1575,
+            "count": 2,
+            "longest_s": 0.125,
+            "events": [
+              {
+                "first_index": 290,
+                "last_index": 339,
+                "start_s": 0.7225,
+                "end_s": 0.8475,
+                "duration_s": 0.125
+              },
+              {
+                "first_index": 361,
+                "last_index": 373,
+                "start_s": 0.9,
+                "end_s": 0.9325,
+                "duration_s": 0.03249999999999997
+              }
+            ]
+          },
+          "unknown": {
+            "total_s": 0.0,
+            "count": 0,
+            "longest_s": 0.0,
+            "events": []
+          }
+        }
+      ]
+    },
+    {
+      "cell": "hockey_s200_seed42",
+      "source_provenance": {
+        "run_report_sha256": "69fa644a054ca0fe9e67dade77a058cf255985d7057257043342141590972561",
+        "qualification_sha256": "536ea0fc7f767a8c713c8ac40fe6b7e63fb42514bf1358255c6fcd499a066c78",
+        "recorded_artifacts": {
+          "final_rollout.npz": "e01784b3bf70cf4e1a429eee340195b8b976b7c0ec5d5e0bdd26b261290fa7dc",
+          "native_contact_buffers.npz": "68ad080718ae27797f46b3f007af5e9bd1f6f41b3cd201853f427e3292085a63",
+          "case.json": "ad554fc4284c2011f7f23040848f1d5cadec24ce06a584db9b8b6a87a8e9204c"
+        }
+      },
+      "record_complete": true,
+      "gate_status": "fail",
+      "eligible_for_task_comparison": false,
+      "secondary_metrics_scope": "diagnostic_only",
+      "window_s": [
+        0.0,
+        2.76
+      ],
+      "terminal_contact_checked": true,
+      "primary_gate_only": true,
+      "full_task_success_claimed": false,
+      "reason": "At least one wheel has a confirmed contact interruption",
+      "checked_intervals": 1104,
+      "both_touch_fraction": 0.7934782608695652,
+      "first_nonbilateral_contact_s": 0.5275000000000001,
+      "bilateral_interruption": {
+        "total_s": 0.5700000000000001,
+        "count": 8,
+        "longest_s": 0.13249999999999995,
+        "events": [
+          {
+            "first_index": 212,
+            "last_index": 262,
+            "start_s": 0.5275000000000001,
+            "end_s": 0.655,
+            "duration_s": 0.12749999999999995
+          },
+          {
+            "first_index": 266,
+            "last_index": 318,
+            "start_s": 0.6625000000000001,
+            "end_s": 0.795,
+            "duration_s": 0.13249999999999995
+          },
+          {
+            "first_index": 330,
+            "last_index": 356,
+            "start_s": 0.8225000000000001,
+            "end_s": 0.89,
+            "duration_s": 0.0674999999999999
+          },
+          {
+            "first_index": 378,
+            "last_index": 398,
+            "start_s": 0.9425000000000001,
+            "end_s": 0.995,
+            "duration_s": 0.05249999999999988
+          },
+          {
+            "first_index": 418,
+            "last_index": 446,
+            "start_s": 1.0425,
+            "end_s": 1.115,
+            "duration_s": 0.07250000000000001
+          },
+          {
+            "first_index": 476,
+            "last_index": 506,
+            "start_s": 1.1875,
+            "end_s": 1.2650000000000001,
+            "duration_s": 0.07750000000000012
+          },
+          {
+            "first_index": 515,
+            "last_index": 523,
+            "start_s": 1.2850000000000001,
+            "end_s": 1.3075,
+            "duration_s": 0.022499999999999964
+          },
+          {
+            "first_index": 538,
+            "last_index": 544,
+            "start_s": 1.3425,
+            "end_s": 1.36,
+            "duration_s": 0.01750000000000007
+          }
+        ]
+      },
+      "unknown_only": {
+        "total_s": 0.0,
+        "count": 0,
+        "longest_s": 0.0,
+        "events": []
+      },
+      "terminal_touching": [
+        true,
+        true
+      ],
+      "terminal_unknown": [
+        false,
+        false
+      ],
+      "wheels": [
+        {
+          "side": "left",
+          "contact_fraction": 0.9356884057971014,
+          "interruption": {
+            "total_s": 0.1775,
+            "count": 4,
+            "longest_s": 0.07750000000000012,
+            "events": [
+              {
+                "first_index": 212,
+                "last_index": 227,
+                "start_s": 0.5275000000000001,
+                "end_s": 0.5675,
+                "duration_s": 0.039999999999999925
+              },
+              {
+                "first_index": 266,
+                "last_index": 280,
+                "start_s": 0.6625000000000001,
+                "end_s": 0.7000000000000001,
+                "duration_s": 0.03749999999999998
+              },
+              {
+                "first_index": 476,
+                "last_index": 506,
+                "start_s": 1.1875,
+                "end_s": 1.2650000000000001,
+                "duration_s": 0.07750000000000012
+              },
+              {
+                "first_index": 515,
+                "last_index": 523,
+                "start_s": 1.2850000000000001,
+                "end_s": 1.3075,
+                "duration_s": 0.022499999999999964
+              }
+            ]
+          },
+          "unknown": {
+            "total_s": 0.0,
+            "count": 0,
+            "longest_s": 0.0,
+            "events": []
+          }
+        },
+        {
+          "side": "right",
+          "contact_fraction": 0.842391304347826,
+          "interruption": {
+            "total_s": 0.435,
+            "count": 6,
+            "longest_s": 0.11249999999999993,
+            "events": [
+              {
+                "first_index": 218,
+                "last_index": 262,
+                "start_s": 0.5425000000000001,
+                "end_s": 0.655,
+                "duration_s": 0.11249999999999993
+              },
+              {
+                "first_index": 274,
+                "last_index": 318,
+                "start_s": 0.6825000000000001,
+                "end_s": 0.795,
+                "duration_s": 0.11249999999999993
+              },
+              {
+                "first_index": 330,
+                "last_index": 356,
+                "start_s": 0.8225000000000001,
+                "end_s": 0.89,
+                "duration_s": 0.0674999999999999
+              },
+              {
+                "first_index": 378,
+                "last_index": 398,
+                "start_s": 0.9425000000000001,
+                "end_s": 0.995,
+                "duration_s": 0.05249999999999988
+              },
+              {
+                "first_index": 418,
+                "last_index": 446,
+                "start_s": 1.0425,
+                "end_s": 1.115,
+                "duration_s": 0.07250000000000001
+              },
+              {
+                "first_index": 538,
+                "last_index": 544,
+                "start_s": 1.3425,
+                "end_s": 1.36,
+                "duration_s": 0.01750000000000007
+              }
+            ]
+          },
+          "unknown": {
+            "total_s": 0.0,
+            "count": 0,
+            "longest_s": 0.0,
+            "events": []
+          }
+        }
+      ]
+    }
+  ],
+  "eligible_cells": []
+}
