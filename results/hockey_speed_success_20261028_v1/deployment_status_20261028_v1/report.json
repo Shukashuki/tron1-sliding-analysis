@@ -1,0 +1,195 @@
+{
+  "status": "partial",
+  "collected_at": "2026-10-28T17:06:37.544812-04:00",
+  "completed_cells": 5,
+  "planned_cells": 18,
+  "qualified_episodes": 165,
+  "current_at_collection": {
+    "id": "hockey_s200_seed42/formal",
+    "pid": 3884444,
+    "device": "cuda:3"
+  },
+  "cells": [
+    {
+      "cell": "beyondmimic_s100_seed42",
+      "method": "beyondmimic",
+      "seed": 42,
+      "speed_scale": 1.0,
+      "nominal_success": false,
+      "perturbation_successes": 0,
+      "perturbation_trials": 32,
+      "nominal_xy_rmse_m": 0.25850064713969145,
+      "nominal_longest_support_gap_s": 0.09499999999999975,
+      "nominal_loaded_high_beta_saturated_dissipative_slide_longest_s_LR": [
+        0.06000000000000005,
+        0.027499999999999858
+      ],
+      "nominal_failed_gates": [
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "anywheel_continuously_supported",
+        "upright_supported_terminal_hold_ge_0p5",
+        "tilt_below_45deg_during_task"
+      ],
+      "nominal_first_45deg_tilt_s": 2.6575,
+      "nominal_terminal_stop_hold_s": 0.0,
+      "perturbation_failure_counts_nonexclusive": {
+        "xy_rmse_le_0p15": 26,
+        "xy_peak_le_0p3": 28,
+        "anywheel_continuously_supported": 32,
+        "upright_supported_terminal_hold_ge_0p5": 30,
+        "tilt_below_45deg_during_task": 22,
+        "loaded_lateral_sliding_during_braking_ge_0p05": 5
+      }
+    },
+    {
+      "cell": "beyondmimic_s150_seed42",
+      "method": "beyondmimic",
+      "seed": 42,
+      "speed_scale": 1.5,
+      "nominal_success": false,
+      "perturbation_successes": 0,
+      "perturbation_trials": 32,
+      "nominal_xy_rmse_m": 0.1041700835932388,
+      "nominal_longest_support_gap_s": 0.03749999999999987,
+      "nominal_loaded_high_beta_saturated_dissipative_slide_longest_s_LR": [
+        0.15249999999999986,
+        0.019999999999999796
+      ],
+      "nominal_failed_gates": [
+        "anywheel_continuously_supported"
+      ],
+      "nominal_first_45deg_tilt_s": null,
+      "nominal_terminal_stop_hold_s": 0.5,
+      "perturbation_failure_counts_nonexclusive": {
+        "anywheel_continuously_supported": 32,
+        "upright_supported_terminal_hold_ge_0p5": 4,
+        "loaded_lateral_sliding_during_braking_ge_0p05": 13
+      }
+    },
+    {
+      "cell": "beyondmimic_s200_seed42",
+      "method": "beyondmimic",
+      "seed": 42,
+      "speed_scale": 2.0,
+      "nominal_success": false,
+      "perturbation_successes": 0,
+      "perturbation_trials": 32,
+      "nominal_xy_rmse_m": 0.09440164101901387,
+      "nominal_longest_support_gap_s": 0.0675,
+      "nominal_loaded_high_beta_saturated_dissipative_slide_longest_s_LR": [
+        0.03750000000000009,
+        0.030000000000000027
+      ],
+      "nominal_failed_gates": [
+        "anywheel_continuously_supported",
+        "loaded_lateral_sliding_during_braking_ge_0p05"
+      ],
+      "nominal_first_45deg_tilt_s": null,
+      "nominal_terminal_stop_hold_s": 0.5,
+      "perturbation_failure_counts_nonexclusive": {
+        "anywheel_continuously_supported": 32,
+        "loaded_lateral_sliding_during_braking_ge_0p05": 14,
+        "upright_supported_terminal_hold_ge_0p5": 1
+      }
+    },
+    {
+      "cell": "hockey_s100_seed42",
+      "method": "hockey",
+      "seed": 42,
+      "speed_scale": 1.0,
+      "nominal_success": true,
+      "perturbation_successes": 32,
+      "perturbation_trials": 32,
+      "nominal_xy_rmse_m": 0.017875582711005703,
+      "nominal_longest_support_gap_s": 0.0,
+      "nominal_loaded_high_beta_saturated_dissipative_slide_longest_s_LR": [
+        0.1974999999999999,
+        0.029999999999999916
+      ],
+      "nominal_failed_gates": [],
+      "nominal_first_45deg_tilt_s": null,
+      "nominal_terminal_stop_hold_s": 0.5,
+      "perturbation_failure_counts_nonexclusive": {}
+    },
+    {
+      "cell": "hockey_s150_seed42",
+      "method": "hockey",
+      "seed": 42,
+      "speed_scale": 1.5,
+      "nominal_success": false,
+      "perturbation_successes": 0,
+      "perturbation_trials": 32,
+      "nominal_xy_rmse_m": 0.02529870074835287,
+      "nominal_longest_support_gap_s": 0.03749999999999998,
+      "nominal_loaded_high_beta_saturated_dissipative_slide_longest_s_LR": [
+        0.31500000000000006,
+        0.02749999999999997
+      ],
+      "nominal_failed_gates": [
+        "anywheel_continuously_supported"
+      ],
+      "nominal_first_45deg_tilt_s": null,
+      "nominal_terminal_stop_hold_s": 0.5,
+      "perturbation_failure_counts_nonexclusive": {
+        "anywheel_continuously_supported": 32
+      }
+    }
+  ],
+  "sliding_state": {
+    "native_data_recorded": true,
+    "physics_hz": 400,
+    "control_hz": 50,
+    "explicit_actor_sliding_state": false,
+    "explicit_actor_friction_utilization": false,
+    "training_uses_loaded_beta_and_supported_stop_rewards": true,
+    "friction_capacity_analysis_location": "local_postprocessing_only",
+    "mu_static": 0.7,
+    "mu_dynamic": 0.7,
+    "solver_stick_slip_flag_recorded": false,
+    "pointwise_cone_certification": false
+  },
+  "evidence": [
+    {
+      "path": "evidence/beyondmimic_s100_seed42/report.json",
+      "sha256": "706692aac67e573264caf1f140ecd8f9d8a7835714f19fbff6e49cea1ad262d9"
+    },
+    {
+      "path": "evidence/beyondmimic_s100_seed42/nominal.json",
+      "sha256": "35b4c244c6b139a9fc7a5da534c508fae3817b9bd8b7ef9aa220c0951aeb9118"
+    },
+    {
+      "path": "evidence/beyondmimic_s150_seed42/report.json",
+      "sha256": "06943454f30bcac6724b8689d9ec23ad4f085419123102d8c2530f7a49c39af6"
+    },
+    {
+      "path": "evidence/beyondmimic_s150_seed42/nominal.json",
+      "sha256": "2983828d18cf0d0a32fdb0b3afaa95917614285e4f81ec7d8072761d2aad2bd8"
+    },
+    {
+      "path": "evidence/beyondmimic_s200_seed42/report.json",
+      "sha256": "10c00ce03d4db512c36bd0a494ac19e16cb6f46d78f9dac111c0eee530ea4a26"
+    },
+    {
+      "path": "evidence/beyondmimic_s200_seed42/nominal.json",
+      "sha256": "10c50da8e5d99d812eb4bf65cdb8fc9e2c4c05f7b3549620e0d0d35f35097f41"
+    },
+    {
+      "path": "evidence/hockey_s100_seed42/report.json",
+      "sha256": "03264bb1467ed58e7d9627f6f6a92837592779bf088ea78f15cff9d701cf8fbb"
+    },
+    {
+      "path": "evidence/hockey_s100_seed42/nominal.json",
+      "sha256": "36f384522893d04a4e450f3197148aab5383841997290ffe5e76c1bf46b7937f"
+    },
+    {
+      "path": "evidence/hockey_s150_seed42/report.json",
+      "sha256": "6e160f05a5605f1831d7f09e34d267c21fc5d9026e4ffa20357aed3836c3346b"
+    },
+    {
+      "path": "evidence/hockey_s150_seed42/nominal.json",
+      "sha256": "c65b71bcb97db8c204f6986df072293ec55647eea0c3e61df225ca729ac72ed2"
+    }
+  ],
+  "interpretation": "Seed 42 only. Full-recipe comparison, not isolated beta ablation. No training, gate, coefficient, or observation changes during this deployment inspection."
+}
