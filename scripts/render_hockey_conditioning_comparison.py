@@ -19,10 +19,20 @@ def main():
     p.add_argument('--result', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--ffmpeg', required=True)
+    p.add_argument('--cases',nargs=3,default=['baseline','reference_dq','nominal_command'])
+    p.add_argument('--basename',default='hockey_conditioning_fullbody_4x1')
     a = p.parse_args()
     if a.output.exists():
         raise FileExistsError(a.output)
-    cases = ('baseline', 'reference_dq', 'nominal_command')
+    titles={'baseline':'PhysX: original hockey conditioning',
+            'reference_dq':'PhysX: replace only reference dq',
+            'nominal_command':'PhysX: replace reference q / dq / phase',
+            'mppi_validation':'PhysX: PPO + MPPI (single-world replay)'}
+    cases = tuple(a.cases)
+    if any(c not in titles for c in cases) or len(set(cases))!=3:
+        raise ValueError('Three distinct, explicitly labeled cases are required')
+    if Path(a.basename).name!=a.basename or not a.basename:
+        raise ValueError('Output basename must be a plain filename stem')
     sources = [a.result / 'render' / c / 'hockey_command_physx_xy_contact_4x1.mp4' for c in cases]
     provenance = [json.loads((f.parent / 'provenance.json').read_text()) for f in sources]
     for f, info in zip(sources, provenance):
@@ -41,16 +51,13 @@ def main():
                 or v.get(cv2.CAP_PROP_FRAME_HEIGHT) != 640):
             raise ValueError('Unexpected source video dimensions or timing')
     a.output.mkdir(parents=True)
-    out = a.output / 'hockey_conditioning_fullbody_4x1.mp4'
+    out = a.output / (a.basename+'.mp4')
     cmd = [a.ffmpeg, '-hide_banner', '-loglevel', 'error', '-f', 'rawvideo',
            '-pix_fmt', 'bgr24', '-s', '2560x640', '-r', str(fps), '-i', 'pipe:0',
            '-an', '-c:v', 'libx264', '-preset', 'fast', '-crf', '19',
            '-pix_fmt', 'yuv420p', '-movflags', '+faststart', str(out)]
     proc = subprocess.Popen(cmd, stdin=subprocess.PIPE)
-    labels = ('GMR pose + designed stop (kinematics)',
-              'PhysX: original hockey conditioning',
-              'PhysX: replace only reference dq',
-              'PhysX: replace reference q / dq / phase')
+    labels = ('GMR pose + designed stop (kinematics)',)+tuple(titles[c] for c in cases)
     try:
         for i in range(count):
             frames = []
@@ -76,7 +83,7 @@ def main():
         proc.stdin.close()
     if proc.wait() != 0:
         raise RuntimeError('FFmpeg encoding failed')
-    gif = a.output / 'hockey_conditioning_fullbody_4x1.gif'
+    gif = a.output / (a.basename+'.gif')
     subprocess.run([a.ffmpeg, '-hide_banner', '-loglevel', 'error', '-i', str(out),
                     '-filter_complex', 'fps=12.5,scale=1600:-1:flags=lanczos,split[a][b];'
                     '[a]palettegen[p];[b][p]paletteuse=dither=bayer', '-loop', '0', str(gif)], check=True)

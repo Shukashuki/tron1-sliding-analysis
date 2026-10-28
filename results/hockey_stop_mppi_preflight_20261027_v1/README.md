@@ -1,10 +1,16 @@
-# Hockey MPPI: prepared control search, awaiting upload approval
+# Hockey MPPI: search preparation and validation protocol
+
+**Execution completed after explicit user approval:** see the
+[physical results and four-panel animation](../hockey_stop_physx_mppi_20261027_v1/README.md).
+XY error decreased, but contact stability deteriorated and the hockey stop failed.
+The approval-block statements below describe the archived preparation stage.
 
 The [completed conditioning probes](../hockey_stop_conditioning_physx_20261027_v1/README.md)
 improved support but did not reproduce the hockey stop. This snapshot prepares
 an actual PhysX search against the **unchanged hockey target and stop criteria**.
-It has not run. Automatic review rejected the attempted upload because prior
-approvals covered other specific payloads; approval for this new archive is pending.
+At preparation time, automatic review rejected the attempted upload because prior
+approvals covered other specific payloads. The user subsequently approved this
+exact archive and the three stages, all of which completed.
 
 Two limitations in the previous generic car-search interface are corrected:
 
@@ -111,7 +117,8 @@ python scripts/evaluate_hockey_physx.py \
   --output /tmp/hockey-mppi-qualified
 ```
 
-[status.json](status.json) records the approval block. The previous goal turn made
+[status.json](status.json) preserves the historical approval block and current
+execution outcome. The earlier goal turn made
 progress by completing and reviewing the two probes. This turn adds the concrete
 search implementation and independent qualification support; no new physical
 result or successful motion is claimed.

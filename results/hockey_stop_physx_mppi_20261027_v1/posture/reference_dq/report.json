@@ -1,0 +1,98 @@
+{
+  "kind": "GMR_posture_fidelity_diagnostics",
+  "leg_joint_names": [
+    "abad_L_Joint",
+    "abad_R_Joint",
+    "hip_L_Joint",
+    "hip_R_Joint",
+    "knee_L_Joint",
+    "knee_R_Joint"
+  ],
+  "windows": {
+    "whole_reference": {
+      "samples": 1104,
+      "leg_joint_RMSE_rad": 0.7303260636937855,
+      "leg_joint_max_abs_error_rad": 1.2502198183015778,
+      "body_up_axis_RMSE_deg": 35.7614488152273,
+      "loaded_wheel_camber_RMSE_deg": [
+        53.339449466646485,
+        35.345186227494764
+      ],
+      "per_joint_RMSE_rad": [
+        0.9703726963270535,
+        0.9490307959005421,
+        0.508609214058501,
+        0.2667910943057218,
+        0.7881409145001879,
+        0.6379243001978068
+      ]
+    },
+    "before_first_45deg_tilt": {
+      "samples": 464,
+      "leg_joint_RMSE_rad": 0.6359487094039049,
+      "leg_joint_max_abs_error_rad": 1.2502198183015778,
+      "body_up_axis_RMSE_deg": 19.08691540674889,
+      "loaded_wheel_camber_RMSE_deg": [
+        60.555787982197955,
+        37.09944600426246
+      ],
+      "per_joint_RMSE_rad": [
+        0.9156207368945152,
+        0.7523884868506127,
+        0.685706292023919,
+        0.2501573965053669,
+        0.5112597184435318,
+        0.4774688003711336
+      ]
+    },
+    "braking": {
+      "samples": 561,
+      "leg_joint_RMSE_rad": 0.7710038568992128,
+      "leg_joint_max_abs_error_rad": 1.2502198183015778,
+      "body_up_axis_RMSE_deg": 38.24762364562082,
+      "loaded_wheel_camber_RMSE_deg": [
+        70.55680526526828,
+        35.14708640694064
+      ],
+      "per_joint_RMSE_rad": [
+        1.0876667267812974,
+        0.9520489652165292,
+        0.6356793241782634,
+        0.25919492043809533,
+        0.7812317093302028,
+        0.6290249198339715
+      ]
+    },
+    "braking_before_first_45deg_tilt": {
+      "samples": 305,
+      "leg_joint_RMSE_rad": 0.7610240359405396,
+      "leg_joint_max_abs_error_rad": 1.2502198183015778,
+      "body_up_axis_RMSE_deg": 21.234915778088777,
+      "loaded_wheel_camber_RMSE_deg": [
+        71.92473592268203,
+        39.321619110376965
+      ],
+      "per_joint_RMSE_rad": [
+        1.1204985111097026,
+        0.8881843101646821,
+        0.8045833913106436,
+        0.2659749602088581,
+        0.6238740324303264,
+        0.5685431347590777
+      ]
+    }
+  },
+  "camber_definition": "asin(world_z component of local +Y wheel axle), degrees",
+  "reference_orientation_interpolation": "quaternion Slerp on original clock",
+  "reference_joint_interpolation": "linear on original clock",
+  "absolute_height_error_used": false,
+  "wheel_spin_error_used": false,
+  "prospective_stop_gates_changed": false,
+  "posture_success_threshold_established": false,
+  "analyzer_sha256": "bfafdfcab818e8ac5db6856ed15006fdf599974627297c31b9ce81065d5f0dd6",
+  "metric_source_sha256": "695a0e92c50d512fdef0ff4afdf35e3cf6eafe3a38ccfe79e4779035ec6fed35",
+  "trace_sha256": "61a9856925d2ad1b89c4860e6439c5f2e8f1d1748bd3e965a06bab616ed694fc",
+  "qualification_sha256": "ec020ec200a8c129ba5689f594d8a07f94feda9003f2b6001f9dd30c56bfacf9",
+  "physics_rerun": false,
+  "new_hockey_physics_run": false
+}

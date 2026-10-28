@@ -1,0 +1,359 @@
+{
+  "kind": "hockey_stop_independent_physical_evaluator_v1",
+  "mode": "hockey_stop",
+  "analyzer_sha256": "39861d94d6f36e91232610b5d10caebcb6a6a64faa4bcaf2cb69c3145ef333eb",
+  "run_report_sha256": "90899b2d6c42674d5c7a610d79b02a131d62c43a44632994f706046a1490620e",
+  "input_sha256": {
+    "final_rollout.npz": "7ebbb2ed8471fd88604e20e7b29e50df43646d12f1f85bc8fd935b2a5d928dd4",
+    "native_contact_buffers.npz": "631c7b47c3b956319393e5b127cfd3af8b8dfdef0fa588add97424464e0612ba"
+  },
+  "mu": 0.699999988079071,
+  "native_reconstruction": {
+    "physical_samples_checked": 1112,
+    "maximum_readback_errors": {
+      "normal_fz": 1.525879162045385e-05,
+      "normal_point_lateral_rms": 6.434934369137224e-06,
+      "anchor_power": 0.0003364257581779384,
+      "friction_force": 7.62939453125e-06,
+      "aggregate_utilization": 1.4334403553029063e-07
+    },
+    "pointwise_normal_load_at_friction_anchors_available": false,
+    "force_velocity_timing": "completed-substep force/impulse divided by dt, paired with post-step material velocity; power proxy, not exact step work"
+  },
+  "friction_indicator": "wheel aggregate force utilization; exact force/velocity pairing at friction anchors; no per-anchor Fn",
+  "forces_from_native_buffers": true,
+  "physics_rerun": false,
+  "new_hockey_physics_run": true,
+  "physical_step_timing_warning": "instantaneous post-state force-power proxy; not exact substep work",
+  "pointwise_cone_saturation_certified": false,
+  "search_source_audit": {
+    "source_manifest_sha256": "944dfc03adb415aa79e6fe3d7fc8c067d53620a81e5c18fa95b10ac985674dcd",
+    "reviewed_source_sha256": {
+      "generate_hockey_physx_mppi.py": "260dc6112940382938e9e671ed2d2944a9771c7edcba3d1f4af257ffd0adbee3",
+      "hockey_mppi_math.py": "8895c0482289d80e476e7cd8e016fd63a857920150b672c286faeb1b51f4ec4c",
+      "dispatch_hockey_physx_mppi.py": "601bfe51d6558cdf7563a796f6aa9217876213a27e38d2a5a6cc20e0bcf6b8ba"
+    },
+    "planning_costs_used_for_success": false,
+    "qualification_thresholds_unchanged": true
+  },
+  "control_replay_audit": {
+    "report_sha256": "dde1590eaec8df252e330d38036863ebb36758a2206f7aab979925492884dd3c",
+    "maximum_action_error": 9.713930136934223e-07,
+    "control_steps_checked": 139,
+    "independent_residual_interpolation": true,
+    "physics_replay_performed": false
+  },
+  "conditioning_table_sha256": "1476cdeffaa078dfb362f5dfb7b6ee0339c0e4b7e7abc3ac85120ef6a4564d38",
+  "actor_observation_audit": {
+    "control_samples_checked": 139,
+    "maximum_error": 1.99834810299393e-06,
+    "tolerance": 5e-05,
+    "conditioning_mode": "reference_dq",
+    "all_51_input_columns_reconstructed": true,
+    "state_anchor_and_previous_action_fields_unmodified": true
+  },
+  "frozen_run_inline_success_flag_superseded": true,
+  "qualification": {
+    "gates": {
+      "full_reference_observed": true,
+      "entry_speed_at_least_0p8": true,
+      "approach_speed_retained": true,
+      "xy_rmse_le_0p15": false,
+      "xy_peak_le_0p3": false,
+      "anywheel_continuously_supported": false,
+      "upright_supported_terminal_hold_ge_0p5": false,
+      "loaded_lateral_sliding_during_braking_ge_0p05": false,
+      "braking_body_heading_RMSE_le_15deg": false,
+      "loaded_braking_wheel_heading_RMSE_le_20deg": false,
+      "tilt_below_45deg_during_task": false
+    },
+    "task_success_claimed": false,
+    "failed_gates": [
+      "xy_rmse_le_0p15",
+      "xy_peak_le_0p3",
+      "anywheel_continuously_supported",
+      "upright_supported_terminal_hold_ge_0p5",
+      "loaded_lateral_sliding_during_braking_ge_0p05",
+      "braking_body_heading_RMSE_le_15deg",
+      "loaded_braking_wheel_heading_RMSE_le_20deg",
+      "tilt_below_45deg_during_task"
+    ],
+    "entry_mean_speed_last_0p1s_m_s": 1.2948098182678223,
+    "approach_COM_speed_ratio": 0.9837203621864319,
+    "braking_body_heading_RMSE_deg": 73.77642136959028,
+    "loaded_braking_wheel_heading_RMSE_deg": 43.265387982665914,
+    "braking_COM_speed_RMSE_m_s": 0.5259557059144268,
+    "xy_RMSE_m": 0.21395550378217648,
+    "xy_peak_m": 0.3716353003689124,
+    "support_fraction": 0.6031021897810219,
+    "longest_support_gap_s": 0.45500000000000007,
+    "terminal_stop_hold_s": 0.0,
+    "stop_events": [],
+    "bilateral_loaded_slip_events": [
+      [],
+      [
+        {
+          "first_index": 199,
+          "last_index": 199,
+          "start_s": 0.49500000000000005,
+          "end_s": 0.4975,
+          "duration_s": 0.0024999999999999467
+        }
+      ]
+    ],
+    "bilateral_loaded_slip_longest_s": [
+      0.0,
+      0.0024999999999999467
+    ],
+    "wheel_beta_gate": "axial abs(beta)>=20 degrees and speed>=.25 m/s; prospective hockey distinction from reverse rolling",
+    "aggregate_utilization_screen_range": [
+      0.9,
+      1.05
+    ],
+    "absolute_height_gate": false,
+    "pointwise_cone_saturation_certified": false
+  },
+  "imitation": {
+    "kind": "GMR_posture_fidelity_diagnostics",
+    "leg_joint_names": [
+      "abad_L_Joint",
+      "abad_R_Joint",
+      "hip_L_Joint",
+      "hip_R_Joint",
+      "knee_L_Joint",
+      "knee_R_Joint"
+    ],
+    "windows": {
+      "whole_reference": {
+        "samples": 1104,
+        "leg_joint_RMSE_rad": 0.41952118416533374,
+        "leg_joint_max_abs_error_rad": 0.9539367124634813,
+        "body_up_axis_RMSE_deg": 63.03632828785888,
+        "loaded_wheel_camber_RMSE_deg": [
+          38.83088563872008,
+          49.14733203515546
+        ],
+        "per_joint_RMSE_rad": [
+          0.22706918611377674,
+          0.31545334925249774,
+          0.4315807636210548,
+          0.6155742258266215,
+          0.29222831015262485,
+          0.5043073910418879
+        ]
+      },
+      "before_first_45deg_tilt": {
+        "samples": 225,
+        "leg_joint_RMSE_rad": 0.2801126944457736,
+        "leg_joint_max_abs_error_rad": 0.9459329995720744,
+        "body_up_axis_RMSE_deg": 19.498148909002072,
+        "loaded_wheel_camber_RMSE_deg": [
+          6.956113827080431,
+          22.25554394838963
+        ],
+        "per_joint_RMSE_rad": [
+          0.26386983399941183,
+          0.14014134492325533,
+          0.11549569097302873,
+          0.4554790735122135,
+          0.30711966666211965,
+          0.25766046067396275
+        ]
+      },
+      "braking": {
+        "samples": 561,
+        "leg_joint_RMSE_rad": 0.4867402788665282,
+        "leg_joint_max_abs_error_rad": 0.9539367124634813,
+        "body_up_axis_RMSE_deg": 65.37631001955756,
+        "loaded_wheel_camber_RMSE_deg": [
+          66.44830246553435,
+          64.47116976167413
+        ],
+        "per_joint_RMSE_rad": [
+          0.26678565018512346,
+          0.35550238526707,
+          0.5066151114925391,
+          0.7439232933618927,
+          0.27481394114197,
+          0.5816671088398702
+        ]
+      },
+      "braking_before_first_45deg_tilt": {
+        "samples": 66,
+        "leg_joint_RMSE_rad": 0.4935272524185034,
+        "leg_joint_max_abs_error_rad": 0.9459329995720744,
+        "body_up_axis_RMSE_deg": 33.94644110504732,
+        "loaded_wheel_camber_RMSE_deg": [
+          null,
+          35.67465742017166
+        ],
+        "per_joint_RMSE_rad": [
+          0.45912006000575334,
+          0.19295386007835108,
+          0.17821663426075346,
+          0.8210891281949713,
+          0.5392597571166787,
+          0.465449095870829
+        ]
+      }
+    },
+    "camber_definition": "asin(world_z component of local +Y wheel axle), degrees",
+    "reference_orientation_interpolation": "quaternion Slerp on original clock",
+    "reference_joint_interpolation": "linear on original clock",
+    "absolute_height_error_used": false,
+    "wheel_spin_error_used": false,
+    "prospective_stop_gates_changed": false,
+    "posture_success_threshold_established": false
+  },
+  "loaded_beta_summary": [
+    {
+      "side": "left",
+      "samples": 282,
+      "abs_axial_beta_deg_p50_p95_max": [
+        19.259319344020412,
+        58.183105444115355,
+        75.93029697717282
+      ],
+      "before_first_45deg_tilt_samples": 69,
+      "loaded_aggregate_ratio_above_1p05_samples": 0,
+      "before_first_45deg_tilt_abs_axial_beta_deg_p50_p95_max": [
+        3.412598136707402,
+        51.18676206843257,
+        61.91569210613224
+      ],
+      "before_first_45deg_tilt_same_anchor_corroboration_events": [
+        {
+          "first_index": 1,
+          "last_index": 2,
+          "start_s": 5.334274688628682e-17,
+          "end_s": 0.005,
+          "duration_s": 0.004999999999999947
+        },
+        {
+          "first_index": 9,
+          "last_index": 9,
+          "start_s": 0.020000000000000052,
+          "end_s": 0.0225,
+          "duration_s": 0.0024999999999999467
+        },
+        {
+          "first_index": 68,
+          "last_index": 68,
+          "start_s": 0.16750000000000007,
+          "end_s": 0.17,
+          "duration_s": 0.0024999999999999467
+        },
+        {
+          "first_index": 74,
+          "last_index": 82,
+          "start_s": 0.18250000000000005,
+          "end_s": 0.20500000000000002,
+          "duration_s": 0.022499999999999964
+        },
+        {
+          "first_index": 110,
+          "last_index": 110,
+          "start_s": 0.2725000000000001,
+          "end_s": 0.275,
+          "duration_s": 0.0024999999999999467
+        },
+        {
+          "first_index": 112,
+          "last_index": 122,
+          "start_s": 0.2775000000000001,
+          "end_s": 0.305,
+          "duration_s": 0.027499999999999913
+        }
+      ]
+    },
+    {
+      "side": "right",
+      "samples": 435,
+      "abs_axial_beta_deg_p50_p95_max": [
+        18.739170998254394,
+        63.01857883613731,
+        87.1634561533333
+      ],
+      "before_first_45deg_tilt_samples": 159,
+      "loaded_aggregate_ratio_above_1p05_samples": 1,
+      "before_first_45deg_tilt_abs_axial_beta_deg_p50_p95_max": [
+        16.400812078294905,
+        73.3469710120543,
+        87.1634561533333
+      ],
+      "before_first_45deg_tilt_same_anchor_corroboration_events": [
+        {
+          "first_index": 11,
+          "last_index": 11,
+          "start_s": 0.025000000000000053,
+          "end_s": 0.0275,
+          "duration_s": 0.0024999999999999467
+        },
+        {
+          "first_index": 23,
+          "last_index": 24,
+          "start_s": 0.055000000000000056,
+          "end_s": 0.06,
+          "duration_s": 0.004999999999999942
+        },
+        {
+          "first_index": 58,
+          "last_index": 65,
+          "start_s": 0.14250000000000004,
+          "end_s": 0.1625,
+          "duration_s": 0.019999999999999962
+        },
+        {
+          "first_index": 68,
+          "last_index": 68,
+          "start_s": 0.16750000000000007,
+          "end_s": 0.17,
+          "duration_s": 0.0024999999999999467
+        },
+        {
+          "first_index": 73,
+          "last_index": 80,
+          "start_s": 0.18000000000000005,
+          "end_s": 0.2,
+          "duration_s": 0.019999999999999962
+        },
+        {
+          "first_index": 101,
+          "last_index": 104,
+          "start_s": 0.25000000000000006,
+          "end_s": 0.26,
+          "duration_s": 0.009999999999999953
+        },
+        {
+          "first_index": 127,
+          "last_index": 133,
+          "start_s": 0.31500000000000006,
+          "end_s": 0.3325,
+          "duration_s": 0.01749999999999996
+        },
+        {
+          "first_index": 139,
+          "last_index": 141,
+          "start_s": 0.3450000000000001,
+          "end_s": 0.3525,
+          "duration_s": 0.007499999999999896
+        },
+        {
+          "first_index": 146,
+          "last_index": 146,
+          "start_s": 0.36250000000000004,
+          "end_s": 0.365,
+          "duration_s": 0.0024999999999999467
+        },
+        {
+          "first_index": 199,
+          "last_index": 207,
+          "start_s": 0.49500000000000005,
+          "end_s": 0.5175,
+          "duration_s": 0.02249999999999991
+        }
+      ]
+    }
+  ],
+  "first_45deg_tilt_diagnostic_s": 0.5650000000000001
+}
