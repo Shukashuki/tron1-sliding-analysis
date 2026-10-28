@@ -1,5 +1,39 @@
 # Hockey-stop learning success and increased speed
 
+The current requested evaluation is **contact-first**, replacing the 5 N load threshold as the condition for evaluating sliding. The new offline analysis below uses valid native wheel-ground contact points and their separation. The running training snapshots and their historical qualification reports remain unchanged; their old support-based success rates must not be relabeled as contact-based rates.
+
+## Contact-first evaluation — current definition
+
+A wheel is touching when it has at least one valid native wheel-ground point with separation **≤0.1 mm**. This declared numerical tolerance is independent of force; results at 0, 0.5 and 1 mm are also recorded. Either wheel can provide contact. Native contact count alone is insufficient: PhysX can generate points before surfaces meet. See the official [contact-data API](https://docs.omniverse.nvidia.com/kit/docs/omni_physics/107.3/extensions/runtime/source/omni.physics.tensors/docs/api/python.html#omni.physics.tensors.impl.api.RigidContactView.get_contact_data) and [contact/rest-offset description](https://nvidia-omniverse.github.io/PhysX/physx/5.1.2/docs/AdvancedCollisionDetection.html#tuning-shape-collision-behavior).
+
+Sliding is evaluated independently for each touching wheel from contact material-point tangential velocity, including wheel rotation. Points are selected by valid geometry and separation, not by force or force weighting. Off-contact velocity is **not applicable**, not zero sliding. All-zero or zero-normal native entries cannot certify touching; without another valid touching point they yield an unknown state. At the main 0.1 mm tolerance these four nominal episodes have no unknown any-wheel intervals, although individual-wheel states can be unknown.
+
+Normal force and `mu * Fn` remain friction-capacity diagnostics. A wheel may touch with zero force; its contact state remains valid, but friction utilization is undefined at zero load. The 1e-6 N division safeguard is numerical, not a support threshold. Friction-corroborated sliding additionally checks near-limit wheel-level utilization, dissipative friction-anchor evidence and material-point lateral motion. It is distinct from merely observing contact and slip.
+
+| Nominal policy, seed 42, mu=0.7 | Any-wheel touching | Total / longest no-contact interval | Old force-gap time that still touches |
+| --- | ---: | ---: | ---: |
+| Earlier tracking, 1× | 96.44% | 97.5 / 90 ms | 35 ms |
+| Hockey PPO, 1× | 100% | 0 / 0 ms | 0 ms |
+| Hockey PPO, 1.5× | 98.18% | 50 / 37.5 ms | 12.5 ms |
+| Hockey PPO, 2× | 98.45% | 42.5 / 25 ms | 7.5 ms |
+
+At 1.5×, no-contact intervals are 0.7225–0.735 and 0.8025–0.840 s; at 2× they are 0.5425–0.5675 and 0.6825–0.700 s. These are not identical to force-gap intervals, including a one-substep shift in several boundaries. They describe the recorded native separation at each completed step, not continuous-time geometry between samples. The previous force-gap durations therefore cannot simply be renamed as no-contact durations. With a 1 mm diagnostic tolerance, total no-contact time remains 42.5 ms at 1.5× and 35 ms at 2×.
+
+![Native separation and contact eligibility, common axes](ground_contact_analysis_v2_validated/ground_contact_comparison_4x1.png)
+
+This update covers contact eligibility and contact-conditioned sliding for four nominal recordings. It does **not** claim new full-task success rates for the 32 perturbed trials or silently reuse the old force-gated stop, heading and sliding qualifications. Five physical counterexample tests pass, covering zero-force touch, rolling cancellation, positive-distance contact candidates, absent contacts and invalid geometry.
+
+[Contact report](ground_contact_analysis_v2_validated/report.json) · [Per-wheel signals](ground_contact_analysis_v2_validated/contact_signals.npz) · [Evaluation specification](../../config/hockey_contact_evaluation_v2.json) · [Analysis code](../../scripts/analyze_hockey_ground_contact.py)
+
+```bash
+python scripts/analyze_hockey_ground_contact.py \
+  --runs outputs/hockey_support_evidence/runs_v1 \
+  --references results/hockey_speed_success_20261028_v1/source_snapshot_v1/references \
+  --output outputs/hockey_ground_contact_analysis
+```
+
+## Historical load-based evaluation
+
 Earlier deployment inspection, October 28, retained below: **5/18 cells independently qualified, covering 165 full episodes**. At that inspection the queue was running in tmux `hockey_speed_success_20261028_v1`, with hockey PPO at 2× speed / seed 42 training on GPU 3. Each completed policy used 12,288,000 training transitions from scratch. The remote snapshot matched all 41 approved file hashes. Later results are discussed in the support-interruption analysis below; this historical status is not a live progress indicator. [Deployment report and evidence](deployment_status_20261028_v1/report.json) · [Verified process status](deployment_status_20261028_v1/verified_process_status.json) · [Remote snapshot audit](deployment_status_20261028_v1/remote_snapshot_audit.json) · [Launch evidence](preflight/launch.json) · [Upload receipt](preflight/upload_receipt.json) · [CPU checks](preflight/local_tests.json).
 
 | Recipe / speed, seed 42 | Nominal full success | Perturbed successes | Nominal XY RMSE | Longest qualifying slide, L / R | Longest support interruption |

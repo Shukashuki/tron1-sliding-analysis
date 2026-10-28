@@ -1,0 +1,22 @@
+{
+  "kind": "hockey_ground_contact_evaluation_v2",
+  "scope": "Offline evaluation of recorded PhysX wheel-ground contact, independent of training rewards",
+  "contact_separation_tolerance_m": 0.0001,
+  "contact_separation_sensitivity_m": [0.0, 0.0001, 0.0005, 0.001],
+  "contact_definition": "At least one valid native wheel-ground contact point with separation <= tolerance; no normal-force threshold",
+  "invalid_contact_geometry": "Zero-normal entries, including all-zero placeholders, cannot prove contact; absent another valid touching point, classify unknown",
+  "one_wheel_contact_is_sufficient": true,
+  "exclude_initial_s": 0.02,
+  "sliding_speed_threshold_m_s": 0.05,
+  "force_division_epsilon_N": 0.000001,
+  "force_epsilon_is_contact_gate": false,
+  "off_contact_slip_value": "NaN / not applicable",
+  "friction_utilization_when_zero_load": "NaN / not identifiable",
+  "native_contact_point_count_alone_certifies_touching": false,
+  "old_support_success_rate_reused": false,
+  "training_recipe_changed": false,
+  "sources": [
+    "https://docs.omniverse.nvidia.com/kit/docs/omni_physics/107.3/extensions/runtime/source/omni.physics.tensors/docs/api/python.html#omni.physics.tensors.impl.api.RigidContactView.get_contact_data",
+    "https://nvidia-omniverse.github.io/PhysX/physx/5.1.2/docs/AdvancedCollisionDetection.html#tuning-shape-collision-behavior"
+  ]
+}
