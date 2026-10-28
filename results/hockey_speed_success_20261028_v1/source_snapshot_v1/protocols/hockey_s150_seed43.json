@@ -1,0 +1,417 @@
+{
+  "schema_version": 1,
+  "kind": "hockey_ppo_speed_success_v1",
+  "seed": 43,
+  "physics_dt_s": 0.0025,
+  "decimation": 8,
+  "policy_dt_s": 0.02,
+  "reference_sha256": "8ae3b37abe4ebda528ad9005984f90920a0f71df4463ed84118ad7d59ab210d4",
+  "asset_sha256": "327ca5080e753bbc95d8c3c797e9cd49a0f134d400cfe80494af0ba840e23a8e",
+  "tracking_sha256": "0a29fa27c1d65c0b9add0886221491e549553e3529d6970f1ec5ba35e2532817",
+  "initialization": "from_scratch_no_car_policy_or_MPPI_candidate",
+  "actor_dim": 56,
+  "critic_dim": 125,
+  "extra_observation": [
+    "target_vx_in_actual_yaw_frame",
+    "target_vy_in_actual_yaw_frame",
+    "target_world_yaw_rate",
+    "braking_phase",
+    "stop_hold_phase"
+  ],
+  "brake_start_s": 0.4,
+  "brake_end_s": 1.8,
+  "rsi_full_clip_start_fraction": 0.2,
+  "training_dr": "tron1_mjlab_tracking_dr_v1",
+  "evaluation_mu": 0.7,
+  "variants": {
+    "tracking": 0.0
+  },
+  "support_load_fraction": 0.5,
+  "reward_weights": {
+    "xy": 2.0,
+    "velocity": 2.0,
+    "heading": 1.0,
+    "yaw_rate": 0.5,
+    "leg_pose": 1.0,
+    "wheel_axis": 0.5,
+    "beta": 1.0,
+    "stop_hold": 1.5,
+    "tilt": -0.2,
+    "fall": -2.0,
+    "action_rate": -0.5,
+    "joint_limit": -10.0,
+    "undesired_contacts": -0.1,
+    "vertical_acceleration": -0.1
+  },
+  "reward_scales": {
+    "xy_m": 0.3,
+    "velocity_m_s": 0.5,
+    "heading_rad": 0.4,
+    "yaw_rate_rad_s": 0.8,
+    "leg_pose_rad": 0.3,
+    "wheel_axis_rad": 0.4,
+    "beta_rad": 0.35,
+    "stop_speed_m_s": 0.1,
+    "stop_tilt_rad": 0.35
+  },
+  "ppo": {
+    "steps_per_env": 24,
+    "learning_rate": 0.0003,
+    "schedule": "fixed",
+    "clip_param": 0.2,
+    "entropy_coef": 0.005,
+    "init_noise_std": 0.5,
+    "gamma": 0.99,
+    "lam": 0.95,
+    "epochs": 5,
+    "mini_batches": 4
+  },
+  "smoke": {
+    "num_envs": 32,
+    "iterations": 2
+  },
+  "formal": {
+    "num_envs": 512,
+    "iterations": 1000
+  },
+  "evaluation_steps": 139,
+  "no_absolute_height_constraint": true,
+  "no_wheel_XY_or_spin_imitation": true,
+  "friction_saturation_is_evaluation_only": true,
+  "source_global_speed_is_designed_not_measured": true,
+  "status": "frozen_not_executed",
+  "method": "hockey",
+  "speed_scale": 1.5,
+  "evaluation_cases": [
+    {
+      "id": "nominal",
+      "kind": "nominal",
+      "x_m": 0.0,
+      "y_m": 0.0,
+      "yaw_rad": 0.0,
+      "speed_fraction": 0.0,
+      "lateral_m_s": 0.0,
+      "yaw_rate_rad_s": 0.0
+    },
+    {
+      "id": "trial_000",
+      "kind": "perturbed",
+      "x_m": -0.019358725574190886,
+      "y_m": -0.013235025847877542,
+      "yaw_rad": 0.010787854679348466,
+      "speed_fraction": -0.04783483117982225,
+      "lateral_m_s": 0.0060373148430550305,
+      "yaw_rate_rad_s": -0.08757195025176841
+    },
+    {
+      "id": "trial_001",
+      "kind": "perturbed",
+      "x_m": 0.007154158417441816,
+      "y_m": 0.005213886528094048,
+      "yaw_rad": -0.022155557796737325,
+      "speed_fraction": -0.030173427065553638,
+      "lateral_m_s": 0.005995519186160103,
+      "yaw_rate_rad_s": 0.06294857127111773
+    },
+    {
+      "id": "trial_002",
+      "kind": "perturbed",
+      "x_m": 0.0027146793370468104,
+      "y_m": -0.007715133906022982,
+      "yaw_rad": 0.012768874722385418,
+      "speed_fraction": -0.031258650195598384,
+      "lateral_m_s": 0.04008356377612943,
+      "yaw_rate_rad_s": 0.09843551131558215
+    },
+    {
+      "id": "trial_003",
+      "kind": "perturbed",
+      "x_m": -0.009622234971522396,
+      "y_m": 0.015422228599373162,
+      "yaw_rad": 0.018053192624242768,
+      "speed_fraction": -0.011151029308734696,
+      "lateral_m_s": -0.020327911329020565,
+      "yaw_rate_rad_s": 0.018600169384403988
+    },
+    {
+      "id": "trial_004",
+      "kind": "perturbed",
+      "x_m": 0.012779662171370285,
+      "y_m": -0.01743377635406234,
+      "yaw_rad": -0.03255799715336697,
+      "speed_fraction": 0.011441175538319949,
+      "lateral_m_s": -0.042782947606552796,
+      "yaw_rate_rad_s": 0.09820773509676049
+    },
+    {
+      "id": "trial_005",
+      "kind": "perturbed",
+      "x_m": -0.007689868531712012,
+      "y_m": -0.01103514858037974,
+      "yaw_rad": 0.010954948056249149,
+      "speed_fraction": 0.041716223104245755,
+      "lateral_m_s": 0.000510608784473765,
+      "yaw_rate_rad_s": 0.07352430678008308
+    },
+    {
+      "id": "trial_006",
+      "kind": "perturbed",
+      "x_m": -0.003133882281227831,
+      "y_m": -0.011247739396125512,
+      "yaw_rad": 0.011900592522350338,
+      "speed_fraction": 0.009494673695736833,
+      "lateral_m_s": -0.022844104215790296,
+      "yaw_rate_rad_s": 0.03666796583282561
+    },
+    {
+      "id": "trial_007",
+      "kind": "perturbed",
+      "x_m": -0.0026418110646490023,
+      "y_m": -0.016754761308290518,
+      "yaw_rad": -0.02547477181385815,
+      "speed_fraction": -0.0008012937106319451,
+      "lateral_m_s": 0.015873591003885613,
+      "yaw_rate_rad_s": 0.061504411356131765
+    },
+    {
+      "id": "trial_008",
+      "kind": "perturbed",
+      "x_m": 0.017579161787681187,
+      "y_m": 0.009433734948067603,
+      "yaw_rad": -0.028009415030934764,
+      "speed_fraction": -0.002786734670631763,
+      "lateral_m_s": 0.04502285868273784,
+      "yaw_rate_rad_s": 0.07968127381571453
+    },
+    {
+      "id": "trial_009",
+      "kind": "perturbed",
+      "x_m": 0.00826460157034334,
+      "y_m": 0.00834430404526301,
+      "yaw_rad": 0.012372721482716098,
+      "speed_fraction": -0.04094008781272221,
+      "lateral_m_s": -0.008449021674094837,
+      "yaw_rate_rad_s": -0.0013158268583981726
+    },
+    {
+      "id": "trial_010",
+      "kind": "perturbed",
+      "x_m": 1.6404107509755405e-05,
+      "y_m": 0.018639884963937235,
+      "yaw_rad": -0.0009071874759042348,
+      "speed_fraction": -0.027939025528179763,
+      "lateral_m_s": -0.024189067961177438,
+      "yaw_rate_rad_s": 0.05721809381646503
+    },
+    {
+      "id": "trial_011",
+      "kind": "perturbed",
+      "x_m": -0.003337446824771804,
+      "y_m": -0.0025262930811878713,
+      "yaw_rad": -0.004966688465450324,
+      "speed_fraction": 0.02754262050093025,
+      "lateral_m_s": 0.0070421379621372964,
+      "yaw_rate_rad_s": -0.00164592194718034
+    },
+    {
+      "id": "trial_012",
+      "kind": "perturbed",
+      "x_m": -0.017732274342711875,
+      "y_m": -0.00011732512833214415,
+      "yaw_rad": 0.019015496175394542,
+      "speed_fraction": -0.023107353740090788,
+      "lateral_m_s": 0.003909587442162865,
+      "yaw_rate_rad_s": -0.023952828193526468
+    },
+    {
+      "id": "trial_013",
+      "kind": "perturbed",
+      "x_m": 0.019549530564177898,
+      "y_m": -0.004469981550011588,
+      "yaw_rad": -0.011894384762146541,
+      "speed_fraction": 0.009309144824972549,
+      "lateral_m_s": 0.028337954425477197,
+      "yaw_rate_rad_s": 0.040303394865791736
+    },
+    {
+      "id": "trial_014",
+      "kind": "perturbed",
+      "x_m": -0.0007839032599393914,
+      "y_m": -0.000367108332703312,
+      "yaw_rad": 0.02070167312903035,
+      "speed_fraction": -0.03166194531334136,
+      "lateral_m_s": -0.013568436105375382,
+      "yaw_rate_rad_s": -0.022498215394510513
+    },
+    {
+      "id": "trial_015",
+      "kind": "perturbed",
+      "x_m": 0.014749915804874761,
+      "y_m": -0.009328607078720626,
+      "yaw_rad": 0.009864389902787953,
+      "speed_fraction": 0.009766536194068677,
+      "lateral_m_s": 0.007374586307120301,
+      "yaw_rate_rad_s": -0.09918283310659791
+    },
+    {
+      "id": "trial_016",
+      "kind": "perturbed",
+      "x_m": -0.012604925236252397,
+      "y_m": -0.0009285261347466811,
+      "yaw_rad": 0.03111225792895202,
+      "speed_fraction": -0.03822578683215867,
+      "lateral_m_s": 0.021166493567069868,
+      "yaw_rate_rad_s": -0.07840671498520263
+    },
+    {
+      "id": "trial_017",
+      "kind": "perturbed",
+      "x_m": 0.009218753219910156,
+      "y_m": -0.00833316189922058,
+      "yaw_rad": -0.03472620300538079,
+      "speed_fraction": 0.010709358977715511,
+      "lateral_m_s": 0.006063577297901835,
+      "yaw_rate_rad_s": -0.03235244607629644
+    },
+    {
+      "id": "trial_018",
+      "kind": "perturbed",
+      "x_m": -0.005214741418576603,
+      "y_m": -0.013103054892413169,
+      "yaw_rad": 0.0016920957100723935,
+      "speed_fraction": 0.0028585072874861006,
+      "lateral_m_s": 0.030482150700589707,
+      "yaw_rate_rad_s": -0.09278516639092223
+    },
+    {
+      "id": "trial_019",
+      "kind": "perturbed",
+      "x_m": -0.004476066849914271,
+      "y_m": -0.007489007675651389,
+      "yaw_rad": -0.03366859952721231,
+      "speed_fraction": 0.0218722865634296,
+      "lateral_m_s": -0.030145100503055956,
+      "yaw_rate_rad_s": -0.09543722545539034
+    },
+    {
+      "id": "trial_020",
+      "kind": "perturbed",
+      "x_m": 0.009668854459272725,
+      "y_m": 0.019821554584713037,
+      "yaw_rad": 0.007810460554749967,
+      "speed_fraction": 0.03091009929518858,
+      "lateral_m_s": 0.011468802846521154,
+      "yaw_rate_rad_s": -0.09432513801559464
+    },
+    {
+      "id": "trial_021",
+      "kind": "perturbed",
+      "x_m": 0.0019969727677495498,
+      "y_m": -0.018633153537858018,
+      "yaw_rad": -0.01862392633513103,
+      "speed_fraction": 0.04640561729336412,
+      "lateral_m_s": 0.02413026733589807,
+      "yaw_rate_rad_s": -0.03379783258039655
+    },
+    {
+      "id": "trial_022",
+      "kind": "perturbed",
+      "x_m": -0.017587473994645837,
+      "y_m": -0.018593412187489368,
+      "yaw_rad": 0.02219758749880117,
+      "speed_fraction": -0.03233206816642831,
+      "lateral_m_s": -0.00621297041737896,
+      "yaw_rate_rad_s": -0.0031473347842192467
+    },
+    {
+      "id": "trial_023",
+      "kind": "perturbed",
+      "x_m": -0.017092177351906254,
+      "y_m": 0.01810653666358971,
+      "yaw_rad": -0.0008856461587259212,
+      "speed_fraction": -0.016143868439468412,
+      "lateral_m_s": -0.009211524726211019,
+      "yaw_rate_rad_s": -0.05858223796200095
+    },
+    {
+      "id": "trial_024",
+      "kind": "perturbed",
+      "x_m": 0.015309516617094725,
+      "y_m": 0.018092355534870565,
+      "yaw_rad": -0.022082437991616258,
+      "speed_fraction": 0.04527399100593238,
+      "lateral_m_s": -0.03058182881820808,
+      "yaw_rate_rad_s": 0.046127095283013224
+    },
+    {
+      "id": "trial_025",
+      "kind": "perturbed",
+      "x_m": -0.0021052131887259583,
+      "y_m": 0.014565017851326108,
+      "yaw_rad": 0.01858383367294642,
+      "speed_fraction": -0.004659500763747527,
+      "lateral_m_s": -0.04095640351092851,
+      "yaw_rate_rad_s": -0.013483168571947847
+    },
+    {
+      "id": "trial_026",
+      "kind": "perturbed",
+      "x_m": 0.0028677093459836467,
+      "y_m": -0.01084459964498897,
+      "yaw_rad": 0.01755218022053145,
+      "speed_fraction": 0.04865327366093167,
+      "lateral_m_s": 0.014094102484958161,
+      "yaw_rate_rad_s": -0.02567363769545339
+    },
+    {
+      "id": "trial_027",
+      "kind": "perturbed",
+      "x_m": 0.008630007511241678,
+      "y_m": 0.011219095469926567,
+      "yaw_rad": 0.007154372343974029,
+      "speed_fraction": -0.030982502280722548,
+      "lateral_m_s": 0.025182203754224933,
+      "yaw_rate_rad_s": 0.08767452626442036
+    },
+    {
+      "id": "trial_028",
+      "kind": "perturbed",
+      "x_m": 0.018865424117184195,
+      "y_m": -0.0033458601706956117,
+      "yaw_rad": 0.02997612470849067,
+      "speed_fraction": -0.0005066138174990687,
+      "lateral_m_s": 0.015631559071068824,
+      "yaw_rate_rad_s": -0.09951304161161673
+    },
+    {
+      "id": "trial_029",
+      "kind": "perturbed",
+      "x_m": -0.0017809069910015296,
+      "y_m": 0.011152273989896848,
+      "yaw_rad": 0.013214581392624944,
+      "speed_fraction": 0.03880455236408297,
+      "lateral_m_s": 0.026682115936801434,
+      "yaw_rate_rad_s": -0.04027048638847604
+    },
+    {
+      "id": "trial_030",
+      "kind": "perturbed",
+      "x_m": 0.009310815338348748,
+      "y_m": -0.012772817324579196,
+      "yaw_rad": 0.015081949036272585,
+      "speed_fraction": 0.008751774887490172,
+      "lateral_m_s": 0.03454289869688122,
+      "yaw_rate_rad_s": -0.045998798004773384
+    },
+    {
+      "id": "trial_031",
+      "kind": "perturbed",
+      "x_m": 0.004295083242961555,
+      "y_m": -0.006008522862074086,
+      "yaw_rad": -0.000533114901970065,
+      "speed_fraction": -0.0020911782637223933,
+      "lateral_m_s": 0.005445593317046338,
+      "yaw_rate_rad_s": 0.032812522302270566
+    }
+  ]
+}

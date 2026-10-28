@@ -53,7 +53,7 @@ def state_sha(policy):
     return digest.hexdigest()
 
 
-def validate(env, actor_path, output, protocol):
+def validate(env, actor_path, output, protocol, case=None):
     import numpy as np
     import torch
     from hockey_ppo_task import WHEELS, SENSORS
@@ -87,12 +87,31 @@ def validate(env, actor_path, output, protocol):
         env.reset()
         env.scene.write_data_to_sim()
         env.scene.update(.0025)
+        if case is not None:
+            from hockey_speed_study import perturbed_root
+            pose = torch.cat((robot.data.root_pos_w, robot.data.root_quat_w), -1)[0].cpu().numpy()
+            velocity = torch.cat((robot.data.root_com_lin_vel_w, robot.data.root_com_ang_vel_w), -1)[0].cpu().numpy()
+            expected_pose, expected_velocity = perturbed_root(pose, velocity, case)
+            # Nominal retains the exact historical reset sequence.
+            if case["kind"] != "nominal":
+                robot.write_root_pose_to_sim(torch.as_tensor(expected_pose[None], device=env.device, dtype=torch.float32))
+                robot.write_root_com_velocity_to_sim(torch.as_tensor(expected_velocity[None], device=env.device, dtype=torch.float32))
+                env.scene.write_data_to_sim()
+                env.scene.update(.0025)
+            actual_pose = torch.cat((robot.data.root_pos_w, robot.data.root_quat_w), -1)[0].cpu().numpy()
+            actual_velocity = torch.cat((robot.data.root_com_lin_vel_w, robot.data.root_com_ang_vel_w), -1)[0].cpu().numpy()
+            error = max(float(abs(actual_pose-expected_pose).max()), float(abs(actual_velocity-expected_velocity).max()))
+            if error > 5e-5:
+                raise ValueError("Reset perturbation readback mismatch")
+            write(output/"case.json", dict(case=case, maximum_initial_state_error=error,
+                initial_root_pose_w=actual_pose.tolist(), initial_COM_velocity_w=actual_velocity.tolist(),
+                commands_transformed=False, height_and_joint_pose_changed=False))
         record()
         for frame in range(protocol["evaluation_steps"]):
             command.time_steps.fill_(frame)
             command._refresh_relative_targets()
             obs = env.observation_manager.compute()["policy"]
-            if obs.shape != (1, 56):
+            if obs.shape != (1, protocol.get("actor_dim", 56)):
                 raise ValueError("Wrong hockey actor input shape")
             action = actor(obs).clamp(-1, 1)
             env.action_manager.process_action(action)
@@ -130,14 +149,17 @@ def validate(env, actor_path, output, protocol):
     np.savez_compressed(output/"native_contact_buffers.npz",
         **{k: torch.stack([v[k] for v in raw]).cpu().numpy() for k in raw[0]},
         physical_sample_indices=np.arange(1, len(raw)+1))
-    return {name: sha(output/name) for name in ("final_rollout.npz", "native_contact_buffers.npz")}
+    files = ["final_rollout.npz", "native_contact_buffers.npz"]
+    if case is not None:
+        files.append("case.json")
+    return {name: sha(output/name) for name in files}
 
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     for name in ("protocol", "motion", "asset", "tracking-root", "beyondmimic-root", "output-dir"):
         p.add_argument("--"+name, type=Path, required=True)
-    p.add_argument("--mode", choices=("smoke", "formal", "eval"), required=True)
+    p.add_argument("--mode", choices=("smoke", "formal", "eval", "eval-suite"), required=True)
     p.add_argument("--variant", choices=("tracking", "support"), required=True)
     p.add_argument("--device", required=True)
     p.add_argument("--actor", type=Path)
@@ -145,7 +167,8 @@ def main():
     cfg = json.loads(a.protocol.read_text())
     if a.output_dir.exists() or "CUDA_VISIBLE_DEVICES" in os.environ:
         raise ValueError("Fresh output and explicit unmasked GPU required")
-    if (a.actor is not None) != (a.mode == "eval"):
+    evaluating = a.mode in ("eval", "eval-suite")
+    if (a.actor is not None) != evaluating:
         raise ValueError("Only validation loads an actor; training starts from scratch")
     for path, key in ((a.motion, "reference"), (a.asset, "asset"),
                       (a.tracking_root/"training/tron1_tracking.py", "tracking")):
@@ -153,8 +176,13 @@ def main():
             raise ValueError("Input hash changed: "+key)
     if importlib.metadata.version("rsl-rl-lib") != "3.0.1":
         raise ValueError("Require existing RSL-RL 3.0.1 runtime")
-    if cfg["kind"] != "hockey_ppo_learning_v1" or (cfg["physics_dt_s"], cfg["decimation"]) != (.0025, 8):
+    if cfg["kind"] not in ("hockey_ppo_learning_v1", "hockey_ppo_speed_success_v1") or (cfg["physics_dt_s"], cfg["decimation"]) != (.0025, 8):
         raise ValueError("Wrong task or clock")
+    method = cfg.get("method", "hockey")
+    if method not in ("hockey", "beyondmimic"):
+        raise ValueError("Unknown study method")
+    if a.mode == "eval-suite" and not cfg.get("evaluation_cases"):
+        raise ValueError("Evaluation suite requires predeclared cases")
     a.output_dir.mkdir(parents=True)
     sys.path.insert(0, str(a.tracking_root))
     os.environ["TRON1_BEYONDMIMIC_ROOT"] = str(a.beyondmimic_root)
@@ -167,7 +195,8 @@ def main():
     report = dict(kind=cfg["kind"], mode=a.mode, variant=a.variant, status="initializing",
         config_sha256=sha(a.protocol), motion_sha256=sha(a.motion), asset_sha256=sha(a.asset),
         source_sha256=sha(__file__), task_source_sha256=sha(Path(__file__).with_name("hockey_ppo_task.py")),
-        algorithm="RSL-RL 3.0.1 PPO", task_success_claimed=False)
+        algorithm="RSL-RL 3.0.1 PPO", task_success_claimed=False,
+        method=method, seed=cfg["seed"], speed_scale=cfg.get("speed_scale", 1.))
     try:
         import torch
         from isaaclab.envs import ManagerBasedRLEnv
@@ -178,29 +207,58 @@ def main():
         from physx_mjlab_recipe import audit_physx_mjlab_recipe
         torch.cuda.set_device(ordinal)
         torch.manual_seed(cfg["seed"])
-        training = a.mode != "eval"
+        training = not evaluating
         n = cfg[a.mode]["num_envs"] if training else 1
         ecfg = make_env_cfg(a.motion, a.asset, n, a.device, eval_mode=not training)
         ecfg.seed = cfg["seed"]
-        configure(ecfg, cfg, a.variant, training=training)
+        if method == "beyondmimic":
+            from hockey_beyondmimic_task import configure as configure_original
+            configure_original(ecfg, cfg, training=training)
+            report["baseline_adapter_sha256"] = sha(Path(__file__).with_name("hockey_beyondmimic_task.py"))
+        else:
+            configure(ecfg, cfg, a.variant, training=training)
         env = ManagerBasedRLEnv(cfg=ecfg)
         collector = SupportWindow(env) if training else None
         wrapped = RslRlVecEnvWrapper(env, clip_actions=1.)
         obs, _ = wrapped.reset()
-        if tuple(obs["policy"].shape) != (n, 56) or tuple(obs["critic"].shape) != (n, 125):
-            raise ValueError("Hockey 56/125 observation ABI changed")
+        if tuple(obs["policy"].shape) != (n, cfg["actor_dim"]) or tuple(obs["critic"].shape) != (n, cfg["critic_dim"]):
+            raise ValueError("Declared observation ABI changed")
         report["material_audit"] = audit_physx_mjlab_recipe(env, check_usd=True)
         report["reward_terms"] = {k: float(env.reward_manager.get_term_cfg(k).weight) for k in env.reward_manager.active_terms}
         report["termination_terms"] = list(env.termination_manager.active_terms)
         allowed = {"action_rate_l2", "joint_limit", "undesired_contacts", "hockey_vertical_acceleration"}
         allowed.update("hockey_"+k for k in ("xy", "velocity", "heading", "yaw_rate", "leg_pose", "wheel_axis", "beta", "stop_hold", "tilt", "fall", "support"))
+        expected_terminations = {"time_out", "motion_end", "hockey_fall"}
+        if method == "beyondmimic":
+            allowed = {"motion_global_anchor_pos", "motion_global_anchor_ori", "motion_body_pos",
+                "motion_body_ori", "motion_body_lin_vel", "motion_body_ang_vel", "action_rate_l2",
+                "joint_limit", "undesired_contacts", "height_vertical_acceleration"}
+            if set(report["reward_terms"]) != allowed:
+                raise ValueError("Historical tracking rewards changed")
+            expected_terminations = {"time_out", "motion_end", "anchor_ori"}
         if not set(report["reward_terms"]) <= allowed:
             raise ValueError("Unexpected inherited reward survived task configuration")
-        if set(report["termination_terms"]) != {"time_out", "motion_end", "hockey_fall"}:
+        if set(report["termination_terms"]) != expected_terminations:
             raise ValueError("Unexpected inherited termination")
         report["worlds"] = n
         write(a.output_dir/"protocol.json", cfg)
-        if not training:
+        if a.mode == "eval-suite":
+            report.update(status="validation_suite_running", actor_sha256=sha(a.actor),
+                single_world_validation=True, steps=cfg["evaluation_steps"], external_forces=0, cases=[])
+            report["case_math_sha256"] = sha(Path(__file__).with_name("hockey_speed_study.py"))
+            for case in cfg["evaluation_cases"]:
+                directory = a.output_dir/case["id"]
+                directory.mkdir()
+                artifacts = validate(env, a.actor, directory, cfg, case)
+                row = dict(report)
+                row.pop("cases")
+                row.update(status="completed_requires_independent_qualification", mode="eval", case_id=case["id"], artifacts=artifacts)
+                write(directory/"report.json", row)
+                report["cases"].append(dict(id=case["id"], report_sha256=sha(directory/"report.json")))
+                write(a.output_dir/"run_status.json", report)
+                print("HOCKEY_CASE_COMPLETE", case["id"], flush=True)
+            report["status"] = "validation_suite_completed_requires_independent_qualification"
+        elif not training:
             report.update(status="completed_requires_independent_qualification", actor_sha256=sha(a.actor),
                 single_world_validation=True, steps=cfg["evaluation_steps"], external_forces=0,
                 artifacts=validate(env, a.actor, a.output_dir, cfg))
@@ -226,7 +284,7 @@ def main():
                                         copy.deepcopy(runner.alg.policy.actor).cpu()).eval()
             exported = torch.jit.script(actor)
             exported.save(str(a.output_dir/"actor_normalized.pt"))
-            probe = torch.linspace(-2., 2., 56).repeat(2, 1)
+            probe = torch.linspace(-2., 2., cfg["actor_dim"]).repeat(2, 1)
             with torch.inference_mode():
                 expected = runner.alg.policy.act_inference({"policy": probe.to(a.device)})
                 if not torch.allclose(exported(probe), expected.cpu(), rtol=1e-5, atol=1e-6):

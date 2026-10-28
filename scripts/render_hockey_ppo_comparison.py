@@ -1,4 +1,4 @@
-"""GMR / tracking PPO / support PPO / shared XY, in four horizontal panels.
+"""GMR / two matched PPO rollouts / shared XY, in four horizontal panels.
 
 Compose verified fixed-camera renders. Read native poses for the XY overlay;
 perform no physics, smoothing, pose correction, retiming, or camera changes.
@@ -33,10 +33,15 @@ def main():
     source = [d/"hockey_command_physx_xy_contact_4x1.mp4" for d in render_dirs]
     provenance = [json.loads((d/"provenance.json").read_text()) for d in render_dirs]
     traces = [load(d/"final_rollout.npz") for d in run_dirs]
+    runs = [json.loads((d/"report.json").read_text()) for d in run_dirs]
+    speed_study = all(r.get("kind") == "hockey_ppo_speed_success_v1" for r in runs)
+    if speed_study and any(runs[0][k] != runs[1][k] for k in ("seed", "speed_scale", "case_id", "motion_sha256")):
+        raise ValueError("Speed-study comparisons must pair the same seed, speed, case and reference")
     for side, (video, info, run_dir) in enumerate(zip(source, provenance, run_dirs)):
         run = json.loads((run_dir/"report.json").read_text())
-        if (run["kind"] != "hockey_ppo_learning_v1" or run["variant"] != ("tracking", "support")[side]
-                or run["mode"] != "eval" or run["worlds"] != 1):
+        identity_ok = (run.get("method") == ("beyondmimic", "hockey")[side] if speed_study else
+                       run["kind"] == "hockey_ppo_learning_v1" and run["variant"] == ("tracking", "support")[side])
+        if not identity_ok or run["mode"] != "eval" or run["worlds"] != 1:
             raise ValueError("Require the two named direct-PPO validations")
         if sha(video) != info["video_sha256"] or sha(run_dir/"final_rollout.npz") != info["trace_sha256"]:
             raise ValueError("Changed render or physical trajectory")
@@ -64,7 +69,8 @@ def main():
             cv2.line(background, tuple(pixels[0]), tuple(pixels[1]), (229, 229, 229), 1)
     cv2.polylines(background, [project(command["qpos"][:, :2])], False, (70, 145, 35), 2, cv2.LINE_AA)
     text(background, "Green: designed reference", 535)
-    text(background, "Blue: tracking PPO | Orange: support PPO", 560)
+    text(background, "Blue: BM-style PPO | Orange: hockey PPO" if speed_study else
+         "Blue: tracking PPO | Orange: support PPO", 560)
     text(background, "Arrows: body heading | bars: wheel planes", 585)
     text(background, "Black thin arrows: actual COM velocity direction", 610, scale=.48)
     videos = [cv2.VideoCapture(str(f)) for f in source]
@@ -138,6 +144,9 @@ def main():
         raise ValueError("Output frame count mismatch")
     (a.output/"provenance.json").write_text(json.dumps(dict(script_sha256=sha(__file__),
         source_videos=[dict(path=str(f), sha256=sha(f)) for f in source],
+        comparison="original_recipe_vs_hockey_recipe" if speed_study else "hockey_support_ablation",
+        matched_case_id=runs[0].get("case_id"),matched_training_seed=runs[0].get("seed"),
+        matched_speed_scale=runs[0].get("speed_scale"),
         frames_decoded=decoded, fps=fps, fixed_camera=provenance[0]["fixed_camera"],
         XY_center_m=center.tolist(), XY_extent_m=extent, time_remapping=False,
         pose_modification=False, physics_steps_performed=0, mp4_sha256=sha(path), gif_sha256=sha(gif)), indent=2)+"\n")

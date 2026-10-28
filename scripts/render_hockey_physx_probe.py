@@ -27,6 +27,7 @@ def main():
     p.add_argument('--result',type=Path,required=True)
     p.add_argument('--run-dir',type=Path)
     p.add_argument('--qualification',type=Path)
+    p.add_argument('--case',help='Named episode in a speed-study qualification directory')
     p.add_argument('--xy-center',type=float,nargs=2)
     p.add_argument('--xy-extent',type=float)
     p.add_argument('--command-dir',type=Path,required=True)
@@ -39,15 +40,22 @@ def main():
     qualification_dir=a.qualification or a.result/'qualification'
     trace=load(run_dir/'final_rollout.npz')
     raw=load(run_dir/'native_contact_buffers.npz')
-    signals=load(qualification_dir/'signals.npz')
+    qualification_path=qualification_dir/(a.case+'.json' if a.case else 'report.json')
+    signals=load(qualification_dir/(a.case+'.signals.npz' if a.case else 'signals.npz'))
     command=load(a.command_dir/'command_diagnostics.npz')
     reference=load(a.command_dir/'motion.npz')
     command_report=json.loads((a.command_dir/'report.json').read_text())
-    qualification=json.loads((qualification_dir/'report.json').read_text())
+    qualification=json.loads(qualification_path.read_text())
     run=json.loads((run_dir/'report.json').read_text())
     label=run.get('conditioning_mode','old PPO / zero residual')
     if run.get('kind')=='hockey_native_physx_mppi_v1':label='PPO+MPPI (dq adapter)'
     if run.get('kind')=='hockey_ppo_learning_v1':label='Hockey-trained PPO / '+run['variant']
+    if run.get('kind')=='hockey_ppo_speed_success_v1':
+        method='BM-style PPO' if run['method']=='beyondmimic' else 'Hockey PPO'
+        label=f'{method} x{run["speed_scale"]:g} seed{run["seed"]}'
+        if not a.case or qualification['case']['id']!=a.case or run['case_id']!=a.case:
+            raise ValueError('Speed-study case identity mismatch')
+    first_fall=qualification.get('first_45deg_tilt_diagnostic_s',qualification.get('first_45deg_tilt_s'))
     stop_screen=qualification['qualification']['task_success_claimed']
     if sha(a.model)!=command_report['model_sha256']:raise ValueError('Visual model mismatch')
     for file,digest in qualification['input_sha256'].items():
@@ -113,7 +121,7 @@ def main():
                 pts=chartpoint(t[start:end],y[start:end],row,lo,hi)
                 if len(pts)>1:cv2.polylines(chart,[pts],False,color,1,cv2.LINE_AA)
                 elif len(pts):cv2.circle(chart,tuple(pts[0]),1,color,-1)
-        first=qualification['first_45deg_tilt_diagnostic_s']
+        first=first_fall
         if first is not None:
             x=int(60+first/rt[-1]*550);cv2.line(chart,(x,y0),(x,y0+75),(190,50,60),1)
     for tick in (0,.7,1.4,2.1,2.76):text(chart,f'{tick:g}',572,x=int(60+tick/rt[-1]*550)-10,scale=.38)
@@ -166,7 +174,8 @@ def main():
     finally:
         runtime.renderer.close();proc.stdin.close()
     if proc.wait()!=0:raise RuntimeError('FFmpeg failed')
-    provenance=dict(renderer_sha256=sha(__file__),model_sha256=sha(a.model),qualification_sha256=sha(qualification_dir/'report.json'),
+    provenance=dict(renderer_sha256=sha(__file__),model_sha256=sha(a.model),qualification_sha256=sha(qualification_path),
+        case_id=a.case,run_kind=run.get('kind'),method=run.get('method'),seed=run.get('seed'),speed_scale=run.get('speed_scale'),
         trace_sha256=sha(run_dir/'final_rollout.npz'),conditioning_mode=run.get('conditioning_mode'),
         command_diagnostics_sha256=sha(a.command_dir/'command_diagnostics.npz'),video_sha256=sha(video),
         frame_count=len(times),fps=fps,physics_steps_performed=0,source_RGB_included=False,
