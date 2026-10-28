@@ -1,6 +1,6 @@
 # PPO for supported sliding near the friction boundary
 
-Status: **implemented and checked locally; not uploaded, trained, or validated in a new PhysX run**. Automatic approval review rejected the upload because this new payload and destination require explicit approval. The existing 18-cell speed study remains unchanged. This candidate is a two-arm, one-seed learning experiment, not evidence of improved control.
+Status: **uploaded, hashes verified, and queued after the existing 18-cell study**. The user explicitly approved this exact payload, destination and deferred two-arm training/validation, resolving the initial automatic-review rejection. The new tmux session `hockey_friction_boundary_20261028_v1` is alive with status `waiting_for_parent`; no new GPU stage has started. The parent study has completed six cells and is training the original recipe at 1× speed / seed 43. [Upload receipt](preflight/upload_receipt.json) · [Runtime preflight](preflight/remote_preflight.json) · [Launch identity](preflight/launch.json) · [Verified queue status](preflight/verified_queue_status.json). This candidate has no new learning result yet.
 
 The objective is to let PPO coordinate wheel camber, leg posture, wheel torque and load transfer while producing a supported, dissipative sliding phase. The friction-cone boundary is a condition in force space, not a geometric path that the robot follows. At each wheel we measure
 
@@ -40,7 +40,7 @@ The immutable [21-file manifest](source_snapshot_v1/manifest.json) covers 314,83
 
 Intended destination: `zengxiong@14.103.233.29:/data/zengxiong/workspaces/tron1-hockey-friction-boundary-20261028-v1/source_snapshot_v1/`.
 
-The prepared dependency wrapper waits until all 18 cells of the existing study complete. It then runs the two arms serially, each with a 32-environment / 2-iteration smoke check, a 512-environment / 1,000-iteration training, and 33 single-environment mu=0.7 validation episodes. Total formal budget: 24,576,000 transitions; validation: 66 episodes. It selects only a freshly confirmed completely idle RTX, never changes another process, and stops on infrastructure failure without retry. Waiting for the parent is bounded at 24 hours; subsequent idle-GPU waiting is bounded at six hours. This wrapper has not been launched.
+The running dependency wrapper waits until all 18 cells of the existing study complete. It then runs the two arms serially, each with a 32-environment / 2-iteration smoke check, a 512-environment / 1,000-iteration training, and 33 single-environment mu=0.7 validation episodes. Total formal budget: 24,576,000 transitions; validation: 66 episodes. It selects only a freshly confirmed completely idle RTX, never changes another process, and stops on infrastructure failure without retry. Waiting for the parent is bounded at 24 hours; subsequent idle-GPU waiting is bounded at six hours. Deployment is at the intended destination above; the current wait consumes no GPU allocation.
 
 The [protocols and plan](source_snapshot_v1/plan.json) retain the frozen physical evaluator byte-for-byte. This experiment tests one reward weight at one speed and training seed; any successful result would still need replication.
 

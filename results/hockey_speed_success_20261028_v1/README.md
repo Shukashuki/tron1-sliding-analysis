@@ -16,7 +16,7 @@ Deployment distinction: 400 Hz validation already records native normal forces, 
 
 The requested baseline is the earlier **TRON1 BeyondMimic-style PPO tracking recipe**, rather than the previous hockey experiment's zero-support-weight arm. The second method is the directly trained hockey tracking PPO, without the additional continuous support penalty. The full recipes differ in observations, rewards, learning-rate schedule and episode-end semantics; this is not a single-reward causal ablation.
 
-A separate [friction-boundary reward ablation](../hockey_friction_boundary_20261028_v1/README.md) is prepared locally for 1.5× speed, with identical instrumentation and reward weights 0 versus +0.5. Its upload awaits explicit approval after an automatic-review rejection; it has not changed this running study or produced new training results.
+A separate [friction-boundary reward ablation](../hockey_friction_boundary_20261028_v1/README.md) is uploaded and queued for 1.5× speed, with identical instrumentation and reward weights 0 versus +0.5. The user approved its exact payload and execution scope; its dependency wrapper waits for this entire 18-cell study to complete. It has not changed this running study or produced new training results.
 
 ## Matched original-speed comparison — seed 42, μ = 0.7
 
