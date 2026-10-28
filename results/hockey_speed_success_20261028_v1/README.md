@@ -40,6 +40,8 @@ Both animations keep the camera 2.4 m from the robot with identical orientation,
 
 [Pre-fall friction-capacity analysis](original_prefall_friction_v1/README.md): in the original policy's last 100 ms before first tilt ≥45°, the left wheel has zero capacity and right-wheel capacity medians are 72.1 N (nominal) and 43.6 N (`trial_022`). The right wheel is near its friction limit for 64.1% and 100% of loaded samples, respectively. The diagnostic separates force saturation, support loss and measured lateral/tangential sliding; it does not attribute the fall solely to friction.
 
+[Friction-cone sections and 3D force-space comparison](friction_cone_analysis_v1/README.md): the original right-wheel resultant approaches the 34.992° ideal cone boundary, mainly laterally in the nominal episode and with larger longitudinal use in `trial_022`. No examined loaded sample exceeds the numerical ρ=1.0001 check. Normalized coordinates, directional headroom, loaded sliding and the limits of aggregate rather than pointwise certification are reported separately.
+
 <details>
 <summary>Archived first-cell analysis before its matched policy completed</summary>
 
