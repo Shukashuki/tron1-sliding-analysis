@@ -46,6 +46,8 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--runs", type=Path, required=True)
     p.add_argument("--analysis", type=Path, required=True)
+    p.add_argument("--aligned-audit", type=Path,
+                   help="Use independently audited pre-step contact geometry/velocity and matching poses")
     p.add_argument("--references", type=Path, required=True)
     p.add_argument("--model", type=Path, required=True)
     p.add_argument("--output", type=Path, required=True)
@@ -63,6 +65,12 @@ def main():
         raise ValueError("Contact analyzer differs from recorded analysis")
     tolerance = report["config"]["contact_separation_tolerance_m"]
     archive = load(a.analysis / "contact_signals.npz")
+    aligned_report, aligned_archive = None, None
+    if a.aligned_audit is not None:
+        aligned_report = json.loads((a.aligned_audit / "report.json").read_text())
+        assert aligned_report["kind"] == "hockey_contact_timing_audit_v3"
+        assert sha(a.aligned_audit / "aligned_signals.npz") == aligned_report["aligned_signals_sha256"]
+        aligned_archive = load(a.aligned_audit / "aligned_signals.npz")
     runtime = create_runtime(a.model, W, 420)
     import mujoco
     camera = runtime.cameras[0]
@@ -95,6 +103,17 @@ def main():
             maximum = max(maximum, float(np.linalg.norm(runtime.data.xpos[mjids] - tr["body_pos"][i, ids], axis=-1).max()))
         if maximum > 2e-5:
             raise ValueError(f"Wheel FK differs for {name}: {maximum}")
+        if aligned_archive is not None:
+            audited = next(r for r in aligned_report["cells"] if r["cell"] == name)
+            assert audited["provenance"] == row["provenance"]
+            touch = {k.split("__", 1)[1]: v for k, v in aligned_archive.items() if k.startswith(name + "__")}
+            touch["friction_utilization"] = touch["rho"]
+            touch["sliding"] = touch["touching"] & (touch["tangent_rms_m_s"] > .05)
+            touch["time_s"] = touch["time_start_s"]
+            s = {key: np.concatenate((v[:1], v[:-1]), axis=0) for key, v in s.items()}
+            s["time_s"] = touch["time_start_s"]
+            qpos = np.concatenate((qpos[:1], qpos[:-1]), axis=0)
+            tr["body_pos"] = np.concatenate((tr["body_pos"][:1], tr["body_pos"][:-1]), axis=0)
         cases.append(dict(name=name, label=label, tr=tr, raw=native, s=s, touch=touch, qpos=qpos,
                           command=command, refdir=refdir, ids=ids, row=row, fk_error=maximum))
         xy.extend([qpos[:, :2], command["qpos"][:, :2], tr["body_pos"][:, ids, :2].reshape(-1, 2)])
@@ -139,7 +158,9 @@ def main():
                 if t[i] > end + 1e-9:
                     break
                 color = (50, 160, 90) if r["touching"][i, side] else ((215, 160, 35) if r["contact_unknown"][i, side] else (205, 65, 65))
-                x0, x1 = int(45+t[i-1]/end*575), int(45+t[i]/end*575)
+                begin, finish = ((r["time_start_s"][i], r["time_end_s"][i])
+                                 if aligned_archive is not None else (t[i-1], t[i]))
+                x0, x1 = int(45+max(begin, 0.)/end*575), int(45+min(finish, end)/end*575)
                 cv2.rectangle(timeline, (x0, 604+side*16), (max(x0+1, x1), 614+side*16), color, -1)
         text(timeline, "L", 613); text(timeline, "R", 629)
         c["timeline"] = timeline
@@ -206,7 +227,7 @@ def main():
         text(panel, "Shared equal XY scale across all four motions", 55, scale=.46)
         text(panel, "Green: reference | Red: recorded PhysX path", 635, scale=.48)
         text(panel, "Blue / orange: left / right wheel plane", 665, scale=.49)
-        text(panel, f"Grid 0.25 m | span {extent:.2f} m | t={i*.0025:.3f} s", 695, scale=.47)
+        text(panel, f"Grid 0.25 m | span {extent:.2f} m | t={c['s']['time_s'][i]:.3f} s", 695, scale=.47)
         return panel
 
     def contact_panel(c, i):
@@ -243,7 +264,8 @@ def main():
     individual = [a.output / (c["name"]+"_reference_physx_xy_contact_4x1.mp4") for c in cases]
     processes = [writer(a.ffmpeg, overview)] + [writer(a.ffmpeg, path) for path in individual]
     try:
-        for frame, i in enumerate(range(0, round(end/.0025)+1, 8)):
+        offset = int(aligned_archive is not None)
+        for frame, i in enumerate(range(offset, round(end/.0025)+1+offset, 8)):
             body = [body_panel(c, i) for c in cases]
             image = np.concatenate(body, axis=1); processes[0].stdin.write(image.tobytes())
             refs = {}
@@ -253,13 +275,13 @@ def main():
                 full = np.concatenate((reference_panel(c, frame, refs[key]), body[k], xy_panel(c, i, frame), contact_panel(c, i)), axis=1)
                 processes[k+1].stdin.write(full.tobytes())
             if frame in (28, 41, 134):
-                cv2.imwrite(str(a.output / f"overview_{i*.0025:.2f}s.png"), cv2.cvtColor(image, cv2.COLOR_RGB2BGR))
+                cv2.imwrite(str(a.output / f"overview_{(i-offset)*.0025:.2f}s.png"), cv2.cvtColor(image, cv2.COLOR_RGB2BGR))
             if frame % 35 == 0: print(f"Real-time frames: {frame+1}/139", flush=True)
     finally:
         for process in processes: close_writer(process)
     slow = a.output / "hockey_contact_transition_8x_slow_4x1.mp4"
     process = writer(a.ffmpeg, slow)
-    slow_indices = np.arange(192, 369)  # 0.480--0.920 s; every native 400 Hz sample.
+    slow_indices = np.arange(192+offset, 369+offset)  # 0.480--0.920 s; every native 400 Hz sample.
     try:
         for frame, i in enumerate(slow_indices):
             image = np.concatenate([body_panel(c, int(i), slow=True) for c in cases], axis=1)
@@ -295,6 +317,10 @@ def main():
         camera=dict(distance_m=2.4, azimuth_deg=135., elevation_deg=-18., lookat="current root + [0,0,-0.24]"),
         xy_center_m=center.tolist(), xy_extent_m=extent, all_panels_share_camera_and_xy_scale=True,
         physical_dt_s=.0025, realtime_frame_stride=8,
+        contact_timing=("pre-step geometry + pre-step velocity + pre-step display pose; force over following interval"
+                        if aligned_archive is not None else "legacy post-step pose/velocity with pre-step contact geometry"),
+        aligned_audit_sha256=sha(a.aligned_audit / "report.json") if a.aligned_audit is not None else None,
+        display_pose_index_offset_from_native_row_end=-1 if aligned_archive is not None else 0,
         slow_motion=dict(first_physical_index=int(slow_indices[0]), last_physical_index=int(slow_indices[-1]),
                          input_time_interval_s=[.48,.92], physical_frame_stride=1, slowdown_factor=8.),
         contact_markers="Valid native normal points with separation <=0.1 mm, no normal-force gate; display sphere radius 9 mm",

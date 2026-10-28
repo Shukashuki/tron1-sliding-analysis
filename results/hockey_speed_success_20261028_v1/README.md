@@ -25,13 +25,36 @@ This update covers contact eligibility and contact-conditioned sliding for four 
 
 [Contact report](ground_contact_analysis_v2_validated/report.json) · [Per-wheel signals](ground_contact_analysis_v2_validated/contact_signals.npz) · [Evaluation specification](../../config/hockey_contact_evaluation_v2.json) · [Analysis code](../../scripts/analyze_hockey_ground_contact.py)
 
+### Contact timing and visible sliding — v3 correction
+
+The archived contact geometry corresponds to **the state before the physics step**, while the old sliding calculation and overlays used the state after it: a **2.5 ms mismatch**. An independent finite-cylinder calculation from the locked PhysX USD finds this offset for both wheels in all four recordings. After alignment, the worst per-wheel 95th-percentile separation error is 0.445 micrometres; the old pairing reaches 1.192 mm. Contact points, wheel twists and displayed poses now use the same pre-step timestamp. Native friction force still represents the following interval, so anchor power remains corroboration rather than exact integrated work.
+
+Sliding was present in the saved data. During the 0.4–1.8 s braking window, at mu=0.7 and seed 42:
+
+| Policy | Touching lateral slip, L / R | Also friction-corroborated, L / R |
+| --- | ---: | ---: |
+| Earlier tracking, 1× | 945 / 125 ms | 905 / 107.5 ms |
+| Hockey PPO, 1× | 670 / 145 ms | 645 / 130 ms |
+| Hockey PPO, 1.5× | 785 / 227.5 ms | 735 / 185 ms |
+| Hockey PPO, 2× | 865 / 157.5 ms | 825 / 125 ms |
+
+These are accumulated durations, not continuous-slide lengths or full-task successes. Lateral material-point speed must exceed 0.05 m/s while geometrically touching. Corroboration additionally requires wheel-level friction utilization in [0.9, 1.05], negative anchor power below −0.05 W, and opposing lateral friction at an anchor. It is not a pointwise friction-cone certificate. Transporting the **same material points** between recorded poses independently confirms interval lateral motion: the hockey left-wheel durations satisfying both corroboration and interval motion are 635, 722.5 and 807.5 ms. This avoids confusing a moving geometric contact minimum with actual material sliding; it does not prove uninterrupted contact inside a 2.5 ms step.
+
+The new fixed-ground view separates wheel planes (blue/orange), body heading (red), wheel COM velocity (gray arrows) and contact material slip velocity (magenta arrows). It keeps one common spatial and velocity scale, with no zoom. Magenta trail dots locate observed sliding contacts; they are not simulated tire marks. The full-body follow view remains available below. Its small signal chart retains a declared 3 m/s display limit; numeric labels, data and the ground-view arrows preserve larger speeds.
+
+[Fixed-ground real-time MP4](sliding_ground_view_v3/aligned_sliding_ground_view_4x1.mp4) · [Every-physics-step braking, 8× slow MP4](sliding_ground_view_v3/aligned_sliding_braking_8x_slow_4x1.mp4) · [Slow preview](sliding_ground_view_v3/aligned_sliding_braking_8x_slow_4x1.gif)
+
+[Timing audit](contact_timing_audit_v3/report.json) · [Material-displacement check](contact_timing_audit_v3/material_displacement_crosscheck.json) · [Aligned signals](contact_timing_audit_v3/aligned_signals.npz) · [Audit code](../../scripts/audit_hockey_contact_timing.py) · [Displacement check code](../../scripts/check_hockey_material_displacement.py) · [Ground-view renderer](../../scripts/render_hockey_sliding_vectors.py)
+
+This correction changes the analysis and display, with **no new simulation or training**. It leaves the geometric contact flags and no-contact durations above unchanged. The four nominal traces cannot establish new success rates for the perturbed trials or isolate a training-versus-validation physics difference. Seven physical counterexample tests pass. The archived v2 sliding signals and video overlays used the old timestamp pairing and are superseded by v3 for sliding interpretation.
+
 ### Recorded full-body motion and contact transitions
 
 The four columns are earlier tracking PPO at 1×, then hockey PPO at 1×, 1.5× and 2×. They share a fixed 2.4 m follow camera, 135° azimuth and −18° elevation. Green dots mark valid native touching points using the 0.1 mm separation tolerance, without a force threshold. Left/right labels distinguish contact, contact-conditioned material sliding, and sliding corroborated by near-limit aggregate friction and dissipative anchor evidence. Green/red/amber timelines mean touching/not touching/unknown.
 
-![Four recorded motions, real time](ground_contact_renders_v2/hockey_contact_fullbody_4x1.gif)
+![Four recorded motions, real time](ground_contact_renders_v3_aligned/hockey_contact_fullbody_4x1.gif)
 
-[Full-resolution real-time MP4](ground_contact_renders_v2/hockey_contact_fullbody_4x1.mp4) · [8× slow contact-transition MP4](ground_contact_renders_v2/hockey_contact_transition_8x_slow_4x1.mp4) · [Slow GIF](ground_contact_renders_v2/hockey_contact_transition_8x_slow_4x1.gif)
+[Full-resolution real-time MP4](ground_contact_renders_v3_aligned/hockey_contact_fullbody_4x1.mp4) · [8× slow contact-transition MP4](ground_contact_renders_v3_aligned/hockey_contact_transition_8x_slow_4x1.mp4) · [Slow GIF](ground_contact_renders_v3_aligned/hockey_contact_transition_8x_slow_4x1.gif)
 
 The slow MP4 excerpt covers 0.480–0.920 s and displays every 400 Hz physical sample at 50 video frames/s, making short contact gaps visible. The real-time MP4s sample every eighth physical state at 50 frames/s. GIF previews are reduced to 12.5 frames/s. Both playback modes use the original recorded poses, including wheel spin, without smoothing or height adjustment. MuJoCo supplies mesh graphics and forward kinematics only; no physics or policy inference is performed. Every recorded wheel-origin pose is checked against the display model. Contact marker spheres are display annotations, not changes to wheel geometry.
 
@@ -39,17 +62,18 @@ Each motion also retains the reference / recorded full body / common-scale XY an
 
 | Motion | Four-panel MP4 |
 | --- | --- |
-| Earlier tracking PPO, 1× | [Reference / PhysX / XY / contact](ground_contact_renders_v2/beyondmimic_s100_seed42_reference_physx_xy_contact_4x1.mp4) |
-| Hockey PPO, 1× | [Reference / PhysX / XY / contact](ground_contact_renders_v2/hockey_s100_seed42_reference_physx_xy_contact_4x1.mp4) |
-| Hockey PPO, 1.5× | [Reference / PhysX / XY / contact](ground_contact_renders_v2/hockey_s150_seed42_reference_physx_xy_contact_4x1.mp4) |
-| Hockey PPO, 2× | [Reference / PhysX / XY / contact](ground_contact_renders_v2/hockey_s200_seed42_reference_physx_xy_contact_4x1.mp4) |
+| Earlier tracking PPO, 1× | [Reference / PhysX / XY / contact](ground_contact_renders_v3_aligned/beyondmimic_s100_seed42_reference_physx_xy_contact_4x1.mp4) |
+| Hockey PPO, 1× | [Reference / PhysX / XY / contact](ground_contact_renders_v3_aligned/hockey_s100_seed42_reference_physx_xy_contact_4x1.mp4) |
+| Hockey PPO, 1.5× | [Reference / PhysX / XY / contact](ground_contact_renders_v3_aligned/hockey_s150_seed42_reference_physx_xy_contact_4x1.mp4) |
+| Hockey PPO, 2× | [Reference / PhysX / XY / contact](ground_contact_renders_v3_aligned/hockey_s200_seed42_reference_physx_xy_contact_4x1.mp4) |
 
-[Render and frame-count verification](ground_contact_renders_v2/provenance.json) · [Renderer](../../scripts/render_hockey_contact_comparison.py)
+[Render and frame-count verification](ground_contact_renders_v3_aligned/provenance.json) · [Renderer](../../scripts/render_hockey_contact_comparison.py)
 
 ```bash
 MUJOCO_GL=osmesa python scripts/render_hockey_contact_comparison.py \
   --runs outputs/hockey_support_evidence/runs_v1 \
   --analysis results/hockey_speed_success_20261028_v1/ground_contact_analysis_v2_validated \
+  --aligned-audit results/hockey_speed_success_20261028_v1/contact_timing_audit_v3 \
   --references results/hockey_speed_success_20261028_v1/source_snapshot_v1/references \
   --model /path/to/WF_TRON1A/mujoco/robot.xml \
   --output outputs/hockey_contact_renders
@@ -60,6 +84,22 @@ python scripts/analyze_hockey_ground_contact.py \
   --runs outputs/hockey_support_evidence/runs_v1 \
   --references results/hockey_speed_success_20261028_v1/source_snapshot_v1/references \
   --output outputs/hockey_ground_contact_analysis
+```
+
+To regenerate the aligned audit from the same raw recordings and locked USD, run:
+
+```bash
+python scripts/audit_hockey_contact_timing.py \
+  --runs outputs/hockey_support_evidence/runs_v1 \
+  --geometry results/hockey_stop_evaluation_audit_20261026_v1/wheel_geometry_v2/report.json \
+  --asset /path/to/training-asset/WF_TRON1A.usda \
+  --output outputs/hockey_contact_timing
+python scripts/check_hockey_material_displacement.py --audit outputs/hockey_contact_timing
+python scripts/render_hockey_sliding_vectors.py \
+  --audit outputs/hockey_contact_timing \
+  --runs outputs/hockey_support_evidence/runs_v1 \
+  --references results/hockey_speed_success_20261028_v1/source_snapshot_v1/references \
+  --output outputs/hockey_sliding_ground_view
 ```
 
 ## Historical load-based evaluation

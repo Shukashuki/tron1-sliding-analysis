@@ -1,0 +1,1229 @@
+{
+  "kind": "hockey_contact_timing_audit_v3",
+  "script_sha256": "2bfeeaddf9f68a05540789a8b72adb71857b99aebbeffe0349adbbd02c7741b8",
+  "dependencies": {
+    "analyze_hockey_ground_contact.py": "3e88ea2486af39a53b9d26e70cfeb84f406063e64ee6888383376fa7deb788b0",
+    "analyze_hockey_support_failure.py": "69fbcded4edd2cfd9ae43cffecd0c84d9b8d0fa4c3061a1ae7939600e718c67c",
+    "evaluate_hockey_physx.py": "39861d94d6f36e91232610b5d10caebcb6a6a64faa4bcaf2cb69c3145ef333eb",
+    "wheel_ground_geometry.py": "3041d8fb0ce55e22363c849c736079fecf346363345e9842534b47127e78cb37"
+  },
+  "geometry_report_sha256": "e9ec53ad7d1ba7ab2593f2e6801e63c1a7d5183ea57a55572df14cddde8ccbe9",
+  "asset_sha256": "327ca5080e753bbc95d8c3c797e9cd49a0f134d400cfe80494af0ba840e23a8e",
+  "contact_tolerance_m": 0.0001,
+  "primary_contact_velocity": "pre-step state at the native contact geometry timestamp",
+  "force_scope": "Native force is averaged over the following 2.5 ms step; anchor power remains a corroboration proxy, not exact integrated work.",
+  "conclusions_scope": "Recorded traces establish timestamp alignment and sliding evidence; no new engine calibration or training/evaluation action-parity experiment performed.",
+  "physics_steps": 0,
+  "training_changed": false,
+  "historical_v2_outputs_preserved": true,
+  "cells": [
+    {
+      "cell": "beyondmimic_s100_seed42",
+      "provenance": {
+        "run_report_sha256": "13a1ec003cd372151678719549774391001d425fc035003d5a3984f26d2300f7",
+        "qualification_sha256": "35b4c244c6b139a9fc7a5da534c508fae3817b9bd8b7ef9aa220c0951aeb9118",
+        "recorded_artifacts": {
+          "final_rollout.npz": "bc2fbe29dc298fb113c28604920f67be4035dde3d029383f5e6c226312564c63",
+          "native_contact_buffers.npz": "0343d30925e4f366fd2b79ea6fb177d05eb9199bb4521fd03f837ef160d11e2f",
+          "case.json": "147fea4b1170385a3184584d956ba2b5bf172e563d3ecca1097136798aadd3cb"
+        }
+      },
+      "wheels": [
+        {
+          "side": "left",
+          "native_gap_pose_alignment": {
+            "-2": {
+              "mean_abs_error_m": 4.241917751126349e-05,
+              "p95_abs_error_m": 0.000386219464498466
+            },
+            "-1": {
+              "mean_abs_error_m": 1.4230185751137672e-07,
+              "p95_abs_error_m": 2.1063394577969242e-07
+            },
+            "0": {
+              "mean_abs_error_m": 4.3092401551074266e-05,
+              "p95_abs_error_m": 0.0003886189215350222
+            },
+            "1": {
+              "mean_abs_error_m": 8.642898040535554e-05,
+              "p95_abs_error_m": 0.0008005398668350742
+            },
+            "2": {
+              "mean_abs_error_m": 0.00013037046592099616,
+              "p95_abs_error_m": 0.001175633944304481
+            }
+          },
+          "best_pose_index_offset": -1,
+          "geometry_samples_compared": 837,
+          "braking_contact_s": 1.3275000000000001,
+          "braking_lateral_sliding_legacy_s": 0.9500000000000001,
+          "braking_lateral_sliding_aligned_s": 0.9450000000000001,
+          "braking_friction_corroborated_lateral_sliding_s": 0.905,
+          "longest_corroborated_lateral_sliding_s": 0.31000000000000005,
+          "corroborated_sliding_events": [
+            {
+              "first_index": 161,
+              "last_index": 211,
+              "start_s": 0.4000000000000001,
+              "end_s": 0.5275,
+              "duration_s": 0.1274999999999999
+            },
+            {
+              "first_index": 242,
+              "last_index": 248,
+              "start_s": 0.6025,
+              "end_s": 0.62,
+              "duration_s": 0.01749999999999996
+            },
+            {
+              "first_index": 252,
+              "last_index": 256,
+              "start_s": 0.6275000000000001,
+              "end_s": 0.64,
+              "duration_s": 0.012499999999999956
+            },
+            {
+              "first_index": 261,
+              "last_index": 272,
+              "start_s": 0.65,
+              "end_s": 0.68,
+              "duration_s": 0.030000000000000027
+            },
+            {
+              "first_index": 274,
+              "last_index": 289,
+              "start_s": 0.6825000000000001,
+              "end_s": 0.7225,
+              "duration_s": 0.039999999999999925
+            },
+            {
+              "first_index": 322,
+              "last_index": 336,
+              "start_s": 0.8025000000000001,
+              "end_s": 0.84,
+              "duration_s": 0.03749999999999987
+            },
+            {
+              "first_index": 346,
+              "last_index": 349,
+              "start_s": 0.8625,
+              "end_s": 0.8725,
+              "duration_s": 0.010000000000000009
+            },
+            {
+              "first_index": 363,
+              "last_index": 366,
+              "start_s": 0.905,
+              "end_s": 0.915,
+              "duration_s": 0.010000000000000009
+            },
+            {
+              "first_index": 378,
+              "last_index": 384,
+              "start_s": 0.9425000000000001,
+              "end_s": 0.96,
+              "duration_s": 0.01749999999999985
+            },
+            {
+              "first_index": 405,
+              "last_index": 429,
+              "start_s": 1.01,
+              "end_s": 1.0725,
+              "duration_s": 0.0625
+            },
+            {
+              "first_index": 444,
+              "last_index": 451,
+              "start_s": 1.1075000000000002,
+              "end_s": 1.1275,
+              "duration_s": 0.019999999999999796
+            },
+            {
+              "first_index": 488,
+              "last_index": 535,
+              "start_s": 1.2175,
+              "end_s": 1.3375000000000001,
+              "duration_s": 0.1200000000000001
+            },
+            {
+              "first_index": 540,
+              "last_index": 556,
+              "start_s": 1.3475000000000001,
+              "end_s": 1.3900000000000001,
+              "duration_s": 0.04249999999999998
+            },
+            {
+              "first_index": 573,
+              "last_index": 591,
+              "start_s": 1.4300000000000002,
+              "end_s": 1.4775,
+              "duration_s": 0.047499999999999876
+            },
+            {
+              "first_index": 597,
+              "last_index": 720,
+              "start_s": 1.49,
+              "end_s": 1.8,
+              "duration_s": 0.31000000000000005
+            }
+          ],
+          "aligned_contact_lateral_speed_p50_p95_max_m_s": [
+            0.18602313000563686,
+            0.7750831200776933,
+            1.3124327474939537
+          ],
+          "aligned_contact_tangent_speed_p50_p95_max_m_s": [
+            0.19813877749686837,
+            1.039390304666277,
+            1.9828347652824752
+          ],
+          "interval_material_tangent_speed_p50_p95_max_m_s": [
+            0.19785585676932815,
+            1.0204059650125785,
+            1.4974014658276915
+          ],
+          "legacy_vs_aligned_tangent_difference_p50_p95_max_m_s": [
+            0.01558952931800578,
+            0.16523212365550138,
+            0.5343100493323802
+          ],
+          "legacy_chart_above_3m_s_fraction": 0.0,
+          "backward_FD_vs_post_COM_velocity_error_p50_p95_max_m_s": [
+            0.0013584415428340435,
+            0.046868083998560905,
+            0.3126313090324402
+          ],
+          "rotation_FD_vs_post_omega_error_p50_p95_max_rad_s": [
+            0.014948411781423615,
+            0.17055384179081337,
+            3.1670724661675247
+          ]
+        },
+        {
+          "side": "right",
+          "native_gap_pose_alignment": {
+            "-2": {
+              "mean_abs_error_m": 6.386870494137814e-05,
+              "p95_abs_error_m": 0.00030050091640856604
+            },
+            "-1": {
+              "mean_abs_error_m": 1.7106147022962109e-07,
+              "p95_abs_error_m": 2.1264251792163514e-07
+            },
+            "0": {
+              "mean_abs_error_m": 6.375154215954265e-05,
+              "p95_abs_error_m": 0.0003001153500365474
+            },
+            "1": {
+              "mean_abs_error_m": 0.00012616782305908952,
+              "p95_abs_error_m": 0.0005771124937238052
+            },
+            "2": {
+              "mean_abs_error_m": 0.0001876709451288607,
+              "p95_abs_error_m": 0.0009008326128005158
+            }
+          },
+          "best_pose_index_offset": -1,
+          "geometry_samples_compared": 1053,
+          "braking_contact_s": 1.16,
+          "braking_lateral_sliding_legacy_s": 0.1325,
+          "braking_lateral_sliding_aligned_s": 0.125,
+          "braking_friction_corroborated_lateral_sliding_s": 0.1075,
+          "longest_corroborated_lateral_sliding_s": 0.027499999999999858,
+          "corroborated_sliding_events": [
+            {
+              "first_index": 264,
+              "last_index": 267,
+              "start_s": 0.6575000000000001,
+              "end_s": 0.6675,
+              "duration_s": 0.009999999999999898
+            },
+            {
+              "first_index": 292,
+              "last_index": 296,
+              "start_s": 0.7275,
+              "end_s": 0.74,
+              "duration_s": 0.012499999999999956
+            },
+            {
+              "first_index": 317,
+              "last_index": 324,
+              "start_s": 0.79,
+              "end_s": 0.81,
+              "duration_s": 0.020000000000000018
+            },
+            {
+              "first_index": 346,
+              "last_index": 350,
+              "start_s": 0.8625,
+              "end_s": 0.875,
+              "duration_s": 0.012499999999999956
+            },
+            {
+              "first_index": 362,
+              "last_index": 368,
+              "start_s": 0.9025000000000001,
+              "end_s": 0.92,
+              "duration_s": 0.01749999999999996
+            },
+            {
+              "first_index": 387,
+              "last_index": 389,
+              "start_s": 0.9650000000000001,
+              "end_s": 0.9725,
+              "duration_s": 0.007499999999999951
+            },
+            {
+              "first_index": 402,
+              "last_index": 412,
+              "start_s": 1.0025000000000002,
+              "end_s": 1.03,
+              "duration_s": 0.027499999999999858
+            }
+          ],
+          "aligned_contact_lateral_speed_p50_p95_max_m_s": [
+            0.0006794615918268301,
+            0.477778504875281,
+            1.3859477922379353
+          ],
+          "aligned_contact_tangent_speed_p50_p95_max_m_s": [
+            0.0014465618626869371,
+            0.6840987656407289,
+            4.529640867433883
+          ],
+          "interval_material_tangent_speed_p50_p95_max_m_s": [
+            0.0005901956699032911,
+            0.6334284611707142,
+            4.351117962195042
+          ],
+          "legacy_vs_aligned_tangent_difference_p50_p95_max_m_s": [
+            0.0012525644742956555,
+            0.19389419040394779,
+            1.0377841592143793
+          ],
+          "legacy_chart_above_3m_s_fraction": 0.008620689655172414,
+          "backward_FD_vs_post_COM_velocity_error_p50_p95_max_m_s": [
+            0.0022944804513826966,
+            0.026618387550115585,
+            1.0646030902862549
+          ],
+          "rotation_FD_vs_post_omega_error_p50_p95_max_rad_s": [
+            0.016306062361391344,
+            0.23283245525395752,
+            20.841752749444517
+          ]
+        }
+      ],
+      "no_contact_count_changed": false,
+      "full_task_success_recomputed": false
+    },
+    {
+      "cell": "hockey_s100_seed42",
+      "provenance": {
+        "run_report_sha256": "3b362e5fa293ecacb14fddc993970b2b0c2cce096142a12db739a2f3ba933ba1",
+        "qualification_sha256": "36f384522893d04a4e450f3197148aab5383841997290ffe5e76c1bf46b7937f",
+        "recorded_artifacts": {
+          "final_rollout.npz": "33c320189496e0702aea2d1ff539592dc1897e5ecf78be1e0c120386bf861589",
+          "native_contact_buffers.npz": "efc9e71468df0dd1f8bc8f8156d6ac6dc632f5e4d60ceca0232d7ac9f79c8e7f",
+          "case.json": "147fea4b1170385a3184584d956ba2b5bf172e563d3ecca1097136798aadd3cb"
+        }
+      },
+      "wheels": [
+        {
+          "side": "left",
+          "native_gap_pose_alignment": {
+            "-2": {
+              "mean_abs_error_m": 1.4351723491198774e-06,
+              "p95_abs_error_m": 1.317956522944863e-06
+            },
+            "-1": {
+              "mean_abs_error_m": 1.539116105674962e-07,
+              "p95_abs_error_m": 2.1901468685858738e-07
+            },
+            "0": {
+              "mean_abs_error_m": 1.4331090474973252e-06,
+              "p95_abs_error_m": 1.3616617044187596e-06
+            },
+            "1": {
+              "mean_abs_error_m": 2.535274939078606e-06,
+              "p95_abs_error_m": 2.1843777005536857e-06
+            },
+            "2": {
+              "mean_abs_error_m": 3.4449880518712234e-06,
+              "p95_abs_error_m": 3.3610321449051295e-06
+            }
+          },
+          "best_pose_index_offset": -1,
+          "geometry_samples_compared": 1081,
+          "braking_contact_s": 1.3800000000000001,
+          "braking_lateral_sliding_legacy_s": 0.6675,
+          "braking_lateral_sliding_aligned_s": 0.67,
+          "braking_friction_corroborated_lateral_sliding_s": 0.645,
+          "longest_corroborated_lateral_sliding_s": 0.1974999999999999,
+          "corroborated_sliding_events": [
+            {
+              "first_index": 161,
+              "last_index": 227,
+              "start_s": 0.4000000000000001,
+              "end_s": 0.5675,
+              "duration_s": 0.16749999999999993
+            },
+            {
+              "first_index": 250,
+              "last_index": 256,
+              "start_s": 0.6225,
+              "end_s": 0.64,
+              "duration_s": 0.01749999999999996
+            },
+            {
+              "first_index": 262,
+              "last_index": 268,
+              "start_s": 0.6525000000000001,
+              "end_s": 0.67,
+              "duration_s": 0.01749999999999996
+            },
+            {
+              "first_index": 272,
+              "last_index": 272,
+              "start_s": 0.6775000000000001,
+              "end_s": 0.68,
+              "duration_s": 0.0024999999999999467
+            },
+            {
+              "first_index": 282,
+              "last_index": 296,
+              "start_s": 0.7025,
+              "end_s": 0.74,
+              "duration_s": 0.03749999999999998
+            },
+            {
+              "first_index": 304,
+              "last_index": 308,
+              "start_s": 0.7575000000000001,
+              "end_s": 0.77,
+              "duration_s": 0.012499999999999956
+            },
+            {
+              "first_index": 322,
+              "last_index": 351,
+              "start_s": 0.8025000000000001,
+              "end_s": 0.8775000000000001,
+              "duration_s": 0.07499999999999996
+            },
+            {
+              "first_index": 362,
+              "last_index": 384,
+              "start_s": 0.9025000000000001,
+              "end_s": 0.96,
+              "duration_s": 0.057499999999999885
+            },
+            {
+              "first_index": 394,
+              "last_index": 472,
+              "start_s": 0.9825,
+              "end_s": 1.18,
+              "duration_s": 0.1974999999999999
+            },
+            {
+              "first_index": 482,
+              "last_index": 497,
+              "start_s": 1.2025000000000001,
+              "end_s": 1.2425,
+              "duration_s": 0.039999999999999813
+            },
+            {
+              "first_index": 515,
+              "last_index": 522,
+              "start_s": 1.2850000000000001,
+              "end_s": 1.305,
+              "duration_s": 0.019999999999999796
+            }
+          ],
+          "aligned_contact_lateral_speed_p50_p95_max_m_s": [
+            0.02439842240539384,
+            1.733702490716199,
+            2.691582227374592
+          ],
+          "aligned_contact_tangent_speed_p50_p95_max_m_s": [
+            0.08489445588406873,
+            2.193840556804209,
+            3.4149588063504694
+          ],
+          "interval_material_tangent_speed_p50_p95_max_m_s": [
+            0.08228216337472596,
+            2.173021007968549,
+            3.4059595603953565
+          ],
+          "legacy_vs_aligned_tangent_difference_p50_p95_max_m_s": [
+            0.00987140779050287,
+            0.23511710233158192,
+            0.7078820914821351
+          ],
+          "legacy_chart_above_3m_s_fraction": 0.009057971014492754,
+          "backward_FD_vs_post_COM_velocity_error_p50_p95_max_m_s": [
+            0.000832294492283836,
+            0.005299509619362652,
+            0.03455476835370064
+          ],
+          "rotation_FD_vs_post_omega_error_p50_p95_max_rad_s": [
+            0.010326901917182395,
+            0.05573235565603764,
+            0.23584234040438218
+          ]
+        },
+        {
+          "side": "right",
+          "native_gap_pose_alignment": {
+            "-2": {
+              "mean_abs_error_m": 4.332097946112506e-05,
+              "p95_abs_error_m": 0.00021896033770221757
+            },
+            "-1": {
+              "mean_abs_error_m": 1.7380654506563786e-07,
+              "p95_abs_error_m": 2.1735227925812062e-07
+            },
+            "0": {
+              "mean_abs_error_m": 4.331519422480726e-05,
+              "p95_abs_error_m": 0.0002186035663418462
+            },
+            "1": {
+              "mean_abs_error_m": 8.597128032404607e-05,
+              "p95_abs_error_m": 0.00047338433805335645
+            },
+            "2": {
+              "mean_abs_error_m": 0.00012842754623757413,
+              "p95_abs_error_m": 0.0005843293519658121
+            }
+          },
+          "best_pose_index_offset": -1,
+          "geometry_samples_compared": 1081,
+          "braking_contact_s": 1.24,
+          "braking_lateral_sliding_legacy_s": 0.1625,
+          "braking_lateral_sliding_aligned_s": 0.145,
+          "braking_friction_corroborated_lateral_sliding_s": 0.13,
+          "longest_corroborated_lateral_sliding_s": 0.05499999999999994,
+          "corroborated_sliding_events": [
+            {
+              "first_index": 228,
+              "last_index": 249,
+              "start_s": 0.5675000000000001,
+              "end_s": 0.6225,
+              "duration_s": 0.05499999999999994
+            },
+            {
+              "first_index": 292,
+              "last_index": 295,
+              "start_s": 0.7275,
+              "end_s": 0.7375,
+              "duration_s": 0.010000000000000009
+            },
+            {
+              "first_index": 335,
+              "last_index": 337,
+              "start_s": 0.8350000000000001,
+              "end_s": 0.8425,
+              "duration_s": 0.007499999999999951
+            },
+            {
+              "first_index": 348,
+              "last_index": 352,
+              "start_s": 0.8675,
+              "end_s": 0.88,
+              "duration_s": 0.012499999999999956
+            },
+            {
+              "first_index": 363,
+              "last_index": 368,
+              "start_s": 0.905,
+              "end_s": 0.92,
+              "duration_s": 0.015000000000000013
+            },
+            {
+              "first_index": 382,
+              "last_index": 393,
+              "start_s": 0.9525000000000001,
+              "end_s": 0.9825,
+              "duration_s": 0.029999999999999916
+            }
+          ],
+          "aligned_contact_lateral_speed_p50_p95_max_m_s": [
+            0.0013263682736636417,
+            0.49475016503224634,
+            1.485037932872949
+          ],
+          "aligned_contact_tangent_speed_p50_p95_max_m_s": [
+            0.0043591428989739125,
+            0.9993980139779017,
+            3.561301876436546
+          ],
+          "interval_material_tangent_speed_p50_p95_max_m_s": [
+            0.003353701207112491,
+            0.8475081953413794,
+            2.738731639998118
+          ],
+          "legacy_vs_aligned_tangent_difference_p50_p95_max_m_s": [
+            0.002198924191959471,
+            0.16930249855525262,
+            1.049464364881472
+          ],
+          "legacy_chart_above_3m_s_fraction": 0.0,
+          "backward_FD_vs_post_COM_velocity_error_p50_p95_max_m_s": [
+            0.0015253657475113869,
+            0.010776733746752143,
+            0.334612101316452
+          ],
+          "rotation_FD_vs_post_omega_error_p50_p95_max_rad_s": [
+            0.012094984964928251,
+            0.14948360180046172,
+            4.055610955995884
+          ]
+        }
+      ],
+      "no_contact_count_changed": false,
+      "full_task_success_recomputed": false
+    },
+    {
+      "cell": "hockey_s150_seed42",
+      "provenance": {
+        "run_report_sha256": "152fd28bf4237ce7bb41b1a9eb8b8aa36d9daec3e2a70d5dc194b10c295bc216",
+        "qualification_sha256": "c65b71bcb97db8c204f6986df072293ec55647eea0c3e61df225ca729ac72ed2",
+        "recorded_artifacts": {
+          "final_rollout.npz": "bf74ad8be78d534e2b75d81c81ed32b8984d990dce7449044a99d58e63c35158",
+          "native_contact_buffers.npz": "5a8b3be3e2006b01b9f39d42c5baffc5850c69384f5a0b138e661c7e16254bc2",
+          "case.json": "da7a8046732774af52c55a81a6e56ee0af7ea35181bfd5734e5003be865583e0"
+        }
+      },
+      "wheels": [
+        {
+          "side": "left",
+          "native_gap_pose_alignment": {
+            "-2": {
+              "mean_abs_error_m": 3.03304413824688e-05,
+              "p95_abs_error_m": 0.00015262982940886238
+            },
+            "-1": {
+              "mean_abs_error_m": 2.2342226992756328e-07,
+              "p95_abs_error_m": 2.8884079769642135e-07
+            },
+            "0": {
+              "mean_abs_error_m": 3.032369250406288e-05,
+              "p95_abs_error_m": 0.00015229062599883547
+            },
+            "1": {
+              "mean_abs_error_m": 5.9940952208996153e-05,
+              "p95_abs_error_m": 0.00030519770700870863
+            },
+            "2": {
+              "mean_abs_error_m": 8.909809617671622e-05,
+              "p95_abs_error_m": 0.00048788089706722215
+            }
+          },
+          "best_pose_index_offset": -1,
+          "geometry_samples_compared": 1081,
+          "braking_contact_s": 1.2325,
+          "braking_lateral_sliding_legacy_s": 0.7825,
+          "braking_lateral_sliding_aligned_s": 0.785,
+          "braking_friction_corroborated_lateral_sliding_s": 0.735,
+          "longest_corroborated_lateral_sliding_s": 0.31499999999999995,
+          "corroborated_sliding_events": [
+            {
+              "first_index": 161,
+              "last_index": 232,
+              "start_s": 0.4000000000000001,
+              "end_s": 0.58,
+              "duration_s": 0.17999999999999988
+            },
+            {
+              "first_index": 261,
+              "last_index": 263,
+              "start_s": 0.65,
+              "end_s": 0.6575,
+              "duration_s": 0.007499999999999951
+            },
+            {
+              "first_index": 265,
+              "last_index": 265,
+              "start_s": 0.66,
+              "end_s": 0.6625,
+              "duration_s": 0.0024999999999999467
+            },
+            {
+              "first_index": 267,
+              "last_index": 267,
+              "start_s": 0.665,
+              "end_s": 0.6675,
+              "duration_s": 0.0024999999999999467
+            },
+            {
+              "first_index": 295,
+              "last_index": 295,
+              "start_s": 0.7350000000000001,
+              "end_s": 0.7375,
+              "duration_s": 0.0024999999999999467
+            },
+            {
+              "first_index": 305,
+              "last_index": 314,
+              "start_s": 0.7600000000000001,
+              "end_s": 0.785,
+              "duration_s": 0.02499999999999991
+            },
+            {
+              "first_index": 317,
+              "last_index": 320,
+              "start_s": 0.79,
+              "end_s": 0.8,
+              "duration_s": 0.010000000000000009
+            },
+            {
+              "first_index": 337,
+              "last_index": 462,
+              "start_s": 0.8400000000000001,
+              "end_s": 1.155,
+              "duration_s": 0.31499999999999995
+            },
+            {
+              "first_index": 475,
+              "last_index": 493,
+              "start_s": 1.185,
+              "end_s": 1.2325,
+              "duration_s": 0.047499999999999876
+            },
+            {
+              "first_index": 506,
+              "last_index": 512,
+              "start_s": 1.2625000000000002,
+              "end_s": 1.28,
+              "duration_s": 0.01749999999999985
+            },
+            {
+              "first_index": 516,
+              "last_index": 524,
+              "start_s": 1.2875,
+              "end_s": 1.31,
+              "duration_s": 0.022499999999999964
+            },
+            {
+              "first_index": 527,
+              "last_index": 529,
+              "start_s": 1.3150000000000002,
+              "end_s": 1.3225,
+              "duration_s": 0.00749999999999984
+            },
+            {
+              "first_index": 538,
+              "last_index": 544,
+              "start_s": 1.3425,
+              "end_s": 1.36,
+              "duration_s": 0.01750000000000007
+            },
+            {
+              "first_index": 549,
+              "last_index": 557,
+              "start_s": 1.37,
+              "end_s": 1.3925,
+              "duration_s": 0.022499999999999964
+            },
+            {
+              "first_index": 570,
+              "last_index": 589,
+              "start_s": 1.4225,
+              "end_s": 1.4725,
+              "duration_s": 0.04999999999999982
+            },
+            {
+              "first_index": 608,
+              "last_index": 609,
+              "start_s": 1.5175,
+              "end_s": 1.5225,
+              "duration_s": 0.004999999999999893
+            }
+          ],
+          "aligned_contact_lateral_speed_p50_p95_max_m_s": [
+            0.29272957568299907,
+            1.7370140233548035,
+            4.279382173045908
+          ],
+          "aligned_contact_tangent_speed_p50_p95_max_m_s": [
+            0.36231389301460265,
+            2.3983410460255903,
+            5.003865272722827
+          ],
+          "interval_material_tangent_speed_p50_p95_max_m_s": [
+            0.359432505110069,
+            2.201921107751403,
+            4.976111975067885
+          ],
+          "legacy_vs_aligned_tangent_difference_p50_p95_max_m_s": [
+            0.025394558719986,
+            0.2750315652382288,
+            0.6621028642233564
+          ],
+          "legacy_chart_above_3m_s_fraction": 0.04462474645030426,
+          "backward_FD_vs_post_COM_velocity_error_p50_p95_max_m_s": [
+            0.0008448050066363066,
+            0.008891257224604487,
+            0.8492295145988464
+          ],
+          "rotation_FD_vs_post_omega_error_p50_p95_max_rad_s": [
+            0.010595747457750757,
+            0.12143676255831287,
+            10.291993619907856
+          ]
+        },
+        {
+          "side": "right",
+          "native_gap_pose_alignment": {
+            "-2": {
+              "mean_abs_error_m": 4.700713979748492e-05,
+              "p95_abs_error_m": 4.447596077947202e-06
+            },
+            "-1": {
+              "mean_abs_error_m": 2.5678386544396315e-07,
+              "p95_abs_error_m": 3.3075981304420134e-07
+            },
+            "0": {
+              "mean_abs_error_m": 4.52450252698417e-05,
+              "p95_abs_error_m": 4.594424971898766e-06
+            },
+            "1": {
+              "mean_abs_error_m": 8.841336519229178e-05,
+              "p95_abs_error_m": 8.2666509878343e-06
+            },
+            "2": {
+              "mean_abs_error_m": 0.0001287587650159247,
+              "p95_abs_error_m": 1.0221103505222977e-05
+            }
+          },
+          "best_pose_index_offset": -1,
+          "geometry_samples_compared": 1043,
+          "braking_contact_s": 1.2425,
+          "braking_lateral_sliding_legacy_s": 0.23500000000000001,
+          "braking_lateral_sliding_aligned_s": 0.2275,
+          "braking_friction_corroborated_lateral_sliding_s": 0.185,
+          "longest_corroborated_lateral_sliding_s": 0.04499999999999993,
+          "corroborated_sliding_events": [
+            {
+              "first_index": 220,
+              "last_index": 226,
+              "start_s": 0.5475000000000001,
+              "end_s": 0.5650000000000001,
+              "duration_s": 0.01749999999999996
+            },
+            {
+              "first_index": 251,
+              "last_index": 268,
+              "start_s": 0.6250000000000001,
+              "end_s": 0.67,
+              "duration_s": 0.04499999999999993
+            },
+            {
+              "first_index": 273,
+              "last_index": 273,
+              "start_s": 0.68,
+              "end_s": 0.6825,
+              "duration_s": 0.0024999999999999467
+            },
+            {
+              "first_index": 340,
+              "last_index": 342,
+              "start_s": 0.8475,
+              "end_s": 0.855,
+              "duration_s": 0.007499999999999951
+            },
+            {
+              "first_index": 354,
+              "last_index": 356,
+              "start_s": 0.8825000000000001,
+              "end_s": 0.89,
+              "duration_s": 0.007499999999999951
+            },
+            {
+              "first_index": 374,
+              "last_index": 382,
+              "start_s": 0.9325000000000001,
+              "end_s": 0.9550000000000001,
+              "duration_s": 0.022499999999999964
+            },
+            {
+              "first_index": 522,
+              "last_index": 528,
+              "start_s": 1.3025,
+              "end_s": 1.32,
+              "duration_s": 0.01750000000000007
+            },
+            {
+              "first_index": 531,
+              "last_index": 539,
+              "start_s": 1.3250000000000002,
+              "end_s": 1.3475,
+              "duration_s": 0.022499999999999742
+            },
+            {
+              "first_index": 555,
+              "last_index": 560,
+              "start_s": 1.385,
+              "end_s": 1.4000000000000001,
+              "duration_s": 0.015000000000000124
+            },
+            {
+              "first_index": 563,
+              "last_index": 573,
+              "start_s": 1.405,
+              "end_s": 1.4325,
+              "duration_s": 0.02750000000000008
+            }
+          ],
+          "aligned_contact_lateral_speed_p50_p95_max_m_s": [
+            0.002398255212271582,
+            1.5470497752241228,
+            2.7601409927660443
+          ],
+          "aligned_contact_tangent_speed_p50_p95_max_m_s": [
+            0.008374426056520386,
+            1.7566478001380532,
+            3.4142971930460186
+          ],
+          "interval_material_tangent_speed_p50_p95_max_m_s": [
+            0.006248161602771665,
+            1.7304028358350259,
+            3.3263849755883297
+          ],
+          "legacy_vs_aligned_tangent_difference_p50_p95_max_m_s": [
+            0.004853639316053199,
+            0.2966907310880347,
+            1.356552996682363
+          ],
+          "legacy_chart_above_3m_s_fraction": 0.014084507042253521,
+          "backward_FD_vs_post_COM_velocity_error_p50_p95_max_m_s": [
+            0.001687828975263983,
+            0.018346999306231737,
+            1.2878975868225098
+          ],
+          "rotation_FD_vs_post_omega_error_p50_p95_max_rad_s": [
+            0.020350643568219542,
+            0.22006391398592356,
+            21.648394602264773
+          ]
+        }
+      ],
+      "no_contact_count_changed": false,
+      "full_task_success_recomputed": false
+    },
+    {
+      "cell": "hockey_s200_seed42",
+      "provenance": {
+        "run_report_sha256": "69fa644a054ca0fe9e67dade77a058cf255985d7057257043342141590972561",
+        "qualification_sha256": "536ea0fc7f767a8c713c8ac40fe6b7e63fb42514bf1358255c6fcd499a066c78",
+        "recorded_artifacts": {
+          "final_rollout.npz": "e01784b3bf70cf4e1a429eee340195b8b976b7c0ec5d5e0bdd26b261290fa7dc",
+          "native_contact_buffers.npz": "68ad080718ae27797f46b3f007af5e9bd1f6f41b3cd201853f427e3292085a63",
+          "case.json": "ad554fc4284c2011f7f23040848f1d5cadec24ce06a584db9b8b6a87a8e9204c"
+        }
+      },
+      "wheels": [
+        {
+          "side": "left",
+          "native_gap_pose_alignment": {
+            "-2": {
+              "mean_abs_error_m": 1.8846563132599785e-05,
+              "p95_abs_error_m": 0.00010782636014650127
+            },
+            "-1": {
+              "mean_abs_error_m": 3.0643424026359454e-07,
+              "p95_abs_error_m": 4.0241572907273593e-07
+            },
+            "0": {
+              "mean_abs_error_m": 1.8828768624315755e-05,
+              "p95_abs_error_m": 0.00010850942637719019
+            },
+            "1": {
+              "mean_abs_error_m": 3.721523716957031e-05,
+              "p95_abs_error_m": 0.00022262637306091904
+            },
+            "2": {
+              "mean_abs_error_m": 5.4962583518257876e-05,
+              "p95_abs_error_m": 0.0003333065137773039
+            }
+          },
+          "best_pose_index_offset": -1,
+          "geometry_samples_compared": 1081,
+          "braking_contact_s": 1.2225,
+          "braking_lateral_sliding_legacy_s": 0.865,
+          "braking_lateral_sliding_aligned_s": 0.865,
+          "braking_friction_corroborated_lateral_sliding_s": 0.8250000000000001,
+          "longest_corroborated_lateral_sliding_s": 0.25750000000000006,
+          "corroborated_sliding_events": [
+            {
+              "first_index": 170,
+              "last_index": 206,
+              "start_s": 0.42250000000000004,
+              "end_s": 0.515,
+              "duration_s": 0.09249999999999997
+            },
+            {
+              "first_index": 228,
+              "last_index": 228,
+              "start_s": 0.5675000000000001,
+              "end_s": 0.5700000000000001,
+              "duration_s": 0.0024999999999999467
+            },
+            {
+              "first_index": 234,
+              "last_index": 264,
+              "start_s": 0.5825,
+              "end_s": 0.66,
+              "duration_s": 0.07750000000000001
+            },
+            {
+              "first_index": 281,
+              "last_index": 283,
+              "start_s": 0.7000000000000001,
+              "end_s": 0.7075,
+              "duration_s": 0.007499999999999951
+            },
+            {
+              "first_index": 298,
+              "last_index": 339,
+              "start_s": 0.7425,
+              "end_s": 0.8475,
+              "duration_s": 0.10499999999999998
+            },
+            {
+              "first_index": 343,
+              "last_index": 344,
+              "start_s": 0.8550000000000001,
+              "end_s": 0.86,
+              "duration_s": 0.004999999999999893
+            },
+            {
+              "first_index": 346,
+              "last_index": 448,
+              "start_s": 0.8625,
+              "end_s": 1.12,
+              "duration_s": 0.25750000000000006
+            },
+            {
+              "first_index": 450,
+              "last_index": 472,
+              "start_s": 1.1225,
+              "end_s": 1.18,
+              "duration_s": 0.057499999999999885
+            },
+            {
+              "first_index": 507,
+              "last_index": 512,
+              "start_s": 1.2650000000000001,
+              "end_s": 1.28,
+              "duration_s": 0.014999999999999902
+            },
+            {
+              "first_index": 524,
+              "last_index": 533,
+              "start_s": 1.3075,
+              "end_s": 1.3325,
+              "duration_s": 0.02499999999999991
+            },
+            {
+              "first_index": 536,
+              "last_index": 545,
+              "start_s": 1.3375000000000001,
+              "end_s": 1.3625,
+              "duration_s": 0.02499999999999991
+            },
+            {
+              "first_index": 547,
+              "last_index": 570,
+              "start_s": 1.365,
+              "end_s": 1.425,
+              "duration_s": 0.06000000000000005
+            },
+            {
+              "first_index": 574,
+              "last_index": 577,
+              "start_s": 1.4325,
+              "end_s": 1.4425000000000001,
+              "duration_s": 0.010000000000000009
+            },
+            {
+              "first_index": 587,
+              "last_index": 603,
+              "start_s": 1.465,
+              "end_s": 1.5075,
+              "duration_s": 0.04249999999999998
+            },
+            {
+              "first_index": 624,
+              "last_index": 638,
+              "start_s": 1.5575,
+              "end_s": 1.595,
+              "duration_s": 0.03749999999999987
+            },
+            {
+              "first_index": 640,
+              "last_index": 641,
+              "start_s": 1.5975000000000001,
+              "end_s": 1.6025,
+              "duration_s": 0.004999999999999893
+            }
+          ],
+          "aligned_contact_lateral_speed_p50_p95_max_m_s": [
+            0.42258354251389096,
+            3.1163699933107685,
+            4.075889998376019
+          ],
+          "aligned_contact_tangent_speed_p50_p95_max_m_s": [
+            0.6292932418826062,
+            3.3955489354958392,
+            4.155898186675073
+          ],
+          "interval_material_tangent_speed_p50_p95_max_m_s": [
+            0.6276068693314087,
+            3.4126167492344557,
+            4.153961454125884
+          ],
+          "legacy_vs_aligned_tangent_difference_p50_p95_max_m_s": [
+            0.05201784609379567,
+            0.2672737501138893,
+            0.6130957454602199
+          ],
+          "legacy_chart_above_3m_s_fraction": 0.10020449897750511,
+          "backward_FD_vs_post_COM_velocity_error_p50_p95_max_m_s": [
+            0.0011527998722158372,
+            0.012303473195061088,
+            0.49449118971824646
+          ],
+          "rotation_FD_vs_post_omega_error_p50_p95_max_rad_s": [
+            0.012930104218715373,
+            0.08840202979030078,
+            2.7773352578690176
+          ]
+        },
+        {
+          "side": "right",
+          "native_gap_pose_alignment": {
+            "-2": {
+              "mean_abs_error_m": 0.00018155734727318132,
+              "p95_abs_error_m": 0.0011924403155017642
+            },
+            "-1": {
+              "mean_abs_error_m": 3.449280453736604e-07,
+              "p95_abs_error_m": 4.45226105796892e-07
+            },
+            "0": {
+              "mean_abs_error_m": 0.0001777656861887689,
+              "p95_abs_error_m": 0.001191775798152348
+            },
+            "1": {
+              "mean_abs_error_m": 0.00034980287288438307,
+              "p95_abs_error_m": 0.002377635419243106
+            },
+            "2": {
+              "mean_abs_error_m": 0.0005150007250257132,
+              "p95_abs_error_m": 0.00355360888154322
+            }
+          },
+          "best_pose_index_offset": -1,
+          "geometry_samples_compared": 1019,
+          "braking_contact_s": 0.965,
+          "braking_lateral_sliding_legacy_s": 0.20750000000000002,
+          "braking_lateral_sliding_aligned_s": 0.1575,
+          "braking_friction_corroborated_lateral_sliding_s": 0.125,
+          "longest_corroborated_lateral_sliding_s": 0.03749999999999987,
+          "corroborated_sliding_events": [
+            {
+              "first_index": 215,
+              "last_index": 216,
+              "start_s": 0.535,
+              "end_s": 0.54,
+              "duration_s": 0.0050000000000000044
+            },
+            {
+              "first_index": 319,
+              "last_index": 319,
+              "start_s": 0.795,
+              "end_s": 0.7975,
+              "duration_s": 0.0024999999999999467
+            },
+            {
+              "first_index": 447,
+              "last_index": 447,
+              "start_s": 1.115,
+              "end_s": 1.1175,
+              "duration_s": 0.0024999999999999467
+            },
+            {
+              "first_index": 468,
+              "last_index": 470,
+              "start_s": 1.1675,
+              "end_s": 1.175,
+              "duration_s": 0.007500000000000062
+            },
+            {
+              "first_index": 498,
+              "last_index": 512,
+              "start_s": 1.2425000000000002,
+              "end_s": 1.28,
+              "duration_s": 0.03749999999999987
+            },
+            {
+              "first_index": 530,
+              "last_index": 536,
+              "start_s": 1.3225,
+              "end_s": 1.34,
+              "duration_s": 0.01750000000000007
+            },
+            {
+              "first_index": 545,
+              "last_index": 550,
+              "start_s": 1.36,
+              "end_s": 1.375,
+              "duration_s": 0.014999999999999902
+            },
+            {
+              "first_index": 570,
+              "last_index": 584,
+              "start_s": 1.4225,
+              "end_s": 1.46,
+              "duration_s": 0.03749999999999987
+            }
+          ],
+          "aligned_contact_lateral_speed_p50_p95_max_m_s": [
+            0.002263855096519685,
+            0.7551115336313137,
+            2.6888293177953235
+          ],
+          "aligned_contact_tangent_speed_p50_p95_max_m_s": [
+            0.0061437645123217696,
+            0.8987969464455279,
+            3.358309047341465
+          ],
+          "interval_material_tangent_speed_p50_p95_max_m_s": [
+            0.007199809858250236,
+            0.7840329380357748,
+            2.3039709109009983
+          ],
+          "legacy_vs_aligned_tangent_difference_p50_p95_max_m_s": [
+            0.004182986409232762,
+            0.2349304030490601,
+            2.0881590825673726
+          ],
+          "legacy_chart_above_3m_s_fraction": 0.0,
+          "backward_FD_vs_post_COM_velocity_error_p50_p95_max_m_s": [
+            0.0019867599476128817,
+            0.01899278676137328,
+            2.5046920776367188
+          ],
+          "rotation_FD_vs_post_omega_error_p50_p95_max_rad_s": [
+            0.0172067267997792,
+            0.17174858097519408,
+            37.411387685671535
+          ]
+        }
+      ],
+      "no_contact_count_changed": false,
+      "full_task_success_recomputed": false
+    }
+  ],
+  "aligned_signals_sha256": "f855e33594498ea473e49b6ac48e2c7823af1aeaa39d5a20c61e2acfe3f168ea"
+}
