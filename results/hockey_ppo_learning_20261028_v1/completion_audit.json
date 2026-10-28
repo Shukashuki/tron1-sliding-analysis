@@ -1,0 +1,119 @@
+{
+  "kind": "hockey_ppo_nominal_task_completion_audit",
+  "status": "completed_with_stated_limits",
+  "date": "2026-10-28",
+  "objective": "Reproduce the designed hockey stop and evaluate beta, sustained contact, material slip and friction saturation",
+  "checks": [
+    {
+      "requirement": "Approved immutable nine-file source and reference",
+      "status": "verified",
+      "evidence": "source_snapshot_v1/manifest.json",
+      "sha256": "6baf25ba67d2b63ddf79952c529d2f06026aed2d9ffb3356b92c299ed65ebadc"
+    },
+    {
+      "requirement": "Both smoke, formal-training and nominal-validation stages completed",
+      "status": "verified",
+      "evidence": "completed_pair/verified_completion_status.json",
+      "os_exit_codes_unknown_for_manual_continuations": true
+    },
+    {
+      "requirement": "tracking: full-start physical stopping, loaded high-beta saturated sliding and no fall",
+      "status": "verified",
+      "evidence": "qualification/pair/tracking/report.json",
+      "qualification_sha256": "ac9ae61fcd41d495de006addcb9c80f01b153cc6960e95ee1c27736efca046ce",
+      "passed_gates": 11,
+      "actor_replay_max_error": 2.682209014892578e-07,
+      "native_physics_samples": 1112,
+      "formal_transitions": 12288000
+    },
+    {
+      "requirement": "tracking: unchanged poses, fixed relative camera and FK verification",
+      "status": "verified",
+      "evidence": "render/pair/tracking/provenance.json",
+      "maximum_wheel_origin_error_m": 6.708446789341785e-07
+    },
+    {
+      "requirement": "support: full-start physical stopping, loaded high-beta saturated sliding and no fall",
+      "status": "verified",
+      "evidence": "qualification/pair/support/report.json",
+      "qualification_sha256": "dd26fa6db5318719004f98f4e033bec64131b6101f31c91f41de630de64566e7",
+      "passed_gates": 11,
+      "actor_replay_max_error": 2.384185791015625e-07,
+      "native_physics_samples": 1112,
+      "formal_transitions": 12288000
+    },
+    {
+      "requirement": "support: unchanged poses, fixed relative camera and FK verification",
+      "status": "verified",
+      "evidence": "render/pair/support/provenance.json",
+      "maximum_wheel_origin_error_m": 6.058081160427519e-07
+    },
+    {
+      "requirement": "Matched support-weight ablation with identical nominal initial state",
+      "status": "verified",
+      "evidence": "pair_summary/report.json",
+      "sha256": "07defb9640a46a8983ab76d0291fdc40161983c31f934a3acf2ff9548bb8cdb6",
+      "random_seeds": 1,
+      "nominal_rollouts_per_arm": 1
+    },
+    {
+      "requirement": "Friction or posture diagnostic plot integrity",
+      "status": "verified",
+      "evidence": "friction_section/tracking_diagnostic/report.json",
+      "sha256": "4f13003299fd72089622f43f2a2ccc2092c0a6cb54b278cc267a356a624c8f0d"
+    },
+    {
+      "requirement": "Friction or posture diagnostic plot integrity",
+      "status": "verified",
+      "evidence": "friction_section/support/report.json",
+      "sha256": "7439369a9670f8e31dedae74e3fb6b99db16c78300c3fd7205b468101955428c"
+    },
+    {
+      "requirement": "Friction or posture diagnostic plot integrity",
+      "status": "verified",
+      "evidence": "posture_fidelity/tracking_diagnostic/report.json",
+      "sha256": "c3e981a8b159721449fd1bb494a21cc8be09b1379104d4262afe1e985752a69d"
+    },
+    {
+      "requirement": "Friction or posture diagnostic plot integrity",
+      "status": "verified",
+      "evidence": "posture_fidelity/support/report.json",
+      "sha256": "32c78d668c6c07f5f1db8b7ccd2c0ebf3541ccdc76388f40ce6e4633e5fa2035"
+    },
+    {
+      "requirement": "Raw logs preserved losslessly, collected evidence hashes verified",
+      "status": "verified",
+      "evidence": "completed_pair/collection_manifest.json"
+    },
+    {
+      "requirement": "Four horizontal panels with common XY scale, body/wheel headings and actual velocity",
+      "status": "verified",
+      "evidence": "comparison_render/provenance.json",
+      "mp4_frames_decoded": 139,
+      "gif_frames": 35,
+      "reviewed_frames_s": [
+        0.8,
+        1.5
+      ],
+      "width": 2560,
+      "height": 640,
+      "fps": 50
+    },
+    {
+      "requirement": "Reproduction command syntax",
+      "status": "verified",
+      "evidence": "README.md",
+      "shell_blocks_checked": 3
+    }
+  ],
+  "limitations": [
+    "One seed and one nominal full-start rollout per arm; no friction-range or seed generalization claim.",
+    "GMR posture is approximate; global stopping speed and path were designed, not measured human world motion.",
+    "Wheel-aggregate friction ratio and same-anchor dissipative sliding evidence; no pointwise normal force at friction anchors.",
+    "Continuous any-wheel support does not eliminate individual-wheel unloading or normal-force spikes.",
+    "Both arms share the documented v1 adaptive-sampling bias and float32 phase boundary; corrected v2 was not deployed.",
+    "Rigid-cylinder Coulomb ground contact, not an ice-blade material model."
+  ],
+  "additional_remote_jobs_launched_by_this_audit": false,
+  "remaining_work_in_approved_experiment": []
+}

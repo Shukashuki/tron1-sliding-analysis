@@ -22,6 +22,8 @@ def main():
     configs = {v: json.loads((a.evidence/(v+"_formal")/"runner_config.json").read_text()) for v in variants}
     traces = {v: load(a.evidence/(v+"_eval")/"final_rollout.npz") for v in variants}
     signals = {v: load(a.qualification/v/"signals.npz") for v in variants}
+    reference = load(a.command_dir/"motion.npz")
+    rt = np.arange(len(reference["joint_pos"]))/float(reference["fps"])
     for key in ("initial_policy_state_sha256", "config_sha256", "motion_sha256", "asset_sha256", "source_sha256", "task_source_sha256", "transitions"):
         if trains["tracking"][key] != trains["support"][key]:
             raise ValueError("Training comparison differs: "+key)
@@ -54,6 +56,27 @@ def main():
             loaded_wheel_heading_rmse_deg=q["loaded_braking_wheel_heading_RMSE_deg"],
             support_fraction=q["support_fraction"], maximum_support_gap_s=q["longest_support_gap_s"],
             first_45deg_tilt_s=report["first_45deg_tilt_diagnostic_s"], terminal_stop_hold_s=q["terminal_stop_hold_s"])
+        s = signals[v]
+        t = s["time_s"]
+        whole = (t > 0.) & (t <= rt[-1]+1e-9)
+        # Each contact sample describes the interval ending at its timestamp.
+        braking = (t-.0025 >= .4-1e-9) & (t <= 1.8+1e-9) & s["native_sample_valid"]
+        force = s["normal_fz"][braking]
+        loaded = force > 5.
+        row["maximum_tilt_deg"] = float(s["root_tilt_deg"][whole].max())
+        stop = q["stop_events"][-1] if q["stop_events"] else None
+        row["supported_stop_start_s"] = stop["start_s"] if stop else None
+        row["supported_stop_duration_s"] = stop["duration_s"] if stop else 0.
+        row["braking_both_wheels_loaded_fraction"] = float(loaded.all(-1).mean())
+        for k, side in enumerate(("left", "right")):
+            row[side+"_braking_loaded_fraction"] = float(loaded[:, k].mean())
+            row[side+"_braking_normal_force_p99_N"] = float(np.quantile(force[:, k], .99))
+            row[side+"_braking_normal_force_peak_N"] = float(force[:, k].max())
+        imitation = report["imitation"]["windows"]["braking"]
+        row["braking_leg_joint_rmse_rad"] = imitation["leg_joint_RMSE_rad"]
+        row["braking_body_up_axis_rmse_deg"] = imitation["body_up_axis_RMSE_deg"]
+        for k, side in enumerate(("left", "right")):
+            row[side+"_loaded_braking_camber_rmse_deg"] = imitation["loaded_wheel_camber_RMSE_deg"][k]
         for side in report["loaded_beta_summary"]:
             prefix = side["side"]+"_"
             row[prefix+"prefall_saturated_slip_longest_s"] = side["pre_fall_braking_saturated_dissipative_slip"]["longest_duration_s"]
@@ -61,8 +84,9 @@ def main():
         rows.append(row)
     a.output.mkdir(parents=True)
     with (a.output/"metrics.csv").open("w", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=list(rows[0])); writer.writeheader(); writer.writerows(rows)
+        writer = csv.DictWriter(f, fieldnames=list(rows[0]), lineterminator="\n"); writer.writeheader(); writer.writerows(rows)
     report = dict(kind="matched_direct_hockey_ppo_support_comparison", rows=rows,
+        summarizer_sha256=sha(__file__),
         only_treatment="support deficit reward weight 0 versus +0.4 on negative cost",
         matched_ppo_hyperparameters=True, matched_initial_network=True,
         maximum_initial_physical_state_error=initial_error,
@@ -70,9 +94,8 @@ def main():
         qualification_sha256={v: sha(a.qualification/v/"report.json") for v in variants},
         success_requires_all_existing_stop_and_slip_gates=True,
         pointwise_cone_saturation_certified=False, historical_car_initialization_used=False)
+    report["additional_contact_diagnostics_are_new_success_gates"] = False
     (a.output/"report.json").write_text(json.dumps(report, indent=2, allow_nan=False)+"\n")
-    reference = load(a.command_dir/"motion.npz")
-    rt = np.arange(len(reference["joint_pos"]))/float(reference["fps"])
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
