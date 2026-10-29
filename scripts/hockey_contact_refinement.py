@@ -2,12 +2,20 @@
 from __future__ import annotations
 
 from hockey_contact_search import DenseContactWindow,objective
-from hockey_contact_refinement_math import bilateral_substep_stop,angular_pseudo_huber
+from hockey_contact_refinement_math import bilateral_substep_stop,angular_pseudo_huber,bilateral_contact_loss
 
 
 def validate_settings(settings):
+    if not isinstance(settings,dict):
+        raise ValueError('Require explicit contact-refinement settings')
     expected={'kind','stop_term','angular_term'}
-    if not isinstance(settings,dict) or set(settings)!=expected or settings['kind']!='hockey_contact_refinement_v1':
+    if settings.get('kind')=='hockey_contact_refinement_v2':
+        expected.add('contact_loss_term')
+        if settings.get('contact_loss_term')!='mean_and_worst':
+            raise ValueError('Unknown contact-loss refinement')
+    elif settings.get('kind')!='hockey_contact_refinement_v1':
+        raise ValueError('Unknown contact-refinement version')
+    if set(settings)!=expected:
         raise ValueError('Require explicit contact-refinement settings')
     if settings['stop_term'] not in ('unchanged','bilateral_substeps','bilateral_substeps_xyz','bilateral_substeps_xyz_huber'):
         raise ValueError('Unknown stop-reward refinement')
@@ -17,9 +25,12 @@ def validate_settings(settings):
 
 
 def refined_components(values, mg, cfg, protocol, phase):
-    """Contact and force-corroborated slide terms retain their prior definitions."""
+    """Optional contact-cost aggregation; contact/sliding definitions stay fixed."""
     settings=validate_settings(protocol['reward_refinement'])
     result=objective(values,mg,cfg)
+    if settings.get('contact_loss_term')=='mean_and_worst':
+        result['contact_loss']=bilateral_contact_loss(values['touching'],values['post_gap'],
+            contact_tolerance_m=cfg['contact_tolerance_m'])
     if settings['angular_term']=='pseudo_huber':
         result['angular_acceleration']=angular_pseudo_huber(values['angular_acceleration_sq'],
             cfg['angular_acceleration_scale_rad_s2'])

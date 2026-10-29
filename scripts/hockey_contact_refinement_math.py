@@ -7,6 +7,23 @@ from __future__ import annotations
 import math
 
 
+def bilateral_contact_loss(touching, post_gap, *, contact_tolerance_m=.0001):
+    """Retain duration feedback while charging for any missed substep.
+
+    Exactly half the missing fraction plus half the worst missing indicator.
+    Complete contact scores zero and complete loss scores one, as before.
+    A one-substep miss scores 0.5625 rather than 0.125. No force or body height
+    enters this opt-in cost; the native-pre/authored-post contact rule is fixed.
+    """
+    if not math.isfinite(contact_tolerance_m) or contact_tolerance_m < 0:
+        raise ValueError('Invalid contact tolerance')
+    if touching.ndim != 3 or touching.shape[1:] != (8, 2) or post_gap.shape != touching.shape:
+        raise ValueError('Require eight physical substeps and two wheels')
+    both = touching.bool().all(-1) & (post_gap <= contact_tolerance_m).all(-1)
+    missing = (~both).float()
+    return .5 * (missing.mean(-1) + missing.amax(-1))
+
+
 def bilateral_substep_stop(touching, post_gap, velocity_pre, velocity_post,
                           up_pre, up_post, phase_hold, *, contact_tolerance_m=.0001,
                           speed_scale_m_s=.1, tilt_scale_rad=.35, velocity_dimensions=2,

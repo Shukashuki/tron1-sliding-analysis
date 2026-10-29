@@ -138,7 +138,12 @@ def main():
         gap_cost=np.clip((post_gap-tolerance)/cfg['bilateral_sliding']['gap_scale_m'],0,1).max(-1)
         clearance=.5*(gap_cost.mean(-1)+gap_cost.max(-1))
         weights=cfg['bilateral_sliding']['weights']
-        contact_terms=weights['contact_fraction']*fraction+weights['contact_loss']*(1-fraction)+weights['clearance']*clearance
+        loss=1-fraction
+        if cfg.get('reward_refinement',{}).get('contact_loss_term')=='mean_and_worst':
+            import torch
+            loss=reward_code[1].bilateral_contact_loss(torch.as_tensor(pre_touch),torch.as_tensor(post_gap),
+                contact_tolerance_m=tolerance).numpy()
+        contact_terms=weights['contact_fraction']*fraction+weights['contact_loss']*loss+weights['clearance']*clearance
         speed=np.linalg.norm(trace['root_com_vel'][:,:2],axis=-1)
         q=trace['root_quat'];tilt=np.arccos(np.clip(1-2*(q[:,1]**2+q[:,2]**2),-1,1))
         good_kinematics=(speed<=.1)&(tilt<=np.deg2rad(30))

@@ -1,0 +1,73 @@
+{
+  "kind": "hockey_contact_reward_search_v1",
+  "status": "prepared_not_run",
+  "reference_speed_scale": 1.0,
+  "seed": 42,
+  "screen_iterations": 250,
+  "screen_transitions_per_cell": 3072000,
+  "parent_training_transitions": 12288000,
+  "num_envs": 512,
+  "fall_terminal_cost": 8.0,
+  "learning_rate": 0.0001,
+  "exploration_std": 0.1,
+  "entropy_coef": 0.001,
+  "models": [
+    {
+      "id": "native_equal",
+      "geometry": "authored",
+      "static_dynamic_ratio": 1.0
+    },
+    {
+      "id": "native_split",
+      "geometry": "authored",
+      "static_dynamic_ratio": 1.2857142857142858
+    },
+    {
+      "id": "slices9_split",
+      "geometry": "slices9",
+      "static_dynamic_ratio": 1.2857142857142858
+    }
+  ],
+  "rewards": [
+    {
+      "id": "smooth_stop_xyz_huber_continuity",
+      "gap_scale_m": 0.01,
+      "leg_pose_weight": 1.0,
+      "weights": {
+        "contact_fraction": 2.0,
+        "contact_loss": -4.0,
+        "clearance": -2.0,
+        "sliding": 0.5,
+        "angular_acceleration": -0.05
+      },
+      "reward_refinement": {
+        "kind": "hockey_contact_refinement_v2",
+        "stop_term": "bilateral_substeps_xyz_huber",
+        "angular_term": "pseudo_huber",
+        "contact_loss_term": "mean_and_worst"
+      }
+    }
+  ],
+  "warm_start": {
+    "checkpoint": "/data/zengxiong/workspaces/tron1-hockey-speed-success-20261028-v1/runs_v1/hockey_s100_seed42/formal/model_final.pt",
+    "checkpoint_sha256": "09fd1987891885ad9eccf3382ec71db050fba2444947b9339684152b1b0139ab",
+    "actor": "/data/zengxiong/workspaces/tron1-hockey-speed-success-20261028-v1/runs_v1/hockey_s100_seed42/formal/actor_normalized.pt",
+    "actor_sha256": "db27f45b705a5a46f0924de260cf4e15689272b8edb516fadea1b032839303fa"
+  },
+  "success_criterion": "Unchanged full-horizon bilateral geometric contact and independent hockey task/sliding gates; no training average can pass",
+  "screening_is_final_training_comparison": false,
+  "external_nonlinear_tire": "Existing prototype excluded from this native batch until applied-force recording and independent qualification are integrated; not claimed tested here",
+  "elastic_brush": "Not implemented; no claim of physical tire parameter calibration",
+  "old_training": "Remains paused; do not resume",
+  "gpu_scheduling": "Serial; recheck idle GPU and exact owned incidental-context identity before each job; never displace another workload",
+  "rationale": "Single-factor follow-up to v6: preserve dense XYZ stop and all task rewards, replacing only contact-loss aggregation from mean(missing) to 0.5 * (mean(missing) + max(missing)) over eight physical substeps. Fully grounded and fully missing windows keep their old loss; brief losses receive stronger cost. Same original warm parent, numerical weights, DR, screen budget and frozen external gates. Start only after all three v6 screens finish without a nominal pass.",
+  "required_completed_predecessor": {
+    "status_path": "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v6/status.json",
+    "manifest_sha256": "3c8a9125497b3c7ec70ce2ca777c8c9c1d2111aebc8e8543512d7fbe41eec5ea",
+    "completed_screens": 3
+  },
+  "evidence": "results/hockey_contact_reward_search_20261028_v1/contact_loss_resolution_audit_v1/report.json",
+  "stop_speed_dimensions": 3,
+  "stop_speed_form": "separate_pseudo_huber",
+  "contact_loss_form": "mean_and_worst"
+}

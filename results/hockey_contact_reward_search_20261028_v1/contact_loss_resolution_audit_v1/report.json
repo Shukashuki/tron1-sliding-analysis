@@ -1,0 +1,444 @@
+{
+  "kind": "hockey_contact_loss_resolution_v1",
+  "script_sha256": "48d1d328cf0d355868379bc71db9945a2c8a4bca013185b1aaab4e22890f76bd",
+  "selection_sha256": "2108ae4e48257e395570ec734a556b7caf2ad7110245832930fcd74017ee952b",
+  "signals_sha256": "7b7df5106cd4d82dd164f1e039203873a982534813e7a80f79cd76f91e6c852a",
+  "figure_sha256": "1669bb66a60aadf268d48e077cdbe4232ad606aa82e60a4a63c7021095dcd774",
+  "current_formula": "mean(missing) over eight physical intervals",
+  "proposed_formula": "0.5 * (mean(missing) + max(missing)) over eight physical intervals",
+  "candidate_training_run": false,
+  "physics_steps": 0,
+  "training_changed": false,
+  "criterion_changed": false,
+  "learned_result_predicted": false,
+  "causal_failure_mechanism_proven": false,
+  "note": "Contact-only reward subset, not total task reward. Native pre-contact and training pre/post-geometry rules have different missing durations. Endpoint qualification remains authoritative.",
+  "cases": [
+    {
+      "cell": "native_equal_smooth_stop",
+      "qualifier_sha256": "0848d0cd208920d7aa63aa52650bcaf47c29c8540791da18c30eaed11761729d",
+      "source_manifest_sha256": "7f3940fef058eee1b20ae8af6b1b194760d261befc48b304a7654af283a67e46",
+      "raw_sha256": {
+        "final_rollout.npz": "659fcbe4ddaf5537e67d6d81981bcbcb8713b0cf5d20d6a00538e5d0de742f33",
+        "native_contact_buffers.npz": "ba0211723f35730072c0588368f45c665374286be13b0389ce8dd3eca48e59ba"
+      },
+      "weights": {
+        "contact_fraction": 2.0,
+        "contact_loss": -4.0,
+        "clearance": -2.0,
+        "sliding": 0.5,
+        "angular_acceleration": -0.05
+      },
+      "control_windows": 138,
+      "native_pre_contact_missing_time_s": 0.1475,
+      "training_rule_missing_time_s": 0.1575,
+      "affected_control_windows": 10,
+      "positive_current_contact_score_with_missing_substep_windows": 1,
+      "positive_proposed_contact_score_with_missing_substep_windows": 0,
+      "current_loss_integral": -0.6300000000000001,
+      "proposed_loss_integral": -0.7150000000000001,
+      "current_contact_score_integral": 4.456294761781306,
+      "proposed_contact_score_integral": 4.371294761781307,
+      "task_success": false,
+      "affected_windows": [
+        {
+          "window_s": [
+            0.58,
+            0.6
+          ],
+          "missing_substeps": 7,
+          "clearance_cost": 0.11423806363295014,
+          "current_contact_score": -3.4784761272659,
+          "proposed_contact_score": -3.7284761272659
+        },
+        {
+          "window_s": [
+            0.6,
+            0.62
+          ],
+          "missing_substeps": 8,
+          "clearance_cost": 0.3659264831496684,
+          "current_contact_score": -4.7318529662993365,
+          "proposed_contact_score": -4.7318529662993365
+        },
+        {
+          "window_s": [
+            0.62,
+            0.64
+          ],
+          "missing_substeps": 5,
+          "clearance_cost": 0.16728501791783618,
+          "current_contact_score": -2.0845700358356725,
+          "proposed_contact_score": -2.8345700358356725
+        },
+        {
+          "window_s": [
+            0.7,
+            0.72
+          ],
+          "missing_substeps": 8,
+          "clearance_cost": 0.04721311300124747,
+          "current_contact_score": -4.094426226002495,
+          "proposed_contact_score": -4.094426226002495
+        },
+        {
+          "window_s": [
+            0.72,
+            0.74
+          ],
+          "missing_substeps": 2,
+          "clearance_cost": 0.006691656418527583,
+          "current_contact_score": 0.4866166871629449,
+          "proposed_contact_score": -1.013383312837055
+        },
+        {
+          "window_s": [
+            0.9,
+            0.92
+          ],
+          "missing_substeps": 3,
+          "clearance_cost": 0.000951360551985225,
+          "current_contact_score": -0.2519027211039704,
+          "proposed_contact_score": -1.5019027211039704
+        },
+        {
+          "window_s": [
+            1.74,
+            1.76
+          ],
+          "missing_substeps": 7,
+          "clearance_cost": 0.13547809616595452,
+          "current_contact_score": -3.520956192331909,
+          "proposed_contact_score": -3.770956192331909
+        },
+        {
+          "window_s": [
+            1.76,
+            1.78
+          ],
+          "missing_substeps": 8,
+          "clearance_cost": 0.6380333760127512,
+          "current_contact_score": -5.2760667520255025,
+          "proposed_contact_score": -5.2760667520255025
+        },
+        {
+          "window_s": [
+            1.78,
+            1.8
+          ],
+          "missing_substeps": 8,
+          "clearance_cost": 0.9363699090237383,
+          "current_contact_score": -5.872739818047476,
+          "proposed_contact_score": -5.872739818047476
+        },
+        {
+          "window_s": [
+            1.8,
+            1.82
+          ],
+          "missing_substeps": 7,
+          "clearance_cost": 0.5554438795926756,
+          "current_contact_score": -4.360887759185351,
+          "proposed_contact_score": -4.610887759185351
+        }
+      ]
+    },
+    {
+      "cell": "native_equal_smooth",
+      "qualifier_sha256": "3f9c0803cb52c79dfc4bdd746222118eb082322fee8c55ca1354b18af18d8138",
+      "source_manifest_sha256": "7f3940fef058eee1b20ae8af6b1b194760d261befc48b304a7654af283a67e46",
+      "raw_sha256": {
+        "final_rollout.npz": "ba830dca0e7f86578eecc3832e3e0455be81ea8c5c564995d238d679e4435e48",
+        "native_contact_buffers.npz": "2ffd21d0c67b3a7468b243649ecf2e8b0d987a9e31666572a9e6eb63d260595a"
+      },
+      "weights": {
+        "contact_fraction": 2.0,
+        "contact_loss": -4.0,
+        "clearance": -2.0,
+        "sliding": 0.5,
+        "angular_acceleration": -0.05
+      },
+      "control_windows": 138,
+      "native_pre_contact_missing_time_s": 0.0025,
+      "training_rule_missing_time_s": 0.005,
+      "affected_control_windows": 1,
+      "positive_current_contact_score_with_missing_substep_windows": 1,
+      "positive_proposed_contact_score_with_missing_substep_windows": 0,
+      "current_loss_integral": -0.02,
+      "proposed_loss_integral": -0.05,
+      "current_contact_score_integral": 5.489947351002294,
+      "proposed_contact_score_integral": 5.459947351002294,
+      "task_success": false,
+      "affected_windows": [
+        {
+          "window_s": [
+            0.62,
+            0.64
+          ],
+          "missing_substeps": 2,
+          "clearance_cost": 0.001316224942657621,
+          "current_contact_score": 0.4973675501146848,
+          "proposed_contact_score": -1.0026324498853152
+        }
+      ]
+    },
+    {
+      "cell": "native_equal_smooth_stop_xyz",
+      "qualifier_sha256": "66f5681485b95e7d889e81d319b5a086573bc86710829fbf01a9c6a9bf36cf3d",
+      "source_manifest_sha256": "6ea234ece5b6946b6b866b7b2fb284a05c6828293d89c35cfce3496a9299b139",
+      "raw_sha256": {
+        "final_rollout.npz": "7da6586a94f408fa8af658615cd0cbda77aa4b2410ac4586fa3108de766933af",
+        "native_contact_buffers.npz": "c538ba71f749810262b4116d7d642fa262821659dc0577dec789cd36db8f4483"
+      },
+      "weights": {
+        "contact_fraction": 2.0,
+        "contact_loss": -4.0,
+        "clearance": -2.0,
+        "sliding": 0.5,
+        "angular_acceleration": -0.05
+      },
+      "control_windows": 138,
+      "native_pre_contact_missing_time_s": 0.2125,
+      "training_rule_missing_time_s": 0.2275,
+      "affected_control_windows": 15,
+      "positive_current_contact_score_with_missing_substep_windows": 1,
+      "positive_proposed_contact_score_with_missing_substep_windows": 0,
+      "current_loss_integral": -0.9099999999999999,
+      "proposed_loss_integral": -1.055,
+      "current_contact_score_integral": 3.9894170886365936,
+      "proposed_contact_score_integral": 3.844417088636593,
+      "task_success": false,
+      "affected_windows": [
+        {
+          "window_s": [
+            0.6,
+            0.62
+          ],
+          "missing_substeps": 8,
+          "clearance_cost": 0.05224556830270455,
+          "current_contact_score": -4.104491136605409,
+          "proposed_contact_score": -4.104491136605409
+        },
+        {
+          "window_s": [
+            0.62,
+            0.64
+          ],
+          "missing_substeps": 4,
+          "clearance_cost": 0.034653857524673884,
+          "current_contact_score": -1.0693077150493477,
+          "proposed_contact_score": -2.069307715049348
+        },
+        {
+          "window_s": [
+            0.94,
+            0.96
+          ],
+          "missing_substeps": 5,
+          "clearance_cost": 0.008945563838512686,
+          "current_contact_score": -1.7678911276770255,
+          "proposed_contact_score": -2.5178911276770255
+        },
+        {
+          "window_s": [
+            2.16,
+            2.18
+          ],
+          "missing_substeps": 7,
+          "clearance_cost": 0.09637242274710932,
+          "current_contact_score": -3.4427448454942184,
+          "proposed_contact_score": -3.6927448454942184
+        },
+        {
+          "window_s": [
+            2.18,
+            2.2
+          ],
+          "missing_substeps": 8,
+          "clearance_cost": 0.18569136840820524,
+          "current_contact_score": -4.37138273681641,
+          "proposed_contact_score": -4.37138273681641
+        },
+        {
+          "window_s": [
+            2.2,
+            2.22
+          ],
+          "missing_substeps": 5,
+          "clearance_cost": 0.10948670852837936,
+          "current_contact_score": -1.9689734170567588,
+          "proposed_contact_score": -2.718973417056759
+        },
+        {
+          "window_s": [
+            2.2600000000000002,
+            2.2800000000000002
+          ],
+          "missing_substeps": 6,
+          "clearance_cost": 0.06372931153173456,
+          "current_contact_score": -2.627458623063469,
+          "proposed_contact_score": -3.127458623063469
+        },
+        {
+          "window_s": [
+            2.2800000000000002,
+            2.3000000000000003
+          ],
+          "missing_substeps": 8,
+          "clearance_cost": 0.13643128589264963,
+          "current_contact_score": -4.272862571785299,
+          "proposed_contact_score": -4.272862571785299
+        },
+        {
+          "window_s": [
+            2.3,
+            2.32
+          ],
+          "missing_substeps": 3,
+          "clearance_cost": 0.0592983300066411,
+          "current_contact_score": -0.3685966600132822,
+          "proposed_contact_score": -1.6185966600132822
+        },
+        {
+          "window_s": [
+            2.64,
+            2.66
+          ],
+          "missing_substeps": 1,
+          "clearance_cost": 0.001281347977191952,
+          "current_contact_score": 1.2474373040456161,
+          "proposed_contact_score": -0.5025626959543839
+        },
+        {
+          "window_s": [
+            2.66,
+            2.68
+          ],
+          "missing_substeps": 4,
+          "clearance_cost": 0.06703061776623015,
+          "current_contact_score": -1.1340612355324602,
+          "proposed_contact_score": -2.13406123553246
+        },
+        {
+          "window_s": [
+            2.68,
+            2.7
+          ],
+          "missing_substeps": 8,
+          "clearance_cost": 0.390815968292779,
+          "current_contact_score": -4.781631936585558,
+          "proposed_contact_score": -4.781631936585558
+        },
+        {
+          "window_s": [
+            2.7,
+            2.72
+          ],
+          "missing_substeps": 8,
+          "clearance_cost": 0.9335904332683531,
+          "current_contact_score": -5.867180866536707,
+          "proposed_contact_score": -5.867180866536707
+        },
+        {
+          "window_s": [
+            2.72,
+            2.74
+          ],
+          "missing_substeps": 8,
+          "clearance_cost": 1.0,
+          "current_contact_score": -6.0,
+          "proposed_contact_score": -6.0
+        },
+        {
+          "window_s": [
+            2.74,
+            2.7600000000000002
+          ],
+          "missing_substeps": 8,
+          "clearance_cost": 1.0,
+          "current_contact_score": -6.0,
+          "proposed_contact_score": -6.0
+        }
+      ]
+    },
+    {
+      "cell": "native_equal_smooth_stop_xyz_huber",
+      "qualifier_sha256": "f82b2e260438144267cdc50a65e56cb21c36fb51b92a363ec307cf0c391ca7bf",
+      "source_manifest_sha256": "3c8a9125497b3c7ec70ce2ca777c8c9c1d2111aebc8e8543512d7fbe41eec5ea",
+      "raw_sha256": {
+        "final_rollout.npz": "2ea61f4fce48aa182b043077ff287d018c1dc9ffdf565036db0db6e1712970d6",
+        "native_contact_buffers.npz": "47ebed78f5722a73e243e36558d4fda991ed88734e46490eda5a4c73e0409b02"
+      },
+      "weights": {
+        "contact_fraction": 2.0,
+        "contact_loss": -4.0,
+        "clearance": -2.0,
+        "sliding": 0.5,
+        "angular_acceleration": -0.05
+      },
+      "control_windows": 138,
+      "native_pre_contact_missing_time_s": 0.0475,
+      "training_rule_missing_time_s": 0.055,
+      "affected_control_windows": 5,
+      "positive_current_contact_score_with_missing_substep_windows": 2,
+      "positive_proposed_contact_score_with_missing_substep_windows": 0,
+      "current_loss_integral": -0.22,
+      "proposed_loss_integral": -0.31,
+      "current_contact_score_integral": 5.181890195349833,
+      "proposed_contact_score_integral": 5.0918901953498334,
+      "task_success": false,
+      "affected_windows": [
+        {
+          "window_s": [
+            0.6,
+            0.62
+          ],
+          "missing_substeps": 8,
+          "clearance_cost": 0.10161610871382003,
+          "current_contact_score": -4.20323221742764,
+          "proposed_contact_score": -4.20323221742764
+        },
+        {
+          "window_s": [
+            0.62,
+            0.64
+          ],
+          "missing_substeps": 1,
+          "clearance_cost": 0.0,
+          "current_contact_score": 1.25,
+          "proposed_contact_score": -0.5
+        },
+        {
+          "window_s": [
+            0.72,
+            0.74
+          ],
+          "missing_substeps": 8,
+          "clearance_cost": 0.08004110187848142,
+          "current_contact_score": -4.1600822037569625,
+          "proposed_contact_score": -4.1600822037569625
+        },
+        {
+          "window_s": [
+            0.74,
+            0.76
+          ],
+          "missing_substeps": 2,
+          "clearance_cost": 0.005334124591712437,
+          "current_contact_score": 0.4893317508165751,
+          "proposed_contact_score": -1.010668249183425
+        },
+        {
+          "window_s": [
+            0.98,
+            1.0
+          ],
+          "missing_substeps": 3,
+          "clearance_cost": 0.015753781070145842,
+          "current_contact_score": -0.2815075621402916,
+          "proposed_contact_score": -1.5315075621402916
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "status": "prepared_locally_not_uploaded_or_run",
+  "source_manifest_sha256": "ac0d8198560ed09934adaa92dd16e0689e58f204484ad22090bcb0fdee13f7e6",
+  "archive_sha256": "ac1c09667323f8059f5e539efda684e6a54d731666dcc97964d21b74c7950a2c",
+  "file_count": 41,
+  "bytes": 383610,
+  "local_tests": {
+    "command": "/home/roy/gvp-wm-reproduction/.venv/bin/python -m pytest -q tests/test_hockey_contact_refinement_math.py tests/test_hockey_contact_refinement_adapter.py tests/test_hockey_contact_reward_audit.py tests/test_hockey_contact_search.py tests/test_hockey_contact_loss_resolution.py",
+    "passed": 36
+  },
+  "protocol_pairs": [
+    {
+      "candidate": "native_equal_smooth_stop_xyz_huber_continuity",
+      "baseline": "native_equal_smooth_stop_xyz_huber",
+      "all_non_contact_loss_fields_identical": true
+    },
+    {
+      "candidate": "native_split_smooth_stop_xyz_huber_continuity",
+      "baseline": "native_split_smooth_stop_xyz_huber",
+      "all_non_contact_loss_fields_identical": true
+    },
+    {
+      "candidate": "slices9_split_smooth_stop_xyz_huber_continuity",
+      "baseline": "slices9_split_smooth_stop_xyz_huber",
+      "all_non_contact_loss_fields_identical": true
+    }
+  ],
+  "frozen_replay_backwards_compatibility": [
+    {
+      "version": "v3",
+      "cases": 6,
+      "original_report_sha256": "8c9341dc53ee95a7b77630f57959596d88d7d608aaeb239844674b120872dd64",
+      "replay_report_sha256": "57315df6afd9c1110dca264edb55bbc18bdf3099daf405d688a6417ef6a55891",
+      "values_identical": true
+    },
+    {
+      "version": "v5",
+      "cases": 3,
+      "original_report_sha256": "c49e95ff27362257395aa3cafa78f633f2b7b5bde39951c5c4af40ef41506758",
+      "replay_report_sha256": "29116df6cbe375aafd2e00c46a5601efe6321de19c2dccb484420bf1519237e6",
+      "values_identical": true
+    },
+    {
+      "version": "v6",
+      "cases": 1,
+      "original_report_sha256": "49099a6221653a2c034d5926b57d2cc479fe30f3d3b38d703736c2e1b2ad6263",
+      "replay_report_sha256": "231dc345fa0a70d499560ec272f916072a265a652a112a7ca1f171f115e283fd",
+      "values_identical": true
+    }
+  ],
+  "training_math_matches_counterfactual_audit_cases": 4,
+  "criterion_changed": false,
+  "numerical_weights_changed": false,
+  "stop_formula_changed": false,
+  "body_height_target": false,
+  "training_success_claimed": false,
+  "isaac_smoke_status": "not_run",
+  "predecessor_policy": "All three frozen v6 screens must complete without nominal success before v7 GPU work",
+  "contact_loss_formula": "0.5 * (mean(missing) + max(missing)) over eight physical substeps"
+}

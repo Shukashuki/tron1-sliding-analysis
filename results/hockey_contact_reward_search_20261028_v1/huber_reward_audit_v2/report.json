@@ -1,0 +1,72 @@
+{
+  "kind": "hockey_contact_reward_signal_audit_v2",
+  "script_sha256": "b8157ce8c3793a57db043072c1ced72b3d2fc7b1723981f18146f34d4fafa24a",
+  "source_manifest_sha256": "3c8a9125497b3c7ec70ce2ca777c8c9c1d2111aebc8e8543512d7fbe41eec5ea",
+  "signals_sha256": "c5c8810104256d20a3e8e0baadf87c80128621d03411cfb56a59682c7438bc0f",
+  "physics_steps": 0,
+  "training_changed": false,
+  "criterion_changed": false,
+  "scoring_scope": "Complete control windows within the frozen reference horizon; validation recordings, not training returns",
+  "logged_training_reward": false,
+  "causal_failure_mechanism_proven": false,
+  "stop_proxy_force_source": "Recorded native summed normal force; training filtered force matrix not archived",
+  "stop_reward_definition": "Selected per case; legacy endpoint score uses a native-force proxy, refined substep score uses bilateral geometry without force",
+  "contact_loss_definition": "Native pre-step bilateral touching AND post-step finite-cylinder gap <=0.1mm",
+  "smoothness_definition": "Selected per case: bounded quadratic or pseudo-Huber; legacy-scale exceedance is not saturation of pseudo-Huber",
+  "cases": [
+    {
+      "cell": "native_equal_smooth_stop_xyz_huber",
+      "qualifier_sha256": "f82b2e260438144267cdc50a65e56cb21c36fb51b92a363ec307cf0c391ca7bf",
+      "raw_sha256": {
+        "final_rollout.npz": "2ea61f4fce48aa182b043077ff287d018c1dc9ffdf565036db0db6e1712970d6",
+        "native_contact_buffers.npz": "47ebed78f5722a73e243e36558d4fda991ed88734e46490eda5a4c73e0409b02"
+      },
+      "terminal_control_windows": 25,
+      "terminal_endpoint_good_but_substep_speed_or_tilt_violation_windows": 0,
+      "missed_endpoint_windows_s": [],
+      "terminal_contact_loss_windows": 0,
+      "terminal_positive_native_force_stop_proxy_with_contact_loss_windows": 0,
+      "positive_stop_proxy_contact_loss_windows_s": [],
+      "terminal_stop_proxy_sum": 0.6813195061683655,
+      "terminal_stop_proxy_sum_during_contact_loss": 0.0,
+      "declared_stop_form": "bilateral_substeps_xyz_huber",
+      "declared_stop_uses_native_force_proxy": false,
+      "declared_terminal_stop_score_sum": 0.6588166356086731,
+      "declared_angular_form": "pseudo_huber",
+      "declared_angular_penalty_integral": -0.15331844985485077,
+      "angular_acceleration_scale_rad_s2": 50.0,
+      "angular_penalty_saturated_substep_fraction": 0.0,
+      "angular_legacy_scale_exceedance_substep_fraction": 0.31521739130434784,
+      "angular_acceleration_peak_rad_s2": 701.5023193359375,
+      "contact_terms_weighted_integral": 5.181890195349833,
+      "task_success": false
+    },
+    {
+      "cell": "native_split_smooth_stop_xyz_huber",
+      "qualifier_sha256": "c98401369037d8788c52fdf05c441b384cc6030ff6ac256c5736b0698817f070",
+      "raw_sha256": {
+        "final_rollout.npz": "d4a08d9fb3c771c43ddf18367871344613839ad336d337c479df13eaec9a354b",
+        "native_contact_buffers.npz": "44a5fa8b78b0121227ff569d4b1b949221babfcb8cd72823b3d19b798b2a6390"
+      },
+      "terminal_control_windows": 25,
+      "terminal_endpoint_good_but_substep_speed_or_tilt_violation_windows": 0,
+      "missed_endpoint_windows_s": [],
+      "terminal_contact_loss_windows": 0,
+      "terminal_positive_native_force_stop_proxy_with_contact_loss_windows": 0,
+      "positive_stop_proxy_contact_loss_windows_s": [],
+      "terminal_stop_proxy_sum": 0.6511574470996857,
+      "terminal_stop_proxy_sum_during_contact_loss": 0.0,
+      "declared_stop_form": "bilateral_substeps_xyz_huber",
+      "declared_stop_uses_native_force_proxy": false,
+      "declared_terminal_stop_score_sum": 0.62883061170578,
+      "declared_angular_form": "pseudo_huber",
+      "declared_angular_penalty_integral": -0.1220758855342865,
+      "angular_acceleration_scale_rad_s2": 50.0,
+      "angular_penalty_saturated_substep_fraction": 0.0,
+      "angular_legacy_scale_exceedance_substep_fraction": 0.2644927536231884,
+      "angular_acceleration_peak_rad_s2": 578.2735595703125,
+      "contact_terms_weighted_integral": 5.1847752449637845,
+      "task_success": false
+    }
+  ]
+}

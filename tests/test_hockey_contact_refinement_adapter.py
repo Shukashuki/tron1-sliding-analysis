@@ -19,6 +19,23 @@ def protocol(stop='bilateral_substeps',angular='pseudo_huber'):
 
 
 class ContactRefinementAdapterTests(unittest.TestCase):
+    def test_new_contact_aggregation_is_explicit_and_preserves_stop_and_sliding(self):
+        samples,mg,cfg=fixture()
+        samples['root_velocity_xy_post']=samples['root_velocity_xy'].clone()
+        samples['up_post']=samples['up'].clone()
+        for key in ('root_velocity_xyz_pre','root_velocity_xyz_post'):
+            samples[key]=torch.zeros((len(mg),8,3))
+        samples['touching'][:,3,1]=False
+        old=protocol('bilateral_substeps_xyz_huber');new=protocol('bilateral_substeps_xyz_huber')
+        new['reward_refinement'].update(kind='hockey_contact_refinement_v2',contact_loss_term='mean_and_worst')
+        original=refined_components(samples,mg,cfg,old,torch.ones(len(mg)))
+        candidate=refined_components(samples,mg,cfg,new,torch.ones(len(mg)))
+        self.assertEqual(float(candidate['contact_loss']),.5625)
+        for key in original:
+            if key!='contact_loss':torch.testing.assert_close(candidate[key],original[key],rtol=0,atol=0)
+        new['reward_refinement']['kind']='hockey_contact_refinement_v1'
+        with self.assertRaises(ValueError):validate_settings(new['reward_refinement'])
+
     def test_dense_xyz_cost_keeps_contact_and_sliding_definitions(self):
         samples,mg,cfg=fixture()
         samples['root_velocity_xy_post']=samples['root_velocity_xy'].clone()

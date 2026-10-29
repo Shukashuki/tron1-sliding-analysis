@@ -5,10 +5,22 @@ import unittest
 import torch
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
-from hockey_contact_refinement_math import bilateral_substep_stop,angular_pseudo_huber
+from hockey_contact_refinement_math import bilateral_substep_stop,angular_pseudo_huber,bilateral_contact_loss
 
 
 class ContactRefinementTests(unittest.TestCase):
+    def test_contact_loss_penalizes_brief_native_or_post_gap_loss_with_same_endpoints(self):
+        touching=torch.ones((9,8,2),dtype=torch.bool)
+        for missed in range(9):touching[missed,:missed,1]=False
+        gap=torch.zeros_like(touching,dtype=torch.float32)
+        cost=bilateral_contact_loss(touching,gap)
+        self.assertEqual(float(cost[0]),0.);self.assertEqual(float(cost[-1]),1.)
+        self.assertEqual(float(cost[1]),.5625)
+        self.assertTrue(bool((cost[1:]>cost[:-1]).all()))
+        post_gap=gap.clone();post_gap[~touching]=.0002
+        torch.testing.assert_close(bilateral_contact_loss(torch.ones_like(touching),post_gap),cost,rtol=0,atol=0)
+        with self.assertRaises(ValueError):bilateral_contact_loss(touching[:,:7],gap[:,:7])
+
     def inputs(self):
         return [torch.ones((1,8,2),dtype=torch.bool),torch.zeros((1,8,2)),
                 torch.zeros((1,8,2)),torch.zeros((1,8,2)),torch.ones((1,8)),
