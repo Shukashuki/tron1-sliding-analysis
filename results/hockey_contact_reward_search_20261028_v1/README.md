@@ -1,6 +1,6 @@
 # Hockey contact-model and reward comparison
 
-**Twenty-one nominal screens are complete, with 0 task successes.** All three non-saturating XYZ speed-cost screens improve stopping and fail only continuous bilateral contact: interruption is 47.5/50/27.5 ms for the equal cylinder, unequal cylinder and nine slices, with no simultaneous loss of both contacts. The contact-continuity cost experiment has now started after this complete three-model comparison. No robustness success rate is available.
+**Twenty-two nominal screens are complete, with 0 task successes.** The first contact-continuity refinement reduces equal-cylinder interruption from 47.5 to 25 ms and XY RMSE from 0.0285 to 0.0213 m, while retaining the 0.5 s stop hold. Four short right-wheel losses still fail the primary gate. The unequal-cylinder arm is training; the nine-slice arm remains pending. No robustness success rate is available.
 
 ## What the result means
 
@@ -21,6 +21,7 @@ Friction is static/dynamic. “Interruption” means at least one wheel is missi
 | Cylinder 0.7/0.7 | smooth_stop | 147.5 | 27.5 | 0.0233 | 0.5000 | 81.67 |
 | Cylinder 0.7/0.7 | smooth_stop_xyz | 212.5 | 62.5 | 0.0225 | 0.2625 | 90.43 |
 | Cylinder 0.7/0.7 | smooth_stop_xyz_huber | 47.5 | 0.0 | 0.0285 | 0.5000 | 83.32 |
+| Cylinder 0.7/0.7 | smooth_stop_xyz_huber_continuity | 25.0 | 0.0 | 0.0213 | 0.5000 | 70.93 |
 | Cylinder 0.9/0.7 | dense | 65.0 | 17.5 | 0.0406 | 0.4425 | 87.20 |
 | Cylinder 0.9/0.7 | smooth | 57.5 | 25.0 | 0.0388 | 0.5000 | 85.49 |
 | Cylinder 0.9/0.7 | smooth_stop | 100.0 | 10.0 | 0.0277 | 0.4250 | 88.81 |
@@ -32,7 +33,7 @@ Friction is static/dynamic. “Interruption” means at least one wheel is missi
 | Nine slices 0.9/0.7 | smooth_stop_xyz | 127.5 | 52.5 | 0.0362 | 0.5000 | 93.72 |
 | Nine slices 0.9/0.7 | smooth_stop_xyz_huber | 27.5 | 0.0 | 0.0355 | 0.5000 | 75.55 |
 
-All fifteen rows fail the task. Angular RMS covers the 2.78 s recording; task/contact gates cover the 2.76 s reference. These are single-seed matched screens, not statistical robustness estimates. Cross-model comparisons also change the training geometry or friction ratio.
+All sixteen rows fail the task. Angular RMS covers the 2.78 s recording; task/contact gates cover the 2.76 s reference. These are single-seed matched screens, not statistical robustness estimates. Cross-model comparisons also change the training geometry or friction ratio.
 
 The closest contact result remains the equal-friction `smooth` actor: 2.5 ms right-wheel loss at 0.6250–0.6275 s, reaching 0.124 mm native separation with zero interval-averaged normal force. It also misses the planar stop gate. [Aligned force check](refinement_failure_audit_v1/near_gap_force_check.json).
 
@@ -46,6 +47,7 @@ The initial nine-screen sweep also included stronger `tight` contact penalties a
 
 Each animation has four horizontal panels and a fixed 2.4 m camera offset. MuJoCo supplies graphics and forward kinematics only; trajectories and contacts come from recorded PhysX. No poses are corrected, smoothed or interpolated. Native geometry is aligned to the pre-step pose; force is averaged over the following physical step. New renders label planar speed `vXY` and vertical speed `vZ` separately; older renders' `speed` field is XY speed.
 
+- [Equal cylinder: smooth / exponential XYZ-stop / dense XYZ-stop / continuity refinement](continuity_equal_render_v1/equal_continuity_fullbody_4x1.mp4), [8× early contact-loss excerpt](continuity_equal_render_v1/equal_continuity_contact_excerpt_8x_4x1.mp4), [provenance](continuity_equal_render_v1/provenance.json).
 - [Nine slices: parent / dense / smooth / smooth-stop](refinement_slices_stop_render_v1/slices_stop_fullbody_4x1.mp4), [8× contact-loss excerpt](refinement_slices_stop_render_v1/slices_stop_contact_excerpt_8x_4x1.mp4), [provenance](refinement_slices_stop_render_v1/provenance.json).
 - [Equal cylinder: dense / smooth / planar-stop / XYZ-stop](xyz_equal_render_v1/equal_xyz_fullbody_4x1.mp4), [8× terminal-contact excerpt](xyz_equal_render_v1/equal_xyz_contact_excerpt_8x_4x1.mp4), [provenance](xyz_equal_render_v1/provenance.json).
 - [Equal and unequal cylinders: planar-stop / XYZ-stop pairs](xyz_friction_render_v1/friction_xyz_fullbody_4x1.mp4), [8× terminal excerpt](xyz_friction_render_v1/friction_xyz_contact_excerpt_8x_4x1.mp4), [provenance](xyz_friction_render_v1/provenance.json).
@@ -103,11 +105,17 @@ The [candidate](../../config/hockey_contact_continuity_v1.json) replaces only th
 
 The training rule's missing duration is **55 ms**, versus **47.5 ms** in native contact qualification: training combines native pre-step contact with authored post-step clearance. These are distinct diagnostics, and the replay does not replace the frozen native-contact gate or its endpoint check. [Preflight](contact_continuity_preflight_v1/report.json) records 36 passing local checks, three matched protocols, exact replay of ten older result rows and agreement between candidate training math and four counterfactual recordings. The [41-file v7 snapshot](source_snapshot_v7/manifest.json) was [uploaded and verified](upload_receipt_v7.json), then [launched](remote_evidence_v7/launch_v7.json) only after all three v6 nominal screens finished without success. The original paused jobs remain paused. A future nominal pass requires robustness qualification rather than further reward screening.
 
-The first [Isaac runtime preflight](continuity_runtime_preflight_v1/report.json) completes 1,536 transitions with `mean_and_worst` contact loss selected and no native-collector fault. Its frozen-parent qualification and raw recording hashes exactly match v6. Formal 512-environment training is running; no learned result is available for this new reward yet.
+The first [Isaac runtime preflight](continuity_runtime_preflight_v1/report.json) completes 1,536 transitions with `mean_and_worst` contact loss selected and no native-collector fault. Its frozen-parent qualification and raw recording hashes exactly match v6. The first formal actor has now completed 3,072,000 new transitions and independent nominal validation; the second model is training.
+
+The equal-cylinder continuity actor reduces interruption from **47.5 to 25 ms**, XY RMSE from **0.02846 to 0.02126 m**, and angular RMS from **83.32 to 70.93 rad/s²**, compared with its matched v6 dense-XYZ control. There is no simultaneous loss of both contacts. The four right-wheel losses occur at **0.5850–0.5925, 0.6050–0.6075, 0.9825–0.9900 and 1.4850–1.4925 s**, with maximum authored clearance **0.384 mm**. The left wheel remains touching, including the endpoint. Every other frozen task gate passes, but the task still fails continuous bilateral contact.
+
+During the final 0.5 s, peak XYZ speed is **0.065 m/s**, peak absolute vertical speed is **0.034 m/s**, and base-COM height changes by **4.4 mm**. This retains the improved terminal behavior rather than reproducing the older large upward motion. It does not improve every motion statistic: whole-task vertical-speed RMS rises from 0.092 to 0.127 m/s. This is one matched seed, not a robustness estimate or proof of the learning mechanism. [Nominal summary](continuity_summary_v1/report.json) · [contact events](continuity_failure_audit_v1/report.json) · [3D stop check](continuity_failure_audit_v1/terminal_xyz_check.json) · [normal-motion audit](continuity_normal_motion_audit_v1/report.json) · [recordings](continuity_publication_v1/manifest.json) · [frozen reward replay](continuity_reward_audit_v1/report.json).
 
 ## Training, physics and reproduction
 
 Each screen warm-starts the same 12,288,000-transition PPO actor/critic and normalizers, then uses a fresh optimizer for **512 × 24 × 250 = 3,072,000 new transitions**, seed 42. Learning rate is 1e-4, initial exploration standard deviation 0.1, entropy coefficient 0.001, physics 400 Hz and policy 50 Hz. These are fine-tuning screens, not cold-start or full-budget retraining comparisons.
+
+The [completed v6 learning curves](huber_training_curve_audit_v2/training_curves_4x1.png) continue to improve near this screening budget. Comparing iterations 150–199 with 200–249, logged mean reward rises from 3.653 to 5.279 (equal cylinder), 3.845 to 5.266 (unequal cylinder), and 3.490 to 5.031 (nine slices). Contact-fraction reward increases by 0.105/0.090/0.086 and stop reward by 0.094/0.097/0.112. [Scalar data and adjacent-window statistics](huber_training_curve_audit_v2/report.json) are tied to the three completed training-report and log hashes. These are runner episode averages under randomized phases/materials, not physical contact percentages or independent success estimates, and they do not establish convergence. If the current v7 comparison has no nominal pass, the next priority is longer training with a fixed reward before another reward-family change. No such continuation has been launched; restoring a checkpoint's optimizer and exploration state would still require a fresh environment because simulator/RNG state was not saved.
 
 Training randomizes dynamic wheel friction over 0.3–1.2, with static friction tied to the declared ratio. Ground friction is 1 with multiply combination; other existing randomization remains fixed. Nominal evaluation uses dynamic friction 0.7. Nine rigid axial slices retain the cylinder's outer dimensions, mass and inertia, with 1 mm contact offset and zero rest offset. They are not an elastic tire model. External nonlinear tire/brush models are outside this batch; see [model limitations](../hockey_split_friction_20261028_v1/README.md).
 
@@ -116,6 +124,7 @@ Training randomizes dynamic wheel friction over 0.3–1.2, with static friction 
 ```bash
 python scripts/collect_hockey_contact_search.py --version v7 --output results/hockey_contact_reward_search_20261028_v1/remote_evidence_v7 --include-rollouts
 python scripts/summarize_hockey_contact_search.py --bundle results/hockey_contact_reward_search_20261028_v1/source_snapshot_v7 --evidence results/hockey_contact_reward_search_20261028_v1/remote_evidence_v7 --run-name run_v7 --output <fresh-summary-directory>
+python scripts/collect_hockey_training_curves.py --bundle results/hockey_contact_reward_search_20261028_v1/source_snapshot_v6 --evidence results/hockey_contact_reward_search_20261028_v1/huber_publication_v3 --version v6 --output <fresh-curve-directory>
 ```
 
 For offline analysis, use the corresponding public recording subset as `--evidence`; manifests preserve raw trajectory/contact hashes. Locked references, robot assets and parent weights are required separately. No weights, licensed body-model files, credentials or source video are published here.
