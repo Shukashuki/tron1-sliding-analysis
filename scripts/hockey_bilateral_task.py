@@ -87,6 +87,7 @@ class BilateralWindow(SupportWindow):
         self.cfg=env.cfg.hockey_protocol['bilateral_sliding']
         self.robot=env.scene['robot'];self.ids=[self.robot.body_names.index(n) for n in WHEELS]
         self.mu=env.mjlab_recipe_mu.to(device=env.device).clone()
+        self.mu_static=getattr(env,'mjlab_recipe_mu_static',env.mjlab_recipe_mu).to(device=env.device).clone()
         if not bool(torch.isfinite(self.mu).all()&(self.mu>0).all()):raise ValueError('Invalid randomized friction')
         shape=(env.num_envs,8,2)
         self.values={k:torch.zeros(shape,device=env.device) for k in ('touching','post_gap','normal_fz','utilization_proxy',
@@ -196,7 +197,10 @@ class BilateralWindow(SupportWindow):
             bilateral_contact_fraction=float(self.total_contact/max(1,self.total_world_steps)),
             contact_is_force_independent=True, equal_load_target=False, pre_step_velocity=True,
             force_scope='Average over following physics step; anchor power is a proxy, not integrated work',
-            mu_min=float(self.mu.min()),mu_max=float(self.mu.max()),fault_seen=bool(self.fault.any()))
+            mu_min=float(self.mu.min()),mu_max=float(self.mu.max()),
+            mu_static_min=float(self.mu_static.min()),mu_static_max=float(self.mu_static.max()),
+            sliding_reward_capacity_coefficient='dynamic_mu',
+            static_dynamic_solver_state_observed=False,fault_seen=bool(self.fault.any()))
 
 
 def reward_term(env,key):

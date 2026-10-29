@@ -26,12 +26,15 @@ VELOCITY_RANGE = {
 }
 
 
-def recipe_manifest(*, training=True, fixed_mu=0.7):
+def recipe_manifest(*, training=True, fixed_mu=0.7, static_dynamic_ratio=1.0):
     if isinstance(fixed_mu, bool) or not isinstance(fixed_mu, (int, float)):
         raise ValueError("fixed_mu must be a finite nonnegative scalar")
     if not math.isfinite(fixed_mu) or fixed_mu < 0.0:
         raise ValueError("fixed_mu must be a finite nonnegative scalar")
-    return {
+    if (isinstance(static_dynamic_ratio, bool) or not isinstance(static_dynamic_ratio, (int, float))
+            or not math.isfinite(static_dynamic_ratio) or static_dynamic_ratio < 1):
+        raise ValueError("static_dynamic_ratio must be finite and >= 1")
+    manifest = {
         "name": "tron1_mjlab_tracking_dr_v1",
         "source_repository": "https://github.com/mujocolab/mjlab",
         "source_commit": MJLAB_COMMIT,
@@ -89,6 +92,18 @@ def recipe_manifest(*, training=True, fixed_mu=0.7):
         "additional_observation_corruption": False,
         "physics_equivalence_claimed": False,
     }
+    if static_dynamic_ratio != 1:
+        manifest['name'] = 'tron1_physx_split_friction_v1'
+        manifest['wheel_contact_friction'].update(
+            physx_static_equals_dynamic=False,
+            dynamic_range=manifest['wheel_contact_friction']['range'].copy(),
+            static_range=[v*static_dynamic_ratio for v in manifest['wheel_contact_friction']['range']],
+            static_dynamic_ratio=float(static_dynamic_ratio),
+            sampling='one_dynamic_draw_per_environment_static_is_ratio_times_dynamic_shared_by_both_wheels',
+            legacy_mu_field_means='dynamic_coefficient',
+            mujoco_static_dynamic_equivalence_claimed=False)
+        manifest['split_friction_parameter_identification'] = 'exploratory_not_measured_TRON1_tire_parameters'
+    return manifest
 
 
 def _device_ids(env, env_ids, *, device):
@@ -118,10 +133,10 @@ def _shape_map(asset):
     return result
 
 
-def initialize_contact_materials(env, env_ids, training=True, fixed_mu=0.7):
+def initialize_contact_materials(env, env_ids, training=True, fixed_mu=0.7, static_dynamic_ratio=1.0):
     """Continuous per-world draw, not Isaac's independent material buckets."""
     import torch
-    manifest = recipe_manifest(training=training, fixed_mu=fixed_mu)
+    manifest = recipe_manifest(training=training, fixed_mu=fixed_mu, static_dynamic_ratio=static_dynamic_ratio)
     asset = env.scene["robot"]
     ids = _device_ids(env, env_ids, device="cpu")
     mapping = _shape_map(asset)
@@ -138,11 +153,15 @@ def initialize_contact_materials(env, env_ids, training=True, fixed_mu=0.7):
         values = torch.full((len(ids),), fixed_mu, dtype=materials.dtype)
     wheel_slots = [slot for name in WHEEL_BODY_NAMES for slot in mapping[name]]
     slot_ids = torch.tensor(wheel_slots, dtype=torch.long)
-    materials[ids[:, None], slot_ids[None, :], :2] = values[:, None, None]
+    pair = torch.stack((values*static_dynamic_ratio, values), -1)
+    materials[ids[:, None], slot_ids[None, :], :2] = pair[:, None, :]
     asset.root_physx_view.set_material_properties(materials, ids.to(dtype=torch.int32))
     if not hasattr(env, "mjlab_recipe_mu"):
         env.mjlab_recipe_mu = torch.full((env.num_envs,), float("nan"))
     env.mjlab_recipe_mu[ids] = values
+    if not hasattr(env, 'mjlab_recipe_mu_static'):
+        env.mjlab_recipe_mu_static = torch.full((env.num_envs,), float('nan'))
+    env.mjlab_recipe_mu_static[ids] = pair[:, 0]
     env.mjlab_recipe_shape_slots = mapping
     env.mjlab_recipe_manifest = manifest
 
@@ -213,11 +232,11 @@ def push_root_link_velocity(env, env_ids, velocity_range):
     env.mjlab_recipe_push_count = getattr(env, "mjlab_recipe_push_count", 0) + len(ids)
 
 
-def install_physx_mjlab_recipe(cfg, *, training=True, fixed_mu=0.7):
+def install_physx_mjlab_recipe(cfg, *, training=True, fixed_mu=0.7, static_dynamic_ratio=1.0):
     """Install before environment creation; leave task/reward/height gates alone."""
     from isaaclab.managers import EventTermCfg
 
-    manifest = recipe_manifest(training=training, fixed_mu=fixed_mu)
+    manifest = recipe_manifest(training=training, fixed_mu=fixed_mu, static_dynamic_ratio=static_dynamic_ratio)
     material = cfg.scene.terrain.physics_material
     material.static_friction = material.dynamic_friction = 1.0
     material.restitution = 0.0
@@ -232,6 +251,8 @@ def install_physx_mjlab_recipe(cfg, *, training=True, fixed_mu=0.7):
     cfg.events.mjlab_contact_material = EventTermCfg(
         func=initialize_contact_materials, mode="startup",
         params={"training": bool(training), "fixed_mu": float(fixed_mu)})
+    if static_dynamic_ratio != 1:
+        cfg.events.mjlab_contact_material.params['static_dynamic_ratio'] = float(static_dynamic_ratio)
     cfg.events.mjlab_encoder_bias = EventTermCfg(
         func=initialize_encoder_bias, mode="startup", params={"training": bool(training)})
     if training:
@@ -259,7 +280,11 @@ def audit_physx_mjlab_recipe(env, *, check_usd=True):
     nonwheel_slots = [slot for name, shape_slots in slots.items()
                       if name not in WHEEL_BODY_NAMES for slot in shape_slots]
     mu = env.mjlab_recipe_mu
-    expected = mu[:, None, None].expand(-1, len(wheel_slots), 2)
+    ratio = manifest['wheel_contact_friction'].get('static_dynamic_ratio', 1.)
+    mu_static = getattr(env, 'mjlab_recipe_mu_static', mu)
+    if not torch.allclose(mu_static, mu*ratio, rtol=0, atol=1e-6):
+        raise RuntimeError('Static/dynamic friction ratio readback differs from the protocol')
+    expected = torch.stack((mu_static, mu), -1)[:, None, :].expand(-1, len(wheel_slots), -1)
     if (not torch.isfinite(values).all()
             or not torch.allclose(values[:, wheel_slots, :2], expected, atol=1e-6, rtol=0.0)
             or torch.count_nonzero(values[..., 2])):
@@ -279,6 +304,9 @@ def audit_physx_mjlab_recipe(env, *, check_usd=True):
         raise RuntimeError("Friction draw lies outside the pinned recipe range")
     result = {"recipe": copy.deepcopy(manifest),
               "wheel_mu_range": [float(mu.min()), float(mu.max())],
+              "wheel_mu_dynamic_range": [float(mu.min()), float(mu.max())],
+              "wheel_mu_static_range": [float(mu_static.min()), float(mu_static.max())],
+              "static_dynamic_ratio": ratio,
               "wheel_shape_slots": wheel_slots,
               "all_wheel_shapes_share_one_draw_per_environment": True,
               "encoder_bias_range_rad": [float(bias.min()), float(bias.max())],

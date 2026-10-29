@@ -203,7 +203,8 @@ def configure(cfg, protocol, variant, *, training):
     if protocol.get("adaptive_sampling") == "fall_only":
         from hockey_ppo_sampling import motion_command_class
         cfg.commands.motion.class_type = motion_command_class()
-    install_physx_mjlab_recipe(cfg, training=training, fixed_mu=protocol["evaluation_mu"])
+    install_physx_mjlab_recipe(cfg, training=training, fixed_mu=protocol["evaluation_mu"],
+        static_dynamic_ratio=protocol.get('static_dynamic_friction_ratio', 1.))
     for group in (cfg.observations.policy, cfg.observations.critic):
         group.hockey_target = ObservationTermCfg(func=desired_command)
     for name in SENSORS:

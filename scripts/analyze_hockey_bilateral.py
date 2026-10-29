@@ -13,11 +13,14 @@ from evaluate_hockey_contact_priority import bilateral_gate
 from hockey_speed_study import wilson_interval
 
 
-def qualify(trace,raw,reference,command,mu=.7):
+def qualify(trace,raw,reference,command,mu=.7,mu_static=None):
     force,native_audit=reconstruct_contacts(trace,raw,mu,readback_mode='recorded_float32')
     old=derive_signals(trace,force)
     historical=qualify_stop(trace,old,reference,command)
     c=contact_kinematics(previous_state_trace(trace),raw,.0001)
+    from wheel_friction_capacity import capacity_ratios
+    mu_static=mu if mu_static is None else mu_static
+    ratios=capacity_ratios(force['normal_fz'],force['friction_force'],c['touching'],mu_static,mu)
     v=vector_signals(trace,raw,.0001)
     n=len(trace['root_pos']);pre=np.maximum(np.arange(n)-1,0)
     end=(len(reference['joint_pos'])-1)/float(reference['fps'])
@@ -77,7 +80,12 @@ def qualify(trace,raw,reference,command,mu=.7):
         body_angular_acceleration_RMS_rad_s2=float(np.sqrt(np.mean(np.sum((np.diff(trace['root_omega'],axis=0)/.0025)**2,axis=-1)))),
         action_change_RMS=float(np.sqrt(np.mean(np.diff(trace['actions'],axis=0)**2))),
         no_absolute_height_gate=True,no_equal_load_gate=True,pointwise_friction_cone_certified=False,
-        native_force_audit=native_audit)
+        native_force_audit=native_audit,
+        wheel_aggregate_capacity=dict(mu_static=mu_static,mu_dynamic=mu,
+            actual_solver_stick_slip_flag_observed=False,scope='touching and positive normal force, full recording, diagnostic only',
+            **{key:[np.quantile(ratios[key][ratios['valid'][:,side],side],[.5,.95,1]).tolist()
+                    if ratios['valid'][:,side].any() else None for side in (0,1)]
+               for key in ('rho_static','rho_dynamic')}))
 
 
 def main():
@@ -111,7 +119,9 @@ def main():
         for f,h in run['artifacts'].items():assert sha(d/f)==h
         reset=read(d/'case.json');assert reset['case']==case and reset['maximum_initial_state_error']<=5e-5
         m=run['material_audit'];assert m['live_physx_materials_verified'] and m['ground_material_usd_verified']
-        assert np.allclose(m['wheel_mu_range'],[.7,.7],atol=1e-6,rtol=0)
+        mu=cfg['evaluation_mu'];mu_static=mu*cfg.get('static_dynamic_friction_ratio',1.)
+        assert np.allclose(m['wheel_mu_range'],[mu,mu],atol=1e-6,rtol=0)
+        assert np.allclose(m.get('wheel_mu_static_range',m['wheel_mu_range']),[mu_static,mu_static],atol=1e-6,rtol=0)
         assert all(g['friction']==1 and g['combine']=='multiply' for g in m['ground_colliders'])
         tr=load(d/'final_rollout.npz');raw=load(d/'native_contact_buffers.npz')
         assert tr['root_pos'].shape==(1113,3) and tr['actions'].shape==(139,8)
@@ -120,7 +130,7 @@ def main():
         error=float(np.max(np.abs(predicted-tr['actions'])))
         if not np.isfinite(error) or error>5e-5:raise ValueError('Actor replay differs')
         result=dict(case=case,input_sha256=run['artifacts'],observation_audit=obs,action_replay_error=error,
-                    qualification=qualify(tr,raw,reference,command))
+                    qualification=qualify(tr,raw,reference,command,mu=mu,mu_static=mu_static))
         (a.output/(case['id']+'.json')).write_text(json.dumps(result,indent=2,allow_nan=False)+'\n')
         q=result['qualification'];rows.append(dict(id=case['id'],kind=case['kind'],success=q['task_success_claimed'],
             contact_gate=q['primary_contact_gate']['gate_status'],failed_gates=q['failed_gates'],
@@ -129,7 +139,7 @@ def main():
     report=dict(kind='hockey_bilateral_sliding_qualification_v1',nominal_success=rows[0]['success'],
         analyzer_sha256=sha(__file__),
         evaluation_source_sha256={name:sha(Path(__file__).with_name(name)) for name in
-            ('evaluate_hockey_physx.py','audit_physx_contact_float32.py')},
+            ('evaluate_hockey_physx.py','audit_physx_contact_float32.py','wheel_friction_capacity.py')},
         perturbation_trials=len(pert),perturbation_successes=k,conditional_Wilson_95_interval=wilson_interval(k,len(pert)),
         definition='Whole-episode bilateral geometric contact first, then independent stop, tracking, posture and corroborated sliding gates',
         force_threshold_for_contact=None,equal_load_target=False,early_termination_during_validation=False,

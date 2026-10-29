@@ -33,6 +33,7 @@ def main():
            'hockey_ppo_sampling.py','hockey_speed_study.py','height_smoothness.py','physx_mjlab_recipe.py',
            'physx_reference_math.py','evaluate_hockey_physx.py','analyze_hockey_ppo.py','analyze_hockey_bilateral.py',
            'analyze_hockey_ground_contact.py','analyze_hockey_support_failure.py','audit_hockey_contact_timing.py',
+           'audit_physx_contact_float32.py','wheel_friction_capacity.py',
            'wheel_ground_geometry.py','evaluate_hockey_contact_priority.py','dispatch_hockey_bilateral_training.py',
            'prepare_hockey_bilateral_training.py']
     for file in files:shutil.copy2(ROOT/'scripts'/file,a.output/file)

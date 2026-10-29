@@ -1,0 +1,67 @@
+{
+  "kind": "hockey_contact_model_comparison_plan_v1",
+  "status": "split_native_material_probe_only_no_new_training",
+  "reference_speed_scale": 1,
+  "physics_dt_s": 0.0025,
+  "policy_dt_s": 0.02,
+  "contact_gate": "full-horizon bilateral geometric contact separation <= 0.1 mm",
+  "fixed_properties": [
+    "robot mass and inertia",
+    "actuator model",
+    "reference",
+    "initial state",
+    "policy weights for transfer tests",
+    "action schedule for open-loop diagnosis",
+    "contact and rest offsets within the geometry comparison"
+  ],
+  "arms": [
+    {
+      "id": "native_equal",
+      "geometry": "authored",
+      "law": "native_PhysX_Coulomb",
+      "mu_static": 0.7,
+      "mu_dynamic": 0.7,
+      "status": "historical_baseline"
+    },
+    {
+      "id": "native_split",
+      "geometry": "authored",
+      "law": "native_PhysX_Coulomb",
+      "mu_static": 0.9,
+      "mu_dynamic": 0.7,
+      "status": "short_material_probe"
+    },
+    {
+      "id": "slices9_split",
+      "geometry": "slices9",
+      "law": "native_PhysX_Coulomb",
+      "mu_static": 0.9,
+      "mu_dynamic": 0.7,
+      "status": "existing_geometry_adapter_material_unit_tests_passed_new_hockey_rollout_not_run"
+    },
+    {
+      "id": "elastic_brush_split",
+      "geometry": "per_contact_or_per_slice",
+      "law": "stateful_bristle_with_static_limit_and_dynamic_sliding",
+      "mu_static": 0.9,
+      "mu_dynamic": 0.7,
+      "status": "design_only_not_implemented_or_calibrated"
+    }
+  ],
+  "existing_nonlinear_prototype": {
+    "script": "scripts/nonlinear_tire_torch.py",
+    "static_adhesion": false,
+    "normal_load_delay_steps": 1,
+    "calibrated": false,
+    "not_automatically_compatible_with_split_native_materials": true
+  },
+  "capacity_metrics": [
+    "rho_static=norm(Ft)/(mu_static*Fn)",
+    "rho_dynamic=norm(Ft)/(mu_dynamic*Fn)",
+    "touching geometric condition",
+    "contact material tangential velocity",
+    "tangential dissipative power"
+  ],
+  "solver_stick_slip_state_inferred_from_ratios_alone": false,
+  "parameters_measured": false
+}
