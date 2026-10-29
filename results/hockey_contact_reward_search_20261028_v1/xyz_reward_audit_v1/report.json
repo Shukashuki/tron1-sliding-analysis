@@ -1,0 +1,79 @@
+{
+  "kind": "hockey_contact_reward_signal_audit_v2",
+  "script_sha256": "39e7f8378e8918a189fabe17c8149ffd7201c1553f4751f9a7233a4819bf2b67",
+  "source_manifest_sha256": "6ea234ece5b6946b6b866b7b2fb284a05c6828293d89c35cfce3496a9299b139",
+  "signals_sha256": "62aa0623b2206a711a73da61bd616881dccac5f8f83c41e6c5845b091514cf19",
+  "physics_steps": 0,
+  "training_changed": false,
+  "criterion_changed": false,
+  "scoring_scope": "Complete control windows within the frozen reference horizon; validation recordings, not training returns",
+  "logged_training_reward": false,
+  "causal_failure_mechanism_proven": false,
+  "stop_proxy_force_source": "Recorded native summed normal force; training filtered force matrix not archived",
+  "stop_reward_definition": "Selected per case; legacy endpoint score uses a native-force proxy, refined substep score uses bilateral geometry without force",
+  "contact_loss_definition": "Native pre-step bilateral touching AND post-step finite-cylinder gap <=0.1mm",
+  "smoothness_definition": "Selected per case: bounded quadratic or pseudo-Huber; legacy-scale exceedance is not saturation of pseudo-Huber",
+  "cases": [
+    {
+      "cell": "native_equal_smooth_stop_xyz",
+      "qualifier_sha256": "66f5681485b95e7d889e81d319b5a086573bc86710829fbf01a9c6a9bf36cf3d",
+      "raw_sha256": {
+        "final_rollout.npz": "7da6586a94f408fa8af658615cd0cbda77aa4b2410ac4586fa3108de766933af",
+        "native_contact_buffers.npz": "c538ba71f749810262b4116d7d642fa262821659dc0577dec789cd36db8f4483"
+      },
+      "terminal_control_windows": 25,
+      "terminal_endpoint_good_but_substep_speed_or_tilt_violation_windows": 2,
+      "missed_endpoint_windows_s": [
+        [
+          2.36,
+          2.38
+        ],
+        [
+          2.7,
+          2.72
+        ]
+      ],
+      "terminal_contact_loss_windows": 9,
+      "terminal_positive_native_force_stop_proxy_with_contact_loss_windows": 6,
+      "positive_stop_proxy_contact_loss_windows_s": [
+        [
+          2.2600000000000002,
+          2.2800000000000002
+        ],
+        [
+          2.2800000000000002,
+          2.3000000000000003
+        ],
+        [
+          2.3000000000000003,
+          2.32
+        ],
+        [
+          2.64,
+          2.66
+        ],
+        [
+          2.66,
+          2.68
+        ],
+        [
+          2.68,
+          2.7
+        ]
+      ],
+      "terminal_stop_proxy_sum": 0.3600424900464713,
+      "terminal_stop_proxy_sum_during_contact_loss": 0.07032611830160022,
+      "declared_stop_form": "bilateral_substeps_xyz",
+      "declared_stop_uses_native_force_proxy": false,
+      "declared_terminal_stop_score_sum": 0.0740746408700943,
+      "declared_angular_form": "pseudo_huber",
+      "declared_angular_penalty_integral": -0.17005404829978943,
+      "angular_acceleration_scale_rad_s2": 50.0,
+      "angular_penalty_saturated_substep_fraction": 0.0,
+      "angular_legacy_scale_exceedance_substep_fraction": 0.3451086956521739,
+      "angular_acceleration_peak_rad_s2": 737.5317993164062,
+      "contact_terms_weighted_integral": 3.9894170886365936,
+      "task_success": false
+    }
+  ]
+}
