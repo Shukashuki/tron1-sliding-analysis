@@ -1,0 +1,162 @@
+{
+  "action": "replace_own_waiting_dispatcher_only",
+  "old_pid": 4032578,
+  "old_identity": {
+    "pid": 4032578,
+    "uid": 1030,
+    "state": "Z",
+    "start_ticks": 2063181838,
+    "argv": []
+  },
+  "old_status": "waiting_for_existing_studies",
+  "old_gpu_jobs_started": 0,
+  "terminated_active_training": false,
+  "device_probe": {
+    "physical_index": 1,
+    "uuid": "GPU-3971a030-93f3-8dd8-def2-ab3cc1b507f6",
+    "pci_bus_id": "00000000:65:02.0",
+    "memory_used_mib": 358,
+    "utilization_percent": 0,
+    "all_reported_compute_and_graphics_processes": [
+      {
+        "gpu_instance_id": "N/A",
+        "compute_instance_id": "N/A",
+        "pid": "4041908",
+        "type": "C",
+        "process_name": "/data/zengxiong/.conda/envs/regrind/bin/python",
+        "used_memory": "346 MiB"
+      }
+    ],
+    "idle": false,
+    "pci_bus_id_cuda_ordinal_verified": true,
+    "observed_unix_time": 1793234431.09328,
+    "reservation_claimed": false,
+    "source": "nvidia-smi -q -x full NVML-derived snapshot",
+    "capacity_eligible": true,
+    "scheduling_samples": [
+      {
+        "gpu": {
+          "physical_index": 1,
+          "uuid": "GPU-3971a030-93f3-8dd8-def2-ab3cc1b507f6",
+          "pci_bus_id": "00000000:65:02.0",
+          "memory_used_mib": 358,
+          "utilization_percent": 0,
+          "all_reported_compute_and_graphics_processes": [
+            {
+              "gpu_instance_id": "N/A",
+              "compute_instance_id": "N/A",
+              "pid": "4041908",
+              "type": "C",
+              "process_name": "/data/zengxiong/.conda/envs/regrind/bin/python",
+              "used_memory": "346 MiB"
+            }
+          ],
+          "idle": false,
+          "pci_bus_id_cuda_ordinal_verified": true,
+          "observed_unix_time": 1793234427.1804905,
+          "reservation_claimed": false,
+          "source": "nvidia-smi -q -x full NVML-derived snapshot"
+        },
+        "inactive_owned_contexts": [
+          {
+            "pid": 4041908,
+            "main_device": "cuda:3",
+            "context_memory_mib": 346,
+            "uid": 1030,
+            "start_ticks": 2063289449
+          }
+        ]
+      },
+      {
+        "gpu": {
+          "physical_index": 1,
+          "uuid": "GPU-3971a030-93f3-8dd8-def2-ab3cc1b507f6",
+          "pci_bus_id": "00000000:65:02.0",
+          "memory_used_mib": 358,
+          "utilization_percent": 0,
+          "all_reported_compute_and_graphics_processes": [
+            {
+              "gpu_instance_id": "N/A",
+              "compute_instance_id": "N/A",
+              "pid": "4041908",
+              "type": "C",
+              "process_name": "/data/zengxiong/.conda/envs/regrind/bin/python",
+              "used_memory": "346 MiB"
+            }
+          ],
+          "idle": false,
+          "pci_bus_id_cuda_ordinal_verified": true,
+          "observed_unix_time": 1793234429.0900536,
+          "reservation_claimed": false,
+          "source": "nvidia-smi -q -x full NVML-derived snapshot"
+        },
+        "inactive_owned_contexts": [
+          {
+            "pid": 4041908,
+            "main_device": "cuda:3",
+            "context_memory_mib": 346,
+            "uid": 1030,
+            "start_ticks": 2063289449
+          }
+        ]
+      },
+      {
+        "gpu": {
+          "physical_index": 1,
+          "uuid": "GPU-3971a030-93f3-8dd8-def2-ab3cc1b507f6",
+          "pci_bus_id": "00000000:65:02.0",
+          "memory_used_mib": 358,
+          "utilization_percent": 0,
+          "all_reported_compute_and_graphics_processes": [
+            {
+              "gpu_instance_id": "N/A",
+              "compute_instance_id": "N/A",
+              "pid": "4041908",
+              "type": "C",
+              "process_name": "/data/zengxiong/.conda/envs/regrind/bin/python",
+              "used_memory": "346 MiB"
+            }
+          ],
+          "idle": false,
+          "pci_bus_id_cuda_ordinal_verified": true,
+          "observed_unix_time": 1793234431.09328,
+          "reservation_claimed": false,
+          "source": "nvidia-smi -q -x full NVML-derived snapshot"
+        },
+        "inactive_owned_contexts": [
+          {
+            "pid": 4041908,
+            "main_device": "cuda:3",
+            "context_memory_mib": 346,
+            "uid": 1030,
+            "start_ticks": 2063289449
+          }
+        ]
+      }
+    ],
+    "reason": "No active workload; zero utilization, less than 2 GiB used, only verified small contexts of owned hockey jobs on other devices"
+  },
+  "time_unix_s": 1793234431.0966203,
+  "terminal_process_state": {
+    "pid": 4032578,
+    "uid": 1030,
+    "state": "Z",
+    "start_ticks": 2063181838,
+    "argv": []
+  },
+  "original_launch_argv": [
+    "/data/zengxiong/.conda/envs/regrind/bin/python",
+    "-B",
+    "-u",
+    "/data/zengxiong/workspaces/tron1-hockey-bilateral-20261028-v1/source_snapshot_v1/dispatch_hockey_bilateral_training.py",
+    "--bundle",
+    "/data/zengxiong/workspaces/tron1-hockey-bilateral-20261028-v1/source_snapshot_v1",
+    "--prior-launch",
+    "/data/zengxiong/workspaces/tron1-physx-reference-generation-20261025-v1/validation_v1.launch.json",
+    "--audit-helper",
+    "/data/zengxiong/workspaces/tron1-ground-contact-v2o-20261025/continuation_snapshot_v1/scripts/continue_ground_contact_v2o_validation.py",
+    "--output",
+    "/data/zengxiong/workspaces/tron1-hockey-bilateral-20261028-v1/run_v1"
+  ],
+  "already_signalled_on_previous_attempt": true
+}

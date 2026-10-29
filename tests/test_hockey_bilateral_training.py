@@ -124,6 +124,18 @@ class BilateralTests(unittest.TestCase):
         command.time_steps.fill_(100);e.step(None)
         self.assertEqual(window.physical_samples,16)
         self.assertEqual(float(window.values['braking_phase'].sum()),0.)
+        # The next native API call may reuse an earlier returned buffer. The
+        # collector must own its normal-contact copy before reading friction.
+        def normal_read(dt):
+            normal[3].zero_()
+            return normal
+        def friction_read(dt):
+            normal[3].fill_(.01)
+            return friction
+        view.get_contact_data=normal_read;view.get_friction_data=friction_read
+        e.step(None)
+        self.assertEqual(float(window.components()['continuous']),1.)
+        self.assertFalse(bool(window.fault.any()))
 
 
 if __name__=='__main__':unittest.main()

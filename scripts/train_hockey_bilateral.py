@@ -314,6 +314,8 @@ def main():
                 runner.writer.close()
     except BaseException as exc:
         report.update(status="failed", error=f"{type(exc).__name__}: {exc}")
+        if 'collector' in locals() and collector is not None:
+            report['bilateral_audit'] = collector.audit()
         raise
     finally:
         report["elapsed_seconds"] = time.monotonic()-started

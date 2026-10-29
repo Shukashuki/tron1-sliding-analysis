@@ -1,0 +1,53 @@
+{
+  "kind": "hockey_ppo_bilateral_sliding_v1",
+  "formal_training_runs": 1,
+  "transitions": 12288000,
+  "smoke": {
+    "environments": 32,
+    "iterations": 2
+  },
+  "formal": {
+    "environments": 512,
+    "iterations": 1000
+  },
+  "evaluation_episodes": 33,
+  "seed": 42,
+  "speed_scale": 1.0,
+  "mu": 0.7,
+  "reference_directory": "/data/zengxiong/workspaces/tron1-hockey-speed-success-20261028-v1/source_snapshot_v1/references/s100",
+  "reused_reference_sha256": {
+    "motion.npz": "e23fbd82639d243f0c485cf391b1eff0e275d31f6bb6ba940647874a0ac83050",
+    "command_diagnostics.npz": "45ca2e0e223f4ed886bef8055c61312cb05568485940a83c910b16fa42ce8dff",
+    "report.json": "fd2301380dbde8ef5e98b5e95cc178d13b0b556e04d25d14f93577f9c5adaf19"
+  },
+  "cold_start": true,
+  "training_DR_retained": true,
+  "dependencies": [
+    {
+      "path": "/data/zengxiong/workspaces/tron1-hockey-speed-success-20261028-v1/runs_v1/status.json",
+      "expected_status": "completed_all_18_cells",
+      "expected_stages": 72,
+      "manifest_sha256": "a61d76d6a7003d874be48cb3304cb551a0e05c66afbcd51f1eed2b2d4e548197"
+    },
+    {
+      "path": "/data/zengxiong/workspaces/tron1-hockey-friction-boundary-20261028-v1/runs_v1/status.json",
+      "expected_status": "completed_all_2_cells",
+      "expected_stages": 8,
+      "manifest_sha256": "aff589f589905143f27037979e99dc6f15b5bc370ceaf7e043b46c1d3bdbb730"
+    }
+  ],
+  "boundary_wrapper_status": "/data/zengxiong/workspaces/tron1-hockey-friction-boundary-20261028-v1/deferred_status.json",
+  "dependency_wait_limit_s": 86400,
+  "idle_wait_limit_s": 21600,
+  "scheduling": "One job at a time, after the already approved studies, completely idle RTX only; no process termination or automatic retries",
+  "changes": [
+    "bilateral geometry and corrected pre-step contact timing",
+    "positive rewards require a continuous bilateral control window",
+    "bounded contact penalties and useful sliding bonus",
+    "relaxed leg pose weight 1 to 0.25",
+    "bounded body angular acceleration penalty",
+    "full-clip RSI start probability 0.2 to 0.5",
+    "integer phase clock and fall-only adaptive sampling"
+  ],
+  "success": "Independent native geometry plus full-horizon bilateral contact, then task and sliding qualification"
+}

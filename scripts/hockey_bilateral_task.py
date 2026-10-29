@@ -96,6 +96,9 @@ class BilateralWindow(SupportWindow):
         for key in ('xy_error_sq','velocity_error_sq','up','braking_phase','angular_acceleration_sq'):
             self.values[key]=torch.zeros((env.num_envs,8),device=env.device)
         self.fault=torch.zeros(env.num_envs,device=env.device,dtype=torch.bool)
+        self.fault_reasons={key:torch.zeros(env.num_envs,device=env.device,dtype=torch.bool)
+                            for key in ('geometry_buffer','force_buffer','alignment','nonfinite')}
+        self.alignment_details=torch.zeros((env.num_envs,8,2,4),device=env.device)
         self.max_alignment_error=torch.zeros((),device=env.device)
         self.geometry_samples=torch.zeros((),device=env.device,dtype=torch.int64)
         self.total_contact=torch.zeros((),device=env.device);self.total_world_steps=0
@@ -108,11 +111,19 @@ class BilateralWindow(SupportWindow):
 
     def step(self,*args,**kwargs):
         self.fault.zero_();self.cache=None
+        for value in self.fault_reasons.values():value.zero_()
         for value in self.values.values():value.zero_()
         self.before=self.capture()
         self.phase=self.env.command_manager.get_term('motion').time_steps.clone()
         result=super().step(*args,**kwargs)
-        if bool(self.fault.any()):raise RuntimeError('Invalid bilateral native contact/timing sample')
+        if bool(self.fault.any()):
+            import json
+            bad=self.fault.nonzero().flatten()[:8]
+            detail=dict(physical_samples=self.physical_samples,env_ids=bad.tolist(),
+                reasons={key:value[bad].tolist() for key,value in self.fault_reasons.items()},
+                alignment_columns=['native_gap','pre_gap','post_gap','absolute_error'],
+                alignment=self.alignment_details[bad].tolist())
+            raise RuntimeError('Invalid bilateral native contact/timing sample: '+json.dumps(detail))
         self.total_contact+=self.values['touching'].bool().all(-1).float().sum()
         self.total_world_steps+=self.env.num_envs*8
         return result
@@ -125,11 +136,18 @@ class BilateralWindow(SupportWindow):
         k=self.samples-1;pre=self.before;post=self.capture()
         c=self.env.command_manager.get_term('motion');cfg=self.cfg
         for side,(sensor,b) in enumerate(zip(self.sensors,self.ids)):
-            view=sensor.contact_physx_view;normal=view.get_contact_data(.0025);friction=view.get_friction_data(.0025)
+            view=sensor.contact_physx_view
+            if str(self.env.device).startswith('cuda'):torch.cuda.synchronize(self.env.device)
+            normal=tuple(v.clone() for v in view.get_contact_data(.0025))
+            if str(self.env.device).startswith('cuda'):torch.cuda.synchronize(self.env.device)
+            friction=tuple(v.clone() for v in view.get_friction_data(.0025))
+            if str(self.env.device).startswith('cuda'):torch.cuda.synchronize(self.env.device)
             com,vel,omega,q=[pre[key][:,b] for key in ('body_com_pos_w','body_com_lin_vel_w','body_com_ang_vel_w','body_quat_w')]
             geo=geometric_sample(normal,com,vel,omega,q,cfg['contact_tolerance_m'])
             f=boundary_sample(normal,friction,com,vel,omega,q,self.mu)
             self.fault |= geo['fault']|f['fault']
+            self.fault_reasons['geometry_buffer'] |= geo['fault']
+            self.fault_reasons['force_buffer'] |= f['fault']
             position=pre['body_pos_w'][:,b]-self.env.scene.env_origins
             pre_gap=cylinder_gap(position,q,cfg['geometry'],side)
             post_gap=cylinder_gap(post['body_pos_w'][:,b]-self.env.scene.env_origins,post['body_quat_w'][:,b],cfg['geometry'],side)
@@ -138,6 +156,8 @@ class BilateralWindow(SupportWindow):
             self.max_alignment_error=torch.maximum(self.max_alignment_error,error.max())
             self.geometry_samples+=measured.sum()
             self.fault |= error>cfg['geometry_alignment_max_error_m']
+            self.fault_reasons['alignment'] |= error>cfg['geometry_alignment_max_error_m']
+            self.alignment_details[:,k,side]=torch.stack((geo['min_gap'],pre_gap,post_gap,error),-1)
             self.values['touching'][:,k,side]=geo['touching']
             self.values['post_gap'][:,k,side]=post_gap
             for key in ('normal_fz','friction_anchor_power','friction_force_w','opposing_sliding_anchors'):
@@ -158,7 +178,10 @@ class BilateralWindow(SupportWindow):
         phase=self.phase+(k+.5)/8;protocol=self.env.cfg.hockey_protocol
         self.values['braking_phase'][:,k]=(phase>=round(protocol['brake_start_s']/.02))&(phase<round(protocol['brake_end_s']/.02))
         self.values['angular_acceleration_sq'][:,k]=((post['root_com_ang_vel_w']-pre['root_com_ang_vel_w'])/.0025).square().sum(-1)
-        for value in self.values.values():self.fault |= ~torch.isfinite(value[:,k]).reshape(self.env.num_envs,-1).all(-1)
+        for value in self.values.values():
+            bad=~torch.isfinite(value[:,k]).reshape(self.env.num_envs,-1).all(-1)
+            self.fault |= bad
+            self.fault_reasons['nonfinite'] |= bad
         self.before=post;self.physical_samples+=1
         return result
 

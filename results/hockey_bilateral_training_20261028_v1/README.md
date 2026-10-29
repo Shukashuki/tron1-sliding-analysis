@@ -2,7 +2,13 @@
 
 The requested objective is continuous **two-wheel geometric contact**, free left/right load transfer, and useful dissipative lateral sliding while tracking and stopping stably. The four previous nominal recordings all fail the new bilateral gate; none is a success baseline under this definition. This is a new optimization recipe, not a one-factor causal ablation.
 
-Status: **uploaded, runtime verified, and deferred queue running** in tmux `hockey_bilateral_20261028_v1` (PID 4032578). The verified state is `waiting_for_existing_studies`, with zero GPU stages started. [Launch record](preflight/launch.json) · [Verified queue status](preflight/verified_queue_status.json) · [Remote preflight](preflight/remote_preflight.json). No new learning result is claimed here. The job is serialized after the already approved speed study and boundary ablation, and selects a completely idle RTX before each GPU stage. It does not stop existing processes.
+Status: **GPU 1 formal retraining is running**, using `source_snapshot_v4` and `run_v4` in tmux `hockey_bilateral_20261028_v4`. The 32-environment smoke completed 1,536 transitions without a native-contact fault; maximum authored/native geometry error was 3.56 µm over 17,824 measured wheel samples. The verified formal log reached 184,320 / 12,288,000 transitions (15 completed PPO iterations), around 3,464 transitions/s. Its early ETA was approximately 63 minutes; this is a training estimate, not a completion or success claim. [Smoke report](remote_evidence/run_v4/smoke/report.json) · [Execution status snapshot](remote_evidence/run_v4/status.json) · [Launch record](launch_v4.json).
+
+The user explicitly paused the older speed study and friction-boundary queue. The old `hockey_s100_seed44/formal` trainer and both schedulers are stopped with SIGSTOP, preserving in-memory progress and GPU allocations. [Pause receipt](execution_v2/old_training_paused.json). They must not be resumed without a new user instruction.
+
+The original waiting-only dispatcher was superseded. Before launch, GPU 1 had no active workload; its small inactive CUDA context belongs to the verified old hockey trainer whose main device is GPU 3. The capacity dispatcher checks ownership, exact command, process start identity, memory and utilization before each stage. Other users' processes are ineligible.
+
+The first smoke failed its geometry audit before learning. Diagnostic revision v3 localized intermittent batched native separation mismatches, up to 18.35 mm, while buffer bounds and finite-value checks passed. Revision v4 independently copies normal and friction buffers with explicit GPU synchronization; this eliminated the observed mismatch in smoke and allowed formal training to start. This isolates the problem to the contact-data acquisition path but does not establish which vendor buffer/stream mechanism caused it. Failed reports are retained in `remote_evidence/run_v2` and `run_v3`. The dispatcher now also checks the report's failure status because Isaac shutdown can return exit code zero after a caught training exception. Reward weights, the 0.1 mm touch tolerance, and the 1 mm alignment rejection threshold are unchanged.
 
 ## Training scope
 
@@ -36,11 +42,11 @@ These incentives do not mathematically guarantee episode-wide contact. The stric
 - Replay agrees with independent aligned evidence over 8,896 wheel/physics samples from four recorded motions. Maximum lateral-velocity discrepancy is below 7.3e−7 m/s; authored/native separation discrepancy is below 5.8e−7 m. No contact-failed control window receives a sliding bonus.
 - A separate independent qualification replay still marks the original-speed hockey policy as failing bilateral contact, despite passing its other task gates. Historical success labels are not imported.
 
-[Protocol](source_snapshot_v1/protocol.json) · [Execution plan](source_snapshot_v1/plan.json) · [23-file manifest](source_snapshot_v1/manifest.json) · [Offline sampler/reward audit](offline_audit_v1/report.json) · [Local validation](preflight/local_validation.json) · [Upload receipt](preflight/upload_receipt.json)
+[Protocol](source_snapshot_v4/protocol.json) · [Original execution plan, scheduling superseded](source_snapshot_v1/plan.json) · [Current source manifest](source_snapshot_v4/manifest.json) · [Offline sampler/reward audit](offline_audit_v1/report.json) · [Local validation](preflight/local_validation.json) · [Upload receipt](preflight/upload_receipt.json)
 
-The source snapshot contains 23 program/configuration files, 226,894 bytes, plus its manifest. It contains no robot assets, policy weights, credentials, videos, SMPL assets or reference NPZ. Archive SHA-256: `0a73a730f120b918d5e19ecca48e6b37facf0c886684ac0ec1a1e9d98f6ae96b`.
+The original v1 source snapshot contains 23 program/configuration files, 226,894 bytes, plus its manifest. The current v4 snapshot adds the capacity dispatcher and the contact-reader/report-handling fixes; its exact contents and hashes are in the linked manifest. It contains no robot assets, policy weights, credentials, videos, SMPL assets or reference NPZ. Archive SHA-256: `0a73a730f120b918d5e19ecca48e6b37facf0c886684ac0ec1a1e9d98f6ae96b`.
 
-Remote root: `/data/zengxiong/workspaces/tron1-hockey-bilateral-20261028-v1/`. The dispatcher checks the source/runtime before each stage, stops on failure without automatic retries, and has bounded waits of 24 hours for dependencies and six hours for an idle GPU. The smoke stage must pass native timing/geometry checks before the complete training starts.
+Remote root: `/data/zengxiong/workspaces/tron1-hockey-bilateral-20261028-v1/`. The current capacity dispatcher checks the source/runtime before each stage, stops on failure without automatic retries, and has a six-hour capacity wait. The original deferred plan is retained as history and is superseded by the user’s request to use GPU 1 immediately. The smoke stage must pass native timing/geometry checks before the complete training starts.
 
 ```bash
 python scripts/prepare_hockey_bilateral_training.py \
@@ -48,4 +54,11 @@ python scripts/prepare_hockey_bilateral_training.py \
   --archive outputs/hockey_bilateral_source.tar.gz
 python -m pytest -q tests/test_hockey_contact_priority.py tests/test_hockey_contact_timing.py tests/test_hockey_ground_contact.py
 python -m unittest discover -s tests -p test_hockey_bilateral_training.py -v
+```
+
+Current remote status and progress:
+
+```bash
+ssh zengxiong@14.103.233.29 cat /data/zengxiong/workspaces/tron1-hockey-bilateral-20261028-v1/run_v4/status.json
+ssh zengxiong@14.103.233.29 tail -60 /data/zengxiong/workspaces/tron1-hockey-bilateral-20261028-v1/run_v4/formal.log
 ```
