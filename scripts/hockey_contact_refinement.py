@@ -9,7 +9,7 @@ def validate_settings(settings):
     expected={'kind','stop_term','angular_term'}
     if not isinstance(settings,dict) or set(settings)!=expected or settings['kind']!='hockey_contact_refinement_v1':
         raise ValueError('Require explicit contact-refinement settings')
-    if settings['stop_term'] not in ('unchanged','bilateral_substeps','bilateral_substeps_xyz'):
+    if settings['stop_term'] not in ('unchanged','bilateral_substeps','bilateral_substeps_xyz','bilateral_substeps_xyz_huber'):
         raise ValueError('Unknown stop-reward refinement')
     if settings['angular_term'] not in ('bounded_quadratic','pseudo_huber'):
         raise ValueError('Unknown angular-reward refinement')
@@ -23,12 +23,13 @@ def refined_components(values, mg, cfg, protocol, phase):
     if settings['angular_term']=='pseudo_huber':
         result['angular_acceleration']=angular_pseudo_huber(values['angular_acceleration_sq'],
             cfg['angular_acceleration_scale_rad_s2'])
-    if settings['stop_term'] in ('bilateral_substeps','bilateral_substeps_xyz'):
-        xyz=settings['stop_term']=='bilateral_substeps_xyz'
+    if settings['stop_term'] in ('bilateral_substeps','bilateral_substeps_xyz','bilateral_substeps_xyz_huber'):
+        xyz=settings['stop_term'] in ('bilateral_substeps_xyz','bilateral_substeps_xyz_huber')
         pre=values['root_velocity_xyz_pre'] if xyz else values['root_velocity_xy']
         post=values['root_velocity_xyz_post'] if xyz else values['root_velocity_xy_post']
         result['stop_hold_refined']=bilateral_substep_stop(values['touching'],values['post_gap'],
             pre,post,values['up'],values['up_post'],phase,velocity_dimensions=3 if xyz else 2,
+            speed_form='separate_pseudo_huber' if settings['stop_term']=='bilateral_substeps_xyz_huber' else 'exponential',
             contact_tolerance_m=cfg['contact_tolerance_m'],speed_scale_m_s=protocol['reward_scales']['stop_speed_m_s'],
             tilt_scale_rad=protocol['reward_scales']['stop_tilt_rad'])
     return result
@@ -41,7 +42,7 @@ class RefinedContactWindow(DenseContactWindow):
         self.refinement=validate_settings(env.cfg.hockey_protocol['reward_refinement'])
         self.values['root_velocity_xy_post']=torch.zeros((env.num_envs,8,2),device=env.device)
         self.values['up_post']=torch.zeros((env.num_envs,8),device=env.device)
-        if self.refinement['stop_term']=='bilateral_substeps_xyz':
+        if self.refinement['stop_term'] in ('bilateral_substeps_xyz','bilateral_substeps_xyz_huber'):
             for key in ('root_velocity_xyz_pre','root_velocity_xyz_post'):
                 self.values[key]=torch.zeros((env.num_envs,8,3),device=env.device)
 
@@ -87,7 +88,7 @@ def configure(env_cfg,protocol):
     settings=validate_settings(protocol['reward_refinement'])
     if protocol.get('phase_clock')!='integer_reference_frames':
         raise ValueError('Refinement preserves the integer reference clock')
-    if settings['stop_term'] in ('bilateral_substeps','bilateral_substeps_xyz'):
+    if settings['stop_term'] in ('bilateral_substeps','bilateral_substeps_xyz','bilateral_substeps_xyz_huber'):
         term=env_cfg.rewards.hockey_stop_hold
         term.func=stop_reward;term.params={}
     return settings

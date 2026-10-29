@@ -53,6 +53,22 @@ class RewardAuditTests(unittest.TestCase):
         self.assertFalse(result['stop_uses_force_proxy'])
         self.assertLess(float(result['stop'][0]),.001)
 
+    def test_dense_xyz_replay_preserves_cost_when_contacts_are_missing(self):
+        cfg,args=self.inputs();args=list(args)
+        cfg['reward_refinement']=dict(kind='hockey_contact_refinement_v1',stop_term='bilateral_substeps_xyz_huber',angular_term='pseudo_huber')
+        args[2]=np.column_stack((args[2],np.full(9,1.3)))
+        result=declared_scores(cfg,*args)
+        self.assertLess(float(result['stop'][0]),-.4)
+        args[0][:]=False
+        missing=declared_scores(cfg,*args)
+        self.assertLess(float(missing['stop'][0]),float(result['stop'][0]))
+        root=Path(__file__).resolve().parents[1]
+        frozen=frozen_refinement_code(root/'results/hockey_contact_reward_search_20261028_v1/source_snapshot_v5')
+        with self.assertRaises(ValueError):declared_scores(cfg,*args,reward_code=frozen)
+        cfg['reward_refinement']['stop_term']='bilateral_substeps_xyz'
+        legacy=declared_scores(cfg,*args,reward_code=frozen)
+        self.assertEqual(float(legacy['stop'][0]),0.)
+
     def test_frozen_v3_replay_remains_isolated_from_new_xyz_extension(self):
         import hockey_contact_refinement_math as current
         root=Path(__file__).resolve().parents[1]

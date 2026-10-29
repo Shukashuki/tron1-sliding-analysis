@@ -19,6 +19,21 @@ def protocol(stop='bilateral_substeps',angular='pseudo_huber'):
 
 
 class ContactRefinementAdapterTests(unittest.TestCase):
+    def test_dense_xyz_cost_keeps_contact_and_sliding_definitions(self):
+        samples,mg,cfg=fixture()
+        samples['root_velocity_xy_post']=samples['root_velocity_xy'].clone()
+        samples['up_post']=samples['up'].clone()
+        for key in ('root_velocity_xyz_pre','root_velocity_xyz_post'):
+            samples[key]=torch.zeros((len(mg),8,3));samples[key][:,:,2]=1.3
+        original=refined_components(samples,mg,cfg,protocol('bilateral_substeps_xyz'),torch.ones(len(mg)))
+        dense=refined_components(samples,mg,cfg,protocol('bilateral_substeps_xyz_huber'),torch.ones(len(mg)))
+        for key in ('contact_fraction','contact_loss','clearance','sliding','angular_acceleration'):
+            torch.testing.assert_close(dense[key],original[key],rtol=0,atol=0)
+        self.assertLess(float(dense['stop_hold_refined']),-20.)
+        samples['touching'].zero_()
+        missing=refined_components(samples,mg,cfg,protocol('bilateral_substeps_xyz_huber'),torch.ones(len(mg)))
+        self.assertLess(float(missing['stop_hold_refined']),float(dense['stop_hold_refined']))
+
     def test_other_contact_and_sliding_terms_remain_unchanged(self):
         samples,mg,cfg=fixture();samples['root_velocity_xy_post']=samples['root_velocity_xy'].clone()
         samples['up_post']=samples['up'].clone();samples['angular_acceleration_sq'].fill_(10000.)

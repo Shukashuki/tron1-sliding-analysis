@@ -1,0 +1,48 @@
+{
+  "status": "prepared_locally_not_uploaded_or_run",
+  "source_manifest_sha256": "3c8a9125497b3c7ec70ce2ca777c8c9c1d2111aebc8e8543512d7fbe41eec5ea",
+  "archive_sha256": "554cd24e040c35404d5d20614f7b6caa0e732e2ea3bb59eb01f7b11dfe7c4b22",
+  "file_count": 41,
+  "bytes": 379513,
+  "local_tests": {
+    "command": "/home/roy/gvp-wm-reproduction/.venv/bin/python -m pytest -q tests/test_hockey_contact_refinement_math.py tests/test_hockey_contact_refinement_adapter.py tests/test_hockey_contact_reward_audit.py tests/test_hockey_contact_search.py",
+    "passed": 33
+  },
+  "protocol_pairs": [
+    {
+      "candidate": "native_equal_smooth_stop_xyz_huber",
+      "baseline": "native_equal_smooth_stop_xyz",
+      "all_non_stop_formula_fields_identical": true
+    },
+    {
+      "candidate": "native_split_smooth_stop_xyz_huber",
+      "baseline": "native_split_smooth_stop_xyz",
+      "all_non_stop_formula_fields_identical": true
+    },
+    {
+      "candidate": "slices9_split_smooth_stop_xyz_huber",
+      "baseline": "slices9_split_smooth_stop_xyz",
+      "all_non_stop_formula_fields_identical": true
+    }
+  ],
+  "baseline_snapshots_modified": false,
+  "criterion_changed": false,
+  "training_success_claimed": false,
+  "isaac_smoke_status": "not_run",
+  "predecessor_policy": "All three frozen v5 screens must complete without a nominal pass before any v6 GPU job",
+  "numerical_weights_changed": false,
+  "body_height_target": false,
+  "contact_gates_speed_penalty": false,
+  "stop_formula": "phase * [0.5 * (mean(contact * exp(-tilt^2 / scale^2)) + min(contact * exp(-tilt^2 / scale^2))) - 0.5 * (mean(H(max(v_pre^2, v_post^2) / speed_scale^2)) + max(H(max(v_pre^2, v_post^2) / speed_scale^2)))]",
+  "H": "2*x/(sqrt(1+x)+1)",
+  "velocity_dimensions": 3,
+  "reward_is_non_saturating": true,
+  "ppo_dynamics_gradient_added": false,
+  "frozen_replay_backwards_compatibility": {
+    "v3_identical_cases": 6,
+    "v5_identical_cases": 1,
+    "original_v3_report_sha256": "8c9341dc53ee95a7b77630f57959596d88d7d608aaeb239844674b120872dd64",
+    "replay_report_sha256": "a1af6490941a6226eb3a8cab62685d4d4f5f4230c7ce39daa15218adab01c3c1",
+    "values_identical": true
+  }
+}

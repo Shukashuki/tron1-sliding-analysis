@@ -9,7 +9,8 @@ import math
 
 def bilateral_substep_stop(touching, post_gap, velocity_pre, velocity_post,
                           up_pre, up_post, phase_hold, *, contact_tolerance_m=.0001,
-                          speed_scale_m_s=.1, tilt_scale_rad=.35, velocity_dimensions=2):
+                          speed_scale_m_s=.1, tilt_scale_rad=.35, velocity_dimensions=2,
+                          speed_form='exponential'):
     """Half mean + half worst of eight geometric-contact stop scores.
 
     Both ends of each physical interval contribute to speed/tilt scoring.
@@ -17,6 +18,8 @@ def bilateral_substep_stop(touching, post_gap, velocity_pre, velocity_post,
     in the existing contact-shaping term. No force is used to define support.
     Phase is supplied per control window to preserve the existing phase clock.
     Three-dimensional stopping is explicit; the default retains the planar rule.
+    The optional separate pseudo-Huber speed cost applies even without contact,
+    so leaving the ground cannot disable that cost. It has no height target.
     """
     import torch
     if not (math.isfinite(contact_tolerance_m) and contact_tolerance_m>=0
@@ -27,6 +30,10 @@ def bilateral_substep_stop(touching, post_gap, velocity_pre, velocity_post,
         raise ValueError('Require eight physical substeps and two wheels')
     if velocity_dimensions not in (2,3):
         raise ValueError('Stop velocity must be explicitly planar or three-dimensional')
+    if speed_form not in ('exponential','separate_pseudo_huber'):
+        raise ValueError('Unknown stop-speed score')
+    if speed_form=='separate_pseudo_huber' and velocity_dimensions!=3:
+        raise ValueError('Dense stop-speed cost requires three-dimensional velocity')
     n=len(touching)
     if (post_gap.shape!=touching.shape or velocity_pre.shape!=(n,8,velocity_dimensions)
         or velocity_post.shape!=(n,8,velocity_dimensions) or up_pre.shape!=(n,8)
@@ -35,6 +42,12 @@ def bilateral_substep_stop(touching, post_gap, velocity_pre, velocity_post,
     both=touching.bool().all(-1)&(post_gap<=contact_tolerance_m).all(-1)
     speed_sq=torch.maximum(velocity_pre.square().sum(-1),velocity_post.square().sum(-1))
     tilt_sq=torch.maximum(torch.acos(up_pre.clamp(-1,1)).square(),torch.acos(up_post.clamp(-1,1)).square())
+    if speed_form=='separate_pseudo_huber':
+        supported_tilt=both*torch.exp(-tilt_sq/tilt_scale_rad**2)
+        x=speed_sq/speed_scale_m_s**2
+        speed_cost=2*x/(torch.sqrt(1+x)+1)
+        return phase_hold*(.5*(supported_tilt.mean(-1)+supported_tilt.amin(-1))
+                           -.5*(speed_cost.mean(-1)+speed_cost.amax(-1)))
     score=both*torch.exp(-speed_sq/speed_scale_m_s**2-tilt_sq/tilt_scale_rad**2)
     return phase_hold*(.5*score.mean(-1)+.5*score.amin(-1))
 

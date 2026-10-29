@@ -61,5 +61,29 @@ class ContactRefinementTests(unittest.TestCase):
         for k in (2,3):values[k]=torch.cat((values[k],torch.zeros((1,8,1))),-1)
         torch.testing.assert_close(bilateral_substep_stop(*values,velocity_dimensions=3),original,rtol=0,atol=0)
 
+    def test_dense_xyz_stop_distinguishes_fast_motion_and_does_not_reward_liftoff(self):
+        values=self.inputs()
+        for k in (2,3):values[k]=torch.zeros((1,8,3))
+        options=dict(velocity_dimensions=3,speed_form='separate_pseudo_huber')
+        self.assertEqual(float(bilateral_substep_stop(*values,**options)),1.)
+        scores=[]
+        for speed in (.2,.5,1.3):
+            for k in (2,3):values[k][:,:,2]=speed
+            scores.append(float(bilateral_substep_stop(*values,**options)))
+        self.assertTrue(all(a>b for a,b in zip(scores,scores[1:])))
+        grounded=scores[-1];values[0].zero_()
+        self.assertAlmostEqual(float(bilateral_substep_stop(*values,**options)),grounded-1.,places=5)
+        values[-1].zero_()
+        self.assertEqual(float(bilateral_substep_stop(*values,**options)),0.)
+
+    def test_dense_xyz_stop_detects_one_interior_velocity_spike(self):
+        values=self.inputs()
+        for k in (2,3):values[k]=torch.zeros((1,8,3))
+        options=dict(velocity_dimensions=3,speed_form='separate_pseudo_huber')
+        values[2][:,3,2]=1.3
+        self.assertLess(float(bilateral_substep_stop(*values,**options)),-10.)
+        with self.assertRaises(ValueError):bilateral_substep_stop(*values,velocity_dimensions=3,speed_form='unknown')
+        with self.assertRaises(ValueError):bilateral_substep_stop(*self.inputs(),speed_form='separate_pseudo_huber')
+
 
 if __name__=='__main__':unittest.main()

@@ -1,0 +1,103 @@
+{
+  "kind": "hockey_stop_speed_resolution_audit_v1",
+  "script_sha256": "5b0ffbf3e1b2bd69fd8098fad8e1c3f4f2e0103e8c359f965eb670bf3e4702f7",
+  "cases_selection_sha256": "b8e4a007788e3848bc791c58e5e69d5113b3aa80f1b816e887bb9814c565c69c",
+  "candidate_code_sha256": {
+    "hockey_contact_refinement.py": "3b7e2c6d5630192e8f05541e9413138f4031611aae86b424b90a90671b644f09",
+    "hockey_contact_refinement_math.py": "a073a430459d7878b3a013b574c9e6e0f7d27c27efad93e4c23589003f81dc92",
+    "audit_hockey_contact_reward_signals.py": "3981f36b902372753536010a3d664c4d5130011ad05797ff0c47701252bc847d"
+  },
+  "physics_steps": 0,
+  "training_changed": false,
+  "criterion_changed": false,
+  "logged_training_reward": false,
+  "learned_result_predicted": false,
+  "causal_failure_mechanism_proven": false,
+  "dense_cost_contact_gated": false,
+  "absolute_height_target": false,
+  "scope": "Last 0.5 s of each frozen task; full substep windows and separately reported state samples",
+  "cases": [
+    {
+      "cell": "native_equal_dense",
+      "qualification_sha256": "1274e1145ad7080e4a059743776330d403afccbea93d4492d58dad3fb07e26af",
+      "raw_sha256": {
+        "final_rollout.npz": "480537cabe5e7ba4923bd57d0d3e8a9ea975c2c44176de6759ffe4614d463d7a",
+        "native_contact_buffers.npz": "c900ef378dd54f972aefb226c0d1fa1860c6a04a980db5317d9ff297810fcdcd"
+      },
+      "source_manifest_sha256": "047ffbb98b769d6b6366e8b4dde7e0eca9b685178de555729a7f2629576090e5",
+      "terminal_state_samples": 201,
+      "terminal_control_windows": 25,
+      "speed_xyz_range_m_s": [
+        0.040262263268232346,
+        0.6319119334220886
+      ],
+      "speed_only_exponential_below_1e_minus_6_fraction": 0.09950248756218906,
+      "speed_only_exponential_median": 0.05198664218187332,
+      "counterfactual_exponential_stop_integral": 0.12646715342998505,
+      "counterfactual_dense_stop_integral": -1.2096694707870483,
+      "task_success": false
+    },
+    {
+      "cell": "native_equal_smooth",
+      "qualification_sha256": "3f9c0803cb52c79dfc4bdd746222118eb082322fee8c55ca1354b18af18d8138",
+      "raw_sha256": {
+        "final_rollout.npz": "ba830dca0e7f86578eecc3832e3e0455be81ea8c5c564995d238d679e4435e48",
+        "native_contact_buffers.npz": "2ffd21d0c67b3a7468b243649ecf2e8b0d987a9e31666572a9e6eb63d260595a"
+      },
+      "source_manifest_sha256": "7f3940fef058eee1b20ae8af6b1b194760d261befc48b304a7654af283a67e46",
+      "terminal_state_samples": 201,
+      "terminal_control_windows": 25,
+      "speed_xyz_range_m_s": [
+        0.026372438296675682,
+        1.4348454475402832
+      ],
+      "speed_only_exponential_below_1e_minus_6_fraction": 0.23383084577114427,
+      "speed_only_exponential_median": 0.2309482991695404,
+      "counterfactual_exponential_stop_integral": 0.21018779277801514,
+      "counterfactual_dense_stop_integral": -2.74288010597229,
+      "task_success": false
+    },
+    {
+      "cell": "native_equal_smooth_stop",
+      "qualification_sha256": "0848d0cd208920d7aa63aa52650bcaf47c29c8540791da18c30eaed11761729d",
+      "raw_sha256": {
+        "final_rollout.npz": "659fcbe4ddaf5537e67d6d81981bcbcb8713b0cf5d20d6a00538e5d0de742f33",
+        "native_contact_buffers.npz": "ba0211723f35730072c0588368f45c665374286be13b0389ce8dd3eca48e59ba"
+      },
+      "source_manifest_sha256": "7f3940fef058eee1b20ae8af6b1b194760d261befc48b304a7654af283a67e46",
+      "terminal_state_samples": 201,
+      "terminal_control_windows": 25,
+      "speed_xyz_range_m_s": [
+        0.028071867302060127,
+        1.2291967868804932
+      ],
+      "speed_only_exponential_below_1e_minus_6_fraction": 0.19900497512437812,
+      "speed_only_exponential_median": 0.009676543064415455,
+      "counterfactual_exponential_stop_integral": 0.10317374765872955,
+      "counterfactual_dense_stop_integral": -2.657376527786255,
+      "task_success": false
+    },
+    {
+      "cell": "native_equal_smooth_stop_xyz",
+      "qualification_sha256": "66f5681485b95e7d889e81d319b5a086573bc86710829fbf01a9c6a9bf36cf3d",
+      "raw_sha256": {
+        "final_rollout.npz": "7da6586a94f408fa8af658615cd0cbda77aa4b2410ac4586fa3108de766933af",
+        "native_contact_buffers.npz": "c538ba71f749810262b4116d7d642fa262821659dc0577dec789cd36db8f4483"
+      },
+      "source_manifest_sha256": "6ea234ece5b6946b6b866b7b2fb284a05c6828293d89c35cfce3496a9299b139",
+      "terminal_state_samples": 201,
+      "terminal_control_windows": 25,
+      "speed_xyz_range_m_s": [
+        0.03735113888978958,
+        1.3575812578201294
+      ],
+      "speed_only_exponential_below_1e_minus_6_fraction": 0.42786069651741293,
+      "speed_only_exponential_median": 0.0002653801057022065,
+      "counterfactual_exponential_stop_integral": 0.0740746408700943,
+      "counterfactual_dense_stop_integral": -5.978590965270996,
+      "task_success": false
+    }
+  ],
+  "interpretation": "A near-zero exponential has little numerical speed discrimination here. This is not a dynamics gradient or proof that changing the reward will improve PPO.",
+  "signals_sha256": "1218dfb8746d97dd48534203eb7ca630a96b18e302b58c0f37e9bd0b2a96ecb8"
+}

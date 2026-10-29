@@ -66,16 +66,17 @@ def declared_scores(cfg,pre_touch,post_gap,velocity,up,phase,alpha_sq,legacy_sto
     exceeds=alpha_sq>=scale**2
     angular=np.clip(alpha_sq/scale**2,0,1).mean(-1)
     stop=legacy_stop_proxy.copy();force_proxy=True
-    if settings['angular_term']=='pseudo_huber' or settings['stop_term'] in ('bilateral_substeps','bilateral_substeps_xyz'):
+    if settings['angular_term']=='pseudo_huber' or settings['stop_term'] in ('bilateral_substeps','bilateral_substeps_xyz','bilateral_substeps_xyz_huber'):
         import torch
         tensor=lambda value:torch.as_tensor(value,dtype=torch.float32)
         if settings['angular_term']=='pseudo_huber':angular=math_module.angular_pseudo_huber(tensor(alpha_sq),scale).numpy()
-        if settings['stop_term'] in ('bilateral_substeps','bilateral_substeps_xyz'):
-            n=len(alpha_sq);xyz=settings['stop_term']=='bilateral_substeps_xyz';dimensions=3 if xyz else 2
+        if settings['stop_term'] in ('bilateral_substeps','bilateral_substeps_xyz','bilateral_substeps_xyz_huber'):
+            n=len(alpha_sq);xyz=settings['stop_term'] in ('bilateral_substeps_xyz','bilateral_substeps_xyz_huber');dimensions=3 if xyz else 2
             if velocity.ndim!=2 or velocity.shape[1]<dimensions:
                 raise ValueError('Missing declared stop-velocity dimensions')
             selected=velocity[:,:dimensions]
             options={'velocity_dimensions':3} if xyz else {}
+            if settings['stop_term']=='bilateral_substeps_xyz_huber':options['speed_form']='separate_pseudo_huber'
             stop=math_module.bilateral_substep_stop(torch.as_tensor(pre_touch),tensor(post_gap),
                 tensor(selected[:-1].reshape(n,8,dimensions)),tensor(selected[1:].reshape(n,8,dimensions)),
                 tensor(up[:-1].reshape(n,8)),tensor(up[1:].reshape(n,8)),torch.as_tensor(phase),
