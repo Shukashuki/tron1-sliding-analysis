@@ -32,6 +32,7 @@ def main():
     p.add_argument('--case',action='append',required=True,help='cell:parent_transfer or cell:nominal; exactly four')
     p.add_argument('--slow-window',nargs=2,type=float,default=[.65,1.25])
     p.add_argument('--prefix',default='contact_screens')
+    p.add_argument('--snapshot-times',nargs='+',type=float,default=[.825,1.165,1.5,2.75,2.76])
     a=p.parse_args()
     if a.output.exists():raise FileExistsError(a.output)
     if not a.prefix or not a.prefix.replace('_','').isalnum():raise ValueError('Unsafe output prefix')
@@ -42,6 +43,11 @@ def main():
     if sha(a.model)!=refmeta['model_sha256']:raise ValueError('Visual model mismatch')
     if sha(a.reference/'motion.npz')!=plan['reference_sha256']['motion.npz']:raise ValueError('Reference mismatch')
     reference=load(a.reference/'motion.npz');horizon=(len(reference['joint_pos'])-1)/float(reference['fps'])
+    snapshots=set()
+    for time in a.snapshot_times:
+        if not np.isfinite(time) or not 0<=time<=horizon+1e-9 or not np.isclose(time/.0025,round(time/.0025),atol=1e-9,rtol=0):
+            raise ValueError('Snapshot time must be on the physical clock within the reference horizon')
+        snapshots.add(round(time/.0025))
     runtime=create_runtime(a.model,W,420)
     import mujoco
     camera=runtime.cameras[0];camera.distance=2.4;camera.azimuth=135.;camera.elevation=-18.
@@ -143,7 +149,7 @@ def main():
                 for i in indices:
                     frame=np.concatenate([body_panel(case,int(i),slow) for case in cases],axis=1)
                     proc.stdin.write(frame.tobytes())
-                    if i in (330,466,600,1100,1104):
+                    if i in snapshots:
                         cv2.imwrite(str(a.output/f'{name}_{i*.0025:.4f}s.png'),cv2.cvtColor(frame,cv2.COLOR_RGB2BGR))
             finally:proc.stdin.close()
             if proc.wait()!=0:raise RuntimeError('Video encoder failed')
