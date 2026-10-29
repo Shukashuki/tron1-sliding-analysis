@@ -130,7 +130,7 @@ def main():
         panel[65:485]=runtime.renderer.render()
         text(panel,case['label'],25,scale=.59)
         text(panel,f"{'Frozen parent' if case['policy']=='parent' else case['policy']+' fine-tune'} | {'8x slow, every 2.5 ms' if slow else 'real time'}",49,scale=.51)
-        text(panel,f"t={now:.4f}s | speed={case['signals']['body_speed_m_s'][i]:.3f}m/s | tilt={case['signals']['root_tilt_deg'][i]:.1f}deg",510)
+        text(panel,f"t={now:.4f}s | vXY={case['signals']['body_speed_m_s'][i]:.3f}, vZ={case['trace']['root_com_vel'][i,2]:+.3f} m/s | tilt={case['signals']['root_tilt_deg'][i]:.1f}deg",510,scale=.46)
         for side,color in enumerate(((35,105,185),(205,105,30))):
             state='TOUCH' if contact['touching'][ci,side] else ('UNKNOWN' if contact['contact_unknown'][ci,side] else 'NO CONTACT')
             gap=contact['min_separation_m'][ci,side]*1000
