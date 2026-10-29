@@ -1,0 +1,70 @@
+{
+  "kind": "hockey_contact_reward_search_v1",
+  "status": "prepared_not_run",
+  "reference_speed_scale": 1.0,
+  "seed": 42,
+  "screen_iterations": 250,
+  "screen_transitions_per_cell": 3072000,
+  "parent_training_transitions": 12288000,
+  "num_envs": 512,
+  "fall_terminal_cost": 8.0,
+  "learning_rate": 0.0001,
+  "exploration_std": 0.1,
+  "entropy_coef": 0.001,
+  "models": [
+    {
+      "id": "native_equal",
+      "geometry": "authored",
+      "static_dynamic_ratio": 1.0
+    },
+    {
+      "id": "native_split",
+      "geometry": "authored",
+      "static_dynamic_ratio": 1.2857142857142858
+    },
+    {
+      "id": "slices9_split",
+      "geometry": "slices9",
+      "static_dynamic_ratio": 1.2857142857142858
+    }
+  ],
+  "rewards": [
+    {
+      "id": "smooth_stop_xyz",
+      "gap_scale_m": 0.01,
+      "leg_pose_weight": 1.0,
+      "weights": {
+        "contact_fraction": 2.0,
+        "contact_loss": -4.0,
+        "clearance": -2.0,
+        "sliding": 0.5,
+        "angular_acceleration": -0.05
+      },
+      "reward_refinement": {
+        "kind": "hockey_contact_refinement_v1",
+        "stop_term": "bilateral_substeps_xyz",
+        "angular_term": "pseudo_huber"
+      }
+    }
+  ],
+  "warm_start": {
+    "checkpoint": "/data/zengxiong/workspaces/tron1-hockey-speed-success-20261028-v1/runs_v1/hockey_s100_seed42/formal/model_final.pt",
+    "checkpoint_sha256": "09fd1987891885ad9eccf3382ec71db050fba2444947b9339684152b1b0139ab",
+    "actor": "/data/zengxiong/workspaces/tron1-hockey-speed-success-20261028-v1/runs_v1/hockey_s100_seed42/formal/actor_normalized.pt",
+    "actor_sha256": "db27f45b705a5a46f0924de260cf4e15689272b8edb516fadea1b032839303fa"
+  },
+  "success_criterion": "Unchanged full-horizon bilateral geometric contact and independent hockey task/sliding gates; no training average can pass",
+  "screening_is_final_training_comparison": false,
+  "external_nonlinear_tire": "Existing prototype excluded from this native batch until applied-force recording and independent qualification are integrated; not claimed tested here",
+  "elastic_brush": "Not implemented; no claim of physical tire parameter calibration",
+  "old_training": "Remains paused; do not resume",
+  "gpu_scheduling": "Serial; recheck idle GPU and exact owned incidental-context identity before each job; never displace another workload",
+  "rationale": "Single-factor follow-up to v3 smooth_stop: score three-dimensional COM speed during the same stop phase, retaining geometric bilateral substeps, pseudo-Huber angular cost, numerical weights, original warm parent, budget, friction DR and all independent success gates. No absolute body-height or equal-load target. Start only if all six v3 screens complete without a nominal success.",
+  "required_completed_predecessor": {
+    "status_path": "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v3/status.json",
+    "manifest_sha256": "7f3940fef058eee1b20ae8af6b1b194760d261befc48b304a7654af283a67e46",
+    "completed_screens": 6
+  },
+  "evidence": "results/hockey_contact_reward_search_20261028_v1/refinement_liftoff_audit_v3/report.json",
+  "stop_speed_dimensions": 3
+}

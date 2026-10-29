@@ -9,13 +9,14 @@ import math
 
 def bilateral_substep_stop(touching, post_gap, velocity_pre, velocity_post,
                           up_pre, up_post, phase_hold, *, contact_tolerance_m=.0001,
-                          speed_scale_m_s=.1, tilt_scale_rad=.35):
+                          speed_scale_m_s=.1, tilt_scale_rad=.35, velocity_dimensions=2):
     """Half mean + half worst of eight geometric-contact stop scores.
 
     Both ends of each physical interval contribute to speed/tilt scoring.
     Native pre-step touching and analytic post-step gap are used exactly as
     in the existing contact-shaping term. No force is used to define support.
     Phase is supplied per control window to preserve the existing phase clock.
+    Three-dimensional stopping is explicit; the default retains the planar rule.
     """
     import torch
     if not (math.isfinite(contact_tolerance_m) and contact_tolerance_m>=0
@@ -24,9 +25,11 @@ def bilateral_substep_stop(touching, post_gap, velocity_pre, velocity_post,
         raise ValueError('Invalid stop-reward scales')
     if touching.ndim!=3 or touching.shape[1:]!=(8,2):
         raise ValueError('Require eight physical substeps and two wheels')
+    if velocity_dimensions not in (2,3):
+        raise ValueError('Stop velocity must be explicitly planar or three-dimensional')
     n=len(touching)
-    if (post_gap.shape!=touching.shape or velocity_pre.shape!=(n,8,2)
-        or velocity_post.shape!=(n,8,2) or up_pre.shape!=(n,8)
+    if (post_gap.shape!=touching.shape or velocity_pre.shape!=(n,8,velocity_dimensions)
+        or velocity_post.shape!=(n,8,velocity_dimensions) or up_pre.shape!=(n,8)
         or up_post.shape!=(n,8) or phase_hold.shape!=(n,)):
         raise ValueError('Inconsistent physical-window shapes')
     both=touching.bool().all(-1)&(post_gap<=contact_tolerance_m).all(-1)

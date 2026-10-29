@@ -1,12 +1,16 @@
 """Audit labels must describe the configured reward, not the old baseline."""
 from pathlib import Path
+import hashlib
+import json
 import sys
+import tempfile
 import unittest
+from unittest import mock
 
 import numpy as np
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
-from audit_hockey_contact_reward_signals import declared_scores
+from audit_hockey_contact_reward_signals import declared_scores,frozen_refinement_code
 
 
 class RewardAuditTests(unittest.TestCase):
@@ -39,6 +43,42 @@ class RewardAuditTests(unittest.TestCase):
         cfg,args=self.inputs()
         cfg['reward_refinement']=dict(kind='hockey_contact_refinement_v1',stop_term='unchanged',angular_term='unknown')
         with self.assertRaises(ValueError):declared_scores(cfg,*args)
+
+    def test_xyz_requires_vertical_velocity_and_scores_it(self):
+        cfg,args=self.inputs();args=list(args)
+        cfg['reward_refinement']=dict(kind='hockey_contact_refinement_v1',stop_term='bilateral_substeps_xyz',angular_term='pseudo_huber')
+        with self.assertRaises(ValueError):declared_scores(cfg,*args)
+        args[2]=np.column_stack((args[2],np.full(9,.2)))
+        result=declared_scores(cfg,*args)
+        self.assertFalse(result['stop_uses_force_proxy'])
+        self.assertLess(float(result['stop'][0]),.001)
+
+    def test_frozen_v3_replay_remains_isolated_from_new_xyz_extension(self):
+        import hockey_contact_refinement_math as current
+        root=Path(__file__).resolve().parents[1]
+        code=frozen_refinement_code(root/'results/hockey_contact_reward_search_20261028_v1/source_snapshot_v3')
+        self.assertIs(sys.modules['hockey_contact_refinement_math'],current)
+        cfg,args=self.inputs();args=list(args)
+        cfg['reward_refinement']=dict(kind='hockey_contact_refinement_v1',stop_term='bilateral_substeps',angular_term='pseudo_huber')
+        args[2]=np.column_stack((args[2],np.full(9,1.5)))
+        result=declared_scores(cfg,*args,reward_code=code)
+        self.assertAlmostEqual(float(result['stop'][0]),.02)
+        cfg['reward_refinement']['stop_term']='bilateral_substeps_xyz'
+        with self.assertRaises(ValueError):declared_scores(cfg,*args,reward_code=code)
+
+    def test_loading_frozen_code_does_not_write_bytecode_into_snapshot(self):
+        root=Path(__file__).resolve().parents[1]
+        source=root/'results/hockey_contact_reward_search_20261028_v1/source_snapshot_v3'
+        with tempfile.TemporaryDirectory() as temporary:
+            bundle=Path(temporary);rows=[]
+            for name in ('hockey_contact_refinement.py','hockey_contact_refinement_math.py'):
+                data=(source/name).read_bytes();(bundle/name).write_bytes(data)
+                rows.append(dict(path=name,sha256=hashlib.sha256(data).hexdigest()))
+            (bundle/'manifest.json').write_text(json.dumps(dict(files=rows)))
+            with mock.patch.object(sys,'dont_write_bytecode',False):
+                frozen_refinement_code(bundle)
+                self.assertFalse(sys.dont_write_bytecode)
+            self.assertFalse((bundle/'__pycache__').exists())
 
 
 if __name__=='__main__':unittest.main()

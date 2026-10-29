@@ -45,5 +45,21 @@ class ContactRefinementTests(unittest.TestCase):
         with self.assertRaises(ValueError):bilateral_substep_stop(*values)
         with self.assertRaises(ValueError):angular_pseudo_huber(torch.ones((1,7)))
 
+    def test_xyz_stop_detects_vertical_motion_hidden_from_planar_stop(self):
+        planar=self.inputs();self.assertEqual(float(bilateral_substep_stop(*planar)),1.)
+        values=self.inputs()
+        for k in (2,3):values[k]=torch.zeros((1,8,3))
+        values[2][:,3,2]=.2;values[3][:,2,2]=.2
+        self.assertLess(float(bilateral_substep_stop(*values,velocity_dimensions=3)),.4)
+        values[-1].zero_()
+        self.assertEqual(float(bilateral_substep_stop(*values,velocity_dimensions=3)),0.)
+        with self.assertRaises(ValueError):bilateral_substep_stop(*values)
+
+    def test_xyz_with_zero_vertical_speed_matches_planar_score(self):
+        values=self.inputs();values[2][:,:,0]=.03;values[3][:,:,1]=.07
+        original=bilateral_substep_stop(*values)
+        for k in (2,3):values[k]=torch.cat((values[k],torch.zeros((1,8,1))),-1)
+        torch.testing.assert_close(bilateral_substep_stop(*values,velocity_dimensions=3),original,rtol=0,atol=0)
+
 
 if __name__=='__main__':unittest.main()

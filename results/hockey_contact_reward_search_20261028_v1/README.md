@@ -4,7 +4,7 @@
 
 ## Measured results
 
-Friction values are static/dynamic. “Interruption” means at least one wheel loses contact; “Both airborne” is the subset with neither wheel touching. Stop hold must reach 0.5 s.
+Friction values are static/dynamic. “Interruption” means at least one wheel loses contact; “Both airborne” is the subset with neither wheel touching. The frozen stop-hold gate requires 0.5 s of bilateral contact, low XY speed and limited tilt. It does not certify that vertical motion has settled.
 
 | Contact model / friction | Policy | Both touching | Interruption (ms) | Both airborne (ms) | XY RMSE (m) | Stop hold (s) |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
@@ -57,7 +57,7 @@ Independent qualification checks all 56 observations, normalized actor replay, m
 
 ## Smoothness and stop refinements
 
-**4/6 refinement screens completed; 0 nominal successes.** The first three replace only the capped angular-acceleration cost with a non-saturating pseudo-Huber cost. The remaining three also replace endpoint stop scoring with bilateral geometric stop scoring at both ends of every physical substep (half mean plus half worst score). The equal-friction combined-reward arm has completed; its unequal-friction cylinder counterpart is training. Numeric weights, original warm parent, 3,072,000-transition budget, contact models, reference and success gates remain fixed. [Specification](../../config/hockey_contact_refinement_v1.json), [immutable source manifest](source_snapshot_v3/manifest.json), [verified summary](refinement_summary_v4/report.json).
+**5/6 refinement screens completed; 0 nominal successes.** The first three replace only the capped angular-acceleration cost with a non-saturating pseudo-Huber cost. The remaining three also replace endpoint stop scoring with bilateral geometric stop scoring at both ends of every physical substep (half mean plus half worst score). Both cylinder combined-reward arms have completed; the nine-slice counterpart is training. Numeric weights, original warm parent, 3,072,000-transition budget, contact models, reference and success gates remain fixed. [Specification](../../config/hockey_contact_refinement_v1.json), [immutable source manifest](source_snapshot_v3/manifest.json), [verified summary](refinement_summary_v5/report.json).
 
 An [offline audit of the nine earlier screens](final_reward_signal_audit_v2/report.json) found that the 50 Hz stop score can miss intermediate speed violations and that 28–37% of physical samples saturate the former angular penalty at 50 rad/s². These are reward limitations, not proven failure mechanisms. The legacy stop replay uses a native-force proxy, not the unarchived training filtered force matrix.
 
@@ -79,7 +79,14 @@ The remaining failures differ:
 
 [Contact-event audit](refinement_failure_audit_v3/report.json) · [unchanged recordings](refinement_publication_v3/manifest.json) · [formula-aware offline replay](refinement_reward_audit_v4/report.json). Offline scores are computed from validation recordings; they are not logged training reward or predicted learning improvements. No robustness suite has run because no nominal candidate has passed.
 
-The fourth screen, **cylinder 0.7/0.7 `smooth_stop`**, passes every gate except continuous bilateral contact. Relative to `smooth`, stop hold improves from 0.4825 to 0.5000 s and XY RMSE from 0.03287 to 0.02335 m, but contact interruption increases from 2.5 to **147.5 ms**, including 27.5 ms with neither wheel touching. Angular RMS is 81.67 rad/s² versus 78.95. Its contact interruptions occur at 0.5850–0.6325, 0.7025–0.7250, 0.9050–0.9100 and 1.7450–1.8175 s. This single-seed result demonstrates a tradeoff in the trained actor, not a general causal effect of stop rewards. [Four-screen audit](refinement_failure_audit_v4/report.json), [recordings](refinement_publication_v4/manifest.json), [selected-formula replay](refinement_reward_audit_v5/report.json).
+The two completed `smooth_stop` screens show different tradeoffs. Each entry below is `smooth → smooth_stop`; only the stop formula changes within each pair:
+
+| Cylinder friction | Interruption (ms) | Both airborne (ms) | XY RMSE (m) | Stop hold (s) | Angular RMS (rad/s²) |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 0.7/0.7 | 2.5 → 147.5 | 0 → 27.5 | 0.03287 → 0.02335 | 0.4825 → 0.5000 | 78.95 → 81.67 |
+| 0.9/0.7 | 57.5 → 100.0 | 25.0 → 10.0 | 0.03881 → 0.02770 | 0.5000 → 0.4250 | 85.49 → 88.81 |
+
+Both new actors still fail continuous contact. The equal-friction actor passes every other gate. The unequal-friction actor also fails stopping: both wheels touch throughout the final 0.5 s, but XY speed exceeds 0.1 m/s from 2.6875 s and ends at 0.1535 m/s. Its 10 ms simultaneous contact loss occurs earlier, around 1.52 s. These single-seed results establish no general improvement from the stop reward. [Five-screen audit](refinement_failure_audit_v5/report.json), [recordings](refinement_publication_v5/manifest.json), [frozen-formula replay](refinement_reward_audit_v6/report.json).
 
 Fixed-follow comparisons retain individual source/qualification hashes for every panel:
 
@@ -87,12 +94,17 @@ Fixed-follow comparisons retain individual source/qualification hashes for every
 - [Equal versus unequal friction, dense / smooth pairs](refinement_friction_render_v1/friction_smooth_fullbody_4x1.mp4), with [8× interruption excerpt](refinement_friction_render_v1/friction_smooth_contact_excerpt_8x_4x1.mp4).
 - [Cylinder versus nine slices at 0.9/0.7, dense / smooth pairs](refinement_geometry_render_v1/geometry_smooth_fullbody_4x1.mp4), with [8× terminal excerpt](refinement_geometry_render_v1/geometry_smooth_contact_excerpt_8x_4x1.mp4), [panel sources](refinement_geometry_render_inputs_v1.json) and [provenance](refinement_geometry_render_v1/provenance.json).
 - [Equal-friction parent / dense / smooth / smooth-stop](refinement_stop_render_v1/stop_refinement_fullbody_4x1.mp4), with [8× contact-loss excerpt](refinement_stop_render_v1/stop_refinement_contact_excerpt_8x_4x1.mp4), [panel sources](refinement_stop_render_inputs_v1.json) and [provenance](refinement_stop_render_v1/provenance.json).
+- [Equal and unequal friction, smooth / smooth-stop pairs](refinement_stop_friction_render_v1/stop_friction_fullbody_4x1.mp4), with [8× contact-loss excerpt](refinement_stop_friction_render_v1/stop_friction_contact_excerpt_8x_4x1.mp4) and [provenance](refinement_stop_friction_render_v1/provenance.json).
 
 A [normal-motion audit](refinement_liftoff_audit_v3/report.json) identifies a separate stopping issue in the earlier dense/smooth pairs. The equal-friction and nine-slice `smooth` actors finish with base COM vertical speeds of **1.430 and 1.324 m/s**, rising **0.115 and 0.205 m** during the final 0.5 s. Position differences corroborate the recorded velocities to below 0.001 m/s RMS. Existing stop rewards constrain XY speed and tilt, while vertical regularization penalizes acceleration without requiring final vertical velocity to settle. A three-dimensional stop-speed reward is therefore a candidate for a later sweep; it would not introduce an absolute-height target.
 
 The same audit **does not support vertical-penalty saturation as the explanation**: none of the four recordings reaches a cost of 0.999, and none has a control-mean acceleration below 5 m/s² while a physical substep exceeds 50 m/s². This contrasts with the earlier angular-penalty saturation finding. Normal clearance changes are distinct from tangential sliding; the audit leaves all contact/sliding criteria unchanged and establishes no causal controller mechanism. [Four-column plot with shared vertical scales](refinement_liftoff_audit_v3/normal_motion_4x1.png), [liftoff events](refinement_liftoff_audit_v3/liftoff_events.csv), [code](../../scripts/audit_hockey_contact_liftoff.py). Three checks cover time averaging, contact-loss indexing and incomplete windows.
 
 The [reference geometry audit](../hockey_reference_contact_gap_20261029_v1/README.md) found one-wheel grounding in the source reference. Its bilateral geometric correction has not been dynamically validated and is not used here. A separate [RSI audit](rsi_reference_audit_v1/report.json) finds that only reference frames 0, 1, 2 and 35 are bilateral. The frozen sampler chooses frame 0 with probability 0.5; the remainder uses 14 adaptive bins and frames 0–137. Uniform bins would give 51.45% bilateral selected reference poses. Actual adaptive weights and reset contact traces were not archived, so this is **not a measured training contact rate**; it excludes joint-limit clipping and physics settling. It identifies a possible later initialization ablation, not a demonstrated cause. [Reproduction code](../../scripts/audit_hockey_rsi_reference_geometry.py) verifies source/reference hashes, with three bin-boundary tests.
+
+The next [three-dimensional stop specification](../../config/hockey_contact_stop_xyz_v1.json) is **prepared and uploaded, not run**. The two completed planar `smooth_stop` actors still end with upward COM speeds of 1.228 and 1.513 m/s ([recorded terminal velocities](stop_xyz_preflight_v1/terminal_speed_context.json)). The new candidate changes the stop-speed norm from XY to XYZ on the same stop phase for all three contact models, retaining the original parent, 3,072,000 transitions per cell, numerical weights, DR and qualification gates. It introduces no absolute-height or equal-load target. The dispatcher rejects startup until all six v3 screens finish without a nominal pass; a pass instead requires robustness validation.
+
+The corrected [v5 source snapshot](source_snapshot_v5/manifest.json) contains 41 code/config/test files, 375,480 bytes. The uploaded v4 candidate was withdrawn before any GPU job because its new XYZ branch needed to tolerate the first reset before a pre-step state exists. [Upload receipt](upload_receipt_v5.json), [29 local checks and matched-protocol audit](stop_xyz_preflight_v1/report.json). Runtime preflight and Isaac smoke tests remain pending. The offline auditor now loads each snapshot's own validator and math; all four previously published v3 row values remain unchanged after this extension.
 
 External nonlinear tire and elastic brush models remain outside this comparison; see the [model limitations](../hockey_split_friction_20261028_v1/README.md).
 

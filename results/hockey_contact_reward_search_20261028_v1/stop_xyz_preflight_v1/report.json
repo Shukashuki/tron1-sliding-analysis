@@ -1,0 +1,62 @@
+{
+  "status": "prepared_uploaded_not_run",
+  "source_manifest_sha256": "6ea234ece5b6946b6b866b7b2fb284a05c6828293d89c35cfce3496a9299b139",
+  "archive_sha256": "86c3e1a58480a10cd3f5b16eab024325bdd759b0d64168dd00548fe37f1b7dfd",
+  "single_factor_comparisons": [
+    {
+      "candidate": "native_equal_smooth_stop_xyz",
+      "previous_protocol_sha256": "6d8751527013ca2bf1ac1364dae0f62dcffc56de2655c93b833b55c8b9e68a7f",
+      "candidate_protocol_sha256": "0a07b150e03f7a235eaae085ba5c0d975b9d167037dc37eac21572b8cf99c3ad",
+      "changed_behavior": "stop velocity XY -> XYZ within unchanged stop phase"
+    },
+    {
+      "candidate": "native_split_smooth_stop_xyz",
+      "previous_protocol_sha256": "a8867149a35db39ccde13e5d16ffa557a7d8e93a76b3b913af1c6b40ab44b161",
+      "candidate_protocol_sha256": "883cc7f506c6cc8177d574db74bced6447e7aabdcd58591e470430b0ce9bce38",
+      "changed_behavior": "stop velocity XY -> XYZ within unchanged stop phase"
+    },
+    {
+      "candidate": "slices9_split_smooth_stop_xyz",
+      "previous_protocol_sha256": "599b5fd5a17828246daeed1c7b74b450fb342222aa0198c54a78d928b012c58c",
+      "candidate_protocol_sha256": "789b7f1f131c70f9cda47de2ed3f60ce82db7acd582f93d3658fed1eff5c486c",
+      "changed_behavior": "stop velocity XY -> XYZ within unchanged stop phase"
+    }
+  ],
+  "maximum_formal_transitions": 9216000,
+  "required_completed_predecessor": {
+    "status_path": "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v3/status.json",
+    "manifest_sha256": "7f3940fef058eee1b20ae8af6b1b194760d261befc48b304a7654af283a67e46",
+    "completed_screens": 6
+  },
+  "local_tests": {
+    "passed": 29,
+    "files": [
+      "test_hockey_contact_refinement_math.py",
+      "test_hockey_contact_refinement_adapter.py",
+      "test_hockey_contact_reward_audit.py",
+      "test_hockey_contact_search.py"
+    ],
+    "coverage": [
+      "planar default unchanged",
+      "vertical motion scored only in declared stop phase",
+      "initial reset without pre-step state",
+      "distinct pre/post XYZ and nonfinite checks",
+      "frozen v3 math isolation",
+      "predecessor complete-without-success guard",
+      "frozen source execution without bytecode writes"
+    ]
+  },
+  "old_results_regression": {
+    "previous_report": "refinement_reward_audit_v5/report.json",
+    "previous_report_sha256": "3580bf67900b418979a6d336a8f07f56b7fba05a6f8a28938a65c88442f7f89d",
+    "new_report": "refinement_reward_audit_v6/report.json",
+    "new_report_sha256": "dcd54f64b1af77664a315b19fd6fd8cd12ba32ebb835fe173bfed4e515b10a70",
+    "identical_case_rows": 4
+  },
+  "runtime_preflight_and_Isaac_smoke_pending": true,
+  "GPU_jobs_started": 0,
+  "success_claimed": false,
+  "criteria_changed": false,
+  "absolute_height_target": false,
+  "equal_load_target": false
+}

@@ -6,8 +6,10 @@ was not archived, so equality of the two reward values is not certified.
 """
 from __future__ import annotations
 import argparse
+import importlib.util
 import json
 from pathlib import Path
+import sys
 
 import numpy as np
 
@@ -17,11 +19,46 @@ from audit_hockey_reference_contact_gap import wheel_geometry
 from evaluate_hockey_physx import load,sha
 
 
-def declared_scores(cfg,pre_touch,post_gap,velocity,up,phase,alpha_sq,legacy_stop_proxy):
+def frozen_refinement_code(bundle):
+    """Load the selected validator/math without replacing live local modules.
+
+    The adapter captures its math imports during execution, so bind the frozen
+    dependency temporarily and restore the previous module even on failure.
+    No simulator, policy or adapter instance is created by this operation.
+    """
+    hashes={row['path']:row['sha256'] for row in json.loads((bundle/'manifest.json').read_text())['files']}
+    names=('hockey_contact_refinement_math','hockey_contact_refinement')
+    for name in names:
+        if hashes.get(name+'.py')!=sha(bundle/(name+'.py')):
+            raise ValueError('Frozen refinement source changed')
+    def load_module(name):
+        spec=importlib.util.spec_from_file_location('_hockey_audit_frozen_'+name,bundle/(name+'.py'))
+        module=importlib.util.module_from_spec(spec)
+        previous_bytecode=sys.dont_write_bytecode
+        sys.dont_write_bytecode=True
+        # Execute the verified source itself, never a possibly stale bytecode cache.
+        try:exec(compile((bundle/(name+'.py')).read_bytes(),str(bundle/(name+'.py')),'exec'),module.__dict__)
+        finally:sys.dont_write_bytecode=previous_bytecode
+        return module
+    math_module=load_module(names[0]);previous=sys.modules.get(names[0])
+    sys.modules[names[0]]=math_module
+    try:
+        adapter=load_module(names[1])
+    finally:
+        if previous is None:sys.modules.pop(names[0],None)
+        else:sys.modules[names[0]]=previous
+    return adapter.validate_settings,math_module
+
+
+def declared_scores(cfg,pre_touch,post_gap,velocity,up,phase,alpha_sq,legacy_stop_proxy,*,reward_code=None):
     """Replay the selected formulas, retaining the legacy force-proxy caveat."""
     settings=cfg.get('reward_refinement')
     if settings is not None:
-        from hockey_contact_refinement import validate_settings
+        if reward_code is None:
+            from hockey_contact_refinement import validate_settings
+            import hockey_contact_refinement_math as math_module
+        else:
+            validate_settings,math_module=reward_code
         settings=validate_settings(settings)
     else:
         settings=dict(stop_term='unchanged',angular_term='bounded_quadratic')
@@ -29,18 +66,21 @@ def declared_scores(cfg,pre_touch,post_gap,velocity,up,phase,alpha_sq,legacy_sto
     exceeds=alpha_sq>=scale**2
     angular=np.clip(alpha_sq/scale**2,0,1).mean(-1)
     stop=legacy_stop_proxy.copy();force_proxy=True
-    if settings['angular_term']=='pseudo_huber' or settings['stop_term']=='bilateral_substeps':
+    if settings['angular_term']=='pseudo_huber' or settings['stop_term'] in ('bilateral_substeps','bilateral_substeps_xyz'):
         import torch
-        from hockey_contact_refinement_math import angular_pseudo_huber,bilateral_substep_stop
         tensor=lambda value:torch.as_tensor(value,dtype=torch.float32)
-        if settings['angular_term']=='pseudo_huber':angular=angular_pseudo_huber(tensor(alpha_sq),scale).numpy()
-        if settings['stop_term']=='bilateral_substeps':
-            n=len(alpha_sq)
-            stop=bilateral_substep_stop(torch.as_tensor(pre_touch),tensor(post_gap),
-                tensor(velocity[:-1].reshape(n,8,2)),tensor(velocity[1:].reshape(n,8,2)),
+        if settings['angular_term']=='pseudo_huber':angular=math_module.angular_pseudo_huber(tensor(alpha_sq),scale).numpy()
+        if settings['stop_term'] in ('bilateral_substeps','bilateral_substeps_xyz'):
+            n=len(alpha_sq);xyz=settings['stop_term']=='bilateral_substeps_xyz';dimensions=3 if xyz else 2
+            if velocity.ndim!=2 or velocity.shape[1]<dimensions:
+                raise ValueError('Missing declared stop-velocity dimensions')
+            selected=velocity[:,:dimensions]
+            options={'velocity_dimensions':3} if xyz else {}
+            stop=math_module.bilateral_substep_stop(torch.as_tensor(pre_touch),tensor(post_gap),
+                tensor(selected[:-1].reshape(n,8,dimensions)),tensor(selected[1:].reshape(n,8,dimensions)),
                 tensor(up[:-1].reshape(n,8)),tensor(up[1:].reshape(n,8)),torch.as_tensor(phase),
                 contact_tolerance_m=cfg['bilateral_sliding']['contact_tolerance_m'],
-                speed_scale_m_s=cfg['reward_scales']['stop_speed_m_s'],tilt_scale_rad=cfg['reward_scales']['stop_tilt_rad']).numpy()
+                speed_scale_m_s=cfg['reward_scales']['stop_speed_m_s'],tilt_scale_rad=cfg['reward_scales']['stop_tilt_rad'],**options).numpy()
             stop*=cfg['reward_weights']['stop_hold']*.02;force_proxy=False
     saturation=exceeds if settings['angular_term']=='bounded_quadratic' else np.zeros_like(exceeds)
     return dict(angular=angular,stop=stop,saturation=saturation,legacy_scale_exceedance=exceeds,
@@ -66,10 +106,13 @@ def main():
         if not qpath.exists():continue
         protocol=a.bundle/cell['protocol'];cfg=read(protocol);checked=read(qpath)
         run=read(directory/'nominal/report.json')
+        reward_code=None
         if cfg.get('reward_refinement') is not None:
             if run.get('reward_refinement')!=cfg['reward_refinement']:raise ValueError('Refinement declaration changed')
-            for name in ('hockey_contact_refinement.py','hockey_contact_refinement_math.py'):
-                if sha(Path(__file__).with_name(name))!=sha(a.bundle/name):raise ValueError('Refinement source changed')
+            reward_code=frozen_refinement_code(a.bundle)
+            for key,name in (('reward_refinement_source_sha256','hockey_contact_refinement.py'),
+                             ('reward_refinement_math_sha256','hockey_contact_refinement_math.py')):
+                if run.get(key)!=sha(a.bundle/name):raise ValueError('Recorded refinement source changed')
         if (checked['protocol_sha256']!=sha(protocol)
             or checked['source_manifest_sha256']!=sha(a.bundle/'manifest.json')
             or checked['run_report_sha256']!=sha(directory/'nominal/report.json')):
@@ -109,7 +152,7 @@ def main():
         alpha=np.sqrt(alpha_sq)
         scale=cfg['bilateral_sliding']['angular_acceleration_scale_rad_s2']
         up=1-2*(q[:,1]**2+q[:,2]**2)
-        declared=declared_scores(cfg,pre_touch,post_gap,trace['root_com_vel'][:,:2],up,phase,alpha_sq,proxy)
+        declared=declared_scores(cfg,pre_touch,post_gap,trace['root_com_vel'],up,phase,alpha_sq,proxy,reward_code=reward_code)
         saturation=declared['saturation']
         missed=terminal&endpoint_good&~complete_kinematics
         incompatible=terminal&~continuous&(proxy>1e-6)

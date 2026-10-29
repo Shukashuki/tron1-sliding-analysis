@@ -80,7 +80,8 @@ def main():
     for name, protocol in protocols(spec, cfg, bilateral):
         rel = 'protocols/'+name+'.json'
         write(a.output/rel, protocol)
-        cells.append(dict(id=name, protocol=rel, model=protocol['contact_model']['id'], reward=name.split('_')[-1]))
+        model_id=protocol['contact_model']['id']
+        cells.append(dict(id=name, protocol=rel, model=model_id, reward=name[len(model_id)+1:]))
     reference = parent/'references/s100'
     plan = dict(kind=spec['kind'], cells=cells,
         screen_transitions_per_cell=spec['screen_transitions_per_cell'], maximum_screen_cells=len(cells),

@@ -1,0 +1,162 @@
+{
+  "kind": "hockey_contact_reward_signal_audit_v2",
+  "script_sha256": "39e7f8378e8918a189fabe17c8149ffd7201c1553f4751f9a7233a4819bf2b67",
+  "source_manifest_sha256": "7f3940fef058eee1b20ae8af6b1b194760d261befc48b304a7654af283a67e46",
+  "signals_sha256": "70457e2265447ea23f711e4e030c1e80e2c47175dd0ff589b8a568e1e0e5ad80",
+  "physics_steps": 0,
+  "training_changed": false,
+  "criterion_changed": false,
+  "scoring_scope": "Complete control windows within the frozen reference horizon; validation recordings, not training returns",
+  "logged_training_reward": false,
+  "causal_failure_mechanism_proven": false,
+  "stop_proxy_force_source": "Recorded native summed normal force; training filtered force matrix not archived",
+  "stop_reward_definition": "Selected per case; legacy endpoint score uses a native-force proxy, refined substep score uses bilateral geometry without force",
+  "contact_loss_definition": "Native pre-step bilateral touching AND post-step finite-cylinder gap <=0.1mm",
+  "smoothness_definition": "Selected per case: bounded quadratic or pseudo-Huber; legacy-scale exceedance is not saturation of pseudo-Huber",
+  "cases": [
+    {
+      "cell": "native_equal_smooth",
+      "qualifier_sha256": "3f9c0803cb52c79dfc4bdd746222118eb082322fee8c55ca1354b18af18d8138",
+      "raw_sha256": {
+        "final_rollout.npz": "ba830dca0e7f86578eecc3832e3e0455be81ea8c5c564995d238d679e4435e48",
+        "native_contact_buffers.npz": "2ffd21d0c67b3a7468b243649ecf2e8b0d987a9e31666572a9e6eb63d260595a"
+      },
+      "terminal_control_windows": 25,
+      "terminal_endpoint_good_but_substep_speed_or_tilt_violation_windows": 0,
+      "missed_endpoint_windows_s": [],
+      "terminal_contact_loss_windows": 0,
+      "terminal_positive_native_force_stop_proxy_with_contact_loss_windows": 0,
+      "positive_stop_proxy_contact_loss_windows_s": [],
+      "terminal_stop_proxy_sum": 0.584298015832901,
+      "terminal_stop_proxy_sum_during_contact_loss": 0.0,
+      "declared_stop_form": "unchanged",
+      "declared_stop_uses_native_force_proxy": true,
+      "declared_terminal_stop_score_sum": 0.584298015832901,
+      "declared_angular_form": "pseudo_huber",
+      "declared_angular_penalty_integral": -0.14818094670772552,
+      "angular_acceleration_scale_rad_s2": 50.0,
+      "angular_penalty_saturated_substep_fraction": 0.0,
+      "angular_legacy_scale_exceedance_substep_fraction": 0.322463768115942,
+      "angular_acceleration_peak_rad_s2": 572.3629760742188,
+      "contact_terms_weighted_integral": 5.489947351002294,
+      "task_success": false
+    },
+    {
+      "cell": "native_split_smooth",
+      "qualifier_sha256": "c1f37fa2b125bbcd2899c3dd389d0273e97c55d9006d6a4a2c76497d8d8ca4bb",
+      "raw_sha256": {
+        "final_rollout.npz": "86fa6fc0840729ea8fcbcebe9c3be0ab58719d884b655fa6f602e19c37066990",
+        "native_contact_buffers.npz": "ef77de464b1db685bce1de5b95145767d6bc97dab751b3db8240bb80cb71764c"
+      },
+      "terminal_control_windows": 25,
+      "terminal_endpoint_good_but_substep_speed_or_tilt_violation_windows": 0,
+      "missed_endpoint_windows_s": [],
+      "terminal_contact_loss_windows": 0,
+      "terminal_positive_native_force_stop_proxy_with_contact_loss_windows": 0,
+      "positive_stop_proxy_contact_loss_windows_s": [],
+      "terminal_stop_proxy_sum": 0.5196707010269165,
+      "terminal_stop_proxy_sum_during_contact_loss": 0.0,
+      "declared_stop_form": "unchanged",
+      "declared_stop_uses_native_force_proxy": true,
+      "declared_terminal_stop_score_sum": 0.5196707010269165,
+      "declared_angular_form": "pseudo_huber",
+      "declared_angular_penalty_integral": -0.14821115136146545,
+      "angular_acceleration_scale_rad_s2": 50.0,
+      "angular_penalty_saturated_substep_fraction": 0.0,
+      "angular_legacy_scale_exceedance_substep_fraction": 0.28804347826086957,
+      "angular_acceleration_peak_rad_s2": 729.4884033203125,
+      "contact_terms_weighted_integral": 5.134958387544247,
+      "task_success": false
+    },
+    {
+      "cell": "slices9_split_smooth",
+      "qualifier_sha256": "c11edea8a72b4a061dde5a36456e2ace36b0b5f9f908786b73870d3f6236e469",
+      "raw_sha256": {
+        "final_rollout.npz": "bb9291dd47249b1835c605fd9c2a4bbd4f84375a0be5eb0e081fceb1f357ff99",
+        "native_contact_buffers.npz": "503b0e01e429817808e1f0449f8a628ce41756ab4f2762c355a0bf8ad7c683a6"
+      },
+      "terminal_control_windows": 25,
+      "terminal_endpoint_good_but_substep_speed_or_tilt_violation_windows": 0,
+      "missed_endpoint_windows_s": [],
+      "terminal_contact_loss_windows": 2,
+      "terminal_positive_native_force_stop_proxy_with_contact_loss_windows": 2,
+      "positive_stop_proxy_contact_loss_windows_s": [
+        [
+          2.72,
+          2.74
+        ],
+        [
+          2.74,
+          2.7600000000000002
+        ]
+      ],
+      "terminal_stop_proxy_sum": 0.5965897455811501,
+      "terminal_stop_proxy_sum_during_contact_loss": 0.0416343954205513,
+      "declared_stop_form": "unchanged",
+      "declared_stop_uses_native_force_proxy": true,
+      "declared_terminal_stop_score_sum": 0.5965897455811501,
+      "declared_angular_form": "pseudo_huber",
+      "declared_angular_penalty_integral": -0.12534087896347046,
+      "angular_acceleration_scale_rad_s2": 50.0,
+      "angular_penalty_saturated_substep_fraction": 0.0,
+      "angular_legacy_scale_exceedance_substep_fraction": 0.29891304347826086,
+      "angular_acceleration_peak_rad_s2": 441.7821044921875,
+      "contact_terms_weighted_integral": 5.1152077931707565,
+      "task_success": false
+    },
+    {
+      "cell": "native_equal_smooth_stop",
+      "qualifier_sha256": "0848d0cd208920d7aa63aa52650bcaf47c29c8540791da18c30eaed11761729d",
+      "raw_sha256": {
+        "final_rollout.npz": "659fcbe4ddaf5537e67d6d81981bcbcb8713b0cf5d20d6a00538e5d0de742f33",
+        "native_contact_buffers.npz": "ba0211723f35730072c0588368f45c665374286be13b0389ce8dd3eca48e59ba"
+      },
+      "terminal_control_windows": 25,
+      "terminal_endpoint_good_but_substep_speed_or_tilt_violation_windows": 0,
+      "missed_endpoint_windows_s": [],
+      "terminal_contact_loss_windows": 0,
+      "terminal_positive_native_force_stop_proxy_with_contact_loss_windows": 0,
+      "positive_stop_proxy_contact_loss_windows_s": [],
+      "terminal_stop_proxy_sum": 0.5919993406534195,
+      "terminal_stop_proxy_sum_during_contact_loss": 0.0,
+      "declared_stop_form": "bilateral_substeps",
+      "declared_stop_uses_native_force_proxy": false,
+      "declared_terminal_stop_score_sum": 0.5844478607177734,
+      "declared_angular_form": "pseudo_huber",
+      "declared_angular_penalty_integral": -0.14919647574424744,
+      "angular_acceleration_scale_rad_s2": 50.0,
+      "angular_penalty_saturated_substep_fraction": 0.0,
+      "angular_legacy_scale_exceedance_substep_fraction": 0.28532608695652173,
+      "angular_acceleration_peak_rad_s2": 537.0104370117188,
+      "contact_terms_weighted_integral": 4.456294761781306,
+      "task_success": false
+    },
+    {
+      "cell": "native_split_smooth_stop",
+      "qualifier_sha256": "02595a626ebffc0511cca7518fc654ba74dde30c2b874a3a095b3846bfd74843",
+      "raw_sha256": {
+        "final_rollout.npz": "8209edbaf370c1775498799074906a67004ed5e411028eaff141bf700bdfb187",
+        "native_contact_buffers.npz": "7806398c47fa7b318ff256bf5d0d1c478279439b996f10c4e9ae9dc46a87315b"
+      },
+      "terminal_control_windows": 25,
+      "terminal_endpoint_good_but_substep_speed_or_tilt_violation_windows": 0,
+      "missed_endpoint_windows_s": [],
+      "terminal_contact_loss_windows": 0,
+      "terminal_positive_native_force_stop_proxy_with_contact_loss_windows": 0,
+      "positive_stop_proxy_contact_loss_windows_s": [],
+      "terminal_stop_proxy_sum": 0.47235890887677673,
+      "terminal_stop_proxy_sum_during_contact_loss": 0.0,
+      "declared_stop_form": "bilateral_substeps",
+      "declared_stop_uses_native_force_proxy": false,
+      "declared_terminal_stop_score_sum": 0.4727165997028351,
+      "declared_angular_form": "pseudo_huber",
+      "declared_angular_penalty_integral": -0.16363325715065002,
+      "angular_acceleration_scale_rad_s2": 50.0,
+      "angular_penalty_saturated_substep_fraction": 0.0,
+      "angular_legacy_scale_exceedance_substep_fraction": 0.32608695652173914,
+      "angular_acceleration_peak_rad_s2": 826.4619750976562,
+      "contact_terms_weighted_integral": 4.849572268979809,
+      "task_success": false
+    }
+  ]
+}

@@ -73,5 +73,37 @@ class ContactRefinementAdapterTests(unittest.TestCase):
         with self.assertRaises(ValueError):validate_settings({'stop_term':'bilateral_substeps'})
         with self.assertRaises(ValueError):validate_settings(protocol(angular='pseudohuber')['reward_refinement'])
 
+    def test_xyz_changes_stop_only_and_collects_distinct_pre_post_vertical_velocity(self):
+        samples,mg,cfg=fixture();samples['root_velocity_xy'].zero_()
+        samples['root_velocity_xy_post']=samples['root_velocity_xy'].clone()
+        samples['up_post']=samples['up'].clone()
+        for key in ('root_velocity_xyz_pre','root_velocity_xyz_post'):
+            samples[key]=torch.cat((samples['root_velocity_xy'],torch.full((1,8,1),.2)),-1)
+        phase=torch.ones(len(mg),dtype=torch.bool)
+        planar=refined_components(samples,mg,cfg,protocol(),phase)
+        xyz=refined_components(samples,mg,cfg,protocol('bilateral_substeps_xyz'),phase)
+        self.assertLess(float(xyz['stop_hold_refined']),float(planar['stop_hold_refined']))
+        for key in planar:
+            if key!='stop_hold_refined':torch.testing.assert_close(xyz[key],planar[key],rtol=0,atol=0)
+        w=self.window()
+        for key in ('root_velocity_xyz_pre','root_velocity_xyz_post'):w.values[key]=torch.zeros((1,8,3))
+        with mock.patch.object(DenseContactWindow,'update',lambda owner:None):w.update()
+        self.assertEqual(float(w.values['root_velocity_xyz_pre'].sum()),0.)
+        def advance(owner):
+            owner.samples+=1
+            owner.before=dict(owner.before,root_com_lin_vel_w=torch.tensor([[.4,.5,.6]]))
+        with mock.patch.object(DenseContactWindow,'update',advance):w.update()
+        torch.testing.assert_close(w.values['root_velocity_xyz_pre'][0,2],torch.tensor([.1,.2,.3]))
+        torch.testing.assert_close(w.values['root_velocity_xyz_post'][0,2],torch.tensor([.4,.5,.6]))
+        w.before['root_com_lin_vel_w'][0,2]=float('nan')
+        with mock.patch.object(DenseContactWindow,'update',advance):w.update()
+        self.assertTrue(bool(w.fault[0]))
+
+    def test_xyz_reset_before_first_physics_step_has_no_prior_state(self):
+        w=self.window();del w.before
+        for key in ('root_velocity_xyz_pre','root_velocity_xyz_post'):w.values[key]=torch.zeros((1,8,3))
+        with mock.patch.object(DenseContactWindow,'update',lambda owner:None):w.update()
+        self.assertEqual(float(w.values['root_velocity_xyz_pre'].sum()),0.)
+
 
 if __name__=='__main__':unittest.main()

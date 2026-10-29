@@ -1,0 +1,54 @@
+{
+  "kind": "hockey_contact_reward_search_v1",
+  "cells": [
+    {
+      "id": "native_equal_smooth_stop_xyz",
+      "protocol": "protocols/native_equal_smooth_stop_xyz.json",
+      "model": "native_equal",
+      "reward": "smooth_stop_xyz"
+    },
+    {
+      "id": "native_split_smooth_stop_xyz",
+      "protocol": "protocols/native_split_smooth_stop_xyz.json",
+      "model": "native_split",
+      "reward": "smooth_stop_xyz"
+    },
+    {
+      "id": "slices9_split_smooth_stop_xyz",
+      "protocol": "protocols/slices9_split_smooth_stop_xyz.json",
+      "model": "slices9_split",
+      "reward": "smooth_stop_xyz"
+    }
+  ],
+  "screen_transitions_per_cell": 3072000,
+  "maximum_screen_cells": 3,
+  "maximum_formal_transitions": 9216000,
+  "reference_directory": "/data/zengxiong/workspaces/tron1-hockey-speed-success-20261028-v1/source_snapshot_v1/references/s100",
+  "reference_sha256": {
+    "motion.npz": "e23fbd82639d243f0c485cf391b1eff0e275d31f6bb6ba940647874a0ac83050",
+    "command_diagnostics.npz": "45ca2e0e223f4ed886bef8055c61312cb05568485940a83c910b16fa42ce8dff",
+    "report.json": "fd2301380dbde8ef5e98b5e95cc178d13b0b556e04d25d14f93577f9c5adaf19"
+  },
+  "dependencies": [
+    {
+      "path": "/data/zengxiong/workspaces/tron1-hockey-speed-success-20261028-v1/runs_v1/status.json",
+      "manifest_sha256": "a61d76d6a7003d874be48cb3304cb551a0e05c66afbcd51f1eed2b2d4e548197"
+    }
+  ],
+  "warm_start": {
+    "checkpoint": "/data/zengxiong/workspaces/tron1-hockey-speed-success-20261028-v1/runs_v1/hockey_s100_seed42/formal/model_final.pt",
+    "checkpoint_sha256": "09fd1987891885ad9eccf3382ec71db050fba2444947b9339684152b1b0139ab",
+    "actor": "/data/zengxiong/workspaces/tron1-hockey-speed-success-20261028-v1/runs_v1/hockey_s100_seed42/formal/actor_normalized.pt",
+    "actor_sha256": "db27f45b705a5a46f0924de260cf4e15689272b8edb516fadea1b032839303fa"
+  },
+  "idle_wait_limit_s": 21600,
+  "stop_after_nominal_pass": true,
+  "next_step_on_nominal_pass": "33-case robustness qualification; nominal pass alone does not complete the research goal",
+  "old_training_remains_paused": true,
+  "external_nonlinear_not_in_this_native_batch": true,
+  "required_completed_predecessor": {
+    "status_path": "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v3/status.json",
+    "manifest_sha256": "7f3940fef058eee1b20ae8af6b1b194760d261befc48b304a7654af283a67e46",
+    "completed_screens": 6
+  }
+}
