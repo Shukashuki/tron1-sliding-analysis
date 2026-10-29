@@ -1,0 +1,1143 @@
+{
+  "status": "nominal_pass_requires_robustness_suite",
+  "completed": [
+    {
+      "stage": "native_equal_smooth_stop_xyz_huber_continuity/parent_transfer",
+      "pid": 427038,
+      "argv": [
+        "/data/zengxiong/.conda/envs/regrind/bin/python",
+        "-B",
+        "-u",
+        "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/source_snapshot_v8/train_hockey_contact_search.py",
+        "--protocol",
+        "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/source_snapshot_v8/protocols/native_equal_smooth_stop_xyz_huber_continuity.json",
+        "--motion",
+        "/data/zengxiong/workspaces/tron1-hockey-speed-success-20261028-v1/source_snapshot_v1/references/s100/motion.npz",
+        "--variant",
+        "tracking",
+        "--asset",
+        "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/outputs/training-asset/WF_TRON1A.usda",
+        "--tracking-root",
+        "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/source_snapshot_v2/upstream/tron1-learning-from-human",
+        "--beyondmimic-root",
+        "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/third_party/whole_body_tracking",
+        "--mode",
+        "eval",
+        "--actor",
+        "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v7/native_equal_smooth_stop_xyz_huber_continuity/formal/actor_normalized.pt",
+        "--output-dir",
+        "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v8/native_equal_smooth_stop_xyz_huber_continuity/parent_transfer",
+        "--device",
+        "cuda:7"
+      ],
+      "identity": {
+        "pid": 427038,
+        "uid": 1030,
+        "state": "R",
+        "start_ticks": 2070987154,
+        "argv": [
+          "/data/zengxiong/.conda/envs/regrind/bin/python",
+          "-B",
+          "-u",
+          "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/source_snapshot_v8/train_hockey_contact_search.py",
+          "--protocol",
+          "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/source_snapshot_v8/protocols/native_equal_smooth_stop_xyz_huber_continuity.json",
+          "--motion",
+          "/data/zengxiong/workspaces/tron1-hockey-speed-success-20261028-v1/source_snapshot_v1/references/s100/motion.npz",
+          "--variant",
+          "tracking",
+          "--asset",
+          "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/outputs/training-asset/WF_TRON1A.usda",
+          "--tracking-root",
+          "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/source_snapshot_v2/upstream/tron1-learning-from-human",
+          "--beyondmimic-root",
+          "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/third_party/whole_body_tracking",
+          "--mode",
+          "eval",
+          "--actor",
+          "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v7/native_equal_smooth_stop_xyz_huber_continuity/formal/actor_normalized.pt",
+          "--output-dir",
+          "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v8/native_equal_smooth_stop_xyz_huber_continuity/parent_transfer",
+          "--device",
+          "cuda:7"
+        ]
+      },
+      "gpu_before_launch": {
+        "physical_index": 7,
+        "uuid": "GPU-5bbf78cb-613d-6b20-fe2d-2364a966579d",
+        "pci_bus_id": "00000000:67:04.0",
+        "memory_used_mib": 360,
+        "utilization_percent": 0,
+        "all_reported_compute_and_graphics_processes": [
+          {
+            "gpu_instance_id": "N/A",
+            "compute_instance_id": "N/A",
+            "pid": "4041908",
+            "type": "C",
+            "process_name": "/data/zengxiong/.conda/envs/regrind/bin/python",
+            "used_memory": "346 MiB"
+          }
+        ],
+        "idle": false,
+        "pci_bus_id_cuda_ordinal_verified": true,
+        "observed_unix_time": 1793311338.7392547,
+        "reservation_claimed": false,
+        "source": "nvidia-smi -q -x full NVML-derived snapshot",
+        "capacity_eligible": true,
+        "scheduling_samples": [
+          {
+            "gpu": {
+              "physical_index": 7,
+              "uuid": "GPU-5bbf78cb-613d-6b20-fe2d-2364a966579d",
+              "pci_bus_id": "00000000:67:04.0",
+              "memory_used_mib": 360,
+              "utilization_percent": 0,
+              "all_reported_compute_and_graphics_processes": [
+                {
+                  "gpu_instance_id": "N/A",
+                  "compute_instance_id": "N/A",
+                  "pid": "4041908",
+                  "type": "C",
+                  "process_name": "/data/zengxiong/.conda/envs/regrind/bin/python",
+                  "used_memory": "346 MiB"
+                }
+              ],
+              "idle": false,
+              "pci_bus_id_cuda_ordinal_verified": true,
+              "observed_unix_time": 1793311334.862341,
+              "reservation_claimed": false,
+              "source": "nvidia-smi -q -x full NVML-derived snapshot"
+            },
+            "inactive_owned_contexts": [
+              {
+                "pid": 4041908,
+                "main_device": "cuda:3",
+                "context_memory_mib": 346,
+                "uid": 1030,
+                "start_ticks": 2063289449
+              }
+            ]
+          },
+          {
+            "gpu": {
+              "physical_index": 7,
+              "uuid": "GPU-5bbf78cb-613d-6b20-fe2d-2364a966579d",
+              "pci_bus_id": "00000000:67:04.0",
+              "memory_used_mib": 360,
+              "utilization_percent": 0,
+              "all_reported_compute_and_graphics_processes": [
+                {
+                  "gpu_instance_id": "N/A",
+                  "compute_instance_id": "N/A",
+                  "pid": "4041908",
+                  "type": "C",
+                  "process_name": "/data/zengxiong/.conda/envs/regrind/bin/python",
+                  "used_memory": "346 MiB"
+                }
+              ],
+              "idle": false,
+              "pci_bus_id_cuda_ordinal_verified": true,
+              "observed_unix_time": 1793311336.9578848,
+              "reservation_claimed": false,
+              "source": "nvidia-smi -q -x full NVML-derived snapshot"
+            },
+            "inactive_owned_contexts": [
+              {
+                "pid": 4041908,
+                "main_device": "cuda:3",
+                "context_memory_mib": 346,
+                "uid": 1030,
+                "start_ticks": 2063289449
+              }
+            ]
+          },
+          {
+            "gpu": {
+              "physical_index": 7,
+              "uuid": "GPU-5bbf78cb-613d-6b20-fe2d-2364a966579d",
+              "pci_bus_id": "00000000:67:04.0",
+              "memory_used_mib": 360,
+              "utilization_percent": 0,
+              "all_reported_compute_and_graphics_processes": [
+                {
+                  "gpu_instance_id": "N/A",
+                  "compute_instance_id": "N/A",
+                  "pid": "4041908",
+                  "type": "C",
+                  "process_name": "/data/zengxiong/.conda/envs/regrind/bin/python",
+                  "used_memory": "346 MiB"
+                }
+              ],
+              "idle": false,
+              "pci_bus_id_cuda_ordinal_verified": true,
+              "observed_unix_time": 1793311338.7392547,
+              "reservation_claimed": false,
+              "source": "nvidia-smi -q -x full NVML-derived snapshot"
+            },
+            "inactive_owned_contexts": [
+              {
+                "pid": 4041908,
+                "main_device": "cuda:3",
+                "context_memory_mib": 346,
+                "uid": 1030,
+                "start_ticks": 2063289449
+              }
+            ]
+          }
+        ],
+        "reason": "No active workload; zero utilization, less than 2 GiB used, only verified small contexts of owned hockey jobs on other devices"
+      },
+      "started_unix_s": 1793311338.7411654,
+      "returncode": 0,
+      "finished_unix_s": 1793311365.6031818
+    },
+    {
+      "stage": "native_equal_smooth_stop_xyz_huber_continuity/parent_transfer_qualification",
+      "pid": 427890,
+      "argv": [
+        "/data/zengxiong/.conda/envs/regrind/bin/python",
+        "-B",
+        "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/source_snapshot_v8/qualify_hockey_contact_search.py",
+        "--bundle",
+        "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/source_snapshot_v8",
+        "--protocol",
+        "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/source_snapshot_v8/protocols/native_equal_smooth_stop_xyz_huber_continuity.json",
+        "--run",
+        "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v8/native_equal_smooth_stop_xyz_huber_continuity/parent_transfer",
+        "--actor",
+        "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v7/native_equal_smooth_stop_xyz_huber_continuity/formal/actor_normalized.pt",
+        "--reference",
+        "/data/zengxiong/workspaces/tron1-hockey-speed-success-20261028-v1/source_snapshot_v1/references/s100",
+        "--output",
+        "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v8/native_equal_smooth_stop_xyz_huber_continuity/parent_transfer_qualification.json"
+      ],
+      "identity": {
+        "pid": 427890,
+        "uid": 1030,
+        "state": "R",
+        "start_ticks": 2070989846,
+        "argv": [
+          "/data/zengxiong/.conda/envs/regrind/bin/python",
+          "-B",
+          "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/source_snapshot_v8/qualify_hockey_contact_search.py",
+          "--bundle",
+          "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/source_snapshot_v8",
+          "--protocol",
+          "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/source_snapshot_v8/protocols/native_equal_smooth_stop_xyz_huber_continuity.json",
+          "--run",
+          "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v8/native_equal_smooth_stop_xyz_huber_continuity/parent_transfer",
+          "--actor",
+          "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v7/native_equal_smooth_stop_xyz_huber_continuity/formal/actor_normalized.pt",
+          "--reference",
+          "/data/zengxiong/workspaces/tron1-hockey-speed-success-20261028-v1/source_snapshot_v1/references/s100",
+          "--output",
+          "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v8/native_equal_smooth_stop_xyz_huber_continuity/parent_transfer_qualification.json"
+        ]
+      },
+      "gpu_before_launch": null,
+      "started_unix_s": 1793311365.6657252,
+      "returncode": 0,
+      "finished_unix_s": 1793311368.7220325
+    },
+    {
+      "stage": "native_equal_smooth_stop_xyz_huber_continuity/smoke",
+      "pid": 428153,
+      "argv": [
+        "/data/zengxiong/.conda/envs/regrind/bin/python",
+        "-B",
+        "-u",
+        "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/source_snapshot_v8/train_hockey_contact_search.py",
+        "--protocol",
+        "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/source_snapshot_v8/protocols/native_equal_smooth_stop_xyz_huber_continuity.json",
+        "--motion",
+        "/data/zengxiong/workspaces/tron1-hockey-speed-success-20261028-v1/source_snapshot_v1/references/s100/motion.npz",
+        "--variant",
+        "tracking",
+        "--asset",
+        "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/outputs/training-asset/WF_TRON1A.usda",
+        "--tracking-root",
+        "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/source_snapshot_v2/upstream/tron1-learning-from-human",
+        "--beyondmimic-root",
+        "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/third_party/whole_body_tracking",
+        "--mode",
+        "smoke",
+        "--output-dir",
+        "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v8/native_equal_smooth_stop_xyz_huber_continuity/smoke",
+        "--device",
+        "cuda:7"
+      ],
+      "identity": {
+        "pid": 428153,
+        "uid": 1030,
+        "state": "R",
+        "start_ticks": 2070990717,
+        "argv": [
+          "/data/zengxiong/.conda/envs/regrind/bin/python",
+          "-B",
+          "-u",
+          "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/source_snapshot_v8/train_hockey_contact_search.py",
+          "--protocol",
+          "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/source_snapshot_v8/protocols/native_equal_smooth_stop_xyz_huber_continuity.json",
+          "--motion",
+          "/data/zengxiong/workspaces/tron1-hockey-speed-success-20261028-v1/source_snapshot_v1/references/s100/motion.npz",
+          "--variant",
+          "tracking",
+          "--asset",
+          "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/outputs/training-asset/WF_TRON1A.usda",
+          "--tracking-root",
+          "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/source_snapshot_v2/upstream/tron1-learning-from-human",
+          "--beyondmimic-root",
+          "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/third_party/whole_body_tracking",
+          "--mode",
+          "smoke",
+          "--output-dir",
+          "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v8/native_equal_smooth_stop_xyz_huber_continuity/smoke",
+          "--device",
+          "cuda:7"
+        ]
+      },
+      "gpu_before_launch": {
+        "physical_index": 7,
+        "uuid": "GPU-5bbf78cb-613d-6b20-fe2d-2364a966579d",
+        "pci_bus_id": "00000000:67:04.0",
+        "memory_used_mib": 360,
+        "utilization_percent": 0,
+        "all_reported_compute_and_graphics_processes": [
+          {
+            "gpu_instance_id": "N/A",
+            "compute_instance_id": "N/A",
+            "pid": "4041908",
+            "type": "C",
+            "process_name": "/data/zengxiong/.conda/envs/regrind/bin/python",
+            "used_memory": "346 MiB"
+          }
+        ],
+        "idle": false,
+        "pci_bus_id_cuda_ordinal_verified": true,
+        "observed_unix_time": 1793311374.3747897,
+        "reservation_claimed": false,
+        "source": "nvidia-smi -q -x full NVML-derived snapshot",
+        "capacity_eligible": true,
+        "scheduling_samples": [
+          {
+            "gpu": {
+              "physical_index": 7,
+              "uuid": "GPU-5bbf78cb-613d-6b20-fe2d-2364a966579d",
+              "pci_bus_id": "00000000:67:04.0",
+              "memory_used_mib": 360,
+              "utilization_percent": 0,
+              "all_reported_compute_and_graphics_processes": [
+                {
+                  "gpu_instance_id": "N/A",
+                  "compute_instance_id": "N/A",
+                  "pid": "4041908",
+                  "type": "C",
+                  "process_name": "/data/zengxiong/.conda/envs/regrind/bin/python",
+                  "used_memory": "346 MiB"
+                }
+              ],
+              "idle": false,
+              "pci_bus_id_cuda_ordinal_verified": true,
+              "observed_unix_time": 1793311370.0283093,
+              "reservation_claimed": false,
+              "source": "nvidia-smi -q -x full NVML-derived snapshot"
+            },
+            "inactive_owned_contexts": [
+              {
+                "pid": 4041908,
+                "main_device": "cuda:3",
+                "context_memory_mib": 346,
+                "uid": 1030,
+                "start_ticks": 2063289449
+              }
+            ]
+          },
+          {
+            "gpu": {
+              "physical_index": 7,
+              "uuid": "GPU-5bbf78cb-613d-6b20-fe2d-2364a966579d",
+              "pci_bus_id": "00000000:67:04.0",
+              "memory_used_mib": 360,
+              "utilization_percent": 0,
+              "all_reported_compute_and_graphics_processes": [
+                {
+                  "gpu_instance_id": "N/A",
+                  "compute_instance_id": "N/A",
+                  "pid": "4041908",
+                  "type": "C",
+                  "process_name": "/data/zengxiong/.conda/envs/regrind/bin/python",
+                  "used_memory": "346 MiB"
+                }
+              ],
+              "idle": false,
+              "pci_bus_id_cuda_ordinal_verified": true,
+              "observed_unix_time": 1793311372.4704814,
+              "reservation_claimed": false,
+              "source": "nvidia-smi -q -x full NVML-derived snapshot"
+            },
+            "inactive_owned_contexts": [
+              {
+                "pid": 4041908,
+                "main_device": "cuda:3",
+                "context_memory_mib": 346,
+                "uid": 1030,
+                "start_ticks": 2063289449
+              }
+            ]
+          },
+          {
+            "gpu": {
+              "physical_index": 7,
+              "uuid": "GPU-5bbf78cb-613d-6b20-fe2d-2364a966579d",
+              "pci_bus_id": "00000000:67:04.0",
+              "memory_used_mib": 360,
+              "utilization_percent": 0,
+              "all_reported_compute_and_graphics_processes": [
+                {
+                  "gpu_instance_id": "N/A",
+                  "compute_instance_id": "N/A",
+                  "pid": "4041908",
+                  "type": "C",
+                  "process_name": "/data/zengxiong/.conda/envs/regrind/bin/python",
+                  "used_memory": "346 MiB"
+                }
+              ],
+              "idle": false,
+              "pci_bus_id_cuda_ordinal_verified": true,
+              "observed_unix_time": 1793311374.3747897,
+              "reservation_claimed": false,
+              "source": "nvidia-smi -q -x full NVML-derived snapshot"
+            },
+            "inactive_owned_contexts": [
+              {
+                "pid": 4041908,
+                "main_device": "cuda:3",
+                "context_memory_mib": 346,
+                "uid": 1030,
+                "start_ticks": 2063289449
+              }
+            ]
+          }
+        ],
+        "reason": "No active workload; zero utilization, less than 2 GiB used, only verified small contexts of owned hockey jobs on other devices"
+      },
+      "started_unix_s": 1793311374.376043,
+      "returncode": 0,
+      "finished_unix_s": 1793311396.4373507
+    },
+    {
+      "stage": "native_equal_smooth_stop_xyz_huber_continuity/formal",
+      "pid": 429131,
+      "argv": [
+        "/data/zengxiong/.conda/envs/regrind/bin/python",
+        "-B",
+        "-u",
+        "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/source_snapshot_v8/train_hockey_contact_search.py",
+        "--protocol",
+        "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/source_snapshot_v8/protocols/native_equal_smooth_stop_xyz_huber_continuity.json",
+        "--motion",
+        "/data/zengxiong/workspaces/tron1-hockey-speed-success-20261028-v1/source_snapshot_v1/references/s100/motion.npz",
+        "--variant",
+        "tracking",
+        "--asset",
+        "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/outputs/training-asset/WF_TRON1A.usda",
+        "--tracking-root",
+        "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/source_snapshot_v2/upstream/tron1-learning-from-human",
+        "--beyondmimic-root",
+        "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/third_party/whole_body_tracking",
+        "--mode",
+        "formal",
+        "--output-dir",
+        "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v8/native_equal_smooth_stop_xyz_huber_continuity/formal",
+        "--device",
+        "cuda:7"
+      ],
+      "identity": {
+        "pid": 429131,
+        "uid": 1030,
+        "state": "R",
+        "start_ticks": 2070993432,
+        "argv": [
+          "/data/zengxiong/.conda/envs/regrind/bin/python",
+          "-B",
+          "-u",
+          "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/source_snapshot_v8/train_hockey_contact_search.py",
+          "--protocol",
+          "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/source_snapshot_v8/protocols/native_equal_smooth_stop_xyz_huber_continuity.json",
+          "--motion",
+          "/data/zengxiong/workspaces/tron1-hockey-speed-success-20261028-v1/source_snapshot_v1/references/s100/motion.npz",
+          "--variant",
+          "tracking",
+          "--asset",
+          "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/outputs/training-asset/WF_TRON1A.usda",
+          "--tracking-root",
+          "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/source_snapshot_v2/upstream/tron1-learning-from-human",
+          "--beyondmimic-root",
+          "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/third_party/whole_body_tracking",
+          "--mode",
+          "formal",
+          "--output-dir",
+          "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v8/native_equal_smooth_stop_xyz_huber_continuity/formal",
+          "--device",
+          "cuda:7"
+        ]
+      },
+      "gpu_before_launch": {
+        "physical_index": 7,
+        "uuid": "GPU-5bbf78cb-613d-6b20-fe2d-2364a966579d",
+        "pci_bus_id": "00000000:67:04.0",
+        "memory_used_mib": 360,
+        "utilization_percent": 0,
+        "all_reported_compute_and_graphics_processes": [
+          {
+            "gpu_instance_id": "N/A",
+            "compute_instance_id": "N/A",
+            "pid": "4041908",
+            "type": "C",
+            "process_name": "/data/zengxiong/.conda/envs/regrind/bin/python",
+            "used_memory": "346 MiB"
+          }
+        ],
+        "idle": false,
+        "pci_bus_id_cuda_ordinal_verified": true,
+        "observed_unix_time": 1793311401.5184667,
+        "reservation_claimed": false,
+        "source": "nvidia-smi -q -x full NVML-derived snapshot",
+        "capacity_eligible": true,
+        "scheduling_samples": [
+          {
+            "gpu": {
+              "physical_index": 7,
+              "uuid": "GPU-5bbf78cb-613d-6b20-fe2d-2364a966579d",
+              "pci_bus_id": "00000000:67:04.0",
+              "memory_used_mib": 360,
+              "utilization_percent": 0,
+              "all_reported_compute_and_graphics_processes": [
+                {
+                  "gpu_instance_id": "N/A",
+                  "compute_instance_id": "N/A",
+                  "pid": "4041908",
+                  "type": "C",
+                  "process_name": "/data/zengxiong/.conda/envs/regrind/bin/python",
+                  "used_memory": "346 MiB"
+                }
+              ],
+              "idle": false,
+              "pci_bus_id_cuda_ordinal_verified": true,
+              "observed_unix_time": 1793311397.4616237,
+              "reservation_claimed": false,
+              "source": "nvidia-smi -q -x full NVML-derived snapshot"
+            },
+            "inactive_owned_contexts": [
+              {
+                "pid": 4041908,
+                "main_device": "cuda:3",
+                "context_memory_mib": 346,
+                "uid": 1030,
+                "start_ticks": 2063289449
+              }
+            ]
+          },
+          {
+            "gpu": {
+              "physical_index": 7,
+              "uuid": "GPU-5bbf78cb-613d-6b20-fe2d-2364a966579d",
+              "pci_bus_id": "00000000:67:04.0",
+              "memory_used_mib": 360,
+              "utilization_percent": 0,
+              "all_reported_compute_and_graphics_processes": [
+                {
+                  "gpu_instance_id": "N/A",
+                  "compute_instance_id": "N/A",
+                  "pid": "4041908",
+                  "type": "C",
+                  "process_name": "/data/zengxiong/.conda/envs/regrind/bin/python",
+                  "used_memory": "346 MiB"
+                }
+              ],
+              "idle": false,
+              "pci_bus_id_cuda_ordinal_verified": true,
+              "observed_unix_time": 1793311399.4153655,
+              "reservation_claimed": false,
+              "source": "nvidia-smi -q -x full NVML-derived snapshot"
+            },
+            "inactive_owned_contexts": [
+              {
+                "pid": 4041908,
+                "main_device": "cuda:3",
+                "context_memory_mib": 346,
+                "uid": 1030,
+                "start_ticks": 2063289449
+              }
+            ]
+          },
+          {
+            "gpu": {
+              "physical_index": 7,
+              "uuid": "GPU-5bbf78cb-613d-6b20-fe2d-2364a966579d",
+              "pci_bus_id": "00000000:67:04.0",
+              "memory_used_mib": 360,
+              "utilization_percent": 0,
+              "all_reported_compute_and_graphics_processes": [
+                {
+                  "gpu_instance_id": "N/A",
+                  "compute_instance_id": "N/A",
+                  "pid": "4041908",
+                  "type": "C",
+                  "process_name": "/data/zengxiong/.conda/envs/regrind/bin/python",
+                  "used_memory": "346 MiB"
+                }
+              ],
+              "idle": false,
+              "pci_bus_id_cuda_ordinal_verified": true,
+              "observed_unix_time": 1793311401.5184667,
+              "reservation_claimed": false,
+              "source": "nvidia-smi -q -x full NVML-derived snapshot"
+            },
+            "inactive_owned_contexts": [
+              {
+                "pid": 4041908,
+                "main_device": "cuda:3",
+                "context_memory_mib": 346,
+                "uid": 1030,
+                "start_ticks": 2063289449
+              }
+            ]
+          }
+        ],
+        "reason": "No active workload; zero utilization, less than 2 GiB used, only verified small contexts of owned hockey jobs on other devices"
+      },
+      "started_unix_s": 1793311401.5202105,
+      "returncode": 0,
+      "finished_unix_s": 1793314718.020724
+    },
+    {
+      "stage": "native_equal_smooth_stop_xyz_huber_continuity/nominal",
+      "pid": 460647,
+      "argv": [
+        "/data/zengxiong/.conda/envs/regrind/bin/python",
+        "-B",
+        "-u",
+        "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/source_snapshot_v8/train_hockey_contact_search.py",
+        "--protocol",
+        "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/source_snapshot_v8/protocols/native_equal_smooth_stop_xyz_huber_continuity.json",
+        "--motion",
+        "/data/zengxiong/workspaces/tron1-hockey-speed-success-20261028-v1/source_snapshot_v1/references/s100/motion.npz",
+        "--variant",
+        "tracking",
+        "--asset",
+        "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/outputs/training-asset/WF_TRON1A.usda",
+        "--tracking-root",
+        "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/source_snapshot_v2/upstream/tron1-learning-from-human",
+        "--beyondmimic-root",
+        "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/third_party/whole_body_tracking",
+        "--mode",
+        "eval",
+        "--actor",
+        "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v8/native_equal_smooth_stop_xyz_huber_continuity/formal/actor_normalized.pt",
+        "--output-dir",
+        "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v8/native_equal_smooth_stop_xyz_huber_continuity/nominal",
+        "--device",
+        "cuda:7"
+      ],
+      "identity": {
+        "pid": 460647,
+        "uid": 1030,
+        "state": "R",
+        "start_ticks": 2071325515,
+        "argv": [
+          "/data/zengxiong/.conda/envs/regrind/bin/python",
+          "-B",
+          "-u",
+          "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/source_snapshot_v8/train_hockey_contact_search.py",
+          "--protocol",
+          "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/source_snapshot_v8/protocols/native_equal_smooth_stop_xyz_huber_continuity.json",
+          "--motion",
+          "/data/zengxiong/workspaces/tron1-hockey-speed-success-20261028-v1/source_snapshot_v1/references/s100/motion.npz",
+          "--variant",
+          "tracking",
+          "--asset",
+          "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/outputs/training-asset/WF_TRON1A.usda",
+          "--tracking-root",
+          "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/source_snapshot_v2/upstream/tron1-learning-from-human",
+          "--beyondmimic-root",
+          "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/third_party/whole_body_tracking",
+          "--mode",
+          "eval",
+          "--actor",
+          "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v8/native_equal_smooth_stop_xyz_huber_continuity/formal/actor_normalized.pt",
+          "--output-dir",
+          "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v8/native_equal_smooth_stop_xyz_huber_continuity/nominal",
+          "--device",
+          "cuda:7"
+        ]
+      },
+      "gpu_before_launch": {
+        "physical_index": 7,
+        "uuid": "GPU-5bbf78cb-613d-6b20-fe2d-2364a966579d",
+        "pci_bus_id": "00000000:67:04.0",
+        "memory_used_mib": 360,
+        "utilization_percent": 0,
+        "all_reported_compute_and_graphics_processes": [
+          {
+            "gpu_instance_id": "N/A",
+            "compute_instance_id": "N/A",
+            "pid": "4041908",
+            "type": "C",
+            "process_name": "/data/zengxiong/.conda/envs/regrind/bin/python",
+            "used_memory": "346 MiB"
+          }
+        ],
+        "idle": false,
+        "pci_bus_id_cuda_ordinal_verified": true,
+        "observed_unix_time": 1793314722.34969,
+        "reservation_claimed": false,
+        "source": "nvidia-smi -q -x full NVML-derived snapshot",
+        "capacity_eligible": true,
+        "scheduling_samples": [
+          {
+            "gpu": {
+              "physical_index": 7,
+              "uuid": "GPU-5bbf78cb-613d-6b20-fe2d-2364a966579d",
+              "pci_bus_id": "00000000:67:04.0",
+              "memory_used_mib": 360,
+              "utilization_percent": 0,
+              "all_reported_compute_and_graphics_processes": [
+                {
+                  "gpu_instance_id": "N/A",
+                  "compute_instance_id": "N/A",
+                  "pid": "4041908",
+                  "type": "C",
+                  "process_name": "/data/zengxiong/.conda/envs/regrind/bin/python",
+                  "used_memory": "346 MiB"
+                }
+              ],
+              "idle": false,
+              "pci_bus_id_cuda_ordinal_verified": true,
+              "observed_unix_time": 1793314718.8862867,
+              "reservation_claimed": false,
+              "source": "nvidia-smi -q -x full NVML-derived snapshot"
+            },
+            "inactive_owned_contexts": [
+              {
+                "pid": 4041908,
+                "main_device": "cuda:3",
+                "context_memory_mib": 346,
+                "uid": 1030,
+                "start_ticks": 2063289449
+              }
+            ]
+          },
+          {
+            "gpu": {
+              "physical_index": 7,
+              "uuid": "GPU-5bbf78cb-613d-6b20-fe2d-2364a966579d",
+              "pci_bus_id": "00000000:67:04.0",
+              "memory_used_mib": 360,
+              "utilization_percent": 0,
+              "all_reported_compute_and_graphics_processes": [
+                {
+                  "gpu_instance_id": "N/A",
+                  "compute_instance_id": "N/A",
+                  "pid": "4041908",
+                  "type": "C",
+                  "process_name": "/data/zengxiong/.conda/envs/regrind/bin/python",
+                  "used_memory": "346 MiB"
+                }
+              ],
+              "idle": false,
+              "pci_bus_id_cuda_ordinal_verified": true,
+              "observed_unix_time": 1793314720.6499925,
+              "reservation_claimed": false,
+              "source": "nvidia-smi -q -x full NVML-derived snapshot"
+            },
+            "inactive_owned_contexts": [
+              {
+                "pid": 4041908,
+                "main_device": "cuda:3",
+                "context_memory_mib": 346,
+                "uid": 1030,
+                "start_ticks": 2063289449
+              }
+            ]
+          },
+          {
+            "gpu": {
+              "physical_index": 7,
+              "uuid": "GPU-5bbf78cb-613d-6b20-fe2d-2364a966579d",
+              "pci_bus_id": "00000000:67:04.0",
+              "memory_used_mib": 360,
+              "utilization_percent": 0,
+              "all_reported_compute_and_graphics_processes": [
+                {
+                  "gpu_instance_id": "N/A",
+                  "compute_instance_id": "N/A",
+                  "pid": "4041908",
+                  "type": "C",
+                  "process_name": "/data/zengxiong/.conda/envs/regrind/bin/python",
+                  "used_memory": "346 MiB"
+                }
+              ],
+              "idle": false,
+              "pci_bus_id_cuda_ordinal_verified": true,
+              "observed_unix_time": 1793314722.34969,
+              "reservation_claimed": false,
+              "source": "nvidia-smi -q -x full NVML-derived snapshot"
+            },
+            "inactive_owned_contexts": [
+              {
+                "pid": 4041908,
+                "main_device": "cuda:3",
+                "context_memory_mib": 346,
+                "uid": 1030,
+                "start_ticks": 2063289449
+              }
+            ]
+          }
+        ],
+        "reason": "No active workload; zero utilization, less than 2 GiB used, only verified small contexts of owned hockey jobs on other devices"
+      },
+      "started_unix_s": 1793314722.35107,
+      "returncode": 0,
+      "finished_unix_s": 1793314748.3962076
+    },
+    {
+      "stage": "native_equal_smooth_stop_xyz_huber_continuity/nominal_qualification",
+      "pid": 461151,
+      "argv": [
+        "/data/zengxiong/.conda/envs/regrind/bin/python",
+        "-B",
+        "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/source_snapshot_v8/qualify_hockey_contact_search.py",
+        "--bundle",
+        "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/source_snapshot_v8",
+        "--protocol",
+        "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/source_snapshot_v8/protocols/native_equal_smooth_stop_xyz_huber_continuity.json",
+        "--run",
+        "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v8/native_equal_smooth_stop_xyz_huber_continuity/nominal",
+        "--actor",
+        "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v8/native_equal_smooth_stop_xyz_huber_continuity/formal/actor_normalized.pt",
+        "--reference",
+        "/data/zengxiong/workspaces/tron1-hockey-speed-success-20261028-v1/source_snapshot_v1/references/s100",
+        "--output",
+        "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v8/native_equal_smooth_stop_xyz_huber_continuity/nominal_qualification.json"
+      ],
+      "identity": {
+        "pid": 461151,
+        "uid": 1030,
+        "state": "R",
+        "start_ticks": 2071328127,
+        "argv": [
+          "/data/zengxiong/.conda/envs/regrind/bin/python",
+          "-B",
+          "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/source_snapshot_v8/qualify_hockey_contact_search.py",
+          "--bundle",
+          "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/source_snapshot_v8",
+          "--protocol",
+          "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/source_snapshot_v8/protocols/native_equal_smooth_stop_xyz_huber_continuity.json",
+          "--run",
+          "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v8/native_equal_smooth_stop_xyz_huber_continuity/nominal",
+          "--actor",
+          "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v8/native_equal_smooth_stop_xyz_huber_continuity/formal/actor_normalized.pt",
+          "--reference",
+          "/data/zengxiong/workspaces/tron1-hockey-speed-success-20261028-v1/source_snapshot_v1/references/s100",
+          "--output",
+          "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v8/native_equal_smooth_stop_xyz_huber_continuity/nominal_qualification.json"
+        ]
+      },
+      "gpu_before_launch": null,
+      "started_unix_s": 1793314748.4718792,
+      "returncode": 0,
+      "finished_unix_s": 1793314751.6880784
+    }
+  ],
+  "current": null,
+  "idle_wait_s": 0,
+  "manifest_sha256": "9b7244406828265c2f415964a1c8352f6bebd9637a830f7a21943b41b0aa3d19",
+  "started_unix_s": 1793311333.662064,
+  "old_jobs_resumed": false,
+  "goal_success_claimed": false,
+  "updated_unix_s": 1793314751.6908462,
+  "screens": [
+    {
+      "id": "native_equal_smooth_stop_xyz_huber_continuity",
+      "qualification": {
+        "primary_contact_gate": {
+          "record_complete": true,
+          "gate_status": "pass",
+          "eligible_for_task_comparison": true,
+          "secondary_metrics_scope": "eligible_for_subsequent_task_gates",
+          "window_s": [
+            0.0,
+            2.76
+          ],
+          "terminal_contact_checked": true,
+          "primary_gate_only": true,
+          "full_task_success_claimed": false,
+          "reason": "Both wheels touch at every recorded physical sample",
+          "checked_intervals": 1104,
+          "both_touch_fraction": 1.0,
+          "first_nonbilateral_contact_s": null,
+          "bilateral_interruption": {
+            "total_s": 0.0,
+            "count": 0,
+            "longest_s": 0.0,
+            "events": []
+          },
+          "unknown_only": {
+            "total_s": 0.0,
+            "count": 0,
+            "longest_s": 0.0,
+            "events": []
+          },
+          "terminal_touching": [
+            true,
+            true
+          ],
+          "terminal_unknown": [
+            false,
+            false
+          ],
+          "wheels": [
+            {
+              "side": "left",
+              "contact_fraction": 1.0,
+              "interruption": {
+                "total_s": 0.0,
+                "count": 0,
+                "longest_s": 0.0,
+                "events": []
+              },
+              "unknown": {
+                "total_s": 0.0,
+                "count": 0,
+                "longest_s": 0.0,
+                "events": []
+              }
+            },
+            {
+              "side": "right",
+              "contact_fraction": 1.0,
+              "interruption": {
+                "total_s": 0.0,
+                "count": 0,
+                "longest_s": 0.0,
+                "events": []
+              },
+              "unknown": {
+                "total_s": 0.0,
+                "count": 0,
+                "longest_s": 0.0,
+                "events": []
+              }
+            }
+          ]
+        },
+        "gates": {
+          "full_reference_observed": true,
+          "entry_speed_at_least_0p8": true,
+          "approach_speed_retained": true,
+          "xy_rmse_le_0p15": true,
+          "xy_peak_le_0p3": true,
+          "braking_body_heading_RMSE_le_15deg": true,
+          "bilateral_continuous_contact": true,
+          "bilateral_terminal_stop_hold_ge_0p5": true,
+          "bilateral_contact_corroborated_lateral_slide_ge_0p05": true,
+          "touching_braking_wheel_heading_RMSE_le_20deg": true,
+          "tilt_below_45deg_during_task": true
+        },
+        "task_success_claimed": true,
+        "failed_gates": [],
+        "secondary_metrics_scope": "eligible_for_subsequent_task_gates",
+        "xy_RMSE_m": 0.02720503119621204,
+        "xy_peak_m": 0.061410595584156166,
+        "entry_mean_speed_m_s": 1.4332433938980103,
+        "approach_speed_ratio": 1.0460536807087661,
+        "terminal_stop_hold_s": 0.5,
+        "corroborated_slide_longest_s": [
+          0.15999999999999992,
+          0.12249999999999994
+        ],
+        "corroborated_slide_total_s": [
+          0.605,
+          0.355
+        ],
+        "corroborated_slide_events": [
+          [
+            {
+              "first_index": 162,
+              "last_index": 203,
+              "start_s": 0.4025000000000001,
+              "end_s": 0.5075000000000001,
+              "duration_s": 0.10499999999999998
+            },
+            {
+              "first_index": 231,
+              "last_index": 244,
+              "start_s": 0.5750000000000001,
+              "end_s": 0.61,
+              "duration_s": 0.03499999999999992
+            },
+            {
+              "first_index": 251,
+              "last_index": 283,
+              "start_s": 0.6250000000000001,
+              "end_s": 0.7075,
+              "duration_s": 0.0824999999999999
+            },
+            {
+              "first_index": 286,
+              "last_index": 286,
+              "start_s": 0.7125,
+              "end_s": 0.715,
+              "duration_s": 0.0024999999999999467
+            },
+            {
+              "first_index": 315,
+              "last_index": 356,
+              "start_s": 0.785,
+              "end_s": 0.89,
+              "duration_s": 0.10499999999999998
+            },
+            {
+              "first_index": 359,
+              "last_index": 359,
+              "start_s": 0.895,
+              "end_s": 0.8975,
+              "duration_s": 0.0024999999999999467
+            },
+            {
+              "first_index": 378,
+              "last_index": 441,
+              "start_s": 0.9425000000000001,
+              "end_s": 1.1025,
+              "duration_s": 0.15999999999999992
+            },
+            {
+              "first_index": 450,
+              "last_index": 461,
+              "start_s": 1.1225,
+              "end_s": 1.1525,
+              "duration_s": 0.030000000000000027
+            },
+            {
+              "first_index": 486,
+              "last_index": 506,
+              "start_s": 1.2125000000000001,
+              "end_s": 1.2650000000000001,
+              "duration_s": 0.05249999999999999
+            },
+            {
+              "first_index": 540,
+              "last_index": 550,
+              "start_s": 1.3475000000000001,
+              "end_s": 1.375,
+              "duration_s": 0.027499999999999858
+            },
+            {
+              "first_index": 577,
+              "last_index": 577,
+              "start_s": 1.4400000000000002,
+              "end_s": 1.4425000000000001,
+              "duration_s": 0.0024999999999999467
+            }
+          ],
+          [
+            {
+              "first_index": 227,
+              "last_index": 258,
+              "start_s": 0.5650000000000001,
+              "end_s": 0.645,
+              "duration_s": 0.07999999999999996
+            },
+            {
+              "first_index": 280,
+              "last_index": 328,
+              "start_s": 0.6975000000000001,
+              "end_s": 0.8200000000000001,
+              "duration_s": 0.12249999999999994
+            },
+            {
+              "first_index": 354,
+              "last_index": 378,
+              "start_s": 0.8825000000000001,
+              "end_s": 0.9450000000000001,
+              "duration_s": 0.0625
+            },
+            {
+              "first_index": 410,
+              "last_index": 411,
+              "start_s": 1.0225,
+              "end_s": 1.0275,
+              "duration_s": 0.0050000000000001155
+            },
+            {
+              "first_index": 442,
+              "last_index": 475,
+              "start_s": 1.1025,
+              "end_s": 1.1875,
+              "duration_s": 0.08499999999999996
+            }
+          ]
+        ],
+        "touching_braking_wheel_heading_RMSE_deg": 1.9080804363014605,
+        "first_45deg_tilt_s": null,
+        "body_angular_acceleration_RMS_rad_s2": 44.61638641357422,
+        "action_change_RMS": 0.046338751912117004,
+        "no_absolute_height_gate": true,
+        "no_equal_load_gate": true,
+        "pointwise_friction_cone_certified": false,
+        "native_force_audit": {
+          "physical_samples_checked": 1112,
+          "maximum_readback_errors": {
+            "normal_fz": 0.0,
+            "normal_point_lateral_rms": 2.384185791015625e-07,
+            "anchor_power": 9.5367431640625e-07,
+            "friction_force": 0.0,
+            "aggregate_utilization": 1.1920928955078125e-07
+          },
+          "readback_arithmetic": "recorded_float32",
+          "normalized_float64_differences": {
+            "normal_fz": 7.629393337538204e-06,
+            "normal_point_lateral_rms": 8.529454159633687e-07,
+            "anchor_power": 3.365236119634574e-05,
+            "friction_force": 3.814697265625e-06,
+            "aggregate_utilization": 1.8683005642561312e-07
+          },
+          "pointwise_normal_load_at_friction_anchors_available": false,
+          "force_velocity_timing": "completed-substep force/impulse divided by dt, paired with post-step material velocity; power proxy, not exact step work"
+        },
+        "wheel_aggregate_capacity": {
+          "mu_static": 0.7,
+          "mu_dynamic": 0.7,
+          "actual_solver_stick_slip_flag_observed": false,
+          "scope": "touching and positive normal force, full recording, diagnostic only",
+          "rho_static": [
+            [
+              0.9969202159503214,
+              1.0000000701139318,
+              1.000000318165854
+            ],
+            [
+              0.717451851047125,
+              1.0000001029580978,
+              1.0000003702200708
+            ]
+          ],
+          "rho_dynamic": [
+            [
+              0.9969202159503214,
+              1.0000000701139318,
+              1.000000318165854
+            ],
+            [
+              0.717451851047125,
+              1.0000001029580978,
+              1.0000003702200708
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "candidate": "native_equal_smooth_stop_xyz_huber_continuity"
+}

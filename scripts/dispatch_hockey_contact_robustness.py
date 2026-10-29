@@ -50,6 +50,13 @@ def ready_candidate(bundle, screen_root, plan):
     return cell,cfg,directory,protocol,actor
 
 
+def configure_gpu_discovery(helper):
+    """The shared helper filters query_gpus by its module-level GPU_ORDER."""
+    order=(7,0,1,4,6,2,5,3)
+    helper.GPU_ORDER=order
+    return order
+
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     for key in ('bundle','screen-root','prior-launch','audit-helper','output'):
@@ -72,7 +79,7 @@ def main():
     a.output.mkdir(parents=True)
     spec=importlib.util.spec_from_file_location('gpu_audit',a.audit_helper)
     helper=importlib.util.module_from_spec(spec);spec.loader.exec_module(helper)
-    order=(7,0,1,4,6,2,5,3)
+    order=configure_gpu_discovery(helper)
     state=dict(status='preparing',candidate=cell['id'],completed=[],current=None,idle_wait_s=0,
         source_manifest_sha256=sha(a.bundle/'manifest.json'),dispatcher_sha256=sha(__file__),
         original_nominal_qualification_sha256=sha(directory/'nominal_qualification.json'),

@@ -1,0 +1,646 @@
+{
+  "kind": "fixed_reward_continuation_friction_audit_v1",
+  "source_sha256": "40f6d2e3501e3643b3d445581f4909cabdbe408112631848b3a26781e7fcc984",
+  "input_selection_sha256": "955d1a269748fd39b59389d9770bf8d7dc5068f0c151601fd0a7e3c38a1e5f32",
+  "reference_sha256": "e23fbd82639d243f0c485cf391b1eff0e275d31f6bb6ba940647874a0ac83050",
+  "dependencies": {
+    "audit_hockey_contact_cone_relation.py": "e4569500ccec620061259a8df9258d33b8f85bf2ae32469314690a9d17791338",
+    "analyze_hockey_ground_contact.py": "3e88ea2486af39a53b9d26e70cfeb84f406063e64ee6888383376fa7deb788b0",
+    "audit_hockey_contact_timing.py": "2bfeeaddf9f68a05540789a8b72adb71857b99aebbeffe0349adbbd02c7741b8",
+    "audit_hockey_contact_liftoff.py": "ea1def26e849a1979ef96a0309b9df2e0e6bb70fb28a8d1611a415e88e7d1342",
+    "evaluate_hockey_physx.py": "e9a1d31566da783a93893d4e890445f8d8bcefc3089d63f8d00033e34e70de38",
+    "audit_physx_contact_float32.py": "9cb5465386c13d51cc5d5d8417d0b3c59f0ce71948aa18e834422d34e39ebafe",
+    "physx_reference_math.py": "eaa2d905ca7fd92138582f1ce483e494b40c0a31cca7c45758cc81f9af6db26a",
+    "wheel_friction_capacity.py": "e085b26ca3f821a172716c35c8eb9d213dc2534171edaf5c9f4ce34229585cbf"
+  },
+  "physics_steps": 0,
+  "training_changed": false,
+  "success_gates_changed": false,
+  "pointwise_cone_certified": false,
+  "solver_stick_slip_flag_observed": false,
+  "contact_tolerance_m": 0.0001,
+  "ratio_division_safeguard_N": 1e-06,
+  "definitions": "Same aligned contact/force/velocity diagnostic as the six-screen friction audit. Both endpoints and both wheels required for sliding corroboration; no new task success gate.",
+  "limitations": [
+    "Wheel-resultant and same-anchor dissipation evidence, not a pointwise cone certificate.",
+    "Near-capacity ratios require positive normal force; zero force is not redefined as missing geometric contact.",
+    "Per-wheel durations can overlap; the diagnostic differs from the frozen beta/tilt-conditioned qualifier.",
+    "This pair compares one selected seed before/after additional training, not an isolated reward change or robustness estimate."
+  ],
+  "cases": [
+    {
+      "cell": "native_equal_smooth_stop_xyz_huber_continuity",
+      "label": "V7: 3.072M transitions",
+      "mu_static": 0.7,
+      "mu_dynamic": 0.7,
+      "qualification_sha256": "0dfb0d96cd02fe93eaf9b3bd8049ad472ff625bcbf7a570e4b7d51a316147feb",
+      "source_manifest_sha256": "ac0d8198560ed09934adaa92dd16e0689e58f204484ad22090bcb0fdee13f7e6",
+      "raw_sha256": {
+        "final_rollout.npz": "20661d02030d5cbc80b900841c04404afbc4583ad572dcbb6022580bb3e641c6",
+        "native_contact_buffers.npz": "5da69c4a7df577b19ded816a2d544e00b3aaa90cd4cd2452d66debc4793da3e9"
+      },
+      "native_force_audit": {
+        "physical_samples_checked": 1112,
+        "maximum_readback_errors": {
+          "normal_fz": 0.0,
+          "normal_point_lateral_rms": 2.384185791015625e-07,
+          "anchor_power": 7.62939453125e-06,
+          "friction_force": 0.0,
+          "aggregate_utilization": 1.1920928955078125e-07
+        },
+        "readback_arithmetic": "recorded_float32",
+        "normalized_float64_differences": {
+          "normal_fz": 3.814698544601924e-06,
+          "normal_point_lateral_rms": 7.691491812344964e-07,
+          "anchor_power": 2.1960717106139782e-05,
+          "friction_force": 7.62939453125e-06,
+          "aggregate_utilization": 1.396286954946646e-07
+        },
+        "pointwise_normal_load_at_friction_anchors_available": false,
+        "force_velocity_timing": "completed-substep force/impulse divided by dt, paired with post-step material velocity; power proxy, not exact step work"
+      },
+      "flat_plane_audit": {
+        "max_normal_xy": 1.3435885648505064e-07,
+        "max_anchor_force_z_N": 0.0002269176475238055
+      },
+      "task_success": false,
+      "failed_gates": [
+        "bilateral_continuous_contact"
+      ],
+      "bilateral_interruption_ms": 25.0,
+      "original_qualification_slide_total_s": [
+        0.73,
+        0.335
+      ],
+      "wheels": [
+        {
+          "wheel": "L",
+          "braking_intervals": 560,
+          "contact_intervals": 560,
+          "ratio_valid_intervals": 560,
+          "contact_zero_normal_intervals": 0,
+          "low_force_ratio_intervals_le_1N": 0,
+          "near_dynamic_contact_s": 1.06,
+          "near_static_contact_s": 1.06,
+          "bilateral_endpoint_corroborated_slide_s": 0.93,
+          "near_dynamic_intervals_ending_contact_loss": 0,
+          "near_dynamic_intervals_retaining_contact": 424,
+          "ratio_over_1p05_intervals": 0,
+          "static_ratio_over_1p05_intervals": 0,
+          "zero_normal_nonzero_tangent_intervals": 0,
+          "near_dynamic_and_kinematic_sliding_s": 0.97,
+          "force_from_positive_separation_ratio": {
+            "count": 560,
+            "median": 0.0,
+            "p05": 0.0,
+            "p95": 0.0,
+            "minimum": 0.0,
+            "maximum": 1.0000000000000089
+          },
+          "normal_force_N": {
+            "count": 560,
+            "median": 79.2245864868157,
+            "p05": 45.3352949142452,
+            "p95": 122.51669082641492,
+            "minimum": 21.515182495116996,
+            "maximum": 196.4937591552717
+          },
+          "tangent_force_N": {
+            "count": 560,
+            "median": 47.75142881377975,
+            "p05": 15.873983680051396,
+            "p95": 84.94365191438429,
+            "minimum": 5.077033611797955,
+            "maximum": 137.54357855126437
+          },
+          "rho_dynamic": {
+            "count": 560,
+            "median": 0.9994944536218628,
+            "p05": 0.27935835683696575,
+            "p95": 1.0000000643880709,
+            "minimum": 0.09539573888845312,
+            "maximum": 1.0000002992710895
+          },
+          "rho_static": {
+            "count": 560,
+            "median": 0.9994944536218628,
+            "p05": 0.27935835683696575,
+            "p95": 1.0000000643880709,
+            "minimum": 0.09539573888845312,
+            "maximum": 1.0000002992710895
+          },
+          "anchor_sum_rho_dynamic": {
+            "count": 560,
+            "median": 1.000000033966853,
+            "p05": 0.8389184908733306,
+            "p95": 1.0000001854703668,
+            "minimum": 0.6126760392024735,
+            "maximum": 1.0000002992850612
+          },
+          "pre_lateral_speed_m_s": {
+            "count": 560,
+            "median": 0.3318671386879245,
+            "p05": 0.0005236985130453838,
+            "p95": 2.0308270045250087,
+            "minimum": 8.007865058175463e-07,
+            "maximum": 2.836875217025415
+          },
+          "interval_lateral_speed_m_s": {
+            "count": 560,
+            "median": 0.33174552929308687,
+            "p05": 0.00013222571605984244,
+            "p95": 2.026525196364136,
+            "minimum": 2.779067445712706e-07,
+            "maximum": 2.848559194705878
+          }
+        },
+        {
+          "wheel": "R",
+          "braking_intervals": 560,
+          "contact_intervals": 550,
+          "ratio_valid_intervals": 543,
+          "contact_zero_normal_intervals": 7,
+          "low_force_ratio_intervals_le_1N": 1,
+          "near_dynamic_contact_s": 0.455,
+          "near_static_contact_s": 0.455,
+          "bilateral_endpoint_corroborated_slide_s": 0.3725,
+          "near_dynamic_intervals_ending_contact_loss": 0,
+          "near_dynamic_intervals_retaining_contact": 182,
+          "ratio_over_1p05_intervals": 1,
+          "static_ratio_over_1p05_intervals": 1,
+          "zero_normal_nonzero_tangent_intervals": 0,
+          "near_dynamic_and_kinematic_sliding_s": 0.38,
+          "force_from_positive_separation_ratio": {
+            "count": 543,
+            "median": 0.0,
+            "p05": 0.0,
+            "p95": 0.0,
+            "minimum": 0.0,
+            "maximum": 1.0000000000000089
+          },
+          "normal_force_N": {
+            "count": 543,
+            "median": 138.86048889160034,
+            "p05": 51.53767051696732,
+            "p95": 222.61646270751754,
+            "minimum": 0.33562305569648443,
+            "maximum": 382.01385498046534
+          },
+          "tangent_force_N": {
+            "count": 543,
+            "median": 53.39692406430694,
+            "p05": 8.711492603510107,
+            "p95": 124.03875974230601,
+            "minimum": 0.4167578782998927,
+            "maximum": 202.9619985815705
+          },
+          "rho_dynamic": {
+            "count": 543,
+            "median": 0.6346098583801759,
+            "p05": 0.09568878541320901,
+            "p95": 1.0000000767699688,
+            "minimum": 0.00468723111842038,
+            "maximum": 3.376955742561537
+          },
+          "rho_static": {
+            "count": 543,
+            "median": 0.6346098583801759,
+            "p05": 0.09568878541320901,
+            "p95": 1.0000000767699688,
+            "minimum": 0.00468723111842038,
+            "maximum": 3.376955742561537
+          },
+          "anchor_sum_rho_dynamic": {
+            "count": 543,
+            "median": 0.9999999968156438,
+            "p05": 0.4192279238508056,
+            "p95": 1.0000001794752393,
+            "minimum": 0.08244568050778008,
+            "maximum": 3.3770342238208713
+          },
+          "pre_lateral_speed_m_s": {
+            "count": 543,
+            "median": 0.008459829774867025,
+            "p05": 0.00022573505283407334,
+            "p95": 2.4632719197175947,
+            "minimum": 5.280936321704015e-06,
+            "maximum": 3.2628099219786892
+          },
+          "interval_lateral_speed_m_s": {
+            "count": 543,
+            "median": 0.004219634029097585,
+            "p05": 0.00017248109311160414,
+            "p95": 2.2837021566170246,
+            "minimum": 4.014536646063056e-06,
+            "maximum": 3.2523090108183577
+          }
+        }
+      ],
+      "loss_events": [
+        {
+          "wheel": "R",
+          "onset_s": 0.585,
+          "preceding_interval_start_s": 0.5825,
+          "preceding_interval_ends_at_loss": true,
+          "last_contact_normal_N": 0.0,
+          "last_contact_tangent_N": 0.0,
+          "last_contact_rho_dynamic": null,
+          "last_contact_rho_static": null,
+          "last_contact_pre_lateral_speed_m_s": 1.2261383784620126,
+          "last_contact_interval_lateral_speed_m_s": 1.444043404260001,
+          "last_contact_anchor_power_W": 0.0,
+          "preloss_50ms_ratio_valid_intervals": 18,
+          "preloss_50ms_near_dynamic_intervals": 12,
+          "earlier_50_to_10ms_normal_N": {
+            "count": 16,
+            "median": 92.54805374145425,
+            "p05": 53.35927295684767,
+            "p95": 142.325256347655,
+            "minimum": 52.53784179687453,
+            "maximum": 165.6300506591782
+          },
+          "earlier_50_to_10ms_tangent_N": {
+            "count": 16,
+            "median": 54.23329345107203,
+            "p05": 18.311609959457442,
+            "p95": 63.262215766916384,
+            "minimum": 11.445769912591444,
+            "maximum": 63.74488467914721
+          },
+          "previous_gap_mm": 0.07573280163342133,
+          "loss_gap_mm": 0.15529085067100823,
+          "last_positive_interval_index": 231,
+          "last_positive_interval_start_s": 0.5775,
+          "last_positive_interval_start_to_loss_ms": 7.5,
+          "last_positive_interval_end_to_loss_ms": 5.0,
+          "last_positive_normal_N": 53.479011535644055,
+          "last_positive_tangent_N": 37.17040362884573,
+          "last_positive_rho_dynamic": 0.9929236739397275,
+          "last_positive_rho_static": 0.9929236739397275,
+          "last_positive_pre_lateral_speed_m_s": 0.8805917370324842,
+          "last_positive_interval_lateral_speed_m_s": 0.9539279708203318,
+          "last_positive_dissipative": true
+        },
+        {
+          "wheel": "R",
+          "onset_s": 0.605,
+          "preceding_interval_start_s": 0.6025,
+          "preceding_interval_ends_at_loss": true,
+          "last_contact_normal_N": 0.0,
+          "last_contact_tangent_N": 0.0,
+          "last_contact_rho_dynamic": null,
+          "last_contact_rho_static": null,
+          "last_contact_pre_lateral_speed_m_s": 2.4717239289756265,
+          "last_contact_interval_lateral_speed_m_s": 2.606989834294702,
+          "last_contact_anchor_power_W": 0.0,
+          "preloss_50ms_ratio_valid_intervals": 13,
+          "preloss_50ms_near_dynamic_intervals": 13,
+          "earlier_50_to_10ms_normal_N": {
+            "count": 11,
+            "median": 62.79951477050726,
+            "p05": 52.5803031921382,
+            "p95": 91.20432662963786,
+            "minimum": 52.53784179687453,
+            "maximum": 92.26353454589761
+          },
+          "earlier_50_to_10ms_tangent_N": {
+            "count": 11,
+            "median": 43.29588125673557,
+            "p05": 36.49520257676632,
+            "p95": 61.9259803895266,
+            "minimum": 36.44757529090101,
+            "maximum": 62.8298738774352
+          },
+          "previous_gap_mm": 0.09114205022342503,
+          "loss_gap_mm": 0.11960418487433344,
+          "last_positive_interval_index": 239,
+          "last_positive_interval_start_s": 0.5975,
+          "last_positive_interval_start_to_loss_ms": 7.5,
+          "last_positive_interval_end_to_loss_ms": 5.0,
+          "last_positive_normal_N": 43.09138488769493,
+          "last_positive_tangent_N": 30.156214056083915,
+          "last_positive_rho_dynamic": 0.9997428930790179,
+          "last_positive_rho_static": 0.9997428930790179,
+          "last_positive_pre_lateral_speed_m_s": 2.1391189463605955,
+          "last_positive_interval_lateral_speed_m_s": 2.1856556471058997,
+          "last_positive_dissipative": true
+        },
+        {
+          "wheel": "R",
+          "onset_s": 0.9825,
+          "preceding_interval_start_s": 0.98,
+          "preceding_interval_ends_at_loss": true,
+          "last_contact_normal_N": 0.0,
+          "last_contact_tangent_N": 0.0,
+          "last_contact_rho_dynamic": null,
+          "last_contact_rho_static": null,
+          "last_contact_pre_lateral_speed_m_s": 1.9091614843410827,
+          "last_contact_interval_lateral_speed_m_s": 2.2523402429315498,
+          "last_contact_anchor_power_W": 0.0,
+          "preloss_50ms_ratio_valid_intervals": 19,
+          "preloss_50ms_near_dynamic_intervals": 11,
+          "earlier_50_to_10ms_normal_N": {
+            "count": 16,
+            "median": 203.05226135253724,
+            "p05": 76.47778892517022,
+            "p95": 298.36065673827864,
+            "minimum": 67.28192901611268,
+            "maximum": 382.01385498046534
+          },
+          "earlier_50_to_10ms_tangent_N": {
+            "count": 16,
+            "median": 55.99502793461424,
+            "p05": 35.37107598977631,
+            "p95": 174.08420002057136,
+            "minimum": 34.934927541078736,
+            "maximum": 202.9619985815705
+          },
+          "previous_gap_mm": -0.0012810689895559335,
+          "loss_gap_mm": 0.174359607626684,
+          "last_positive_interval_index": 391,
+          "last_positive_interval_start_s": 0.9775,
+          "last_positive_interval_start_to_loss_ms": 5.0,
+          "last_positive_interval_end_to_loss_ms": 2.5,
+          "last_positive_normal_N": 30.246089935302464,
+          "last_positive_tangent_N": 21.171213890648,
+          "last_positive_rho_dynamic": 0.9999504510185819,
+          "last_positive_rho_static": 0.9999504510185819,
+          "last_positive_pre_lateral_speed_m_s": 1.739416977986009,
+          "last_positive_interval_lateral_speed_m_s": 1.9120779709363744,
+          "last_positive_dissipative": true
+        },
+        {
+          "wheel": "R",
+          "onset_s": 1.485,
+          "preceding_interval_start_s": 1.4825,
+          "preceding_interval_ends_at_loss": true,
+          "last_contact_normal_N": 0.0,
+          "last_contact_tangent_N": 0.0,
+          "last_contact_rho_dynamic": null,
+          "last_contact_rho_static": null,
+          "last_contact_pre_lateral_speed_m_s": 1.0829699062958489,
+          "last_contact_interval_lateral_speed_m_s": 1.35039183840781,
+          "last_contact_anchor_power_W": 0.0,
+          "preloss_50ms_ratio_valid_intervals": 18,
+          "preloss_50ms_near_dynamic_intervals": 8,
+          "earlier_50_to_10ms_normal_N": {
+            "count": 16,
+            "median": 203.8858184814435,
+            "p05": 91.48790740966716,
+            "p95": 273.99947357177496,
+            "minimum": 90.37242889404217,
+            "maximum": 300.91165161132545
+          },
+          "earlier_50_to_10ms_tangent_N": {
+            "count": 16,
+            "median": 76.31594904055387,
+            "p05": 44.67538208723656,
+            "p95": 133.94645043904794,
+            "minimum": 38.63201138787028,
+            "maximum": 138.13320264786265
+          },
+          "previous_gap_mm": 0.08106794848572463,
+          "loss_gap_mm": 0.15108889783732593,
+          "last_positive_interval_index": 591,
+          "last_positive_interval_start_s": 1.4775,
+          "last_positive_interval_start_to_loss_ms": 7.5,
+          "last_positive_interval_end_to_loss_ms": 5.0,
+          "last_positive_normal_N": 89.46482849121014,
+          "last_positive_tangent_N": 62.62538542976575,
+          "last_positive_rho_dynamic": 1.000000087598968,
+          "last_positive_rho_static": 1.000000087598968,
+          "last_positive_pre_lateral_speed_m_s": 0.6624357991923352,
+          "last_positive_interval_lateral_speed_m_s": 0.7564591940904934,
+          "last_positive_dissipative": true
+        }
+      ],
+      "force_consistency_anomalies": [
+        {
+          "wheel": "R",
+          "time_start_s": 0.62,
+          "kind": "static_bound_exceedance",
+          "Fn_N": 0.33562305569648443,
+          "Ft_N": 0.7933689436892055,
+          "rho_dynamic": 3.376955742561537,
+          "rho_static": 3.376955742561537,
+          "normal_points": 2,
+          "friction_anchors": 2,
+          "contact_at_both_endpoints": true
+        }
+      ]
+    },
+    {
+      "cell": "native_equal_smooth_stop_xyz_huber_continuity",
+      "label": "V8: 12.288M recipe transitions",
+      "mu_static": 0.7,
+      "mu_dynamic": 0.7,
+      "qualification_sha256": "a72411b9557da79fa4da6da410e6c979d5ba1a26a559d89fedcb6d6739ac6f95",
+      "source_manifest_sha256": "9b7244406828265c2f415964a1c8352f6bebd9637a830f7a21943b41b0aa3d19",
+      "raw_sha256": {
+        "final_rollout.npz": "27b861b054ae9a9b432c9f7a47115edb444c93de4f2d40b5384a33ca5193f84c",
+        "native_contact_buffers.npz": "6d6742816e28569269e612ae8742b02a7bb59602843a4a0068c6c161cc0c34f8"
+      },
+      "native_force_audit": {
+        "physical_samples_checked": 1112,
+        "maximum_readback_errors": {
+          "normal_fz": 0.0,
+          "normal_point_lateral_rms": 2.384185791015625e-07,
+          "anchor_power": 9.5367431640625e-07,
+          "friction_force": 0.0,
+          "aggregate_utilization": 1.1920928955078125e-07
+        },
+        "readback_arithmetic": "recorded_float32",
+        "normalized_float64_differences": {
+          "normal_fz": 7.629393337538204e-06,
+          "normal_point_lateral_rms": 8.529454159633687e-07,
+          "anchor_power": 3.365236119634574e-05,
+          "friction_force": 3.814697265625e-06,
+          "aggregate_utilization": 1.8683005642561312e-07
+        },
+        "pointwise_normal_load_at_friction_anchors_available": false,
+        "force_velocity_timing": "completed-substep force/impulse divided by dt, paired with post-step material velocity; power proxy, not exact step work"
+      },
+      "flat_plane_audit": {
+        "max_normal_xy": 1.3435885648505064e-07,
+        "max_anchor_force_z_N": 0.00010550072329351678
+      },
+      "task_success": true,
+      "failed_gates": [],
+      "bilateral_interruption_ms": 0.0,
+      "original_qualification_slide_total_s": [
+        0.605,
+        0.355
+      ],
+      "wheels": [
+        {
+          "wheel": "L",
+          "braking_intervals": 560,
+          "contact_intervals": 560,
+          "ratio_valid_intervals": 560,
+          "contact_zero_normal_intervals": 0,
+          "low_force_ratio_intervals_le_1N": 0,
+          "near_dynamic_contact_s": 1.145,
+          "near_static_contact_s": 1.145,
+          "bilateral_endpoint_corroborated_slide_s": 0.9475,
+          "near_dynamic_intervals_ending_contact_loss": 0,
+          "near_dynamic_intervals_retaining_contact": 458,
+          "ratio_over_1p05_intervals": 0,
+          "static_ratio_over_1p05_intervals": 0,
+          "zero_normal_nonzero_tangent_intervals": 0,
+          "near_dynamic_and_kinematic_sliding_s": 0.9475,
+          "force_from_positive_separation_ratio": {
+            "count": 560,
+            "median": 0.0,
+            "p05": 0.0,
+            "p95": 0.0,
+            "minimum": 0.0,
+            "maximum": 1.0000000000000089
+          },
+          "normal_force_N": {
+            "count": 560,
+            "median": 89.57416534423749,
+            "p05": 75.98843994140559,
+            "p95": 128.1216117858875,
+            "minimum": 61.36885452270453,
+            "maximum": 173.91415405273284
+          },
+          "tangent_force_N": {
+            "count": 560,
+            "median": 60.983996424805234,
+            "p05": 32.174948069570654,
+            "p95": 87.85917964649761,
+            "minimum": 2.853453539346594,
+            "maximum": 121.72399413328519
+          },
+          "rho_dynamic": {
+            "count": 560,
+            "median": 0.9995015235593367,
+            "p05": 0.4884510241427611,
+            "p95": 1.0000001288110996,
+            "minimum": 0.04241773299667216,
+            "maximum": 1.000000318165854
+          },
+          "rho_static": {
+            "count": 560,
+            "median": 0.9995015235593367,
+            "p05": 0.4884510241427611,
+            "p95": 1.0000001288110996,
+            "minimum": 0.04241773299667216,
+            "maximum": 1.000000318165854
+          },
+          "anchor_sum_rho_dynamic": {
+            "count": 560,
+            "median": 1.000000043337963,
+            "p05": 0.9061717666432473,
+            "p95": 1.0000001808888246,
+            "minimum": 0.4785700540681405,
+            "maximum": 1.0000003207303316
+          },
+          "pre_lateral_speed_m_s": {
+            "count": 560,
+            "median": 0.17986846939929196,
+            "p05": 0.00089111588672059,
+            "p95": 2.0072040739409194,
+            "minimum": 2.733158834765752e-05,
+            "maximum": 2.8023311741569836
+          },
+          "interval_lateral_speed_m_s": {
+            "count": 560,
+            "median": 0.1770825231906679,
+            "p05": 0.0002942042998189485,
+            "p95": 2.0013472867675564,
+            "minimum": 1.13618287471095e-05,
+            "maximum": 2.8098689180169405
+          }
+        },
+        {
+          "wheel": "R",
+          "braking_intervals": 560,
+          "contact_intervals": 560,
+          "ratio_valid_intervals": 560,
+          "contact_zero_normal_intervals": 0,
+          "low_force_ratio_intervals_le_1N": 0,
+          "near_dynamic_contact_s": 0.5700000000000001,
+          "near_static_contact_s": 0.5700000000000001,
+          "bilateral_endpoint_corroborated_slide_s": 0.5025000000000001,
+          "near_dynamic_intervals_ending_contact_loss": 0,
+          "near_dynamic_intervals_retaining_contact": 228,
+          "ratio_over_1p05_intervals": 0,
+          "static_ratio_over_1p05_intervals": 0,
+          "zero_normal_nonzero_tangent_intervals": 0,
+          "near_dynamic_and_kinematic_sliding_s": 0.505,
+          "force_from_positive_separation_ratio": {
+            "count": 560,
+            "median": 0.0,
+            "p05": 0.0,
+            "p95": 0.0,
+            "minimum": 0.0,
+            "maximum": 1.0000000000000089
+          },
+          "normal_force_N": {
+            "count": 560,
+            "median": 128.7720794677723,
+            "p05": 72.52693595886167,
+            "p95": 164.3356796264634,
+            "minimum": 48.12589263915973,
+            "maximum": 283.39044189452875
+          },
+          "tangent_force_N": {
+            "count": 560,
+            "median": 52.11981797503924,
+            "p05": 17.96434602551638,
+            "p95": 108.35119136302104,
+            "minimum": 0.7832884820036237,
+            "maximum": 198.18551791181392
+          },
+          "rho_dynamic": {
+            "count": 560,
+            "median": 0.6668666370493881,
+            "p05": 0.20930538295976991,
+            "p95": 1.000000146342312,
+            "minimum": 0.009804727015694637,
+            "maximum": 1.0000003702200708
+          },
+          "rho_static": {
+            "count": 560,
+            "median": 0.6668666370493881,
+            "p05": 0.20930538295976991,
+            "p95": 1.000000146342312,
+            "minimum": 0.009804727015694637,
+            "maximum": 1.0000003702200708
+          },
+          "anchor_sum_rho_dynamic": {
+            "count": 560,
+            "median": 1.0000000045650115,
+            "p05": 0.5432982321971975,
+            "p95": 1.0000002040019573,
+            "minimum": 0.14020775859263251,
+            "maximum": 1.0000003702200708
+          },
+          "pre_lateral_speed_m_s": {
+            "count": 560,
+            "median": 0.00851151871042679,
+            "p05": 0.00015393431183185913,
+            "p95": 2.77100255597996,
+            "minimum": 6.609344701844148e-07,
+            "maximum": 3.497515932661584
+          },
+          "interval_lateral_speed_m_s": {
+            "count": 560,
+            "median": 0.005530742368351398,
+            "p05": 0.00011619940930406628,
+            "p95": 2.745216526477061,
+            "minimum": 1.4245111225470969e-06,
+            "maximum": 3.4682220769842163
+          }
+        }
+      ],
+      "loss_events": [],
+      "force_consistency_anomalies": []
+    }
+  ],
+  "artifact_sha256": {
+    "continuation_friction_4x1.png": "5daff6d1cf95b1d528409cafb5c0a8fadefd0421590e5e33a655a7865d2baefa",
+    "signals.npz": "8e3f4c07b251177d7276002f0b03d69798303cec659f116605dd15aa7db52818"
+  }
+}

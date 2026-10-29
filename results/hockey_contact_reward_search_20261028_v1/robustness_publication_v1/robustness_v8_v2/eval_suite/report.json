@@ -1,0 +1,503 @@
+{
+  "kind": "hockey_contact_reward_search_v1",
+  "mode": "eval-suite",
+  "variant": "tracking",
+  "status": "validation_suite_completed_requires_independent_qualification",
+  "config_sha256": "916c8e15ee139db8d16256e678a1aa38c6d433b79b426c98661790d1dbb556ec",
+  "motion_sha256": "e23fbd82639d243f0c485cf391b1eff0e275d31f6bb6ba940647874a0ac83050",
+  "asset_sha256": "327ca5080e753bbc95d8c3c797e9cd49a0f134d400cfe80494af0ba840e23a8e",
+  "source_sha256": "4abdc62bc57efc8062c4b9b8e1ce88c51da6e2d2226a97e4ebe27c9d821abb84",
+  "task_source_sha256": "47be3c2b967e49ad08ea60f3c3624ec812749a10ccbff1238004b7ca96c176f6",
+  "algorithm": "RSL-RL 3.0.1 PPO",
+  "task_success_claimed": false,
+  "method": "hockey",
+  "seed": 42,
+  "speed_scale": 1.0,
+  "reward_refinement": {
+    "kind": "hockey_contact_refinement_v2",
+    "stop_term": "bilateral_substeps_xyz_huber",
+    "angular_term": "pseudo_huber",
+    "contact_loss_term": "mean_and_worst"
+  },
+  "reward_refinement_source_sha256": "e20143fc8682313a9d9336d5c473e801c3d693e7b8cfc70e977df6a2b3365d76",
+  "reward_refinement_math_sha256": "68c2efc144bb90447c24c2c00bd99733a8e8ea14723c16a20da3397cd32df285",
+  "bilateral_source_sha256": "a4f5e31209fef81f9c9da1c426a5db0843a506c0c79429a1b570f122c77a444e",
+  "geometry_audit": {
+    "model": "authored",
+    "spawn_calls": 1,
+    "prototype": [
+      {
+        "body": "/World/envs/env_0/Robot/wheel_L_Link",
+        "level": "authored",
+        "original_cylinder": "/World/envs/env_0/Robot/wheel_L_Link/collisions/mesh_0/cylinder",
+        "radius_m": 0.12700000405311584,
+        "total_width_m": 0.05000000074505806,
+        "original_axis": "Z",
+        "original_cylinder_to_body_matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            -3.422854177870249e-08,
+            0.9999999999999993,
+            0.0
+          ],
+          [
+            0.0,
+            -0.9999999999999993,
+            -3.422854177870249e-08,
+            0.0
+          ],
+          [
+            0.0,
+            0.007069999817758799,
+            0.0,
+            1.0
+          ]
+        ],
+        "authored_mass_properties_preserved": {
+          "mass_kg": 1.0800000429153442,
+          "COM_m": [
+            2.9999999242136255e-05,
+            0.008070000447332859,
+            -1.9999999494757503e-05
+          ],
+          "principal_inertia_kg_m2": [
+            0.005155680235475302,
+            0.009742720052599907,
+            0.005153439939022064
+          ],
+          "principal_axes_wxyz": [
+            0.9659222364425659,
+            -7.70559381635394e-07,
+            0.25883248448371887,
+            -1.3350669405554072e-06
+          ]
+        },
+        "active_collider_paths": [
+          "/World/envs/env_0/Robot/wheel_L_Link/collisions/mesh_0/cylinder"
+        ],
+        "contact_offset_m": 0.001,
+        "rest_offset_m": 0.0,
+        "material_path": null,
+        "unbound_material_uses_existing_scene_default": true,
+        "new_bodies_or_joints": 0,
+        "original_asset_file_mutated": false
+      },
+      {
+        "body": "/World/envs/env_0/Robot/wheel_R_Link",
+        "level": "authored",
+        "original_cylinder": "/World/envs/env_0/Robot/wheel_R_Link/collisions/mesh_0/cylinder",
+        "radius_m": 0.12700000405311584,
+        "total_width_m": 0.05000000074505806,
+        "original_axis": "Z",
+        "original_cylinder_to_body_matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            -3.422854177870249e-08,
+            0.9999999999999993,
+            0.0
+          ],
+          [
+            0.0,
+            -0.9999999999999993,
+            -3.422854177870249e-08,
+            0.0
+          ],
+          [
+            0.0,
+            -0.007069999817758799,
+            0.0,
+            1.0
+          ]
+        ],
+        "authored_mass_properties_preserved": {
+          "mass_kg": 1.0800000429153442,
+          "COM_m": [
+            2.9999999242136255e-05,
+            -0.008070000447332859,
+            -1.9999999494757503e-05
+          ],
+          "principal_inertia_kg_m2": [
+            0.005155680235475302,
+            0.009742720052599907,
+            0.005153439939022064
+          ],
+          "principal_axes_wxyz": [
+            0.9659222364425659,
+            7.70559381635394e-07,
+            0.25883248448371887,
+            1.3350669405554072e-06
+          ]
+        },
+        "active_collider_paths": [
+          "/World/envs/env_0/Robot/wheel_R_Link/collisions/mesh_0/cylinder"
+        ],
+        "contact_offset_m": 0.001,
+        "rest_offset_m": 0.0,
+        "material_path": null,
+        "unbound_material_uses_existing_scene_default": true,
+        "new_bodies_or_joints": 0,
+        "original_asset_file_mutated": false
+      }
+    ],
+    "native_bodies_checked": 2,
+    "per_wheel_shapes": 1,
+    "external_forces": 0,
+    "mass_inertia_changed": false,
+    "elastic_tread": false,
+    "static_adhesion_model": "native_PhysX"
+  },
+  "reward_search_source_sha256": "32c36a868e49b0b8c728183c097ea79603404f0b863445dda978ec14f74b50a5",
+  "material_audit": {
+    "recipe": {
+      "name": "tron1_mjlab_tracking_dr_v1",
+      "source_repository": "https://github.com/mujocolab/mjlab",
+      "source_commit": "4360096b49c1bcc478668c11ce7d458db747e49d",
+      "source_configuration": "src/mjlab/tasks/tracking/tracking_env_cfg.py",
+      "training": false,
+      "wheel_contact_friction": {
+        "distribution": "fixed",
+        "range": [
+          0.7,
+          0.7
+        ],
+        "sampling": "startup_once_per_environment_shared_between_both_wheels",
+        "physx_static_equals_dynamic": true,
+        "physx_ground_friction": 1.0,
+        "physx_ground_friction_combine_mode": "multiply",
+        "mujoco_wheel_geom_priority": 1,
+        "mujoco_tangential_axis": 0,
+        "buckets": null
+      },
+      "nonwheel_friction": 0.7,
+      "nonwheel_plane_contact_mapping": {
+        "mujoco_raw_nonwheel_friction": 0.7,
+        "mujoco_raw_ground_friction": 0.7,
+        "mujoco_nonwheel_and_ground_priority": 0,
+        "mujoco_combine_rule": "max_for_equal_priority",
+        "physx_combine_rule": "multiply_by_unit_ground",
+        "effective_plane_friction": 0.7,
+        "raw_material_values_identical": false,
+        "purpose": "match_nonwheel_plane_contact_coefficient_not_solver_dynamics"
+      },
+      "restitution_randomization": false,
+      "physx_robot_and_ground_restitution": 0.0,
+      "mujoco_restitution_equivalence_claimed": false,
+      "encoder_bias_range_rad": [
+        0.0,
+        0.0
+      ],
+      "encoder_bias_semantics": {
+        "applies_to": "six_position_controlled_leg_joints",
+        "actor_joint_position": "q + b - nominal_q0",
+        "critic_joint_position": "q - nominal_q0",
+        "position_control_target": "nominal_q0 + clipped_action - b",
+        "default_joint_positions_mutated": false,
+        "wheel_velocity_noise": false
+      },
+      "base_com_offset_range_m": {
+        "x": [
+          0.0,
+          0.0
+        ],
+        "y": [
+          0.0,
+          0.0
+        ],
+        "z": [
+          0.0,
+          0.0
+        ]
+      },
+      "base_com_body": "base_Link",
+      "push_interval_s": null,
+      "push_velocity_range": {},
+      "push_semantics": "add_world_root_LINK_velocity_delta_not_COM_velocity",
+      "push_timer_reset": "resample_per_episode_matching_intended_recipe_and_Isaac",
+      "mjlab_v1_4_function_interval_reset_bug_reproduced": false,
+      "task_action_reward_termination_changed": false,
+      "additional_observation_corruption": false,
+      "physics_equivalence_claimed": false
+    },
+    "wheel_mu_range": [
+      0.699999988079071,
+      0.699999988079071
+    ],
+    "wheel_mu_dynamic_range": [
+      0.699999988079071,
+      0.699999988079071
+    ],
+    "wheel_mu_static_range": [
+      0.699999988079071,
+      0.699999988079071
+    ],
+    "static_dynamic_ratio": 1.0,
+    "wheel_shape_slots": [
+      7,
+      8
+    ],
+    "all_wheel_shapes_share_one_draw_per_environment": true,
+    "encoder_bias_range_rad": [
+      0.0,
+      0.0
+    ],
+    "position_target_bias_sign_verified": true,
+    "live_physx_materials_verified": true,
+    "ground_material_usd_verified": true,
+    "ground_colliders": [
+      {
+        "collider": "/World/ground/terrain/GroundPlane/CollisionPlane",
+        "material": "/World/ground/terrain/physicsMaterial",
+        "friction": 1.0,
+        "restitution": 0.0,
+        "combine": "multiply"
+      }
+    ],
+    "robot_collision_geometry_materials": [
+      {
+        "collider": "/World/envs/env_0/Robot/base_Link/collisions/mesh_0/box",
+        "material": "/physicsScene/defaultMaterial",
+        "binding_source": "verified_physics_scene_default_material",
+        "friction_combine_mode": "multiply"
+      },
+      {
+        "collider": "/World/envs/env_0/Robot/abad_L_Link/collisions/mesh_0/cylinder",
+        "material": "/physicsScene/defaultMaterial",
+        "binding_source": "verified_physics_scene_default_material",
+        "friction_combine_mode": "multiply"
+      },
+      {
+        "collider": "/World/envs/env_0/Robot/hip_L_Link/collisions/mesh_0/cylinder",
+        "material": "/physicsScene/defaultMaterial",
+        "binding_source": "verified_physics_scene_default_material",
+        "friction_combine_mode": "multiply"
+      },
+      {
+        "collider": "/World/envs/env_0/Robot/knee_L_Link/collisions/mesh_0/cylinder",
+        "material": "/physicsScene/defaultMaterial",
+        "binding_source": "verified_physics_scene_default_material",
+        "friction_combine_mode": "multiply"
+      },
+      {
+        "collider": "/World/envs/env_0/Robot/wheel_L_Link/collisions/mesh_0/cylinder",
+        "material": "/physicsScene/defaultMaterial",
+        "binding_source": "verified_physics_scene_default_material",
+        "friction_combine_mode": "multiply"
+      },
+      {
+        "collider": "/World/envs/env_0/Robot/abad_R_Link/collisions/mesh_0/cylinder",
+        "material": "/physicsScene/defaultMaterial",
+        "binding_source": "verified_physics_scene_default_material",
+        "friction_combine_mode": "multiply"
+      },
+      {
+        "collider": "/World/envs/env_0/Robot/hip_R_Link/collisions/mesh_0/cylinder",
+        "material": "/physicsScene/defaultMaterial",
+        "binding_source": "verified_physics_scene_default_material",
+        "friction_combine_mode": "multiply"
+      },
+      {
+        "collider": "/World/envs/env_0/Robot/knee_R_Link/collisions/mesh_0/cylinder",
+        "material": "/physicsScene/defaultMaterial",
+        "binding_source": "verified_physics_scene_default_material",
+        "friction_combine_mode": "multiply"
+      },
+      {
+        "collider": "/World/envs/env_0/Robot/wheel_R_Link/collisions/mesh_0/cylinder",
+        "material": "/physicsScene/defaultMaterial",
+        "binding_source": "verified_physics_scene_default_material",
+        "friction_combine_mode": "multiply"
+      }
+    ],
+    "ignored_non_geometry_collision_containers": [
+      "/World/envs/env_0/Robot/base_Link/collisions",
+      "/World/envs/env_0/Robot/abad_L_Link/collisions",
+      "/World/envs/env_0/Robot/hip_L_Link/collisions",
+      "/World/envs/env_0/Robot/knee_L_Link/collisions",
+      "/World/envs/env_0/Robot/wheel_L_Link/collisions",
+      "/World/envs/env_0/Robot/abad_R_Link/collisions",
+      "/World/envs/env_0/Robot/hip_R_Link/collisions",
+      "/World/envs/env_0/Robot/knee_R_Link/collisions",
+      "/World/envs/env_0/Robot/wheel_R_Link/collisions"
+    ]
+  },
+  "reward_terms": {
+    "action_rate_l2": -0.5,
+    "joint_limit": -10.0,
+    "undesired_contacts": -0.1,
+    "hockey_xy": 2.0,
+    "hockey_velocity": 2.0,
+    "hockey_heading": 1.0,
+    "hockey_yaw_rate": 0.5,
+    "hockey_leg_pose": 1.0,
+    "hockey_wheel_axis": 0.5,
+    "hockey_beta": 1.0,
+    "hockey_stop_hold": 1.5,
+    "hockey_tilt": -0.2,
+    "hockey_fall": -400.0,
+    "hockey_support": 0.0,
+    "hockey_vertical_acceleration": -0.1,
+    "contact_search_contact_fraction": 2.0,
+    "contact_search_contact_loss": -4.0,
+    "contact_search_clearance": -2.0,
+    "contact_search_sliding": 0.5,
+    "contact_search_angular_acceleration": -0.05
+  },
+  "termination_terms": [
+    "time_out",
+    "motion_end",
+    "hockey_fall"
+  ],
+  "worlds": 1,
+  "actor_sha256": "fde03b942dd9f62ae096f63ae9372c32ea9d43688c6a5fb5f0496c1ce5f5757a",
+  "single_world_validation": true,
+  "steps": 139,
+  "external_forces": 0,
+  "cases": [
+    {
+      "id": "nominal",
+      "report_sha256": "38a9ef22dc7d56354af1a5cfe930e7dd67c3d9b3180b8afd7523b54f83ca9386"
+    },
+    {
+      "id": "trial_000",
+      "report_sha256": "ffcfac7a79b865505766934d7f4872cea93f7865990f45e887a5549ba1d822d7"
+    },
+    {
+      "id": "trial_001",
+      "report_sha256": "4db93ffcf377c5b1e99449e7b151fa9edacf792a7a6c321f86af00c1253ef8b6"
+    },
+    {
+      "id": "trial_002",
+      "report_sha256": "d5e36531ce88c43ff035b95615135ddfaeed3e1601a7686076d1408003521645"
+    },
+    {
+      "id": "trial_003",
+      "report_sha256": "0aec0b770142c8e7630fc2537fd2ba0ebf9912f873bb252397f5c7b310521b8e"
+    },
+    {
+      "id": "trial_004",
+      "report_sha256": "c8a7208f0bf963d171e1b82dfa6f142c21c6121aaddda1d4a3194e4d20e41abc"
+    },
+    {
+      "id": "trial_005",
+      "report_sha256": "29653bc881df79114bb829db314a75328538e76189f457057bb9e7a6e08f73b7"
+    },
+    {
+      "id": "trial_006",
+      "report_sha256": "d92a2eae2842f6ce1d4a5a0d96130dd53152dfd02b4d914237f940e05759625a"
+    },
+    {
+      "id": "trial_007",
+      "report_sha256": "bbee8bb8557bfdb7e7ec533c0a1bee2106d334aff359c9c1b9e5161e0760f582"
+    },
+    {
+      "id": "trial_008",
+      "report_sha256": "cc78ea3129bc714f2ab64c0ebbac07b51897fbc6387e411b9b70fabfef1e1da4"
+    },
+    {
+      "id": "trial_009",
+      "report_sha256": "83c85430f8c9eadc4e10354aaa3f7c432b9f4d157bce675c346517b0bdfb4584"
+    },
+    {
+      "id": "trial_010",
+      "report_sha256": "15ddd60f63eff7dce2b3d4477741b5db8ee30f7c5882b6d812fc6eadf70088b5"
+    },
+    {
+      "id": "trial_011",
+      "report_sha256": "685278612151f925acd760c7df3e35dedb619fcc4c44f46dff4bf0ddaea9ba84"
+    },
+    {
+      "id": "trial_012",
+      "report_sha256": "ff1a09a0f69a33c539da0352d3ad27241613090902d31dc89e7df8a3b83b108e"
+    },
+    {
+      "id": "trial_013",
+      "report_sha256": "5c56aa2b9432cf4b41337eecf5836ef72fee4a060417ce4af016427cbeff92ef"
+    },
+    {
+      "id": "trial_014",
+      "report_sha256": "7ddf67b227e757aa846c7581bd8ff4a47e76c2bbd79dbcec4adb6e538af6aa43"
+    },
+    {
+      "id": "trial_015",
+      "report_sha256": "a293de4f54ebd5737b76b687895160b4a2520bd2da5c56eddc024cb553f264c7"
+    },
+    {
+      "id": "trial_016",
+      "report_sha256": "a4d2b43c0d295a77551c85c53c3e4f44084fad2d10d199d0ed6965d730b87bd6"
+    },
+    {
+      "id": "trial_017",
+      "report_sha256": "8342cd3cbd042c2808da6f6d9c3f74a611505420c965478585a6c9ade31c28df"
+    },
+    {
+      "id": "trial_018",
+      "report_sha256": "4260caceaec81cb4326fe4ef9251ae14bf002c42e06cefcdf0e2a3f773c01b06"
+    },
+    {
+      "id": "trial_019",
+      "report_sha256": "5032723984f86151e892a7b6d393d03f96e7b0c97aacc4e0a0c0278119bd18b3"
+    },
+    {
+      "id": "trial_020",
+      "report_sha256": "c919e796837cb07e424ff3a7e9428fe2135d731046b81eaee1c9f9dcbca90e68"
+    },
+    {
+      "id": "trial_021",
+      "report_sha256": "a0e09f6775da3fe5a0cc01ccd380fecad8c2ed881e46a30f2a29ce4458bdb752"
+    },
+    {
+      "id": "trial_022",
+      "report_sha256": "19697782078b257c1a5e07959b8e6e70401dced366967640151cc9699a58e5cc"
+    },
+    {
+      "id": "trial_023",
+      "report_sha256": "4888f16c0c015535057df2acf1d4ef5c709418c6a3b0ae39922c2611a44ff580"
+    },
+    {
+      "id": "trial_024",
+      "report_sha256": "727ab2ac3dc660bb7ecc9578a04d547f75570af7c2cf941a09c56f5da2e3a034"
+    },
+    {
+      "id": "trial_025",
+      "report_sha256": "92c97c6a8dd1c1c12c3fa5a832fc53fe170e9558e5c747b4f34a96ae31f0472c"
+    },
+    {
+      "id": "trial_026",
+      "report_sha256": "b3d3dd34290c4358ff5ae17e357371d743dbecaa8f8cf98982170adb16c46dfa"
+    },
+    {
+      "id": "trial_027",
+      "report_sha256": "cf2d8b890402c570b660ecca10529a19b1b2e8784f18a7eb60c1299aa268030f"
+    },
+    {
+      "id": "trial_028",
+      "report_sha256": "8a2e55f74f714d634b1295bd1e76d5945807a5732be7a7ced240b6bc4019cb5d"
+    },
+    {
+      "id": "trial_029",
+      "report_sha256": "48bb90d74f9753b881a366c37a6bda5125227f25d6a2a82a6518ba737aa3141a"
+    },
+    {
+      "id": "trial_030",
+      "report_sha256": "21eb9c82f9e1e023407f5cf389b063e1751c5f6d86f20cd60a9252429dc57b22"
+    },
+    {
+      "id": "trial_031",
+      "report_sha256": "e184f6ebc3a22e0aa3146d80d199bc99ad21bd35ec18cfc9d4d028609b473100"
+    }
+  ],
+  "case_math_sha256": "1b2168ed4e61cf20b693d7f226263e1a4ff326b45b536ae41be9d8d420a6ddce",
+  "elapsed_seconds": 390.9773321710527
+}

@@ -5,13 +5,35 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
-from dispatch_hockey_contact_robustness import ready_candidate
+from dispatch_hockey_contact_robustness import ready_candidate, configure_gpu_discovery
+from dispatch_hockey_bilateral_capacity import probe_available_device
 from evaluate_hockey_physx import sha
 
 
 class RobustnessDispatchTests(unittest.TestCase):
+    def test_discovery_filter_matches_probe_order_and_keeps_capacity_checks(self):
+        class Helper:
+            GPU_ORDER=(3,5,4)  # The deployed audit helper's narrower default.
+            utilization=0
+            def query_gpus(self):
+                return [dict(physical_index=i,uuid='GPU-'+str(i),utilization_percent=self.utilization,
+                    memory_used_mib=0,all_reported_compute_and_graphics_processes=[])
+                    for i in self.GPU_ORDER]
+            def process_snapshot(self,pid):
+                raise AssertionError('No process should need ownership verification')
+        helper=Helper()
+        with patch('dispatch_hockey_bilateral_capacity.time.sleep'):
+            with self.assertRaises(StopIteration):probe_available_device(helper,7,[])
+            order=configure_gpu_discovery(helper)
+            result=probe_available_device(helper,order[0],[])
+            self.assertEqual(result['physical_index'],7)
+            self.assertEqual(len(result['scheduling_samples']),3)
+            helper.utilization=1
+            self.assertIsNone(probe_available_device(helper,order[0],[]))
+
     def fixture(self,root):
         bundle=root/'bundle';runs=root/'runs';d=runs/'candidate'
         for p in (bundle,d/'formal',d/'nominal'):p.mkdir(parents=True,exist_ok=True)

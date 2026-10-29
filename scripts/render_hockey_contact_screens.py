@@ -34,7 +34,7 @@ def main():
     p.add_argument('--run-name',default='run_v2')
     selection_group=p.add_mutually_exclusive_group(required=True)
     selection_group.add_argument('--case',action='append',help='cell:parent_transfer or cell:nominal; exactly four')
-    selection_group.add_argument('--cases-json',type=Path,help='Four source records: case, bundle, evidence, audit, run_name; paths relative to this JSON')
+    selection_group.add_argument('--cases-json',type=Path,help='Four source records: case, bundle, evidence, audit, run_name, optional caption; paths relative to this JSON')
     p.add_argument('--slow-window',nargs=2,type=float,default=[.65,1.25])
     p.add_argument('--prefix',default='contact_screens')
     p.add_argument('--snapshot-times',nargs='+',type=float,default=[.825,1.165,1.5,2.75,2.76])
@@ -47,7 +47,10 @@ def main():
             raise ValueError('Mixed-source selection must declare each panel independently')
         sources=read(a.cases_json)
         for row in sources:
-            if set(row)!={'case','bundle','evidence','audit','run_name'}:raise ValueError('Incomplete panel source')
+            required={'case','bundle','evidence','audit','run_name'}
+            if not required<=set(row) or set(row)-required-{'caption'}:raise ValueError('Incomplete panel source')
+            if 'caption' in row and (not isinstance(row['caption'],str) or not row['caption'].strip()
+                or len(row['caption'])>96 or '\n' in row['caption']):raise ValueError('Invalid panel caption')
             for key in ('bundle','evidence','audit'):row[key]=(a.cases_json.parent/row[key]).resolve()
     else:
         if any(getattr(a,k) is None for k in ('bundle','evidence','audit')):
@@ -104,6 +107,7 @@ def main():
         labels={'native_split':'Cylinder | static/dynamic 0.9/0.7',
                 'slices9_split':'Nine rigid slices | 0.9/0.7','native_equal':'Cylinder | static/dynamic 0.7/0.7'}
         cases.append(dict(selection=selection,model=planrow['model'],policy=policy,label=labels[planrow['model']],
+            caption=source.get('caption','Frozen parent' if policy=='parent' else policy+' fine-tune'),
             manifest_sha256=sha(bundle/'manifest.json'),audit_sha256=sha(audit_path),
             protocol_sha256=checked['protocol_sha256'],run_name=source['run_name'],
             trace=trace,raw=raw,signals=signals,contact=contact,qpos=qpos,row=row,q=q,fk_error=error))
@@ -129,7 +133,9 @@ def main():
                 scene.ngeom+=1
         panel[65:485]=runtime.renderer.render()
         text(panel,case['label'],25,scale=.59)
-        text(panel,f"{'Frozen parent' if case['policy']=='parent' else case['policy']+' fine-tune'} | {'8x slow, every 2.5 ms' if slow else 'real time'}",49,scale=.51)
+        caption=case['caption']+(' | 8x slow, every 2.5 ms' if slow else ' | real time')
+        width=cv2.getTextSize(caption,cv2.FONT_HERSHEY_SIMPLEX,.51,1)[0][0]
+        text(panel,caption,49,scale=.51*min(1.,(W-32)/max(width,1)))
         text(panel,f"t={now:.4f}s | vXY={case['signals']['body_speed_m_s'][i]:.3f}, vZ={case['trace']['root_com_vel'][i,2]:+.3f} m/s | tilt={case['signals']['root_tilt_deg'][i]:.1f}deg",510,scale=.46)
         for side,color in enumerate(((35,105,185),(205,105,30))):
             state='TOUCH' if contact['touching'][ci,side] else ('UNKNOWN' if contact['contact_unknown'][ci,side] else 'NO CONTACT')
@@ -186,6 +192,7 @@ def main():
         marker_radius_m=.008,contact_separation_tolerance_m=.0001,collision_proxies_displayed=False,
         camera=dict(distance_m=2.4,azimuth_deg=135,elevation_deg=-18,lookat='recorded root + [0,0,-0.24]'),
         cases=[dict(selection=c['selection'],qualification_sha256=c['row']['qualification_sha256'],
+            caption=c['caption'],
             source_manifest_sha256=c['manifest_sha256'],audit_sha256=c['audit_sha256'],
             protocol_sha256=c['protocol_sha256'],run_name=c['run_name'],
             raw_sha256=c['row']['raw_sha256'],wheel_FK_max_error_m=c['fk_error']) for c in cases],artifacts=artifacts)
