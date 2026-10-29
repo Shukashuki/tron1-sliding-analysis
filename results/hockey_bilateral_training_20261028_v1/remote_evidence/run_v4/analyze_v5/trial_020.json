@@ -1,0 +1,246 @@
+{
+  "case": {
+    "id": "trial_020",
+    "kind": "perturbed",
+    "x_m": 0.009668854459272725,
+    "y_m": 0.019821554584713037,
+    "yaw_rad": 0.007810460554749967,
+    "speed_fraction": 0.03091009929518858,
+    "lateral_m_s": 0.011468802846521154,
+    "yaw_rate_rad_s": -0.09432513801559464
+  },
+  "input_sha256": {
+    "final_rollout.npz": "50b668fc28fcc13d74f6f4a4f6265dd75df9173d316254d657fb84c10ff82d8e",
+    "native_contact_buffers.npz": "e61cd4b41f256c9a812a5699e14f477de060f993df9f69e0723678715f4274c9",
+    "case.json": "acd147ccc1e9922db4664ef5b91ac40c6719830731f6fe8f5bef72b887b933b1"
+  },
+  "observation_audit": {
+    "base": {
+      "control_samples_checked": 139,
+      "maximum_error": 1.2130374573704472e-06,
+      "tolerance": 5e-05,
+      "conditioning_mode": null,
+      "all_51_input_columns_reconstructed": true,
+      "state_anchor_and_previous_action_fields_unmodified": true
+    },
+    "extra_field_maximum_error": 2.2974501945327575e-07,
+    "all_56_fields_reconstructed": true
+  },
+  "action_replay_error": 9.5367431640625e-07,
+  "qualification": {
+    "primary_contact_gate": {
+      "record_complete": true,
+      "gate_status": "fail",
+      "eligible_for_task_comparison": false,
+      "secondary_metrics_scope": "diagnostic_only",
+      "window_s": [
+        0.0,
+        2.76
+      ],
+      "terminal_contact_checked": true,
+      "primary_gate_only": true,
+      "full_task_success_claimed": false,
+      "reason": "At least one wheel has a confirmed contact interruption",
+      "checked_intervals": 1104,
+      "both_touch_fraction": 0.0552536231884058,
+      "first_nonbilateral_contact_s": 0.1475,
+      "bilateral_interruption": {
+        "total_s": 2.6075,
+        "count": 2,
+        "longest_s": 2.1625,
+        "events": [
+          {
+            "first_index": 60,
+            "last_index": 237,
+            "start_s": 0.14750000000000005,
+            "end_s": 0.5925,
+            "duration_s": 0.44499999999999995
+          },
+          {
+            "first_index": 240,
+            "last_index": 1104,
+            "start_s": 0.5975,
+            "end_s": 2.7600000000000002,
+            "duration_s": 2.1625
+          }
+        ]
+      },
+      "unknown_only": {
+        "total_s": 0.0,
+        "count": 0,
+        "longest_s": 0.0,
+        "events": []
+      },
+      "terminal_touching": [
+        false,
+        true
+      ],
+      "terminal_unknown": [
+        false,
+        false
+      ],
+      "wheels": [
+        {
+          "side": "left",
+          "contact_fraction": 0.059782608695652176,
+          "interruption": {
+            "total_s": 2.595,
+            "count": 3,
+            "longest_s": 2.1625,
+            "events": [
+              {
+                "first_index": 60,
+                "last_index": 231,
+                "start_s": 0.14750000000000005,
+                "end_s": 0.5775,
+                "duration_s": 0.42999999999999994
+              },
+              {
+                "first_index": 234,
+                "last_index": 234,
+                "start_s": 0.5825,
+                "end_s": 0.585,
+                "duration_s": 0.0024999999999999467
+              },
+              {
+                "first_index": 240,
+                "last_index": 1104,
+                "start_s": 0.5975,
+                "end_s": 2.7600000000000002,
+                "duration_s": 2.1625
+              }
+            ]
+          },
+          "unknown": {
+            "total_s": 0.0,
+            "count": 0,
+            "longest_s": 0.0,
+            "events": []
+          }
+        },
+        {
+          "side": "right",
+          "contact_fraction": 0.14221014492753623,
+          "interruption": {
+            "total_s": 2.3675,
+            "count": 5,
+            "longest_s": 0.7625000000000001,
+            "events": [
+              {
+                "first_index": 60,
+                "last_index": 237,
+                "start_s": 0.14750000000000005,
+                "end_s": 0.5925,
+                "duration_s": 0.44499999999999995
+              },
+              {
+                "first_index": 257,
+                "last_index": 561,
+                "start_s": 0.64,
+                "end_s": 1.4025,
+                "duration_s": 0.7625000000000001
+              },
+              {
+                "first_index": 566,
+                "last_index": 787,
+                "start_s": 1.4125,
+                "end_s": 1.9675,
+                "duration_s": 0.5549999999999999
+              },
+              {
+                "first_index": 805,
+                "last_index": 919,
+                "start_s": 2.0100000000000002,
+                "end_s": 2.2975,
+                "duration_s": 0.28749999999999964
+              },
+              {
+                "first_index": 972,
+                "last_index": 1098,
+                "start_s": 2.4275,
+                "end_s": 2.745,
+                "duration_s": 0.3174999999999999
+              }
+            ]
+          },
+          "unknown": {
+            "total_s": 0.0,
+            "count": 0,
+            "longest_s": 0.0,
+            "events": []
+          }
+        }
+      ]
+    },
+    "gates": {
+      "full_reference_observed": true,
+      "entry_speed_at_least_0p8": true,
+      "approach_speed_retained": false,
+      "xy_rmse_le_0p15": false,
+      "xy_peak_le_0p3": false,
+      "braking_body_heading_RMSE_le_15deg": false,
+      "bilateral_continuous_contact": false,
+      "bilateral_terminal_stop_hold_ge_0p5": false,
+      "bilateral_contact_corroborated_lateral_slide_ge_0p05": false,
+      "touching_braking_wheel_heading_RMSE_le_20deg": false,
+      "tilt_below_45deg_during_task": false
+    },
+    "task_success_claimed": false,
+    "failed_gates": [
+      "approach_speed_retained",
+      "xy_rmse_le_0p15",
+      "xy_peak_le_0p3",
+      "braking_body_heading_RMSE_le_15deg",
+      "bilateral_continuous_contact",
+      "bilateral_terminal_stop_hold_ge_0p5",
+      "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+      "touching_braking_wheel_heading_RMSE_le_20deg",
+      "tilt_below_45deg_during_task"
+    ],
+    "secondary_metrics_scope": "diagnostic_only",
+    "xy_RMSE_m": 0.6755851736886224,
+    "xy_peak_m": 0.8567159887111543,
+    "entry_mean_speed_m_s": 1.2442184686660767,
+    "approach_speed_ratio": 0.9409106846208463,
+    "terminal_stop_hold_s": 0.0,
+    "corroborated_slide_longest_s": [
+      0.0,
+      0.0
+    ],
+    "corroborated_slide_total_s": [
+      0.0,
+      0.0
+    ],
+    "corroborated_slide_events": [
+      [],
+      []
+    ],
+    "touching_braking_wheel_heading_RMSE_deg": 31.743130303831187,
+    "first_45deg_tilt_s": 0.1325,
+    "body_angular_acceleration_RMS_rad_s2": 279.05859375,
+    "action_change_RMS": 0.11165650933980942,
+    "no_absolute_height_gate": true,
+    "no_equal_load_gate": true,
+    "pointwise_friction_cone_certified": false,
+    "native_force_audit": {
+      "physical_samples_checked": 1112,
+      "maximum_readback_errors": {
+        "normal_fz": 0.0,
+        "normal_point_lateral_rms": 1.1920928955078125e-07,
+        "anchor_power": 0.00048828125,
+        "friction_force": 0.0,
+        "aggregate_utilization": 1.1920928955078125e-07
+      },
+      "readback_arithmetic": "recorded_float32",
+      "normalized_float64_differences": {
+        "normal_fz": 7.62939652076966e-06,
+        "normal_point_lateral_rms": 2.1907940729065656e-05,
+        "anchor_power": 0.00010747231442564953,
+        "friction_force": 1.52587890625e-05,
+        "aggregate_utilization": 1.1539413469208171e-07
+      },
+      "pointwise_normal_load_at_friction_anchors_available": false,
+      "force_velocity_timing": "completed-substep force/impulse divided by dt, paired with post-step material velocity; power proxy, not exact step work"
+    }
+  }
+}

@@ -1,0 +1,645 @@
+{
+  "kind": "hockey_bilateral_sliding_qualification_v1",
+  "nominal_success": false,
+  "analyzer_sha256": "09d094b30374359bc5a31ef9c2dba12a758394e41a3611096dd299cdce8cc357",
+  "evaluation_source_sha256": {
+    "evaluate_hockey_physx.py": "e9a1d31566da783a93893d4e890445f8d8bcefc3089d63f8d00033e34e70de38",
+    "audit_physx_contact_float32.py": "9cb5465386c13d51cc5d5d8417d0b3c59f0ce71948aa18e834422d34e39ebafe"
+  },
+  "perturbation_trials": 32,
+  "perturbation_successes": 0,
+  "conditional_Wilson_95_interval": [
+    0.0,
+    0.1071791982550706
+  ],
+  "definition": "Whole-episode bilateral geometric contact first, then independent stop, tracking, posture and corroborated sliding gates",
+  "force_threshold_for_contact": null,
+  "equal_load_target": false,
+  "early_termination_during_validation": false,
+  "training_report_sha256": "b0871ff16ddd2cfb12be7a8d56ca4f6f58bcb8b871ec3e409fb18d8ffa39b070",
+  "suite_report_sha256": "1cb147c1ee603b58ab1542212ab34aed3766339720e9cfb0cca5d496a22d1d89",
+  "source_manifest_sha256": "65b4f464855afdd53684caf4328f6cafc1e201ab571519b33cb4f4d81c58cc5f",
+  "cases": [
+    {
+      "id": "nominal",
+      "kind": "nominal",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "approach_speed_retained",
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.5982931113345791,
+      "report_sha256": "c3dced28052c98f17437da1b2f3dd92275339b03fafeb42f749ed7c32b425a92"
+    },
+    {
+      "id": "trial_000",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "approach_speed_retained",
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.649929672328797,
+      "report_sha256": "ef47bbafcf1a6143e8f93d019132d69fcb6d2d0c4f5f1e1ad69e19257b3b4427"
+    },
+    {
+      "id": "trial_001",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "approach_speed_retained",
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.4775281188448711,
+      "report_sha256": "b1e63b01095ede719591c430248a5ab9dfa980ab42a7b235de6141c1a0860fd5"
+    },
+    {
+      "id": "trial_002",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "approach_speed_retained",
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.5545934649031958,
+      "report_sha256": "e0ba5c4da011a56205630fd433895f94799305e015f322298e2cb075c12c3909"
+    },
+    {
+      "id": "trial_003",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "approach_speed_retained",
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.6614265463029144,
+      "report_sha256": "b55ec23384c8bf8726e44102ee78c1e42501c597bc66b7d051b1fb7a3d93d214"
+    },
+    {
+      "id": "trial_004",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "approach_speed_retained",
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.668067236818323,
+      "report_sha256": "6a6de5a950ce22d575dbf13f0c3c503216e54fe4153336e6101279bd6f88226b"
+    },
+    {
+      "id": "trial_005",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.6361350976190946,
+      "report_sha256": "41e2d37df64900d8b4bd65f4d80c4925eb6ff795cb53e1bddc5c537409809fbd"
+    },
+    {
+      "id": "trial_006",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "approach_speed_retained",
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.6488129313826566,
+      "report_sha256": "b95f894697a5c10635ffeb685d6332a70ed844151af4c57ddfff2fa2a47bd373"
+    },
+    {
+      "id": "trial_007",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "approach_speed_retained",
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.7075183369270731,
+      "report_sha256": "6142850969640e440caec8628b0120c1870fbeb42cfa6bf32c24eab943624b6c"
+    },
+    {
+      "id": "trial_008",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "approach_speed_retained",
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.627820802343271,
+      "report_sha256": "47d3a6db47044e25709e2f01b39cb581fd8f9942b234caa7792b1ba10df853c0"
+    },
+    {
+      "id": "trial_009",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "approach_speed_retained",
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.6516307486101997,
+      "report_sha256": "dab509f2f58d23df61fb4808fdb665595eb3ff2ea3f4309c28f14683347c5c62"
+    },
+    {
+      "id": "trial_010",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "approach_speed_retained",
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.6079093346213915,
+      "report_sha256": "9b401c66fd3ef3d319d8bb62a297d2d77095c35f86b2cb2a9b4e47b84e0d722b"
+    },
+    {
+      "id": "trial_011",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "approach_speed_retained",
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.8113671205350634,
+      "report_sha256": "e1a1b5e8e1558341bdc108fceb755187329858387e13defcdd00816af35d7edf"
+    },
+    {
+      "id": "trial_012",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "approach_speed_retained",
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.6289798316751091,
+      "report_sha256": "ee290c216e0595004180b9281ba9e887b30dad76448b4e54b80e5decf5449d82"
+    },
+    {
+      "id": "trial_013",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "approach_speed_retained",
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.6197507442404981,
+      "report_sha256": "332f41598bb52e5536f9a09e2e59665214f561400bf3eb64c5e2f2f4512a0611"
+    },
+    {
+      "id": "trial_014",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "approach_speed_retained",
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.30226688714808275,
+      "report_sha256": "cff3802167158b766491497d8e402b0a26615ca42f6ed23a6410934896a9af3c"
+    },
+    {
+      "id": "trial_015",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "approach_speed_retained",
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.6253323769988809,
+      "report_sha256": "5cf7c020ff2a5e9b7edd3bb5b92aa377878578121889590dce07b83a16d28760"
+    },
+    {
+      "id": "trial_016",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "approach_speed_retained",
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.6311098523167472,
+      "report_sha256": "e397709f2ab8b6984f0c258c8937dae8ead4d855a66b0a8cbadf0b160c38914b"
+    },
+    {
+      "id": "trial_017",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "approach_speed_retained",
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.6773459939810496,
+      "report_sha256": "9a626f3851ee17f0605ed05e817b705cf09fc57f2934af27c17aeb023c94040a"
+    },
+    {
+      "id": "trial_018",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "approach_speed_retained",
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.5800068446516332,
+      "report_sha256": "ddb47e5fcd15a898d665c682f6d34ef976f77d0984bbd41a991dee6ed1695768"
+    },
+    {
+      "id": "trial_019",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "approach_speed_retained",
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.697382758874556,
+      "report_sha256": "8c4f26e4ab597335f94149f2b7ac7099bcb2ec41c221e7056f9e7c9780af9ea8"
+    },
+    {
+      "id": "trial_020",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "approach_speed_retained",
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.6755851736886224,
+      "report_sha256": "6fb8ee4e12508071dcaae13685169d832f06c0d0a75df9689dcc04a5711cca95"
+    },
+    {
+      "id": "trial_021",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.7052676728069119,
+      "report_sha256": "5e1c297ce81796de9a101cec688f9e54d466437aba33e4a96f1951ddfd4ffddd"
+    },
+    {
+      "id": "trial_022",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "approach_speed_retained",
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.6765603182471687,
+      "report_sha256": "43358a3fb836aa90e0f72a1d3254692179574528b63e1fde656946d8a33ce051"
+    },
+    {
+      "id": "trial_023",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "approach_speed_retained",
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.6842783793404825,
+      "report_sha256": "9643839d30a73e7cfe6948970fe9f3cbddb5ad3816db6bbcff5a98d1a6c62c84"
+    },
+    {
+      "id": "trial_024",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.659310414254414,
+      "report_sha256": "9d0742d41d80f1966499403472976947ed2b9b99dcba9ef99afd55e7902f3a85"
+    },
+    {
+      "id": "trial_025",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "approach_speed_retained",
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.5554382841069111,
+      "report_sha256": "585e7e54ee2bd3f4b1aa2d0eee14b0c22500780cf95c4f70b7fd6fa3ba4bf81d"
+    },
+    {
+      "id": "trial_026",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.44724136762988126,
+      "report_sha256": "a5f9d6d94ee7d53dd84833389c2eb3925cc1074be327bc433215afeaeeb5aab0"
+    },
+    {
+      "id": "trial_027",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "approach_speed_retained",
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.650340377165341,
+      "report_sha256": "2c8d39b4af59a3d5b4a02a3dcc4658466c297969fbffbcf348f0323735fb5689"
+    },
+    {
+      "id": "trial_028",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "approach_speed_retained",
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.6061303741277402,
+      "report_sha256": "c96cd4c9c8ee99100e5cd0ab0239f3693637c1c2e4afa55265305d614a039f1a"
+    },
+    {
+      "id": "trial_029",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "approach_speed_retained",
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.7260999575183352,
+      "report_sha256": "b0226fd4ee195166baf7733979ac9aa783ddc6d5a64f6af66e90d73142c79541"
+    },
+    {
+      "id": "trial_030",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "approach_speed_retained",
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.6374667608584803,
+      "report_sha256": "200726aa600adbfa04eb3dec1279ae1e94a559a114bb1d7b76e17fecc3584051"
+    },
+    {
+      "id": "trial_031",
+      "kind": "perturbed",
+      "success": false,
+      "contact_gate": "fail",
+      "failed_gates": [
+        "approach_speed_retained",
+        "xy_rmse_le_0p15",
+        "xy_peak_le_0p3",
+        "braking_body_heading_RMSE_le_15deg",
+        "bilateral_continuous_contact",
+        "bilateral_terminal_stop_hold_ge_0p5",
+        "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+        "touching_braking_wheel_heading_RMSE_le_20deg",
+        "tilt_below_45deg_during_task"
+      ],
+      "xy_RMSE_m": 0.6086159814494396,
+      "report_sha256": "1aa3c56cd0533fe87a6aaa473ac4915b12dc71b32a381762309c7f234633eea3"
+    }
+  ]
+}

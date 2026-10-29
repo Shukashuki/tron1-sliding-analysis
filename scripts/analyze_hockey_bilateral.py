@@ -14,7 +14,7 @@ from hockey_speed_study import wilson_interval
 
 
 def qualify(trace,raw,reference,command,mu=.7):
-    force,native_audit=reconstruct_contacts(trace,raw,mu)
+    force,native_audit=reconstruct_contacts(trace,raw,mu,readback_mode='recorded_float32')
     old=derive_signals(trace,force)
     historical=qualify_stop(trace,old,reference,command)
     c=contact_kinematics(previous_state_trace(trace),raw,.0001)
@@ -127,6 +127,9 @@ def main():
             xy_RMSE_m=q['xy_RMSE_m'],report_sha256=sha(a.output/(case['id']+'.json'))))
     pert=[r for r in rows if r['kind']=='perturbed'];k=sum(r['success'] for r in pert)
     report=dict(kind='hockey_bilateral_sliding_qualification_v1',nominal_success=rows[0]['success'],
+        analyzer_sha256=sha(__file__),
+        evaluation_source_sha256={name:sha(Path(__file__).with_name(name)) for name in
+            ('evaluate_hockey_physx.py','audit_physx_contact_float32.py')},
         perturbation_trials=len(pert),perturbation_successes=k,conditional_Wilson_95_interval=wilson_interval(k,len(pert)),
         definition='Whole-episode bilateral geometric contact first, then independent stop, tracking, posture and corroborated sliding gates',
         force_threshold_for_contact=None,equal_load_target=False,early_termination_during_validation=False,

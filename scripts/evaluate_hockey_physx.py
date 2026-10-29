@@ -199,7 +199,7 @@ def validate_trace(trace):
     return t
 
 
-def reconstruct_contacts(trace,raw,mu):
+def reconstruct_contacts(trace,raw,mu,*,readback_mode='float64'):
     """Recompute exact force/velocity pairing at reported anchors; never infer Fn there."""
     t=validate_trace(trace);n=len(t)
     if not np.array_equal(raw['physical_sample_indices'],np.arange(1,n)):raise ValueError('Missing or reordered native contact samples')
@@ -253,13 +253,21 @@ def reconstruct_contacts(trace,raw,mu):
                 loaded_normal_points=loaded.sum(),friction_anchor_count=ac)
             for key,value in values.items():result[key][i,side]=value
             result['friction_force'][i,side]=total_force
-    checks={}
+    if readback_mode not in ('float64','recorded_float32'):
+        raise ValueError('Unknown native readback arithmetic')
+    readback=result
+    if readback_mode=='recorded_float32':
+        from audit_physx_contact_float32 import replay_contact_readback
+        readback=replay_contact_readback(trace,raw,mu)
+    checks={};float64_differences={}
     for computed,recorded,tolerance in [('normal_fz','normal_fz',.001),('normal_point_lateral_rms','lateral_slip_rms',4e-5),
         ('anchor_power','friction_anchor_power',.005),('friction_force','friction_force_w',.001),('aggregate_utilization','utilization_proxy',1e-4)]:
-        err=float(abs(result[computed]-trace[recorded]).max());checks[computed]=err
+        float64_differences[computed]=float(abs(result[computed]-trace[recorded]).max())
+        err=float(abs(readback[computed]-trace[recorded]).max());checks[computed]=err
         if err>tolerance:raise ValueError(f'Native readback mismatch {computed}: {err}')
     result['native_sample_valid']=np.arange(n)>0
     return result,dict(physical_samples_checked=n-1,maximum_readback_errors=checks,
+        readback_arithmetic=readback_mode,normalized_float64_differences=float64_differences,
         pointwise_normal_load_at_friction_anchors_available=False,
         force_velocity_timing='completed-substep force/impulse divided by dt, paired with post-step material velocity; power proxy, not exact step work')
 

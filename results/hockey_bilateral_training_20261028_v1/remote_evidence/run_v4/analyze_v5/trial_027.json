@@ -1,0 +1,197 @@
+{
+  "case": {
+    "id": "trial_027",
+    "kind": "perturbed",
+    "x_m": 0.008630007511241678,
+    "y_m": 0.011219095469926567,
+    "yaw_rad": 0.007154372343974029,
+    "speed_fraction": -0.030982502280722548,
+    "lateral_m_s": 0.025182203754224933,
+    "yaw_rate_rad_s": 0.08767452626442036
+  },
+  "input_sha256": {
+    "final_rollout.npz": "bd5f8f2cd1e41af380af50a58f54f21a0abf1ae0185fb5e38b1c0b659f29a87b",
+    "native_contact_buffers.npz": "6d0d0abbcf1797538149d07f190a782c8a535e4d6e09fd3177294f6161aa098f",
+    "case.json": "77f6987d57c949838dab2328129358f3e6d77f95e47cadad0c2eb0c1c8c74e15"
+  },
+  "observation_audit": {
+    "base": {
+      "control_samples_checked": 139,
+      "maximum_error": 8.188722233626322e-07,
+      "tolerance": 5e-05,
+      "conditioning_mode": null,
+      "all_51_input_columns_reconstructed": true,
+      "state_anchor_and_previous_action_fields_unmodified": true
+    },
+    "extra_field_maximum_error": 2.2974501945327575e-07,
+    "all_56_fields_reconstructed": true
+  },
+  "action_replay_error": 1.2218952178955078e-06,
+  "qualification": {
+    "primary_contact_gate": {
+      "record_complete": true,
+      "gate_status": "fail",
+      "eligible_for_task_comparison": false,
+      "secondary_metrics_scope": "diagnostic_only",
+      "window_s": [
+        0.0,
+        2.76
+      ],
+      "terminal_contact_checked": true,
+      "primary_gate_only": true,
+      "full_task_success_claimed": false,
+      "reason": "At least one wheel has a confirmed contact interruption",
+      "checked_intervals": 1104,
+      "both_touch_fraction": 0.05344202898550725,
+      "first_nonbilateral_contact_s": 0.1475,
+      "bilateral_interruption": {
+        "total_s": 2.6125000000000003,
+        "count": 1,
+        "longest_s": 2.6125000000000003,
+        "events": [
+          {
+            "first_index": 60,
+            "last_index": 1104,
+            "start_s": 0.14750000000000005,
+            "end_s": 2.7600000000000002,
+            "duration_s": 2.6125000000000003
+          }
+        ]
+      },
+      "unknown_only": {
+        "total_s": 0.0,
+        "count": 0,
+        "longest_s": 0.0,
+        "events": []
+      },
+      "terminal_touching": [
+        false,
+        false
+      ],
+      "terminal_unknown": [
+        false,
+        false
+      ],
+      "wheels": [
+        {
+          "side": "left",
+          "contact_fraction": 0.05344202898550725,
+          "interruption": {
+            "total_s": 2.6125000000000003,
+            "count": 1,
+            "longest_s": 2.6125000000000003,
+            "events": [
+              {
+                "first_index": 60,
+                "last_index": 1104,
+                "start_s": 0.14750000000000005,
+                "end_s": 2.7600000000000002,
+                "duration_s": 2.6125000000000003
+              }
+            ]
+          },
+          "unknown": {
+            "total_s": 0.0,
+            "count": 0,
+            "longest_s": 0.0,
+            "events": []
+          }
+        },
+        {
+          "side": "right",
+          "contact_fraction": 0.05344202898550725,
+          "interruption": {
+            "total_s": 2.6125000000000003,
+            "count": 1,
+            "longest_s": 2.6125000000000003,
+            "events": [
+              {
+                "first_index": 60,
+                "last_index": 1104,
+                "start_s": 0.14750000000000005,
+                "end_s": 2.7600000000000002,
+                "duration_s": 2.6125000000000003
+              }
+            ]
+          },
+          "unknown": {
+            "total_s": 0.0,
+            "count": 0,
+            "longest_s": 0.0,
+            "events": []
+          }
+        }
+      ]
+    },
+    "gates": {
+      "full_reference_observed": true,
+      "entry_speed_at_least_0p8": true,
+      "approach_speed_retained": false,
+      "xy_rmse_le_0p15": false,
+      "xy_peak_le_0p3": false,
+      "braking_body_heading_RMSE_le_15deg": false,
+      "bilateral_continuous_contact": false,
+      "bilateral_terminal_stop_hold_ge_0p5": false,
+      "bilateral_contact_corroborated_lateral_slide_ge_0p05": false,
+      "touching_braking_wheel_heading_RMSE_le_20deg": false,
+      "tilt_below_45deg_during_task": false
+    },
+    "task_success_claimed": false,
+    "failed_gates": [
+      "approach_speed_retained",
+      "xy_rmse_le_0p15",
+      "xy_peak_le_0p3",
+      "braking_body_heading_RMSE_le_15deg",
+      "bilateral_continuous_contact",
+      "bilateral_terminal_stop_hold_ge_0p5",
+      "bilateral_contact_corroborated_lateral_slide_ge_0p05",
+      "touching_braking_wheel_heading_RMSE_le_20deg",
+      "tilt_below_45deg_during_task"
+    ],
+    "secondary_metrics_scope": "diagnostic_only",
+    "xy_RMSE_m": 0.650340377165341,
+    "xy_peak_m": 0.8338506696477868,
+    "entry_mean_speed_m_s": 1.1520925760269165,
+    "approach_speed_ratio": 0.8354486294613098,
+    "terminal_stop_hold_s": 0.0,
+    "corroborated_slide_longest_s": [
+      0.0,
+      0.0
+    ],
+    "corroborated_slide_total_s": [
+      0.0,
+      0.0
+    ],
+    "corroborated_slide_events": [
+      [],
+      []
+    ],
+    "touching_braking_wheel_heading_RMSE_deg": null,
+    "first_45deg_tilt_s": 0.135,
+    "body_angular_acceleration_RMS_rad_s2": 258.3625793457031,
+    "action_change_RMS": 0.10100818425416946,
+    "no_absolute_height_gate": true,
+    "no_equal_load_gate": true,
+    "pointwise_friction_cone_certified": false,
+    "native_force_audit": {
+      "physical_samples_checked": 1112,
+      "maximum_readback_errors": {
+        "normal_fz": 0.0,
+        "normal_point_lateral_rms": 1.4901161193847656e-08,
+        "anchor_power": 1.52587890625e-05,
+        "friction_force": 0.0,
+        "aggregate_utilization": 1.1920928955078125e-07
+      },
+      "readback_arithmetic": "recorded_float32",
+      "normalized_float64_differences": {
+        "normal_fz": 3.865352482534945e-12,
+        "normal_point_lateral_rms": 1.4734082398604187e-07,
+        "anchor_power": 1.769802213402727e-05,
+        "friction_force": 3.814697265625e-06,
+        "aggregate_utilization": 1.427675244691784e-07
+      },
+      "pointwise_normal_load_at_friction_anchors_available": false,
+      "force_velocity_timing": "completed-substep force/impulse divided by dt, paired with post-step material velocity; power proxy, not exact step work"
+    }
+  }
+}
