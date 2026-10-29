@@ -46,6 +46,8 @@ def checked_row(run_root, cell, protocol, label):
         longest_interruption_ms=1000*gate['bilateral_interruption']['longest_s'],
         xy_RMSE_m=q['xy_RMSE_m'],terminal_stop_hold_s=q['terminal_stop_hold_s'],
         longest_corroborated_slide_s=max(q['corroborated_slide_longest_s']),first_45deg_tilt_s=q['first_45deg_tilt_s'],
+        body_angular_acceleration_RMS_rad_s2=q['body_angular_acceleration_RMS_rad_s2'],
+        action_change_RMS=q['action_change_RMS'],
         failed_gates='; '.join(q['failed_gates']),diagnostic_only=not gate['eligible_for_task_comparison'],
         qualification_sha256=sha(qpath),raw_recording_hashes_locally_checked=raw_checked)
 
@@ -76,6 +78,7 @@ def main():
         observed_current_process=observation['current_process'],planned_cells=len(rows),
         completed_nominal_screens=len(complete),nominal_passes=sum(row['task_success'] for row in complete),
         overall_goal_achieved=False,robustness_suite_complete=False,failed_contact_cases_are_diagnostic_only=True,
+        smoothness_metrics_scope='Entire recorded 139-control-step rollout (2.78 s), unchanged qualification diagnostics',
         screening_budget_is_not_original_full_training_budget=True,parent_controls=parents,screens=rows)
     a.output.mkdir(parents=True)
     (a.output/'report.json').write_text(json.dumps(report,indent=2,allow_nan=False)+'\n')

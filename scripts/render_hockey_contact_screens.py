@@ -31,8 +31,10 @@ def main():
         p.add_argument('--'+name,type=Path,required=True)
     p.add_argument('--case',action='append',required=True,help='cell:parent_transfer or cell:nominal; exactly four')
     p.add_argument('--slow-window',nargs=2,type=float,default=[.65,1.25])
+    p.add_argument('--prefix',default='contact_screens')
     a=p.parse_args()
     if a.output.exists():raise FileExistsError(a.output)
+    if not a.prefix or not a.prefix.replace('_','').isalnum():raise ValueError('Unsafe output prefix')
     if len(a.case)!=4 or len(set(a.case))!=4:raise ValueError('Four distinct completed cases required')
     read=lambda path:json.loads(path.read_text())
     plan=read(a.bundle/'plan.json');audit=read(a.audit/'report.json');refmeta=read(a.reference/'report.json')
@@ -127,8 +129,8 @@ def main():
 
     import imageio_ffmpeg
     ffmpeg=imageio_ffmpeg.get_ffmpeg_exe();a.output.mkdir(parents=True)
-    windows=[('dense_fullbody_4x1',np.arange(round(horizon/.0025)+1)[::8],False),
-             ('dense_contact_excerpt_8x_4x1',np.arange(round(a.slow_window[0]/.0025),round(a.slow_window[1]/.0025)+1),True)]
+    windows=[(a.prefix+'_fullbody_4x1',np.arange(round(horizon/.0025)+1)[::8],False),
+             (a.prefix+'_contact_excerpt_8x_4x1',np.arange(round(a.slow_window[0]/.0025),round(a.slow_window[1]/.0025)+1),True)]
     artifacts=[]
     try:
         for name,indices,slow in windows:
@@ -141,7 +143,7 @@ def main():
                 for i in indices:
                     frame=np.concatenate([body_panel(case,int(i),slow) for case in cases],axis=1)
                     proc.stdin.write(frame.tobytes())
-                    if i in (330,466,600):
+                    if i in (330,466,600,1100,1104):
                         cv2.imwrite(str(a.output/f'{name}_{i*.0025:.4f}s.png'),cv2.cvtColor(frame,cv2.COLOR_RGB2BGR))
             finally:proc.stdin.close()
             if proc.wait()!=0:raise RuntimeError('Video encoder failed')
