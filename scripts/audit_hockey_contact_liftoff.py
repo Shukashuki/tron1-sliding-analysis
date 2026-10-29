@@ -40,6 +40,31 @@ def loss_onsets(touching):
     return np.flatnonzero(touching[:-1] & ~touching[1:]) + 1
 
 
+def control_update_context(actions, onset_index, decimation=8):
+    """Locate the action held during the interval ending at a contact loss.
+
+    The final action at the reference endpoint is excluded by the caller.
+    Action changes are normalized commands, not measured motor torques.
+    """
+    actions = np.asarray(actions, dtype=float)
+    if (actions.ndim != 2 or actions.shape[1] != 8 or not np.isfinite(actions).all()
+            or not isinstance(onset_index, (int, np.integer))
+            or not 1 <= onset_index <= len(actions)*decimation):
+        raise ValueError('Invalid action recording or physical onset index')
+    control_index = (onset_index-1)//decimation
+    result = dict(control_index=int(control_index),
+                  physical_substep_after_control_update=int((onset_index-1)%decimation+1),
+                  preceding_action_change_available=bool(control_index>0))
+    if control_index:
+        changes = np.diff(actions, axis=0)
+        rms = np.sqrt(np.mean(changes**2, axis=-1)); change = changes[control_index-1]
+        result.update(normalized_action_change=change.tolist(),
+            action_change_RMS=float(rms[control_index-1]),
+            action_change_RMS_empirical_percentile=float(100*np.mean(rms<=rms[control_index-1])),
+            comparison_control_updates=len(rms))
+    return result
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--cases-json', type=Path, required=True)
@@ -133,6 +158,7 @@ def main():
             legacy_proxy_cost_ge_0p999_fraction=float((cost >= .999).mean()),
             legacy_proxy_scale_m_s2=5., legacy_proxy_weight=cfg['reward_weights']['vertical_acceleration'])
         events = []
+        actions = trace['actions'][:(count-1)//8]
         for side in range(2):
             for index in loss_onsets(touch[:, side]):
                 row = dict(cell=cell, wheel=('L', 'R')[side], onset_s=float(index*dt),
@@ -141,6 +167,8 @@ def main():
                     preceding_support_normal_velocity_m_s=None if ambiguous[index-1, side] else float(velocity[index-1, side]),
                     preceding_support_point_ambiguous=bool(ambiguous[index-1, side]),
                     preceding_root_vertical_velocity_m_s=float(vz[index-1]))
+                row.update(control_update_context(actions,index))
+                row['control_window_start_s']=row['control_index']*8*dt
                 events.append(row); event_rows.append(row)
         report['cases'].append(dict(cell=cell, qualification_sha256=sha(qpath),
             source_manifest_sha256=q['source_manifest_sha256'], raw_sha256=run['artifacts'],
@@ -155,6 +183,7 @@ def main():
         'Positive clearance rate describes wheel separation, not tangential sliding or proof of friction saturation.',
         'Lowest-point normal velocity is evaluated at the preceding state; impulses and actuation within the next step can change it.',
         'A control-interval acceleration can cancel opposing physical substep accelerations.',
+        'Contact-loss timing relative to action updates is an association, not proof that action changes caused separation; normalized actions are not torques.',
         'A near-one bounded cost has little amplitude discrimination; this does not establish a causal failure mechanism.',
         'No candidate reward has been installed by this audit; the active comparison and success gates are unchanged.']
     a.output.mkdir(parents=True)
@@ -162,7 +191,10 @@ def main():
     with (a.output / 'liftoff_events.csv').open('w', newline='') as stream:
         fields = ['cell', 'wheel', 'onset_s', 'previous_gap_mm', 'onset_gap_mm',
                   'preceding_interval_gap_rate_m_s', 'preceding_support_normal_velocity_m_s',
-                  'preceding_support_point_ambiguous', 'preceding_root_vertical_velocity_m_s']
+                  'preceding_support_point_ambiguous', 'preceding_root_vertical_velocity_m_s',
+                  'control_index','physical_substep_after_control_update','preceding_action_change_available',
+                  'normalized_action_change','action_change_RMS','action_change_RMS_empirical_percentile',
+                  'comparison_control_updates','control_window_start_s']
         writer = csv.DictWriter(stream, fieldnames=fields, lineterminator='\n')
         writer.writeheader(); writer.writerows(event_rows)
     import matplotlib

@@ -14,22 +14,50 @@ import re
 import subprocess
 
 REMOTE_READER = r'''
-import base64,hashlib,json,pathlib,time
+import base64,hashlib,json,pathlib,re,time
 root=pathlib.Path(REMOTE_ROOT)
 bundle=root/SNAPSHOT_NAME;run=root/RUN_NAME
 plan=json.loads((bundle/'plan.json').read_text())
-paths=[LAUNCH_NAME,RUN_NAME+'/status.json']
-for cell in plan['cells']:
-    directory=pathlib.PurePosixPath(RUN_NAME)/cell['id']
-    assert len(pathlib.PurePosixPath(cell['id']).parts)==1
-    for stage in ('smoke','formal'):
-        paths.append(str(directory/stage/'report.json'))
-        paths.append(str(directory/stage/'run_status.json'))
-    for stage in ('parent_transfer','nominal'):
-        paths.extend((str(directory/(stage+'_qualification.json')),str(directory/stage/'report.json')))
-        if INCLUDE_ROLLOUTS:
-            for name in ('final_rollout.npz','native_contact_buffers.npz'):
-                paths.append(str(directory/stage/name))
+paths=[RUN_NAME+'/status.json']
+if ROBUSTNESS:
+    state=json.loads((run/'status.json').read_text())
+    assert state['source_manifest_sha256']==hashlib.sha256((bundle/'manifest.json').read_bytes()).hexdigest()
+    cells=[cell for cell in plan['cells'] if cell['id']==state['candidate']]
+    assert len(cells)==1
+    protocol=(bundle/cells[0]['protocol']).resolve()
+    assert protocol.is_relative_to(bundle.resolve())
+    cfg=json.loads(protocol.read_text());cases=cfg['evaluation_cases']
+    ids=[case['id'] for case in cases]
+    assert len(ids)==33 and len(set(ids))==33 and ids[0]=='nominal'
+    assert all(re.fullmatch(r'[a-zA-Z0-9_]+',name) for name in ids)
+    paths.extend(RUN_NAME+'/'+name for name in ('nominal_requalification.json','eval_suite/report.json','qualification/report.json'))
+    for name in ids:
+        paths.append(RUN_NAME+'/qualification/'+name+'.json')
+        directory=run/'eval_suite'/name
+        # case.json is written at reset; only a completed report makes its
+        # trajectory eligible for download. Never copy a partial NPZ.
+        if not (directory/'report.json').is_file():continue
+        recorded=json.loads((directory/'report.json').read_text())
+        assert recorded['case_id']==name
+        assert set(recorded['artifacts'])=={'case.json','final_rollout.npz','native_contact_buffers.npz'}
+        paths.append(RUN_NAME+'/eval_suite/'+name+'/report.json')
+        for file,digest in recorded['artifacts'].items():
+            if file.endswith('.npz') and not INCLUDE_ROLLOUTS:continue
+            assert hashlib.sha256((directory/file).read_bytes()).hexdigest()==digest
+            paths.append(RUN_NAME+'/eval_suite/'+name+'/'+file)
+else:
+    paths.append(LAUNCH_NAME)
+    for cell in plan['cells']:
+        directory=pathlib.PurePosixPath(RUN_NAME)/cell['id']
+        assert len(pathlib.PurePosixPath(cell['id']).parts)==1
+        for stage in ('smoke','formal'):
+            paths.append(str(directory/stage/'report.json'))
+            paths.append(str(directory/stage/'run_status.json'))
+        for stage in ('parent_transfer','nominal'):
+            paths.extend((str(directory/(stage+'_qualification.json')),str(directory/stage/'report.json')))
+            if INCLUDE_ROLLOUTS:
+                for name in ('final_rollout.npz','native_contact_buffers.npz'):
+                    paths.append(str(directory/stage/name))
 files={}
 for relative in paths:
     p=(root/relative).resolve()
@@ -65,14 +93,19 @@ def main():
     p.add_argument('--helper',type=Path,default=Path('/home/roy/.codex/skills/remote-compute-ssh/scripts/remote_compute.sh'))
     p.add_argument('--output',type=Path,required=True)
     p.add_argument('--version',default='v2',help='Snapshot/run version within the same authorized remote study')
+    p.add_argument('--robustness-run',help='Optional robustness_vN_vM directory for the same snapshot version; collects declared trials only')
     p.add_argument('--include-rollouts',action='store_true')
     a=p.parse_args()
     if a.remote_root!='/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1':
         raise ValueError('Collector is scoped to the approved study')
     if not re.fullmatch(r'v[1-9][0-9]*',a.version):raise ValueError('Invalid study version')
+    if a.robustness_run is not None and not re.fullmatch('robustness_'+a.version+r'_v[1-9][0-9]*',a.robustness_run):
+        raise ValueError('Robustness directory must identify the selected snapshot version')
+    run_name=a.robustness_run or 'run_'+a.version
     code=REMOTE_READER.replace('REMOTE_ROOT',repr(a.remote_root)).replace('INCLUDE_ROLLOUTS',repr(a.include_rollouts))
-    code=code.replace('SNAPSHOT_NAME',repr('source_snapshot_'+a.version)).replace('RUN_NAME',repr('run_'+a.version))
+    code=code.replace('SNAPSHOT_NAME',repr('source_snapshot_'+a.version)).replace('RUN_NAME',repr(run_name))
     code=code.replace('LAUNCH_NAME',repr('launch_'+a.version+'.json'))
+    code=code.replace('ROBUSTNESS',repr(a.robustness_run is not None))
     r=subprocess.run([str(a.helper),'exec','4090d','--','python3','-'],input=code,text=True,
                      capture_output=True,timeout=60,check=True)
     response=json.loads(r.stdout);files=response.pop('files')
@@ -83,7 +116,7 @@ def main():
         data=base64.b64decode(row['data'],validate=True)
         if len(data)!=row['bytes'] or hashlib.sha256(data).hexdigest()!=row['sha256']:
             raise ValueError('Corrupt transfer')
-        mutable=dest.name in ('status.json','run_status.json')
+        mutable=dest.name in ('status.json','run_status.json') or relative==run_name+'/eval_suite/report.json'
         if dest.exists() and not mutable and dest.read_bytes()!=data:
             raise ValueError('Completed artifact changed: '+relative)
         dest.parent.mkdir(parents=True,exist_ok=True)
@@ -91,7 +124,7 @@ def main():
         temporary.write_bytes(data);temporary.replace(dest)
     response['file_sha256']={relative:row['sha256'] for relative,row in files.items()}
     (a.output/'latest_observation.json').write_text(json.dumps(response,indent=2)+'\n')
-    s=json.loads((a.output/('run_'+a.version)/'status.json').read_text())
+    s=json.loads((a.output/run_name/'status.json').read_text())
     print(json.dumps(dict(files_received=len(files),status=s['status'],
         stage=(s.get('current') or {}).get('stage'),current_process=response['current_process'],
         completed_stages=len(s['completed']),observed_unix_s=response['observed_unix_s'])))
