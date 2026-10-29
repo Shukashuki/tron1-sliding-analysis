@@ -1,6 +1,6 @@
 # Hockey contact-model and reward comparison
 
-**Twenty-two nominal screens are complete, with 0 task successes.** The first contact-continuity refinement reduces equal-cylinder interruption from 47.5 to 25 ms and XY RMSE from 0.0285 to 0.0213 m, while retaining the 0.5 s stop hold. Four short right-wheel losses still fail the primary gate. The unequal-cylinder arm is training; the nine-slice arm remains pending. No robustness success rate is available.
+**Twenty-three nominal screens are complete, with 0 task successes.** The contact-continuity refinement has opposite outcomes in the two completed cylinder screens: interruption falls from 47.5 to 25 ms with equal static/dynamic friction, but rises from 50 to 97.5 ms with unequal friction. Both retain the 0.5 s stop hold and fail continuous bilateral contact. The nine-slice arm is training. No robustness success rate is available.
 
 ## What the result means
 
@@ -27,13 +27,14 @@ Friction is static/dynamic. “Interruption” means at least one wheel is missi
 | Cylinder 0.9/0.7 | smooth_stop | 100.0 | 10.0 | 0.0277 | 0.4250 | 88.81 |
 | Cylinder 0.9/0.7 | smooth_stop_xyz | 150.0 | 37.5 | 0.0331 | 0.5000 | 86.71 |
 | Cylinder 0.9/0.7 | smooth_stop_xyz_huber | 50.0 | 0.0 | 0.0295 | 0.5000 | 72.10 |
+| Cylinder 0.9/0.7 | smooth_stop_xyz_huber_continuity | 97.5 | 2.5 | 0.0310 | 0.5000 | 80.46 |
 | Nine slices 0.9/0.7 | dense | 115.0 | 10.0 | 0.0349 | 0.4450 | 101.64 |
 | Nine slices 0.9/0.7 | smooth | 57.5 | 2.5 | 0.0267 | 0.4750 | 68.79 |
 | Nine slices 0.9/0.7 | smooth_stop | 142.5 | 60.0 | 0.0320 | 0.5000 | 80.58 |
 | Nine slices 0.9/0.7 | smooth_stop_xyz | 127.5 | 52.5 | 0.0362 | 0.5000 | 93.72 |
 | Nine slices 0.9/0.7 | smooth_stop_xyz_huber | 27.5 | 0.0 | 0.0355 | 0.5000 | 75.55 |
 
-All sixteen rows fail the task. Angular RMS covers the 2.78 s recording; task/contact gates cover the 2.76 s reference. These are single-seed matched screens, not statistical robustness estimates. Cross-model comparisons also change the training geometry or friction ratio.
+All seventeen rows fail the task. Angular RMS covers the 2.78 s recording; task/contact gates cover the 2.76 s reference. These are single-seed matched screens, not statistical robustness estimates. Cross-model comparisons also change the training geometry or friction ratio.
 
 The closest contact result remains the equal-friction `smooth` actor: 2.5 ms right-wheel loss at 0.6250–0.6275 s, reaching 0.124 mm native separation with zero interval-averaged normal force. It also misses the planar stop gate. [Aligned force check](refinement_failure_audit_v1/near_gap_force_check.json).
 
@@ -47,6 +48,7 @@ The initial nine-screen sweep also included stronger `tight` contact penalties a
 
 Each animation has four horizontal panels and a fixed 2.4 m camera offset. MuJoCo supplies graphics and forward kinematics only; trajectories and contacts come from recorded PhysX. No poses are corrected, smoothed or interpolated. Native geometry is aligned to the pre-step pose; force is averaged over the following physical step. New renders label planar speed `vXY` and vertical speed `vZ` separately; older renders' `speed` field is XY speed.
 
+- [Equal and unequal cylinders: dense XYZ / continuity-refinement pairs](continuity_friction_render_v1/friction_continuity_fullbody_4x1.mp4), [8× early contact-loss excerpt](continuity_friction_render_v1/friction_continuity_contact_excerpt_8x_4x1.mp4), [provenance](continuity_friction_render_v1/provenance.json).
 - [Equal cylinder: smooth / exponential XYZ-stop / dense XYZ-stop / continuity refinement](continuity_equal_render_v1/equal_continuity_fullbody_4x1.mp4), [8× early contact-loss excerpt](continuity_equal_render_v1/equal_continuity_contact_excerpt_8x_4x1.mp4), [provenance](continuity_equal_render_v1/provenance.json).
 - [Nine slices: parent / dense / smooth / smooth-stop](refinement_slices_stop_render_v1/slices_stop_fullbody_4x1.mp4), [8× contact-loss excerpt](refinement_slices_stop_render_v1/slices_stop_contact_excerpt_8x_4x1.mp4), [provenance](refinement_slices_stop_render_v1/provenance.json).
 - [Equal cylinder: dense / smooth / planar-stop / XYZ-stop](xyz_equal_render_v1/equal_xyz_fullbody_4x1.mp4), [8× terminal-contact excerpt](xyz_equal_render_v1/equal_xyz_contact_excerpt_8x_4x1.mp4), [provenance](xyz_equal_render_v1/provenance.json).
@@ -105,11 +107,15 @@ The [candidate](../../config/hockey_contact_continuity_v1.json) replaces only th
 
 The training rule's missing duration is **55 ms**, versus **47.5 ms** in native contact qualification: training combines native pre-step contact with authored post-step clearance. These are distinct diagnostics, and the replay does not replace the frozen native-contact gate or its endpoint check. [Preflight](contact_continuity_preflight_v1/report.json) records 36 passing local checks, three matched protocols, exact replay of ten older result rows and agreement between candidate training math and four counterfactual recordings. The [41-file v7 snapshot](source_snapshot_v7/manifest.json) was [uploaded and verified](upload_receipt_v7.json), then [launched](remote_evidence_v7/launch_v7.json) only after all three v6 nominal screens finished without success. The original paused jobs remain paused. A future nominal pass requires robustness qualification rather than further reward screening.
 
-The first [Isaac runtime preflight](continuity_runtime_preflight_v1/report.json) completes 1,536 transitions with `mean_and_worst` contact loss selected and no native-collector fault. Its frozen-parent qualification and raw recording hashes exactly match v6. The first formal actor has now completed 3,072,000 new transitions and independent nominal validation; the second model is training.
+The first [Isaac runtime preflight](continuity_runtime_preflight_v1/report.json) completes 1,536 transitions with `mean_and_worst` contact loss selected and no native-collector fault. Its frozen-parent qualification and raw recording hashes exactly match v6. Both cylinder actors have now completed 3,072,000 new transitions each and independent nominal validation. The [three-model runtime preflight](continuity_runtime_preflight_v2/report.json) confirms all smoke tests completed without collector faults, with all frozen-parent qualifications and recordings matching v6; the nine-slice actor is training.
 
 The equal-cylinder continuity actor reduces interruption from **47.5 to 25 ms**, XY RMSE from **0.02846 to 0.02126 m**, and angular RMS from **83.32 to 70.93 rad/s²**, compared with its matched v6 dense-XYZ control. There is no simultaneous loss of both contacts. The four right-wheel losses occur at **0.5850–0.5925, 0.6050–0.6075, 0.9825–0.9900 and 1.4850–1.4925 s**, with maximum authored clearance **0.384 mm**. The left wheel remains touching, including the endpoint. Every other frozen task gate passes, but the task still fails continuous bilateral contact.
 
 During the final 0.5 s, peak XYZ speed is **0.065 m/s**, peak absolute vertical speed is **0.034 m/s**, and base-COM height changes by **4.4 mm**. This retains the improved terminal behavior rather than reproducing the older large upward motion. It does not improve every motion statistic: whole-task vertical-speed RMS rises from 0.092 to 0.127 m/s. This is one matched seed, not a robustness estimate or proof of the learning mechanism. [Nominal summary](continuity_summary_v1/report.json) · [contact events](continuity_failure_audit_v1/report.json) · [3D stop check](continuity_failure_audit_v1/terminal_xyz_check.json) · [normal-motion audit](continuity_normal_motion_audit_v1/report.json) · [recordings](continuity_publication_v1/manifest.json) · [frozen reward replay](continuity_reward_audit_v1/report.json).
+
+The unequal-friction cylinder does **not** reproduce that contact improvement: interruption rises from **50 to 97.5 ms**, XY RMSE from **0.02955 to 0.03099 m**, and angular RMS from **72.10 to 80.46 rad/s²**. Right-wheel losses occur at 0.6825–0.7275, 0.8150–0.8175 and 0.8250–0.8275 s; the left wheel then loses contact at 1.7650–1.8125 s, including **2.5 ms with neither wheel touching** at 1.7825–1.7850 s. Maximum authored clearances are **2.413/3.147 mm** (left/right). All other frozen gates pass. Terminal behavior remains settled at this diagnostic scale: last-half-second peak XYZ speed is 0.0633 m/s, peak absolute vertical speed is 0.0277 m/s, and base-COM height range is 3.1 mm. Thus reduced terminal motion does not guarantee contact continuity earlier in the maneuver.
+
+[Two-screen summary](continuity_summary_v2/report.json) · [contact events](continuity_failure_audit_v2/report.json) · [3D stop checks](continuity_failure_audit_v2/terminal_xyz_check.json) · [matched-cylinder normal-motion audit](continuity_friction_normal_audit_v1/report.json) · [recordings](continuity_publication_v2/manifest.json) · [reward replay](continuity_reward_audit_v2/report.json). The two completed v7 [learning curves](continuity_training_curve_audit_v1/training_curves_4x1.png) still improve late in their screening budgets: mean reward rises from 2.858 to 4.337 and 3.058 to 4.580 between the adjacent final 50-iteration windows; contact-fraction rewards rise by 0.099/0.097 and stop rewards by 0.095/0.106. These logged averages cannot certify convergence or contact success. Total rewards are not directly comparable with v6 because the contact-loss formula changed.
 
 ## Training, physics and reproduction
 

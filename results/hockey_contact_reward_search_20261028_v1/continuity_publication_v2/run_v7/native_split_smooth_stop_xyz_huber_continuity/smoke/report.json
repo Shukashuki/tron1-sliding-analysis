@@ -1,0 +1,434 @@
+{
+  "kind": "hockey_contact_reward_search_v1",
+  "mode": "smoke",
+  "variant": "tracking",
+  "status": "training_completed_not_task_success",
+  "config_sha256": "39bfc966907c026a86241148aa73dee1182c3c1713043911a82ed6db7e630182",
+  "motion_sha256": "e23fbd82639d243f0c485cf391b1eff0e275d31f6bb6ba940647874a0ac83050",
+  "asset_sha256": "327ca5080e753bbc95d8c3c797e9cd49a0f134d400cfe80494af0ba840e23a8e",
+  "source_sha256": "3792140b0dcf8785558a749d974b3450f912a3caca14e39462d94739ac597dd4",
+  "task_source_sha256": "47be3c2b967e49ad08ea60f3c3624ec812749a10ccbff1238004b7ca96c176f6",
+  "algorithm": "RSL-RL 3.0.1 PPO",
+  "task_success_claimed": false,
+  "method": "hockey",
+  "seed": 42,
+  "speed_scale": 1.0,
+  "reward_refinement": {
+    "kind": "hockey_contact_refinement_v2",
+    "stop_term": "bilateral_substeps_xyz_huber",
+    "angular_term": "pseudo_huber",
+    "contact_loss_term": "mean_and_worst"
+  },
+  "reward_refinement_source_sha256": "e20143fc8682313a9d9336d5c473e801c3d693e7b8cfc70e977df6a2b3365d76",
+  "reward_refinement_math_sha256": "68c2efc144bb90447c24c2c00bd99733a8e8ea14723c16a20da3397cd32df285",
+  "bilateral_source_sha256": "a4f5e31209fef81f9c9da1c426a5db0843a506c0c79429a1b570f122c77a444e",
+  "geometry_audit": {
+    "model": "authored",
+    "spawn_calls": 1,
+    "prototype": [
+      {
+        "body": "/World/envs/env_0/Robot/wheel_L_Link",
+        "level": "authored",
+        "original_cylinder": "/World/envs/env_0/Robot/wheel_L_Link/collisions/mesh_0/cylinder",
+        "radius_m": 0.12700000405311584,
+        "total_width_m": 0.05000000074505806,
+        "original_axis": "Z",
+        "original_cylinder_to_body_matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            -3.422854177870249e-08,
+            0.9999999999999993,
+            0.0
+          ],
+          [
+            0.0,
+            -0.9999999999999993,
+            -3.422854177870249e-08,
+            0.0
+          ],
+          [
+            0.0,
+            0.007069999817758799,
+            0.0,
+            1.0
+          ]
+        ],
+        "authored_mass_properties_preserved": {
+          "mass_kg": 1.0800000429153442,
+          "COM_m": [
+            2.9999999242136255e-05,
+            0.008070000447332859,
+            -1.9999999494757503e-05
+          ],
+          "principal_inertia_kg_m2": [
+            0.005155680235475302,
+            0.009742720052599907,
+            0.005153439939022064
+          ],
+          "principal_axes_wxyz": [
+            0.9659222364425659,
+            -7.70559381635394e-07,
+            0.25883248448371887,
+            -1.3350669405554072e-06
+          ]
+        },
+        "active_collider_paths": [
+          "/World/envs/env_0/Robot/wheel_L_Link/collisions/mesh_0/cylinder"
+        ],
+        "contact_offset_m": 0.001,
+        "rest_offset_m": 0.0,
+        "material_path": null,
+        "unbound_material_uses_existing_scene_default": true,
+        "new_bodies_or_joints": 0,
+        "original_asset_file_mutated": false
+      },
+      {
+        "body": "/World/envs/env_0/Robot/wheel_R_Link",
+        "level": "authored",
+        "original_cylinder": "/World/envs/env_0/Robot/wheel_R_Link/collisions/mesh_0/cylinder",
+        "radius_m": 0.12700000405311584,
+        "total_width_m": 0.05000000074505806,
+        "original_axis": "Z",
+        "original_cylinder_to_body_matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            -3.422854177870249e-08,
+            0.9999999999999993,
+            0.0
+          ],
+          [
+            0.0,
+            -0.9999999999999993,
+            -3.422854177870249e-08,
+            0.0
+          ],
+          [
+            0.0,
+            -0.007069999817758799,
+            0.0,
+            1.0
+          ]
+        ],
+        "authored_mass_properties_preserved": {
+          "mass_kg": 1.0800000429153442,
+          "COM_m": [
+            2.9999999242136255e-05,
+            -0.008070000447332859,
+            -1.9999999494757503e-05
+          ],
+          "principal_inertia_kg_m2": [
+            0.005155680235475302,
+            0.009742720052599907,
+            0.005153439939022064
+          ],
+          "principal_axes_wxyz": [
+            0.9659222364425659,
+            7.70559381635394e-07,
+            0.25883248448371887,
+            1.3350669405554072e-06
+          ]
+        },
+        "active_collider_paths": [
+          "/World/envs/env_0/Robot/wheel_R_Link/collisions/mesh_0/cylinder"
+        ],
+        "contact_offset_m": 0.001,
+        "rest_offset_m": 0.0,
+        "material_path": null,
+        "unbound_material_uses_existing_scene_default": true,
+        "new_bodies_or_joints": 0,
+        "original_asset_file_mutated": false
+      }
+    ],
+    "native_bodies_checked": 64,
+    "per_wheel_shapes": 1,
+    "external_forces": 0,
+    "mass_inertia_changed": false,
+    "elastic_tread": false,
+    "static_adhesion_model": "native_PhysX"
+  },
+  "reward_search_source_sha256": "32c36a868e49b0b8c728183c097ea79603404f0b863445dda978ec14f74b50a5",
+  "material_audit": {
+    "recipe": {
+      "name": "tron1_physx_split_friction_v1",
+      "source_repository": "https://github.com/mujocolab/mjlab",
+      "source_commit": "4360096b49c1bcc478668c11ce7d458db747e49d",
+      "source_configuration": "src/mjlab/tasks/tracking/tracking_env_cfg.py",
+      "training": true,
+      "wheel_contact_friction": {
+        "distribution": "uniform_continuous",
+        "range": [
+          0.3,
+          1.2
+        ],
+        "sampling": "one_dynamic_draw_per_environment_static_is_ratio_times_dynamic_shared_by_both_wheels",
+        "physx_static_equals_dynamic": false,
+        "physx_ground_friction": 1.0,
+        "physx_ground_friction_combine_mode": "multiply",
+        "mujoco_wheel_geom_priority": 1,
+        "mujoco_tangential_axis": 0,
+        "buckets": null,
+        "dynamic_range": [
+          0.3,
+          1.2
+        ],
+        "static_range": [
+          0.38571428571428573,
+          1.542857142857143
+        ],
+        "static_dynamic_ratio": 1.2857142857142858,
+        "legacy_mu_field_means": "dynamic_coefficient",
+        "mujoco_static_dynamic_equivalence_claimed": false
+      },
+      "nonwheel_friction": 1.0,
+      "nonwheel_plane_contact_mapping": {
+        "mujoco_raw_nonwheel_friction": 0.6,
+        "mujoco_raw_ground_friction": 1.0,
+        "mujoco_nonwheel_and_ground_priority": 0,
+        "mujoco_combine_rule": "max_for_equal_priority",
+        "physx_combine_rule": "multiply_by_unit_ground",
+        "effective_plane_friction": 1.0,
+        "raw_material_values_identical": false,
+        "purpose": "match_nonwheel_plane_contact_coefficient_not_solver_dynamics"
+      },
+      "restitution_randomization": false,
+      "physx_robot_and_ground_restitution": 0.0,
+      "mujoco_restitution_equivalence_claimed": false,
+      "encoder_bias_range_rad": [
+        -0.01,
+        0.01
+      ],
+      "encoder_bias_semantics": {
+        "applies_to": "six_position_controlled_leg_joints",
+        "actor_joint_position": "q + b - nominal_q0",
+        "critic_joint_position": "q - nominal_q0",
+        "position_control_target": "nominal_q0 + clipped_action - b",
+        "default_joint_positions_mutated": false,
+        "wheel_velocity_noise": false
+      },
+      "base_com_offset_range_m": {
+        "x": [
+          -0.025,
+          0.025
+        ],
+        "y": [
+          -0.05,
+          0.05
+        ],
+        "z": [
+          -0.05,
+          0.05
+        ]
+      },
+      "base_com_body": "base_Link",
+      "push_interval_s": [
+        1.0,
+        3.0
+      ],
+      "push_velocity_range": {
+        "x": [
+          -0.5,
+          0.5
+        ],
+        "y": [
+          -0.5,
+          0.5
+        ],
+        "z": [
+          -0.2,
+          0.2
+        ],
+        "roll": [
+          -0.52,
+          0.52
+        ],
+        "pitch": [
+          -0.52,
+          0.52
+        ],
+        "yaw": [
+          -0.78,
+          0.78
+        ]
+      },
+      "push_semantics": "add_world_root_LINK_velocity_delta_not_COM_velocity",
+      "push_timer_reset": "resample_per_episode_matching_intended_recipe_and_Isaac",
+      "mjlab_v1_4_function_interval_reset_bug_reproduced": false,
+      "task_action_reward_termination_changed": false,
+      "additional_observation_corruption": false,
+      "physics_equivalence_claimed": false,
+      "split_friction_parameter_identification": "exploratory_not_measured_TRON1_tire_parameters"
+    },
+    "wheel_mu_range": [
+      0.32040828466415405,
+      1.1892297267913818
+    ],
+    "wheel_mu_dynamic_range": [
+      0.32040828466415405,
+      1.1892297267913818
+    ],
+    "wheel_mu_static_range": [
+      0.41195350885391235,
+      1.5290095806121826
+    ],
+    "static_dynamic_ratio": 1.2857142857142858,
+    "wheel_shape_slots": [
+      7,
+      8
+    ],
+    "all_wheel_shapes_share_one_draw_per_environment": true,
+    "encoder_bias_range_rad": [
+      -0.009925438091158867,
+      0.009984590113162994
+    ],
+    "position_target_bias_sign_verified": true,
+    "live_physx_materials_verified": true,
+    "ground_material_usd_verified": true,
+    "ground_colliders": [
+      {
+        "collider": "/World/ground/terrain/GroundPlane/CollisionPlane",
+        "material": "/World/ground/terrain/physicsMaterial",
+        "friction": 1.0,
+        "restitution": 0.0,
+        "combine": "multiply"
+      }
+    ],
+    "robot_collision_geometry_materials": [
+      {
+        "collider": "/World/envs/env_0/Robot/base_Link/collisions/mesh_0/box",
+        "material": "/physicsScene/defaultMaterial",
+        "binding_source": "verified_physics_scene_default_material",
+        "friction_combine_mode": "multiply"
+      },
+      {
+        "collider": "/World/envs/env_0/Robot/abad_L_Link/collisions/mesh_0/cylinder",
+        "material": "/physicsScene/defaultMaterial",
+        "binding_source": "verified_physics_scene_default_material",
+        "friction_combine_mode": "multiply"
+      },
+      {
+        "collider": "/World/envs/env_0/Robot/hip_L_Link/collisions/mesh_0/cylinder",
+        "material": "/physicsScene/defaultMaterial",
+        "binding_source": "verified_physics_scene_default_material",
+        "friction_combine_mode": "multiply"
+      },
+      {
+        "collider": "/World/envs/env_0/Robot/knee_L_Link/collisions/mesh_0/cylinder",
+        "material": "/physicsScene/defaultMaterial",
+        "binding_source": "verified_physics_scene_default_material",
+        "friction_combine_mode": "multiply"
+      },
+      {
+        "collider": "/World/envs/env_0/Robot/wheel_L_Link/collisions/mesh_0/cylinder",
+        "material": "/physicsScene/defaultMaterial",
+        "binding_source": "verified_physics_scene_default_material",
+        "friction_combine_mode": "multiply"
+      },
+      {
+        "collider": "/World/envs/env_0/Robot/abad_R_Link/collisions/mesh_0/cylinder",
+        "material": "/physicsScene/defaultMaterial",
+        "binding_source": "verified_physics_scene_default_material",
+        "friction_combine_mode": "multiply"
+      },
+      {
+        "collider": "/World/envs/env_0/Robot/hip_R_Link/collisions/mesh_0/cylinder",
+        "material": "/physicsScene/defaultMaterial",
+        "binding_source": "verified_physics_scene_default_material",
+        "friction_combine_mode": "multiply"
+      },
+      {
+        "collider": "/World/envs/env_0/Robot/knee_R_Link/collisions/mesh_0/cylinder",
+        "material": "/physicsScene/defaultMaterial",
+        "binding_source": "verified_physics_scene_default_material",
+        "friction_combine_mode": "multiply"
+      },
+      {
+        "collider": "/World/envs/env_0/Robot/wheel_R_Link/collisions/mesh_0/cylinder",
+        "material": "/physicsScene/defaultMaterial",
+        "binding_source": "verified_physics_scene_default_material",
+        "friction_combine_mode": "multiply"
+      }
+    ],
+    "ignored_non_geometry_collision_containers": [
+      "/World/envs/env_0/Robot/base_Link/collisions",
+      "/World/envs/env_0/Robot/abad_L_Link/collisions",
+      "/World/envs/env_0/Robot/hip_L_Link/collisions",
+      "/World/envs/env_0/Robot/knee_L_Link/collisions",
+      "/World/envs/env_0/Robot/wheel_L_Link/collisions",
+      "/World/envs/env_0/Robot/abad_R_Link/collisions",
+      "/World/envs/env_0/Robot/hip_R_Link/collisions",
+      "/World/envs/env_0/Robot/knee_R_Link/collisions",
+      "/World/envs/env_0/Robot/wheel_R_Link/collisions"
+    ]
+  },
+  "reward_terms": {
+    "action_rate_l2": -0.5,
+    "joint_limit": -10.0,
+    "undesired_contacts": -0.1,
+    "hockey_xy": 2.0,
+    "hockey_velocity": 2.0,
+    "hockey_heading": 1.0,
+    "hockey_yaw_rate": 0.5,
+    "hockey_leg_pose": 1.0,
+    "hockey_wheel_axis": 0.5,
+    "hockey_beta": 1.0,
+    "hockey_stop_hold": 1.5,
+    "hockey_tilt": -0.2,
+    "hockey_fall": -400.0,
+    "hockey_support": 0.0,
+    "hockey_vertical_acceleration": -0.1,
+    "contact_search_contact_fraction": 2.0,
+    "contact_search_contact_loss": -4.0,
+    "contact_search_clearance": -2.0,
+    "contact_search_sliding": 0.5,
+    "contact_search_angular_acceleration": -0.05
+  },
+  "termination_terms": [
+    "time_out",
+    "motion_end",
+    "hockey_fall"
+  ],
+  "worlds": 32,
+  "warm_start": {
+    "checkpoint_sha256": "09fd1987891885ad9eccf3382ec71db050fba2444947b9339684152b1b0139ab",
+    "parent_iteration": 999,
+    "actor_critic_and_normalizers_loaded": true,
+    "optimizer_loaded": false,
+    "exploration_std": 0.1,
+    "fresh_transition_budget": true
+  },
+  "initial_policy_state_sha256": "708e8a11d7bdf7b898e96e3b693328ce2eae2a27dbbbb2064cb6e4b07a63d6c3",
+  "transitions": 1536,
+  "checkpoint_sha256": "46dcab84c3cfdb5e8bd2af364dde9a261659b86415290f9df04e77b5d84aac5c",
+  "actor_sha256": "7a0d0deb31661c3365723cf5b7c97f52bde4a5408dcf28b50955c363c044eb59",
+  "actor_includes_normalizer": true,
+  "bilateral_audit": {
+    "native_physical_samples": 448,
+    "geometry_samples": 26490,
+    "native_vs_pre_geometry_max_error_m": 3.5194680094718933e-06,
+    "bilateral_contact_fraction": 0.2818778157234192,
+    "contact_is_force_independent": true,
+    "equal_load_target": false,
+    "pre_step_velocity": true,
+    "force_scope": "Average over following physics step; anchor power is a proxy, not integrated work",
+    "mu_min": 0.32040828466415405,
+    "mu_max": 1.1892297267913818,
+    "mu_static_min": 0.41195350885391235,
+    "mu_static_max": 1.5290095806121826,
+    "sliding_reward_capacity_coefficient": "dynamic_mu",
+    "static_dynamic_solver_state_observed": false,
+    "fault_seen": false
+  },
+  "elapsed_seconds": 29.73298992216587
+}
