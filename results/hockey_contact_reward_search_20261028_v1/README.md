@@ -2,6 +2,8 @@
 
 **Twenty-four nominal screens are complete, with 0 task successes.** The contact-continuity sweep is finished: interruption is **25/97.5/57.5 ms** for the equal cylinder, unequal cylinder and nine slices, compared with **47.5/50/27.5 ms** before this reward change. All three retain the 0.5 s stop hold and fail only continuous bilateral contact. Fixed-reward continuation of the v7 equal-cylinder policy has started, preserving optimizer and exploration state. No robustness success rate is available.
 
+The [retrospective friction-capacity audit](cone_relation_v3/README.md) checks all six v6/v7 recordings. All 17 contact losses follow a near-capacity positive-normal interval, then zero normal/tangential impulse before geometric separation. Near-capacity sliding also persists with contact, so saturation alone does not identify failure. The nine-slice force channels contain unresolved static-bound exceedances; these are shown explicitly and cannot support a pointwise cone claim. [Four-panel comparison](cone_relation_v3/summary_4x1.png). This audit changes no training or task gate.
+
 ## What the result means
 
 Contact is checked at every 2.5 ms physical sample over the 2.76 s reference, including the terminal state. Both wheels need valid native contact geometry within the unchanged 0.1 mm separation tolerance; a single missed or unknown sample fails. Contact does not depend on a normal-force threshold, equal wheel loads or an absolute body-height target. This is sampled simulation evidence, not a claim about unobserved time between steps.
