@@ -34,6 +34,8 @@ def main():
     for case in previous['cases']:
         cell=next(row for row in plan['cells'] if row['id']==case['cell']);prefix=cell['id']+'__'
         cfg=read(a.bundle/cell['protocol']);d=a.evidence/a.run_name/cell['id']/'nominal'
+        if cfg.get('reward_refinement') is not None:
+            raise ValueError('This candidate comparison requires an unrefined baseline; use the reward-signal auditor for trained refinements')
         for name,digest in case['raw_sha256'].items():
             if sha(d/name)!=digest:raise ValueError('Physical record changed')
         trace=load(d/'final_rollout.npz');raw=load(d/'native_contact_buffers.npz')

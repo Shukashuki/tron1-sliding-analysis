@@ -17,6 +17,36 @@ from audit_hockey_reference_contact_gap import wheel_geometry
 from evaluate_hockey_physx import load,sha
 
 
+def declared_scores(cfg,pre_touch,post_gap,velocity,up,phase,alpha_sq,legacy_stop_proxy):
+    """Replay the selected formulas, retaining the legacy force-proxy caveat."""
+    settings=cfg.get('reward_refinement')
+    if settings is not None:
+        from hockey_contact_refinement import validate_settings
+        settings=validate_settings(settings)
+    else:
+        settings=dict(stop_term='unchanged',angular_term='bounded_quadratic')
+    scale=cfg['bilateral_sliding']['angular_acceleration_scale_rad_s2']
+    exceeds=alpha_sq>=scale**2
+    angular=np.clip(alpha_sq/scale**2,0,1).mean(-1)
+    stop=legacy_stop_proxy.copy();force_proxy=True
+    if settings['angular_term']=='pseudo_huber' or settings['stop_term']=='bilateral_substeps':
+        import torch
+        from hockey_contact_refinement_math import angular_pseudo_huber,bilateral_substep_stop
+        tensor=lambda value:torch.as_tensor(value,dtype=torch.float32)
+        if settings['angular_term']=='pseudo_huber':angular=angular_pseudo_huber(tensor(alpha_sq),scale).numpy()
+        if settings['stop_term']=='bilateral_substeps':
+            n=len(alpha_sq)
+            stop=bilateral_substep_stop(torch.as_tensor(pre_touch),tensor(post_gap),
+                tensor(velocity[:-1].reshape(n,8,2)),tensor(velocity[1:].reshape(n,8,2)),
+                tensor(up[:-1].reshape(n,8)),tensor(up[1:].reshape(n,8)),torch.as_tensor(phase),
+                contact_tolerance_m=cfg['bilateral_sliding']['contact_tolerance_m'],
+                speed_scale_m_s=cfg['reward_scales']['stop_speed_m_s'],tilt_scale_rad=cfg['reward_scales']['stop_tilt_rad']).numpy()
+            stop*=cfg['reward_weights']['stop_hold']*.02;force_proxy=False
+    saturation=exceeds if settings['angular_term']=='bounded_quadratic' else np.zeros_like(exceeds)
+    return dict(angular=angular,stop=stop,saturation=saturation,legacy_scale_exceedance=exceeds,
+        angular_form=settings['angular_term'],stop_form=settings['stop_term'],stop_uses_force_proxy=force_proxy)
+
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     for name in ('bundle','evidence','output'):
@@ -36,7 +66,13 @@ def main():
         if not qpath.exists():continue
         protocol=a.bundle/cell['protocol'];cfg=read(protocol);checked=read(qpath)
         run=read(directory/'nominal/report.json')
-        if checked['protocol_sha256']!=sha(protocol) or checked['run_report_sha256']!=sha(directory/'nominal/report.json'):
+        if cfg.get('reward_refinement') is not None:
+            if run.get('reward_refinement')!=cfg['reward_refinement']:raise ValueError('Refinement declaration changed')
+            for name in ('hockey_contact_refinement.py','hockey_contact_refinement_math.py'):
+                if sha(Path(__file__).with_name(name))!=sha(a.bundle/name):raise ValueError('Refinement source changed')
+        if (checked['protocol_sha256']!=sha(protocol)
+            or checked['source_manifest_sha256']!=sha(a.bundle/'manifest.json')
+            or checked['run_report_sha256']!=sha(directory/'nominal/report.json')):
             raise ValueError('Case identity mismatch')
         for file,digest in run['artifacts'].items():
             if sha(directory/'nominal'/file)!=digest:raise ValueError('Recording changed')
@@ -69,9 +105,12 @@ def main():
         scales=cfg['reward_scales']
         proxy=phase*np.exp(-(speed[control_end]/scales['stop_speed_m_s'])**2)*np.exp(-(tilt[control_end]/scales['stop_tilt_rad'])**2)*supported
         proxy*=cfg['reward_weights']['stop_hold']*.02
-        alpha=np.linalg.norm(np.diff(trace['root_omega'],axis=0)/dt,axis=-1).reshape(-1,8)
+        alpha_sq=np.sum((np.diff(trace['root_omega'],axis=0)/dt)**2,axis=-1).reshape(-1,8)
+        alpha=np.sqrt(alpha_sq)
         scale=cfg['bilateral_sliding']['angular_acceleration_scale_rad_s2']
-        saturation=alpha>=scale
+        up=1-2*(q[:,1]**2+q[:,2]**2)
+        declared=declared_scores(cfg,pre_touch,post_gap,trace['root_com_vel'][:,:2],up,phase,alpha_sq,proxy)
+        saturation=declared['saturation']
         missed=terminal&endpoint_good&~complete_kinematics
         incompatible=terminal&~continuous&(proxy>1e-6)
         row=dict(cell=cell['id'],qualifier_sha256=sha(qpath),raw_sha256=run['artifacts'],
@@ -83,8 +122,13 @@ def main():
             positive_stop_proxy_contact_loss_windows_s=[[float(start_s[i]),float(endpoint_s[i])] for i in np.flatnonzero(incompatible)],
             terminal_stop_proxy_sum=float(proxy[terminal].sum()),
             terminal_stop_proxy_sum_during_contact_loss=float(proxy[incompatible].sum()),
+            declared_stop_form=declared['stop_form'],declared_stop_uses_native_force_proxy=declared['stop_uses_force_proxy'],
+            declared_terminal_stop_score_sum=float(declared['stop'][terminal].sum()),
+            declared_angular_form=declared['angular_form'],
+            declared_angular_penalty_integral=float((declared['angular'][within]*weights['angular_acceleration']*.02).sum()),
             angular_acceleration_scale_rad_s2=scale,
             angular_penalty_saturated_substep_fraction=float(saturation[within].mean()),
+            angular_legacy_scale_exceedance_substep_fraction=float(declared['legacy_scale_exceedance'][within].mean()),
             angular_acceleration_peak_rad_s2=float(alpha[within].max()),
             contact_terms_weighted_integral=float((contact_terms[within]*.02).sum()),
             task_success=checked['qualification']['task_success_claimed'])
@@ -94,19 +138,22 @@ def main():
             endpoint_speed_m_s=speed[control_end],endpoint_tilt_rad=tilt[control_end],
             endpoint_kinematics_pass=endpoint_good,all_substep_kinematics_pass=complete_kinematics,
             native_force_supported_fraction=supported,stop_reward_proxy=proxy,
-            angular_penalty_saturation_fraction=saturation.mean(-1),contact_terms=contact_terms)
+            angular_penalty_saturation_fraction=saturation.mean(-1),contact_terms=contact_terms,
+            declared_angular_component=declared['angular'],declared_stop_score=declared['stop'],
+            angular_legacy_scale_exceedance_fraction=declared['legacy_scale_exceedance'].mean(-1))
         saved.update({cell['id']+'__'+key:value for key,value in signals.items()})
     if not rows:raise ValueError('No completed nominal records')
     a.output.mkdir(parents=True)
     np.savez_compressed(a.output/'signals.npz',**saved)
-    report=dict(kind='hockey_contact_reward_signal_audit_v1',script_sha256=sha(__file__),
+    report=dict(kind='hockey_contact_reward_signal_audit_v2',script_sha256=sha(__file__),
         source_manifest_sha256=sha(a.bundle/'manifest.json'),signals_sha256=sha(a.output/'signals.npz'),
         physics_steps=0,training_changed=False,criterion_changed=False,
+        scoring_scope='Complete control windows within the frozen reference horizon; validation recordings, not training returns',
         logged_training_reward=False,causal_failure_mechanism_proven=False,
         stop_proxy_force_source='Recorded native summed normal force; training filtered force matrix not archived',
-        stop_reward_definition='Control-end speed/tilt multiplied by mean any-wheel force>5N fraction; no hold-duration state',
+        stop_reward_definition='Selected per case; legacy endpoint score uses a native-force proxy, refined substep score uses bilateral geometry without force',
         contact_loss_definition='Native pre-step bilateral touching AND post-step finite-cylinder gap <=0.1mm',
-        smoothness_definition='Per-substep squared angular acceleration, capped at scale^2 before averaging',cases=rows)
+        smoothness_definition='Selected per case: bounded quadratic or pseudo-Huber; legacy-scale exceedance is not saturation of pseudo-Huber',cases=rows)
     (a.output/'report.json').write_text(json.dumps(report,indent=2,allow_nan=False)+'\n')
     print(json.dumps(rows))
 
