@@ -10,16 +10,17 @@ import base64
 import hashlib
 import json
 from pathlib import Path
+import re
 import subprocess
 
 REMOTE_READER = r'''
 import base64,hashlib,json,pathlib,time
 root=pathlib.Path(REMOTE_ROOT)
-bundle=root/'source_snapshot_v2';run=root/'run_v2'
+bundle=root/SNAPSHOT_NAME;run=root/RUN_NAME
 plan=json.loads((bundle/'plan.json').read_text())
-paths=['launch_v2.json','run_v2/status.json']
+paths=[LAUNCH_NAME,RUN_NAME+'/status.json']
 for cell in plan['cells']:
-    directory=pathlib.PurePosixPath('run_v2')/cell['id']
+    directory=pathlib.PurePosixPath(RUN_NAME)/cell['id']
     assert len(pathlib.PurePosixPath(cell['id']).parts)==1
     for stage in ('smoke','formal'):
         paths.append(str(directory/stage/'report.json'))
@@ -38,7 +39,7 @@ for relative in paths:
     payload=p.read_bytes()
     assert len(payload)<=64*1024*1024
     files[relative]=dict(sha256=hashlib.sha256(payload).hexdigest(),bytes=len(payload),data=base64.b64encode(payload).decode())
-status=json.loads(base64.b64decode(files['run_v2/status.json']['data']))
+status=json.loads(base64.b64decode(files[RUN_NAME+'/status.json']['data']))
 current=status.get('current') or {};pid=current.get('pid');probe=dict(pid=pid,live=False,identity_matches=False)
 if pid is not None:
     p=pathlib.Path('/proc')/str(pid)
@@ -63,11 +64,15 @@ def main():
     p.add_argument('--remote-root',default='/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1')
     p.add_argument('--helper',type=Path,default=Path('/home/roy/.codex/skills/remote-compute-ssh/scripts/remote_compute.sh'))
     p.add_argument('--output',type=Path,required=True)
+    p.add_argument('--version',default='v2',help='Snapshot/run version within the same authorized remote study')
     p.add_argument('--include-rollouts',action='store_true')
     a=p.parse_args()
     if a.remote_root!='/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1':
         raise ValueError('Collector is scoped to the approved study')
+    if not re.fullmatch(r'v[1-9][0-9]*',a.version):raise ValueError('Invalid study version')
     code=REMOTE_READER.replace('REMOTE_ROOT',repr(a.remote_root)).replace('INCLUDE_ROLLOUTS',repr(a.include_rollouts))
+    code=code.replace('SNAPSHOT_NAME',repr('source_snapshot_'+a.version)).replace('RUN_NAME',repr('run_'+a.version))
+    code=code.replace('LAUNCH_NAME',repr('launch_'+a.version+'.json'))
     r=subprocess.run([str(a.helper),'exec','4090d','--','python3','-'],input=code,text=True,
                      capture_output=True,timeout=60,check=True)
     response=json.loads(r.stdout);files=response.pop('files')
@@ -86,7 +91,7 @@ def main():
         temporary.write_bytes(data);temporary.replace(dest)
     response['file_sha256']={relative:row['sha256'] for relative,row in files.items()}
     (a.output/'latest_observation.json').write_text(json.dumps(response,indent=2)+'\n')
-    s=json.loads((a.output/'run_v2/status.json').read_text())
+    s=json.loads((a.output/('run_'+a.version)/'status.json').read_text())
     print(json.dumps(dict(files_received=len(files),status=s['status'],
         stage=(s.get('current') or {}).get('stage'),current_process=response['current_process'],
         completed_stages=len(s['completed']),observed_unix_s=response['observed_unix_s'])))

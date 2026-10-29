@@ -128,6 +128,7 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     for key in ('bundle','evidence','reference','output'):
         p.add_argument('--'+key,type=Path,required=True)
+    p.add_argument('--run-name',default='run_v2')
     a=p.parse_args()
     if a.output.exists():raise FileExistsError('Fresh failure-audit output required')
     read=lambda path:json.loads(path.read_text())
@@ -139,7 +140,7 @@ def main():
     for cell in plan['cells']:
         protocol=a.bundle/cell['protocol'];cfg=read(protocol)
         for label in ('parent_transfer','nominal'):
-            parent=a.evidence/'run_v2'/cell['id'];qpath=parent/(label+'_qualification.json')
+            parent=a.evidence/a.run_name/cell['id'];qpath=parent/(label+'_qualification.json')
             if not qpath.exists():continue
             run_dir=parent/label;run=read(run_dir/'report.json');checked=read(qpath);q=checked['qualification']
             if checked['run_report_sha256']!=sha(run_dir/'report.json') or checked['protocol_sha256']!=sha(protocol):

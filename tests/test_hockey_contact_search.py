@@ -15,6 +15,7 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'scripts'))
 from hockey_contact_search import objective, initialize_policy
 from prepare_hockey_contact_search import protocols
+from dispatch_hockey_contact_search import verify_predecessor
 from test_hockey_bilateral_training import fixture
 
 
@@ -97,6 +98,41 @@ class ContactSearchTests(unittest.TestCase):
             runner.tot_timesteps=24
             with self.assertRaisesRegex(ValueError,'budget'):
                 initialize_policy(runner,path,digest,.1)
+
+    def test_refinement_spec_changes_only_explicit_reward_formulas(self):
+        spec=json.loads((ROOT/'config/hockey_contact_reward_search_v1.json').read_text())
+        parent=json.loads((ROOT/'results/hockey_speed_success_20261028_v1/source_snapshot_v1/protocols/hockey_s100_seed42.json').read_text())
+        baseline=dict(protocols(spec,parent,fixture()[2]))
+        setting=dict(kind='hockey_contact_refinement_v1',stop_term='unchanged',angular_term='pseudo_huber')
+        revised=copy.deepcopy(spec)
+        for reward in revised['rewards']:reward['reward_refinement']=setting
+        for name,cfg in protocols(revised,parent,fixture()[2]):
+            self.assertEqual(cfg.pop('reward_refinement'),setting)
+            # The complete experiment specification is recorded separately;
+            # physics, budget, reference and every numeric weight stay fixed.
+            cfg.pop('contact_search');old=copy.deepcopy(baseline[name]);old.pop('contact_search')
+            self.assertEqual(cfg,old)
+            self.assertNotIn('reward_refinement',baseline[name])
+        self.assertNotIn('reward_refinement',parent)
+
+    def test_refinement_cannot_start_while_previous_sweep_runs_or_has_a_pass(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            path=Path(temporary)/'status.json'
+            plan=dict(required_completed_predecessor=dict(status_path=str(path),manifest_sha256='locked',completed_screens=2))
+            state=dict(status='screens_completed_requires_next_reward_or_longer_training',
+                manifest_sha256='locked',current=None,screens=[
+                    dict(id='a',qualification=dict(task_success_claimed=False)),
+                    dict(id='b',qualification=dict(task_success_claimed=False))])
+            path.write_text(json.dumps(state));verify_predecessor(plan)
+            for mutation in (
+                dict(status='running'),dict(current={'stage':'formal'}),
+                dict(screens=[state['screens'][0]]),
+                dict(screens=[state['screens'][0]]*2),
+                dict(screens=[state['screens'][0],dict(id='b',qualification=dict(task_success_claimed=True))]),
+                dict(manifest_sha256='different'),
+            ):
+                path.write_text(json.dumps(dict(state,**mutation)))
+                with self.assertRaisesRegex(ValueError,'Predecessor'):verify_predecessor(plan)
 
 
 if __name__=='__main__':unittest.main()

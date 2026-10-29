@@ -21,6 +21,7 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     for name in ('bundle','evidence','output'):
         p.add_argument('--'+name,type=Path,required=True)
+    p.add_argument('--run-name',default='run_v2')
     a=p.parse_args()
     if a.output.exists():raise FileExistsError('Fresh audit output required')
     read=lambda path:json.loads(path.read_text())
@@ -31,7 +32,7 @@ def main():
         if sha(Path(__file__).with_name(name))!=sha(a.bundle/name):raise ValueError('Audited reward source changed')
     rows=[];saved={}
     for cell in plan['cells']:
-        directory=a.evidence/'run_v2'/cell['id'];qpath=directory/'nominal_qualification.json'
+        directory=a.evidence/a.run_name/cell['id'];qpath=directory/'nominal_qualification.json'
         if not qpath.exists():continue
         protocol=a.bundle/cell['protocol'];cfg=read(protocol);checked=read(qpath)
         run=read(directory/'nominal/report.json')

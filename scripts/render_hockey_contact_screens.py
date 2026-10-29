@@ -29,6 +29,7 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     for name in ('bundle','evidence','audit','reference','model','output'):
         p.add_argument('--'+name,type=Path,required=True)
+    p.add_argument('--run-name',default='run_v2')
     p.add_argument('--case',action='append',required=True,help='cell:parent_transfer or cell:nominal; exactly four')
     p.add_argument('--slow-window',nargs=2,type=float,default=[.65,1.25])
     p.add_argument('--prefix',default='contact_screens')
@@ -58,7 +59,7 @@ def main():
         planrow=next(row for row in plan['cells'] if row['id']==cell)
         cfg=read(a.bundle/planrow['protocol']);policy='parent' if stage=='parent_transfer' else cell[len(planrow['model'])+1:]
         row=next(r for r in audit['cases'] if r['cell']==cell and r['policy']==policy)
-        directory=a.evidence/'run_v2'/cell/stage;qpath=directory.parent/(stage+'_qualification.json')
+        directory=a.evidence/a.run_name/cell/stage;qpath=directory.parent/(stage+'_qualification.json')
         if sha(qpath)!=row['qualification_sha256']:raise ValueError('Qualification changed')
         checked=read(qpath);run=read(directory/'report.json');q=checked['qualification']
         if checked['run_report_sha256']!=sha(directory/'report.json'):raise ValueError('Run identity mismatch')

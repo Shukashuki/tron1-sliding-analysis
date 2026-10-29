@@ -56,13 +56,14 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     for key in ('bundle','evidence','output'):
         p.add_argument('--'+key,type=Path,required=True)
+    p.add_argument('--run-name',default='run_v2')
     a=p.parse_args()
     if a.output.exists():raise FileExistsError('Fresh summary required')
     plan=json.loads((a.bundle/'plan.json').read_text())
     manifest=json.loads((a.bundle/'manifest.json').read_text())
     for row in manifest['files']:
         if sha(a.bundle/row['path'])!=row['sha256']:raise ValueError('Declared snapshot changed')
-    run_root=a.evidence/'run_v2';state=json.loads((run_root/'status.json').read_text())
+    run_root=a.evidence/a.run_name;state=json.loads((run_root/'status.json').read_text())
     if state['manifest_sha256']!=sha(a.bundle/'manifest.json'):raise ValueError('Wrong remote experiment')
     observation=json.loads((a.evidence/'latest_observation.json').read_text())
     rows=[];parents=[]

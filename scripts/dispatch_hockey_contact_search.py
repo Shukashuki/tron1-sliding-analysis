@@ -17,6 +17,20 @@ def write(path, value):
     temp.write_text(json.dumps(value,indent=2,allow_nan=False)+'\n');temp.replace(path)
 
 
+def verify_predecessor(plan):
+    required=plan.get('required_completed_predecessor')
+    if required is None:return
+    status=json.loads(Path(required['status_path']).read_text())
+    screens=status.get('screens',[])
+    if (status['manifest_sha256']!=required['manifest_sha256']
+        or status['status']!='screens_completed_requires_next_reward_or_longer_training'
+        or status.get('current') is not None
+        or len(screens)!=required['completed_screens']
+        or len({row['id'] for row in screens})!=len(screens)
+        or any(row['qualification']['task_success_claimed'] for row in screens)):
+        raise ValueError('Predecessor sweep must finish with all declared screens unsuccessful before refinement')
+
+
 def inspect(bundle, prior_launch, audit_helper):
     read=lambda path:json.loads(path.read_text())
     for row in read(bundle/'manifest.json')['files']:
@@ -27,6 +41,7 @@ def inspect(bundle, prior_launch, audit_helper):
     if sha(audit_helper)!='6f5285f9e9515d98ea4ae6e99c3bf58a436fd98a3ca266e1f297f4501cce3866':
         raise ValueError('GPU audit helper changed')
     plan=read(bundle/'plan.json')
+    verify_predecessor(plan)
     ref=Path(plan['reference_directory'])
     for file,digest in plan['reference_sha256'].items():
         if sha(ref/file)!=digest:raise ValueError('Reference changed')
