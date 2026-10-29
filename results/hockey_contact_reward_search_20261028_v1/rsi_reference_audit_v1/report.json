@@ -1,0 +1,62 @@
+{
+  "kind": "hockey_rsi_reference_geometry_v1",
+  "source_manifest_sha256": "7f3940fef058eee1b20ae8af6b1b194760d261befc48b304a7654af283a67e46",
+  "script_sha256": "919084bc9f8a1eca7ae8dee0a049d7b2b9fc9eb983ae555064b8ff11030c36a5",
+  "reference_sha256": "e23fbd82639d243f0c485cf391b1eff0e275d31f6bb6ba940647874a0ac83050",
+  "geometry_report_sha256": "4c84a08a9bfeef7c5c1a6f16b89932c242e303ce6661274f3d6bf3474377d506",
+  "geometry_arrays_sha256": "16483e70eafb153a7c8a42ceab166112104549a1de61f8b027415f075a162bed",
+  "upstream_reset_sources": {
+    "upstream/tron1-learning-from-human/training/tron1_tracking.py": "0a29fa27c1d65c0b9add0886221491e549553e3529d6970f1ec5ba35e2532817",
+    "upstream/whole_body_tracking/source/whole_body_tracking/whole_body_tracking/tasks/tracking/mdp/commands.py": "42f9b451e1f0f49e6f2a835c35e695c64299f72d0090368732c7adad450be0a6"
+  },
+  "sampler_sha256": "02be4a25fd966aac594405561b675220b4992a6f5b5e633f5ba04867829de879",
+  "frames": 139,
+  "bilateral_reference_frames": [
+    0,
+    1,
+    2,
+    35
+  ],
+  "contact_tolerance_m": 0.0001,
+  "policy_dt_s": 0.02,
+  "sampling_bin_seconds": 0.2,
+  "bin_count": 14,
+  "full_clip_start_fraction": 0.5,
+  "configured_reset_noise": {
+    "pose_range": {},
+    "velocity_range": {},
+    "joint_position_range": [
+      0.0,
+      0.0
+    ]
+  },
+  "per_bin_bilateral_geometry_probability": [
+    0.3043478260869565,
+    0.0,
+    0.0,
+    0.10144927536231883,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "uniform_bin_counterfactual_bilateral_probability": 0.5144927536231884,
+  "arbitrary_bin_weight_bounds": [
+    0.5,
+    0.6521739130434783
+  ],
+  "measured_training_reset_contact_fraction": null,
+  "limitations": [
+    "The actual adaptive bin weights and reset contacts were not archived.",
+    "Probabilities describe selected reference geometry before physics; joint-limit clipping is not simulated.",
+    "Finite-precision PRNG endpoint effects are excluded from the analytic continuous-uniform rule.",
+    "Native contact, loading, causality and task success cannot be inferred from this calculation.",
+    "No reference, reward, active training snapshot or success gate was modified."
+  ]
+}

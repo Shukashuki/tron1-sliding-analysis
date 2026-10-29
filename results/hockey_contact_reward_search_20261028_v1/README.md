@@ -55,45 +55,39 @@ Contact shaping reads all eight physical substeps. Dense XY/speed/heading/beta f
 
 Independent qualification checks all 56 observations, normalized actor replay, material readback, raw contact buffers and the entire 2.76 s reference. It requires bilateral geometric contact at every physical sample plus the endpoint, followed by the unchanged speed, XY, heading, tilt, 0.5 s terminal hold and ≥0.05 s corroborated sliding gates. Unequal wheel loads are allowed. A nominal pass triggers 33 single-environment initial-state trials; it is not sufficient to claim the research goal is achieved.
 
-## Next reward candidates
+## Smoothness and stop refinements
 
-An [offline signal audit](final_reward_signal_audit_v2/report.json) of all nine screens found that the 50 Hz stop reward can miss an intermediate speed violation, while 28–37% of physical samples saturate the angular-acceleration penalty at 50 rad/s². This identifies reward limitations, not a proven failure mechanism. The legacy stop replay uses a native-force proxy, not the unarchived training filtered force matrix.
+**3/6 refinement screens completed; 0 nominal successes.** The first three replace only the capped angular-acceleration cost with a non-saturating pseudo-Huber cost. The remaining three also replace endpoint stop scoring with bilateral geometric stop scoring at both ends of every physical substep (half mean plus half worst score). The first combined-reward arm is training. Numeric weights, original warm parent, 3,072,000-transition budget, contact models, reference and success gates remain fixed. [Specification](../../config/hockey_contact_refinement_v1.json), [immutable source manifest](source_snapshot_v3/manifest.json), [verified summary](refinement_summary_v3/report.json).
 
-The follow-up [refinement specification](../../config/hockey_contact_refinement_v1.json) first replaces capped angular cost with a non-saturating pseudo-Huber cost, then optionally adds bilateral geometric stop scoring at both ends of every substep (half mean plus half worst score). Numeric weights, original initialization, training budget, contact models, reference and success gates stay fixed. It starts with the closest equal-friction cylinder configuration. The six-candidate queue has now started after all nine screens failed. The [v3 source manifest](source_snapshot_v3/manifest.json), [verified upload receipt](upload_receipt_v3.json) and [launch record](remote_evidence_v3/launch_v3.json) pin its code and settings. A dispatcher guard enforces completion of the predecessor; the original v2 snapshot and results remain unchanged. The first candidate (`native_equal_smooth`) completed training and qualification; it improves contact and angular acceleration but still fails contact continuity and terminal hold. Two of six refinement screens are now complete, with zero nominal passes. The unequal-friction cylinder also fails contact continuity; the nine-slice candidate is in formal training. No robustness suite has run because no nominal candidate has passed. [Offline candidate scores](final_refinement_scores_v2/report.json) are not predicted policy improvements.
+An [offline audit of the nine earlier screens](final_reward_signal_audit_v2/report.json) found that the 50 Hz stop score can miss intermediate speed violations and that 28–37% of physical samples saturate the former angular penalty at 50 rad/s². These are reward limitations, not proven failure mechanisms. The legacy stop replay uses a native-force proxy, not the unarchived training filtered force matrix.
 
-The first matched refinement comparison uses static/dynamic friction 0.7/0.7 and changes only the angular penalty formula:
+Each entry below is `dense → smooth`, within the same contact model:
 
-| Metric | v2 `dense` | v3 `smooth` |
-| --- | ---: | ---: |
-| Bilateral contact | 99.7283% | 99.9094% |
-| Contact interruption | 7.5 ms | 2.5 ms |
-| Angular-acceleration RMS | 110.22 rad/s² | 78.95 rad/s² |
-| XY RMSE | 0.02866 m | 0.03287 m |
-| Terminal stop hold | 0.5000 s | 0.4825 s |
-| Overall task | Fail | Fail |
+| Contact model / friction | Interruption (ms) | Both airborne (ms) | Angular RMS (rad/s²) | XY RMSE (m) | Stop hold (s) |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Cylinder 0.7/0.7 | 7.5 → 2.5 | 0 → 0 | 110.22 → 78.95 | 0.02866 → 0.03287 | 0.5000 → 0.4825 |
+| Cylinder 0.9/0.7 | 65.0 → 57.5 | 17.5 → 25.0 | 87.20 → 85.49 | 0.04058 → 0.03881 | 0.4425 → 0.5000 |
+| Nine slices 0.9/0.7 | 115.0 → 57.5 | 10.0 → 2.5 | 101.64 → 68.79 | 0.03493 → 0.02670 | 0.4450 → 0.4750 |
 
-This is a single-seed paired screen, not a robustness improvement claim. Angular RMS covers the full 2.78 s recording; task contact covers the 2.76 s reference. The remaining right-wheel event is 0.6250–0.6275 s with native separation 0.124 mm and zero normal force averaged over that interval. Contact then returns. Terminal contact stays bilateral, but speed exceeds 0.1 m/s from 2.745 s and ends at 0.1215 m/s. The geometry tolerance and stop threshold are unchanged. [Refinement summary](refinement_summary_v1/report.json), [failure audit](refinement_failure_audit_v1/report.json), [force check](refinement_failure_audit_v1/near_gap_force_check.json).
+All six entries fail the overall task. Angular RMS covers the 2.78 s recording; contact and stop gates cover the 2.76 s reference. These are single-seed matched screens, not robustness estimates. Comparing different friction models also changes the training friction ratio; it is not a same-policy friction sweep.
 
-The [formula-aware offline replay](refinement_reward_audit_v2/report.json) confirms that 32.25% of the smooth actor’s physical samples exceed the former 50 rad/s² scale, while none are capped by its selected pseudo-Huber penalty. Peak angular acceleration is still 572.36 rad/s² within the reference horizon. This is scoring of validation recordings, not logged training reward or proof of task success. The audit preserves every previously reported row value for all nine legacy screens.
+The remaining failures differ:
 
-[Four-column refinement replay](refinement_equal_render_v1/equal_smooth_fullbody_4x1.mp4) and [8× contact excerpt](refinement_equal_render_v1/equal_smooth_contact_excerpt_8x_4x1.mp4) show the parent, `dense`, `load_free` and `smooth` actors. Each panel retains its own immutable source and qualification hashes; camera and physical timing are shared. [Completed recording subset](refinement_publication_v1/manifest.json), [render inputs](refinement_equal_render_inputs_v1.json), [render provenance](refinement_equal_render_v1/provenance.json).
+- **Cylinder 0.7/0.7:** the right wheel loses contact at 0.6250–0.6275 s (native separation 0.124 mm, zero interval-averaged normal force). Terminal contact is bilateral, but speed exceeds 0.1 m/s from 2.745 s and ends at 0.1215 m/s. [Aligned force check](refinement_failure_audit_v1/near_gap_force_check.json).
+- **Cylinder 0.9/0.7:** every gate except bilateral continuity passes. Both wheels lose contact at 1.725–1.750 s, with maximum gaps 0.755 mm left and 1.734 mm right. Less total interruption therefore coexists with more simultaneous contact loss.
+- **Nine slices 0.9/0.7:** angular RMS decreases by 32.3%, but contact and stop gates still fail. Right-wheel interruptions occur at 0.5825–0.6100 s and 0.9375–0.9450 s. Left contact is lost from 2.7375 s, and both contacts are absent during the final 2.5 ms and at the endpoint. Speed stays below 0.1 m/s throughout the final 0.5 s; this stop failure is caused by missing contact, not excessive speed. Including the endpoint, maximum gaps are 2.767 mm left and 1.328 mm right.
 
-The second paired screen, with static/dynamic friction 0.9/0.7, shows a smaller smoothness change:
+[Contact-event audit](refinement_failure_audit_v3/report.json) · [unchanged recordings](refinement_publication_v3/manifest.json) · [formula-aware offline replay](refinement_reward_audit_v4/report.json). Offline scores are computed from validation recordings; they are not logged training reward or predicted learning improvements. No robustness suite has run because no nominal candidate has passed.
 
-| Metric | v2 `native_split_dense` | v3 `native_split_smooth` |
-| --- | ---: | ---: |
-| Contact interruption | 65.0 ms | 57.5 ms |
-| Simultaneous loss of both contacts | 17.5 ms | 25.0 ms |
-| Angular-acceleration RMS | 87.20 rad/s² | 85.49 rad/s² |
-| XY RMSE | 0.04058 m | 0.03881 m |
-| Terminal stop hold | 0.4425 s | 0.5000 s |
-| Overall task | Fail | Fail |
+Fixed-follow comparisons retain individual source/qualification hashes for every panel:
 
-The second actor passes every gate except bilateral continuity. Its double-contact loss occurs during 1.725–1.750 s; maximum gaps are 0.755 mm left and 1.734 mm right. The final 0.5 s keeps both wheels touching and speed below 0.1 m/s. Reduced total interruption therefore does not imply reduced simultaneous contact loss. Each within-model pair changes only the angular penalty formula; comparing the two models also changes the training friction ratio, so this is not a same-policy friction experiment. [Current summary](refinement_summary_v2/report.json), [contact audit](refinement_failure_audit_v2/report.json), [recordings](refinement_publication_v2/manifest.json).
+- [Equal-friction parent / dense / load-free / smooth](refinement_equal_render_v1/equal_smooth_fullbody_4x1.mp4), with [8× contact excerpt](refinement_equal_render_v1/equal_smooth_contact_excerpt_8x_4x1.mp4).
+- [Equal versus unequal friction, dense / smooth pairs](refinement_friction_render_v1/friction_smooth_fullbody_4x1.mp4), with [8× interruption excerpt](refinement_friction_render_v1/friction_smooth_contact_excerpt_8x_4x1.mp4).
+- [Cylinder versus nine slices at 0.9/0.7, dense / smooth pairs](refinement_geometry_render_v1/geometry_smooth_fullbody_4x1.mp4), with [8× terminal excerpt](refinement_geometry_render_v1/geometry_smooth_contact_excerpt_8x_4x1.mp4), [panel sources](refinement_geometry_render_inputs_v1.json) and [provenance](refinement_geometry_render_v1/provenance.json).
 
-[Friction × smoothness four-column replay](refinement_friction_render_v1/friction_smooth_fullbody_4x1.mp4) compares equal-friction `dense`/`smooth`, then unequal-friction `dense`/`smooth`. Its [8× excerpt](refinement_friction_render_v1/friction_smooth_contact_excerpt_8x_4x1.mp4) includes both the old unequal-friction double-contact loss and the later interruption in the new actor. [Panel sources](refinement_friction_render_inputs_v1.json), [provenance](refinement_friction_render_v1/provenance.json), [formula-aware replay for both actors](refinement_reward_audit_v3/report.json).
+The [reference geometry audit](../hockey_reference_contact_gap_20261029_v1/README.md) found one-wheel grounding in the source reference. Its bilateral geometric correction has not been dynamically validated and is not used here. A separate [RSI audit](rsi_reference_audit_v1/report.json) finds that only reference frames 0, 1, 2 and 35 are bilateral. The frozen sampler chooses frame 0 with probability 0.5; the remainder uses 14 adaptive bins and frames 0–137. Uniform bins would give 51.45% bilateral selected reference poses. Actual adaptive weights and reset contact traces were not archived, so this is **not a measured training contact rate**; it excludes joint-limit clipping and physics settling. It identifies a possible later initialization ablation, not a demonstrated cause. [Reproduction code](../../scripts/audit_hockey_rsi_reference_geometry.py) verifies source/reference hashes, with three bin-boundary tests.
 
-The [reference geometry audit](../hockey_reference_contact_gap_20261029_v1/README.md) also found one-wheel grounding in the source reference. Its proposed bilateral geometric correction has not been dynamically validated and is not part of this sweep. External nonlinear tire and elastic brush models remain outside this comparison; see the [model limitations](../hockey_split_friction_20261028_v1/README.md).
+External nonlinear tire and elastic brush models remain outside this comparison; see the [model limitations](../hockey_split_friction_20261028_v1/README.md).
 
 ## Reproduction and execution record
 
