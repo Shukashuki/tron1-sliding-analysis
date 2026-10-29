@@ -1,0 +1,216 @@
+{
+  "kind": "hockey_terminal_command_audit_v1",
+  "script_sha256": "3bceb3af0dd23a76281e959bd58bc1ae9d3de7aba1639409f71da4f335b37fab",
+  "reference_sha256": "e23fbd82639d243f0c485cf391b1eff0e275d31f6bb6ba940647874a0ac83050",
+  "tracking_source_sha256": "0a29fa27c1d65c0b9add0886221491e549553e3529d6970f1ec5ba35e2532817",
+  "cases_selection_sha256": "55b586147452a6df84b11c8d945655e72c33a9344c071f2a5cc01798fcace6f7",
+  "window_s": [
+    2.26,
+    2.76
+  ],
+  "physics_steps": 0,
+  "reference_or_training_changed": false,
+  "criterion_changed": false,
+  "causal_reward_mechanism_proven": false,
+  "target_mapping": "Initial reference leg positions + recorded clipped leg actions * verified LEG_ACTION_SCALE; use_default_offset=True in the pinned tracking source",
+  "targets_are_reconstructed": true,
+  "torques_or_actuator_saturation_inferred": false,
+  "reference": {
+    "leg_joint_names": [
+      "abad_L_Joint",
+      "abad_R_Joint",
+      "hip_L_Joint",
+      "hip_R_Joint",
+      "knee_L_Joint",
+      "knee_R_Joint"
+    ],
+    "leg_position_range_rad": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "leg_velocity_peak_abs_rad_s": [
+      0.0,
+      0.0,
+      4.440892098500626e-16,
+      1.7763568394002505e-15,
+      3.552713678800501e-15,
+      0.0
+    ],
+    "root_height_range_m": 0.0,
+    "root_linear_velocity_peak_abs_m_s": [
+      7.105427357601002e-15,
+      0.0,
+      0.0
+    ]
+  },
+  "cases": [
+    {
+      "case": "native_equal_smooth_stop_xyz_huber:parent_transfer",
+      "qualification_sha256": "83a450384fa63d18f39c2987e922e7ce550fd2e255706dbe1167b5923c85762e",
+      "raw_sha256": {
+        "final_rollout.npz": "f473027c1a134df4cb53bc0b6ca27cce1c8636f8d1e383dcc42dc487016ac60d",
+        "native_contact_buffers.npz": "804fe2f32e5079418323bcd8b290e9e408eae8128de2f4214e854090fc2a8f58"
+      },
+      "reference_frames": 26,
+      "physical_state_samples": 201,
+      "executed_control_intervals": 25,
+      "final_action_at_horizon_excluded": true,
+      "actual_joint_change_rad": [
+        -0.000606536865234375,
+        -0.0069541335105896,
+        -0.03645831346511841,
+        0.050978630781173706,
+        -0.08668738603591919,
+        0.08555775880813599
+      ],
+      "reconstructed_target_change_rad": [
+        -0.0009351074695587158,
+        -0.002152353525161743,
+        -0.03389124572277069,
+        0.05582520179450512,
+        -0.06861789524555206,
+        0.08853563666343689
+      ],
+      "reconstructed_target_range_rad": [
+        0.008554816246032715,
+        0.011334389448165894,
+        0.03389124572277069,
+        0.05582520179450512,
+        0.06861789524555206,
+        0.08853563666343689
+      ],
+      "clipped_leg_action_boundary_fraction": 0.0,
+      "terminal_vz_m_s": 0.04132356494665146,
+      "last_half_second_peak_abs_vz_m_s": 0.0723022073507309,
+      "task_success": false
+    },
+    {
+      "case": "native_equal_smooth:nominal",
+      "qualification_sha256": "3f9c0803cb52c79dfc4bdd746222118eb082322fee8c55ca1354b18af18d8138",
+      "raw_sha256": {
+        "final_rollout.npz": "ba830dca0e7f86578eecc3832e3e0455be81ea8c5c564995d238d679e4435e48",
+        "native_contact_buffers.npz": "2ffd21d0c67b3a7468b243649ecf2e8b0d987a9e31666572a9e6eb63d260595a"
+      },
+      "reference_frames": 26,
+      "physical_state_samples": 201,
+      "executed_control_intervals": 25,
+      "final_action_at_horizon_excluded": true,
+      "actual_joint_change_rad": [
+        -0.018509943038225174,
+        0.0005155950784683228,
+        -0.1439117193222046,
+        0.19194912910461426,
+        -0.45893511176109314,
+        0.4869368076324463
+      ],
+      "reconstructed_target_change_rad": [
+        -0.2264740914106369,
+        0.14910954236984253,
+        -0.13660770654678345,
+        0.22662051022052765,
+        -0.5899447798728943,
+        0.6523252725601196
+      ],
+      "reconstructed_target_range_rad": [
+        0.2264740914106369,
+        0.16233953833580017,
+        0.13660770654678345,
+        0.23707590997219086,
+        0.6180618405342102,
+        0.6738890111446381
+      ],
+      "clipped_leg_action_boundary_fraction": 0.0,
+      "terminal_vz_m_s": 1.4296951293945312,
+      "last_half_second_peak_abs_vz_m_s": 1.4296951293945312,
+      "task_success": false
+    },
+    {
+      "case": "native_equal_smooth_stop_xyz:nominal",
+      "qualification_sha256": "66f5681485b95e7d889e81d319b5a086573bc86710829fbf01a9c6a9bf36cf3d",
+      "raw_sha256": {
+        "final_rollout.npz": "7da6586a94f408fa8af658615cd0cbda77aa4b2410ac4586fa3108de766933af",
+        "native_contact_buffers.npz": "c538ba71f749810262b4116d7d642fa262821659dc0577dec789cd36db8f4483"
+      },
+      "reference_frames": 26,
+      "physical_state_samples": 201,
+      "executed_control_intervals": 25,
+      "final_action_at_horizon_excluded": true,
+      "actual_joint_change_rad": [
+        -0.3088085651397705,
+        -0.2190171629190445,
+        0.11892479658126831,
+        0.14173196256160736,
+        -0.5821921229362488,
+        0.7504048347473145
+      ],
+      "reconstructed_target_change_rad": [
+        -0.3540905565023422,
+        -0.09940141625702381,
+        0.08827781677246094,
+        0.17100001126527786,
+        -0.5306777805089951,
+        0.733478382229805
+      ],
+      "reconstructed_target_range_rad": [
+        0.3576294332742691,
+        0.3368516266345978,
+        0.16290214657783508,
+        0.29524873197078705,
+        0.7295449823141098,
+        0.8876810818910599
+      ],
+      "clipped_leg_action_boundary_fraction": 0.0,
+      "terminal_vz_m_s": 0.04019144922494888,
+      "last_half_second_peak_abs_vz_m_s": 1.3518754243850708,
+      "task_success": false
+    },
+    {
+      "case": "native_equal_smooth_stop_xyz_huber:nominal",
+      "qualification_sha256": "f82b2e260438144267cdc50a65e56cb21c36fb51b92a363ec307cf0c391ca7bf",
+      "raw_sha256": {
+        "final_rollout.npz": "2ea61f4fce48aa182b043077ff287d018c1dc9ffdf565036db0db6e1712970d6",
+        "native_contact_buffers.npz": "47ebed78f5722a73e243e36558d4fda991ed88734e46490eda5a4c73e0409b02"
+      },
+      "reference_frames": 26,
+      "physical_state_samples": 201,
+      "executed_control_intervals": 25,
+      "final_action_at_horizon_excluded": true,
+      "actual_joint_change_rad": [
+        -0.024256683886051178,
+        -0.018849052488803864,
+        0.0076553672552108765,
+        0.050532132387161255,
+        -0.020490586757659912,
+        0.011886775493621826
+      ],
+      "reconstructed_target_change_rad": [
+        -0.05574924871325493,
+        0.01578909158706665,
+        0.014364838600158691,
+        0.05073407478630543,
+        -0.02541433274745941,
+        0.016185536980628967
+      ],
+      "reconstructed_target_range_rad": [
+        0.05740584060549736,
+        0.02359655499458313,
+        0.022226661443710327,
+        0.05073407478630543,
+        0.02541433274745941,
+        0.0282696932554245
+      ],
+      "clipped_leg_action_boundary_fraction": 0.0,
+      "terminal_vz_m_s": 0.03728441521525383,
+      "last_half_second_peak_abs_vz_m_s": 0.03756727650761604,
+      "task_success": false
+    }
+  ],
+  "artifacts": {
+    "signals.npz": "f9906bd31ee0759cd5256121f799c28a229af12bf870a5a16e6be301606e7a4b",
+    "terminal_commands_4x1.png": "97b750bfdcd3d566b529d0943e533180bb0730bf915c3179f24b830e6b2c978a"
+  }
+}

@@ -1,6 +1,6 @@
 # Hockey contact-model and reward comparison
 
-**Eighteen nominal screens are complete, with 0 task successes.** Every completed actor stays upright, but none maintains bilateral contact over the complete reference. The initial nine screens, six smoothness/planar-stop refinements and three XYZ-stop screens have finished. A new non-saturating XYZ speed-cost sweep passed its first Isaac smoke test and is in formal training. No robustness success rate is available.
+**Nineteen nominal screens are complete, with 0 task successes.** The first non-saturating XYZ speed-cost screen substantially improves stopping and reduces contact interruption to 47.5 ms, but still fails continuous bilateral contact. Its unequal-friction cylinder arm is training; the nine-slice arm is pending. The initial nine screens, six smoothness/planar-stop refinements and three exponential XYZ-stop screens are complete. No robustness success rate is available.
 
 ## What the result means
 
@@ -20,6 +20,7 @@ Friction is static/dynamic. “Interruption” means at least one wheel is missi
 | Cylinder 0.7/0.7 | smooth | 2.5 | 0.0 | 0.0329 | 0.4825 | 78.95 |
 | Cylinder 0.7/0.7 | smooth_stop | 147.5 | 27.5 | 0.0233 | 0.5000 | 81.67 |
 | Cylinder 0.7/0.7 | smooth_stop_xyz | 212.5 | 62.5 | 0.0225 | 0.2625 | 90.43 |
+| Cylinder 0.7/0.7 | smooth_stop_xyz_huber | 47.5 | 0.0 | 0.0285 | 0.5000 | 83.32 |
 | Cylinder 0.9/0.7 | dense | 65.0 | 17.5 | 0.0406 | 0.4425 | 87.20 |
 | Cylinder 0.9/0.7 | smooth | 57.5 | 25.0 | 0.0388 | 0.5000 | 85.49 |
 | Cylinder 0.9/0.7 | smooth_stop | 100.0 | 10.0 | 0.0277 | 0.4250 | 88.81 |
@@ -29,7 +30,7 @@ Friction is static/dynamic. “Interruption” means at least one wheel is missi
 | Nine slices 0.9/0.7 | smooth_stop | 142.5 | 60.0 | 0.0320 | 0.5000 | 80.58 |
 | Nine slices 0.9/0.7 | smooth_stop_xyz | 127.5 | 52.5 | 0.0362 | 0.5000 | 93.72 |
 
-All twelve rows fail the task. Angular RMS covers the 2.78 s recording; task/contact gates cover the 2.76 s reference. These are single-seed matched screens, not statistical robustness estimates. Cross-model comparisons also change the training geometry or friction ratio.
+All thirteen rows fail the task. Angular RMS covers the 2.78 s recording; task/contact gates cover the 2.76 s reference. These are single-seed matched screens, not statistical robustness estimates. Cross-model comparisons also change the training geometry or friction ratio.
 
 The closest contact result remains the equal-friction `smooth` actor: 2.5 ms right-wheel loss at 0.6250–0.6275 s, reaching 0.124 mm native separation with zero interval-averaged normal force. It also misses the planar stop gate. [Aligned force check](refinement_failure_audit_v1/near_gap_force_check.json).
 
@@ -47,6 +48,7 @@ Each animation has four horizontal panels and a fixed 2.4 m camera offset. MuJoC
 - [Equal cylinder: dense / smooth / planar-stop / XYZ-stop](xyz_equal_render_v1/equal_xyz_fullbody_4x1.mp4), [8× terminal-contact excerpt](xyz_equal_render_v1/equal_xyz_contact_excerpt_8x_4x1.mp4), [provenance](xyz_equal_render_v1/provenance.json).
 - [Equal and unequal cylinders: planar-stop / XYZ-stop pairs](xyz_friction_render_v1/friction_xyz_fullbody_4x1.mp4), [8× terminal excerpt](xyz_friction_render_v1/friction_xyz_contact_excerpt_8x_4x1.mp4), [provenance](xyz_friction_render_v1/provenance.json).
 - [Nine slices: dense / smooth / planar-stop / XYZ-stop](xyz_slices_render_v2/slices_xyz_fullbody_4x1.mp4), [8× contact-loss excerpt](xyz_slices_render_v2/slices_xyz_contact_excerpt_8x_4x1.mp4), [provenance](xyz_slices_render_v2/provenance.json).
+- [Equal cylinder: frozen parent / smooth / exponential XYZ-stop / dense XYZ-stop](huber_equal_render_v1/equal_huber_fullbody_4x1.mp4), [8× right-wheel contact-loss excerpt](huber_equal_render_v1/equal_huber_contact_excerpt_8x_4x1.mp4), [provenance](huber_equal_render_v1/provenance.json).
 - [Equal and unequal cylinders: smooth / smooth-stop pairs](refinement_stop_friction_render_v1/stop_friction_fullbody_4x1.mp4), [8× excerpt](refinement_stop_friction_render_v1/stop_friction_contact_excerpt_8x_4x1.mp4).
 - [Equal cylinder: parent / dense / smooth / smooth-stop](refinement_stop_render_v1/stop_refinement_fullbody_4x1.mp4), [8× excerpt](refinement_stop_render_v1/stop_refinement_contact_excerpt_8x_4x1.mp4).
 - Earlier controlled comparisons: [geometry × smoothness](refinement_geometry_render_v1/geometry_smooth_fullbody_4x1.mp4), [friction × smoothness](refinement_friction_render_v1/friction_smooth_fullbody_4x1.mp4), [equal-friction refinements](refinement_equal_render_v1/equal_smooth_fullbody_4x1.mp4).
@@ -69,9 +71,15 @@ The unequal-friction XYZ cylinder also fails continuous contact. Relative to its
 
 The completed nine-slice XYZ actor reduces interruption from 142.5 to 127.5 ms and neither-contact time from 60 to 52.5 ms, but still fails the primary gate. Both contacts are absent at 1.5000–1.5525 s, with maximum authored clearances of 10.2/9.2 mm. XY RMSE and angular RMS worsen to 0.03617 m and 93.72 rad/s². Planar stop hold remains 0.5 s, while terminal upward speed is still 0.806 m/s. Thus XYZ exponential scoring did not produce a successful contact/stop policy in any of the three models.
 
+The [terminal-command audit](terminal_command_audit_v2/report.json), with a [four-column plot](terminal_command_audit_v2/terminal_commands_4x1.png), rules out a requested reference extension during 2.26–2.76 s: all six reference leg positions and root height are constant, and reference velocities are zero within floating-point roundoff. Under the same 0.7/0.7 cylinder setup, the frozen parent's peak absolute vertical speed is 0.072 m/s, versus 1.352 m/s after XYZ fine-tuning. Reconstructed knee-target ranges increase from 0.069/0.089 to 0.730/0.888 rad. These are position targets derived from recorded actions and the hash-verified tracking configuration, not measured torques; no leg action reaches the clipping boundary in that window. This identifies a late-control change, not its reward-learning cause, and the parent still fails the full contact task.
+
 A [speed-score resolution audit](xyz_stop_resolution_audit_v1/report.json) finds that the first XYZ actor's speed-only exponential is below 1e-6 at 42.79% of the final 0.5 s samples; [the matched friction-pair audit](xyz_stop_resolution_audit_v2/report.json) includes the second XYZ result. A new [candidate specification](../../config/hockey_contact_stop_xyz_huber_v1.json) therefore separates contact/tilt credit from a non-saturating XYZ speed cost. For each physical interval, let `x = max(||v_pre||², ||v_post||²) / 0.1²` and `H(x) = 2x / (sqrt(1+x)+1)`. During the existing stop phase, the candidate scores half the mean plus half the minimum bilateral contact/tilt credit, minus the sum of half the mean and half the maximum `H(x)` over the eight substeps. The speed cost remains active without contact; there is no absolute-height target. Near zero speed, `H(x)` retains the previous quadratic scale, while larger speeds remain distinguishable. This changes numerical feedback, not the policy or dynamics into a differentiable model.
 
-The [v6 snapshot](source_snapshot_v6/manifest.json) started after all three v5 screens failed. [Preflight](stop_xyz_huber_preflight_v1/report.json) records 33 passing local checks and three protocol comparisons: every non-stop-formula runtime field, numerical weight, parent, budget and DR setting matches v5. Its first 32-environment, two-iteration [Isaac smoke test](xyz_huber_runtime_preflight_v1/report.json) completed 1,536 transitions without collector faults, and the first formal screen is running. The parent qualification and raw recording hashes exactly match v5. This establishes runtime execution, not learned improvement; no v6 nominal actor has been qualified yet. [Upload receipt](upload_receipt_v6.json) · [launch record](remote_evidence_v6/launch_v6.json). Negative stop scores in the offline audit remain counterfactual values on old recordings.
+The [v6 snapshot](source_snapshot_v6/manifest.json) started after all three v5 screens failed. [Preflight](stop_xyz_huber_preflight_v1/report.json) records 33 passing local checks and three protocol comparisons: every non-stop-formula runtime field, numerical weight, parent, budget and DR setting matches v5. Its first 32-environment, two-iteration [Isaac smoke test](xyz_huber_runtime_preflight_v1/report.json) completed 1,536 transitions without collector faults. The parent qualification and raw recording hashes exactly match v5. [Upload receipt](upload_receipt_v6.json) · [launch record](remote_evidence_v6/launch_v6.json).
+
+The first dense XYZ screen has now completed 3,072,000 transitions and independent nominal validation. Relative to its matched exponential XYZ control, contact interruption falls from 212.5 to **47.5 ms**, with **no simultaneous loss of both contacts**; XY RMSE changes from 0.02249 to 0.02846 m. Planar stop hold improves from 0.2625 to 0.5 s. The [additional terminal-velocity check](huber_failure_audit_v1/terminal_xyz_check.json) finds a peak **XYZ speed of 0.043 m/s** and peak absolute vertical speed of **0.038 m/s** during the final 0.5 s; base-COM height varies by 4.2 mm. The [terminal-command comparison](huber_terminal_command_audit_v1/report.json) also shows knee-target ranges of 0.025/0.028 rad, versus 0.730/0.888 rad for the exponential control.
+
+It still fails the task: the right wheel loses contact at **0.6025–0.6225, 0.7225–0.7450 and 0.9825–0.9875 s**, reaching 1.324 mm geometric clearance. The left wheel remains touching throughout, and all other frozen task gates pass. This is a promising nominal screen, not a success or robustness claim. [Summary](huber_summary_v1/report.json) · [contact events](huber_failure_audit_v1/report.json) · [recordings](huber_publication_v1/manifest.json) · [frozen reward replay](huber_reward_audit_v1/report.json). The second and third model results are still unavailable.
 
 A separate [RSI reference-phase audit](rsi_reference_audit_v1/report.json) finds that only reference frames 0, 1, 2 and 35 are bilaterally grounded. Under hypothetical uniform adaptive bins, the current 50% full-start mixture would select bilateral reference geometry 51.45% of the time. Actual bin weights/reset contacts were not archived, so this is not a measured training contact rate or a proven cause. The [reference correction diagnostic](../hockey_reference_contact_gap_20261029_v1/README.md) remains geometric only and is not used in these runs.
 
@@ -85,7 +93,7 @@ Training randomizes dynamic wheel friction over 0.3–1.2, with static friction 
 
 ```bash
 python scripts/collect_hockey_contact_search.py --version v6 --output results/hockey_contact_reward_search_20261028_v1/remote_evidence_v6 --include-rollouts
-python scripts/summarize_hockey_contact_search.py --bundle results/hockey_contact_reward_search_20261028_v1/source_snapshot_v5 --evidence results/hockey_contact_reward_search_20261028_v1/remote_evidence_v5 --run-name run_v5 --output <fresh-summary-directory>
+python scripts/summarize_hockey_contact_search.py --bundle results/hockey_contact_reward_search_20261028_v1/source_snapshot_v6 --evidence results/hockey_contact_reward_search_20261028_v1/remote_evidence_v6 --run-name run_v6 --output <fresh-summary-directory>
 ```
 
 For offline analysis, use the corresponding public recording subset as `--evidence`; manifests preserve raw trajectory/contact hashes. Locked references, robot assets and parent weights are required separately. No weights, licensed body-model files, credentials or source video are published here.
