@@ -21,6 +21,12 @@ def main():
         if not path.is_relative_to(a.bundle.resolve()) or sha(path)!=row['sha256']:
             raise ValueError('Source snapshot changed')
     cfg=read(a.protocol); run=read(a.run/'report.json')
+    if cfg.get('reward_refinement') is not None:
+        if run.get('reward_refinement')!=cfg['reward_refinement']:
+            raise ValueError('Reward-refinement declaration changed')
+        for key,name in (('reward_refinement_source_sha256','hockey_contact_refinement.py'),
+                         ('reward_refinement_math_sha256','hockey_contact_refinement_math.py')):
+            if run.get(key)!=sha(a.bundle/name):raise ValueError('Reward-refinement source changed')
     for key,path in [('source_sha256',a.bundle/'train_hockey_contact_search.py'),
         ('task_source_sha256',a.bundle/'hockey_ppo_task.py'),('bilateral_source_sha256',a.bundle/'hockey_bilateral_task.py'),
         ('reward_search_source_sha256',a.bundle/'hockey_contact_search.py'),

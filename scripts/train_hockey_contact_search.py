@@ -223,6 +223,12 @@ def main():
         from hockey_contact_search import configure as configure_bilateral, DenseContactWindow as BilateralWindow
         from hockey_contact_search import configure_geometry, audit_geometry, initialize_policy
         configure_bilateral(ecfg, cfg)
+        if cfg.get('reward_refinement') is not None:
+            from hockey_contact_refinement import configure as configure_refinement, RefinedContactWindow
+            report['reward_refinement']=configure_refinement(ecfg,cfg)
+            report['reward_refinement_source_sha256']=sha(Path(__file__).with_name('hockey_contact_refinement.py'))
+            report['reward_refinement_math_sha256']=sha(Path(__file__).with_name('hockey_contact_refinement_math.py'))
+            BilateralWindow=RefinedContactWindow
         report["bilateral_source_sha256"] = sha(Path(__file__).with_name("hockey_bilateral_task.py"))
         boundary = cfg.get("friction_boundary")
         if boundary is not None:

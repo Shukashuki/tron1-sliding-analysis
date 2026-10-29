@@ -90,6 +90,11 @@ def main():
         bilateral_source_sha256=sha(a.bundle/'hockey_bilateral_task.py'),
         reward_search_source_sha256=sha(a.bundle/'hockey_contact_search.py'),
         config_sha256=sha(a.protocol),motion_sha256=sha(a.reference/'motion.npz'),asset_sha256=cfg['asset_sha256'])
+    if cfg.get('reward_refinement') is not None:
+        expected_hashes.update(reward_refinement_source_sha256=sha(a.bundle/'hockey_contact_refinement.py'),
+                              reward_refinement_math_sha256=sha(a.bundle/'hockey_contact_refinement_math.py'))
+        for run in (training,suite):
+            require(run.get('reward_refinement')==cfg['reward_refinement'],'Refinement declaration changed')
     for run in (training,suite):
         for key,digest in expected_hashes.items():require(run[key]==digest,'Source identity changed: '+key)
     require(suite['case_math_sha256']==sha(a.bundle/'hockey_speed_study.py'),'Perturbation math changed')
