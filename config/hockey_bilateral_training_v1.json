@@ -1,0 +1,36 @@
+{
+  "kind": "hockey_ppo_bilateral_sliding_v1",
+  "speed_scale": 1.0,
+  "seed": 42,
+  "contact_tolerance_m": 0.0001,
+  "gap_scale_m": 0.01,
+  "weights": {"continuous": 2.0, "contact_loss": -4.0, "clearance": -1.0, "sliding": 0.5, "angular_acceleration": -0.05},
+  "leg_pose_weight": 0.25,
+  "angular_acceleration_scale_rad_s2": 50.0,
+  "gate_positive_tracking_on_bilateral_window": true,
+  "equal_load_target": false,
+  "contact_force_threshold_N": null,
+  "terminate_on_contact_loss": false,
+  "full_clip_start_fraction": 0.5,
+  "friction": {
+    "load_full_fraction_mg": 0.25,
+    "rho_width": 0.1,
+    "rho_upper_screen": 1.05,
+    "slip_threshold_m_s": 0.05,
+    "slip_ramp_m_s": 0.1,
+    "power_threshold_W": 0.05,
+    "power_ramp_W": 1.0,
+    "braking_power_ramp_W": 1.0,
+    "xy_scale_m": 0.3,
+    "velocity_scale_m_s": 0.5,
+    "zero_at_tilt_deg": 45.0
+  },
+  "geometry": {
+    "radius_m": 0.12700000405311584,
+    "half_width_m": 0.02500000037252903,
+    "center_y_in_link_m": [0.007069999817758799, -0.007069999817758799],
+    "floor_z_m": 0.0
+  },
+  "geometry_alignment_max_error_m": 0.001,
+  "rationale": "Cold-start original-speed PPO: bilateral geometric contact is prioritized without equal load, then bounded dissipative lateral sliding during controlled braking. Positive task rewards require all physical substeps to maintain bilateral contact. Leg imitation is relaxed to allow load redistribution. No early reset on contact loss."
+}

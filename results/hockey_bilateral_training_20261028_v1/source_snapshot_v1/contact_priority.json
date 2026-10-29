@@ -1,0 +1,33 @@
+{
+  "kind": "hockey_bilateral_contact_priority_v4",
+  "required_contact": "both_wheels_at_every_physical_sample",
+  "contact_separation_tolerance_m": 0.0001,
+  "physics_dt_s": 0.0025,
+  "evaluation_window_s": [0.0, 2.76],
+  "check_terminal_contact": true,
+  "initial_grace_s": 0.0,
+  "allowed_contact_interruption_s": 0.0,
+  "unknown_contact_can_pass": false,
+  "force_threshold_for_contact_N": null,
+  "required_left_right_load_ratio": null,
+  "load_redistribution_allowed": true,
+  "absolute_height_target": false,
+  "priority_order": [
+    "complete_record_and_continuous_bilateral_geometric_contact",
+    "tracking_posture_speed_retention_and_terminal_stop",
+    "maximize_useful_dissipative_lateral_sliding_within_the_braking_phase"
+  ],
+  "sliding_optimization": {
+    "both_wheels_must_touch_but_need_not_both_slide": true,
+    "reward_unbounded_slip_speed": false,
+    "reward_equal_wheel_load": false,
+    "effective_slide_evidence": "Contact material-point lateral motion, near-limit wheel friction, opposing dissipative friction, and material-displacement cross-check",
+    "comparison_quantities": ["qualifying_slide_duration", "longest_qualifying_slide", "friction_dissipation_proxy"],
+    "stability_diagnostics": ["contact_interruptions", "XY_error", "terminal_stop", "body_tilt", "body_angular_acceleration", "action_change"],
+    "secondary_score_cannot_compensate_for_contact_failure": true
+  },
+  "failed_or_unverified_contact_secondary_metrics": "diagnostic_only_excluded_from_task_performance_ranking",
+  "training_recipe_changed_by_this_specification": false,
+  "historical_success_rates_reused": false,
+  "scope": "New evaluation priority and optimization contract; no new PPO reward weights or training runs are claimed"
+}
