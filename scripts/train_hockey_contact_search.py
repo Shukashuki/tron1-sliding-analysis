@@ -302,7 +302,12 @@ def main():
             torch.cuda.manual_seed_all(cfg["seed"])
             runner = OnPolicyRunner(wrapped, copy.deepcopy(config), log_dir=str(a.output_dir), device=a.device)
             parent = cfg["warm_start"]
-            report["warm_start"] = initialize_policy(runner, parent["checkpoint"], parent["checkpoint_sha256"], cfg["ppo"]["init_noise_std"])
+            if cfg.get('training_continuation') is not None:
+                from hockey_training_continuation import initialize_continuation
+                report['continuation_source_sha256'] = sha(Path(__file__).with_name('hockey_training_continuation.py'))
+                report['warm_start'] = initialize_continuation(runner, cfg)
+            else:
+                report["warm_start"] = initialize_policy(runner, parent["checkpoint"], parent["checkpoint_sha256"], cfg["ppo"]["init_noise_std"])
             report.update(status="training", initial_policy_state_sha256=state_sha(runner.alg.policy))
             write(a.output_dir/"run_status.json", report)
             iterations = cfg[a.mode]["iterations"]
@@ -323,6 +328,8 @@ def main():
             report.update(status="training_completed_not_task_success", transitions=transitions,
                 checkpoint_sha256=sha(a.output_dir/"model_final.pt"),
                 actor_sha256=sha(a.output_dir/"actor_normalized.pt"), actor_includes_normalizer=True)
+            if cfg.get('training_continuation') is not None:
+                report['same_recipe_total_transitions'] = report['warm_start']['prior_same_recipe_transitions'] + transitions
             report["bilateral_audit"] = collector.audit()
             if runner.writer is not None:
                 runner.writer.flush()

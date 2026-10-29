@@ -1,0 +1,42 @@
+{
+  "kind": "hockey_optimizer_continuation_tooling_preflight_v1",
+  "status": "local_package_and_remote_CPU_checks_passed_not_Isaac_training",
+  "source_sha256": {
+    "scripts/hockey_training_continuation.py": "10c998f60605e511ef525d330f8dcc710dd5b96e6dd39ca3c6b69da9589a48ef",
+    "scripts/audit_hockey_training_continuation.py": "dd5ef9556148920d30a1a997189f239573a5923340fac99cf9df219e7b4e4c26",
+    "scripts/prepare_hockey_training_continuation.py": "c8d52d8c7cd3bf8106ba021b3b3175ac8f49933bb2d8821c8175609f6ef7536f",
+    "scripts/train_hockey_contact_search.py": "4abdc62bc57efc8062c4b9b8e1ce88c51da6e2d2226a97e4ebe27c9d821abb84",
+    "tests/test_hockey_training_continuation.py": "a7852381cb0c8f0d1ab6ccd04970fa832b7cd543444519097a9412b12f4561f9"
+  },
+  "focused_tests_passed": 14,
+  "related_checks_passed": 52,
+  "test_command": "/home/roy/gvp-wm-reproduction/.venv/bin/python -m pytest -q tests/test_hockey_training_continuation.py tests/test_hockey_contact_search.py tests/test_hockey_contact_refinement_math.py tests/test_hockey_contact_refinement_adapter.py tests/test_hockey_contact_reward_audit.py tests/test_hockey_contact_robustness.py",
+  "cpu_audit_report_sha256": "c94539e0acde1610d2980ce873d4d4d62e6cc2e54fe2a59ec7af4f8d934779c6",
+  "temporary_package": {
+    "file_count": 42,
+    "total_bytes": 367930,
+    "source_segment_transitions": 3072000,
+    "additional_transitions": 9216000,
+    "source_manifest_sha256": "ac0d8198560ed09934adaa92dd16e0689e58f204484ad22090bcb0fdee13f7e6",
+    "manifest_sha256": "9b7244406828265c2f415964a1c8352f6bebd9637a830f7a21943b41b0aa3d19",
+    "archive_sha256": "0e787ba2836e8c2899a6ee9517d421c84479ab26865bb9d916fd20aed9e7aa9c",
+    "remote_files_written": false,
+    "jobs_started": 0
+  },
+  "temporary_package_removed": true,
+  "temporary_budget_is_not_an_experiment_selection": true,
+  "source_files_unchanged_in_package": [
+    "hockey_ppo_task.py",
+    "hockey_contact_search.py",
+    "hockey_contact_refinement.py",
+    "hockey_contact_refinement_math.py",
+    "qualify_hockey_contact_search.py",
+    "analyze_hockey_bilateral.py",
+    "analyze_hockey_contact_robustness.py"
+  ],
+  "predecessor_guard": "All three v7 screens must finish without a nominal pass before the prepared dispatcher could start",
+  "continuation_experiment_selected": false,
+  "continuation_GPU_jobs_started": 0,
+  "simulator_check_performed": false,
+  "task_success_claimed": false
+}
