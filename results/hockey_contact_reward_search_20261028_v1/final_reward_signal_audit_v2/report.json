@@ -1,0 +1,235 @@
+{
+  "kind": "hockey_contact_reward_signal_audit_v1",
+  "script_sha256": "729b86c9e2a9819f4ab84e0499330a94cc0f096031d84ce4bf5e5a4e271f5855",
+  "source_manifest_sha256": "047ffbb98b769d6b6366e8b4dde7e0eca9b685178de555729a7f2629576090e5",
+  "signals_sha256": "931d55e5281c774c80c92f0a148d7b98f1bcf833165ecc39365b4e97bba2c131",
+  "physics_steps": 0,
+  "training_changed": false,
+  "criterion_changed": false,
+  "logged_training_reward": false,
+  "causal_failure_mechanism_proven": false,
+  "stop_proxy_force_source": "Recorded native summed normal force; training filtered force matrix not archived",
+  "stop_reward_definition": "Control-end speed/tilt multiplied by mean any-wheel force>5N fraction; no hold-duration state",
+  "contact_loss_definition": "Native pre-step bilateral touching AND post-step finite-cylinder gap <=0.1mm",
+  "smoothness_definition": "Per-substep squared angular acceleration, capped at scale^2 before averaging",
+  "cases": [
+    {
+      "cell": "native_split_dense",
+      "qualifier_sha256": "6cae30d077f9cbf3bb8a00c0664999bc95dc127aab514fff4d61caeb21a8d6ce",
+      "raw_sha256": {
+        "final_rollout.npz": "4212bda00c77cdf8860dd5e329574e061edcba6f35bd0d7b265e1db4330591e2",
+        "native_contact_buffers.npz": "d86d2c24996750fcb2d629920b928bfc1d3901edcd273a5d838173f821f7b66a"
+      },
+      "terminal_control_windows": 25,
+      "terminal_endpoint_good_but_substep_speed_or_tilt_violation_windows": 1,
+      "missed_endpoint_windows_s": [
+        [
+          2.7,
+          2.72
+        ]
+      ],
+      "terminal_contact_loss_windows": 2,
+      "terminal_positive_native_force_stop_proxy_with_contact_loss_windows": 2,
+      "positive_stop_proxy_contact_loss_windows_s": [
+        [
+          2.72,
+          2.74
+        ],
+        [
+          2.74,
+          2.7600000000000002
+        ]
+      ],
+      "terminal_stop_proxy_sum": 0.5039868262410163,
+      "terminal_stop_proxy_sum_during_contact_loss": 0.04157321691513061,
+      "angular_acceleration_scale_rad_s2": 50.0,
+      "angular_penalty_saturated_substep_fraction": 0.2798913043478261,
+      "angular_acceleration_peak_rad_s2": 749.8544311523438,
+      "contact_terms_weighted_integral": 5.033368012590215,
+      "task_success": false
+    },
+    {
+      "cell": "slices9_split_dense",
+      "qualifier_sha256": "5940618c3b22996803abb772393c7f61a0fff2da50c3ea67f64c550961f6856d",
+      "raw_sha256": {
+        "final_rollout.npz": "496705d14dda36740b8305adb4ee27465c45329cac62753ae4ed6c3041fe663d",
+        "native_contact_buffers.npz": "064c7a71f7b88d4939d57263b5b339bc8566f75240002ed552b21708cba1eb53"
+      },
+      "terminal_control_windows": 25,
+      "terminal_endpoint_good_but_substep_speed_or_tilt_violation_windows": 0,
+      "missed_endpoint_windows_s": [],
+      "terminal_contact_loss_windows": 0,
+      "terminal_positive_native_force_stop_proxy_with_contact_loss_windows": 0,
+      "positive_stop_proxy_contact_loss_windows_s": [],
+      "terminal_stop_proxy_sum": 0.5396399706602096,
+      "terminal_stop_proxy_sum_during_contact_loss": 0.0,
+      "angular_acceleration_scale_rad_s2": 50.0,
+      "angular_penalty_saturated_substep_fraction": 0.33605072463768115,
+      "angular_acceleration_peak_rad_s2": 934.0189819335938,
+      "contact_terms_weighted_integral": 4.69092742218416,
+      "task_success": false
+    },
+    {
+      "cell": "native_equal_dense",
+      "qualifier_sha256": "1274e1145ad7080e4a059743776330d403afccbea93d4492d58dad3fb07e26af",
+      "raw_sha256": {
+        "final_rollout.npz": "480537cabe5e7ba4923bd57d0d3e8a9ea975c2c44176de6759ffe4614d463d7a",
+        "native_contact_buffers.npz": "c900ef378dd54f972aefb226c0d1fa1860c6a04a980db5317d9ff297810fcdcd"
+      },
+      "terminal_control_windows": 25,
+      "terminal_endpoint_good_but_substep_speed_or_tilt_violation_windows": 0,
+      "missed_endpoint_windows_s": [],
+      "terminal_contact_loss_windows": 0,
+      "terminal_positive_native_force_stop_proxy_with_contact_loss_windows": 0,
+      "positive_stop_proxy_contact_loss_windows_s": [],
+      "terminal_stop_proxy_sum": 0.5676268154382705,
+      "terminal_stop_proxy_sum_during_contact_loss": 0.0,
+      "angular_acceleration_scale_rad_s2": 50.0,
+      "angular_penalty_saturated_substep_fraction": 0.365036231884058,
+      "angular_acceleration_peak_rad_s2": 894.4019775390625,
+      "contact_terms_weighted_integral": 5.4597671119582065,
+      "task_success": false
+    },
+    {
+      "cell": "native_split_tight",
+      "qualifier_sha256": "497d01a865431ec11e9977c6ed0360d35c38d814a0afbe43ec5f8865e7e51ec9",
+      "raw_sha256": {
+        "final_rollout.npz": "ea7e209ee142a74ba7a9d2d9970d0a60cdca9d103ac2bbc09cfa27773dadee20",
+        "native_contact_buffers.npz": "7cb14d1a166e4aed72cc95222083761f771f574d206319f25c13bd1cfa19b561"
+      },
+      "terminal_control_windows": 25,
+      "terminal_endpoint_good_but_substep_speed_or_tilt_violation_windows": 1,
+      "missed_endpoint_windows_s": [
+        [
+          2.2600000000000002,
+          2.2800000000000002
+        ]
+      ],
+      "terminal_contact_loss_windows": 2,
+      "terminal_positive_native_force_stop_proxy_with_contact_loss_windows": 1,
+      "positive_stop_proxy_contact_loss_windows_s": [
+        [
+          2.72,
+          2.74
+        ]
+      ],
+      "terminal_stop_proxy_sum": 0.3222205578256398,
+      "terminal_stop_proxy_sum_during_contact_loss": 0.0003885506233200431,
+      "angular_acceleration_scale_rad_s2": 50.0,
+      "angular_penalty_saturated_substep_fraction": 0.31431159420289856,
+      "angular_acceleration_peak_rad_s2": 752.18701171875,
+      "contact_terms_weighted_integral": 9.00822826398785,
+      "task_success": false
+    },
+    {
+      "cell": "slices9_split_tight",
+      "qualifier_sha256": "e6463cc964863de01e64e39a1e88db87ff6494cb8340ad992a45ec519986f837",
+      "raw_sha256": {
+        "final_rollout.npz": "b23bf5967707728143d369911830e97201ddd63952547e878aa64e515d5bbb8f",
+        "native_contact_buffers.npz": "b9ed0db8ce8faff2c70387cd0a37452aca179caa6ce5a56f404040ad6bf8ac11"
+      },
+      "terminal_control_windows": 25,
+      "terminal_endpoint_good_but_substep_speed_or_tilt_violation_windows": 0,
+      "missed_endpoint_windows_s": [],
+      "terminal_contact_loss_windows": 0,
+      "terminal_positive_native_force_stop_proxy_with_contact_loss_windows": 0,
+      "positive_stop_proxy_contact_loss_windows_s": [],
+      "terminal_stop_proxy_sum": 0.3614828109741211,
+      "terminal_stop_proxy_sum_during_contact_loss": 0.0,
+      "angular_acceleration_scale_rad_s2": 50.0,
+      "angular_penalty_saturated_substep_fraction": 0.33605072463768115,
+      "angular_acceleration_peak_rad_s2": 972.8921508789062,
+      "contact_terms_weighted_integral": 8.915274849948212,
+      "task_success": false
+    },
+    {
+      "cell": "native_equal_tight",
+      "qualifier_sha256": "db9dbdc91961783bd3396fb42d6bf195a19e0dc480f9bb655ab97bdfca8236be",
+      "raw_sha256": {
+        "final_rollout.npz": "d98259e02823ac774fe7e00bfab54bd5bf8f77ec2523028403c5d1e48abbd60a",
+        "native_contact_buffers.npz": "89d8f02b2ed33278078539bd1676d07c7d2fd4fe1b50f9976f22fb597e0fa26b"
+      },
+      "terminal_control_windows": 25,
+      "terminal_endpoint_good_but_substep_speed_or_tilt_violation_windows": 0,
+      "missed_endpoint_windows_s": [],
+      "terminal_contact_loss_windows": 0,
+      "terminal_positive_native_force_stop_proxy_with_contact_loss_windows": 0,
+      "positive_stop_proxy_contact_loss_windows_s": [],
+      "terminal_stop_proxy_sum": 0.5136967375874519,
+      "terminal_stop_proxy_sum_during_contact_loss": 0.0,
+      "angular_acceleration_scale_rad_s2": 50.0,
+      "angular_penalty_saturated_substep_fraction": 0.29528985507246375,
+      "angular_acceleration_peak_rad_s2": 812.130615234375,
+      "contact_terms_weighted_integral": 7.768043399673097,
+      "task_success": false
+    },
+    {
+      "cell": "native_split_load_free",
+      "qualifier_sha256": "489817319e2e48eabc4e62a08f4b54ca7367c3a04d503e94641f67176efa3502",
+      "raw_sha256": {
+        "final_rollout.npz": "c5a88a2a059de097420039c62c479948ec9d5a5defe8885f4419f7f19d506fd5",
+        "native_contact_buffers.npz": "adcba48f40ea98868b9b762e9603152b1944511df8b832e94836d62e939825e4"
+      },
+      "terminal_control_windows": 25,
+      "terminal_endpoint_good_but_substep_speed_or_tilt_violation_windows": 0,
+      "missed_endpoint_windows_s": [],
+      "terminal_contact_loss_windows": 1,
+      "terminal_positive_native_force_stop_proxy_with_contact_loss_windows": 1,
+      "positive_stop_proxy_contact_loss_windows_s": [
+        [
+          2.74,
+          2.7600000000000002
+        ]
+      ],
+      "terminal_stop_proxy_sum": 0.42935447874711824,
+      "terminal_stop_proxy_sum_during_contact_loss": 0.0003086329903453588,
+      "angular_acceleration_scale_rad_s2": 50.0,
+      "angular_penalty_saturated_substep_fraction": 0.3686594202898551,
+      "angular_acceleration_peak_rad_s2": 1088.81591796875,
+      "contact_terms_weighted_integral": 4.881423569951636,
+      "task_success": false
+    },
+    {
+      "cell": "slices9_split_load_free",
+      "qualifier_sha256": "8997cf1af11b6149fa967766cbd614d7f27a171034c723182d5c970f7bbee2d7",
+      "raw_sha256": {
+        "final_rollout.npz": "fadf41ae56d2581307a68017d1002779fe9fdb4b9c2f9dcedb0fc51c0a7e9d0d",
+        "native_contact_buffers.npz": "e8bc82898aa061d9e1c1edb6e7175af2e80399885ff78d1b09f7e35f2690c4a0"
+      },
+      "terminal_control_windows": 25,
+      "terminal_endpoint_good_but_substep_speed_or_tilt_violation_windows": 0,
+      "missed_endpoint_windows_s": [],
+      "terminal_contact_loss_windows": 0,
+      "terminal_positive_native_force_stop_proxy_with_contact_loss_windows": 0,
+      "positive_stop_proxy_contact_loss_windows_s": [],
+      "terminal_stop_proxy_sum": 0.6327739816904068,
+      "terminal_stop_proxy_sum_during_contact_loss": 0.0,
+      "angular_acceleration_scale_rad_s2": 50.0,
+      "angular_penalty_saturated_substep_fraction": 0.3532608695652174,
+      "angular_acceleration_peak_rad_s2": 1014.7902221679688,
+      "contact_terms_weighted_integral": 5.110568027204673,
+      "task_success": false
+    },
+    {
+      "cell": "native_equal_load_free",
+      "qualifier_sha256": "8ded51a630d5c5fe2d0613289725f1ee6fb1d0805c1f7bcc161218b99a369034",
+      "raw_sha256": {
+        "final_rollout.npz": "a1ac73388f20227f7470f8814173b81ecf71c7508d1cdca9b14da8a9c257a88f",
+        "native_contact_buffers.npz": "57e1112d55e94e0fd30bb8271c3b3a444e199dc657cde8228b41dffb1531f89c"
+      },
+      "terminal_control_windows": 25,
+      "terminal_endpoint_good_but_substep_speed_or_tilt_violation_windows": 0,
+      "missed_endpoint_windows_s": [],
+      "terminal_contact_loss_windows": 0,
+      "terminal_positive_native_force_stop_proxy_with_contact_loss_windows": 0,
+      "positive_stop_proxy_contact_loss_windows_s": [],
+      "terminal_stop_proxy_sum": 0.5884176313877105,
+      "terminal_stop_proxy_sum_during_contact_loss": 0.0,
+      "angular_acceleration_scale_rad_s2": 50.0,
+      "angular_penalty_saturated_substep_fraction": 0.322463768115942,
+      "angular_acceleration_peak_rad_s2": 928.3333129882812,
+      "contact_terms_weighted_integral": 5.429438487111154,
+      "task_success": false
+    }
+  ]
+}
