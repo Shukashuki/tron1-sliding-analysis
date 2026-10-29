@@ -4,6 +4,8 @@
 
 The [retrospective friction-capacity audit](cone_relation_v3/README.md) checks all six v6/v7 recordings. All 17 contact losses follow a near-capacity positive-normal interval, then zero normal/tangential impulse before geometric separation. Near-capacity sliding also persists with contact, so saturation alone does not identify failure. The nine-slice force channels contain unresolved static-bound exceedances; these are shown explicitly and cannot support a pointwise cone claim. [Four-panel comparison](cone_relation_v3/summary_4x1.png). This audit changes no training or task gate.
 
+An independent [whole-robot momentum check](momentum_force_audit_v1/README.md) supports the recorded net force and interval alignment: braking RMS residual is 0.00102–0.00117 N, versus 37.2–52.6 N after a one-step force shift. This does not validate individual wheel/patch friction limits or resolve the slice-model anomalies.
+
 ## What the result means
 
 Contact is checked at every 2.5 ms physical sample over the 2.76 s reference, including the terminal state. Both wheels need valid native contact geometry within the unchanged 0.1 mm separation tolerance; a single missed or unknown sample fails. Contact does not depend on a normal-force threshold, equal wheel loads or an absolute body-height target. This is sampled simulation evidence, not a claim about unobserved time between steps.

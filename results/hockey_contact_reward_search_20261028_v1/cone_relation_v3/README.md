@@ -60,6 +60,8 @@ The equal-cylinder v7 outlier is different: at 0.6200 s, Fn = 0.336 N and |Ft| =
 
 Raw-buffer reductions reproduce the archived force channels, so these are not removed by changing plotting precision. If all aligned impulses satisfied their individual Coulomb bounds with the same coefficient, the triangle inequality would bound the wheel resultant too. Missing anchor correspondence **alone does not explain** an aggregate static-bound exceedance. The source could involve reporting/aggregation or solver/contact treatment; this offline audit cannot distinguish those possibilities. Outliers are shown without clipping and excluded from near-capacity sliding corroboration. No stronger physical-friction claim is made.
 
+A subsequent [whole-robot momentum check](../momentum_force_audit_v1/README.md) narrows this uncertainty: summed contact forces agree with recorded momentum changes to 0.00102–0.00117 N braking RMS, including the flagged intervals. A one-step force shift produces 37.2–52.6 N RMS instead. The net force sum and timestamp are therefore supported, while individual wheel/patch allocations and the reason for static-bound exceedances remain unresolved.
+
 [Equal cylinder force sections](model0_cone_sections_4x1.png) · [unequal cylinder](model1_cone_sections_4x1.png) · [nine slices](model2_cone_sections_4x1.png). All section plots use identical axes and display every outlier. Red crosses mark the last positive-normal interval before each loss, not the zero-force interval ending at loss.
 
 ## Implications for the existing reward

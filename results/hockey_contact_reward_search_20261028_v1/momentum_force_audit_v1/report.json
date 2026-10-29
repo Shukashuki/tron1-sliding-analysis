@@ -1,0 +1,976 @@
+{
+  "kind": "hockey_whole_robot_momentum_audit_v1",
+  "source_sha256": "3a9bc57b7ec138d678302253a774080c221f8499a5df2f0641305f48038b2adb",
+  "asset_sha256": "327ca5080e753bbc95d8c3c797e9cd49a0f134d400cfe80494af0ba840e23a8e",
+  "tracking_source_sha256": "0a29fa27c1d65c0b9add0886221491e549553e3529d6970f1ec5ba35e2532817",
+  "cone_report_sha256": "0a2ed31e71515c242c0c4d69fe0a96bdf3eff73b02c1def3ec5c0437d4cc38c3",
+  "selection_sha256": "e7b0190524dfd7423bc229143762a5ff6c326e308b5329428b714185e9390724",
+  "dependency_sha256": {
+    "evaluate_hockey_physx.py": "e9a1d31566da783a93893d4e890445f8d8bcefc3089d63f8d00033e34e70de38"
+  },
+  "sample_dt_s": 0.0025,
+  "gravity_m_s2": 9.81,
+  "authored_body_masses_kg": {
+    "base_Link": 9.585,
+    "abad_L_Link": 1.469,
+    "hip_L_Link": 2.3,
+    "knee_L_Link": 1.49,
+    "wheel_L_Link": 1.08,
+    "abad_R_Link": 1.469,
+    "hip_R_Link": 2.3,
+    "knee_R_Link": 1.49,
+    "wheel_R_Link": 1.08,
+    "limx_imu": 0.01
+  },
+  "runtime_mass_readback_performed": false,
+  "additional_simulator_steps": 0,
+  "training_changed": false,
+  "success_gate_changed": false,
+  "pointwise_cone_certified": false,
+  "equation": "sum_b m_b (v_b[k+1]-v_b[k])/dt = sum_w (F_t,w[k] + F_n,w[k] e_z) + M g + residual",
+  "scope": "Whole-system linear force balance from independently recorded body COM velocities and authored masses",
+  "limitations": [
+    "Authored masses are hash-locked; this is not a new live mass/gravity/solver-flag readback.",
+    "Internal joint forces and motor reactions cancel in a whole-system linear momentum sum.",
+    "Small residual validates the net external-force accounting, not each wheel/patch force allocation.",
+    "Equal-and-opposite force channel errors could cancel. No per-wheel Newton-Euler or angular-momentum audit is performed.",
+    "Unrecorded external forces are not individually identified; their net contribution is constrained only by the residual.",
+    "Momentum consistency does not prove that the simulator obeys an ideal static/dynamic Coulomb bound."
+  ],
+  "cases": [
+    {
+      "cell": "native_equal_smooth_stop_xyz_huber",
+      "label": "Cylinder 0.7/0.7 / v6",
+      "body_names": [
+        "base_Link",
+        "abad_L_Link",
+        "abad_R_Link",
+        "limx_imu",
+        "hip_L_Link",
+        "hip_R_Link",
+        "knee_L_Link",
+        "knee_R_Link",
+        "wheel_L_Link",
+        "wheel_R_Link"
+      ],
+      "authored_body_masses_kg": [
+        9.585,
+        1.469,
+        1.469,
+        0.01,
+        2.3,
+        2.3,
+        1.49,
+        1.49,
+        1.08,
+        1.08
+      ],
+      "total_authored_mass_kg": 22.272999999999996,
+      "qualification_sha256": "f82b2e260438144267cdc50a65e56cb21c36fb51b92a363ec307cf0c391ca7bf",
+      "raw_sha256": {
+        "final_rollout.npz": "2ea61f4fce48aa182b043077ff287d018c1dc9ffdf565036db0db6e1712970d6",
+        "native_contact_buffers.npz": "47ebed78f5722a73e243e36558d4fda991ed88734e46490eda5a4c73e0409b02"
+      },
+      "source_manifest_sha256": "3c8a9125497b3c7ec70ce2ca777c8c9c1d2111aebc8e8543512d7fbe41eec5ea",
+      "whole_task": {
+        "intervals": 1104,
+        "component_RMS_N": [
+          0.0009953462499961885,
+          0.00012093277963286547,
+          0.00016637786831124948
+        ],
+        "vector_RMS_N": 0.001016376155581683,
+        "vector_p95_N": 0.0023362990083716797,
+        "vector_max_N": 0.005515499195246011,
+        "mean_residual_N": [
+          -3.4750103331254466e-05,
+          1.035377562893063e-06,
+          2.911822900274901e-05
+        ]
+      },
+      "braking": {
+        "intervals": 560,
+        "component_RMS_N": [
+          0.001057981745592284,
+          0.00016211205454305032,
+          0.00021962421905866915
+        ],
+        "vector_RMS_N": 0.001092630079135567,
+        "vector_p95_N": 0.0023461557286172893,
+        "vector_max_N": 0.004062628180445422,
+        "mean_residual_N": [
+          -2.3882583776924092e-05,
+          1.226200007189585e-06,
+          3.2969428058262e-05
+        ]
+      },
+      "static_bound_exceedance_intervals": null,
+      "braking_force_time_shift_steps": {
+        "-1": {
+          "intervals": 560,
+          "component_RMS_N": [
+            28.75684180470083,
+            11.497448817272943,
+            34.07561568914976
+          ],
+          "vector_RMS_N": 46.04665964520149,
+          "vector_p95_N": 97.10468778020275,
+          "vector_max_N": 363.5643305382507,
+          "mean_residual_N": [
+            -0.03325627346436166,
+            0.05689508919678974,
+            -0.059636145130725585
+          ]
+        },
+        "0": {
+          "intervals": 560,
+          "component_RMS_N": [
+            0.001057981745592284,
+            0.00016211205454305032,
+            0.00021962421905866915
+          ],
+          "vector_RMS_N": 0.001092630079135567,
+          "vector_p95_N": 0.0023461557286172893,
+          "vector_max_N": 0.004062628180445422,
+          "mean_residual_N": [
+            -2.3882583776924092e-05,
+            1.226200007189585e-06,
+            3.2969428058262e-05
+          ]
+        },
+        "1": {
+          "intervals": 560,
+          "component_RMS_N": [
+            28.78497775707151,
+            11.52407511664257,
+            34.0815734855535
+          ],
+          "vector_RMS_N": 46.075296016632464,
+          "vector_p95_N": 97.1038492128496,
+          "vector_max_N": 363.56451944192037,
+          "mean_residual_N": [
+            0.001579923435052447,
+            -0.03734171045204002,
+            0.08810315711809302
+          ]
+        }
+      },
+      "cumulative_residual_impulse_kg_m_s": [
+        -9.591028519426233e-05,
+        2.8576420735848542e-06,
+        8.036631204758727e-05
+      ],
+      "largest_static_ratio_sample": {
+        "time_start_s": 0.8025,
+        "rho_static_per_wheel": [
+          0.9999982138219121,
+          1.0000002788403886
+        ],
+        "observed_dP_dt_N": [
+          -5.6325374543661155,
+          -34.80300343632692,
+          35.45142566524433
+        ],
+        "summed_contact_plus_gravity_N": [
+          -5.631538391113281,
+          -34.802764892578125,
+          35.45146060306067
+        ],
+        "residual_N": [
+          -0.0009990632528342758,
+          -0.00023854374879306306,
+          -3.493781633778781e-05
+        ]
+      }
+    },
+    {
+      "cell": "native_equal_smooth_stop_xyz_huber_continuity",
+      "label": "Cylinder 0.7/0.7 / v7",
+      "body_names": [
+        "base_Link",
+        "abad_L_Link",
+        "abad_R_Link",
+        "limx_imu",
+        "hip_L_Link",
+        "hip_R_Link",
+        "knee_L_Link",
+        "knee_R_Link",
+        "wheel_L_Link",
+        "wheel_R_Link"
+      ],
+      "authored_body_masses_kg": [
+        9.585,
+        1.469,
+        1.469,
+        0.01,
+        2.3,
+        2.3,
+        1.49,
+        1.49,
+        1.08,
+        1.08
+      ],
+      "total_authored_mass_kg": 22.272999999999996,
+      "qualification_sha256": "0dfb0d96cd02fe93eaf9b3bd8049ad472ff625bcbf7a570e4b7d51a316147feb",
+      "raw_sha256": {
+        "final_rollout.npz": "20661d02030d5cbc80b900841c04404afbc4583ad572dcbb6022580bb3e641c6",
+        "native_contact_buffers.npz": "5da69c4a7df577b19ded816a2d544e00b3aaa90cd4cd2452d66debc4793da3e9"
+      },
+      "source_manifest_sha256": "ac0d8198560ed09934adaa92dd16e0689e58f204484ad22090bcb0fdee13f7e6",
+      "whole_task": {
+        "intervals": 1104,
+        "component_RMS_N": [
+          0.0009581654182034718,
+          0.00011907806663383754,
+          0.00017232677198716036
+        ],
+        "vector_RMS_N": 0.0009807941022140182,
+        "vector_p95_N": 0.0023061219441869165,
+        "vector_max_N": 0.005766886300839573,
+        "mean_residual_N": [
+          5.5365247711918465e-05,
+          -1.107894227569599e-06,
+          2.157147555446509e-05
+        ]
+      },
+      "braking": {
+        "intervals": 560,
+        "component_RMS_N": [
+          0.0010602391579902688,
+          0.00014066970059719596,
+          0.00020826597299920268
+        ],
+        "vector_RMS_N": 0.0010896190858787876,
+        "vector_p95_N": 0.0024450108180484606,
+        "vector_max_N": 0.0049796351446730275,
+        "mean_residual_N": [
+          6.207981136693772e-05,
+          -8.592441944246402e-06,
+          1.7383066071560308e-05
+        ]
+      },
+      "static_bound_exceedance_intervals": {
+        "intervals": 1,
+        "component_RMS_N": [
+          0.00031651258541387506,
+          0.00032162368288624066,
+          4.262887364347989e-05
+        ],
+        "vector_RMS_N": 0.0004532540468509867,
+        "vector_p95_N": 0.0004532540468509867,
+        "vector_max_N": 0.0004532540468509867,
+        "mean_residual_N": [
+          0.00031651258541387506,
+          -0.00032162368288624066,
+          -4.262887364347989e-05
+        ]
+      },
+      "braking_force_time_shift_steps": {
+        "-1": {
+          "intervals": 560,
+          "component_RMS_N": [
+            22.87626023941678,
+            12.135653083003298,
+            26.71796177397985
+          ],
+          "vector_RMS_N": 37.208155552894276,
+          "vector_p95_N": 87.23299602132424,
+          "vector_max_N": 201.10976395938178,
+          "mean_residual_N": [
+            0.019033531502585705,
+            0.031990212195419726,
+            -0.037198664610503904
+          ]
+        },
+        "0": {
+          "intervals": 560,
+          "component_RMS_N": [
+            0.0010602391579902688,
+            0.00014066970059719596,
+            0.00020826597299920268
+          ],
+          "vector_RMS_N": 0.0010896190858787876,
+          "vector_p95_N": 0.0024450108180484606,
+          "vector_max_N": 0.0049796351446730275,
+          "mean_residual_N": [
+            6.207981136693772e-05,
+            -8.592441944246402e-06,
+            1.7383066071560308e-05
+          ]
+        },
+        "1": {
+          "intervals": 560,
+          "component_RMS_N": [
+            22.967768289574,
+            12.166974781177107,
+            26.84847253023518
+          ],
+          "vector_RMS_N": 37.3683573727312,
+          "vector_p95_N": 87.2333750415771,
+          "vector_max_N": 201.10902044063937,
+          "mean_residual_N": [
+            -0.09726734259442098,
+            0.07764259831580728,
+            -0.07765181761211531
+          ]
+        }
+      },
+      "cumulative_residual_impulse_kg_m_s": [
+        0.00015280808368489497,
+        -3.0577880680920933e-06,
+        5.953727253032365e-05
+      ],
+      "largest_static_ratio_sample": {
+        "time_start_s": 0.62,
+        "rho_static_per_wheel": [
+          0.9986910346534232,
+          3.376955742561537
+        ],
+        "observed_dP_dt_N": [
+          22.434040737152827,
+          40.91956863105306,
+          -150.64335508644575
+        ],
+        "summed_contact_plus_gravity_N": [
+          22.433724224567413,
+          40.91989025473595,
+          -150.6433124575721
+        ],
+        "residual_N": [
+          0.00031651258541387506,
+          -0.00032162368288624066,
+          -4.262887364347989e-05
+        ]
+      }
+    },
+    {
+      "cell": "native_split_smooth_stop_xyz_huber",
+      "label": "Cylinder 0.9/0.7 / v6",
+      "body_names": [
+        "base_Link",
+        "abad_L_Link",
+        "abad_R_Link",
+        "limx_imu",
+        "hip_L_Link",
+        "hip_R_Link",
+        "knee_L_Link",
+        "knee_R_Link",
+        "wheel_L_Link",
+        "wheel_R_Link"
+      ],
+      "authored_body_masses_kg": [
+        9.585,
+        1.469,
+        1.469,
+        0.01,
+        2.3,
+        2.3,
+        1.49,
+        1.49,
+        1.08,
+        1.08
+      ],
+      "total_authored_mass_kg": 22.272999999999996,
+      "qualification_sha256": "c98401369037d8788c52fdf05c441b384cc6030ff6ac256c5736b0698817f070",
+      "raw_sha256": {
+        "final_rollout.npz": "d4a08d9fb3c771c43ddf18367871344613839ad336d337c479df13eaec9a354b",
+        "native_contact_buffers.npz": "44a5fa8b78b0121227ff569d4b1b949221babfcb8cd72823b3d19b798b2a6390"
+      },
+      "source_manifest_sha256": "3c8a9125497b3c7ec70ce2ca777c8c9c1d2111aebc8e8543512d7fbe41eec5ea",
+      "whole_task": {
+        "intervals": 1104,
+        "component_RMS_N": [
+          0.0009790890473896196,
+          0.00011078938737750941,
+          0.00014932744425919623
+        ],
+        "vector_RMS_N": 0.0009965883486589549,
+        "vector_p95_N": 0.0023134585517633486,
+        "vector_max_N": 0.0061667710827719106,
+        "mean_residual_N": [
+          5.2643503716262505e-05,
+          -8.590270358911332e-07,
+          1.6455464976831355e-05
+        ]
+      },
+      "braking": {
+        "intervals": 560,
+        "component_RMS_N": [
+          0.0009865351967606488,
+          0.00014526618815136982,
+          0.00019378556388376184
+        ],
+        "vector_RMS_N": 0.0010158281373526478,
+        "vector_p95_N": 0.002255110179719255,
+        "vector_max_N": 0.0051821935406319315,
+        "mean_residual_N": [
+          6.977446112767436e-06,
+          -1.4840744970569452e-06,
+          1.2915229509570724e-05
+        ]
+      },
+      "static_bound_exceedance_intervals": {
+        "intervals": 1,
+        "component_RMS_N": [
+          0.0023221731182729854,
+          0.00012397393594909545,
+          0.00018796597629489042
+        ],
+        "vector_RMS_N": 0.002333064237493019,
+        "vector_p95_N": 0.002333064237493019,
+        "vector_max_N": 0.002333064237493019,
+        "mean_residual_N": [
+          -0.0023221731182729854,
+          0.00012397393594909545,
+          0.00018796597629489042
+        ]
+      },
+      "braking_force_time_shift_steps": {
+        "-1": {
+          "intervals": 560,
+          "component_RMS_N": [
+            26.140986930380368,
+            13.57177460799878,
+            34.00342329940349
+          ],
+          "vector_RMS_N": 44.986409723193674,
+          "vector_p95_N": 81.24956059690005,
+          "vector_max_N": 407.65189110689056,
+          "mean_residual_N": [
+            0.03133319305389213,
+            0.028519752277061054,
+            -0.028629054883594074
+          ]
+        },
+        "0": {
+          "intervals": 560,
+          "component_RMS_N": [
+            0.0009865351967606488,
+            0.00014526618815136982,
+            0.00019378556388376184
+          ],
+          "vector_RMS_N": 0.0010158281373526478,
+          "vector_p95_N": 0.002255110179719255,
+          "vector_max_N": 0.0051821935406319315,
+          "mean_residual_N": [
+            6.977446112767436e-06,
+            -1.4840744970569452e-06,
+            1.2915229509570724e-05
+          ]
+        },
+        "1": {
+          "intervals": 560,
+          "component_RMS_N": [
+            26.800159710047566,
+            13.653680396100102,
+            34.451976208776635
+          ],
+          "vector_RMS_N": 45.7341252625763,
+          "vector_p95_N": 82.61665338495715,
+          "vector_max_N": 407.652604159589,
+          "mean_residual_N": [
+            -0.26045782025504166,
+            0.03264440561644701,
+            -0.2817877124953868
+          ]
+        }
+      },
+      "cumulative_residual_impulse_kg_m_s": [
+        0.0001452960702568845,
+        -2.3709146190595276e-06,
+        4.5417083336054544e-05
+      ],
+      "largest_static_ratio_sample": {
+        "time_start_s": 0.78,
+        "rho_static_per_wheel": [
+          0.7777773624322455,
+          1.8385392228977435
+        ],
+        "observed_dP_dt_N": [
+          -52.7821800470349,
+          20.564308788627493,
+          -139.08038505688313
+        ],
+        "summed_contact_plus_gravity_N": [
+          -52.779857873916626,
+          20.564184814691544,
+          -139.08057302285943
+        ],
+        "residual_N": [
+          -0.0023221731182729854,
+          0.00012397393594909545,
+          0.00018796597629489042
+        ]
+      }
+    },
+    {
+      "cell": "native_split_smooth_stop_xyz_huber_continuity",
+      "label": "Cylinder 0.9/0.7 / v7",
+      "body_names": [
+        "base_Link",
+        "abad_L_Link",
+        "abad_R_Link",
+        "limx_imu",
+        "hip_L_Link",
+        "hip_R_Link",
+        "knee_L_Link",
+        "knee_R_Link",
+        "wheel_L_Link",
+        "wheel_R_Link"
+      ],
+      "authored_body_masses_kg": [
+        9.585,
+        1.469,
+        1.469,
+        0.01,
+        2.3,
+        2.3,
+        1.49,
+        1.49,
+        1.08,
+        1.08
+      ],
+      "total_authored_mass_kg": 22.272999999999996,
+      "qualification_sha256": "e6cabd164b9cd7bd9e33540cd288386450db3d5176e3ef120a43d17fdb51e988",
+      "raw_sha256": {
+        "final_rollout.npz": "15a06564ec8f2a53ab2d1c7989265fa34799bdae6d714ea22ddb5f36e16abe8f",
+        "native_contact_buffers.npz": "0e15e2bd60b9533895b60812382cc2a71426e3f86ece2d931cebe507ac01b025"
+      },
+      "source_manifest_sha256": "ac0d8198560ed09934adaa92dd16e0689e58f204484ad22090bcb0fdee13f7e6",
+      "whole_task": {
+        "intervals": 1104,
+        "component_RMS_N": [
+          0.0009791733330593987,
+          0.0001581070453989556,
+          0.0001636400587949115
+        ],
+        "vector_RMS_N": 0.0010052643049575775,
+        "vector_p95_N": 0.0023617987132904254,
+        "vector_max_N": 0.004314634547461714,
+        "mean_residual_N": [
+          2.1435351926846464e-05,
+          4.6067545949198065e-06,
+          1.0224496298567714e-05
+        ]
+      },
+      "braking": {
+        "intervals": 560,
+        "component_RMS_N": [
+          0.0010882157345833568,
+          0.00019909552617874745,
+          0.0002138505110634688
+        ],
+        "vector_RMS_N": 0.001126758427801317,
+        "vector_p95_N": 0.002502060186243059,
+        "vector_max_N": 0.003980078968931583,
+        "mean_residual_N": [
+          2.991448020196939e-06,
+          7.54500340003588e-07,
+          5.641946835612175e-06
+        ]
+      },
+      "static_bound_exceedance_intervals": null,
+      "braking_force_time_shift_steps": {
+        "-1": {
+          "intervals": 560,
+          "component_RMS_N": [
+            31.656101149060103,
+            15.196577885461778,
+            39.10449440908689
+          ],
+          "vector_RMS_N": 52.55669512420601,
+          "vector_p95_N": 109.29099874624974,
+          "vector_max_N": 546.4481705917458,
+          "mean_residual_N": [
+            -0.10966372390144967,
+            0.05834785707427974,
+            -0.17411977129639097
+          ]
+        },
+        "0": {
+          "intervals": 560,
+          "component_RMS_N": [
+            0.0010882157345833568,
+            0.00019909552617874745,
+            0.0002138505110634688
+          ],
+          "vector_RMS_N": 0.001126758427801317,
+          "vector_p95_N": 0.002502060186243059,
+          "vector_max_N": 0.003980078968931583,
+          "mean_residual_N": [
+            2.991448020196939e-06,
+            7.54500340003588e-07,
+            5.641946835612175e-06
+          ]
+        },
+        "1": {
+          "intervals": 560,
+          "component_RMS_N": [
+            31.694540533328112,
+            15.211086430207722,
+            39.175510756372454
+          ],
+          "vector_RMS_N": 52.636885289962635,
+          "vector_p95_N": 109.29094289099761,
+          "vector_max_N": 546.4452082494538,
+          "mean_residual_N": [
+            0.20791711225839268,
+            -0.07256107493037636,
+            0.007870615766091608
+          ]
+        }
+      },
+      "cumulative_residual_impulse_kg_m_s": [
+        5.9161571318096244e-05,
+        1.2714642681978667e-05,
+        2.821960978404689e-05
+      ],
+      "largest_static_ratio_sample": {
+        "time_start_s": 0.8625,
+        "rho_static_per_wheel": [
+          0.7777127966566533,
+          0.8091489266026234
+        ],
+        "observed_dP_dt_N": [
+          -64.74067596197273,
+          -156.68808927237993,
+          140.6135990986601
+        ],
+        "summed_contact_plus_gravity_N": [
+          -64.73878741264343,
+          -156.6879539489746,
+          140.613241379875
+        ],
+        "residual_N": [
+          -0.0018885493292941646,
+          -0.00013532340531696718,
+          0.0003577187850964947
+        ]
+      }
+    },
+    {
+      "cell": "slices9_split_smooth_stop_xyz_huber",
+      "label": "Nine slices 0.9/0.7 / v6",
+      "body_names": [
+        "base_Link",
+        "abad_L_Link",
+        "abad_R_Link",
+        "limx_imu",
+        "hip_L_Link",
+        "hip_R_Link",
+        "knee_L_Link",
+        "knee_R_Link",
+        "wheel_L_Link",
+        "wheel_R_Link"
+      ],
+      "authored_body_masses_kg": [
+        9.585,
+        1.469,
+        1.469,
+        0.01,
+        2.3,
+        2.3,
+        1.49,
+        1.49,
+        1.08,
+        1.08
+      ],
+      "total_authored_mass_kg": 22.272999999999996,
+      "qualification_sha256": "c61804830ec794462dd919145eb4259886dfdbe2eb96afebd46355a2d7ee0876",
+      "raw_sha256": {
+        "final_rollout.npz": "1ca48e4cc3f0332d1e04f4b6b6641f02fa24fb94ba01f11ecc4bf862a1607ae1",
+        "native_contact_buffers.npz": "aeca3352e2394e562569c7eacd86bdf7c423443bcd2381e8423df43353719995"
+      },
+      "source_manifest_sha256": "3c8a9125497b3c7ec70ce2ca777c8c9c1d2111aebc8e8543512d7fbe41eec5ea",
+      "whole_task": {
+        "intervals": 1104,
+        "component_RMS_N": [
+          0.0010287745465092123,
+          0.00011867638794334765,
+          0.00021322067464886948
+        ],
+        "vector_RMS_N": 0.0010573193503848471,
+        "vector_p95_N": 0.0025557082610291474,
+        "vector_max_N": 0.005951807315586152,
+        "mean_residual_N": [
+          4.6770125409984653e-07,
+          -6.932730368295687e-06,
+          2.8044065148863373e-05
+        ]
+      },
+      "braking": {
+        "intervals": 560,
+        "component_RMS_N": [
+          0.001120201348267034,
+          0.00015853722899151202,
+          0.0002872136552944702
+        ],
+        "vector_RMS_N": 0.0011672518140586454,
+        "vector_p95_N": 0.0027153347346977985,
+        "vector_max_N": 0.004984694307589597,
+        "mean_residual_N": [
+          -2.5232533725302478e-05,
+          -1.2817426884115048e-05,
+          3.865934849428384e-05
+        ]
+      },
+      "static_bound_exceedance_intervals": {
+        "intervals": 32,
+        "component_RMS_N": [
+          0.000988399375688883,
+          7.363675743804582e-05,
+          0.0001364663813030611
+        ],
+        "vector_RMS_N": 0.001000489265876509,
+        "vector_p95_N": 0.0017190180406076215,
+        "vector_max_N": 0.0027478006433539265,
+        "mean_residual_N": [
+          -0.00010134372854953,
+          -5.624078042582026e-06,
+          4.238733382955218e-06
+        ]
+      },
+      "braking_force_time_shift_steps": {
+        "-1": {
+          "intervals": 560,
+          "component_RMS_N": [
+            26.492422298999895,
+            15.119743910903109,
+            29.782252461178054
+          ],
+          "vector_RMS_N": 42.63141631310395,
+          "vector_p95_N": 101.59934534117558,
+          "vector_max_N": 207.3199973178402,
+          "mean_residual_N": [
+            -0.13859813657556064,
+            0.12876952643755682,
+            -0.069166039736287
+          ]
+        },
+        "0": {
+          "intervals": 560,
+          "component_RMS_N": [
+            0.001120201348267034,
+            0.00015853722899151202,
+            0.0002872136552944702
+          ],
+          "vector_RMS_N": 0.0011672518140586454,
+          "vector_p95_N": 0.0027153347346977985,
+          "vector_max_N": 0.004984694307589597,
+          "mean_residual_N": [
+            -2.5232533725302478e-05,
+            -1.2817426884115048e-05,
+            3.865934849428384e-05
+          ]
+        },
+        "1": {
+          "intervals": 560,
+          "component_RMS_N": [
+            26.630061419523773,
+            15.454214637100831,
+            30.239550895681866
+          ],
+          "vector_RMS_N": 43.15580331345628,
+          "vector_p95_N": 103.73665801799667,
+          "vector_max_N": 207.31835946160476,
+          "mean_residual_N": [
+            0.2942677862160567,
+            -0.2230292974640284,
+            -0.16194226562296904
+          ]
+        }
+      },
+      "cumulative_residual_impulse_kg_m_s": [
+        1.2908554613155764e-06,
+        -1.9134335816496095e-05,
+        7.740161981086291e-05
+      ],
+      "largest_static_ratio_sample": {
+        "time_start_s": 1.0275,
+        "rho_static_per_wheel": [
+          2.5182692593154488,
+          0.7395802332650133
+        ],
+        "observed_dP_dt_N": [
+          -32.413189727068215,
+          5.228038975945681,
+          54.084307772666214
+        ],
+        "summed_contact_plus_gravity_N": [
+          -32.413604736328125,
+          5.228057861328125,
+          54.08419844357738
+        ],
+        "residual_N": [
+          0.00041500925991044824,
+          -1.888538244365634e-05,
+          0.00010932908883631853
+        ]
+      }
+    },
+    {
+      "cell": "slices9_split_smooth_stop_xyz_huber_continuity",
+      "label": "Nine slices 0.9/0.7 / v7",
+      "body_names": [
+        "base_Link",
+        "abad_L_Link",
+        "abad_R_Link",
+        "limx_imu",
+        "hip_L_Link",
+        "hip_R_Link",
+        "knee_L_Link",
+        "knee_R_Link",
+        "wheel_L_Link",
+        "wheel_R_Link"
+      ],
+      "authored_body_masses_kg": [
+        9.585,
+        1.469,
+        1.469,
+        0.01,
+        2.3,
+        2.3,
+        1.49,
+        1.49,
+        1.08,
+        1.08
+      ],
+      "total_authored_mass_kg": 22.272999999999996,
+      "qualification_sha256": "d977d2dd82ac0a99f593d2cb2534f151e3b3b01640c5d2796787d809302c7525",
+      "raw_sha256": {
+        "final_rollout.npz": "e4e3900afec8ed17c016e55012c34d05f6255dab1442168123beede57b207df1",
+        "native_contact_buffers.npz": "35725eb61d15f66856d7a7f2758f6ecc5777764f0c943ec3db45129728579a28"
+      },
+      "source_manifest_sha256": "ac0d8198560ed09934adaa92dd16e0689e58f204484ad22090bcb0fdee13f7e6",
+      "whole_task": {
+        "intervals": 1104,
+        "component_RMS_N": [
+          0.0010480376959264728,
+          0.00010688983388823101,
+          0.000194820473470313
+        ],
+        "vector_RMS_N": 0.0010713372324131745,
+        "vector_p95_N": 0.002369548382580805,
+        "vector_max_N": 0.006051510144331196,
+        "mean_residual_N": [
+          0.0001366505681940997,
+          1.4287704961738094e-06,
+          2.2172472246556425e-05
+        ]
+      },
+      "braking": {
+        "intervals": 560,
+        "component_RMS_N": [
+          0.0011020149489953668,
+          0.00014174859659217475,
+          0.0002671319354094209
+        ],
+        "vector_RMS_N": 0.0011427550408380156,
+        "vector_p95_N": 0.002388128730984159,
+        "vector_max_N": 0.005093389486758538,
+        "mean_residual_N": [
+          0.0001401440586363973,
+          2.846730307604866e-06,
+          3.0542271491542016e-05
+        ]
+      },
+      "static_bound_exceedance_intervals": {
+        "intervals": 8,
+        "component_RMS_N": [
+          0.0012225578561770548,
+          0.00014194021658689126,
+          0.0002549828047448627
+        ],
+        "vector_RMS_N": 0.0012569053136575273,
+        "vector_p95_N": 0.0021946800216317715,
+        "vector_max_N": 0.0022629565203033187,
+        "mean_residual_N": [
+          8.152537046157704e-05,
+          -4.326701163392954e-05,
+          0.0001349839836120026
+        ]
+      },
+      "braking_force_time_shift_steps": {
+        "-1": {
+          "intervals": 560,
+          "component_RMS_N": [
+            32.11829281156169,
+            17.34360675346473,
+            31.107890592055814
+          ],
+          "vector_RMS_N": 47.95921481254002,
+          "vector_p95_N": 95.82311765377003,
+          "vector_max_N": 411.41158392482396,
+          "mean_residual_N": [
+            0.008323290433202613,
+            0.04618715832458953,
+            -0.07017384714539039
+          ]
+        },
+        "0": {
+          "intervals": 560,
+          "component_RMS_N": [
+            0.0011020149489953668,
+            0.00014174859659217475,
+            0.0002671319354094209
+          ],
+          "vector_RMS_N": 0.0011427550408380156,
+          "vector_p95_N": 0.002388128730984159,
+          "vector_max_N": 0.005093389486758538,
+          "mean_residual_N": [
+            0.0001401440586363973,
+            2.846730307604866e-06,
+            3.0542271491542016e-05
+          ]
+        },
+        "1": {
+          "intervals": 560,
+          "component_RMS_N": [
+            32.13409313261616,
+            17.363565137456234,
+            31.130558100378696
+          ],
+          "vector_RMS_N": 47.99171786234982,
+          "vector_p95_N": 95.82242899337001,
+          "vector_max_N": 411.4107891895822,
+          "mean_residual_N": [
+            -0.03602651877062648,
+            -0.017128819044446512,
+            0.020995188853058493
+          ]
+        }
+      },
+      "cumulative_residual_impulse_kg_m_s": [
+        0.00037715556821571515,
+        3.943406569439714e-06,
+        6.119602340049574e-05
+      ],
+      "largest_static_ratio_sample": {
+        "time_start_s": 0.865,
+        "rho_static_per_wheel": [
+          1.7452887099339334,
+          0.777777845512381
+        ],
+        "observed_dP_dt_N": [
+          -210.77068687677354,
+          54.10485176220532,
+          155.37531440108995
+        ],
+        "summed_contact_plus_gravity_N": [
+          -210.77179718017578,
+          54.104896545410156,
+          155.3754614740064
+        ],
+        "residual_N": [
+          0.0011103034022426073,
+          -4.478320483514153e-05,
+          -0.0001470729164623208
+        ]
+      }
+    }
+  ],
+  "artifact_sha256": {
+    "momentum_comparison_4x1.png": "0ea299f933bc41fab8fe8a910283dfcca51f8027c6127a884b26bdb58d86adcc",
+    "signals.npz": "410c14d6b7bb840078cbad96e281fc304b04fdca470ab0c51a61c276f97559f0"
+  }
+}
