@@ -27,22 +27,36 @@ def text(image,value,y,x=16,scale=.5,color=(35,35,35)):
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    for name in ('bundle','evidence','audit','reference','model','output'):
+    for name in ('reference','model','output'):
         p.add_argument('--'+name,type=Path,required=True)
+    for name in ('bundle','evidence','audit'):
+        p.add_argument('--'+name,type=Path)
     p.add_argument('--run-name',default='run_v2')
-    p.add_argument('--case',action='append',required=True,help='cell:parent_transfer or cell:nominal; exactly four')
+    selection_group=p.add_mutually_exclusive_group(required=True)
+    selection_group.add_argument('--case',action='append',help='cell:parent_transfer or cell:nominal; exactly four')
+    selection_group.add_argument('--cases-json',type=Path,help='Four source records: case, bundle, evidence, audit, run_name; paths relative to this JSON')
     p.add_argument('--slow-window',nargs=2,type=float,default=[.65,1.25])
     p.add_argument('--prefix',default='contact_screens')
     p.add_argument('--snapshot-times',nargs='+',type=float,default=[.825,1.165,1.5,2.75,2.76])
     a=p.parse_args()
     if a.output.exists():raise FileExistsError(a.output)
     if not a.prefix or not a.prefix.replace('_','').isalnum():raise ValueError('Unsafe output prefix')
-    if len(a.case)!=4 or len(set(a.case))!=4:raise ValueError('Four distinct completed cases required')
     read=lambda path:json.loads(path.read_text())
-    plan=read(a.bundle/'plan.json');audit=read(a.audit/'report.json');refmeta=read(a.reference/'report.json')
-    if audit['source_manifest_sha256']!=sha(a.bundle/'manifest.json'):raise ValueError('Audit source changed')
+    if a.cases_json is not None:
+        if any(getattr(a,k) is not None for k in ('bundle','evidence','audit')):
+            raise ValueError('Mixed-source selection must declare each panel independently')
+        sources=read(a.cases_json)
+        for row in sources:
+            if set(row)!={'case','bundle','evidence','audit','run_name'}:raise ValueError('Incomplete panel source')
+            for key in ('bundle','evidence','audit'):row[key]=(a.cases_json.parent/row[key]).resolve()
+    else:
+        if any(getattr(a,k) is None for k in ('bundle','evidence','audit')):
+            raise ValueError('A common source requires bundle, evidence and audit')
+        sources=[dict(case=case,bundle=a.bundle,evidence=a.evidence,audit=a.audit,run_name=a.run_name) for case in a.case]
+    identities={(str(row['bundle'].resolve()),row['run_name'],row['case']) for row in sources}
+    if len(sources)!=4 or len(identities)!=4:raise ValueError('Four distinct completed cases required')
+    refmeta=read(a.reference/'report.json')
     if sha(a.model)!=refmeta['model_sha256']:raise ValueError('Visual model mismatch')
-    if sha(a.reference/'motion.npz')!=plan['reference_sha256']['motion.npz']:raise ValueError('Reference mismatch')
     reference=load(a.reference/'motion.npz');horizon=(len(reference['joint_pos'])-1)/float(reference['fps'])
     snapshots=set()
     for time in a.snapshot_times:
@@ -53,17 +67,22 @@ def main():
     import mujoco
     camera=runtime.cameras[0];camera.distance=2.4;camera.azimuth=135.;camera.elevation=-18.
     cases=[]
-    for selection in a.case:
+    for source in sources:
+        selection=source['case'];bundle=source['bundle'];audit_path=source['audit']/'report.json'
+        plan=read(bundle/'plan.json');audit=read(audit_path)
+        if audit['source_manifest_sha256']!=sha(bundle/'manifest.json'):raise ValueError('Audit source changed')
+        if sha(a.reference/'motion.npz')!=plan['reference_sha256']['motion.npz']:raise ValueError('Reference mismatch')
         cell,stage=selection.split(':')
         if stage not in ('parent_transfer','nominal'):raise ValueError('Require qualified evaluation')
         planrow=next(row for row in plan['cells'] if row['id']==cell)
-        cfg=read(a.bundle/planrow['protocol']);policy='parent' if stage=='parent_transfer' else cell[len(planrow['model'])+1:]
+        cfg=read(bundle/planrow['protocol']);policy='parent' if stage=='parent_transfer' else cell[len(planrow['model'])+1:]
         row=next(r for r in audit['cases'] if r['cell']==cell and r['policy']==policy)
-        directory=a.evidence/a.run_name/cell/stage;qpath=directory.parent/(stage+'_qualification.json')
+        directory=source['evidence']/source['run_name']/cell/stage;qpath=directory.parent/(stage+'_qualification.json')
         if sha(qpath)!=row['qualification_sha256']:raise ValueError('Qualification changed')
         checked=read(qpath);run=read(directory/'report.json');q=checked['qualification']
         if checked['run_report_sha256']!=sha(directory/'report.json'):raise ValueError('Run identity mismatch')
-        if checked['protocol_sha256']!=sha(a.bundle/planrow['protocol']):raise ValueError('Protocol changed')
+        if checked['protocol_sha256']!=sha(bundle/planrow['protocol']):raise ValueError('Protocol changed')
+        if checked['source_manifest_sha256']!=sha(bundle/'manifest.json'):raise ValueError('Qualification source changed')
         if run['motion_sha256']!=sha(a.reference/'motion.npz'):raise ValueError('Run reference mismatch')
         for name,digest in run['artifacts'].items():
             if sha(directory/name)!=digest or row['raw_sha256'][name]!=digest:raise ValueError('Recording changed')
@@ -85,6 +104,8 @@ def main():
         labels={'native_split':'Cylinder | static/dynamic 0.9/0.7',
                 'slices9_split':'Nine rigid slices | 0.9/0.7','native_equal':'Cylinder | static/dynamic 0.7/0.7'}
         cases.append(dict(selection=selection,model=planrow['model'],policy=policy,label=labels[planrow['model']],
+            manifest_sha256=sha(bundle/'manifest.json'),audit_sha256=sha(audit_path),
+            protocol_sha256=checked['protocol_sha256'],run_name=source['run_name'],
             trace=trace,raw=raw,signals=signals,contact=contact,qpos=qpos,row=row,q=q,fk_error=error))
 
     def body_panel(case,i,slow):
@@ -157,13 +178,16 @@ def main():
             artifacts.append(dict(file=path.name,sha256=sha(path),frames=len(indices),fps=50,
                 physical_window_s=[float(indices[0]*.0025),float(indices[-1]*.0025)],slowdown=8 if slow else 1))
     finally:runtime.renderer.close()
-    report=dict(kind='hockey_contact_screen_render_v1',renderer_sha256=sha(__file__),
-        model_sha256=sha(a.model),meshes=mesh_provenance(a.model),audit_sha256=sha(a.audit/'report.json'),
+    audits={c['audit_sha256'] for c in cases}
+    report=dict(kind='hockey_contact_screen_render_v2',renderer_sha256=sha(__file__),
+        model_sha256=sha(a.model),meshes=mesh_provenance(a.model),audit_sha256=next(iter(audits)) if len(audits)==1 else None,
         reference_sha256=sha(a.reference/'motion.npz'),physics_steps=0,pose_corrections=0,source_RGB_included=False,
         native_contact_alignment='pose i / raw row i / reconstructed contact i+1',contact_force_threshold=None,
         marker_radius_m=.008,contact_separation_tolerance_m=.0001,collision_proxies_displayed=False,
         camera=dict(distance_m=2.4,azimuth_deg=135,elevation_deg=-18,lookat='recorded root + [0,0,-0.24]'),
         cases=[dict(selection=c['selection'],qualification_sha256=c['row']['qualification_sha256'],
+            source_manifest_sha256=c['manifest_sha256'],audit_sha256=c['audit_sha256'],
+            protocol_sha256=c['protocol_sha256'],run_name=c['run_name'],
             raw_sha256=c['row']['raw_sha256'],wheel_FK_max_error_m=c['fk_error']) for c in cases],artifacts=artifacts)
     (a.output/'provenance.json').write_text(json.dumps(report,indent=2)+'\n')
     print(json.dumps(artifacts))

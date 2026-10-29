@@ -59,7 +59,22 @@ Independent qualification checks all 56 observations, normalized actor replay, m
 
 An [offline signal audit](final_reward_signal_audit_v2/report.json) of all nine screens found that the 50 Hz stop reward can miss an intermediate speed violation, while 28–37% of physical samples saturate the angular-acceleration penalty at 50 rad/s². This identifies reward limitations, not a proven failure mechanism. The legacy stop replay uses a native-force proxy, not the unarchived training filtered force matrix.
 
-The follow-up [refinement specification](../../config/hockey_contact_refinement_v1.json) first replaces capped angular cost with a non-saturating pseudo-Huber cost, then optionally adds bilateral geometric stop scoring at both ends of every substep (half mean plus half worst score). Numeric weights, original initialization, training budget, contact models, reference and success gates stay fixed. It starts with the closest equal-friction cylinder configuration. The six-candidate queue has now started after all nine screens failed. The [v3 source manifest](source_snapshot_v3/manifest.json), [verified upload receipt](upload_receipt_v3.json) and [launch record](remote_evidence_v3/launch_v3.json) pin its code and settings. A dispatcher guard enforces completion of the predecessor; the original v2 snapshot and results remain unchanged. The first candidate passed its 32-environment/two-iteration smoke audit and is in formal training on GPU 7. No completed refinement policy result is available yet. [Offline candidate scores](final_refinement_scores_v2/report.json) are not predicted policy improvements.
+The follow-up [refinement specification](../../config/hockey_contact_refinement_v1.json) first replaces capped angular cost with a non-saturating pseudo-Huber cost, then optionally adds bilateral geometric stop scoring at both ends of every substep (half mean plus half worst score). Numeric weights, original initialization, training budget, contact models, reference and success gates stay fixed. It starts with the closest equal-friction cylinder configuration. The six-candidate queue has now started after all nine screens failed. The [v3 source manifest](source_snapshot_v3/manifest.json), [verified upload receipt](upload_receipt_v3.json) and [launch record](remote_evidence_v3/launch_v3.json) pin its code and settings. A dispatcher guard enforces completion of the predecessor; the original v2 snapshot and results remain unchanged. The first candidate (`native_equal_smooth`) completed training and qualification; it improves contact and angular acceleration but still fails contact continuity and terminal hold. The unequal-friction cylinder candidate is now in formal training. No robustness suite has run because no nominal candidate has passed. [Offline candidate scores](final_refinement_scores_v2/report.json) are not predicted policy improvements.
+
+The first matched refinement comparison uses static/dynamic friction 0.7/0.7 and changes only the angular penalty formula:
+
+| Metric | v2 `dense` | v3 `smooth` |
+| --- | ---: | ---: |
+| Bilateral contact | 99.7283% | 99.9094% |
+| Contact interruption | 7.5 ms | 2.5 ms |
+| Angular-acceleration RMS | 110.22 rad/s² | 78.95 rad/s² |
+| XY RMSE | 0.02866 m | 0.03287 m |
+| Terminal stop hold | 0.5000 s | 0.4825 s |
+| Overall task | Fail | Fail |
+
+This is a single-seed paired screen, not a robustness improvement claim. Angular RMS covers the full 2.78 s recording; task contact covers the 2.76 s reference. The remaining right-wheel event is 0.6250–0.6275 s with native separation 0.124 mm and zero normal force averaged over that interval. Contact then returns. Terminal contact stays bilateral, but speed exceeds 0.1 m/s from 2.745 s and ends at 0.1215 m/s. The geometry tolerance and stop threshold are unchanged. [Refinement summary](refinement_summary_v1/report.json), [failure audit](refinement_failure_audit_v1/report.json), [force check](refinement_failure_audit_v1/near_gap_force_check.json).
+
+[Four-column refinement replay](refinement_equal_render_v1/equal_smooth_fullbody_4x1.mp4) and [8× contact excerpt](refinement_equal_render_v1/equal_smooth_contact_excerpt_8x_4x1.mp4) show the parent, `dense`, `load_free` and `smooth` actors. Each panel retains its own immutable source and qualification hashes; camera and physical timing are shared. [Completed recording subset](refinement_publication_v1/manifest.json), [render inputs](refinement_equal_render_inputs_v1.json), [render provenance](refinement_equal_render_v1/provenance.json).
 
 The [reference geometry audit](../hockey_reference_contact_gap_20261029_v1/README.md) also found one-wheel grounding in the source reference. Its proposed bilateral geometric correction has not been dynamically validated and is not part of this sweep. External nonlinear tire and elastic brush models remain outside this comparison; see the [model limitations](../hockey_split_friction_20261028_v1/README.md).
 
@@ -82,3 +97,5 @@ python scripts/analyze_hockey_contact_screen_failures.py --bundle results/hockey
 Runtime status: `/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v2/status.json`, tmux `hockey_contact_reward_search_20261029_v2`. Local reports are timestamped observations. Successful source, collector and mathematical checks do not imply successful robot behavior.
 
 Refinement status: `run_v3/status.json` under the same remote root, tmux `hockey_contact_reward_refinement_20261029_v3`. Collect it with `--version v3` into `remote_evidence_v3`; pass `--run-name run_v3` to the analysis/render tools.
+
+The [robustness launcher](../../scripts/dispatch_hockey_contact_robustness.py) requalifies a passed nominal recording on CPU before starting its frozen 33-case suite. It rejects unfinished/failed screens, changed actors/recordings and incomplete budgets. The auxiliary code is prepared separately; it does not modify the active training snapshot.
