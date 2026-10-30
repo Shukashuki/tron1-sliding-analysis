@@ -1,0 +1,38 @@
+{
+  "source_file": "results/hockey_friction_from_start_20261030_v1/analysis/force_evolution_from_start_8x_4x1.mp4",
+  "source_sha256": "7b8b257db903fb625b4c71afc44732745f97d3ba8b2dc33464804508ad38d475",
+  "command": [
+    "/home/roy/miniconda3/lib/python3.13/site-packages/imageio_ffmpeg/binaries/ffmpeg-linux-x86_64-v7.0.2",
+    "-hide_banner",
+    "-loglevel",
+    "error",
+    "-y",
+    "-threads",
+    "2",
+    "-filter_complex_threads",
+    "1",
+    "-i",
+    "results/hockey_friction_from_start_20261030_v1/analysis/force_evolution_from_start_8x_4x1.mp4",
+    "-filter_complex",
+    "select='not(mod(n,4))',setpts=N/(12.5*TB),scale=1920:-1:flags=lanczos,split[a][b];[a]palettegen=stats_mode=diff[p];[b][p]paletteuse=dither=bayer:bayer_scale=3",
+    "-r",
+    "12.5",
+    "-loop",
+    "0",
+    "results/hockey_friction_from_start_20261030_v1/preview/force_evolution.gif"
+  ],
+  "ffmpeg_version": "7.0.2-static",
+  "gif_sha256": "d49c1ba47e6b74e3bdc43a611e185dab30fc2011d30a154ae224de0292d5c892",
+  "decoded_frames": 276,
+  "duration_ms": 22080,
+  "frame_duration_ms": [
+    80
+  ],
+  "width": 1920,
+  "height": 432,
+  "preview_only": true,
+  "source_video_indices": "0,4,8,...,1100 (explicit select filter)",
+  "every_fourth_video_frame": true,
+  "full_video_retains_all_400Hz_intervals": true,
+  "bytes": 5395331
+}

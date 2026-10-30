@@ -16,15 +16,22 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--analysis',type=Path,required=True)
     parser.add_argument('--output',type=Path,required=True)
+    parser.add_argument('--start-time',type=float,default=.4,
+                        help='First archived interval, seconds; use 0 for the complete reset-to-stop record')
     a=parser.parse_args()
     if a.output.exists():raise FileExistsError(a.output)
     report=json.loads((a.analysis/'report.json').read_text())
     if sha(a.analysis/'signals.npz')!=report['artifact_sha256']['signals.npz']:raise ValueError('Signals changed')
     s=load(a.analysis/'signals.npz');allpts=np.concatenate([s[f'case{k}_points'] for k in range(len(report['cases']))])
-    allpts=allpts[allpts[:,0]>=.4-1e-9]
+    if not np.isfinite(a.start_time) or a.start_time<0 or not np.isclose(a.start_time/.0025,round(a.start_time/.0025),atol=1e-8,rtol=0):
+        raise ValueError('Start time must be a nonnegative 400 Hz sample')
+    for k in range(len(report['cases'])):
+        if not np.any(np.isclose(s[f'case{k}_time_start_s'],a.start_time,atol=1e-9,rtol=0)):
+            raise ValueError('Start time is absent from a recording')
+    allpts=allpts[allpts[:,0]>=a.start_time-1e-9]
     bounds=(allpts[:,4:6].min(0)-.08,allpts[:,4:6].max(0)+.08)
-    radius=max(1.1,max(float(np.nanmax(s[f'case{k}_rho_static'][s[f'case{k}_time_start_s']>=.4])) for k in range(len(report['cases']))))*1.02
-    vlimit=max(float(s[f'case{k}_point_tangent_interval_rms'][s[f'case{k}_time_start_s']>=.4].max()) for k in range(len(report['cases'])))*1.08
+    radius=max(1.1,max(float(np.nanmax(s[f'case{k}_rho_static'][s[f'case{k}_time_start_s']>=a.start_time-1e-9])) for k in range(len(report['cases']))))*1.02
+    vlimit=max(float(s[f'case{k}_point_tangent_interval_rms'][s[f'case{k}_time_start_s']>=a.start_time-1e-9].max()) for k in range(len(report['cases'])))*1.08
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
@@ -33,13 +40,13 @@ def main():
     import imageio_ffmpeg
     a.output.mkdir(parents=True);outputs=[];colors=('#2779a5','#d37527')
     for k,row in enumerate(report['cases']):
-        t=s[f'case{k}_time_start_s'];points=s[f'case{k}_points'];anchors=s[f'case{k}_anchors'];frames=np.flatnonzero(t>=.4-1e-9)
+        t=s[f'case{k}_time_start_s'];points=s[f'case{k}_points'];anchors=s[f'case{k}_anchors'];frames=np.flatnonzero(t>=a.start_time-1e-9)
         fig,axs=plt.subplots(1,4,figsize=(20,4.5),dpi=128,constrained_layout=True)
         fig.suptitle(row['label']+' | 8x slow: every archived 2.5 ms interval\nNative normal points + friction anchors | Wheel-resultant sections; no per-point friction-cone assignment',fontsize=12)
         dots=[];segments=[];vectors=[];endpoints=[];texts=[];history=[]
         angle=np.linspace(0,2*np.pi,361)
         for side,color in enumerate(colors):
-            p=points[(points[:,1]==side)&(points[:,0]>=.4)]
+            p=points[(points[:,1]==side)&(points[:,0]>=a.start_time-1e-9)]
             axs[0].plot(p[:,4],p[:,5],color=color,alpha=.15,lw=.8)
             dots.append(axs[0].scatter([],[],c=color,s=40,animated=True,label=('L','R')[side]+' normal point'))
             collection=LineCollection([],colors=color,linewidths=2,animated=True);axs[0].add_collection(collection);segments.append(collection)
@@ -54,10 +61,12 @@ def main():
             history.append(axs[3].plot([],[],color=color,lw=1.1,animated=True,label=('Left','Right')[side])[0])
         axs[0].set(title='Touching points and anchor-force vectors',xlabel='World X [m]',ylabel='World Y [m]',
                    xlim=(bounds[0][0],bounds[1][0]),ylim=(bounds[0][1],bounds[1][1]),aspect='equal')
-        axs[0].legend(fontsize=7,loc='upper left');axs[0].grid(alpha=.2)
+        # Keep the legend outside the world-XY axes: the initial left contact
+        # otherwise overlaps it when the full trajectory starts at x=0.
+        axs[0].legend(fontsize=7,loc='lower left',bbox_to_anchor=(0.,1.10),ncol=2,frameon=False);axs[0].grid(alpha=.2)
         axs[0].text(.02,.02,'Force-vector scale: 0.0005 m/N\nBuffer identities are frame-local',transform=axs[0].transAxes,fontsize=7)
-        axs[3].set(title='Material-point slip at touching points',xlabel='Time [s]',ylabel='Interval tangential RMS [m/s]',xlim=(.4,2.76),ylim=(0,vlimit));axs[3].grid(alpha=.2);axs[3].legend(fontsize=7)
-        cursor=axs[3].axvline(.4,color='black',lw=1,animated=True)
+        axs[3].set(title='Material-point slip at touching points',xlabel='Time [s]',ylabel='Interval tangential RMS [m/s]',xlim=(a.start_time,float(t[-1]+.0025)),ylim=(0,vlimit));axs[3].grid(alpha=.2);axs[3].legend(fontsize=7)
+        cursor=axs[3].axvline(a.start_time,color='black',lw=1,animated=True)
         stamp=axs[3].text(.03,.95,'',transform=axs[3].transAxes,va='top',fontsize=9,animated=True)
         fig.canvas.draw();background=fig.canvas.copy_from_bbox(fig.bbox)
         width,height=fig.canvas.get_width_height();path=a.output/f'case{k}_contact_friction_8x_4x1.mp4'
@@ -87,8 +96,9 @@ def main():
                 cursor.set_xdata([t[j],t[j]]);stamp.set_text(f't={t[j]:.4f} s → {t[j]+.0025:.4f} s\nCOM XY speed={s[f"case{k}_COM_speed"][j]:.3f} m/s')
                 axs[3].draw_artist(cursor);axs[3].draw_artist(stamp)
                 frame=cv2.cvtColor(np.asarray(fig.canvas.buffer_rgba()),cv2.COLOR_RGBA2BGR);writer.stdin.write(frame.tobytes())
-                if j in (round(.5275/.0025),round(1.2025/.0025),round(2.5/.0025)):
+                if j in (frames[0],round(.01/.0025),round(.1/.0025),round(.5275/.0025),round(1.2025/.0025),round(2.5/.0025)):
                     cv2.imwrite(str(a.output/f'case{k}_{t[j]:.4f}s.png'),frame)
+                if j%200==0:print(f'case{k}: interval {j}/{len(t)-1}',flush=True)
         finally:
             writer.stdin.close();encoder_status=writer.wait();plt.close(fig)
         if encoder_status!=0:raise RuntimeError('Video encoder failed')
@@ -106,6 +116,7 @@ def main():
     metadata=dict(kind='hockey_native_contact_friction_animation_v1',source_sha256=sha(__file__),
         analysis_report_sha256=sha(a.analysis/'report.json'),signals_sha256=sha(a.analysis/'signals.npz'),
         interpolation=False,physics_steps=0,slowdown=8,force_arrow_scale_m_per_N=.0005,
+        requested_start_time_s=a.start_time,
         shared_world_bounds=[v.tolist() for v in bounds],shared_normalized_capacity_radius=radius,
         shared_slip_speed_limit_m_s=vlimit,videos=outputs,
         limitations=['Normal-point dots and friction-anchor vectors are separate measured objects; no point-to-anchor load matching.',
