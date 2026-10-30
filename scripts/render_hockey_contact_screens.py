@@ -104,9 +104,10 @@ def main():
             _pose(runtime.model,runtime.data,pose)
             error=max(error,float(np.linalg.norm(runtime.data.xpos[mjids]-trace['body_pos'][i,ids],axis=-1).max()))
         if error>2e-5:raise ValueError(f'Visual FK differs: {selection}: {error}')
-        labels={'native_split':'Cylinder | static/dynamic 0.9/0.7',
-                'slices9_split':'Nine rigid slices | 0.9/0.7','native_equal':'Cylinder | static/dynamic 0.7/0.7'}
-        cases.append(dict(selection=selection,model=planrow['model'],policy=policy,label=labels[planrow['model']],
+        geometry_label='Nine rigid slices' if cfg['contact_model']['geometry']=='slices9' else 'Cylinder'
+        mu_d=cfg['evaluation_mu'];mu_s=mu_d*cfg['static_dynamic_friction_ratio']
+        label=f'{geometry_label} | static/dynamic {mu_s:g}/{mu_d:g}'
+        cases.append(dict(selection=selection,model=planrow['model'],policy=policy,label=label,
             caption=source.get('caption','Frozen parent' if policy=='parent' else policy+' fine-tune'),
             manifest_sha256=sha(bundle/'manifest.json'),audit_sha256=sha(audit_path),
             protocol_sha256=checked['protocol_sha256'],run_name=source['run_name'],

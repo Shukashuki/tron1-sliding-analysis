@@ -1,0 +1,36 @@
+{
+  "kind": "hockey_static_dynamic_transition_study_v1",
+  "actor": "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v8/native_equal_smooth_stop_xyz_huber_continuity/formal/actor_normalized.pt",
+  "actor_sha256": "fde03b942dd9f62ae096f63ae9372c32ea9d43688c6a5fb5f0496c1ce5f5757a",
+  "baseline_recording": "/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1/run_v8/native_equal_smooth_stop_xyz_huber_continuity/nominal/final_rollout.npz",
+  "continuation_manifest_sha256": "8e10f00a784b3a3098a9ec2b85dd9a54a35c43f32f37fac0725f4abc823fdeb4",
+  "goal": "Analyze native contact points and friction capacity after braking, then compare static/dynamic coefficients with the same PPO recipe.",
+  "material_pairs_static_dynamic": [
+    [
+      0.7,
+      0.7
+    ],
+    [
+      0.9,
+      0.7
+    ],
+    [
+      0.9,
+      0.9
+    ]
+  ],
+  "time_varying_materials": false,
+  "static_dynamic_pair_drop_fraction": 0.22222222222222232,
+  "interpretation": "The 22.2% difference is an analytical capacity difference at fixed Fn; an actual instantaneous force drop or solver stick/slip transition is not assumed.",
+  "continuation_budget": {
+    "already_completed": 3072000,
+    "additional": 9216000,
+    "total_same_recipe": 12288000
+  },
+  "perturbations_if_nominal_pass": 33,
+  "sequence": [
+    "three same-policy native-material probes",
+    "matched split-friction continuation",
+    "33-case qualification if nominal passes"
+  ]
+}

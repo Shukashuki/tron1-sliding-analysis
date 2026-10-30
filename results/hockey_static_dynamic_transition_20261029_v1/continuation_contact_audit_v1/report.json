@@ -1,0 +1,310 @@
+{
+  "kind": "hockey_contact_screen_failure_modes_v2",
+  "script_sha256": "d162512008fdeae4db7e79f929bc00105a1b60f51eee75221e05cc5b38d4eb5c",
+  "source_manifest_sha256": "8e10f00a784b3a3098a9ec2b85dd9a54a35c43f32f37fac0725f4abc823fdeb4",
+  "physics_steps": 0,
+  "criterion_changed": false,
+  "force_threshold_for_contact": null,
+  "missing_contact_is_not_proven_by_zero_load": true,
+  "single_seed_nominal_only": true,
+  "causal_mechanism_identified": false,
+  "cases": [
+    {
+      "cell": "native_split_smooth_stop_xyz_huber_continuity",
+      "model": "native_split",
+      "policy": "parent",
+      "horizon_s": 2.76,
+      "both_contact_percent": 96.46739130434577,
+      "one_wheel_only_ms": 94.99999999999798,
+      "neither_contact_ms": 2.4999999999999467,
+      "unknown_ms": 0.0,
+      "maximum_gap_mm_per_wheel": [
+        2.412679583625371,
+        3.1473845099040942
+      ],
+      "terminal_gap_mm": [
+        -0.0001160860390037044,
+        -0.00016146032699726476
+      ],
+      "terminal_stop_hold_s": 0.5,
+      "terminal_stop_breakdown": {
+        "window_s": [
+          2.26,
+          2.76
+        ],
+        "state_samples": 201,
+        "cause_sample_counts_are_not_additive": true,
+        "hold_s": 0.5,
+        "hold_events": [
+          {
+            "first_index": 905,
+            "last_index": 1105,
+            "start_s": 2.2600000000000002,
+            "end_s": 2.7600000000000002,
+            "duration_s": 0.5
+          }
+        ],
+        "violations": {
+          "bilateral_contact_missing": {
+            "samples": 0,
+            "events": []
+          },
+          "speed_above_0p1_m_s": {
+            "samples": 0,
+            "events": []
+          },
+          "tilt_above_30_deg": {
+            "samples": 0,
+            "events": []
+          },
+          "contact_unknown": {
+            "samples": 0,
+            "events": []
+          }
+        },
+        "speed_range_m_s": [
+          0.011341377161443233,
+          0.061708495020866394
+        ],
+        "maximum_tilt_deg": 8.923799065790433,
+        "terminal": {
+          "speed_m_s": 0.012833360582590103,
+          "tilt_deg": 8.923799065790433,
+          "both_touching": true,
+          "stop_state": true
+        }
+      },
+      "task_success": false,
+      "failed_gates": [
+        "bilateral_continuous_contact"
+      ],
+      "contact_states": {
+        "states": {
+          "both": {
+            "duration_s": 2.6624999999999432,
+            "events": [
+              {
+                "first_index": 1,
+                "last_index": 273,
+                "start_s": 5.334274688628682e-17,
+                "end_s": 0.6825,
+                "duration_s": 0.6825
+              },
+              {
+                "first_index": 292,
+                "last_index": 326,
+                "start_s": 0.7275,
+                "end_s": 0.8150000000000001,
+                "duration_s": 0.08750000000000002
+              },
+              {
+                "first_index": 328,
+                "last_index": 330,
+                "start_s": 0.8175000000000001,
+                "end_s": 0.8250000000000001,
+                "duration_s": 0.007499999999999951
+              },
+              {
+                "first_index": 332,
+                "last_index": 706,
+                "start_s": 0.8275000000000001,
+                "end_s": 1.7650000000000001,
+                "duration_s": 0.9375
+              },
+              {
+                "first_index": 726,
+                "last_index": 1104,
+                "start_s": 1.8125,
+                "end_s": 2.7600000000000002,
+                "duration_s": 0.9475000000000002
+              }
+            ]
+          },
+          "left_only": {
+            "duration_s": 0.049999999999998934,
+            "events": [
+              {
+                "first_index": 274,
+                "last_index": 291,
+                "start_s": 0.6825000000000001,
+                "end_s": 0.7275,
+                "duration_s": 0.04499999999999993
+              },
+              {
+                "first_index": 327,
+                "last_index": 327,
+                "start_s": 0.8150000000000001,
+                "end_s": 0.8175,
+                "duration_s": 0.0024999999999999467
+              },
+              {
+                "first_index": 331,
+                "last_index": 331,
+                "start_s": 0.8250000000000001,
+                "end_s": 0.8275,
+                "duration_s": 0.0024999999999999467
+              }
+            ]
+          },
+          "right_only": {
+            "duration_s": 0.04499999999999904,
+            "events": [
+              {
+                "first_index": 707,
+                "last_index": 713,
+                "start_s": 1.7650000000000001,
+                "end_s": 1.7825,
+                "duration_s": 0.01749999999999985
+              },
+              {
+                "first_index": 715,
+                "last_index": 725,
+                "start_s": 1.7850000000000001,
+                "end_s": 1.8125,
+                "duration_s": 0.027499999999999858
+              }
+            ]
+          },
+          "neither": {
+            "duration_s": 0.0024999999999999467,
+            "events": [
+              {
+                "first_index": 714,
+                "last_index": 714,
+                "start_s": 1.7825000000000002,
+                "end_s": 1.7850000000000001,
+                "duration_s": 0.0024999999999999467
+              }
+            ]
+          },
+          "unknown": {
+            "duration_s": 0.0,
+            "events": []
+          }
+        },
+        "terminal_state": "both",
+        "terminal_touching": [
+          true,
+          true
+        ]
+      },
+      "native_geometry_alignment_max_error_m": 2.7554552442521363e-07,
+      "qualification_sha256": "128b555bd74b701b8a9abdfa5f87c86304a48da3a77613ccad12cbc77d9d7928",
+      "raw_sha256": {
+        "final_rollout.npz": "15a06564ec8f2a53ab2d1c7989265fa34799bdae6d714ea22ddb5f36e16abe8f",
+        "native_contact_buffers.npz": "0e15e2bd60b9533895b60812382cc2a71426e3f86ece2d931cebe507ac01b025"
+      }
+    },
+    {
+      "cell": "native_split_smooth_stop_xyz_huber_continuity",
+      "model": "native_split",
+      "policy": "smooth_stop_xyz_huber_continuity",
+      "horizon_s": 2.76,
+      "both_contact_percent": 99.99999999999788,
+      "one_wheel_only_ms": 0.0,
+      "neither_contact_ms": 0.0,
+      "unknown_ms": 0.0,
+      "maximum_gap_mm_per_wheel": [
+        0.0025330271122558923,
+        0.003935524900494647
+      ],
+      "terminal_gap_mm": [
+        -0.0004090215362517746,
+        -0.00025189230407063334
+      ],
+      "terminal_stop_hold_s": 0.5,
+      "terminal_stop_breakdown": {
+        "window_s": [
+          2.26,
+          2.76
+        ],
+        "state_samples": 201,
+        "cause_sample_counts_are_not_additive": true,
+        "hold_s": 0.5,
+        "hold_events": [
+          {
+            "first_index": 905,
+            "last_index": 1105,
+            "start_s": 2.2600000000000002,
+            "end_s": 2.7600000000000002,
+            "duration_s": 0.5
+          }
+        ],
+        "violations": {
+          "bilateral_contact_missing": {
+            "samples": 0,
+            "events": []
+          },
+          "speed_above_0p1_m_s": {
+            "samples": 0,
+            "events": []
+          },
+          "tilt_above_30_deg": {
+            "samples": 0,
+            "events": []
+          },
+          "contact_unknown": {
+            "samples": 0,
+            "events": []
+          }
+        },
+        "speed_range_m_s": [
+          0.00037385005271062255,
+          0.024712583050131798
+        ],
+        "maximum_tilt_deg": 4.0929193686112795,
+        "terminal": {
+          "speed_m_s": 0.012275799177587032,
+          "tilt_deg": 4.0929193686112795,
+          "both_touching": true,
+          "stop_state": true
+        }
+      },
+      "task_success": true,
+      "failed_gates": [],
+      "contact_states": {
+        "states": {
+          "both": {
+            "duration_s": 2.759999999999941,
+            "events": [
+              {
+                "first_index": 1,
+                "last_index": 1104,
+                "start_s": 5.334274688628682e-17,
+                "end_s": 2.7600000000000002,
+                "duration_s": 2.7600000000000002
+              }
+            ]
+          },
+          "left_only": {
+            "duration_s": 0.0,
+            "events": []
+          },
+          "right_only": {
+            "duration_s": 0.0,
+            "events": []
+          },
+          "neither": {
+            "duration_s": 0.0,
+            "events": []
+          },
+          "unknown": {
+            "duration_s": 0.0,
+            "events": []
+          }
+        },
+        "terminal_state": "both",
+        "terminal_touching": [
+          true,
+          true
+        ]
+      },
+      "native_geometry_alignment_max_error_m": 2.759525284667941e-07,
+      "qualification_sha256": "11ed8dedc3cdf8d31195ff04ffcc12fdd58582e33b4f6e1233fe87a0b7578c7e",
+      "raw_sha256": {
+        "final_rollout.npz": "4a172cab8991e84acfe5f615cb654c265035aea881c7e243d4600d354d86dfc7",
+        "native_contact_buffers.npz": "d1d2e593952e1217cdc13113e18cd0ad5ab00a897a6aada3cf2775e09b34b85e"
+      }
+    }
+  ]
+}

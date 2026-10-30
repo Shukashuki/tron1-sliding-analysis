@@ -95,7 +95,10 @@ def main():
     p.add_argument('--version',default='v2',help='Snapshot/run version within the same authorized remote study')
     p.add_argument('--robustness-run',help='Optional robustness_vN_vM directory for the same snapshot version; collects declared trials only')
     p.add_argument('--include-rollouts',action='store_true')
+    p.add_argument('--timeout-s',type=float,default=60,help='Read-only transfer timeout; complete 33-case raw suites may need longer')
     a=p.parse_args()
+    if not 5<=a.timeout_s<=600:
+        raise ValueError('Transfer timeout must be between 5 and 600 seconds')
     if a.remote_root!='/data/zengxiong/workspaces/tron1-hockey-contact-reward-search-20261028-v1':
         raise ValueError('Collector is scoped to the approved study')
     if not re.fullmatch(r'v[1-9][0-9]*',a.version):raise ValueError('Invalid study version')
@@ -107,7 +110,7 @@ def main():
     code=code.replace('LAUNCH_NAME',repr('launch_'+a.version+'.json'))
     code=code.replace('ROBUSTNESS',repr(a.robustness_run is not None))
     r=subprocess.run([str(a.helper),'exec','4090d','--','python3','-'],input=code,text=True,
-                     capture_output=True,timeout=60,check=True)
+                     capture_output=True,timeout=a.timeout_s,check=True)
     response=json.loads(r.stdout);files=response.pop('files')
     a.output.mkdir(parents=True,exist_ok=True)
     for relative,row in files.items():
