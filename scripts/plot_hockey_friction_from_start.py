@@ -68,7 +68,7 @@ def contact_jump_summary(s,trace,geometry):
         centroid_is_material_point=False,force_or_slip_computation_uses_centroid_differences=False)
 
 
-def animate_forces(s,row,output,cone_view='circle'):
+def animate_forces(s,row,output,cone_view='circle',only_cones=False):
     """Growing raw force histories and current wheel-resultant sections."""
     import subprocess
     import cv2
@@ -78,31 +78,35 @@ def animate_forces(s,row,output,cone_view='circle'):
     t=s['time_start_s'];end=s['time_end_s'];n=len(t);mu_s=row['mu_static'];mu_d=row['mu_dynamic']
     fn=s['normal_force_N'];ft=s['tangent_force_N'];colors=('#2079ac','#da7628')
     horizon=float(end[-1]);phi=np.linspace(0,2*np.pi,361)
-    fig,axs=plt.subplots(1,4,figsize=(24,5.4),dpi=120)
-    fig.subplots_adjust(left=.035,right=.992,bottom=.25,top=.79,wspace=.24)
-    fig.suptitle('Continuous friction evolution | Successful PhysX PPO | mu_s=0.9, mu_d=0.7 | 8x slow, every 400 Hz interval',y=.985,fontsize=15)
+    fig,axs=plt.subplots(1,2 if only_cones else 4,figsize=(12 if only_cones else 24,5.4),dpi=120)
+    fig.subplots_adjust(left=.07 if only_cones else .035,right=.985 if only_cones else .992,bottom=.25,top=.79,wspace=.24)
+    title=('PhysX PPO | mu_s=0.9, mu_d=0.7 | 8x slow, every 400 Hz interval' if only_cones else
+           'Continuous friction evolution | Successful PhysX PPO | mu_s=0.9, mu_d=0.7 | 8x slow, every 400 Hz interval')
+    fig.suptitle(title,y=.985,fontsize=15)
+    cone_axes=axs if only_cones else axs[2:]
     stamp=fig.text(.5,.9,'',ha='center',fontsize=12,animated=True)
     histories=[];cursors=[];force_dots=[];vectors=[];tips=[];tails=[];readouts=[];data=[]
     limit=max(1.1,float(np.nanmax(s['rho_static']))*1.05)
     fn_limit=float(np.ceil(fn.max()*1.08/20)*20)
     for side,color in enumerate(colors):
-        ax=axs[side]
-        for start,stop,c,label in ((0,.4,'#d8e6f3','Approach'),(.4,1.8,'#f7e6cd','Braking'),(1.8,horizon,'#dcefe1','Hold')):
-            ax.axvspan(start,stop,color=c,alpha=.35)
-            ax.text((start+stop)/2,.98,label,ha='center',va='top',transform=ax.get_xaxis_transform(),fontsize=8)
-        curves=[];values=[]
-        for value,c,ls,lw,label in ((fn[:,side],'#77818a','-',1.,'Normal Fn'),
-            (ft[:,side],color,'-',1.6,'Tangential |Ft|'),(mu_s*fn[:,side],'#222222','--',1.,'Static capacity'),
-            (mu_d*fn[:,side],'#458451',':',1.3,'Dynamic capacity')):
-            curves.append(ax.plot([],[],color=c,ls=ls,lw=lw,drawstyle='steps-post',label=label,animated=True)[0]);values.append(value)
-        histories.append(curves);data.append(values)
-        cursors.append(ax.axvline(0,color='#9b3541',lw=.8,animated=True))
-        force_dots.append(ax.plot([],[],'o',color=color,ms=4,animated=True)[0])
-        ax.set(title=('Left','Right')[side]+' wheel: force history',xlim=(0,horizon),
-               ylim=(0,float(fn.max())*1.08),xlabel='Time since reset [s]',ylabel='Force [N]')
-        ax.legend(loc='lower left',bbox_to_anchor=(0,-.43),ncol=2,fontsize=9,frameon=False)
-        ax.grid(alpha=.2)
-        ax=axs[side+2]
+        if not only_cones:
+            ax=axs[side]
+            for start,stop,c,label in ((0,.4,'#d8e6f3','Approach'),(.4,1.8,'#f7e6cd','Braking'),(1.8,horizon,'#dcefe1','Hold')):
+                ax.axvspan(start,stop,color=c,alpha=.35)
+                ax.text((start+stop)/2,.98,label,ha='center',va='top',transform=ax.get_xaxis_transform(),fontsize=8)
+            curves=[];values=[]
+            for value,c,ls,lw,label in ((fn[:,side],'#77818a','-',1.,'Normal Fn'),
+                (ft[:,side],color,'-',1.6,'Tangential |Ft|'),(mu_s*fn[:,side],'#222222','--',1.,'Static capacity'),
+                (mu_d*fn[:,side],'#458451',':',1.3,'Dynamic capacity')):
+                curves.append(ax.plot([],[],color=c,ls=ls,lw=lw,drawstyle='steps-post',label=label,animated=True)[0]);values.append(value)
+            histories.append(curves);data.append(values)
+            cursors.append(ax.axvline(0,color='#9b3541',lw=.8,animated=True))
+            force_dots.append(ax.plot([],[],'o',color=color,ms=4,animated=True)[0])
+            ax.set(title=('Left','Right')[side]+' wheel: force history',xlim=(0,horizon),
+                   ylim=(0,float(fn.max())*1.08),xlabel='Time since reset [s]',ylabel='Force [N]')
+            ax.legend(loc='lower left',bbox_to_anchor=(0,-.43),ncol=2,fontsize=9,frameon=False)
+            ax.grid(alpha=.2)
+        ax=cone_axes[side]
         draw_section(ax,mu_s,mu_d,cone_view,fn_limit,limit)
         x,y=section_coordinates(fn[:,side],ft[:,side],s['force_longitudinal_N'][:,side],
             s['force_lateral_N'][:,side],s['ratio_valid'][:,side],mu_s,cone_view)
@@ -114,9 +118,11 @@ def animate_forces(s,row,output,cone_view='circle'):
         ax.legend(loc='lower center',bbox_to_anchor=(.5,1.13),ncol=3,fontsize=8,frameon=False);ax.grid(alpha=.2)
         position=ax.get_position()
         readouts.append(fig.text(position.x0,.048,'',fontsize=9,animated=True))
-    fig.text(.5,.012,'Wheel-resultant diagnostics, not per-contact-point cones or observed solver stick/slip flags. Forces are interval averages; no smoothing.',ha='center',fontsize=8,color='#56616c')
+    footer=('Wheel-resultant radial section | Interval-average forces | No solver stick/slip flag' if only_cones else
+            'Wheel-resultant diagnostics, not per-contact-point cones or observed solver stick/slip flags. Forces are interval averages; no smoothing.')
+    fig.text(.5,.012,footer,ha='center',fontsize=8,color='#56616c')
     fig.canvas.draw();background=fig.canvas.copy_from_bbox(fig.bbox)
-    width,height=fig.canvas.get_width_height();path=output/'force_evolution_from_start_8x_4x1.mp4'
+    width,height=fig.canvas.get_width_height();path=output/('friction_cones_8x_2x1.mp4' if only_cones else 'force_evolution_from_start_8x_4x1.mp4')
     writer=subprocess.Popen([imageio_ffmpeg.get_ffmpeg_exe(),'-hide_banner','-loglevel','error',
         '-f','rawvideo','-pix_fmt','rgb24','-s',f'{width}x{height}','-r','50','-i','pipe:0',
         '-an','-c:v','libx264','-threads','2','-preset','fast','-crf','19','-pix_fmt','yuv420p',
@@ -129,13 +135,14 @@ def animate_forces(s,row,output,cone_view='circle'):
             fig.draw_artist(stamp)
             xs=np.r_[t[:j+1],end[j]]
             for side in (0,1):
-                for artist,values in zip(histories[side],data[side]):
-                    artist.set_data(xs,np.r_[values[:j+1],values[j]]);axs[side].draw_artist(artist)
-                cursors[side].set_xdata([end[j],end[j]]);axs[side].draw_artist(cursors[side])
-                force_dots[side].set_data([end[j]],[ft[j,side]]);axs[side].draw_artist(force_dots[side])
+                if not only_cones:
+                    for artist,values in zip(histories[side],data[side]):
+                        artist.set_data(xs,np.r_[values[:j+1],values[j]]);axs[side].draw_artist(artist)
+                    cursors[side].set_xdata([end[j],end[j]]);axs[side].draw_artist(cursors[side])
+                    force_dots[side].set_data([end[j]],[ft[j,side]]);axs[side].draw_artist(force_dots[side])
                 trail,x,y=tails[side];trail.set_data(x[max(0,j-39):j+1],y[max(0,j-39):j+1])
                 vectors[side].set_data([0,x[j]],[0,y[j]]);tips[side].set_data([x[j]],[y[j]])
-                for artist in (trail,vectors[side],tips[side]):axs[side+2].draw_artist(artist)
+                for artist in (trail,vectors[side],tips[side]):cone_axes[side].draw_artist(artist)
                 contact=bool(s['contact_at_both_endpoints'][j,side])
                 pre=s['point_tangent_pre_rms'][j,side];interval=s['point_tangent_interval_rms'][j,side]
                 state=('SLIDING' if min(pre,interval)>.05 else ('LOW SLIP' if max(pre,interval)<.02 else 'MIXED / TRANSIENT')) if contact else 'CONTACT INTERRUPTED'
@@ -161,7 +168,8 @@ def animate_forces(s,row,output,cone_view='circle'):
     return dict(file=path.name,sha256=sha(path),decoded_frames=frames,fps=fps,slowdown=8,
                 encoded_duration_s=frames/fps,first_interval_s=[float(t[0]),float(end[0])],
                 last_interval_s=[float(t[-1]),float(end[-1])],frame_interpolation=False,
-                force_history='Growing staircase at original 2.5 ms interval resolution',
+                layout='2x1 cones only' if only_cones else '4x1 forces and cones',
+                force_history=None if only_cones else 'Growing staircase at original 2.5 ms interval resolution',
                 cone_trail_s=.1,force_smoothing=False,cone_view=cone_view,
                 radial_triangle_uses_full_tangent_magnitude=cone_view=='triangle')
 
