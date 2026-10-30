@@ -1,0 +1,321 @@
+{
+  "kind": "hockey_GMR_reference_native_contact_path_comparison_v1",
+  "script_sha256": "4fb966314b68daca18594cd60bf9f607bcf8039002745a33636e27ed71958d33",
+  "inputs": {
+    "reference": "e23fbd82639d243f0c485cf391b1eff0e275d31f6bb6ba940647874a0ac83050",
+    "reference_report": "fd2301380dbde8ef5e98b5e95cc178d13b0b556e04d25d14f93577f9c5adaf19",
+    "gmr": "3ae954349ee743e95436a83945c4253b4bd90525818a2b6021c58985d1117a3c",
+    "gmr_report": "3754ac95b112d4bd325c5474d53279ad50b6b03fb8c06777cdd0fa25870928db",
+    "model": "30c8bb94b32b1804aa2f7de2425f7a8dd02be7792881255388097e2e68092e52",
+    "geometry": "19dc1b61d7962d161fec5a3b4fc816e295a08af8c96f22174430ccdc66fa165b",
+    "selection": "631856c40a7c8d6300cfa62200ac7ac294e3fa65f41de88d8fd08416789a687d"
+  },
+  "dependencies": {
+    "evaluate_hockey_physx.py": "e9a1d31566da783a93893d4e890445f8d8bcefc3089d63f8d00033e34e70de38",
+    "audit_hockey_reference_contact_gap.py": "1d778151f3d9b6d26d215cc531870a25a6796ac36092fb79007c3add74e645e1",
+    "wheel_ground_geometry.py": "3041d8fb0ce55e22363c849c736079fecf346363345e9842534b47127e78cb37"
+  },
+  "raw_GMR_display_transform": {
+    "yaw_rad": -0.021155729320436575,
+    "translation_XY_m": [
+      -0.001701520456765499,
+      0.001626735430983999
+    ],
+    "translation_z_m": 0.0,
+    "scale": 1.0,
+    "time_warp": false
+  },
+  "raw_GMR_geometry": {
+    "radius_m": 0.127,
+    "width_m": 0.01,
+    "collider_center_in_link_m": [
+      [
+        0.0,
+        0.008,
+        0.0
+      ],
+      [
+        0.0,
+        -0.008,
+        0.0
+      ]
+    ],
+    "archived_source_already_has_one_wheel_height_projection": true
+  },
+  "raw_GMR_under_authored_geometry": {
+    "gap_range_mm": [
+      [
+        -7.893736539407267,
+        -3.8376538456437737
+      ],
+      [
+        16.37113651735081,
+        20.128171430231824
+      ]
+    ],
+    "near_plane_frames_per_wheel": [
+      0,
+      0
+    ],
+    "penetration_frames_per_wheel": [
+      33,
+      39
+    ]
+  },
+  "reference_lineage": {
+    "source_world_XY_used": false,
+    "initial_posture_blend_s": 0.3,
+    "one_wheel_ground_projection": true,
+    "wheel_spin_reference": "zero placeholder, excluded from actor reference command",
+    "source_global_metric_trajectory_verified": false
+  },
+  "geometric_cases": [
+    {
+      "label": "A  Source GMR | original 10 mm wheels",
+      "frames": 65,
+      "duration_s": 2.1333333333333333,
+      "near_plane_frames_per_wheel": [
+        0,
+        5
+      ],
+      "bilateral_near_plane_frames": 0,
+      "penetration_frames_per_wheel": [
+        5,
+        18
+      ],
+      "gap_range_mm": [
+        [
+          -1.4704432505909526,
+          -1.0642060311485402
+        ],
+        [
+          22.097332144266637,
+          21.415275813220642
+        ]
+      ]
+    },
+    {
+      "label": "B  Training reference | 50 mm wheels",
+      "frames": 139,
+      "duration_s": 2.76,
+      "near_plane_frames_per_wheel": [
+        86,
+        57
+      ],
+      "bilateral_near_plane_frames": 4,
+      "penetration_frames_per_wheel": [
+        0,
+        0
+      ],
+      "gap_range_mm": [
+        [
+          -4.2295822400006955e-07,
+          -5.298954053323257e-07
+        ],
+        [
+          19.068031835950684,
+          21.983047072720808
+        ]
+      ]
+    }
+  ],
+  "recorded_cases": [
+    {
+      "label": "C  Original PPO | 0.9/0.7",
+      "wheels": [
+        {
+          "side": "L",
+          "wheel_center_XY_error_m": {
+            "count": 139,
+            "RMSE": 0.1061924912748902,
+            "median": 0.09285181116765459,
+            "maximum": 0.16898920685228247
+          },
+          "native_to_potential_reference_footprint_XY_distance_m": {
+            "count": 139,
+            "RMSE": 0.112470153394684,
+            "median": 0.09989750214105303,
+            "maximum": 0.20577194362758927
+          },
+          "shared_reference_and_native_contact_frames": 86,
+          "native_to_touching_reference_footprint_XY_distance_m": {
+            "count": 86,
+            "RMSE": 0.125228601401522,
+            "median": 0.1291050510970677,
+            "maximum": 0.20577194362758927
+          },
+          "braking_potential_footprint_XY_distance_m": {
+            "count": 71,
+            "RMSE": 0.10937079675824762,
+            "median": 0.09477851822149062,
+            "maximum": 0.20577194362758927
+          },
+          "native_contact_frames": 139
+        },
+        {
+          "side": "R",
+          "wheel_center_XY_error_m": {
+            "count": 139,
+            "RMSE": 0.08124782559403781,
+            "median": 0.05776139668290105,
+            "maximum": 0.1553650329796526
+          },
+          "native_to_potential_reference_footprint_XY_distance_m": {
+            "count": 139,
+            "RMSE": 0.07591293707397771,
+            "median": 0.051799645304389616,
+            "maximum": 0.14410525277922456
+          },
+          "shared_reference_and_native_contact_frames": 57,
+          "native_to_touching_reference_footprint_XY_distance_m": {
+            "count": 57,
+            "RMSE": 0.05554644981349428,
+            "median": 0.04763621782652445,
+            "maximum": 0.09263721231362607
+          },
+          "braking_potential_footprint_XY_distance_m": {
+            "count": 71,
+            "RMSE": 0.051608381334666505,
+            "median": 0.04763621782652445,
+            "maximum": 0.0925731237200287
+          },
+          "native_contact_frames": 139
+        }
+      ],
+      "bilateral_contact_frames": 139,
+      "native_geometry_alignment_max_error_m": 2.6150285309389787e-07,
+      "full_400Hz_bilateral_interruption_s": 0.0,
+      "full_task_success": true,
+      "qualification_sha256": "f9dfbeed3575d3cc04d472618eeefe1e50ec97bde7688ffa51ecbd2e18dc8e1b"
+    },
+    {
+      "label": "D  Split-friction PPO | 0.9/0.7",
+      "wheels": [
+        {
+          "side": "L",
+          "wheel_center_XY_error_m": {
+            "count": 139,
+            "RMSE": 0.12575114780028687,
+            "median": 0.12276339941651312,
+            "maximum": 0.20161578389619342
+          },
+          "native_to_potential_reference_footprint_XY_distance_m": {
+            "count": 139,
+            "RMSE": 0.13160330757830152,
+            "median": 0.12594352670718956,
+            "maximum": 0.22780927303149764
+          },
+          "shared_reference_and_native_contact_frames": 86,
+          "native_to_touching_reference_footprint_XY_distance_m": {
+            "count": 86,
+            "RMSE": 0.13960723912329126,
+            "median": 0.13803020542039068,
+            "maximum": 0.22780927303149764
+          },
+          "braking_potential_footprint_XY_distance_m": {
+            "count": 71,
+            "RMSE": 0.13655910170912558,
+            "median": 0.12464324923791247,
+            "maximum": 0.22780927303149764
+          },
+          "native_contact_frames": 139
+        },
+        {
+          "side": "R",
+          "wheel_center_XY_error_m": {
+            "count": 139,
+            "RMSE": 0.09940213394615066,
+            "median": 0.07875660136304506,
+            "maximum": 0.17125174495328668
+          },
+          "native_to_potential_reference_footprint_XY_distance_m": {
+            "count": 139,
+            "RMSE": 0.09194600721199178,
+            "median": 0.07504367931267068,
+            "maximum": 0.15817403214646922
+          },
+          "shared_reference_and_native_contact_frames": 57,
+          "native_to_touching_reference_footprint_XY_distance_m": {
+            "count": 57,
+            "RMSE": 0.07211154402760257,
+            "median": 0.06567082546128103,
+            "maximum": 0.15643684830344454
+          },
+          "braking_potential_footprint_XY_distance_m": {
+            "count": 71,
+            "RMSE": 0.07676074256769973,
+            "median": 0.07285818552622077,
+            "maximum": 0.15643684830344454
+          },
+          "native_contact_frames": 139
+        }
+      ],
+      "bilateral_contact_frames": 139,
+      "native_geometry_alignment_max_error_m": 2.6139285363990794e-07,
+      "full_400Hz_bilateral_interruption_s": 0.0,
+      "full_task_success": true,
+      "qualification_sha256": "11ed8dedc3cdf8d31195ff04ffcc12fdd58582e33b4f6e1233fe87a0b7578c7e"
+    }
+  ],
+  "recordings": [
+    {
+      "source": {
+        "case": "probe_split_090_070:nominal",
+        "bundle": "../hockey_contact_reward_search_20261028_v1/source_snapshot_v10",
+        "evidence": "../hockey_static_dynamic_transition_20261029_v1/probe_evidence",
+        "run_name": "run_v10",
+        "label": "Frozen v8 | static / dynamic = 0.9 / 0.7"
+      },
+      "source_manifest_sha256": "1b14661882c10660846369ef30bbaed075afeaf02dd429d235e453f9a418d5c4",
+      "protocol_sha256": "54002fa65907b1e81ca1b7081f3a045a226ad45570eea21b6e14274b6e1b1133",
+      "run_report_sha256": "5fb040688d17743721f26dd7c919083bba12c3f9f640c42925bf44654a105d4f",
+      "artifacts": {
+        "final_rollout.npz": "a4fa39ff35adf332bde2bd510eba8675ba63e905bce1a5a67a2c9b84085488bc",
+        "native_contact_buffers.npz": "881511302356093955b4224ed0ff5d3d7444ae30a287b21504a97e76fddd9475"
+      }
+    },
+    {
+      "source": {
+        "case": "native_split_smooth_stop_xyz_huber_continuity:nominal",
+        "bundle": "../hockey_contact_reward_search_20261028_v1/source_snapshot_v9",
+        "evidence": "../hockey_static_dynamic_transition_20261029_v1/continuation_evidence",
+        "run_name": "run_v9",
+        "label": "Split-trained | static / dynamic = 0.9 / 0.7"
+      },
+      "source_manifest_sha256": "8e10f00a784b3a3098a9ec2b85dd9a54a35c43f32f37fac0725f4abc823fdeb4",
+      "protocol_sha256": "0acc75d26ba65ea188fb45e444323f8331f20b59dbbaf4eb7fbdad0072598bdc",
+      "run_report_sha256": "39680c764a448b10e78c4f8e9a2da48c2af6e9567dc59b3f2e345bc90a109388",
+      "artifacts": {
+        "final_rollout.npz": "4a172cab8991e84acfe5f615cb654c265035aea881c7e243d4600d354d86dfc7",
+        "native_contact_buffers.npz": "d1d2e593952e1217cdc13113e18cd0ad5ab00a897a6aada3cf2775e09b34b85e"
+      }
+    }
+  ],
+  "contact_tolerance_m": 0.0001,
+  "comparison_clock_hz": 50,
+  "reference_frames": 139,
+  "native_contact_clock_hz": 400,
+  "native_footprint_background_hz": 400,
+  "physics_steps": 0,
+  "new_retargeting": false,
+  "footprint_metric": "Per-frame RMS distance of all native normal-contact XY points to the reference bottom generatrix within 0.1 mm of its lowest height; frames weighted equally.",
+  "limitations": [
+    "Raw GMR XY is not the designed training path; its rigid display alignment does not make it ground truth.",
+    "The source GMR model has 10 mm wheels; the designed reference and recordings use authored 50 mm cylinders.",
+    "Airborne footprint XY is only a projection; conditional contact errors require the reference to be within +/-0.1 mm of the floor.",
+    "Reference spin is a placeholder and reference forces do not exist; no measured reference sliding or friction saturation is claimed.",
+    "Reference contact counts use 50 Hz frames, while native task gates inspect 400 Hz samples; counts are not interchangeable.",
+    "A migrating geometric minimum or native manifold centroid is not a tracked material point and its derivative is not slip velocity."
+  ],
+  "artifact_sha256": {
+    "contact_paths_1.00s.png": "0d868d443adba7ad62156abd3fdff984dc159dfd4e28a16043fd784096be3a66",
+    "contact_paths_4x1_4x.mp4": "48c319584cd2999313f23a4344046df34662621da82ed3cacee9c0bdd3aee19b",
+    "render_provenance.json": "fda0973e2c6bc13f5ab608267a12e1b08e208cd8f02bcc720b81ba972bdae05f",
+    "contact_paths_0.40s.png": "802ed9410542c687f3e665903f744c31672e6f9257744a7e6532f326d32c4fb3",
+    "contact_clearance_4x1.png": "afdcaa8fa46c299dd11c6ee97462ea6536d0d71b869c68ea3f59dca550969134",
+    "contact_paths_1.60s.png": "f74b8b592bde6149d86e31c1eafed263269c27dd3fad74da6b47ba03b6fa895a",
+    "contact_paths_4x1.png": "c0847f999aeac870e96f7ecc56e504e935140199ddac92aeea4c30afe9ec698d",
+    "contact_path_error_4x1.png": "499886eddbef8bdebb830f9ce7dc32faead1ce9c214cc99df01f3415df4e2a59",
+    "signals.npz": "e8739b8b2c7b191a450aba58b74fdc6fd108ee633760534cc50452536ae44243"
+  }
+}
