@@ -1,0 +1,33 @@
+{
+  "source_file": "results/hockey_friction_triangle_20261030_v1/analysis/force_evolution_from_start_8x_4x1.mp4",
+  "source_sha256": "e56152f5f211e776b81d960265a788aca43aa03fffa6bc08475abd9fccace501",
+  "command": [
+    "/home/roy/miniconda3/lib/python3.13/site-packages/imageio_ffmpeg/binaries/ffmpeg-linux-x86_64-v7.0.2",
+    "-hide_banner",
+    "-loglevel",
+    "error",
+    "-threads",
+    "2",
+    "-filter_complex_threads",
+    "1",
+    "-i",
+    "results/hockey_friction_triangle_20261030_v1/analysis/force_evolution_from_start_8x_4x1.mp4",
+    "-filter_complex",
+    "select='not(mod(n,4))',setpts=N/(12.5*TB),scale=1920:-1:flags=lanczos,split[a][b];[a]palettegen=stats_mode=diff[p];[b][p]paletteuse=dither=bayer:bayer_scale=3",
+    "-r",
+    "12.5",
+    "-loop",
+    "0",
+    "results/hockey_friction_triangle_20261030_v1/preview/friction_triangle.gif"
+  ],
+  "ffmpeg_version": "7.0.2-static",
+  "gif_sha256": "c24a00139168cbdaee729bf6febc9dbd4e3bdec6a5d4bb68ddbde3885d530553",
+  "decoded_frames": 276,
+  "duration_ms": 22080,
+  "width": 1920,
+  "height": 432,
+  "preview_only": true,
+  "source_video_indices": "0,4,8,...,1100",
+  "full_video_retains_all_400Hz_intervals": true,
+  "bytes": 5170613
+}

@@ -10,6 +10,7 @@ import subprocess
 import numpy as np
 
 from evaluate_hockey_physx import load,sha
+from plot_hockey_friction_from_start import draw_section,section_coordinates
 
 
 def main():
@@ -18,6 +19,7 @@ def main():
     parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--start-time',type=float,default=.4,
                         help='First archived interval, seconds; use 0 for the complete reset-to-stop record')
+    parser.add_argument('--cone-view',choices=('circle','triangle'),default='circle')
     a=parser.parse_args()
     if a.output.exists():raise FileExistsError(a.output)
     report=json.loads((a.analysis/'report.json').read_text())
@@ -32,6 +34,7 @@ def main():
     bounds=(allpts[:,4:6].min(0)-.08,allpts[:,4:6].max(0)+.08)
     radius=max(1.1,max(float(np.nanmax(s[f'case{k}_rho_static'][s[f'case{k}_time_start_s']>=a.start_time-1e-9])) for k in range(len(report['cases']))))*1.02
     vlimit=max(float(s[f'case{k}_point_tangent_interval_rms'][s[f'case{k}_time_start_s']>=a.start_time-1e-9].max()) for k in range(len(report['cases'])))*1.08
+    fn_limit=float(np.ceil(max(s[f'case{k}_normal_force_N'].max() for k in range(len(report['cases'])))*1.08/20)*20)
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
@@ -47,16 +50,16 @@ def main():
         angle=np.linspace(0,2*np.pi,361)
         for side,color in enumerate(colors):
             p=points[(points[:,1]==side)&(points[:,0]>=a.start_time-1e-9)]
-            axs[0].plot(p[:,4],p[:,5],color=color,alpha=.15,lw=.8)
+            # Native contact buffers contain multiple points per frame and no
+            # persistent IDs. Joining the flattened rows creates false paths.
+            axs[0].scatter(p[:,4],p[:,5],color=color,alpha=.15,s=3,rasterized=True)
             dots.append(axs[0].scatter([],[],c=color,s=40,animated=True,label=('L','R')[side]+' normal point'))
             collection=LineCollection([],colors=color,linewidths=2,animated=True);axs[0].add_collection(collection);segments.append(collection)
-            ax=axs[side+1];ax.plot(np.cos(angle),np.sin(angle),'k-',label='Static boundary')
-            ratio=row['mu_dynamic']/row['mu_static'];ax.plot(ratio*np.cos(angle),ratio*np.sin(angle),'k--',label='Dynamic boundary')
+            ax=axs[side+1];draw_section(ax,row['mu_static'],row['mu_dynamic'],a.cone_view,fn_limit,radius)
             vectors.append(ax.plot([],[],color=color,lw=2.5,animated=True)[0]);endpoints.append(ax.plot([],[],'o',color=color,ms=6,animated=True)[0])
             texts.append(ax.text(.03,.03,'',transform=ax.transAxes,fontsize=8,animated=True,
                                  bbox=dict(facecolor='white',alpha=.94,edgecolor='none',pad=2)))
-            ax.set(title=('Left','Right')[side]+' wheel',xlabel='F_long / (mu_s Fn)',ylabel='F_lat / (mu_s Fn)',
-                   xlim=(-radius,radius),ylim=(-radius,radius),aspect='equal');ax.grid(alpha=.2);ax.legend(fontsize=7,loc='upper right')
+            ax.set_title(('Left','Right')[side]+' wheel');ax.grid(alpha=.2);ax.legend(fontsize=7,loc='upper left' if a.cone_view=='triangle' else 'upper right')
             axs[3].plot(t,s[f'case{k}_point_tangent_interval_rms'][:,side],color=color,alpha=.12,lw=.8)
             history.append(axs[3].plot([],[],color=color,lw=1.1,animated=True,label=('Left','Right')[side])[0])
         axs[0].set(title='Touching points and anchor-force vectors',xlabel='World X [m]',ylabel='World Y [m]',
@@ -83,8 +86,9 @@ def main():
                     segments[side].set_segments(np.stack((f[:,4:6],f[:,4:6]+.0005*f[:,7:9]),axis=1))
                     valid=bool(s[f'case{k}_ratio_valid'][j,side]);fn=s[f'case{k}_normal_force_N'][j,side]
                     if valid:
-                        cap=row['mu_static']*fn
-                        x=s[f'case{k}_force_longitudinal_N'][j,side]/cap;y=s[f'case{k}_force_lateral_N'][j,side]/cap
+                        x,y=section_coordinates(fn,s[f'case{k}_tangent_force_N'][j,side],
+                            s[f'case{k}_force_longitudinal_N'][j,side],s[f'case{k}_force_lateral_N'][j,side],
+                            valid,row['mu_static'],a.cone_view)
                         vectors[side].set_data([0,x],[0,y]);endpoints[side].set_data([x],[y])
                         message=f"Fn={fn:.1f} N  |Ft|={s[f'case{k}_tangent_force_N'][j,side]:.1f} N\nrho_s={s[f'case{k}_rho_static'][j,side]:.3f}  rho_d={s[f'case{k}_rho_dynamic'][j,side]:.3f}"
                     else:
@@ -117,6 +121,8 @@ def main():
         analysis_report_sha256=sha(a.analysis/'report.json'),signals_sha256=sha(a.analysis/'signals.npz'),
         interpolation=False,physics_steps=0,slowdown=8,force_arrow_scale_m_per_N=.0005,
         requested_start_time_s=a.start_time,
+        cone_view=a.cone_view,contact_background='unconnected native point samples; no persistent-point trajectory claim',
+        section_helper_sha256=sha(Path(__file__).with_name('plot_hockey_friction_from_start.py')),
         shared_world_bounds=[v.tolist() for v in bounds],shared_normalized_capacity_radius=radius,
         shared_slip_speed_limit_m_s=vlimit,videos=outputs,
         limitations=['Normal-point dots and friction-anchor vectors are separate measured objects; no point-to-anchor load matching.',

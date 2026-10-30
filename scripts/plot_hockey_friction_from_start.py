@@ -11,11 +11,65 @@ from pathlib import Path
 
 import numpy as np
 
-from evaluate_hockey_physx import load, sha
+from evaluate_hockey_physx import load, q_matrix, sha
 
 
-def animate_forces(s,row,output):
-    """Growing raw force histories and current normalized resultant vectors."""
+def section_coordinates(fn,ft,flong,flat,valid,mu_static,view):
+    """The radial triangle uses the full tangent norm, never one projection."""
+    fn,ft,flong,flat=np.broadcast_arrays(fn,ft,flong,flat)
+    valid=np.asarray(valid,bool)&np.isfinite(fn)&(fn>1e-6)
+    if view=='triangle':
+        return np.where(valid,ft,np.nan),np.where(valid,fn,np.nan)
+    if view!='circle':raise ValueError('Unknown friction section')
+    cap=mu_static*fn
+    return (np.divide(flong,cap,out=np.full(fn.shape,np.nan),where=valid),
+            np.divide(flat,cap,out=np.full(fn.shape,np.nan),where=valid))
+
+
+def draw_section(ax,mu_s,mu_d,view,fn_limit,radius=1.12):
+    if view=='triangle':
+        y=np.array([0.,fn_limit])
+        ax.fill_betweenx(y,-mu_s*y,mu_s*y,color='#cfd9e4',alpha=.28)
+        ax.fill_betweenx(y,-mu_d*y,mu_d*y,color='#d7eadb',alpha=.55)
+        for mu,style,label in ((mu_s,'-','Static boundary'),(mu_d,'--','Dynamic boundary')):
+            ax.plot([-mu*fn_limit,0,mu*fn_limit],[fn_limit,0,fn_limit],color='black',ls=style,lw=1.3,label=label)
+        ax.set(xlim=(-1.1*mu_s*fn_limit,1.1*mu_s*fn_limit),ylim=(0,fn_limit),
+               xlabel='Tangential magnitude |Ft| [N] (right half)',ylabel='Normal force Fn [N]',aspect='equal')
+    else:
+        angle=np.linspace(0,2*np.pi,361)
+        ax.plot(np.cos(angle),np.sin(angle),'k-',lw=1.3,label='Static boundary')
+        ax.plot(mu_d/mu_s*np.cos(angle),mu_d/mu_s*np.sin(angle),'k--',lw=1.3,label='Dynamic boundary')
+        ax.set(xlim=(-radius,radius),ylim=(-radius,radius),
+               xlabel='F_long / (mu_s Fn)',ylabel='F_lat / (mu_s Fn)',aspect='equal')
+
+
+def contact_jump_summary(s,trace,geometry):
+    points=s['points'];t=s['time_start_s'];n=len(t);rows=[]
+    for side in (0,1):
+        p=points[points[:,1]==side];counts=np.bincount(p[:,2].astype(int),minlength=n)
+        center=np.stack([p[p[:,2]==i,4:7].mean(0) for i in range(n)])
+        distance=np.linalg.norm(np.diff(center[:,:2],axis=0),axis=-1);j=int(np.argmax(distance))
+        name='wheel_'+('L','R')[side]+'_Link';bid=list(trace['body_names']).index(name)
+        rotations=q_matrix(trace['body_quat'][:,bid])
+        local=np.stack([(center[i]-trace['body_pos'][i,bid])@rotations[i] for i in (j,j+1)])
+        within=np.diff(p[:,2])==0;flat=np.linalg.norm(np.diff(p[:,4:6],axis=0),axis=-1)
+        g=next(x for x in geometry['prototype'] if x['body'].endswith('/'+name))
+        rows.append(dict(wheel=('L','R')[side],sampled_contact_all=bool(s['touching_states'][:,side].all()),
+            point_count_histogram={str(int(k)):int(v) for k,v in zip(*np.unique(counts,return_counts=True))},
+            same_frame_point_separation_max_m=float(flat[within].max()) if within.any() else None,
+            authored_width_m=g['total_width_m'],largest_centroid_jump=dict(
+                interval_start_s=float(t[j]),interval_end_s=float(t[j+1]),world_XY_jump_m=float(distance[j]),
+                wheel_center_XY_displacement_m=float(np.linalg.norm(trace['body_pos'][j+1,bid,:2]-trace['body_pos'][j,bid,:2])),
+                point_counts=counts[j:j+2].tolist(),camber_deg=s['wheel_camber_deg'][j:j+2,side].tolist(),
+                wheel_local_y_m=local[:,1].tolist(),wheel_local_y_change_m=float(local[1,1]-local[0,1]))))
+    return dict(wheels=rows,contact_tolerance_m=.0001,
+        old_background='Ragged contact samples were joined in buffer order, including different points within one time step.',
+        corrected_background='Unconnected point cloud; no invented persistent point identities or cross-frame connecting lines.',
+        centroid_is_material_point=False,force_or_slip_computation_uses_centroid_differences=False)
+
+
+def animate_forces(s,row,output,cone_view='circle'):
+    """Growing raw force histories and current wheel-resultant sections."""
     import subprocess
     import cv2
     import imageio_ffmpeg
@@ -30,6 +84,7 @@ def animate_forces(s,row,output):
     stamp=fig.text(.5,.9,'',ha='center',fontsize=12,animated=True)
     histories=[];cursors=[];force_dots=[];vectors=[];tips=[];tails=[];readouts=[];data=[]
     limit=max(1.1,float(np.nanmax(s['rho_static']))*1.05)
+    fn_limit=float(np.ceil(fn.max()*1.08/20)*20)
     for side,color in enumerate(colors):
         ax=axs[side]
         for start,stop,c,label in ((0,.4,'#d8e6f3','Approach'),(.4,1.8,'#f7e6cd','Braking'),(1.8,horizon,'#dcefe1','Hold')):
@@ -48,17 +103,14 @@ def animate_forces(s,row,output):
         ax.legend(loc='lower left',bbox_to_anchor=(0,-.43),ncol=2,fontsize=9,frameon=False)
         ax.grid(alpha=.2)
         ax=axs[side+2]
-        ax.plot(np.cos(phi),np.sin(phi),'k-',lw=1.3,label='Static boundary')
-        ax.plot(mu_d/mu_s*np.cos(phi),mu_d/mu_s*np.sin(phi),'k--',lw=1.3,label='Dynamic boundary')
-        denominator=mu_s*fn[:,side]
-        x=np.divide(s['force_longitudinal_N'][:,side],denominator,out=np.full(n,np.nan),where=s['ratio_valid'][:,side])
-        y=np.divide(s['force_lateral_N'][:,side],denominator,out=np.full(n,np.nan),where=s['ratio_valid'][:,side])
+        draw_section(ax,mu_s,mu_d,cone_view,fn_limit,limit)
+        x,y=section_coordinates(fn[:,side],ft[:,side],s['force_longitudinal_N'][:,side],
+            s['force_lateral_N'][:,side],s['ratio_valid'][:,side],mu_s,cone_view)
         ax.plot(x[0],y[0],'*',color='#ca3348',ms=9,label='First interval')
         tails.append((ax.plot([],[],color=color,alpha=.25,lw=1.,animated=True)[0],x,y))
         vectors.append(ax.plot([],[],color=color,lw=2.2,animated=True)[0])
         tips.append(ax.plot([],[],'o',color=color,ms=6,animated=True)[0])
-        ax.set(title=('Left','Right')[side]+' wheel: friction section',xlim=(-limit,limit),ylim=(-limit,limit),
-               xlabel='F_long / (mu_s Fn)',ylabel='F_lat / (mu_s Fn)',aspect='equal')
+        ax.set_title(('Left','Right')[side]+' wheel: '+('friction cone' if cone_view=='triangle' else 'friction section'))
         ax.legend(loc='lower center',bbox_to_anchor=(.5,1.13),ncol=3,fontsize=8,frameon=False);ax.grid(alpha=.2)
         position=ax.get_position()
         readouts.append(fig.text(position.x0,.048,'',fontsize=9,animated=True))
@@ -110,13 +162,15 @@ def animate_forces(s,row,output):
                 encoded_duration_s=frames/fps,first_interval_s=[float(t[0]),float(end[0])],
                 last_interval_s=[float(t[-1]),float(end[-1])],frame_interpolation=False,
                 force_history='Growing staircase at original 2.5 ms interval resolution',
-                cone_trail_s=.1,force_smoothing=False)
+                cone_trail_s=.1,force_smoothing=False,cone_view=cone_view,
+                radial_triangle_uses_full_tangent_magnitude=cone_view=='triangle')
 
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     for name in ('analysis','nominal','output'):
         parser.add_argument('--'+name,type=Path,required=True)
+    parser.add_argument('--cone-view',choices=('circle','triangle'),default='circle')
     args=parser.parse_args()
     if args.output.exists():raise FileExistsError(args.output)
     report=json.loads((args.analysis/'report.json').read_text())
@@ -219,20 +273,19 @@ def main():
     phi=np.linspace(0,2*np.pi,361)
     for j,(side,end) in enumerate(((0,.1),(1,.1),(0,horizon),(1,horizon))):
         ax=axs[j];valid=(t<end)&s['ratio_valid'][:,side]
-        x=s['force_longitudinal_N'][valid,side]/static[valid,side]
-        y=s['force_lateral_N'][valid,side]/static[valid,side]
-        ax.plot(np.cos(phi),np.sin(phi),color='black',label='Static boundary')
-        ax.plot(mu_d/mu_s*np.cos(phi),mu_d/mu_s*np.sin(phi),'k--',label='Dynamic boundary')
+        xx,yy=section_coordinates(fn[:,side],ft[:,side],s['force_longitudinal_N'][:,side],
+            s['force_lateral_N'][:,side],s['ratio_valid'][:,side],mu_s,args.cone_view)
+        x,y=xx[valid],yy[valid]
+        draw_section(ax,mu_s,mu_d,args.cone_view,float(np.ceil(fn.max()*1.08/20)*20))
         sc=ax.scatter(x,y,c=t[valid],cmap='viridis',vmin=0,vmax=end,s=12,alpha=.8)
         ax.scatter(x[0],y[0],marker='*',s=150,color='#d9233a',edgecolor='white',label='First 2.5 ms interval',zorder=10)
-        ax.set(title=('Left','Right')[side]+f' wheel | 0-{end:g} s',xlabel='F_long / (mu_s Fn)',ylabel='F_lat / (mu_s Fn)',
-               xlim=(-1.12,1.12),ylim=(-1.12,1.12),aspect='equal')
-        ax.grid(alpha=.2);ax.legend(loc='upper right',fontsize=7);fig.colorbar(sc,ax=ax,shrink=.65,label='Time [s]')
+        ax.set_title(('Left','Right')[side]+f' wheel | 0-{end:g} s')
+        ax.grid(alpha=.2);ax.legend(loc='upper left' if args.cone_view=='triangle' else 'upper right',fontsize=7);fig.colorbar(sc,ax=ax,shrink=.65,label='Time [s]')
     fig.suptitle('Wheel-resultant friction sections from reset | mu_s=0.9, mu_d=0.7\n'
                  'Startup 0-0.1 s (first two panels) and full task (last two) | Not individual contact-point cones',fontsize=14)
     fig.savefig(args.output/'cone_sections_from_start_4x1.png',dpi=140);fig.savefig(args.output/'cone_sections_from_start_4x1.svg');plt.close(fig)
 
-    animation=animate_forces(s,row,args.output)
+    animation=animate_forces(s,row,args.output,args.cone_view)
 
     phases=[]
     for label,start,end in [('startup',0.,.02),('approach',0.,.4),('braking',.4,1.8),('stop_hold',1.8,horizon)]:
@@ -266,6 +319,7 @@ def main():
             tangent_pre_speed_m_s=s['point_tangent_pre_rms'][0].tolist(),lateral_pre_speed_m_s=s['pre_lateral_speed_m_s'][0].tolist(),
             wheel_spin_rad_s=spin[0].tolist(),body_XY_speed_m_s=float(np.linalg.norm(trace['root_com_vel'][0,:2]))),
         phases=phases,both_wheels_touch_all_samples=bool(s['touching_states'].all()),animation=animation,
+        contact_path_diagnostics=contact_jump_summary(s,trace,run['geometry_audit']),
         force_time_convention='Geometry at t; force is impulse/dt over [t,t+2.5ms]. Reset force slot zero is not plotted.',
         interpretation='Startup sliding is predominantly longitudinal with zero initial wheel spin and nonzero body speed; not evidence of a newly observed static-to-dynamic switch.',
         solver_stick_slip_flag_observed=False,per_point_cone_certified=False,
