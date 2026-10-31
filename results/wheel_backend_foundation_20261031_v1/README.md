@@ -1,5 +1,7 @@
 # Sliding foundation: policy-free wheel pilot
 
+**Follow-up correction:** the [native-force and mesh-seam experiment](../wheel_native_force_check_20261031_v1/README.md) reproduces the archived states exactly. The apparent force imbalance below comes from assuming every native contact normal aligns with world Z. Tilted mesh contacts contribute normal force in XY and friction in Z; complete native vectors close momentum, and aggregate capacity checks pass. Keep this pilot as historical evidence, but do not interpret its planar-force ratios as Coulomb violations.
+
 The study now separates contact-model evidence, cross-backend learning, and real-world transfer before assessing hockey-stop imitation. A TRON1 robot is available for later measurements, as confirmed by the user on 2026-10-31. No real measurements or hardware motion were performed in this stage.
 
 The executable pilot completed **14 new MuJoCo CPU rollouts** and reused **2 hash-verified PhysX rollouts**. No new PhysX simulation or policy training was launched. At the resource check, every RTX GPU had an existing CUDA process; previously paused training was left unchanged.

@@ -65,8 +65,10 @@ def root_state(data):
 def simulate(initial, dt, duration=2., iterations=100, cone="elliptic", mu=.7):
     import mujoco
     initial = np.asarray(initial, dtype=float)
-    if initial.shape != (13,) or not np.allclose(initial[3:7], [1, 0, 0, 0]):
-        raise ValueError("Fixture starts with an unrotated body")
+    if initial.shape != (13,) or not np.isfinite(initial).all():
+        raise ValueError("Finite 13-component initial state required")
+    if not np.allclose(initial[[4, 6]], 0, atol=1e-8) or not np.isclose(np.linalg.norm(initial[3:7]), 1., atol=1e-6):
+        raise ValueError("Fixture orientation can only rotate about world Y")
     if not np.allclose(initial[[10, 12]], 0):
         raise ValueError("X/Z rotations are locked")
     steps = round(duration/dt)
@@ -76,6 +78,7 @@ def simulate(initial, dt, duration=2., iterations=100, cone="elliptic", mu=.7):
     model = mujoco.MjModel.from_xml_string(xml)
     data = mujoco.MjData(model)
     data.qpos[:3] = initial[:3]
+    data.qpos[3] = 2*np.arctan2(initial[5], initial[3])
     data.qvel[:] = initial[[7, 8, 9, 11]]
     # mj_step performs forward dynamics; never call mj_forward after a step
     # before reading its contact solution (that would describe a different state).

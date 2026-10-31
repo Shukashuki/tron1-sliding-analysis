@@ -1,0 +1,41 @@
+{
+  "status": "stopped_no_automatic_retry",
+  "probe_sha256": "068a639875f5a2bab64c0285c91562a4d10b02cd2bd223b8d9476e7a9df843ee",
+  "process_signals_sent": false,
+  "policy_training": false,
+  "cases": [
+    {
+      "name": "cold_smoke_400hz",
+      "status": "completed",
+      "gpu_gate": {
+        "physical_index": 1,
+        "cuda_ordinal": 1,
+        "uuid": "GPU-3971a030-93f3-8dd8-def2-ab3cc1b507f6",
+        "free_MiB": 24210,
+        "utilization_percent": 0,
+        "pids": [],
+        "observed_unix_time": 1793486925.861717
+      },
+      "argv": [
+        "/data/zengxiong/.conda/envs/regrind/bin/python",
+        "-B",
+        "-u",
+        "/data/zengxiong/workspaces/tron1-wheel-native-force-check-20261031-v1/source_snapshot_v2/scripts/probe_wheel_native_forces.py",
+        "--initialization",
+        "cold",
+        "--dt",
+        "0.0025",
+        "--duration",
+        "0.04",
+        "--device",
+        "cuda:1",
+        "--output-dir",
+        "/data/zengxiong/workspaces/tron1-wheel-native-force-check-20261031-v1/suite_v2/cold_smoke_400hz"
+      ],
+      "pid": 2895860,
+      "returncode": 0,
+      "trace_sha256": "ae15edf4345d85c49f419a317c43ba1520a939d1340d4d9dbbf37ebc95f5ec6f"
+    }
+  ],
+  "error": "GPU lacks required free memory or is active"
+}

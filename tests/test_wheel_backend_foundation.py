@@ -45,3 +45,12 @@ def test_force_shift_breaks_momentum_balance():
     aligned = summarize(trace)['vertical_momentum_residual_rms_n']
     trace['interval_force_w_n'] = np.roll(trace['interval_force_w_n'], 1, axis=0)
     assert summarize(trace)['vertical_momentum_residual_rms_n'] > max(1e-3, 1000*aligned)
+
+
+def test_spinning_symmetric_cylinder_initial_orientation_preserves_translation():
+    initial=canonical_state()
+    baseline,_,_=simulate(initial,.0025,duration=.2)
+    angle=.3;initial[3:7]=[np.cos(angle/2),0,np.sin(angle/2),0]
+    rotated,_,_=simulate(initial,.0025,duration=.2)
+    np.testing.assert_allclose(rotated['root_state_w'][0],initial,atol=1e-12)
+    np.testing.assert_allclose(rotated['root_state_w'][:,:3],baseline['root_state_w'][:,:3],atol=1e-8)
