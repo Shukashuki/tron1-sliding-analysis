@@ -28,6 +28,30 @@ The historical screen is core XY RMSE > 0.15 m **or** peak error > 0.30 m. Passi
 
 There is **one deterministic episode per cell**. This is not a statistical success-rate estimate. The continuation reverified and copied 46 completed formal cells and four smoke cells, then executed the missing 22 cells. Old directories, source snapshots and policy weights were preserved.
 
+The four nominal cells also have a completed, unsmoothed **contact-continuity** diagnostic:
+
+![Four nominal contact timelines](nominal_contact_continuity/nominal_contact_4x1.png)
+
+| Training → validation | Core bilateral envelope within −5 to +1 mm | Longest core interval with any wheel gap > 1 mm |
+|---|---:|---:|
+| PhysX → PhysX | 43.6% | 0.205 s |
+| PhysX → CPU MuJoCo | 46.0% | 0.325 s |
+| MuJoCo-Warp → PhysX | 69.8% | 0.310 s |
+| MuJoCo-Warp → CPU MuJoCo | 25.8% | 0.190 s |
+
+All four exhibit repeated envelope separation under this diagnostic. The better-tracking cells therefore cannot be presented as completing the continuous-bilateral-contact requirement. These are cylinder-envelope estimates including the collider offsets, **not measured native contact probabilities**; the report also supplies 0.1 and 2 mm sensitivity results. The −5 mm lower bound rejects deep penetration rather than counting it as support. Contact-conditioned lateral-speed records are kept separately, and these recordings do not contain the per-point native normals needed to certify friction saturation. [Metrics and limitations](nominal_contact_continuity/report.json) / [derived timelines](nominal_contact_continuity/derived_continuity.npz).
+
+Reproduce from the hash-matched nominal recordings and the pinned legacy evaluator:
+
+```bash
+python scripts/analyze_nominal_contact_continuity.py \
+  --summary results/sliding_foundation_completion_20261031_v1/ppo_matrix_analysis/summary.json \
+  --trace-root /path/to/nominal_physx_traces \
+  --reference /path/to/frozen/motion.npz --model /path/to/frozen/mujoco_model.xml \
+  --legacy-evaluator /path/to/frozen_cpu_source/scripts/eval_tracking_mujoco.py \
+  --output-dir /path/to/new/contact_report
+```
+
 ## 2. Policy-independent wheel-model factorial
 
 ![400 Hz controlled wheel comparison](wheel_factor_analysis/wheel_factors_400hz.png)
