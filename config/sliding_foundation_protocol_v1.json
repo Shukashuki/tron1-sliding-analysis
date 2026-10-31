@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "status": "foundation_pilot_complete_formal_stages_pending",
+  "objective": "Establish model and transfer evidence before testing whether hockey-stop imitation improves useful sliding.",
+  "hardware": {
+    "TRON1_available": true,
+    "source": "User confirmation on 2026-10-31: hardware measurements can be arranged later",
+    "real_measurements_collected_for_this_protocol": false,
+    "hardware_motion_scheduled": false
+  },
+  "ordering": [
+    "A: policy-independent contact-model and numerical checks",
+    "B: matched RL training and cross-backend evaluation",
+    "C: held-out real measurement and sim2real gap quantification",
+    "D: hockey-stop imitation and useful-sliding ablations"
+  ],
+  "A": {
+    "pilot": "results/wheel_backend_foundation_20261031_v1/pilot/report.json",
+    "new_MuJoCo_CPU_rollouts": 14,
+    "reused_PhysX_rollouts": 2,
+    "new_PhysX_rollouts": 0,
+    "policy_involved": false,
+    "next_gate": "Recollect native PhysX force/geometry with consistent observable initialization, documented contact-cache handling, and native contact/friction readback.",
+    "independent_factors": [
+      "collision geometry: cylinder versus sliced approximation, matched outer dimensions and inertia",
+      "tangential law: native friction versus external nonlinear tire law",
+      "numerics: timestep and solver iterations at fixed model parameters",
+      "coupling: external force delay and normal-load source"
+    ],
+    "common_mu_anchor": 0.7,
+    "static_dynamic_split_PhysX_separate_arm": [0.9, 0.7],
+    "MuJoCo_static_dynamic_split_claim": false,
+    "next_controlled_time_steps_s": [0.005, 0.0025, 0.00125],
+    "pilot_limit": "A lightly loaded, unactuated axle fixture cannot establish full-robot or real-tire accuracy."
+  },
+  "B": {
+    "status": "awaiting_A_measurement_gate_and_idle_RTX",
+    "initial_algorithms": ["PPO", "SAC"],
+    "train_backends": ["PhysX", "MuJoCo-Warp"],
+    "validation_backends": ["PhysX", "MuJoCo CPU"],
+    "CPU_Warp_equivalence_assumed": false,
+    "existing_outputs": "Historical evidence only until source, actor, reward, actuator, dt, DR and reference manifests pass compatibility checks.",
+    "fixed_across_algorithms": [
+      "reference and phase/initial-state distribution",
+      "observable states, privileged critic states and action semantics",
+      "physical/control timestep and actuator model",
+      "reward formulas, weights, termination and evaluation horizon",
+      "DR distributions where representable in both backends",
+      "training transition budget and held-out evaluation disturbances"
+    ],
+    "separate_factors": ["RL algorithm", "training backend", "DR", "history/adaptation"],
+    "training_budget_status": "Final seeds and rollout budget to be recorded before launch; no new training started by this pilot.",
+    "validation_mu_grid": [0.01, 0.03, 0.05, 0.1, 0.15, 0.2, 0.3, 0.45, 0.6, 0.7, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0],
+    "shared_initial_state_replay": "Short action-target replay with actual applied torque recorded; equal targets do not imply equal torque or hidden contact state.",
+    "closed_loop_metrics": ["XY error", "speed retention or stop time/distance as appropriate", "heading error", "bilateral contact continuity", "slip duration with contact", "smoothness", "mechanical work", "completion rate"]
+  },
+  "C": {
+    "status": "hardware_available_measurements_pending",
+    "minimum_logs": ["source timestamps", "commands before and after filtering/limits", "joint positions and velocities", "wheel speed", "IMU gyro and acceleration", "external metric base pose", "ground plane and frame calibration", "battery/drive state if available"],
+    "optional_force_evidence": ["synchronized force plate", "wheel/leg force sensor", "motor-current torque estimate with calibration and uncertainty"],
+    "without_force_measurement": "Measure contact-conditioned kinematic slip; identify net dynamics. Per-wheel friction-cone saturation remains an estimate, not directly measured ground truth.",
+    "separate_data_splits": ["model identification", "held-out validation by run and surface condition"],
+    "gap_levels": ["measurement uncertainty", "contact and slip timing", "short-horizon state transition", "closed-loop task outcome"],
+    "sim2sim_is_not_real_gap_bound": true
+  },
+  "D": {
+    "status": "deferred_until_foundation_evidence",
+    "same_conditions": ["entry speed", "surface", "stop/turn target", "training budget", "actuator limits", "bilateral contact criterion"],
+    "ablation_factors": ["hockey retarget prior present/absent", "explicit contact-conditioned sliding objective present/absent"],
+    "benefit_test": "Improved stopping/turning performance at comparable contact stability and smoothness, with independently measured sliding evidence.",
+    "not_sufficient": ["larger beta", "higher training reward", "friction utilization near one alone", "visually plausible skating"]
+  },
+  "execution": {
+    "remote_host": "zengxiong@14.103.233.29",
+    "RTX_requirement": "No existing CUDA workload immediately before launch",
+    "one_remote_job_at_a_time": true,
+    "resume_previously_paused_training": false,
+    "modify_other_processes": false
+  }
+}
