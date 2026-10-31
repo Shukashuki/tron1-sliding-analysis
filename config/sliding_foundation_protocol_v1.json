@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "native_contact_vector_and_mesh_seam_checks_completed_full_model_study_pending",
+  "status": "contact_factorial_and_PPO_matrix_completed_matched_SAC_formal_training_running",
   "objective": "Establish model and transfer evidence before testing whether hockey-stop imitation improves useful sliding.",
   "hardware": {
     "TRON1_available": true,
@@ -45,10 +45,34 @@
       "smoke_0p04s": 3
     },
     "native_force_gate": "Passed: all full cases close momentum; aggregate friction capacity uses scalar native normal loads, not world-Z force.",
-    "mesh_geometry_gate": "Significant triangulation sensitivity observed; keep ground representation explicit in cross-backend studies."
+    "mesh_geometry_gate": "Significant triangulation sensitivity observed; keep ground representation explicit in cross-backend studies.",
+    "controlled_factorial": {
+      "status": "completed_verified",
+      "report": "results/sliding_foundation_completion_20261031_v1/wheel_factor_analysis/report.json",
+      "formal_cases": 18,
+      "smoke_cases": 6,
+      "geometry_slices": [
+        1,
+        9
+      ],
+      "laws": [
+        "native_coulomb",
+        "external_coulomb_regularized",
+        "combined_slip_magic_formula"
+      ],
+      "physics_hz": [
+        200,
+        400,
+        800
+      ],
+      "floor_y_offset_m": -5,
+      "matched_mass_inertia_initial_state": true,
+      "real_tire_identification": false
+    },
+    "historical_full_body_evidence_inventory": "results/sliding_foundation_completion_20261031_v1/historical_evidence_inventory.json"
   },
   "B": {
-    "status": "awaiting_controlled_full_model_comparison_and_training_manifest_compatibility_audit",
+    "status": "PPO_68_cells_completed_SAC_two_smoke_learners_four_deployments_passed_formal_training_running",
     "initial_algorithms": [
       "PPO",
       "SAC"
@@ -77,7 +101,7 @@
       "DR",
       "history/adaptation"
     ],
-    "training_budget_status": "Final seeds and rollout budget to be recorded before launch; no new training started by this pilot.",
+    "training_budget_status": "Frozen seed42, 512 environments, 12288000 transitions per algorithm/backend; matching PPO seed42 actors reused without retraining. Single-seed descriptive comparison.",
     "validation_mu_grid": [
       0.01,
       0.03,
@@ -107,7 +131,26 @@
       "smoothness",
       "mechanical work",
       "completion rate"
-    ]
+    ],
+    "completed_PPO_matrix": "results/sliding_foundation_completion_20261031_v1/ppo_matrix_analysis/summary.json",
+    "matched_action_replays": {
+      "status": "completed_verified",
+      "training_origins": [
+        "physx",
+        "mjlab"
+      ],
+      "direction": "PhysX-recorded requests replayed in CPU MuJoCo",
+      "root": "results/sliding_foundation_completion_20261031_v1",
+      "same_applied_torque": false,
+      "inverse_direction_completed": false
+    },
+    "algorithm_recipe_differences": [
+      "SAC fixed identity observation normalization versus PPO online RSL normalization",
+      "SAC tanh versus PPO clipped Gaussian actions",
+      "Off-policy replay/entropy updates versus PPO on-policy updates"
+    ],
+    "reference_task": "traj_4 high-speed turn; hockey prior benefit remains a separate later study",
+    "geometry_contact_reporting": "XML collider center and axis included; PhysX envelope remains a proxy, not cooked native geometry equivalence."
   },
   "C": {
     "status": "hardware_available_measurements_pending",
@@ -167,6 +210,16 @@
     "one_remote_job_at_a_time": true,
     "resume_previously_paused_training": false,
     "modify_other_processes": false,
-    "old_paused_training": "Terminated at user request; dispatcher and trainer exited; model_400.pt hash preserved."
+    "old_paused_training": "Terminated at user request; dispatcher and trainer exited; model_400.pt hash preserved.",
+    "active_workspace": "/data/zengxiong/workspaces/tron1-foundation-completion-20261031-v1",
+    "active_sequence": "sac_sequence_v3",
+    "physical_gpu_index": 3,
+    "automatic_post_training": [
+      "both validation engines at all17 coefficients",
+      "matched PPO/SAC metrics and 4x1 nominal plots"
+    ],
+    "last_confirmed_stage": "SAC running_physx_formal after six verified smoke stages",
+    "latest_status_collection": "SSH recovered; SAC PhysX formal training confirmed at 1792000/12288000 transitions",
+    "final_analysis": "sac_sequence_v3/comparison_analysis_with_geometry_offsets_v1"
   }
 }
