@@ -1,0 +1,55 @@
+{
+  "kind": "hockey_contact_numerical_sensitivity_specification_v1",
+  "status": "prepared_not_run",
+  "purpose": "Distinguish geometry/model effects, numerical resolution, and policy feedback using the completed successful v9 actor.",
+  "baseline_actor_sha256": "592c9f8033f797b36db93ea4cb8cbbec79897df19c6a1878211b437d007c621c",
+  "reference_sha256": "e23fbd82639d243f0c485cf391b1eff0e275d31f6bb6ba940647874a0ac83050",
+  "asset_sha256": "327ca5080e753bbc95d8c3c797e9cd49a0f134d400cfe80494af0ba840e23a8e",
+  "fixed": {
+    "mu_static": 0.9,
+    "mu_dynamic": 0.7,
+    "control_dt_s": 0.02,
+    "horizon_s": 2.76,
+    "worlds": 1,
+    "geometry": "same authored 50 mm finite cylinder, original mass and inertia",
+    "initial_state": "exact archived nominal state including wheel spin and all joint velocities",
+    "external_perturbations": false,
+    "training": false,
+    "task_gates": "unchanged; evaluate events in seconds and at native physical rate"
+  },
+  "required_preflight": [
+    "Reproduce the archived baseline before interpreting any changed configuration.",
+    "Read back installed engine version, solver type, effective position/velocity iteration counts, stabilization, material and contact offsets.",
+    "Keep these values fixed for the timestep sweep; do not infer them from this paper's historical engine labels.",
+    "Run serial single-environment jobs on an available authorized GPU without changing other workloads."
+  ],
+  "timestep_sweep": [
+    {"physics_dt_s": 0.005, "decimation": 4},
+    {"physics_dt_s": 0.0025, "decimation": 8},
+    {"physics_dt_s": 0.00125, "decimation": 16}
+  ],
+  "iteration_sweep": {
+    "physics_dt_s": 0.0025,
+    "multipliers_of_live_baseline_counts": [1, 2, 4],
+    "one_factor_at_a_time": true,
+    "solver_type_unchanged": true
+  },
+  "control_conditions": [
+    "Short action-replay probes from identical archived states with identical normalized action/actuator targets; low-level PD still depends on the resulting state.",
+    "Full 2.76 s closed-loop frozen-policy rollout; report feedback response separately from action-replay probes."
+  ],
+  "record": [
+    "All body poses, COM twists and applied joint torques at each physical step",
+    "Native normal points, normals, separations and impulses",
+    "Friction anchor positions and impulses",
+    "Patch identities, patch normal impulse and solver-stage tangential velocities if exposed; otherwise retain unavailable status"
+  ],
+  "compare": [
+    "Sampled bilateral contact and penetration/separation distributions",
+    "Wheel-resultant and sum-of-anchor-norm capacity checks",
+    "Material slip and friction opposition with threshold sensitivity",
+    "Net momentum residual and force timing negative controls",
+    "XY tracking, stopping, body angular acceleration and original task gates",
+    "Differences as physical step/iteration count changes, without treating the smallest step as measured reality"
+  ]
+}
