@@ -1,5 +1,7 @@
 # Sliding foundations: completed evidence and running comparison
 
+> **Priority update:** The user has returned the current stage to [Isaac/PhysX contact-model analysis and training](../isaac_contact_focus_20261031_v1/README.md). The previously scheduled MuJoCo-Warp SAC arm and expanded backend comparison are deferred. The results and dated execution observations below remain historical evidence.
+
 The matched 400 Hz PPO **2 training backends × 2 validation backends × 17 friction values** matrix is complete. The controlled wheel-model factorial and two same-request replay diagnostics are also complete. The matched SAC comparison has passed both learner smoke tests and all four deployment smoke tests; its formal training and validation sequence is running. This is not yet a completed sim2real or hockey-prior benefit study.
 
 ## 1. PPO backend and friction comparison
