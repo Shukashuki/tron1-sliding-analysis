@@ -1,0 +1,135 @@
+{
+ "schema_version": 1,
+ "kind": "turn_formal_baseline_lock_v1",
+ "date": "2026-10-31",
+ "decision": "User designated height-smooth PPO seed42 as the formal baseline of the traj4 turn mainline (2026-10-31).",
+ "reference_id": "drift_drl_traj4",
+ "task_stratum": "large_angle_turn",
+ "pooled_success_statistics": false,
+ "baseline": {
+  "algorithm": "PPO",
+  "training_seed": 42,
+  "checkpoint_path_local": "outputs/controller_primary_ppo_mu070_20261015_v1/training/model_final.pt",
+  "checkpoint_sha256": "6ec411efeaea37fc61389285978b377aa7c5be80e326ce7f18581efc9acdf27b",
+  "training_manifest_sha256": "497aa9d35fad3a64744f86ceedaa35beed74ea127ef5b7c4b52dbb7978b682df",
+  "training_run_status_sha256": "3a55a03e61f52056fe3821e15b47623532a7c2e2cdfe8339752794250c7ec932",
+  "training_budget": {
+   "num_envs": 512,
+   "iterations_requested": 1000,
+   "learning_iteration_index_completed": 999,
+   "num_steps_per_env": 24,
+   "policy_steps_requested": 24000,
+   "policy_steps_completed": 24000,
+   "environment_transitions_requested": 12288000,
+   "environment_transitions_completed": 12288000,
+   "setup_smoke_control_steps": 0,
+   "scope": "PPO rollout collection only, excluding setup smoke/reset checks"
+  },
+  "task_profile_config": "config/car_drift_height_smooth_task.json",
+  "task_profile_sha256": "31de29a61eec847e0e39783f3a0d9d8f2db551acd679a1b38dfde2b24e8ae7d6",
+  "reference_catalog_sha256": "b2c6062ebc6c25d48d7845ffb8786971f85d7b44e37d5f6f27a9f65e395b96c1",
+  "motion_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+  "robot_reference_sha256": "afc22f19b813cf10b3e3a90affb0f26f5a7743074f98b262394c69de786e9f6e",
+  "training_asset_sha256": "327ca5080e753bbc95d8c3c797e9cd49a0f134d400cfe80494af0ba840e23a8e",
+  "trainer_sha256": "880e84b6394ab99e51aa610ee9db778e113b173012a13db6e76284167983ca5d",
+  "height_adapter_sha256": "e133aca58f671fc22ae1dfc97a03461e7724e4072bf8b74f58a2c14281d198b8",
+  "source_training_modules_sha256": {
+   "scripts/train_tracking.py": "ea9e4cd14f25ff3ba5202b9ba43ac0f08320418e2311cbae205c8449f3a1da9c",
+   "training/tron1_tracking.py": "0a29fa27c1d65c0b9add0886221491e549553e3529d6970f1ec5ba35e2532817",
+   "training/tron1_drift.py": "5eb40c9b3c14f5bd5c59c9861c1414ae8ac1b219ff0dd70591f2c6fe0bb5344c",
+   "training/tron1_domain_randomization.py": "3f3a0b62c85a0af496ae9e9e0d75dda85c3ec30da587e4a47969843f5b1b1dca",
+   "training/tron1_contact_slip.py": "52ef38de9cece19a8ee02c120cb85d472ffd831e4587e5f0d1f340974ab699f4"
+  }
+ },
+ "evaluation": {
+  "protocol": "run_car_validation.py --full-horizon-diagnostic; one deterministic episode per mu per engine; random events off",
+  "friction_grid_equal_static_dynamic": [
+   0.01,
+   0.03,
+   0.05,
+   0.1,
+   0.15,
+   0.2,
+   0.3,
+   0.45,
+   0.6,
+   0.7,
+   0.8,
+   1.0,
+   1.2,
+   1.4,
+   1.6,
+   1.8,
+   2.0
+  ],
+  "core_interval_s": [
+   1.44,
+   4.0
+  ],
+  "xy_screen_m": {
+   "rmse_gt": 0.15,
+   "peak_gt": 0.3
+  },
+  "screen_status": "inherited exploratory limits, not physical thresholds",
+  "verdict_rules": "results/2026-10-31-research-definitions.md section 3 (F/P/C/I)",
+  "evaluation_friction_config_sha256": "f1ce5c65acb2752fa4777d37d92e3f5a46ba20207dabf1f7ca6fe9fa06e90704"
+ },
+ "baseline_results": {
+  "summary": "results/controller_primary_ppo_height_smooth_seed42_v1/summary.json",
+  "published_artifacts_sha256": {
+   "summary.json": "d51ab3f3fc6378c263b147942e099d8ab92c549b3d92fd239d63dc713aad766d",
+   "xy_trace.npz": "9cffbd9e43a19217d09e4088a394c332488af94b981e2a85603d3f473daf94ab",
+   "xy_trace.provenance.json": "ccd821c2b72fa9622756bacf77b37746b14bd7026b15dbc5ca9f699bfbea0c36",
+   "topdown.png": "ca8c75634b0b791be854abb0c6883810ea4af96b56df0aa5152e68eb600cb124"
+  },
+  "nominal_mu0p70": {
+   "isaac_core_xy_rmse_m": 0.05650248871327423,
+   "isaac_core_xy_peak_m": 0.10088289791211602,
+   "mujoco_core_xy_rmse_m": 0.049819958191334994,
+   "mujoco_core_xy_peak_m": 0.07791017260865425,
+   "sim2sim_overlap_xy_rmse_m": 0.014286419864464934,
+   "both_engines_below_screen": true
+  },
+  "below_screen_count": {
+   "isaac": "13/17",
+   "mujoco": "11/17",
+   "both_engines_same_mu": "11/17"
+  },
+  "isaac_screen_exceeded_mu": [
+   0.01,
+   0.03,
+   0.05,
+   0.1
+  ],
+  "mujoco_screen_exceeded_mu": [
+   0.01,
+   0.03,
+   0.05,
+   0.1,
+   0.15,
+   0.2
+  ],
+  "censored": [],
+  "offline_replay_verified": "analyze_friction_grid.py --expected-summary exit 0 on 2026-10-31"
+ },
+ "comparison_controls": {
+  "SAC_seed42": {
+   "checkpoint_sha256": "2722b4118347e26aa7c0ce58b3ff5cc67c40194b1350c876becf38a1cd9eeeae",
+   "role": "descriptive control; nominal tracking fails (0/17 both engines)"
+  },
+  "NMPC_CEM": {
+   "role": "excluded until a nominal-qualified two-engine freeze exists"
+  },
+  "historical_mu0p15_policy": {
+   "role": "analysis-compatibility check only"
+  }
+ },
+ "limitations": [
+  "single training seed; no seed-level inference",
+  "all 17 grid points were already viewed: development set, not held-out",
+  "effective training contact friction under the average combine rule is unverified (baseline-confirmation G3); in/out-of-distribution labels of grid points are provisional",
+  "physics reruns require the remote Isaac Lab host; local checks are offline replay only",
+  "locked Python environment file not yet created (G1)"
+ ],
+ "status": "formal_baseline_designated"
+}

@@ -1,0 +1,82 @@
+{
+ "schema_version": 1,
+ "kind": "hockey_multiseed_replication_spec_v1",
+ "status": "prepared_not_run_choices_resolved_pending_launch_approval",
+ "date": "2026-10-31",
+ "authorization": {
+  "hockey_in_scope": true,
+  "hockey_role": "macroscopic demonstration of the value of sliding control",
+  "new_training_seeds_authorized": true,
+  "remote_gpu_launch_payload_approved": false,
+  "note": "Seed authorization is recorded; the exact upload/launch payload, host and GPU use still follow the existing per-payload approval practice."
+ },
+ "existing_seed42_baselines": {
+  "v8_equal_friction": {
+   "actor_sha256": "fde03b942dd9f62ae096f63ae9372c32ea9d43688c6a5fb5f0496c1ce5f5757a",
+   "result": "33/33 at 0.7/0.7"
+  },
+  "v9_split_friction": {
+   "actor_sha256": "592c9f8033f797b36db93ea4cb8cbbec79897df19c6a1878211b437d007c621c",
+   "result": "33/33 at 0.9/0.7"
+  },
+  "selection_bias": "v7 recipe was adaptively selected after 24 unsuccessful seed-42 screens; seed 42 results cannot serve as held-out evidence for the recipe."
+ },
+ "fixed": {
+  "reference_sha256": "e23fbd82639d243f0c485cf391b1eff0e275d31f6bb6ba940647874a0ac83050",
+  "asset_sha256": "327ca5080e753bbc95d8c3c797e9cd49a0f134d400cfe80494af0ba840e23a8e",
+  "physics_dt_s": 0.0025,
+  "decimation": 8,
+  "rewards_dr_ppo_settings_geometry_gates": "unchanged from the frozen v8/v9 snapshots; only the seed field changes",
+  "gates": "scripts/evaluate_hockey_physx.py eleven gates plus full-horizon bilateral geometric contact <= 0.1 mm",
+  "no_reselection": "Every declared seed is reported; no seed is dropped, retuned or replaced."
+ },
+ "evaluation_per_seed": {
+  "suites": [
+   "nominal + 32 predeclared perturbations at the arm's training material",
+   "cross-material nominal: 0.7/0.7, 0.9/0.7, 0.9/0.9"
+  ],
+  "report": "per-seed raw results, success count per seed, seed-level Wilson or cluster bootstrap by seed (seed 20261031, 10000 resamples); perturbation trials are not independent seeds"
+ },
+ "prerequisites_before_launch": [
+  "G1 locked environment file",
+  "design and freeze the direct-brake non-sliding reference and protocol before any seed is trained",
+  "source snapshot with only the seed field changed, hash-verified against v8/v9 snapshots",
+  "runtime smoke preflight per seed (1,536 transitions) before formal training",
+  "explicit approval of the exact upload/launch payload and GPU host"
+ ],
+ "resolved_choices_2026_10_31": {
+  "seed_ids": [
+   43,
+   44,
+   45,
+   46,
+   47
+  ],
+  "lineage_scope": "full_lineage",
+  "lineage_scope_definition": "Replay the fixed stage sequence from scratch per seed (parent 12,288,000 + v7 recipe 3,072,000 + continuation 9,216,000; v9 split arm continues from that seed's own v7). Measures recipe reproducibility; about 24.6M-33.8M transitions per seed.",
+  "arms": [
+   "v8_equal_friction",
+   "v9_split_friction"
+  ],
+  "sliding_value_comparator": {
+   "user_answer": "不使用特別動作直接煞停(like directly brake)+不滑動對照組",
+   "interpretation": "New control arm: same entry speed and start state, stop by direct braking without the hockey turn/sideslip maneuver and without sliding reward/gates; compare against the sliding hockey stop.",
+   "compare": [
+    "stopping distance",
+    "stopping time",
+    "peak deceleration",
+    "XY error vs each arm's own reference",
+    "tilt/angular acceleration",
+    "wheel slip and friction utilization",
+    "task-gate pass per seed"
+   ],
+   "seeds": "same predeclared seeds 43-47 as the sliding arms",
+   "existing_policy": false,
+   "needs_design": [
+    "straight-line direct-brake reference at the same 1.31-1.43 m/s entry speed",
+    "reward/gate variant with sliding terms removed, all other terms unchanged",
+    "its own 11-gate subset: drop loaded-lateral-sliding and wheel-heading-to-hockey-reference gates, keep the rest"
+   ]
+  }
+ }
+}
