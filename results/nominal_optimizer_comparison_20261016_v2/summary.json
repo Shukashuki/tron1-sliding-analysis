@@ -1,0 +1,83 @@
+{
+  "kind": "nominal_optimizer_development_comparison",
+  "status": "completed",
+  "engine": "MuJoCo",
+  "reference_id": "drift_drl_traj4",
+  "plant_mu": 0.7,
+  "prediction_mu": 0.7,
+  "model_sha256": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513",
+  "motion_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+  "core_window_s": [
+    1.44,
+    4.0
+  ],
+  "cases": {
+    "CEM": {
+      "name": "CEM",
+      "source_directory": "outputs/nmpc_primary_nominal_residual_h30_b10_20261016_v1",
+      "rollout_sha256": "8408c44fb3ac04971f8ff2dce81ec648614b30b393fbb5eb1c16c3ee2aae713f",
+      "core_xy_rmse_m": 0.17003021596786497,
+      "core_xy_peak_m": 0.30637733265429923,
+      "core_speed_retention_ratio": 0.9568193349450067,
+      "core_speed_mean_m_s": 0.9839063661130011,
+      "max_tilt_deg": 14.544955764072036,
+      "core_nonwheel_contact_fraction": 0.0,
+      "compute_ms_median_p95": [
+        999.0082010044716,
+        1191.8566912063395
+      ],
+      "all_solves_exceed_20ms": true,
+      "solver_failures": 0,
+      "candidate_evaluations": 68054,
+      "sqp_successes": null,
+      "sqp_nonconverged_due_to_iteration_cap": null
+    },
+    "MPPI": {
+      "name": "MPPI",
+      "source_directory": "outputs/mppi_primary_mu0p7_20261016_v1",
+      "rollout_sha256": "f898e7d79e54edfc5a856047f5e6ddfd456fb3230332a44620786c199762144a",
+      "core_xy_rmse_m": 0.666229907206021,
+      "core_xy_peak_m": 1.4216346109507263,
+      "core_speed_retention_ratio": 0.6047921251419771,
+      "core_speed_mean_m_s": 0.6219134588625377,
+      "max_tilt_deg": 111.58857195684294,
+      "core_nonwheel_contact_fraction": 0.5653021442495126,
+      "compute_ms_median_p95": [
+        1153.560992970597,
+        1384.0822768164796
+      ],
+      "all_solves_exceed_20ms": true,
+      "solver_failures": 0,
+      "candidate_evaluations": 68054,
+      "sqp_successes": null,
+      "sqp_nonconverged_due_to_iteration_cap": null
+    },
+    "SQP": {
+      "name": "SQP",
+      "source_directory": "outputs/sqp_primary_mu0p7_full_20261016_v1",
+      "rollout_sha256": "e6b6069815248b21945857b24c2fa443d0b91f03f0dd5968b0b529abf6fef853",
+      "core_xy_rmse_m": 0.5345182936202542,
+      "core_xy_peak_m": 1.0117905389218278,
+      "core_speed_retention_ratio": 1.2900079173984005,
+      "core_speed_mean_m_s": 1.3265273347945157,
+      "max_tilt_deg": 10.172745762827804,
+      "core_nonwheel_contact_fraction": 0.0,
+      "compute_ms_median_p95": [
+        470.5053649377078,
+        1713.9506868086755
+      ],
+      "all_solves_exceed_20ms": true,
+      "solver_failures": 0,
+      "candidate_evaluations": 63069,
+      "sqp_successes": 250,
+      "sqp_nonconverged_due_to_iteration_cap": 99
+    }
+  },
+  "limitations": [
+    "MPPI includes a Gaussian action prior, unlike CEM and SQP; this is not a pure optimizer ablation.",
+    "SQP uses finite-difference gradients and a three-iteration cap, not an exact converged solution.",
+    "Rollout counts and episode timing environments are not matched; compute timings are descriptive.",
+    "Only MuJoCo plant/predictor at nominal mu=0.7; no Isaac or real-time claim.",
+    "One trajectory and one seed/configuration per method; no statistical ranking."
+  ]
+}

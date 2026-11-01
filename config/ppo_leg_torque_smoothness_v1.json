@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "experiment": "physx_ppo_leg_applied_torque_rate_smoothness",
+  "method": "additional_leg_applied_torque_rate_only",
+  "backend": "physx",
+  "reference_id": "drift_drl_traj4",
+  "baseline_checkpoint_sha256": "6ec411efeaea37fc61389285978b377aa7c5be80e326ce7f18581efc9acdf27b",
+  "baseline_task_profile_sha256": "31de29a61eec847e0e39783f3a0d9d8f2db551acd679a1b38dfde2b24e8ae7d6",
+  "required_previous_method_status": "needs_next_method",
+  "baseline_action_rate_weight": -0.1,
+  "leg_torque_rate_weight": -0.01,
+  "new_reward": {
+    "term": "leg_applied_torque_rate",
+    "formula": "mean_4_substeps(mean_6_legs((delta_applied_tau_Nm/20_Nm)^2))",
+    "physics_dt_s": 0.005,
+    "policy_dt_s": 0.02,
+    "delta_torque_scale_nm": 20.0,
+    "wheel_cost_included": false,
+    "first_actual_substep_after_reset_cost": 0.0,
+    "denominator_after_reset": 4,
+    "reward_manager_dt_factor_applied_once": 0.02
+  },
+  "one_training_or_validation_job_at_a_time": true,
+  "from_scratch_per_candidate": true,
+  "seed": 42,
+  "num_envs": 512,
+  "iterations": 1000,
+  "steps_per_environment_per_iteration": 24,
+  "environment_transitions_per_candidate": 12288000,
+  "setup_smoke_control_steps": 0,
+  "validation_mu_in_order": [0.7, 0.15],
+  "validation_episodes_per_mu_per_engine": 1,
+  "validation_engines": ["isaac_physx", "mujoco"],
+  "physics_dt_s": 0.005,
+  "policy_dt_s": 0.02,
+  "core_interval_s": [1.44, 4.0],
+  "spectrum_cutoff_hz": 10.0,
+  "screening": {
+    "status": "engineering_screen_not_statistically_validated",
+    "required_reduction_of_high_frequency_base_world_xy_angular_velocity_rms": 0.5,
+    "required_reduction_of_leg_action_step_rms": 0.5,
+    "maximum_core_xy_rmse_m": 0.15,
+    "maximum_core_xy_rmse_increase_over_matched_mu_baseline_m": 0.03,
+    "minimum_reference_speed_retention": 0.9,
+    "maximum_beta_rmse_increase_over_matched_mu_baseline_deg": 5.0,
+    "must_pass_both_physx_friction_cases": true,
+    "height_or_airborne_failure_gate": false,
+    "sideslip_zero_target": false,
+    "visual_review_required_before_claiming_jitter_resolved": true,
+    "translation_and_root_height_hf_diagnostics_required": true
+  },
+  "preserved": [
+    "baseline action-rate weight -0.1", "historical BeyondMimic DR",
+    "height smoothness", "PPO architecture and hyperparameters", "1-rad leg action scale",
+    "Kp=500/Kd=10", "DC motor limits", "locked reference", "seed and formal budget"
+  ],
+  "stop_rules": {
+    "previous_action_method_running_or_passed_screen": "do_not_launch",
+    "smoke_physical_substep_audit_not_complete": "stop_before_formal_training",
+    "screen_passes": "stop_for_fullbody_and_translation_diagnostics_review",
+    "screen_fails": "needs_next_method_not_experiment_complete",
+    "runtime_failure_or_gpu_busy": "stop_without_retry_or_foreign_process_control"
+  },
+  "limitations": [
+    "Preparation only until an explicit invocation after the previous method terminates with needs_next_method.",
+    "One seed and one episode do not establish statistical success or causal attribution.",
+    "MuJoCo is a separately versioned transfer diagnostic, not part of the PhysX smoothing screen.",
+    "No absolute-height, airborne or zero-yaw/sideslip success criterion is introduced."
+  ]
+}

@@ -28,7 +28,7 @@ def interpolate_quaternions(q,query):
 
 
 def retime(source,requested_scale):
-    if not np.isfinite(requested_scale) or requested_scale<1:raise ValueError('Scale must be finite and >=1')
+    if not np.isfinite(requested_scale) or requested_scale<=0:raise ValueError('Scale must be finite and positive')
     old_frames=len(source['joint_pos'])
     if old_frames<2 or float(np.asarray(source['fps']).reshape(-1)[0])!=50.:raise ValueError('Need >=2 frames at50Hz')
     intervals=max(1,round((old_frames-1)/requested_scale));effective=(old_frames-1)/intervals

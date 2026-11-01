@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "comparison_id": "tron1_traj4_mu0p7_cem_isaac_predictor_x_plant_v1",
+  "lock": {
+    "reference_id": "drift_drl_traj4",
+    "reference_catalog_sha256": "b2c6062ebc6c25d48d7845ffb8786971f85d7b44e37d5f6f27a9f65e395b96c1",
+    "motion_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+    "asset_sha256": "327ca5080e753bbc95d8c3c797e9cd49a0f134d400cfe80494af0ba840e23a8e",
+    "plant_mu": 0.7,
+    "prediction_mu_scenarios": [0.7],
+    "physics_dt_s": 0.005,
+    "control_dt_s": 0.02,
+    "plant_seed": 42,
+    "total_reference_policy_steps": 349,
+    "core_window_s": [1.44, 4.0],
+    "effective_cem_config_sha256": "c30a83dffe39e167748d8305f02d43025dbb83af2d6539bd44b3de7ec4616a74",
+    "objective_semantics_sha256": "097e17078a943cfd32c71bcf8168b7d0c66b4d36e85fa10a6f4aac0b947ebfca",
+    "action_parameterization_sha256": "99fd8560e473bd26f437adf6a8f7c1e53d398e90f5c83c62bcee56904e5439c2"
+  },
+  "historical_baseline_report": "../outputs/nmpc_primary_isaac_friction_development_20261016_v1/mu0p700/report.json",
+  "cells": [
+    {
+      "plant_backend": "isaac_physx",
+      "predictor_backend": "isaac_physx",
+      "report": "../outputs/mpc_isaac_backend_matrix_traj4_mu0p7_v1/physx_predictor_physx_plant/report.json"
+    },
+    {
+      "plant_backend": "isaac_physx",
+      "predictor_backend": "isaac_newton_mjwarp",
+      "report": "../outputs/mpc_isaac_backend_matrix_traj4_mu0p7_v1/newton_mjwarp_predictor_physx_plant/report.json"
+    },
+    {
+      "plant_backend": "isaac_newton_mjwarp",
+      "predictor_backend": "isaac_physx",
+      "report": "../outputs/mpc_isaac_backend_matrix_traj4_mu0p7_v1/physx_predictor_newton_mjwarp_plant/report.json"
+    },
+    {
+      "plant_backend": "isaac_newton_mjwarp",
+      "predictor_backend": "isaac_newton_mjwarp",
+      "report": "../outputs/mpc_isaac_backend_matrix_traj4_mu0p7_v1/newton_mjwarp_predictor_newton_mjwarp_plant/report.json"
+    }
+  ]
+}

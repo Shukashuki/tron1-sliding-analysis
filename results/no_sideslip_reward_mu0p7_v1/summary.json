@@ -1,0 +1,83 @@
+{
+  "reference_id": "drift_drl_traj4",
+  "core_window_s": [
+    1.44,
+    4.0
+  ],
+  "fixed_ground_mu": 0.7,
+  "reference_sha256": "afc22f19b813cf10b3e3a90affb0f26f5a7743074f98b262394c69de786e9f6e",
+  "motion_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+  "metrics": {
+    "PPO": {
+      "Isaac": {
+        "core_xy_rmse_m": 0.07182016406144248,
+        "core_xy_peak_m": 0.1169677261682816,
+        "core_speed_retention_ratio": 0.9874876148358309,
+        "core_samples": 513,
+        "full_horizon_end_s": 6.98
+      },
+      "MuJoCo": {
+        "core_xy_rmse_m": 0.06420337326513424,
+        "core_xy_peak_m": 0.10263128066585014,
+        "core_speed_retention_ratio": 0.9887761106581237,
+        "core_samples": 513,
+        "full_horizon_end_s": 6.979999999999873
+      },
+      "sim2sim": {
+        "overlap_end_s": 6.979999999999873,
+        "overlap_xy_rmse_m": 0.018981405149461814,
+        "overlap_xy_peak_m": 0.04465087613935827,
+        "observed_core_xy_rmse_m": 0.015763188276776724,
+        "full_core_overlap": true,
+        "full_core_xy_rmse_m": 0.015763188276776724
+      }
+    },
+    "CEM NMPC": {
+      "Isaac": {
+        "core_xy_rmse_m": 0.08462229343413148,
+        "core_xy_peak_m": 0.17662512701705274,
+        "core_speed_retention_ratio": 0.9703193395668391,
+        "core_samples": 513,
+        "full_horizon_end_s": 6.98
+      },
+      "MuJoCo": {
+        "core_xy_rmse_m": 0.12328546266410885,
+        "core_xy_peak_m": 0.20019283340536828,
+        "core_speed_retention_ratio": 0.9790707447966377,
+        "core_samples": 513,
+        "full_horizon_end_s": 6.979999999999873
+      },
+      "sim2sim": {
+        "overlap_end_s": 6.979999999999873,
+        "overlap_xy_rmse_m": 0.0908281442653291,
+        "overlap_xy_peak_m": 0.19699155987339903,
+        "observed_core_xy_rmse_m": 0.08429694233124223,
+        "full_core_overlap": true,
+        "full_core_xy_rmse_m": 0.08429694233124223
+      }
+    }
+  },
+  "artifact_audit": {
+    "PPO": {
+      "Isaac": {
+        "report_sha256": "3dd5893e11533b4408fd2269e1cabb006ce0b90e20efecd26984f4ac1a190e62",
+        "trace_sha256": "31dc01848e19623831c7754b6b9f8070cf8dd6a56d46222506cd278a5d9c1327"
+      },
+      "MuJoCo": {
+        "report_sha256": "517d6bd04172b03024247d0fe1e1ad019a64a4b418a3b0de91078f37c205834e",
+        "trace_sha256": "a7c9e6ab2081f5ec5f6fe194ae0bf9eb6ee191f39669adaee0b1c0d4e4b88da5"
+      }
+    },
+    "CEM NMPC": {
+      "Isaac": {
+        "report_sha256": "662853f8e2f5695da9c0c238214f67dcecafff3dd8a252cdc4951cca9c5906af",
+        "trace_sha256": "1056e4a55f9c9eddea4834b6002252f192425e54747a17d4fce4070ea97de9ca"
+      },
+      "MuJoCo": {
+        "report_sha256": "903c3277909436ad324c77edd96201318d55456b82295d3fcf36e1e046dd03c7",
+        "trace_sha256": "ba6b1df179607408ea2477555a778fcbb77eb6adaf4163bc16361ef727b73dc0"
+      }
+    }
+  },
+  "scope": "One seed, one fixed-friction episode per controller and engine; no statistical ranking or measured tire-slip claim"
+}

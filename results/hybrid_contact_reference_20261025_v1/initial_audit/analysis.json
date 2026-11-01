@@ -1,0 +1,77 @@
+{
+  "kind": "time_coupled_hybrid_point_contact_reference_search",
+  "config": {
+    "kind": "time_coupled_hybrid_point_contact_reference_search",
+    "coefficients": 12,
+    "mu": 0.7,
+    "rolling_wheel": 0,
+    "rolling_normal_min_n": 6.0,
+    "slide_interval_s": [
+      1.44,
+      4.0
+    ],
+    "sliding_speed_min_m_s": 0.01,
+    "max_nfev": 35,
+    "native_nominal_gates_changed": false,
+    "PPO_reward_changed": false,
+    "root_XY_yaw_speed_preserved": true,
+    "body_height_is_search_variable_not_absolute_policy_reward": true
+  },
+  "initial": {
+    "objective_sum_squares": 2012.718101110539,
+    "core_base_wrench_norm_median_p95_max": [
+      0.0668442781064768,
+      0.13120535996981655,
+      0.1662426758098164
+    ],
+    "full_max_abs_geometric_floor_gap_m": 7.230327447871332e-16,
+    "core_rolling_point_tangent_speed_m_s_median_p95_max": [
+      0.3762285178877743,
+      0.4774482976604993,
+      0.4873415615099965
+    ],
+    "full_min_model_rolling_normal_n": 109.24906505503688,
+    "full_max_DC_envelope_effort_violation_nm": 0.0,
+    "minimum_nonwheel_clearance_m": 0.13873985953559298,
+    "minimum_opposite_leg_clearance_m": 0.10999993343212831,
+    "original_root_XY_yaw_and_speed_fixed": true,
+    "native_support_or_task_success_proven": false
+  },
+  "final": {
+    "objective_sum_squares": 2012.718101110539,
+    "core_base_wrench_norm_median_p95_max": [
+      0.0668442781064768,
+      0.13120535996981655,
+      0.1662426758098164
+    ],
+    "full_max_abs_geometric_floor_gap_m": 7.230327447871332e-16,
+    "core_rolling_point_tangent_speed_m_s_median_p95_max": [
+      0.3762285178877743,
+      0.4774482976604993,
+      0.4873415615099965
+    ],
+    "full_min_model_rolling_normal_n": 109.24906505503688,
+    "full_max_DC_envelope_effort_violation_nm": 0.0,
+    "minimum_nonwheel_clearance_m": 0.13873985953559298,
+    "minimum_opposite_leg_clearance_m": 0.10999993343212831,
+    "original_root_XY_yaw_and_speed_fixed": true,
+    "native_support_or_task_success_proven": false
+  },
+  "solver": null,
+  "source_sha256": "ed4048728884db31fbc34271e442bc09111e6b0711c6a08323f1ebbc315b2cce",
+  "config_sha256": "86596deddab323e024f812e6855a7ebc76e4bf059bd2915d29a5ba3ecab21fc7",
+  "model_sha256": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513",
+  "reference_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+  "initial_coefficients_sha256": null,
+  "physics_steps": 0,
+  "policy_updates": 0,
+  "full_time_coupled_state_produced": true,
+  "certified_reference_for_training": false,
+  "task_success_claimed": false,
+  "limitations": [
+    "Two ideal point contacts and a prescribed mode schedule are planning assumptions,not native multi-point forces.",
+    "Finite-difference derivatives and optimization are at50Hz;400Hz contact/motor validation and native rollout remain required.",
+    "All objective penalties are reference-planning costs;no PPO reward or original nominal acceptance gate is changed.",
+    "Native measured upward force>5N at every2.5ms sample is not proven by model force bounds."
+  ]
+}

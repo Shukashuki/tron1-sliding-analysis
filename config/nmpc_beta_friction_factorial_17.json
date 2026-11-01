@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "reference_id": "drift_drl_traj4",
+  "ground_mu_equal_static_dynamic": [0.01, 0.03, 0.05, 0.10, 0.15, 0.20, 0.30, 0.45, 0.60, 0.70, 0.80, 1.00, 1.20, 1.40, 1.60, 1.80, 2.00],
+  "reused_six_point_mu": [0.05, 0.10, 0.20, 0.30, 0.70, 1.60],
+  "new_mu": [0.01, 0.03, 0.15, 0.45, 0.60, 0.80, 1.00, 1.20, 1.40, 1.80, 2.00],
+  "profiles": {
+    "side": {"task_profile": "config/car_drift_height_smooth_task.json", "sideslip_reward_weight": 2.0},
+    "no_side": {"task_profile": "config/car_drift_height_smooth_no_sideslip_task.json", "sideslip_reward_weight": 0.0}
+  },
+  "prediction_modes": {
+    "fixed": {"predictor_mu": 0.70, "receives_plant_mu": false},
+    "oracle": {"predictor_mu": "validation_plant_mu", "receives_plant_mu": true}
+  },
+  "reuse_fixed_episode_as_oracle_at_mu": 0.70,
+  "seed": 42,
+  "cem": {"horizon_steps": 30, "control_blocks": 10, "candidates": 64, "iterations": 3, "elite_count": 8},
+  "scope": "Development-only extension of the six-point factorial to the exact legacy 17-point grid. Keep failures and existing episodes, no retuning, no extra failure gate. One full-horizon seed-42 episode per distinct cell in each engine. Exact plant-mu input is privileged diagnostic information."
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "task": "car_drift",
+  "contact_friction": 1.0,
+  "env_spacing_m": 8.0,
+  "reward_weights": {"sideslip": 0.0, "yaw_rate": 1.0, "speed": 1.0, "grounded": 0.4, "tilt": -0.2},
+  "height_regularization": {
+    "mode": "vertical_acceleration_only",
+    "weight": -0.1,
+    "acceleration_scale_m_s2": 5.0
+  },
+  "description": "Primary traj_4 no-sideslip-reward ablation. Only the drift_sideslip weight changes from 2.0 to 0.0; reference, XY/yaw/speed tracking, stability terms, height smoothness, action interface and BeyondMimic training domain randomization stay unchanged. Train PPO with the usual randomized material recipe, then validate PPO and CEM NMPC at fixed plant mu=0.7. This profile does not assert success or remove geometric heading diagnostics."
+}

@@ -1,0 +1,32 @@
+{
+  "kind": "nmpc_fixed_vs_exact_plant_friction_oracle",
+  "engine": "MuJoCo",
+  "plant_mu": 0.2,
+  "prediction_mu_fixed": 0.7,
+  "prediction_mu_oracle": 0.2,
+  "reference_id": "drift_drl_traj4",
+  "seed": 42,
+  "oracle_is_privileged_not_deployable": true,
+  "fixed": {
+    "core_xy_rmse_m": 0.07455897183533848,
+    "core_xy_peak_m": 0.13758225650141676,
+    "core_speed_retention_ratio": 0.987535650070957,
+    "solver_failures": 0,
+    "median_compute_ms": 957.8002749476582
+  },
+  "oracle": {
+    "core_xy_rmse_m": 0.17409374247111298,
+    "core_xy_peak_m": 0.36283199808314903,
+    "core_speed_retention_ratio": 0.9680991352247518,
+    "solver_failures": 0,
+    "median_compute_ms": 1066.070375032723
+  },
+  "oracle_minus_fixed_core_xy_rmse_m": 0.0995347706357745,
+  "oracle_minus_fixed_speed_retention_ratio": -0.019436514846205233,
+  "input_sha256": {
+    "fixed_report": "ab3e11ded76a67a67d68b211a1e4ebad88d78d028f373c3813b7fa06513c6f06",
+    "fixed_rollout": "542f01c2a2f5ef36dad2ca2ba85e0270f1075facf68eafcae95b1852c059295f",
+    "oracle_report": "701f7fe86e3e6630304da3cba2f9c425de51f42247eaca298818800334cca8c6",
+    "oracle_rollout": "0e61b3f2a77fb2e8ec52a55db287595c8bb3db4a4797453c1b81ad107467d87b"
+  }
+}

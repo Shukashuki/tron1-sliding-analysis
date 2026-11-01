@@ -17,7 +17,7 @@ def source():
         joint_names=np.array([str(k) for k in range(8)]),body_names=np.array(['base']))
 
 
-@pytest.mark.parametrize('scale,frames',[(1.5,233),(2.,175),(2.5,140),(3.,117)])
+@pytest.mark.parametrize('scale,frames',[(.9,388),(.95,367),(1.,349),(1.5,233),(2.,175),(2.5,140),(3.,117)])
 def test_retime_preserves_complete_path_and_scales_velocities(scale,frames):
     old=source();new,k=retime(old,scale)
     assert len(new['joint_pos'])==frames

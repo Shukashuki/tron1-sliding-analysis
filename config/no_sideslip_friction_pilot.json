@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "reference_id": "drift_drl_traj4",
+  "task_profile": "config/car_drift_height_smooth_no_sideslip_task.json",
+  "validation_ground_mu_equal_static_dynamic": [0.05, 0.1, 0.2, 0.3, 0.7, 1.6],
+  "reuse_completed_nominal_mu": 0.7,
+  "nmpc_prediction_mu_scenarios": [0.7],
+  "nmpc_horizon_steps": 30,
+  "nmpc_control_blocks": 10,
+  "nmpc_candidates": 64,
+  "nmpc_iterations": 3,
+  "nmpc_elite_count": 8,
+  "policy_checkpoint": "frozen no-sideslip PPO seed-42 final checkpoint",
+  "evaluation_seed": 42,
+  "scope": "Fixed-controller friction pilot. Only validation plant ground friction changes; no retraining, retuning, model-friction oracle or sideslip failure gate. All episodes are full-horizon diagnostics."
+}

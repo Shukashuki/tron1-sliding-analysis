@@ -1,0 +1,2379 @@
+{
+  "schema_version": 1,
+  "kind": "additional_recorded_ppo_base_body_six_dof_jitter_diagnostics",
+  "source_publication_sha256": "c58cfaf66eba7ded12f4b9f5f3c93cb9a80c8802c41e58e5d52758252ab7c359",
+  "verified_source_artifact_sha256": {
+    "summary.json": "c58cfaf66eba7ded12f4b9f5f3c93cb9a80c8802c41e58e5d52758252ab7c359",
+    "derived_traces.npz": "f8b80bd8fb30554f81b25cfb96ef5edcaba272beea0cfc52a5e69c6c9055b95b",
+    "metrics.csv": "3c226ee76ed5b0373eb937638e66124cfdd7e544d4a355415a555764ef6f3f5e",
+    "diagnostics.png": "6a0fee8e3df27957bba49bcf612c46f97a10cc362b70197a14b1895e1458b040"
+  },
+  "analysis_source_sha256": {
+    "analyze_ppo_body_jitter.py": "e1a27e76339fc339e2c9e6ffb16d6bb6d6b219c48dffb094bf1b4262bdffce4a",
+    "analyze_ppo_smoothness.py": "79a1caeda4ae12ef176b14770a4beefde0f44a885052be54c6382a74368d4f3c"
+  },
+  "body": "base_Link",
+  "scope": "One base rigid body only; full robot link states are not present in this archive",
+  "coefficient_order": [
+    0.7,
+    0.15
+  ],
+  "cutoff_hz_exclusive": 10.0,
+  "native_sample_hz": 200.0,
+  "reference_or_video_resampled": false,
+  "rows": [
+    {
+      "mu": 0.7,
+      "cohort": "baseline",
+      "body": "base_Link",
+      "window": "full",
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "signal": "angular_world_xy",
+      "units": "rad/s",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "world",
+      "point": "base_Link rigid-body angular velocity; independent of choice of body point",
+      "raw_signal_rms": 2.0311840270629404,
+      "spectral_metrics": {
+        "samples": 1397,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.14316392269148479,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 26.05583392985023,
+        "total_mean_square": 4.101424598112259,
+        "high_frequency_mean_square": 3.9585292428727636,
+        "high_frequency_rms": 1.9896052982621362,
+        "high_frequency_power_fraction": 0.9651595800870593,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(rad/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.7,
+      "cohort": "baseline",
+      "body": "base_Link",
+      "window": "full",
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "signal": "angular_world_z",
+      "units": "rad/s",
+      "components": [
+        "z"
+      ],
+      "frame": "world",
+      "point": "base_Link rigid-body angular velocity; not an instruction to suppress intended yaw",
+      "raw_signal_rms": 0.5779368649254302,
+      "spectral_metrics": {
+        "samples": 1397,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.14316392269148479,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 0.14316392269148479,
+        "total_mean_square": 0.29323419306424897,
+        "high_frequency_mean_square": 0.21788213608007836,
+        "high_frequency_rms": 0.46677846574159604,
+        "high_frequency_power_fraction": 0.743031137682976,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(rad/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.7,
+      "cohort": "baseline",
+      "body": "base_Link",
+      "window": "full",
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "signal": "com_linear_velocity_world_xy",
+      "units": "m/s",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "world",
+      "point": "Original unmerged base_Link center of mass; not root-link-origin velocity",
+      "raw_signal_rms": 0.6765577493324155,
+      "spectral_metrics": {
+        "samples": 1397,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.14316392269148479,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 0.14316392269148479,
+        "total_mean_square": 0.045782153158464886,
+        "high_frequency_mean_square": 0.0016344844937513934,
+        "high_frequency_rms": 0.04042875825141545,
+        "high_frequency_power_fraction": 0.03570134607024671,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.7,
+      "cohort": "baseline",
+      "body": "base_Link",
+      "window": "full",
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "signal": "com_linear_velocity_world_z",
+      "units": "m/s",
+      "components": [
+        "z"
+      ],
+      "frame": "world",
+      "point": "Original unmerged base_Link center of mass; not a derivative of root height",
+      "raw_signal_rms": 0.1743339740568682,
+      "spectral_metrics": {
+        "samples": 1397,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.14316392269148479,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 24.051539012169442,
+        "total_mean_square": 0.02885495145517727,
+        "high_frequency_mean_square": 0.01964791490744311,
+        "high_frequency_rms": 0.1401710202126071,
+        "high_frequency_power_fraction": 0.6809200472218365,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.7,
+      "cohort": "baseline",
+      "body": "base_Link",
+      "window": "full",
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "signal": "root_link_origin_position_world_xy",
+      "units": "m",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "world",
+      "point": "base_Link link origin, not center-of-mass position",
+      "raw_signal_rms": 2.6983430142647062,
+      "spectral_metrics": {
+        "samples": 1397,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.14316392269148479,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 0.14316392269148479,
+        "total_mean_square": 0.07669494947109849,
+        "high_frequency_mean_square": 7.304489988001057e-06,
+        "high_frequency_rms": 0.0027026819990522482,
+        "high_frequency_power_fraction": 9.524082144096934e-05,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.7,
+      "cohort": "baseline",
+      "body": "base_Link",
+      "window": "full",
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "signal": "root_link_origin_position_world_z",
+      "units": "m",
+      "components": [
+        "z"
+      ],
+      "frame": "world",
+      "point": "base_Link link-origin height; no absolute-height target or bound",
+      "raw_signal_rms": 0.7704684891292208,
+      "spectral_metrics": {
+        "samples": 1397,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.14316392269148479,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 0.14316392269148479,
+        "total_mean_square": 0.00020157260817103153,
+        "high_frequency_mean_square": 1.8118924405132961e-06,
+        "high_frequency_rms": 0.001346065540942675,
+        "high_frequency_power_fraction": 0.0089887830343294,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.7,
+      "cohort": "baseline",
+      "body": "base_Link",
+      "window": "full",
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "signal": "angular_body_xy",
+      "units": "rad/s",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "base_Link body",
+      "point": "Recorded angular velocity rotated into instantaneous base_Link axes; not quaternion differentiation",
+      "raw_signal_rms": 2.032059493464206,
+      "spectral_metrics": {
+        "samples": 1397,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.14316392269148479,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 26.91481746599914,
+        "total_mean_square": 4.105407389588397,
+        "high_frequency_mean_square": 3.961851705491438,
+        "high_frequency_rms": 1.9904400783473584,
+        "high_frequency_power_fraction": 0.9650325362445086,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(rad/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.7,
+      "cohort": "baseline",
+      "body": "base_Link",
+      "window": "core",
+      "interval_s": [
+        1.44,
+        4.0
+      ],
+      "signal": "angular_world_xy",
+      "units": "rad/s",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "world",
+      "point": "base_Link rigid-body angular velocity; independent of choice of body point",
+      "raw_signal_rms": 2.079266478617777,
+      "spectral_metrics": {
+        "samples": 513,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.3898635477582929,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 26.90058479532221,
+        "total_mean_square": 4.951405471854478,
+        "high_frequency_mean_square": 4.719363558321352,
+        "high_frequency_rms": 2.172409620288345,
+        "high_frequency_power_fraction": 0.9531361519770227,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(rad/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.7,
+      "cohort": "baseline",
+      "body": "base_Link",
+      "window": "core",
+      "interval_s": [
+        1.44,
+        4.0
+      ],
+      "signal": "angular_world_z",
+      "units": "rad/s",
+      "components": [
+        "z"
+      ],
+      "frame": "world",
+      "point": "base_Link rigid-body angular velocity; not an instruction to suppress intended yaw",
+      "raw_signal_rms": 0.7112716827987663,
+      "spectral_metrics": {
+        "samples": 513,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.3898635477582929,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 24.951267056530746,
+        "total_mean_square": 0.23019235973544738,
+        "high_frequency_mean_square": 0.19774567054667222,
+        "high_frequency_rms": 0.4446860359249796,
+        "high_frequency_power_fraction": 0.8590453252833192,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(rad/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.7,
+      "cohort": "baseline",
+      "body": "base_Link",
+      "window": "core",
+      "interval_s": [
+        1.44,
+        4.0
+      ],
+      "signal": "com_linear_velocity_world_xy",
+      "units": "m/s",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "world",
+      "point": "Original unmerged base_Link center of mass; not root-link-origin velocity",
+      "raw_signal_rms": 0.7313528277620999,
+      "spectral_metrics": {
+        "samples": 513,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.3898635477582929,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 0.3898635477582929,
+        "total_mean_square": 0.0051498543072965855,
+        "high_frequency_mean_square": 0.001794063427928325,
+        "high_frequency_rms": 0.04235638591674607,
+        "high_frequency_power_fraction": 0.3483716860468074,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.7,
+      "cohort": "baseline",
+      "body": "base_Link",
+      "window": "core",
+      "interval_s": [
+        1.44,
+        4.0
+      ],
+      "signal": "com_linear_velocity_world_z",
+      "units": "m/s",
+      "components": [
+        "z"
+      ],
+      "frame": "world",
+      "point": "Original unmerged base_Link center of mass; not a derivative of root height",
+      "raw_signal_rms": 0.18082316566095638,
+      "spectral_metrics": {
+        "samples": 513,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.3898635477582929,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 24.951267056530746,
+        "total_mean_square": 0.03175914627567188,
+        "high_frequency_mean_square": 0.025509782011811744,
+        "high_frequency_rms": 0.15971781995698459,
+        "high_frequency_power_fraction": 0.8032263144098658,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.7,
+      "cohort": "baseline",
+      "body": "base_Link",
+      "window": "core",
+      "interval_s": [
+        1.44,
+        4.0
+      ],
+      "signal": "root_link_origin_position_world_xy",
+      "units": "m",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "world",
+      "point": "base_Link link origin, not center-of-mass position",
+      "raw_signal_rms": 2.257214941698602,
+      "spectral_metrics": {
+        "samples": 513,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.3898635477582929,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 0.3898635477582929,
+        "total_mean_square": 0.003329007700063129,
+        "high_frequency_mean_square": 8.648110965897188e-06,
+        "high_frequency_rms": 0.002940767071003276,
+        "high_frequency_power_fraction": 0.0025978044345566368,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.7,
+      "cohort": "baseline",
+      "body": "base_Link",
+      "window": "core",
+      "interval_s": [
+        1.44,
+        4.0
+      ],
+      "signal": "root_link_origin_position_world_z",
+      "units": "m",
+      "components": [
+        "z"
+      ],
+      "frame": "world",
+      "point": "base_Link link-origin height; no absolute-height target or bound",
+      "raw_signal_rms": 0.7793157357327377,
+      "spectral_metrics": {
+        "samples": 513,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.3898635477582929,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 0.7797270955165858,
+        "total_mean_square": 4.53919552222486e-05,
+        "high_frequency_mean_square": 2.482153649102493e-06,
+        "high_frequency_rms": 0.0015754852106898665,
+        "high_frequency_power_fraction": 0.054682677512994195,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.7,
+      "cohort": "baseline",
+      "body": "base_Link",
+      "window": "core",
+      "interval_s": [
+        1.44,
+        4.0
+      ],
+      "signal": "angular_body_xy",
+      "units": "rad/s",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "base_Link body",
+      "point": "Recorded angular velocity rotated into instantaneous base_Link axes; not quaternion differentiation",
+      "raw_signal_rms": 2.0811475592767867,
+      "spectral_metrics": {
+        "samples": 513,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.3898635477582929,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 26.90058479532221,
+        "total_mean_square": 4.9539710110011415,
+        "high_frequency_mean_square": 4.721207717434302,
+        "high_frequency_rms": 2.172834028966387,
+        "high_frequency_power_fraction": 0.95301480508264,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(rad/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.7,
+      "cohort": "candidate",
+      "body": "base_Link",
+      "window": "full",
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "signal": "angular_world_xy",
+      "units": "rad/s",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "world",
+      "point": "base_Link rigid-body angular velocity; independent of choice of body point",
+      "raw_signal_rms": 0.7952266468993566,
+      "spectral_metrics": {
+        "samples": 1397,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.14316392269148479,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 17.036506800286688,
+        "total_mean_square": 1.131516599125933,
+        "high_frequency_mean_square": 1.0876305413306664,
+        "high_frequency_rms": 1.0428952686299169,
+        "high_frequency_power_fraction": 0.9612148351785846,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(rad/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.7,
+      "cohort": "candidate",
+      "body": "base_Link",
+      "window": "full",
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "signal": "angular_world_z",
+      "units": "rad/s",
+      "components": [
+        "z"
+      ],
+      "frame": "world",
+      "point": "base_Link rigid-body angular velocity; not an instruction to suppress intended yaw",
+      "raw_signal_rms": 0.3984445186724794,
+      "spectral_metrics": {
+        "samples": 1397,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.14316392269148479,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 0.14316392269148479,
+        "total_mean_square": 0.10634778298461015,
+        "high_frequency_mean_square": 0.042626378439766986,
+        "high_frequency_rms": 0.20646156649547873,
+        "high_frequency_power_fraction": 0.40082056478728434,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(rad/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.7,
+      "cohort": "candidate",
+      "body": "base_Link",
+      "window": "full",
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "signal": "com_linear_velocity_world_xy",
+      "units": "m/s",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "world",
+      "point": "Original unmerged base_Link center of mass; not root-link-origin velocity",
+      "raw_signal_rms": 0.6741050129022099,
+      "spectral_metrics": {
+        "samples": 1397,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.14316392269148479,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 0.14316392269148479,
+        "total_mean_square": 0.04254841008155035,
+        "high_frequency_mean_square": 0.0005031701368785729,
+        "high_frequency_rms": 0.022431454185553215,
+        "high_frequency_power_fraction": 0.01182582700303425,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.7,
+      "cohort": "candidate",
+      "body": "base_Link",
+      "window": "full",
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "signal": "com_linear_velocity_world_z",
+      "units": "m/s",
+      "components": [
+        "z"
+      ],
+      "frame": "world",
+      "point": "Original unmerged base_Link center of mass; not a derivative of root height",
+      "raw_signal_rms": 0.11997484653228895,
+      "spectral_metrics": {
+        "samples": 1397,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.14316392269148479,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 16.893342877595206,
+        "total_mean_square": 0.024301838524343682,
+        "high_frequency_mean_square": 0.014987835443804954,
+        "high_frequency_rms": 0.12242481547384482,
+        "high_frequency_power_fraction": 0.6167366896455719,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.7,
+      "cohort": "candidate",
+      "body": "base_Link",
+      "window": "full",
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "signal": "root_link_origin_position_world_xy",
+      "units": "m",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "world",
+      "point": "base_Link link origin, not center-of-mass position",
+      "raw_signal_rms": 2.6922461838170015,
+      "spectral_metrics": {
+        "samples": 1397,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.14316392269148479,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 0.14316392269148479,
+        "total_mean_square": 0.07770596790228264,
+        "high_frequency_mean_square": 1.5864630597158916e-06,
+        "high_frequency_rms": 0.0012595487524172662,
+        "high_frequency_power_fraction": 2.0416231887245932e-05,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.7,
+      "cohort": "candidate",
+      "body": "base_Link",
+      "window": "full",
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "signal": "root_link_origin_position_world_z",
+      "units": "m",
+      "components": [
+        "z"
+      ],
+      "frame": "world",
+      "point": "base_Link link-origin height; no absolute-height target or bound",
+      "raw_signal_rms": 0.7619274891011204,
+      "spectral_metrics": {
+        "samples": 1397,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.14316392269148479,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 0.14316392269148479,
+        "total_mean_square": 0.0005386551546794386,
+        "high_frequency_mean_square": 1.9630636630744507e-06,
+        "high_frequency_rms": 0.0014010937381468988,
+        "high_frequency_power_fraction": 0.003644379239706149,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.7,
+      "cohort": "candidate",
+      "body": "base_Link",
+      "window": "full",
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "signal": "angular_body_xy",
+      "units": "rad/s",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "base_Link body",
+      "point": "Recorded angular velocity rotated into instantaneous base_Link axes; not quaternion differentiation",
+      "raw_signal_rms": 0.7971854216791281,
+      "spectral_metrics": {
+        "samples": 1397,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.14316392269148479,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 17.036506800286688,
+        "total_mean_square": 1.1374354920313485,
+        "high_frequency_mean_square": 1.0936502969309818,
+        "high_frequency_rms": 1.0457773648970328,
+        "high_frequency_power_fraction": 0.9615053377469603,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(rad/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.7,
+      "cohort": "candidate",
+      "body": "base_Link",
+      "window": "core",
+      "interval_s": [
+        1.44,
+        4.0
+      ],
+      "signal": "angular_world_xy",
+      "units": "rad/s",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "world",
+      "point": "base_Link rigid-body angular velocity; independent of choice of body point",
+      "raw_signal_rms": 1.2585891680197494,
+      "spectral_metrics": {
+        "samples": 513,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.3898635477582929,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 17.15399610136489,
+        "total_mean_square": 2.0340290423041933,
+        "high_frequency_mean_square": 1.9296489019733694,
+        "high_frequency_rms": 1.3891180302527821,
+        "high_frequency_power_fraction": 0.9486830629455616,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(rad/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.7,
+      "cohort": "candidate",
+      "body": "base_Link",
+      "window": "core",
+      "interval_s": [
+        1.44,
+        4.0
+      ],
+      "signal": "angular_world_z",
+      "units": "rad/s",
+      "components": [
+        "z"
+      ],
+      "frame": "world",
+      "point": "base_Link rigid-body angular velocity; not an instruction to suppress intended yaw",
+      "raw_signal_rms": 0.5472049560592891,
+      "spectral_metrics": {
+        "samples": 513,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.3898635477582929,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 1.5594541910331716,
+        "total_mean_square": 0.10043635784975272,
+        "high_frequency_mean_square": 0.07124601575964551,
+        "high_frequency_rms": 0.26691949303047446,
+        "high_frequency_power_fraction": 0.7093647886577652,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(rad/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.7,
+      "cohort": "candidate",
+      "body": "base_Link",
+      "window": "core",
+      "interval_s": [
+        1.44,
+        4.0
+      ],
+      "signal": "com_linear_velocity_world_xy",
+      "units": "m/s",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "world",
+      "point": "Original unmerged base_Link center of mass; not root-link-origin velocity",
+      "raw_signal_rms": 0.7148614528455717,
+      "spectral_metrics": {
+        "samples": 513,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.3898635477582929,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 0.3898635477582929,
+        "total_mean_square": 0.0015009969118722735,
+        "high_frequency_mean_square": 0.0008061867901770702,
+        "high_frequency_rms": 0.028393428644266798,
+        "high_frequency_power_fraction": 0.5371008986097583,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.7,
+      "cohort": "candidate",
+      "body": "base_Link",
+      "window": "core",
+      "interval_s": [
+        1.44,
+        4.0
+      ],
+      "signal": "com_linear_velocity_world_z",
+      "units": "m/s",
+      "components": [
+        "z"
+      ],
+      "frame": "world",
+      "point": "Original unmerged base_Link center of mass; not a derivative of root height",
+      "raw_signal_rms": 0.1823522895226048,
+      "spectral_metrics": {
+        "samples": 513,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.3898635477582929,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 17.15399610136489,
+        "total_mean_square": 0.03788181168539975,
+        "high_frequency_mean_square": 0.025886733507333854,
+        "high_frequency_rms": 0.16089354712770135,
+        "high_frequency_power_fraction": 0.6833552133756847,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.7,
+      "cohort": "candidate",
+      "body": "base_Link",
+      "window": "core",
+      "interval_s": [
+        1.44,
+        4.0
+      ],
+      "signal": "root_link_origin_position_world_xy",
+      "units": "m",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "world",
+      "point": "base_Link link origin, not center-of-mass position",
+      "raw_signal_rms": 2.247540518477234,
+      "spectral_metrics": {
+        "samples": 513,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.3898635477582929,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 0.3898635477582929,
+        "total_mean_square": 0.0027960881680490525,
+        "high_frequency_mean_square": 3.0411085241148424e-06,
+        "high_frequency_rms": 0.0017438774395337657,
+        "high_frequency_power_fraction": 0.0010876296959679748,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.7,
+      "cohort": "candidate",
+      "body": "base_Link",
+      "window": "core",
+      "interval_s": [
+        1.44,
+        4.0
+      ],
+      "signal": "root_link_origin_position_world_z",
+      "units": "m",
+      "components": [
+        "z"
+      ],
+      "frame": "world",
+      "point": "base_Link link-origin height; no absolute-height target or bound",
+      "raw_signal_rms": 0.788614647708169,
+      "spectral_metrics": {
+        "samples": 513,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.3898635477582929,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 1.5594541910331716,
+        "total_mean_square": 6.171919172989323e-05,
+        "high_frequency_mean_square": 3.4939105492115073e-06,
+        "high_frequency_rms": 0.001869200510702773,
+        "high_frequency_power_fraction": 0.05660979107604317,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.7,
+      "cohort": "candidate",
+      "body": "base_Link",
+      "window": "core",
+      "interval_s": [
+        1.44,
+        4.0
+      ],
+      "signal": "angular_body_xy",
+      "units": "rad/s",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "base_Link body",
+      "point": "Recorded angular velocity rotated into instantaneous base_Link axes; not quaternion differentiation",
+      "raw_signal_rms": 1.2617230349397286,
+      "spectral_metrics": {
+        "samples": 513,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.3898635477582929,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 17.15399610136489,
+        "total_mean_square": 2.04328754804724,
+        "high_frequency_mean_square": 1.9395947563639628,
+        "high_frequency_rms": 1.3926933461332982,
+        "high_frequency_power_fraction": 0.9492519827753192,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(rad/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "baseline",
+      "body": "base_Link",
+      "window": "full",
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "signal": "angular_world_xy",
+      "units": "rad/s",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "world",
+      "point": "base_Link rigid-body angular velocity; independent of choice of body point",
+      "raw_signal_rms": 2.711153476459396,
+      "spectral_metrics": {
+        "samples": 1397,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.14316392269148479,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 25.053686471009836,
+        "total_mean_square": 8.24431823249482,
+        "high_frequency_mean_square": 8.181441685290174,
+        "high_frequency_rms": 2.860321954831339,
+        "high_frequency_power_fraction": 0.9923733478704377,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(rad/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "baseline",
+      "body": "base_Link",
+      "window": "full",
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "signal": "angular_world_z",
+      "units": "rad/s",
+      "components": [
+        "z"
+      ],
+      "frame": "world",
+      "point": "base_Link rigid-body angular velocity; not an instruction to suppress intended yaw",
+      "raw_signal_rms": 0.6717155395894598,
+      "spectral_metrics": {
+        "samples": 1397,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.14316392269148479,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 25.053686471009836,
+        "total_mean_square": 0.39795906032072587,
+        "high_frequency_mean_square": 0.3168144474218343,
+        "high_frequency_rms": 0.5628627252020107,
+        "high_frequency_power_fraction": 0.7960980890006752,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(rad/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "baseline",
+      "body": "base_Link",
+      "window": "full",
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "signal": "com_linear_velocity_world_xy",
+      "units": "m/s",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "world",
+      "point": "Original unmerged base_Link center of mass; not root-link-origin velocity",
+      "raw_signal_rms": 0.688071401605554,
+      "spectral_metrics": {
+        "samples": 1397,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.14316392269148479,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 0.14316392269148479,
+        "total_mean_square": 0.04906881547277312,
+        "high_frequency_mean_square": 0.00337435618059793,
+        "high_frequency_rms": 0.05808920881366805,
+        "high_frequency_power_fraction": 0.068767834480746,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "baseline",
+      "body": "base_Link",
+      "window": "full",
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "signal": "com_linear_velocity_world_z",
+      "units": "m/s",
+      "components": [
+        "z"
+      ],
+      "frame": "world",
+      "point": "Original unmerged base_Link center of mass; not a derivative of root height",
+      "raw_signal_rms": 0.2316168959800161,
+      "spectral_metrics": {
+        "samples": 1397,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.14316392269148479,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 25.053686471009836,
+        "total_mean_square": 0.05125544193220527,
+        "high_frequency_mean_square": 0.03723604540703508,
+        "high_frequency_rms": 0.1929664359598194,
+        "high_frequency_power_fraction": 0.7264798429849963,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "baseline",
+      "body": "base_Link",
+      "window": "full",
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "signal": "root_link_origin_position_world_xy",
+      "units": "m",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "world",
+      "point": "base_Link link origin, not center-of-mass position",
+      "raw_signal_rms": 2.7263215089127577,
+      "spectral_metrics": {
+        "samples": 1397,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.14316392269148479,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 0.14316392269148479,
+        "total_mean_square": 0.08606346490828343,
+        "high_frequency_mean_square": 1.1982144905387368e-05,
+        "high_frequency_rms": 0.003461523494848384,
+        "high_frequency_power_fraction": 0.0001392245236484095,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "baseline",
+      "body": "base_Link",
+      "window": "full",
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "signal": "root_link_origin_position_world_z",
+      "units": "m",
+      "components": [
+        "z"
+      ],
+      "frame": "world",
+      "point": "base_Link link-origin height; no absolute-height target or bound",
+      "raw_signal_rms": 0.7524661629554144,
+      "spectral_metrics": {
+        "samples": 1397,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.14316392269148479,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 0.14316392269148479,
+        "total_mean_square": 0.0001465173011785519,
+        "high_frequency_mean_square": 1.6700753683831407e-06,
+        "high_frequency_rms": 0.0012923139589059388,
+        "high_frequency_power_fraction": 0.011398485741611628,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "baseline",
+      "body": "base_Link",
+      "window": "full",
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "signal": "angular_body_xy",
+      "units": "rad/s",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "base_Link body",
+      "point": "Recorded angular velocity rotated into instantaneous base_Link axes; not quaternion differentiation",
+      "raw_signal_rms": 2.7190808269638667,
+      "spectral_metrics": {
+        "samples": 1397,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.14316392269148479,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 25.053686471009836,
+        "total_mean_square": 8.311457658744786,
+        "high_frequency_mean_square": 8.248342443245692,
+        "high_frequency_rms": 2.8719927651799004,
+        "high_frequency_power_fraction": 0.9924062399051401,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(rad/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "baseline",
+      "body": "base_Link",
+      "window": "core",
+      "interval_s": [
+        1.44,
+        4.0
+      ],
+      "signal": "angular_world_xy",
+      "units": "rad/s",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "world",
+      "point": "base_Link rigid-body angular velocity; independent of choice of body point",
+      "raw_signal_rms": 2.9252813400373148,
+      "spectral_metrics": {
+        "samples": 513,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.3898635477582929,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 24.951267056530746,
+        "total_mean_square": 7.951588438076881,
+        "high_frequency_mean_square": 7.911353781211583,
+        "high_frequency_rms": 2.8127128863806172,
+        "high_frequency_power_fraction": 0.9949400478685956,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(rad/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "baseline",
+      "body": "base_Link",
+      "window": "core",
+      "interval_s": [
+        1.44,
+        4.0
+      ],
+      "signal": "angular_world_z",
+      "units": "rad/s",
+      "components": [
+        "z"
+      ],
+      "frame": "world",
+      "point": "base_Link rigid-body angular velocity; not an instruction to suppress intended yaw",
+      "raw_signal_rms": 0.8215950737811087,
+      "spectral_metrics": {
+        "samples": 513,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.3898635477582929,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 24.951267056530746,
+        "total_mean_square": 0.525419763338026,
+        "high_frequency_mean_square": 0.5088090551671273,
+        "high_frequency_rms": 0.7133085273338089,
+        "high_frequency_power_fraction": 0.9683858329474136,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(rad/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "baseline",
+      "body": "base_Link",
+      "window": "core",
+      "interval_s": [
+        1.44,
+        4.0
+      ],
+      "signal": "com_linear_velocity_world_xy",
+      "units": "m/s",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "world",
+      "point": "Original unmerged base_Link center of mass; not root-link-origin velocity",
+      "raw_signal_rms": 0.755463320948668,
+      "spectral_metrics": {
+        "samples": 513,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.3898635477582929,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 24.951267056530746,
+        "total_mean_square": 0.006699429876733996,
+        "high_frequency_mean_square": 0.003850990639997457,
+        "high_frequency_rms": 0.06205635052109862,
+        "high_frequency_power_fraction": 0.5748236358695694,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "baseline",
+      "body": "base_Link",
+      "window": "core",
+      "interval_s": [
+        1.44,
+        4.0
+      ],
+      "signal": "com_linear_velocity_world_z",
+      "units": "m/s",
+      "components": [
+        "z"
+      ],
+      "frame": "world",
+      "point": "Original unmerged base_Link center of mass; not a derivative of root height",
+      "raw_signal_rms": 0.23015593670961343,
+      "spectral_metrics": {
+        "samples": 513,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.3898635477582929,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 24.951267056530746,
+        "total_mean_square": 0.05087390591841945,
+        "high_frequency_mean_square": 0.03767648306048759,
+        "high_frequency_rms": 0.19410430974217854,
+        "high_frequency_power_fraction": 0.7405856181144215,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "baseline",
+      "body": "base_Link",
+      "window": "core",
+      "interval_s": [
+        1.44,
+        4.0
+      ],
+      "signal": "root_link_origin_position_world_xy",
+      "units": "m",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "world",
+      "point": "base_Link link origin, not center-of-mass position",
+      "raw_signal_rms": 2.3163354251707324,
+      "spectral_metrics": {
+        "samples": 513,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.3898635477582929,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 0.3898635477582929,
+        "total_mean_square": 0.004042676988295739,
+        "high_frequency_mean_square": 1.1481810523141358e-05,
+        "high_frequency_rms": 0.0033884820381907526,
+        "high_frequency_power_fraction": 0.0028401503648159917,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "baseline",
+      "body": "base_Link",
+      "window": "core",
+      "interval_s": [
+        1.44,
+        4.0
+      ],
+      "signal": "root_link_origin_position_world_z",
+      "units": "m",
+      "components": [
+        "z"
+      ],
+      "frame": "world",
+      "point": "base_Link link-origin height; no absolute-height target or bound",
+      "raw_signal_rms": 0.7589586334867543,
+      "spectral_metrics": {
+        "samples": 513,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.3898635477582929,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 0.7797270955165858,
+        "total_mean_square": 6.51663137077256e-05,
+        "high_frequency_mean_square": 1.803813194259145e-06,
+        "high_frequency_rms": 0.0013430611282660015,
+        "high_frequency_power_fraction": 0.02768014778846236,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "baseline",
+      "body": "base_Link",
+      "window": "core",
+      "interval_s": [
+        1.44,
+        4.0
+      ],
+      "signal": "angular_body_xy",
+      "units": "rad/s",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "base_Link body",
+      "point": "Recorded angular velocity rotated into instantaneous base_Link axes; not quaternion differentiation",
+      "raw_signal_rms": 2.940912818642747,
+      "spectral_metrics": {
+        "samples": 513,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.3898635477582929,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 24.951267056530746,
+        "total_mean_square": 8.077799264505453,
+        "high_frequency_mean_square": 8.036220293260376,
+        "high_frequency_rms": 2.8348227975061113,
+        "high_frequency_power_fraction": 0.9948526857521975,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(rad/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "candidate",
+      "body": "base_Link",
+      "window": "full",
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "signal": "angular_world_xy",
+      "units": "rad/s",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "world",
+      "point": "base_Link rigid-body angular velocity; independent of choice of body point",
+      "raw_signal_rms": 0.7126682046436742,
+      "spectral_metrics": {
+        "samples": 1397,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.14316392269148479,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 17.60916249105263,
+        "total_mean_square": 0.941314347443435,
+        "high_frequency_mean_square": 0.9216799430099369,
+        "high_frequency_rms": 0.9600416360814447,
+        "high_frequency_power_fraction": 0.9791415009376792,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(rad/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "candidate",
+      "body": "base_Link",
+      "window": "full",
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "signal": "angular_world_z",
+      "units": "rad/s",
+      "components": [
+        "z"
+      ],
+      "frame": "world",
+      "point": "base_Link rigid-body angular velocity; not an instruction to suppress intended yaw",
+      "raw_signal_rms": 0.4101722613257501,
+      "spectral_metrics": {
+        "samples": 1397,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.14316392269148479,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 0.14316392269148479,
+        "total_mean_square": 0.1314619735279966,
+        "high_frequency_mean_square": 0.06432695377545808,
+        "high_frequency_rms": 0.2536275887506288,
+        "high_frequency_power_fraction": 0.48931985462517635,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(rad/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "candidate",
+      "body": "base_Link",
+      "window": "full",
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "signal": "com_linear_velocity_world_xy",
+      "units": "m/s",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "world",
+      "point": "Original unmerged base_Link center of mass; not root-link-origin velocity",
+      "raw_signal_rms": 0.6723201325634751,
+      "spectral_metrics": {
+        "samples": 1397,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.14316392269148479,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 0.14316392269148479,
+        "total_mean_square": 0.0409358076247255,
+        "high_frequency_mean_square": 0.0006862513141346737,
+        "high_frequency_rms": 0.02619639887722497,
+        "high_frequency_power_fraction": 0.016764083914645265,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "candidate",
+      "body": "base_Link",
+      "window": "full",
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "signal": "com_linear_velocity_world_z",
+      "units": "m/s",
+      "components": [
+        "z"
+      ],
+      "frame": "world",
+      "point": "Original unmerged base_Link center of mass; not a derivative of root height",
+      "raw_signal_rms": 0.10891953415314874,
+      "spectral_metrics": {
+        "samples": 1397,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.14316392269148479,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 1.1453113815318783,
+        "total_mean_square": 0.020883787955062426,
+        "high_frequency_mean_square": 0.010728676071768353,
+        "high_frequency_rms": 0.10357932260720937,
+        "high_frequency_power_fraction": 0.5137322833795399,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "candidate",
+      "body": "base_Link",
+      "window": "full",
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "signal": "root_link_origin_position_world_xy",
+      "units": "m",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "world",
+      "point": "base_Link link origin, not center-of-mass position",
+      "raw_signal_rms": 2.6838414342646586,
+      "spectral_metrics": {
+        "samples": 1397,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.14316392269148479,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 0.14316392269148479,
+        "total_mean_square": 0.07310330272100471,
+        "high_frequency_mean_square": 1.2184975932870204e-06,
+        "high_frequency_rms": 0.001103855784641735,
+        "high_frequency_power_fraction": 1.6668160642992544e-05,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "candidate",
+      "body": "base_Link",
+      "window": "full",
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "signal": "root_link_origin_position_world_z",
+      "units": "m",
+      "components": [
+        "z"
+      ],
+      "frame": "world",
+      "point": "base_Link link-origin height; no absolute-height target or bound",
+      "raw_signal_rms": 0.765903398974267,
+      "spectral_metrics": {
+        "samples": 1397,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.14316392269148479,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 0.14316392269148479,
+        "total_mean_square": 0.0005709152856473702,
+        "high_frequency_mean_square": 1.4490207591191956e-06,
+        "high_frequency_rms": 0.0012037527815623918,
+        "high_frequency_power_fraction": 0.0025380661466720533,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "candidate",
+      "body": "base_Link",
+      "window": "full",
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "signal": "angular_body_xy",
+      "units": "rad/s",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "base_Link body",
+      "point": "Recorded angular velocity rotated into instantaneous base_Link axes; not quaternion differentiation",
+      "raw_signal_rms": 0.7173087277179329,
+      "spectral_metrics": {
+        "samples": 1397,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.14316392269148479,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 33.21403006442447,
+        "total_mean_square": 0.9528656264717728,
+        "high_frequency_mean_square": 0.9323728870981987,
+        "high_frequency_rms": 0.9655945769825961,
+        "high_frequency_power_fraction": 0.9784935684484142,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(rad/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "candidate",
+      "body": "base_Link",
+      "window": "core",
+      "interval_s": [
+        1.44,
+        4.0
+      ],
+      "signal": "angular_world_xy",
+      "units": "rad/s",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "world",
+      "point": "base_Link rigid-body angular velocity; independent of choice of body point",
+      "raw_signal_rms": 1.1274308764555094,
+      "spectral_metrics": {
+        "samples": 513,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.3898635477582929,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 33.52826510721319,
+        "total_mean_square": 2.0219515061406934,
+        "high_frequency_mean_square": 1.9788706415292139,
+        "high_frequency_rms": 1.4067233706486908,
+        "high_frequency_power_fraction": 0.978693423417603,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(rad/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "candidate",
+      "body": "base_Link",
+      "window": "core",
+      "interval_s": [
+        1.44,
+        4.0
+      ],
+      "signal": "angular_world_z",
+      "units": "rad/s",
+      "components": [
+        "z"
+      ],
+      "frame": "world",
+      "point": "base_Link rigid-body angular velocity; not an instruction to suppress intended yaw",
+      "raw_signal_rms": 0.5608559170527125,
+      "spectral_metrics": {
+        "samples": 513,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.3898635477582929,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 32.358674463938314,
+        "total_mean_square": 0.16428195064733353,
+        "high_frequency_mean_square": 0.13667909477098328,
+        "high_frequency_rms": 0.36970135889793976,
+        "high_frequency_power_fraction": 0.8319787671890645,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(rad/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "candidate",
+      "body": "base_Link",
+      "window": "core",
+      "interval_s": [
+        1.44,
+        4.0
+      ],
+      "signal": "com_linear_velocity_world_xy",
+      "units": "m/s",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "world",
+      "point": "Original unmerged base_Link center of mass; not root-link-origin velocity",
+      "raw_signal_rms": 0.7068789812751138,
+      "spectral_metrics": {
+        "samples": 513,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.3898635477582929,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 0.3898635477582929,
+        "total_mean_square": 0.005513491035485745,
+        "high_frequency_mean_square": 0.0014705157586946131,
+        "high_frequency_rms": 0.038347304451481504,
+        "high_frequency_power_fraction": 0.26671227888648574,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "candidate",
+      "body": "base_Link",
+      "window": "core",
+      "interval_s": [
+        1.44,
+        4.0
+      ],
+      "signal": "com_linear_velocity_world_z",
+      "units": "m/s",
+      "components": [
+        "z"
+      ],
+      "frame": "world",
+      "point": "Original unmerged base_Link center of mass; not a derivative of root height",
+      "raw_signal_rms": 0.1642880681939631,
+      "spectral_metrics": {
+        "samples": 513,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.3898635477582929,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 16.764132553606593,
+        "total_mean_square": 0.0430767753226449,
+        "high_frequency_mean_square": 0.021673754199061642,
+        "high_frequency_rms": 0.14722008762075114,
+        "high_frequency_power_fraction": 0.5031424482618603,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "candidate",
+      "body": "base_Link",
+      "window": "core",
+      "interval_s": [
+        1.44,
+        4.0
+      ],
+      "signal": "root_link_origin_position_world_xy",
+      "units": "m",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "world",
+      "point": "base_Link link origin, not center-of-mass position",
+      "raw_signal_rms": 2.2293782430202187,
+      "spectral_metrics": {
+        "samples": 513,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.3898635477582929,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 0.3898635477582929,
+        "total_mean_square": 0.0019253348129512004,
+        "high_frequency_mean_square": 2.6942862036768604e-06,
+        "high_frequency_rms": 0.00164142809884468,
+        "high_frequency_power_fraction": 0.0013993858032136201,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "candidate",
+      "body": "base_Link",
+      "window": "core",
+      "interval_s": [
+        1.44,
+        4.0
+      ],
+      "signal": "root_link_origin_position_world_z",
+      "units": "m",
+      "components": [
+        "z"
+      ],
+      "frame": "world",
+      "point": "base_Link link-origin height; no absolute-height target or bound",
+      "raw_signal_rms": 0.7892669195719135,
+      "spectral_metrics": {
+        "samples": 513,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.3898635477582929,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 0.7797270955165858,
+        "total_mean_square": 0.00018680181551123897,
+        "high_frequency_mean_square": 3.151999784199705e-06,
+        "high_frequency_rms": 0.0017753872209182156,
+        "high_frequency_power_fraction": 0.016873496521290846,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(m)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    },
+    {
+      "mu": 0.15,
+      "cohort": "candidate",
+      "body": "base_Link",
+      "window": "core",
+      "interval_s": [
+        1.44,
+        4.0
+      ],
+      "signal": "angular_body_xy",
+      "units": "rad/s",
+      "components": [
+        "x",
+        "y"
+      ],
+      "frame": "base_Link body",
+      "point": "Recorded angular velocity rotated into instantaneous base_Link axes; not quaternion differentiation",
+      "raw_signal_rms": 1.135143306878733,
+      "spectral_metrics": {
+        "samples": 513,
+        "sample_hz": 200.00000000000426,
+        "frequency_resolution_hz": 0.3898635477582929,
+        "cutoff_hz_exclusive": 10.0,
+        "dominant_frequency_hz": 33.52826510721319,
+        "total_mean_square": 2.045497360839018,
+        "high_frequency_mean_square": 2.0016981874533073,
+        "high_frequency_rms": 1.4148138349102002,
+        "high_frequency_power_fraction": 0.978587518994527,
+        "normalization": "one-sided Parseval normalization; linear detrend; Hann; channel-mean power; DC excluded"
+      },
+      "mean_square_units": "(rad/s)^2",
+      "role": "Additional diagnostic only; not a reward term, constraint or screen criterion"
+    }
+  ],
+  "relative_changes": [
+    {
+      "mu": 0.7,
+      "window": "full",
+      "signal": "angular_world_xy",
+      "units": "rad/s",
+      "baseline_hf_rms": 1.9896052982621362,
+      "candidate_hf_rms": 1.0428952686299169,
+      "hf_rms_difference": -0.9467100296322193,
+      "absolute_hf_rms_increased": false,
+      "ratio": 0.5241719398017568,
+      "change_percent": -47.58280601982432,
+      "reduction_percent": 47.58280601982432,
+      "note": "Positive change_percent means more absolute HF motion"
+    },
+    {
+      "mu": 0.7,
+      "window": "full",
+      "signal": "angular_world_z",
+      "units": "rad/s",
+      "baseline_hf_rms": 0.46677846574159604,
+      "candidate_hf_rms": 0.20646156649547873,
+      "hf_rms_difference": -0.26031689924611734,
+      "absolute_hf_rms_increased": false,
+      "ratio": 0.44231167812650085,
+      "change_percent": -55.768832187349915,
+      "reduction_percent": 55.768832187349915,
+      "note": "Positive change_percent means more absolute HF motion"
+    },
+    {
+      "mu": 0.7,
+      "window": "full",
+      "signal": "com_linear_velocity_world_xy",
+      "units": "m/s",
+      "baseline_hf_rms": 0.04042875825141545,
+      "candidate_hf_rms": 0.022431454185553215,
+      "hf_rms_difference": -0.017997304065862238,
+      "absolute_hf_rms_increased": false,
+      "ratio": 0.5548390590197726,
+      "change_percent": -44.51609409802274,
+      "reduction_percent": 44.51609409802274,
+      "note": "Positive change_percent means more absolute HF motion"
+    },
+    {
+      "mu": 0.7,
+      "window": "full",
+      "signal": "com_linear_velocity_world_z",
+      "units": "m/s",
+      "baseline_hf_rms": 0.1401710202126071,
+      "candidate_hf_rms": 0.12242481547384482,
+      "hf_rms_difference": -0.01774620473876229,
+      "absolute_hf_rms_increased": false,
+      "ratio": 0.8733960506826205,
+      "change_percent": -12.660394931737951,
+      "reduction_percent": 12.660394931737951,
+      "note": "Positive change_percent means more absolute HF motion"
+    },
+    {
+      "mu": 0.7,
+      "window": "full",
+      "signal": "root_link_origin_position_world_xy",
+      "units": "m",
+      "baseline_hf_rms": 0.0027026819990522482,
+      "candidate_hf_rms": 0.0012595487524172662,
+      "hf_rms_difference": -0.001443133246634982,
+      "absolute_hf_rms_increased": false,
+      "ratio": 0.466036608398233,
+      "change_percent": -53.396339160176694,
+      "reduction_percent": 53.396339160176694,
+      "note": "Positive change_percent means more absolute HF motion"
+    },
+    {
+      "mu": 0.7,
+      "window": "full",
+      "signal": "root_link_origin_position_world_z",
+      "units": "m",
+      "baseline_hf_rms": 0.001346065540942675,
+      "candidate_hf_rms": 0.0014010937381468988,
+      "hf_rms_difference": 5.5028197204223805e-05,
+      "absolute_hf_rms_increased": true,
+      "ratio": 1.0408807710549417,
+      "change_percent": 4.08807710549417,
+      "reduction_percent": -4.08807710549417,
+      "note": "Positive change_percent means more absolute HF motion"
+    },
+    {
+      "mu": 0.7,
+      "window": "full",
+      "signal": "angular_body_xy",
+      "units": "rad/s",
+      "baseline_hf_rms": 1.9904400783473584,
+      "candidate_hf_rms": 1.0457773648970328,
+      "hf_rms_difference": -0.9446627134503256,
+      "absolute_hf_rms_increased": false,
+      "ratio": 0.525400074221441,
+      "change_percent": -47.4599925778559,
+      "reduction_percent": 47.4599925778559,
+      "note": "Positive change_percent means more absolute HF motion"
+    },
+    {
+      "mu": 0.7,
+      "window": "core",
+      "signal": "angular_world_xy",
+      "units": "rad/s",
+      "baseline_hf_rms": 2.172409620288345,
+      "candidate_hf_rms": 1.3891180302527821,
+      "hf_rms_difference": -0.783291590035563,
+      "absolute_hf_rms_increased": false,
+      "ratio": 0.6394365120093712,
+      "change_percent": -36.056348799062874,
+      "reduction_percent": 36.056348799062874,
+      "note": "Positive change_percent means more absolute HF motion"
+    },
+    {
+      "mu": 0.7,
+      "window": "core",
+      "signal": "angular_world_z",
+      "units": "rad/s",
+      "baseline_hf_rms": 0.4446860359249796,
+      "candidate_hf_rms": 0.26691949303047446,
+      "hf_rms_difference": -0.1777665428945051,
+      "absolute_hf_rms_increased": false,
+      "ratio": 0.6002425789585731,
+      "change_percent": -39.97574210414269,
+      "reduction_percent": 39.97574210414269,
+      "note": "Positive change_percent means more absolute HF motion"
+    },
+    {
+      "mu": 0.7,
+      "window": "core",
+      "signal": "com_linear_velocity_world_xy",
+      "units": "m/s",
+      "baseline_hf_rms": 0.04235638591674607,
+      "candidate_hf_rms": 0.028393428644266798,
+      "hf_rms_difference": -0.013962957272479273,
+      "absolute_hf_rms_increased": false,
+      "ratio": 0.6703458765362023,
+      "change_percent": -32.96541234637977,
+      "reduction_percent": 32.96541234637977,
+      "note": "Positive change_percent means more absolute HF motion"
+    },
+    {
+      "mu": 0.7,
+      "window": "core",
+      "signal": "com_linear_velocity_world_z",
+      "units": "m/s",
+      "baseline_hf_rms": 0.15971781995698459,
+      "candidate_hf_rms": 0.16089354712770135,
+      "hf_rms_difference": 0.0011757271707167616,
+      "absolute_hf_rms_increased": true,
+      "ratio": 1.0073612773517282,
+      "change_percent": 0.7361277351728202,
+      "reduction_percent": -0.7361277351728202,
+      "note": "Positive change_percent means more absolute HF motion"
+    },
+    {
+      "mu": 0.7,
+      "window": "core",
+      "signal": "root_link_origin_position_world_xy",
+      "units": "m",
+      "baseline_hf_rms": 0.002940767071003276,
+      "candidate_hf_rms": 0.0017438774395337657,
+      "hf_rms_difference": -0.0011968896314695104,
+      "absolute_hf_rms_increased": false,
+      "ratio": 0.5930008727072771,
+      "change_percent": -40.69991272927229,
+      "reduction_percent": 40.69991272927229,
+      "note": "Positive change_percent means more absolute HF motion"
+    },
+    {
+      "mu": 0.7,
+      "window": "core",
+      "signal": "root_link_origin_position_world_z",
+      "units": "m",
+      "baseline_hf_rms": 0.0015754852106898665,
+      "candidate_hf_rms": 0.001869200510702773,
+      "hf_rms_difference": 0.0002937153000129064,
+      "absolute_hf_rms_increased": true,
+      "ratio": 1.1864284716987572,
+      "change_percent": 18.642847169875722,
+      "reduction_percent": -18.642847169875722,
+      "note": "Positive change_percent means more absolute HF motion"
+    },
+    {
+      "mu": 0.7,
+      "window": "core",
+      "signal": "angular_body_xy",
+      "units": "rad/s",
+      "baseline_hf_rms": 2.172834028966387,
+      "candidate_hf_rms": 1.3926933461332982,
+      "hf_rms_difference": -0.7801406828330888,
+      "absolute_hf_rms_increased": false,
+      "ratio": 0.6409570761351707,
+      "change_percent": -35.90429238648293,
+      "reduction_percent": 35.90429238648293,
+      "note": "Positive change_percent means more absolute HF motion"
+    },
+    {
+      "mu": 0.15,
+      "window": "full",
+      "signal": "angular_world_xy",
+      "units": "rad/s",
+      "baseline_hf_rms": 2.860321954831339,
+      "candidate_hf_rms": 0.9600416360814447,
+      "hf_rms_difference": -1.9002803187498944,
+      "absolute_hf_rms_increased": false,
+      "ratio": 0.3356411100714899,
+      "change_percent": -66.435888992851,
+      "reduction_percent": 66.435888992851,
+      "note": "Positive change_percent means more absolute HF motion"
+    },
+    {
+      "mu": 0.15,
+      "window": "full",
+      "signal": "angular_world_z",
+      "units": "rad/s",
+      "baseline_hf_rms": 0.5628627252020107,
+      "candidate_hf_rms": 0.2536275887506288,
+      "hf_rms_difference": -0.30923513645138195,
+      "absolute_hf_rms_increased": false,
+      "ratio": 0.4506029221593989,
+      "change_percent": -54.93970778406011,
+      "reduction_percent": 54.93970778406011,
+      "note": "Positive change_percent means more absolute HF motion"
+    },
+    {
+      "mu": 0.15,
+      "window": "full",
+      "signal": "com_linear_velocity_world_xy",
+      "units": "m/s",
+      "baseline_hf_rms": 0.05808920881366805,
+      "candidate_hf_rms": 0.02619639887722497,
+      "hf_rms_difference": -0.031892809936443084,
+      "absolute_hf_rms_increased": false,
+      "ratio": 0.4509684227453466,
+      "change_percent": -54.90315772546535,
+      "reduction_percent": 54.90315772546535,
+      "note": "Positive change_percent means more absolute HF motion"
+    },
+    {
+      "mu": 0.15,
+      "window": "full",
+      "signal": "com_linear_velocity_world_z",
+      "units": "m/s",
+      "baseline_hf_rms": 0.1929664359598194,
+      "candidate_hf_rms": 0.10357932260720937,
+      "hf_rms_difference": -0.08938711335261004,
+      "absolute_hf_rms_increased": false,
+      "ratio": 0.536773776703723,
+      "change_percent": -46.322622329627706,
+      "reduction_percent": 46.322622329627706,
+      "note": "Positive change_percent means more absolute HF motion"
+    },
+    {
+      "mu": 0.15,
+      "window": "full",
+      "signal": "root_link_origin_position_world_xy",
+      "units": "m",
+      "baseline_hf_rms": 0.003461523494848384,
+      "candidate_hf_rms": 0.001103855784641735,
+      "hf_rms_difference": -0.0023576677102066486,
+      "absolute_hf_rms_increased": false,
+      "ratio": 0.3188930499199412,
+      "change_percent": -68.11069500800588,
+      "reduction_percent": 68.11069500800588,
+      "note": "Positive change_percent means more absolute HF motion"
+    },
+    {
+      "mu": 0.15,
+      "window": "full",
+      "signal": "root_link_origin_position_world_z",
+      "units": "m",
+      "baseline_hf_rms": 0.0012923139589059388,
+      "candidate_hf_rms": 0.0012037527815623918,
+      "hf_rms_difference": -8.856117734354699e-05,
+      "absolute_hf_rms_increased": false,
+      "ratio": 0.931470849840141,
+      "change_percent": -6.852915015985905,
+      "reduction_percent": 6.852915015985905,
+      "note": "Positive change_percent means more absolute HF motion"
+    },
+    {
+      "mu": 0.15,
+      "window": "full",
+      "signal": "angular_body_xy",
+      "units": "rad/s",
+      "baseline_hf_rms": 2.8719927651799004,
+      "candidate_hf_rms": 0.9655945769825961,
+      "hf_rms_difference": -1.9063981881973042,
+      "absolute_hf_rms_increased": false,
+      "ratio": 0.336210657871247,
+      "change_percent": -66.37893421287531,
+      "reduction_percent": 66.37893421287531,
+      "note": "Positive change_percent means more absolute HF motion"
+    },
+    {
+      "mu": 0.15,
+      "window": "core",
+      "signal": "angular_world_xy",
+      "units": "rad/s",
+      "baseline_hf_rms": 2.8127128863806172,
+      "candidate_hf_rms": 1.4067233706486908,
+      "hf_rms_difference": -1.4059895157319264,
+      "absolute_hf_rms_increased": false,
+      "ratio": 0.5001304532219264,
+      "change_percent": -49.98695467780736,
+      "reduction_percent": 49.98695467780736,
+      "note": "Positive change_percent means more absolute HF motion"
+    },
+    {
+      "mu": 0.15,
+      "window": "core",
+      "signal": "angular_world_z",
+      "units": "rad/s",
+      "baseline_hf_rms": 0.7133085273338089,
+      "candidate_hf_rms": 0.36970135889793976,
+      "hf_rms_difference": -0.34360716843586914,
+      "absolute_hf_rms_increased": false,
+      "ratio": 0.518290956481065,
+      "change_percent": -48.1709043518935,
+      "reduction_percent": 48.1709043518935,
+      "note": "Positive change_percent means more absolute HF motion"
+    },
+    {
+      "mu": 0.15,
+      "window": "core",
+      "signal": "com_linear_velocity_world_xy",
+      "units": "m/s",
+      "baseline_hf_rms": 0.06205635052109862,
+      "candidate_hf_rms": 0.038347304451481504,
+      "hf_rms_difference": -0.023709046069617115,
+      "absolute_hf_rms_increased": false,
+      "ratio": 0.6179432746120601,
+      "change_percent": -38.20567253879399,
+      "reduction_percent": 38.20567253879399,
+      "note": "Positive change_percent means more absolute HF motion"
+    },
+    {
+      "mu": 0.15,
+      "window": "core",
+      "signal": "com_linear_velocity_world_z",
+      "units": "m/s",
+      "baseline_hf_rms": 0.19410430974217854,
+      "candidate_hf_rms": 0.14722008762075114,
+      "hf_rms_difference": -0.0468842221214274,
+      "absolute_hf_rms_increased": false,
+      "ratio": 0.7584586236972175,
+      "change_percent": -24.15413763027825,
+      "reduction_percent": 24.15413763027825,
+      "note": "Positive change_percent means more absolute HF motion"
+    },
+    {
+      "mu": 0.15,
+      "window": "core",
+      "signal": "root_link_origin_position_world_xy",
+      "units": "m",
+      "baseline_hf_rms": 0.0033884820381907526,
+      "candidate_hf_rms": 0.00164142809884468,
+      "hf_rms_difference": -0.0017470539393460726,
+      "absolute_hf_rms_increased": false,
+      "ratio": 0.4844139884303783,
+      "change_percent": -51.55860115696217,
+      "reduction_percent": 51.55860115696217,
+      "note": "Positive change_percent means more absolute HF motion"
+    },
+    {
+      "mu": 0.15,
+      "window": "core",
+      "signal": "root_link_origin_position_world_z",
+      "units": "m",
+      "baseline_hf_rms": 0.0013430611282660015,
+      "candidate_hf_rms": 0.0017753872209182156,
+      "hf_rms_difference": 0.00043232609265221405,
+      "absolute_hf_rms_increased": true,
+      "ratio": 1.3218960653044745,
+      "change_percent": 32.18960653044745,
+      "reduction_percent": -32.18960653044745,
+      "note": "Positive change_percent means more absolute HF motion"
+    },
+    {
+      "mu": 0.15,
+      "window": "core",
+      "signal": "angular_body_xy",
+      "units": "rad/s",
+      "baseline_hf_rms": 2.8348227975061113,
+      "candidate_hf_rms": 1.4148138349102002,
+      "hf_rms_difference": -1.4200089625959111,
+      "absolute_hf_rms_increased": false,
+      "ratio": 0.49908369445697254,
+      "change_percent": -50.091630554302746,
+      "reduction_percent": 50.091630554302746,
+      "note": "Positive change_percent means more absolute HF motion"
+    }
+  ],
+  "predeclared_engineering_screen": {
+    "unchanged": true,
+    "original_status": "screen_not_passed_requires_review",
+    "original_passes_both_conditions": false,
+    "original_case_comparisons": {
+      "mu0p700": {
+        "kind": "unvalidated_smoothing_engineering_screen",
+        "window": "core",
+        "status": "fails_unvalidated_screen",
+        "passes": false,
+        "criteria": {
+          "absolute_hf_body_angular_xy_rms_ratio": {
+            "value": 0.6394365120093712,
+            "maximum": 0.5,
+            "evaluable": true,
+            "passes": false,
+            "note": "Absolute band RMS, not just fraction of spectral power"
+          },
+          "leg_action_delta_rms_ratio": {
+            "value": 0.5216606743351031,
+            "maximum": 0.5,
+            "evaluable": true,
+            "passes": false
+          },
+          "xy_rmse_m": {
+            "value": 0.06914185554018025,
+            "maximum": 0.08650248832562776,
+            "evaluable": true,
+            "passes": true
+          },
+          "nominal_speed_retention": {
+            "value": 0.9795410266475777,
+            "minimum": 0.9,
+            "evaluable": true,
+            "passes": true,
+            "note": "Intended for nominal-condition screening; low-friction robustness must be evaluated separately"
+          },
+          "beta_rmse_deg": {
+            "value": 1.8451752391422185,
+            "maximum": 8.646314455588083,
+            "evaluable": true,
+            "passes": true,
+            "note": "Error against intended reference beta; nonzero sideslip is not itself a mismatch"
+          }
+        },
+        "baseline_trajectory_sha256": "858a4dc5b11230d1ac5a894c9528060de90570265ebdea50f20a48005a021d61",
+        "candidate_trajectory_sha256": "342b637767b65c1c23d3a90e11bcc6ea67cad89f199c48cd8b18b1b51de72da2",
+        "statistical_success_claimed": false,
+        "safety_qualification_claimed": false,
+        "causal_improvement_claimed": false,
+        "thresholds": {
+          "required_reduction_fraction": 0.5,
+          "xy_max_rmse_m": 0.15,
+          "xy_allowed_increase_m": 0.03,
+          "nominal_speed_retention_min": 0.9,
+          "beta_allowed_increase_deg": 5.0
+        }
+      },
+      "mu0p150": {
+        "kind": "unvalidated_smoothing_engineering_screen",
+        "window": "core",
+        "status": "fails_unvalidated_screen",
+        "passes": false,
+        "criteria": {
+          "absolute_hf_body_angular_xy_rms_ratio": {
+            "value": 0.5001304532219264,
+            "maximum": 0.5,
+            "evaluable": true,
+            "passes": false,
+            "note": "Absolute band RMS, not just fraction of spectral power"
+          },
+          "leg_action_delta_rms_ratio": {
+            "value": 0.3120334779121823,
+            "maximum": 0.5,
+            "evaluable": true,
+            "passes": true
+          },
+          "xy_rmse_m": {
+            "value": 0.0987830815723231,
+            "maximum": 0.07449859617089358,
+            "evaluable": true,
+            "passes": false
+          },
+          "nominal_speed_retention": {
+            "value": 0.9682165816907607,
+            "minimum": 0.9,
+            "evaluable": true,
+            "passes": true,
+            "note": "Intended for nominal-condition screening; low-friction robustness must be evaluated separately"
+          },
+          "beta_rmse_deg": {
+            "value": 4.2862802751251845,
+            "maximum": 8.124740697695609,
+            "evaluable": true,
+            "passes": true,
+            "note": "Error against intended reference beta; nonzero sideslip is not itself a mismatch"
+          }
+        },
+        "baseline_trajectory_sha256": "2006dc375886bb72d91fceadce402c2daaccbef8244ce3e80e671a59e33cedee",
+        "candidate_trajectory_sha256": "e4943a8c95740257e03d73affa47a13e282f7c8d418264d425d2a23c4ee6912d",
+        "statistical_success_claimed": false,
+        "safety_qualification_claimed": false,
+        "causal_improvement_claimed": false,
+        "thresholds": {
+          "required_reduction_fraction": 0.5,
+          "xy_max_rmse_m": 0.15,
+          "xy_allowed_increase_m": 0.03,
+          "nominal_speed_retention_min": 0.9,
+          "beta_allowed_increase_deg": 5.0
+        }
+      }
+    }
+  },
+  "new_reward_or_constraint": false,
+  "absolute_height_target_added": false,
+  "intended_yaw_or_sideslip_targeted_to_zero": false,
+  "jitter_resolved_claimed": false,
+  "whole_body_jitter_reduction_claimed": false,
+  "requires_fullbody_visual_review": true,
+  "statistical_success_claimed": false,
+  "causal_improvement_claimed": false,
+  "new_training": false,
+  "new_simulation": false,
+  "new_policy_inference": false,
+  "diagnostic_notes": [
+    "A reduction in angular XY jitter does not establish a reduction in every translational/rotational component.",
+    "COM velocity is the recorded original unmerged base_Link COM twist. Root position is the recorded link origin, not COM position.",
+    "No velocity is obtained by differentiating root position, and no acceleration is obtained by differentiating quaternions.",
+    "The six DoF are reported in component groups with their own units; no mixed-unit aggregate score is constructed.",
+    "Each band RMS uses the frozen generic helper: linear detrend, Hann window, channel-mean Parseval normalization, frequencies strictly above cutoff.",
+    "Raw position RMS includes its world offset; use the detrended band RMS for jitter, not raw absolute height/position.",
+    "Intended turning/yaw, height freedom and nonzero sideslip remain unchanged. HF diagnostics are not new failure gates.",
+    "No reference subtraction, time warp, coordinate alignment, filtering or resampling is applied.",
+    "One seed/episode is descriptive evidence only; inspect full-horizon physical states and full-body video."
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "kind": "open_loop_request_replay_summary",
+  "source_replay_report_sha256": "b0cfb329c8210b3a244cc3edbaaef2823c0cb2b169d675d764c251c38ae45b56",
+  "source_arrays_sha256": "b2812e3a83ddb1abd10f7d4c9df4e0342fe140ed20023b033bbe05c1bd2f1a6f",
+  "analysis_script_sha256": "eeb7cd4e45fa3501517fa163d5559a6363f5010c6954043cb66ea92551926dce",
+  "sample_count": 2793,
+  "native_physics_dt_s": 0.0025,
+  "same_time_xy_gap_first_observed_above_m": {
+    "0.01": 0.52,
+    "0.05": 0.655,
+    "0.1": 0.765,
+    "0.3": 1.3725,
+    "1.0": 1.995
+  },
+  "windows": {
+    "0.2": {
+      "interval_s": [
+        0.0,
+        0.2
+      ],
+      "samples": 81,
+      "interengine_xy_rmse_m": 0.0006397676079588639,
+      "interengine_xy_peak_m": 0.0009642433388805119,
+      "leg_actual_torque_interengine_rms_nm": 8.167553439323349,
+      "physx": {
+        "both_wheels_load_eligible_fraction": 0.5308641975308642,
+        "neither_wheel_load_eligible_fraction": 0.14814814814814814
+      },
+      "mujoco": {
+        "both_wheels_load_eligible_fraction": 0.345679012345679,
+        "neither_wheel_load_eligible_fraction": 0.1728395061728395
+      }
+    },
+    "0.5": {
+      "interval_s": [
+        0.0,
+        0.5
+      ],
+      "samples": 201,
+      "interengine_xy_rmse_m": 0.001639770125093482,
+      "interengine_xy_peak_m": 0.006866086960082528,
+      "leg_actual_torque_interengine_rms_nm": 6.5748141364881105,
+      "physx": {
+        "both_wheels_load_eligible_fraction": 0.8059701492537313,
+        "neither_wheel_load_eligible_fraction": 0.05970149253731343
+      },
+      "mujoco": {
+        "both_wheels_load_eligible_fraction": 0.6318407960199005,
+        "neither_wheel_load_eligible_fraction": 0.06965174129353234
+      }
+    },
+    "1.0": {
+      "interval_s": [
+        0.0,
+        1.0
+      ],
+      "samples": 401,
+      "interengine_xy_rmse_m": 0.07497157760451709,
+      "interengine_xy_peak_m": 0.16265169827095324,
+      "leg_actual_torque_interengine_rms_nm": 13.024736189007,
+      "physx": {
+        "both_wheels_load_eligible_fraction": 0.9027431421446384,
+        "neither_wheel_load_eligible_fraction": 0.029925187032418952
+      },
+      "mujoco": {
+        "both_wheels_load_eligible_fraction": 0.42643391521197005,
+        "neither_wheel_load_eligible_fraction": 0.20199501246882792
+      }
+    },
+    "2.0": {
+      "interval_s": [
+        0.0,
+        2.0
+      ],
+      "samples": 801,
+      "interengine_xy_rmse_m": 0.3960103466231331,
+      "interengine_xy_peak_m": 1.0089136543161397,
+      "leg_actual_torque_interengine_rms_nm": 18.05016576595823,
+      "physx": {
+        "both_wheels_load_eligible_fraction": 0.7715355805243446,
+        "neither_wheel_load_eligible_fraction": 0.05742821473158552
+      },
+      "mujoco": {
+        "both_wheels_load_eligible_fraction": 0.21348314606741572,
+        "neither_wheel_load_eligible_fraction": 0.6004993757802747
+      }
+    },
+    "6.98": {
+      "interval_s": [
+        0.0,
+        6.98
+      ],
+      "samples": 2793,
+      "interengine_xy_rmse_m": 2.6500176457779148,
+      "interengine_xy_peak_m": 4.150496492877348,
+      "leg_actual_torque_interengine_rms_nm": 18.843373647679353,
+      "physx": {
+        "both_wheels_load_eligible_fraction": 0.7135696383816684,
+        "neither_wheel_load_eligible_fraction": 0.13319011815252416
+      },
+      "mujoco": {
+        "both_wheels_load_eligible_fraction": 0.061224489795918366,
+        "neither_wheel_load_eligible_fraction": 0.8854278553526674
+      }
+    }
+  },
+  "policy_transfer_result": false,
+  "hidden_state_equivalence_claimed": false,
+  "actual_torque_equivalence_claimed": false,
+  "zero_load_is_airborne_or_failure": false,
+  "limitations": [
+    "Initial observable q, orientation, joint velocities and COM velocities are checked, but solver/contact hidden states are backend-specific.",
+    "Explicit PD is recalculated in each plant; identical requests do not imply identical actual torques.",
+    "Equal numeric friction is not calibrated contact-law equivalence.",
+    "Open-loop divergence is a diagnostic, not a controller success rate or causal isolation of contact alone."
+  ],
+  "plot_sha256": "f2e0261dfe3758cde778abfe2fb0efbbce6b6b6124354a73e4a3dfaddb6b05a6"
+}

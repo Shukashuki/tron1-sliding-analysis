@@ -37,7 +37,7 @@ def run(a):
     speed_spec=cfg.get('speed_reference')
     speed_scale=1. if speed_spec is None else float(speed_spec['effective_scale'])
     core_interval=(1.44/speed_scale,4./speed_scale)
-    assert np.isfinite(speed_scale) and speed_scale>=1.
+    assert np.isfinite(speed_scale) and speed_scale>0.
     sys.path.insert(0,str(a.tracking_root))
     os.environ['TRON1_BEYONDMIMIC_ROOT']=str(a.beyondmimic_root)
     from isaaclab.app import AppLauncher

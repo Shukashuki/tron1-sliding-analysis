@@ -1,0 +1,98 @@
+{
+  "kind": "time_coupled_hybrid_reference_exact_support_local_forces",
+  "config": {
+    "kind": "time_coupled_hybrid_point_contact_reference_search",
+    "contact_candidates": "two_rims_per_original_cylinder_with_normal_force_gap_complementarity",
+    "state_coefficients": 12,
+    "coefficients": 12,
+    "force_representation": "independent_force_vector_per_50Hz_state",
+    "height_representation": "derived from right-wheel geometric support;no_absolute_height_reward",
+    "mu": 0.7,
+    "rolling_wheel": 1,
+    "rolling_normal_min_n": 6.0,
+    "slide_interval_s": [
+      1.44,
+      4.0
+    ],
+    "sliding_speed_min_m_s": 0.01,
+    "max_nfev": 35,
+    "native_nominal_gates_changed": false,
+    "PPO_reward_changed": false,
+    "root_XY_yaw_speed_preserved": true
+  },
+  "initial": {
+    "objective_sum_squares": 154.2110888426216,
+    "core_base_wrench_norm_median_p95_max": [
+      0.23540931355933506,
+      0.7595852527880554,
+      0.7924545590854603
+    ],
+    "full_max_floor_penetration_m": 0.005086695738249937,
+    "loaded_rim_point_gap_m_max": 0.016771303578045495,
+    "core_model_force_weighted_rolling_tangent_RMS_m_s_median_p95_max": [
+      0.02050539137894447,
+      0.054714102127603775,
+      0.07483581769123682
+    ],
+    "full_min_model_rolling_normal_n": 2.383619611541052,
+    "full_max_DC_envelope_effort_violation_nm": 0.0,
+    "full_max_raw_PD_position_target_violation_rad": 0.0,
+    "minimum_nonwheel_clearance_m": 0.06352944702417797,
+    "minimum_opposite_leg_clearance_m": 0.10997773187299507,
+    "original_root_XY_yaw_and_speed_fixed": true,
+    "native_support_or_task_success_proven": false
+  },
+  "final": {
+    "objective_sum_squares": 135.25589413685447,
+    "core_base_wrench_norm_median_p95_max": [
+      0.22720491568408274,
+      0.7265076687421841,
+      0.7631244470749513
+    ],
+    "full_max_floor_penetration_m": 0.002418173511892593,
+    "loaded_rim_point_gap_m_max": 0.017406258416665463,
+    "core_model_force_weighted_rolling_tangent_RMS_m_s_median_p95_max": [
+      0.01928461248475518,
+      0.044271590478346994,
+      0.06516940975137273
+    ],
+    "full_min_model_rolling_normal_n": 2.3927576111673368,
+    "full_max_DC_envelope_effort_violation_nm": 0.0,
+    "full_max_raw_PD_position_target_violation_rad": 0.0,
+    "minimum_nonwheel_clearance_m": 0.06397753429614168,
+    "minimum_opposite_leg_clearance_m": 0.10997795512881843,
+    "original_root_XY_yaw_and_speed_fixed": true,
+    "native_support_or_task_success_proven": false
+  },
+  "solver": {
+    "success": false,
+    "message": "The maximum number of function evaluations is exceeded.",
+    "nfev": 35,
+    "residual_calls": 2240,
+    "first_order_optimality": 2490.3998726428435,
+    "retained_best_may_be_FD_probe": true
+  },
+  "source_sha256": "7eeb19dbcdf227624d100af3bae3383d2dbb3612ce146ede003491ede5c036a7",
+  "parent_source_sha256": "4fac92622148c6cad33ee4aef83423746517c81ee86f5e193d76705863db14eb",
+  "support_template_sha256": "37feb5277f8d441923b9e0753ddf77000801b3a1713bfd6bc42ee29097689518",
+  "separation_certificate": "cylinder support projection lower bound;positive implies disjoint",
+  "materialized_evaluate_sha256": "f9839a90c573f33b003fd04327b4783939d917c1984fb0d452d3c8b2aaa3f4d2",
+  "config_sha256": "9b4e479081d43ffe72e575fed171f8075f5112a8c1894df850609a06e505e4dd",
+  "initial_fit_sha256": "1c2924bf0be45f88e1222091a52b164c96e95db4b73c0db012e3bce9571c3520",
+  "model_sha256": "bd92264b72b4d09084732888dbd81fd94a64a1678978e58a2ab0dd191887f513",
+  "reference_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+  "force_representation": "force_samples_over_mg:349x12;stored coefficients force columns are unused",
+  "root_height_representation": "derived from rolling-wheel lowest cylinder surface;coefficient height column unused",
+  "physics_steps": 0,
+  "policy_updates": 0,
+  "certified_reference_for_training": false,
+  "task_success_claimed": false,
+  "limitations": [
+    "Two rim candidates per cylinder and unilateral force/gap complementarity approximate the set-valued support line;not native contact equivalence.",
+    "A prescribed rolling/sliding mode schedule is a planning assumption;forces are model variables,not sensor measurements.",
+    "Finite-difference derivatives and optimization are at50Hz;400Hz contact/motor validation and native rollout remain required.",
+    "All objective penalties are reference-planning costs;no PPO reward or original nominal acceptance gate is changed.",
+    "Native measured upward force>5N at every2.5ms sample is not proven by model force bounds.",
+    "Cylinder support height can have a derivative cusp at a camber sign change;dense validation must retain it."
+  ]
+}

@@ -187,6 +187,20 @@ def effective_settings(args):
     return settings,cem,scenarios
 
 
+def select_prediction_friction(args, scenarios):
+    """Resolve an explicitly labeled plant-friction oracle without changing defaults."""
+    if not getattr(args,"oracle_plant_friction",False):
+        return scenarios,"predeclared"
+    if getattr(args,"prediction_mu_scenarios",None) is not None:
+        raise ValueError("Oracle friction cannot be combined with explicit prediction scenarios")
+    if getattr(args,"adaptive_contact_config",None) is not None:
+        raise ValueError("Oracle friction cannot be combined with causal contact adaptation")
+    mu=float(args.plant_mu)
+    if not np.isfinite(mu) or mu<0:
+        raise ValueError("Oracle plant friction must be finite and nonnegative")
+    return (mu,),"plant_friction_oracle"
+
+
 def build_provider(model_path,motion_path,contract,settings,scenarios):
     # The old constructor still builds unused Q/R; only immutable actuator,
     # reference and bias-only nominal-action services are used by this runner.
@@ -288,6 +302,7 @@ def _run(args, resources):
         raise ValueError("max-policy-steps must be positive")
     reference_spec=selected_reference(args)
     settings,cem,scenarios=effective_settings(args)
+    scenarios,friction_source=select_prediction_friction(args,scenarios)
     adaptation_path=getattr(args,"adaptive_contact_config",None)
     adaptation=None
     if adaptation_path is not None:
@@ -371,7 +386,8 @@ def _run(args, resources):
             "reference_catalog_sha256":sha(DEFAULT_CATALOG),"pooled_success_statistics":False,
             "source_sha256":{str(p.resolve()):sha(p) for p in source_files},
             "settings":settings,"effective_cem_config":asdict(cem),"plant_mu":args.plant_mu,
-            "prediction_mu_scenarios":list(scenarios),"prediction_receives_plant_mu":False,
+            "prediction_mu_scenarios":list(scenarios),"prediction_receives_plant_mu":friction_source=="plant_friction_oracle",
+            "prediction_friction_source":friction_source,
             "prediction_backend":backend,"native_prediction_backend":native_metadata,
             "prediction_engine":"Isaac/PhysX" if backend=="physx" else "MuJoCo",
             "physx_prediction_backend":physx_metadata,
@@ -513,6 +529,8 @@ def parser():
     p.add_argument("--plant-mu",type=float,required=True)
     p.add_argument("--prediction-mu-scenarios",type=float,nargs="+",default=None,
                    help="Predeclare predictor scenarios independently of plant mu")
+    p.add_argument("--oracle-plant-friction",action="store_true",
+                   help="Privileged comparison: give the prediction model exact validation plant mu before rollout")
     p.add_argument("--output-dir",type=Path,required=True)
     p.add_argument("--max-policy-steps",type=int,default=None)
     p.add_argument("--prediction-backend",choices=("python","native","physx"),default="python",

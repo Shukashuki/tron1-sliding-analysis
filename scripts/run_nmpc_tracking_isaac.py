@@ -307,6 +307,8 @@ def main():
                         help="Explicit causal model adaptation; omitted means existing fixed-model NMPC")
     parser.add_argument("--plant-mu",type=float,required=True)
     parser.add_argument("--prediction-mu-scenarios",type=float,nargs="+",default=None)
+    parser.add_argument("--oracle-plant-friction",action="store_true",
+                        help="Privileged comparison: give the prediction model exact validation plant mu before rollout")
     parser.add_argument("--max-policy-steps",type=int,default=None)
     parser.add_argument("--num-envs",type=int,default=1)
     parser.add_argument("--seed",type=int,default=42)
@@ -322,6 +324,9 @@ def main():
     if (not np.isfinite(args.plant_mu) or args.plant_mu<0
             or not np.isfinite(args.contact_threshold_n) or args.contact_threshold_n<0):
         parser.error("Invalid friction/contact threshold")
+    if args.oracle_plant_friction and (args.prediction_mu_scenarios is not None
+                                       or args.adaptive_contact_config is not None):
+        parser.error("Oracle plant friction cannot be combined with explicit scenarios or causal adaptation")
     backend,native_library=prediction_backend_options(args)
     adaptation=None
     if args.adaptive_contact_config is not None:
@@ -368,11 +373,12 @@ def main():
         from training.tron1_drift import load_task_profile
         from training.tron1_runtime_device import validate_simulation_device
         from training.tron1_contact_slip import sample_raw_isaac_ground_contacts,sample_nonwheel_ground_force_norm
-        from run_nmpc_tracking import MujocoTrackingPredictor,effective_settings,_metrics,attach_model_nominal_plan
+        from run_nmpc_tracking import MujocoTrackingPredictor,effective_settings,select_prediction_friction,_metrics,attach_model_nominal_plan
         from nmpc_shooting import ShootingNMPC
         from nmpc_tracking_objective import BODY_NAMES,JOINT_NAMES,HeightSmoothTrackingObjective,quaternion_rotate,quaternion_inverse
         from height_smoothness import install_height_smoothness
         settings,cem,scenarios=effective_settings(args)
+        scenarios,friction_source=select_prediction_friction(args,scenarios)
         if adaptation is not None:
             scenarios=adaptation.mu_hypotheses
         profile=load_task_profile(args.task_profile)
@@ -514,7 +520,9 @@ def main():
         status.update(status="running",source_sha256={str(path.resolve()):sha(path) for path in source_paths},
                       motion_sha256=sha(args.motion),asset_sha256=sha(args.asset_path),mujoco_model_sha256=sha(args.mujoco_model),
                       effective_cem_config=asdict(cem),settings=settings,plant_seed=args.seed,
-                      plant_mu=args.plant_mu,prediction_mu_scenarios=list(scenarios),prediction_receives_plant_mu=False,
+                      plant_mu=args.plant_mu,prediction_mu_scenarios=list(scenarios),
+                      prediction_receives_plant_mu=friction_source=="plant_friction_oracle",
+                      prediction_friction_source=friction_source,
                       fixed_evaluation=fixed_contract,height_contract=height_contract,
                       device_audit=device_audit,material_audit=material_audit,
                       actuator_audit=actuator_audit,legacy_joint_friction_audit=legacy_friction_audit,

@@ -55,6 +55,29 @@ It uses genuine Gaussian importance weights and a final weighted-mean action
 plan, with the same rollout count as CEM but an additional Gaussian prior.
 This is MuJoCo-only; no MPPI retuning, Isaac result or friction grid is claimed.
 
+The [nominal optimizer development comparison](results/2026-10-16-nominal-optimizer-comparison.md)
+adds a bounded SQP/SLSQP pilot at μ=0.7 alongside the unchanged CEM and MPPI
+episodes. CEM has the smallest core XY error of these three recorded settings;
+SQP overspeeds and drifts, while MPPI slows and loses posture. The report keeps
+their distinct priors, rollout budgets and timing limitations explicit.
+
+The [PPO versus MPC-CEM heading and β-reward audit](results/2026-10-20-ppo-cem-heading-beta-wheel-xy.md)
+puts the nominal Isaac/MuJoCo trajectories, measured body and wheel headings,
+core XY errors and speed retention on one top-down view. It also identifies
+wheel-body-XY reward relaxation as a **missing experiment**, not an observed
+effect; all published β-on/off comparisons retained wheel-position tracking.
+
+The [six-point CEM sideslip-reward × known-friction validation](results/2026-10-17-nmpc-beta-friction-factorial.md)
+compares 48 analytical cells (44 distinct full episodes) in Isaac and MuJoCo.
+Giving the predictor exact ground μ is a privileged diagnostic, not an adaptive
+controller; it helps at some coefficients and worsens tracking at others. The
+report includes all six per-friction top-down views and audited XY/speed metrics.
+The [full 17-point extension](results/2026-10-17-nmpc-beta-friction-factorial-17.md)
+adds the eleven missing friction coefficients without retuning, for 136 analytical
+cells (132 distinct full episodes). It includes all 17 top-down views and shows
+that the known-μ oracle can improve or worsen XY tracking depending on the
+objective profile, friction coefficient and simulator.
+
 The [fixed-controller friction development comparison](results/2026-10-16-primary-controller-friction-development.md)
 now includes all 17 NMPC coefficients in **both engines**, without retuning.
 NMPC stays below both XY limits at 10/17 points per engine, but only 8/17 at

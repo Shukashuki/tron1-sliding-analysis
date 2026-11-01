@@ -25,7 +25,7 @@ def run(a):
     report=json.loads((a.validation/'report.json').read_text())
     steps=len(ref['joint_pos']);duration=steps*.02
     speed_scale=getattr(a,'speed_scale',1.)
-    assert report['single_world_validation'] and report['steps']==steps and speed_scale>=1.
+    assert report['single_world_validation'] and report['steps']==steps and speed_scale>0.
     a.output_dir.mkdir(parents=True)
     runtime=create_runtime(a.model,width=640,height=400)
     body_names=final['body_names'].astype(str).tolist()

@@ -1,0 +1,50 @@
+{
+  "kind": "hockey_stop_independent_physical_evaluator_v1",
+  "mode": "instrumentation_preflight_on_historical_car",
+  "analyzer_sha256": "02a30280d551e9ee6a69ba10bb82aa1340b152d7956184bacaa33457247a3470",
+  "run_report_sha256": "0a31949602b06e349ed883bae9a1d75c78a6a4653842673823383ea353bb253f",
+  "input_sha256": {
+    "final_rollout.npz": "9bf89106440f37f8cac8fbd88c1f594e6f4d7d74d06dad6bad9c04e1b36fef99",
+    "native_contact_buffers.npz": "d1e8083116f3cc06e037c296837689ce7f635541df1f76873c5bc3bdafed4da8"
+  },
+  "mu": 0.699999988079071,
+  "native_reconstruction": {
+    "physical_samples_checked": 2792,
+    "maximum_readback_errors": {
+      "normal_fz": 1.525879162045385e-05,
+      "normal_point_lateral_rms": 1.2472372482030814e-07,
+      "anchor_power": 0.00010330727445762022,
+      "friction_force": 3.0517578125e-05,
+      "aggregate_utilization": 1.3998495385081355e-07
+    },
+    "pointwise_normal_load_at_friction_anchors_available": false,
+    "force_velocity_timing": "completed-substep force/impulse divided by dt, paired with post-step material velocity; power proxy, not exact step work"
+  },
+  "friction_indicator": "wheel aggregate force utilization; exact force/velocity pairing at friction anchors; no per-anchor Fn",
+  "forces_from_native_buffers": true,
+  "physics_rerun": false,
+  "new_hockey_physics_run": false,
+  "physical_step_timing_warning": "instantaneous post-state force-power proxy; not exact substep work",
+  "pointwise_cone_saturation_certified": false,
+  "task_success_claimed": false,
+  "loaded_beta_summary": [
+    {
+      "side": "left",
+      "samples": 1742,
+      "abs_axial_beta_deg_p50_p95_max": [
+        1.4004019467679711,
+        16.656980932346475,
+        63.0879900875524
+      ]
+    },
+    {
+      "side": "right",
+      "samples": 2161,
+      "abs_axial_beta_deg_p50_p95_max": [
+        1.308045309183285,
+        10.14741424023839,
+        54.6045607868555
+      ]
+    }
+  ]
+}

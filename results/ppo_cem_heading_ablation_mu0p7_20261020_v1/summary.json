@@ -1,0 +1,313 @@
+{
+  "reference_id": "drift_drl_traj4",
+  "ground_mu": 0.7,
+  "core_window_s": [
+    1.44,
+    4.0
+  ],
+  "wheel_heading_definition": "world(local +Y axle) crossed with world +Z, axial modulo 180 degrees",
+  "body_heading_definition": "world-projected local +X of base_Link",
+  "velocity_course_definition": "world XY direction of base_Link original COM velocity",
+  "wheel_relative_xy_definition": "held-reference wheel origin rotated by actual-minus-reference base yaw, relative to actual base origin",
+  "rows": {
+    "on": {
+      "PPO": {
+        "Isaac": {
+          "core_xy_rmse_m": 0.056502488325627764,
+          "core_xy_peak_m": 0.10088279892710175,
+          "core_speed_retention_ratio": 0.9940975430531843,
+          "beta_reference_error_mean_abs_deg": 2.8469065581412534,
+          "beta_reward_eligible_samples": 513,
+          "wheels": {
+            "left": {
+              "ground_valid_samples": 142,
+              "mean_abs_course_to_wheel_deg": 18.9792970928657,
+              "wheel_center_ground_valid_samples": 142,
+              "mean_abs_wheel_center_course_to_wheel_deg": 12.188026963005122,
+              "mean_abs_body_to_wheel_deg": 0.10869589983365437,
+              "relative_wheel_xy_rmse_m": 0.04815546295239234
+            },
+            "right": {
+              "ground_valid_samples": 206,
+              "mean_abs_course_to_wheel_deg": 17.517548542899984,
+              "wheel_center_ground_valid_samples": 206,
+              "mean_abs_wheel_center_course_to_wheel_deg": 8.690845929440087,
+              "mean_abs_body_to_wheel_deg": 0.09434768465911973,
+              "relative_wheel_xy_rmse_m": 0.03790000237447199
+            }
+          },
+          "wheel_xy_relaxation_effect_measured": false,
+          "fk_audit": {
+            "maximum_wheel_link_position_error_m": 1.3358317844860852e-06,
+            "wheel_position_tolerance_m": 0.0002,
+            "maximum_root_com_velocity_reconstruction_error": 1.7763568394002505e-15,
+            "dynamics_stepping": false,
+            "measured_contact_replaced": false,
+            "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+          },
+          "source_trace_sha256": "858a4dc5b11230d1ac5a894c9528060de90570265ebdea50f20a48005a021d61"
+        },
+        "MuJoCo": {
+          "core_xy_rmse_m": 0.04981995819442936,
+          "core_xy_peak_m": 0.07791011097869188,
+          "core_speed_retention_ratio": 0.9974113670454269,
+          "beta_reference_error_mean_abs_deg": 2.383578631013972,
+          "beta_reward_eligible_samples": 513,
+          "wheels": {
+            "left": {
+              "ground_valid_samples": 158,
+              "mean_abs_course_to_wheel_deg": 19.717929926144688,
+              "wheel_center_ground_valid_samples": 158,
+              "mean_abs_wheel_center_course_to_wheel_deg": 16.23427668775921,
+              "mean_abs_body_to_wheel_deg": 0.0893674167870166,
+              "relative_wheel_xy_rmse_m": 0.04870228351002095
+            },
+            "right": {
+              "ground_valid_samples": 162,
+              "mean_abs_course_to_wheel_deg": 18.15385627110037,
+              "wheel_center_ground_valid_samples": 161,
+              "mean_abs_wheel_center_course_to_wheel_deg": 10.882247810656871,
+              "mean_abs_body_to_wheel_deg": 0.053683846451771135,
+              "relative_wheel_xy_rmse_m": 0.026538112065487795
+            }
+          },
+          "wheel_xy_relaxation_effect_measured": false,
+          "fk_audit": {
+            "maximum_wheel_link_position_error_m": 1.9681032249736315e-15,
+            "wheel_position_tolerance_m": 0.0002,
+            "maximum_root_com_velocity_reconstruction_error": 1.7763568394002505e-15,
+            "dynamics_stepping": false,
+            "measured_contact_replaced": false,
+            "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+          },
+          "source_trace_sha256": "6db6516fd0d2bc5446a38c7787793ba6ff86fa3238a3b354543905149a3cd027"
+        }
+      },
+      "CEM": {
+        "Isaac": {
+          "core_xy_rmse_m": 0.0674089412008753,
+          "core_xy_peak_m": 0.11217601728215072,
+          "core_speed_retention_ratio": 1.0224657798654433,
+          "beta_reference_error_mean_abs_deg": 7.431640039134517,
+          "beta_reward_eligible_samples": 513,
+          "wheels": {
+            "left": {
+              "ground_valid_samples": 238,
+              "mean_abs_course_to_wheel_deg": 16.48210023129842,
+              "wheel_center_ground_valid_samples": 228,
+              "mean_abs_wheel_center_course_to_wheel_deg": 14.44227918578921,
+              "mean_abs_body_to_wheel_deg": 0.3446085779884905,
+              "relative_wheel_xy_rmse_m": 0.07407644066448198
+            },
+            "right": {
+              "ground_valid_samples": 298,
+              "mean_abs_course_to_wheel_deg": 16.393345317422643,
+              "wheel_center_ground_valid_samples": 282,
+              "mean_abs_wheel_center_course_to_wheel_deg": 10.672329812115983,
+              "mean_abs_body_to_wheel_deg": 0.31200224616242184,
+              "relative_wheel_xy_rmse_m": 0.07584078374951948
+            }
+          },
+          "wheel_xy_relaxation_effect_measured": false,
+          "fk_audit": {
+            "maximum_wheel_link_position_error_m": 1.208800039329288e-06,
+            "wheel_position_tolerance_m": 0.0002,
+            "maximum_root_com_velocity_reconstruction_error": 1.7763568394002505e-15,
+            "dynamics_stepping": false,
+            "measured_contact_replaced": false,
+            "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+          },
+          "source_trace_sha256": "540a02b817f6812bbae7967453288d8c5e14ed6af3f45193e32e5dffdca39098"
+        },
+        "MuJoCo": {
+          "core_xy_rmse_m": 0.170030215967865,
+          "core_xy_peak_m": 0.30637733265429923,
+          "core_speed_retention_ratio": 0.9568193344433233,
+          "beta_reference_error_mean_abs_deg": 12.482887526443253,
+          "beta_reward_eligible_samples": 513,
+          "wheels": {
+            "left": {
+              "ground_valid_samples": 192,
+              "mean_abs_course_to_wheel_deg": 15.561110801429257,
+              "wheel_center_ground_valid_samples": 179,
+              "mean_abs_wheel_center_course_to_wheel_deg": 8.256063841119051,
+              "mean_abs_body_to_wheel_deg": 0.32787987662736806,
+              "relative_wheel_xy_rmse_m": 0.05519771167853717
+            },
+            "right": {
+              "ground_valid_samples": 295,
+              "mean_abs_course_to_wheel_deg": 15.442120498665297,
+              "wheel_center_ground_valid_samples": 278,
+              "mean_abs_wheel_center_course_to_wheel_deg": 7.571097208272333,
+              "mean_abs_body_to_wheel_deg": 0.24912568759650225,
+              "relative_wheel_xy_rmse_m": 0.0582461644149498
+            }
+          },
+          "wheel_xy_relaxation_effect_measured": false,
+          "fk_audit": {
+            "maximum_wheel_link_position_error_m": 2.1429389537261496e-15,
+            "wheel_position_tolerance_m": 0.0002,
+            "maximum_root_com_velocity_reconstruction_error": 1.7763568394002505e-15,
+            "dynamics_stepping": false,
+            "measured_contact_replaced": false,
+            "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+          },
+          "source_trace_sha256": "8408c44fb3ac04971f8ff2dce81ec648614b30b393fbb5eb1c16c3ee2aae713f"
+        }
+      }
+    },
+    "off": {
+      "PPO": {
+        "Isaac": {
+          "core_xy_rmse_m": 0.07182016600002523,
+          "core_xy_peak_m": 0.11696762551570047,
+          "core_speed_retention_ratio": 0.9874876148358309,
+          "beta_reference_error_mean_abs_deg": 4.850460254604172,
+          "beta_reward_eligible_samples": 513,
+          "wheels": {
+            "left": {
+              "ground_valid_samples": 194,
+              "mean_abs_course_to_wheel_deg": 18.979144732880844,
+              "wheel_center_ground_valid_samples": 187,
+              "mean_abs_wheel_center_course_to_wheel_deg": 12.381232272041256,
+              "mean_abs_body_to_wheel_deg": 0.03966496920386434,
+              "relative_wheel_xy_rmse_m": 0.025179489942539244
+            },
+            "right": {
+              "ground_valid_samples": 222,
+              "mean_abs_course_to_wheel_deg": 17.037385184127903,
+              "wheel_center_ground_valid_samples": 220,
+              "mean_abs_wheel_center_course_to_wheel_deg": 7.963749927348323,
+              "mean_abs_body_to_wheel_deg": 0.0696221364845485,
+              "relative_wheel_xy_rmse_m": 0.03769557993503588
+            }
+          },
+          "wheel_xy_relaxation_effect_measured": false,
+          "fk_audit": {
+            "maximum_wheel_link_position_error_m": 1.1686577272159832e-06,
+            "wheel_position_tolerance_m": 0.0002,
+            "maximum_root_com_velocity_reconstruction_error": 2.6645352591003757e-15,
+            "dynamics_stepping": false,
+            "measured_contact_replaced": false,
+            "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+          },
+          "source_trace_sha256": "31dc01848e19623831c7754b6b9f8070cf8dd6a56d46222506cd278a5d9c1327"
+        },
+        "MuJoCo": {
+          "core_xy_rmse_m": 0.06420337517360278,
+          "core_xy_peak_m": 0.1026311967894755,
+          "core_speed_retention_ratio": 0.9887761106581237,
+          "beta_reference_error_mean_abs_deg": 3.9446705724069484,
+          "beta_reward_eligible_samples": 513,
+          "wheels": {
+            "left": {
+              "ground_valid_samples": 151,
+              "mean_abs_course_to_wheel_deg": 18.35790459136293,
+              "wheel_center_ground_valid_samples": 150,
+              "mean_abs_wheel_center_course_to_wheel_deg": 17.190726315594155,
+              "mean_abs_body_to_wheel_deg": 0.0403302836836939,
+              "relative_wheel_xy_rmse_m": 0.01818090636691073
+            },
+            "right": {
+              "ground_valid_samples": 186,
+              "mean_abs_course_to_wheel_deg": 16.49603022935772,
+              "wheel_center_ground_valid_samples": 186,
+              "mean_abs_wheel_center_course_to_wheel_deg": 11.791274052817254,
+              "mean_abs_body_to_wheel_deg": 0.10199505023067733,
+              "relative_wheel_xy_rmse_m": 0.03677877946177232
+            }
+          },
+          "wheel_xy_relaxation_effect_measured": false,
+          "fk_audit": {
+            "maximum_wheel_link_position_error_m": 1.9984014443252818e-15,
+            "wheel_position_tolerance_m": 0.0002,
+            "maximum_root_com_velocity_reconstruction_error": 2.6645352591003757e-15,
+            "dynamics_stepping": false,
+            "measured_contact_replaced": false,
+            "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+          },
+          "source_trace_sha256": "a7c9e6ab2081f5ec5f6fe194ae0bf9eb6ee191f39669adaee0b1c0d4e4b88da5"
+        }
+      },
+      "CEM": {
+        "Isaac": {
+          "core_xy_rmse_m": 0.08462229605885951,
+          "core_xy_peak_m": 0.17662514639275914,
+          "core_speed_retention_ratio": 0.9703193395668391,
+          "beta_reference_error_mean_abs_deg": 10.522080583610819,
+          "beta_reward_eligible_samples": 513,
+          "wheels": {
+            "left": {
+              "ground_valid_samples": 272,
+              "mean_abs_course_to_wheel_deg": 21.783311109522597,
+              "wheel_center_ground_valid_samples": 267,
+              "mean_abs_wheel_center_course_to_wheel_deg": 13.846351022170452,
+              "mean_abs_body_to_wheel_deg": 0.28742563980708113,
+              "relative_wheel_xy_rmse_m": 0.05869684720452698
+            },
+            "right": {
+              "ground_valid_samples": 314,
+              "mean_abs_course_to_wheel_deg": 18.735541679125017,
+              "wheel_center_ground_valid_samples": 298,
+              "mean_abs_wheel_center_course_to_wheel_deg": 8.457235214339285,
+              "mean_abs_body_to_wheel_deg": 0.2596225506164291,
+              "relative_wheel_xy_rmse_m": 0.05467792520737566
+            }
+          },
+          "wheel_xy_relaxation_effect_measured": false,
+          "fk_audit": {
+            "maximum_wheel_link_position_error_m": 1.2043372489052346e-06,
+            "wheel_position_tolerance_m": 0.0002,
+            "maximum_root_com_velocity_reconstruction_error": 1.7763568394002505e-15,
+            "dynamics_stepping": false,
+            "measured_contact_replaced": false,
+            "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+          },
+          "source_trace_sha256": "1056e4a55f9c9eddea4834b6002252f192425e54747a17d4fce4070ea97de9ca"
+        },
+        "MuJoCo": {
+          "core_xy_rmse_m": 0.1232854687068774,
+          "core_xy_peak_m": 0.20019290165105486,
+          "core_speed_retention_ratio": 0.9790707447966377,
+          "beta_reference_error_mean_abs_deg": 12.074423699898313,
+          "beta_reward_eligible_samples": 513,
+          "wheels": {
+            "left": {
+              "ground_valid_samples": 190,
+              "mean_abs_course_to_wheel_deg": 18.999232654411404,
+              "wheel_center_ground_valid_samples": 172,
+              "mean_abs_wheel_center_course_to_wheel_deg": 13.737076048281573,
+              "mean_abs_body_to_wheel_deg": 0.17277525991668116,
+              "relative_wheel_xy_rmse_m": 0.06351617110724035
+            },
+            "right": {
+              "ground_valid_samples": 257,
+              "mean_abs_course_to_wheel_deg": 14.925559796524626,
+              "wheel_center_ground_valid_samples": 252,
+              "mean_abs_wheel_center_course_to_wheel_deg": 9.194104847824255,
+              "mean_abs_body_to_wheel_deg": 0.2680574923577905,
+              "relative_wheel_xy_rmse_m": 0.061153856304801656
+            }
+          },
+          "wheel_xy_relaxation_effect_measured": false,
+          "fk_audit": {
+            "maximum_wheel_link_position_error_m": 2.1706208825930276e-15,
+            "wheel_position_tolerance_m": 0.0002,
+            "maximum_root_com_velocity_reconstruction_error": 1.3322676295501878e-15,
+            "dynamics_stepping": false,
+            "measured_contact_replaced": false,
+            "wheel_velocity_kind": "analytic link-origin Jacobian; not patch velocity or body COM velocity"
+          },
+          "source_trace_sha256": "ba6b1df179607408ea2477555a778fcbb77eb6adaf4163bc16361ef727b73dc0"
+        }
+      }
+    }
+  },
+  "wheel_xy_relaxation_effect_measured": false,
+  "limitations": [
+    "One seed and one nominal friction coefficient per condition; no success-rate inference.",
+    "Removing \u03b2 retrained PPO; CEM objective changed without training. The changes are not identical interventions.",
+    "Wheel XY tracking is present in every source run; its removal needs new PPO training and CEM closed-loop evaluation.",
+    "Wheel rolling-plane heading is geometric, not measured tire contact slip."
+  ]
+}
