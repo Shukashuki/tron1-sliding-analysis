@@ -96,7 +96,8 @@ def test_bundle_and_continuation_bind_only_own_completed_parent(tmp_path):
         inspect(bundle, verify_runtime=False)
 
 
-def test_reset_adapter_readback_and_zero_previous_action(tmp_path):
+@pytest.mark.parametrize('generic',[False,True])
+def test_reset_adapter_readback_and_zero_previous_action(tmp_path,generic):
     torch = pytest.importorskip('torch')
     from types import SimpleNamespace as NS
     path = ROOT/'results/hockey_equal_distance_20261102_v1/common_evaluation_initial_state.npz'
@@ -121,6 +122,8 @@ def test_reset_adapter_readback_and_zero_previous_action(tmp_path):
              action_manager=NS(action=torch.zeros(1, 8), prev_action=torch.zeros(1, 8)),
              command_manager=NS(get_term=lambda name:command))
     cfg = dict(physics_dt_s=.0025, direct_brake={'common_evaluation_initial_state':{'path':str(path),'sha256':sha(path)}})
+    if generic:
+        cfg['common_evaluation_initial_state']=cfg.pop('direct_brake')['common_evaluation_initial_state']
     apply_common_reset(env, cfg, tmp_path)
     assert json.loads((tmp_path/'common_reset_audit.json').read_text())['maximum_state_error'] == 0
     assert not command.time_steps.any()

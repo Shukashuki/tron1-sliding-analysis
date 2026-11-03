@@ -20,7 +20,7 @@ from analyze_ppo_contact_timestep import band_spectrum
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def analyze_case(directory, reference_path, budget):
+def analyze_case(directory, reference_path, budget, *, brake_start=.4, brake_end=1.8):
     report = json.loads((directory/'report.json').read_text())
     for name, digest in report['artifacts'].items():
         if sha(directory/name) != digest:
@@ -55,10 +55,12 @@ def analyze_case(directory, reference_path, budget):
     rt = np.arange(len(ref['joint_pos']))/float(ref['fps'])
     target_xy = np.column_stack([np.interp(t, rt, ref['body_pos_w'][:, 0, k]) for k in (0, 1)])
     xy_error = np.linalg.norm(position-target_xy, axis=-1)
-    core = (t>=.4-1e-9)&(t<=1.8+1e-9)
+    if not 0 < brake_start < brake_end < end:
+        raise ValueError('Invalid evaluation phase clock')
+    core = (t>=brake_start-1e-9)&(t<=brake_end+1e-9)
     eligible = both & (tilt<45)
-    stop_xy = persistent_stop(t, speed_xy, eligible)
-    stop_xyz = persistent_stop(t, speed_xyz, eligible)
+    stop_xy = persistent_stop(t, speed_xy, eligible, start=brake_start)
+    stop_xyz = persistent_stop(t, speed_xyz, eligible, start=brake_start)
     hold = t>=end-.5-1e-9
     target = budget['total_distance_m']
     base = tr['body_names'].astype(str).tolist().index('base_Link')
@@ -69,7 +71,7 @@ def analyze_case(directory, reference_path, budget):
             return None
         i = stop['index']
         return dict(**stop, forward_from_start_m=float(forward[i]),
-                    forward_since_brake_m=float(forward[i]-np.interp(.4, t, forward)),
+                    forward_since_brake_m=float(forward[i]-np.interp(brake_start, t, forward)),
                     COM_forward_from_start_m=float((com[i, :2]-com[0, :2])@direction))
 
     nonwheel = None
@@ -82,8 +84,8 @@ def analyze_case(directory, reference_path, budget):
         nonwheel = dict(max_force_N=float(np.linalg.norm(force, axis=-1).max()),
                         samples_over_numerical_epsilon=int((np.linalg.norm(force, axis=-1)>1e-6).any(-1).sum()),
                         epsilon_N=1e-6, measured_not_estimated_from_height=True)
-    approach = (t>=.0225-1e-9)&(t<.4-1e-9)
-    entry = approach&(t>=.3-1e-9)
+    approach = (t>=.0225-1e-9)&(t<brake_start-1e-9)
+    entry = approach&(t>=max(0.,brake_start-.1)-1e-9)
     target_v = np.column_stack([np.interp(t, rt, ref['body_lin_vel_w'][:, 0, k]) for k in (0, 1)])
     speed_ratio = float(speed_xy[approach].mean()/np.linalg.norm(target_v[approach], axis=-1).mean())
     yaw = np.arctan2(R[:, 1, 0], R[:, 0, 0])
@@ -111,7 +113,7 @@ def analyze_case(directory, reference_path, budget):
         source_report_sha256=sha(directory/'report.json'), artifacts_sha256=report['artifacts'],
         mu_dynamic=material.get('wheel_mu_dynamic_range', material['wheel_mu_range']),
         mu_static=material.get('wheel_mu_static_range', material['wheel_mu_range']),
-        initial_COM_speed_xy_m_s=float(speed_xy[0]), brake_entry_COM_speed_xy_m_s=float(np.interp(.4, t, speed_xy)),
+        initial_COM_speed_xy_m_s=float(speed_xy[0]), brake_entry_COM_speed_xy_m_s=float(np.interp(brake_start, t, speed_xy)),
         stop_planar=stop_details(stop_xy), stop_xyz=stop_details(stop_xyz),
         terminal_forward_m=float(forward[-1]), max_forward_m=float(forward.max()),
         overshoot_m=float(max(0, forward.max()-target)), max_lateral_excursion_m=float(abs(lateral).max()),

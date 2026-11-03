@@ -28,7 +28,8 @@ def ordered_state(state, joint_names, origin):
 
 def apply_common_reset(env, protocol, output):
     import torch
-    cfg = protocol['direct_brake']['common_evaluation_initial_state']
+    cfg = (protocol['common_evaluation_initial_state'] if 'common_evaluation_initial_state' in protocol
+           else protocol['direct_brake']['common_evaluation_initial_state'])
     path = Path(cfg['path'])
     digest = hashlib.sha256(path.read_bytes()).hexdigest()
     if digest != cfg['sha256'] or env.num_envs != 1:

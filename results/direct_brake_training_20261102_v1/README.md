@@ -7,6 +7,9 @@ Training completion is not evidence of task success.
 
 **2026-11-03 update:** seed 43's equal-friction lineage and 33 evaluations are
 complete. See the [measured comparison and queue recovery](../direct_brake_comparison_20261103_v1/README.md).
+The user subsequently prioritized the [higher-speed paired comparison](../paired_stop_speed_20261103_v1/README.md).
+The current split-friction continuation is allowed to finish; subsequent
+low-speed stages and seeds are deferred, with existing artifacts preserved.
 
 **Historical launch status:** seed 43's parent was formally training on RTX 4090 D GPU 2.
 The 1,536-transition smoke test and 139-control-step shared-reset probe passed.

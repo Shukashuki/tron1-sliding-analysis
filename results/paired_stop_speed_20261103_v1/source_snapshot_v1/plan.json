@@ -1,0 +1,88 @@
+{
+  "kind": "paired_fixed_distance_stop_speed_v1",
+  "levels": [
+    {
+      "id": "s150",
+      "scale": 1.5,
+      "initial_speed_m_s": 1.9549322128295898,
+      "reference_report": "references/s150/report.json",
+      "reference_dir": "references/s150",
+      "frames": 109
+    },
+    {
+      "id": "s200",
+      "scale": 2.0,
+      "initial_speed_m_s": 2.606576442718506,
+      "reference_report": "references/s200/report.json",
+      "reference_dir": "references/s200",
+      "frames": 94
+    },
+    {
+      "id": "s250",
+      "scale": 2.5,
+      "initial_speed_m_s": 3.2582204341888428,
+      "reference_report": "references/s250/report.json",
+      "reference_dir": "references/s250",
+      "frames": 85
+    },
+    {
+      "id": "s300",
+      "scale": 3.0,
+      "initial_speed_m_s": 3.9098644256591797,
+      "reference_report": "references/s300/report.json",
+      "reference_dir": "references/s300",
+      "frames": 79
+    }
+  ],
+  "pilot_seed": 43,
+  "confirmation_seeds": [
+    44,
+    45
+  ],
+  "behaviors": [
+    "direct",
+    "hockey"
+  ],
+  "cases": 33,
+  "minimum_passes_before_next_speed": 30,
+  "boundary_rule": "After BOTH policies finish: first level with either common task score <30/33; otherwise highest declared level.",
+  "confirmation_rule": "Train both behaviors from scratch with seeds 44 and 45 at the selected level. Retain every result.",
+  "no_preferred_winner": true,
+  "upper_speed_scale": 3.0,
+  "nominal_mu_static": 0.7,
+  "nominal_mu_dynamic": 0.7,
+  "formal_transitions_per_policy": 24576000,
+  "maximum_formal_transitions": 294912000,
+  "parent_iterations": 1000,
+  "contact_iterations": 250,
+  "continuation_iterations": 750,
+  "formal_num_envs": 512,
+  "physics_dt_s": 0.0025,
+  "policy_dt_s": 0.02,
+  "evaluation": "Same common stopping/contact/distance gates; lateral sliding is diagnostic, not required for either behavior.",
+  "matched_condition": "Same full physical state at t=0 and same forward-distance budget; actual brake-entry speed is reported, not clamped.",
+  "effect_scope": "Behavior/reward recipes; not an isolated causal beta ablation.",
+  "runtime": {
+    "python": "/data/zengxiong/.conda/envs/regrind/bin/python",
+    "asset": "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/outputs/training-asset/WF_TRON1A.usda",
+    "tracking_root": "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/source_snapshot_v2/upstream/tron1-learning-from-human",
+    "beyondmimic_root": "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/third_party/whole_body_tracking"
+  },
+  "expected_versions": {
+    "rsl-rl-lib": "3.0.1",
+    "torch": "2.7.0+cu128",
+    "numpy": "1.26.0",
+    "scipy": "1.15.3",
+    "isaaclab": "0.47.2",
+    "isaacsim": "5.1.0.0"
+  },
+  "idle_wait_limit_s": 86400,
+  "poll_seconds": 30,
+  "one_GPU_job_at_a_time": true,
+  "predecessor": {
+    "root": "/data/zengxiong/workspaces/tron1-direct-brake-20261102-v1",
+    "handoff_file": "handoff_to_speed_20261103_v1.json",
+    "handoff_sha256": "693ef7b120088a6afaf62198881af1bf65bdf01367ca0d4c8b824335ebbac20e"
+  },
+  "deferred_low_speed_seeds": "Preserved; current worker finishes; no additional low-speed job launches during speed comparison."
+}
