@@ -1,0 +1,128 @@
+{
+  "observed_unix_s": 1793681950.3937538,
+  "queue_status": "running",
+  "current": {
+    "stage": "seed43/parent/formal",
+    "pid": 1412244,
+    "argv": [
+      "/data/zengxiong/.conda/envs/regrind/bin/python",
+      "-B",
+      "-u",
+      "/data/zengxiong/workspaces/tron1-direct-brake-20261102-v1/source_snapshot_v1/parent/train_hockey_ppo.py",
+      "--protocol",
+      "/data/zengxiong/workspaces/tron1-direct-brake-20261102-v1/source_snapshot_v1/protocols/seed43_parent.json",
+      "--motion",
+      "/data/zengxiong/workspaces/tron1-direct-brake-20261102-v1/source_snapshot_v1/motion.npz",
+      "--variant",
+      "tracking",
+      "--mode",
+      "formal",
+      "--output-dir",
+      "/data/zengxiong/workspaces/tron1-direct-brake-20261102-v1/runs_v1/seed43/parent/formal",
+      "--device",
+      "cuda:2",
+      "--asset",
+      "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/outputs/training-asset/WF_TRON1A.usda",
+      "--tracking-root",
+      "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/source_snapshot_v2/upstream/tron1-learning-from-human",
+      "--beyondmimic-root",
+      "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/third_party/whole_body_tracking"
+    ],
+    "config_sha256": "80e616ac55ebe6f4fd1794e3feecb3597a3df809c68d4f07ea4207a3890bdbc9",
+    "gpu_before_launch": [
+      {
+        "index": 2,
+        "uuid": "GPU-3c1cd8ac-af23-1e1b-b7f6-e8a77ea0a01b",
+        "name": "NVIDIA GeForce RTX 4090 D",
+        "memory_used_mib": 6.0,
+        "utilization_percent": 0.0,
+        "processes": [],
+        "eligible": true
+      },
+      {
+        "index": 2,
+        "uuid": "GPU-3c1cd8ac-af23-1e1b-b7f6-e8a77ea0a01b",
+        "name": "NVIDIA GeForce RTX 4090 D",
+        "memory_used_mib": 6.0,
+        "utilization_percent": 0.0,
+        "processes": [],
+        "eligible": true
+      },
+      {
+        "index": 2,
+        "uuid": "GPU-3c1cd8ac-af23-1e1b-b7f6-e8a77ea0a01b",
+        "name": "NVIDIA GeForce RTX 4090 D",
+        "memory_used_mib": 6.0,
+        "utilization_percent": 0.0,
+        "processes": [],
+        "eligible": true
+      }
+    ],
+    "started_unix_s": 1793681831.6693714,
+    "log": "/data/zengxiong/workspaces/tron1-direct-brake-20261102-v1/runs_v1/seed43/parent/formal.log"
+  },
+  "completed_stages": [
+    {
+      "stage": "seed43/parent/smoke",
+      "report_sha256": "3c6e852ee1fdab72d11fff870e9acf257dd24d51f2534d777602f37293582f5b",
+      "returncode": 0
+    },
+    {
+      "stage": "seed43/parent/reset_probe",
+      "report_sha256": "8c71d4643f894865867aa8e69e9f108fd0588c03095d37e5240f14a92e2a5763",
+      "returncode": 0
+    }
+  ],
+  "last_logged_iteration": [
+    "75",
+    "1000"
+  ],
+  "last_logged_transitions": 933888,
+  "formal_status": "training",
+  "worlds": 512,
+  "live_reward_weights": {
+    "action_rate_l2": -0.5,
+    "joint_limit": -10.0,
+    "undesired_contacts": -0.1,
+    "hockey_xy": 2.0,
+    "hockey_velocity": 2.0,
+    "hockey_heading": 1.0,
+    "hockey_yaw_rate": 0.5,
+    "hockey_leg_pose": 1.0,
+    "hockey_wheel_axis": 0.5,
+    "hockey_beta": 0.0,
+    "hockey_stop_hold": 1.5,
+    "hockey_tilt": -0.2,
+    "hockey_fall": -2.0,
+    "hockey_support": 0.0,
+    "hockey_vertical_acceleration": -0.1
+  },
+  "common_reset_audit": {
+    "kind": "direct_brake_shared_physical_reset_v1",
+    "source_sha256": "4c8001d5e66824ea578dff50f3447a0c7f8cd818d3fe613c2062f4044424ceb5",
+    "maximum_state_error": 1.1920928955078125e-07,
+    "field_errors": [
+      1.1920928955078125e-07,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "joint_order": [
+      "abad_L_Joint",
+      "abad_R_Joint",
+      "hip_L_Joint",
+      "hip_R_Joint",
+      "knee_L_Joint",
+      "knee_R_Joint",
+      "wheel_L_Joint",
+      "wheel_R_Joint"
+    ],
+    "phase": 0,
+    "previous_actions_zero": true,
+    "base_COM_entry_speed_m_s": 1.3032907247543335,
+    "applied_before_paired_perturbation": true,
+    "simulation_advanced": false
+  },
+  "manifest_sha256": "0052a1adf347f875c25ff7d9558975f4f7b5b3c491bb548e4826adcd055bf8d6",
+  "task_success_claimed": false
+}

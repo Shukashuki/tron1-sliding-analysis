@@ -1,0 +1,63 @@
+{
+  "kind": "direct_brake_full_lineage_v1",
+  "seeds": [
+    43,
+    44,
+    45,
+    46,
+    47
+  ],
+  "material_arms": [
+    "equal",
+    "split"
+  ],
+  "physics_hz": 400,
+  "policy_hz": 50,
+  "parallel_training_envs": 512,
+  "stage_transitions": {
+    "parent": 12288000,
+    "contact": 3072000,
+    "continuation": 9216000
+  },
+  "unique_formal_transitions_per_seed": 36864000,
+  "unique_formal_transitions_total": 184320000,
+  "lineage_transitions_per_final_policy": 24576000,
+  "evaluation_cases_per_material": 33,
+  "cross_material_nominal": [
+    [
+      0.7,
+      0.7
+    ],
+    [
+      0.9,
+      0.7
+    ],
+    [
+      0.9,
+      0.9
+    ]
+  ],
+  "primary_task": "stable stopping at equal initial speed and equal forward stopping distance",
+  "stop_after_task_pass": false,
+  "stop_on_infrastructure_error": true,
+  "one_GPU_job_at_a_time": true,
+  "no_preexisting_policy_loaded": true,
+  "idle_wait_limit_s": 86400,
+  "poll_seconds": 30,
+  "runtime": {
+    "python": "/data/zengxiong/.conda/envs/regrind/bin/python",
+    "asset": "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/outputs/training-asset/WF_TRON1A.usda",
+    "tracking_root": "/data/zengxiong/workspaces/tron1-ppo-backend-comparison-20261022/source_snapshot_v2/upstream/tron1-learning-from-human",
+    "beyondmimic_root": "/data/zengxiong/workspaces/tron1-beyondmimic-20261002/third_party/whole_body_tracking"
+  },
+  "expected_versions": {
+    "rsl-rl-lib": "3.0.1",
+    "torch": "2.7.0+cu128",
+    "numpy": "1.26.0",
+    "scipy": "1.15.3",
+    "isaaclab": "0.47.2",
+    "isaacsim": "5.1.0.0"
+  },
+  "historical_baseline": "seed42 selected v8/v9 is descriptive; prospective matched hockey seeds must be trained separately",
+  "success_evaluation": "Raw 400 Hz states, native contact buffers and shared-reset readback archived; task success requires separate qualification."
+}

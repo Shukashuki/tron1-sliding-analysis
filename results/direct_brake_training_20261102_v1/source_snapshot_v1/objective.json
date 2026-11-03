@@ -1,0 +1,76 @@
+{
+  "status": "frozen_before_training",
+  "training_backend": "Isaac Lab / PhysX",
+  "algorithm": "PPO",
+  "primary_objective": "stable completed stopping with less jitter",
+  "shared": {
+    "distance_budget": {
+      "direction_xy": [
+        0.9999960843961335,
+        -0.0027984267725046745
+      ],
+      "approach_distance_m": 0.5229844067322603,
+      "braking_distance_m": 0.9152227117814559,
+      "total_distance_m": 1.4382071185137162
+    },
+    "base_origin_entry_speed_m_s": 1.3074610168306506,
+    "reference_clock_hz": 50,
+    "physics_hz": 400,
+    "materials": [
+      [
+        0.7,
+        0.7
+      ],
+      [
+        0.9,
+        0.7
+      ]
+    ],
+    "seeds": [
+      43,
+      44,
+      45,
+      46,
+      47
+    ],
+    "reference_XY_equal": true,
+    "shared_physical_initial_state_sha256": "4c8001d5e66824ea578dff50f3447a0c7f8cd818d3fe613c2062f4044424ceb5",
+    "stop_speed_m_s": 0.1,
+    "hold_duration_s": 0.5
+  },
+  "success_first": [
+    "stopped and held within the forward-distance tolerance",
+    "per-wheel native contact and geometry; hockey bilateral criterion preserved",
+    "no fall and no non-wheel support",
+    "report longitudinal overshoot and lateral excursion"
+  ],
+  "distance_and_lateral_tolerances": {
+    "forward_target_absolute_error_m": 0.05,
+    "forward_overshoot_m": 0.05,
+    "lateral_excursion_m": 0.1,
+    "rationale": "Prospective engineering tolerances; not tuned to new policy outcomes or claimed as real-world calibration."
+  },
+  "stability_metrics": [
+    "10-100 Hz world angular XY RMS at native 400 Hz",
+    "roll/pitch extrema and angular acceleration",
+    "action-rate RMS and actuator saturation",
+    "per-wheel contact interruptions and vertical body motion"
+  ],
+  "reward_design": {
+    "direct": "Remove positive lateral-sliding/friction-boundary incentives and hockey-specific success gates; keep common stopping/contact/smoothness terms.",
+    "comparison_kind": "behavior-recipe comparison; not an isolated causal test of the human posture prior"
+  },
+  "braking_torque": "Actuated wheel policy output, not zeroing wheel joint state or prescribing a discontinuous lock",
+  "equality_verification": [
+    "same asset and actuator limits",
+    "same DR distribution and training transitions",
+    "same paired reset perturbations",
+    "same measured initial speed and raw material audit"
+  ],
+  "no_fixed_time_advantage_claim": true,
+  "remote_launch_performed": false,
+  "runtime_physics_smoke_required": true,
+  "no_hockey_specific_sliding_or_wheel_heading_gate": true,
+  "contact_criterion": "both wheels at every physical sample, native geometry tolerance 0.1 mm, unknown cannot pass",
+  "no_success_claim_until_independent_qualification": true
+}
