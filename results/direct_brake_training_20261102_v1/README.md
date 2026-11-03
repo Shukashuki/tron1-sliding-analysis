@@ -5,7 +5,10 @@ The primary comparison with hockey stop is **stable completed stopping with
 less jitter**, at the same initial physical state and forward-distance budget.
 Training completion is not evidence of task success.
 
-**Launch status:** seed 43's parent is formally training on RTX 4090 D GPU 2.
+**2026-11-03 update:** seed 43's equal-friction lineage and 33 evaluations are
+complete. See the [measured comparison and queue recovery](../direct_brake_comparison_20261103_v1/README.md).
+
+**Historical launch status:** seed 43's parent was formally training on RTX 4090 D GPU 2.
 The 1,536-transition smoke test and 139-control-step shared-reset probe passed.
 See [recorded progress](launch_evidence/progress.json) for the timestamp and
 actual optimization counters; this is a collected snapshot, not a live page.

@@ -128,22 +128,98 @@ def bind_parent(protocol, completed, source_protocol, *, continuation=False):
     return cfg
 
 
+def run_log_path(directory):
+    # A decimal material value is part of the directory name, not an extension.
+    return directory.parent/(directory.name+'.log')
+
+
+def write_protocol_once(path, value):
+    if path.exists():
+        if read(path) != value:
+            raise ValueError('Refuse to replace an existing runtime protocol: '+str(path))
+    else:
+        write(path, value)
+
+
+def completed_evaluation(directory, protocol, mode, actor):
+    report = read(directory/'report.json')
+    expected = ('validation_suite_completed_requires_independent_qualification' if mode == 'eval-suite'
+                else 'completed_requires_independent_qualification')
+    if (report['status'] != expected or report['actor_sha256'] != sha(actor)
+            or report['config_sha256'] != sha(protocol)):
+        raise ValueError('Evaluation did not complete: '+str(directory))
+    cases = read(protocol)['evaluation_cases'] if mode == 'eval-suite' else []
+    if cases and [r['id'] for r in report['cases']] != [r['id'] for r in cases]:
+        raise ValueError('Evaluation case list differs')
+    locations = [directory/case['id'] for case in cases] if cases else [directory]
+    for index, location in enumerate(locations):
+        item = read(location/'report.json') if cases else report
+        if cases and sha(location/'report.json') != report['cases'][index]['report_sha256']:
+            raise ValueError('Case report identity changed')
+        for name, digest in item['artifacts'].items():
+            if sha(location/name) != digest:
+                raise ValueError('Evaluation artifact changed: '+str(location/name))
+        audit = read(location/'common_reset_audit.json')
+        if audit['maximum_state_error'] > 5e-5 or not audit['previous_actions_zero']:
+            raise ValueError('Common physical reset validation failed')
+    return report
+
+
+def verify_completed_record(record, directory, protocol, mode, actor):
+    argv = record['argv']
+    get = lambda key: argv[argv.index('--'+key)+1]
+    if (record['returncode'] != 0 or record['config_sha256'] != sha(protocol)
+            or get('protocol') != str(protocol) or get('output-dir') != str(directory)
+            or get('mode') != mode or record['report_sha256'] != sha(directory/'report.json')):
+        raise ValueError('Completed stage identity changed')
+    if mode in ('formal', 'smoke'):
+        completed_training(directory, protocol, mode)
+    else:
+        if get('actor') != str(actor):
+            raise ValueError('Completed stage actor changed')
+        completed_evaluation(directory, protocol, mode, actor)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--bundle', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--preflight-only', action='store_true')
+    parser.add_argument('--resume-unlaunched-stage', action='store_true',
+                        help='Verify and reuse completed stages after a pre-launch dispatcher failure')
     a = parser.parse_args()
     a.bundle, a.output = a.bundle.resolve(), a.output.resolve()
     plan, runtime_lock = inspect(a.bundle)
     if a.preflight_only:
         print(json.dumps(runtime_lock, indent=2))
         return
-    a.output.mkdir(parents=True, exist_ok=False)
-    write(a.output/'runtime_lock.json', runtime_lock)
-    state = dict(kind=plan['kind'], status='preparing', completed=[], current=None,
-                 manifest_sha256=sha(a.bundle/'manifest.json'), started_unix_s=time.time(),
-                 formal_transitions_completed=0, idle_wait_s=0, task_success_claimed=False)
+    a.output.mkdir(parents=True, exist_ok=a.resume_unlaunched_stage)
+    queue_lock = (a.output/'.dispatcher.lock').open('a')
+    fcntl.flock(queue_lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    if a.resume_unlaunched_stage:
+        state = read(a.output/'status.json')
+        if (state['status'] != 'stopped' or (state.get('current') or {}).get('pid') is not None
+                or not state.get('error', '').startswith('FileExistsError:')
+                or state['manifest_sha256'] != sha(a.bundle/'manifest.json')
+                or read(a.output/'runtime_lock.json') != runtime_lock):
+            raise ValueError('Only an unlaunched stage with intact runtime can resume')
+        stages = [r['stage'] for r in state['completed']]
+        accounted = sum(r.get('transitions', 0) for r in state['completed'] if r['stage'].endswith('/formal'))
+        if len(stages) != len(set(stages)) or accounted != state['formal_transitions_completed']:
+            raise ValueError('Completed-stage accounting changed')
+        archive = a.output/'resume_after_log_collision_20261103.json'
+        if archive.exists():
+            raise FileExistsError('This explicit recovery already has an audit record')
+        write(archive, dict(previous_status=state, dispatcher_sha256=sha(__file__),
+                            source_bundle_unchanged=True, reward_or_budget_changes=False))
+        state.pop('error', None)
+        state.update(status='resuming_verified_stages', current=None,
+                     recovery_dispatcher_sha256=sha(__file__), resumed_unix_s=time.time())
+    else:
+        write(a.output/'runtime_lock.json', runtime_lock)
+        state = dict(kind=plan['kind'], status='preparing', completed=[], current=None,
+                     manifest_sha256=sha(a.bundle/'manifest.json'), started_unix_s=time.time(),
+                     formal_transitions_completed=0, idle_wait_s=0, task_success_claimed=False)
 
     def save():
         state['updated_unix_s'] = time.time()
@@ -177,6 +253,14 @@ def main():
 
     def run(label, directory, protocol, mode, source, actor=None):
         inspect(a.bundle)
+        prior = next((r for r in state['completed'] if r['stage'] == label), None)
+        if prior is not None:
+            if not a.resume_unlaunched_stage:
+                raise ValueError('Unexpected completed stage in a fresh queue')
+            verify_completed_record(prior, directory, protocol, mode, actor)
+            return
+        if directory.exists():
+            raise FileExistsError('Uncompleted stage directory exists; no automatic retry: '+str(directory))
         row, checks, lock = idle_device(label)
         script = 'train_hockey_ppo.py' if source == 'parent' else 'train_hockey_contact_search.py'
         runtime = plan['runtime']
@@ -189,7 +273,7 @@ def main():
         if actor is not None:
             argv.extend(['--actor', str(actor)])
         directory.parent.mkdir(parents=True, exist_ok=True)
-        log_path = directory.with_suffix('.log')
+        log_path = run_log_path(directory)
         env = dict(os.environ, CUDA_DEVICE_ORDER='PCI_BUS_ID', OMP_NUM_THREADS='2', PYTHONDONTWRITEBYTECODE='1')
         with log_path.open('xb') as log:
             child = subprocess.Popen(argv, stdout=log, stderr=subprocess.STDOUT, env=env, cwd=a.output)
@@ -210,20 +294,7 @@ def main():
                 state['formal_transitions_completed'] += report['transitions']
             record['transitions'] = report['transitions']
         else:
-            report = read(directory/'report.json')
-            expected = ('validation_suite_completed_requires_independent_qualification' if mode == 'eval-suite'
-                        else 'completed_requires_independent_qualification')
-            if report['status'] != expected or report['actor_sha256'] != sha(actor):
-                raise ValueError('Evaluation did not complete: '+label)
-            locations = [directory/case['id'] for case in read(protocol)['evaluation_cases']] if mode == 'eval-suite' else [directory]
-            for location in locations:
-                item = read(location/'report.json') if mode == 'eval-suite' else report
-                for name, digest in item['artifacts'].items():
-                    if sha(location/name) != digest:
-                        raise ValueError('Evaluation artifact changed: '+str(location/name))
-                audit = read(location/'common_reset_audit.json')
-                if audit['maximum_state_error'] > 5e-5 or not audit['previous_actions_zero']:
-                    raise ValueError('Common physical reset validation failed')
+            report = completed_evaluation(directory, protocol, mode, actor)
         record['report_sha256'] = sha(directory/'report.json')
         state['completed'].append(record)
         state.update(status='between_stages', current=None)
@@ -233,7 +304,7 @@ def main():
     try:
         for seed in plan['seeds']:
             seed_dir = a.output/f'seed{seed}'
-            seed_dir.mkdir()
+            seed_dir.mkdir(exist_ok=a.resume_unlaunched_stage)
             parent_cfg = a.bundle/f'protocols/seed{seed}_parent.json'
             run(f'seed{seed}/parent/smoke', seed_dir/'parent/smoke', parent_cfg, 'smoke', 'parent')
             run(f'seed{seed}/parent/reset_probe', seed_dir/'parent/reset_probe', parent_cfg,
@@ -244,12 +315,12 @@ def main():
                 template = read(a.bundle/f'protocols/seed{seed}_{arm}.json')
                 cfg = bind_parent(template, seed_dir/'parent/formal', parent_cfg)
                 stage_cfg = arm_dir/'contact_protocol.json'
-                write(stage_cfg, cfg)
+                write_protocol_once(stage_cfg, cfg)
                 for mode in ('smoke', 'formal'):
                     run(f'seed{seed}/{arm}/contact/{mode}', arm_dir/'contact'/mode, stage_cfg, mode, 'contact')
                 continuation = bind_parent(cfg, arm_dir/'contact/formal', stage_cfg, continuation=True)
                 continuation_cfg = arm_dir/'continuation_protocol.json'
-                write(continuation_cfg, continuation)
+                write_protocol_once(continuation_cfg, continuation)
                 for mode in ('smoke', 'formal'):
                     run(f'seed{seed}/{arm}/continuation/{mode}', arm_dir/'continuation'/mode,
                         continuation_cfg, mode, 'contact')
@@ -263,7 +334,7 @@ def main():
                     cross.update(evaluation_mu=md, static_dynamic_friction_ratio=ms/md)
                     label = f'cross_s{ms:.2f}_d{md:.2f}'
                     cross_cfg = arm_dir/(label+'_protocol.json')
-                    write(cross_cfg, cross)
+                    write_protocol_once(cross_cfg, cross)
                     run(f'seed{seed}/{arm}/{label}', arm_dir/label, cross_cfg, 'eval', 'contact', actor)
         if state['formal_transitions_completed'] != plan['unique_formal_transitions_total']:
             raise ValueError('Final unique transition accounting differs')

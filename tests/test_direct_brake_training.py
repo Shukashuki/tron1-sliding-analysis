@@ -13,6 +13,7 @@ sys.path.insert(0, str(ROOT/'scripts'))
 from direct_brake_reset import ordered_state, instrument_trainer, apply_common_reset
 from prepare_direct_brake_training import direct_protocol, build
 from dispatch_direct_brake_training import gpu_rows, inspect, bind_parent, sha, write
+from dispatch_direct_brake_training import run_log_path, write_protocol_once, verify_completed_record
 from hockey_training_continuation import matching_recipe
 
 
@@ -136,3 +137,28 @@ def test_instrumentation_does_not_change_training_branch():
     assert 'apply_common_reset(env, protocol, output)' in new
     with pytest.raises(ValueError):
         instrument_trainer(new)
+
+
+def test_decimal_material_log_names_are_distinct_and_protocols_immutable(tmp_path):
+    paths = [tmp_path/'cross_s0.90_d0.70', tmp_path/'cross_s0.90_d0.90']
+    assert len({run_log_path(p) for p in paths}) == 2
+    assert run_log_path(paths[0]).name == 'cross_s0.90_d0.70.log'
+    protocol = tmp_path/'protocol.json'
+    write_protocol_once(protocol, {'seed':43})
+    before = protocol.read_bytes()
+    write_protocol_once(protocol, {'seed':43})
+    assert protocol.read_bytes() == before
+    with pytest.raises(ValueError):
+        write_protocol_once(protocol, {'seed':44})
+
+
+def test_resume_rejects_completed_record_with_changed_output_identity(tmp_path):
+    protocol = tmp_path/'protocol.json'
+    write(protocol, {'seed':43})
+    folder = tmp_path/'formal'
+    folder.mkdir()
+    write(folder/'report.json', {'status':'failed'})
+    record = dict(returncode=0, config_sha256=sha(protocol), report_sha256=sha(folder/'report.json'),
+                  argv=['python','--protocol',str(protocol),'--output-dir',str(tmp_path/'different'),'--mode','formal'])
+    with pytest.raises(ValueError, match='identity changed'):
+        verify_completed_record(record, folder, protocol, 'formal', None)
