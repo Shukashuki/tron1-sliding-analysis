@@ -1,0 +1,170 @@
+{
+  "kind": "equal_forward_distance_hockey_vs_direct_brake_reference_preview",
+  "status": "reference_pair_prepared_direct_policy_missing",
+  "primary_user_objective": "stable completed stopping with less jitter",
+  "budget": {
+    "direction_xy": [
+      0.9999960843961335,
+      -0.0027984267725046745
+    ],
+    "approach_distance_m": 0.5229844067322603,
+    "braking_distance_m": 0.9152227117814559,
+    "total_distance_m": 1.4382071185137162
+  },
+  "designed_base_origin_entry_speed_m_s": 1.3074610168306506,
+  "brake_window_s": [
+    0.4,
+    1.8
+  ],
+  "hold_window_s": [
+    1.8,
+    2.76
+  ],
+  "physics_steps": 0,
+  "new_training_transitions": 0,
+  "reference_XY_and_clock_exactly_equal": true,
+  "distance_marker": "base_Link origin projected onto initial reference course; not path length",
+  "direct_brake_definition": "same translation; frozen initial base orientation and joint pose; no extra human maneuver",
+  "same_reference_initial_pose": true,
+  "same_reference_initial_velocities": false,
+  "initial_reference_body_velocity_max_difference_m_s": 0.015912518894945993,
+  "evaluation_reset_rule": "One common physical state from common_evaluation_initial_state.npz for both arms; never reset separately from each reference velocity.",
+  "direct_joint_and_pose_targets_are_soft": true,
+  "no_absolute_height_or_wheel_spin_reward_added": true,
+  "simulated_direct_brake_stability_available": false,
+  "admitted_for_training": false,
+  "missing_runtime_gate": "verify common physical reset and frame semantics; freeze direct reward/gates; no reference playback accepted as control",
+  "archived_hockey_cases": [
+    {
+      "id": "v8_equal",
+      "source_directory": "results/hockey_static_dynamic_transition_20261029_v1/probe_evidence/run_v10/probe_equal_070/nominal",
+      "material": [
+        0.7,
+        0.7
+      ],
+      "actor_sha256": "fde03b942dd9f62ae096f63ae9372c32ea9d43688c6a5fb5f0496c1ce5f5757a",
+      "initial_base_COM_planar_speed_m_s": 1.303288221359253,
+      "brake_entry_base_COM_planar_speed_m_s": 1.4352788925170898,
+      "supported_upright_speed_stop": {
+        "index": 640,
+        "time_s": 1.6,
+        "since_brake_s": 1.2000000000000002,
+        "observed_hold_s": 1.1600000000000001,
+        "forward_base_origin_from_start_m": 1.4254936459572016,
+        "forward_base_origin_since_brake_m": 0.8713794384590196,
+        "forward_base_COM_from_start_m": 1.4011391381592155,
+        "maximum_lateral_base_origin_excursion_m": 0.019875318542343878
+      },
+      "terminal_base_origin_distance_m": 1.453034274413206,
+      "maximum_forward_base_origin_m": 1.453034274413206,
+      "overshoot_above_reference_endpoint_m": 0.014827155899489908,
+      "terminal_planar_speed_m_s": 0.016205238178372383,
+      "max_tilt_deg": 6.077476978302002,
+      "bilateral_native_contact_fraction": 1.0,
+      "bilateral_interruption_s": 0.0,
+      "core_angular_xy_band": {
+        "samples": 561,
+        "sample_hz": 400.0,
+        "native_nyquist_hz": 200.0,
+        "frequency_resolution_hz": 0.7130124777183601,
+        "common_band_hz_exclusive": [
+          10.0,
+          100.0
+        ],
+        "common_band_mean_square": 0.06434277515595609,
+        "common_band_rms": 0.25365877701344397,
+        "native_high_frequency_cutoff_hz_exclusive": 10.0,
+        "native_high_frequency_mean_square": 0.06482863862148282,
+        "native_high_frequency_rms": 0.25461468657852954,
+        "at_or_above100hz_mean_square": 0.00048586346552673316,
+        "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+        "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+      },
+      "original_qualification_task_success": true,
+      "source_artifacts_sha256": {
+        "final_rollout.npz": "27b861b054ae9a9b432c9f7a47115edb444c93de4f2d40b5384a33ca5193f84c",
+        "native_contact_buffers.npz": "6d6742816e28569269e612ae8742b02a7bb59602843a4a0068c6c161cc0c34f8"
+      },
+      "paired_direct_brake_policy_available": false,
+      "not_a_matched_distance_new_experiment": true
+    },
+    {
+      "id": "v9_split",
+      "source_directory": "results/hockey_static_dynamic_transition_20261029_v1/continuation_evidence/run_v9/native_split_smooth_stop_xyz_huber_continuity/nominal",
+      "material": [
+        0.9,
+        0.7
+      ],
+      "actor_sha256": "592c9f8033f797b36db93ea4cb8cbbec79897df19c6a1878211b437d007c621c",
+      "initial_base_COM_planar_speed_m_s": 1.303288221359253,
+      "brake_entry_base_COM_planar_speed_m_s": 1.3986375331878662,
+      "supported_upright_speed_stop": {
+        "index": 679,
+        "time_s": 1.6975,
+        "since_brake_s": 1.2974999999999999,
+        "observed_hold_s": 1.0625000000000002,
+        "forward_base_origin_from_start_m": 1.4191608512309961,
+        "forward_base_origin_since_brake_m": 0.8793237829101217,
+        "forward_base_COM_from_start_m": 1.3865778475027093,
+        "maximum_lateral_base_origin_excursion_m": 0.030753747360067245
+      },
+      "terminal_base_origin_distance_m": 1.4375922615654333,
+      "maximum_forward_base_origin_m": 1.4375922615654333,
+      "overshoot_above_reference_endpoint_m": 0.0,
+      "terminal_planar_speed_m_s": 0.012275799177587032,
+      "max_tilt_deg": 8.04449462890625,
+      "bilateral_native_contact_fraction": 1.0,
+      "bilateral_interruption_s": 0.0,
+      "core_angular_xy_band": {
+        "samples": 561,
+        "sample_hz": 400.0,
+        "native_nyquist_hz": 200.0,
+        "frequency_resolution_hz": 0.7130124777183601,
+        "common_band_hz_exclusive": [
+          10.0,
+          100.0
+        ],
+        "common_band_mean_square": 0.051160455924362996,
+        "common_band_rms": 0.22618677221350278,
+        "native_high_frequency_cutoff_hz_exclusive": 10.0,
+        "native_high_frequency_mean_square": 0.052141180370546665,
+        "native_high_frequency_rms": 0.22834443363162296,
+        "at_or_above100hz_mean_square": 0.0009807244461836483,
+        "normalization": "one-sided Parseval; linear detrend; Hann; channel-mean power; DC excluded",
+        "comparison_note": "Use common10<f<100Hz for shared-band comparisons; native>10Hz has different upper bandwidth"
+      },
+      "original_qualification_task_success": true,
+      "source_artifacts_sha256": {
+        "final_rollout.npz": "4a172cab8991e84acfe5f615cb654c265035aea881c7e243d4600d354d86dfc7",
+        "native_contact_buffers.npz": "d1d2e593952e1217cdc13113e18cd0ad5ab00a897a6aada3cf2775e09b34b85e"
+      },
+      "paired_direct_brake_policy_available": false,
+      "not_a_matched_distance_new_experiment": true
+    }
+  ],
+  "inputs_sha256": {
+    "results/hockey_stop_evaluation_audit_20261026_v1/physx_command_v2/motion.npz": "e23fbd82639d243f0c485cf391b1eff0e275d31f6bb6ba940647874a0ac83050",
+    "results/hockey_stop_evaluation_audit_20261026_v1/physx_command_v2/report.json": "29386611a499d72f8d96502184a6f0758b4999e883cc143501bd5aad7a0316e9",
+    "results/hockey_stop_evaluation_audit_20261026_v1/corrected_command_geometry/report.json": "8e4ac547d0564ca74120556303f8f2f94b670f52615ff8a58db1fc28b0171ba6",
+    "results/hockey_static_dynamic_transition_20261029_v1/fullbody_selection.json": "a2bedc91abdfc7bb909a8406cfed0e7161aca0b457d74785f486cb28006c2d34",
+    "scripts/prepare_hockey_equal_distance.py": "1a99fece54b20d15757cb7d906d340e9e5f327e3d963843dee1b142febce3055"
+  },
+  "reference_geometry": {
+    "hockey": {
+      "max_wheel_gap_m": 0.021983047568882884,
+      "bilateral_envelope_within_0p1mm_fraction": 0.028985507246376812
+    },
+    "direct_brake": {
+      "max_wheel_gap_m": -1.1168654741615225e-16,
+      "bilateral_envelope_within_0p1mm_fraction": 1.0
+    }
+  },
+  "limitations": [
+    "Equal reference braking distance/time is imposed; it is not measured performance.",
+    "The direct pose is not a force-balanced braking solution; the learned controller must be allowed to lean and move its legs.",
+    "Wheel angle is a placeholder, not a prescribed zero wheel-speed actuator command.",
+    "Existing seed42 hockey policies were adaptively selected and are not paired held-out comparisons.",
+    "Archived stop speed uses base COM velocity while primary distance uses base link origin; separate COM displacement is reported.",
+    "Same forward distance alone does not enforce a lateral corridor; compare lateral excursion and overshoot too."
+  ]
+}
