@@ -1,0 +1,1084 @@
+{
+  "kind": "recorded_reference_relative_jitter_normal_load_audit_v1",
+  "source_sha256": "823b219050c638c4d6c56666a78217ddf91f012d3bc48241d4ca8bf5651b4379",
+  "mass_report_sha256": "2eb10b18de87386fcc5ae65529a12b2d6ef2e1245655a2e7760b66a082467185",
+  "cases": [
+    {
+      "id": "turn_beta_on",
+      "label": "Turn: beta ON, 200 Hz",
+      "path": "outputs/controller_primary_ppo_mu070_20261015_v1/mu0p700/isaac",
+      "group": "turn",
+      "reference": "/home/roy/tron1-learning-from-human/outputs/drift-drl-turn-reference-20261013-v2/motion.npz",
+      "core": [
+        1.44,
+        4.0
+      ],
+      "actor_sha256": "6ec411efeaea37fc61389285978b377aa7c5be80e326ce7f18581efc9acdf27b",
+      "native_hz": 200.0,
+      "policy_hz": 50,
+      "provenance": {
+        "report_sha256": "c4d9ab3d9b2e0e1401b78d472057968bcdbd4f36f301015443b205c5d3659e92",
+        "reference_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+        "physics_trajectory_sha256": "858a4dc5b11230d1ac5a894c9528060de90570265ebdea50f20a48005a021d61"
+      },
+      "core_native_states": 513,
+      "core_intervals": 512,
+      "angular_xy_native_10_100_rms_rad_s": 2.172409620288345,
+      "angular_dominant_hz": 26.900584795321638,
+      "angular_xy_native_25_100_rms_rad_s": 1.5522380176004937,
+      "angular_xy_error_10_20_rms_rad_s": 0.9997374532233655,
+      "angular_xy_actual_10_20_rms_rad_s": 0.9997374532233655,
+      "angular_xy_reference_10_20_rms_rad_s": 0.0,
+      "orientation_error_xy_rms_deg": 1.6995433422915285,
+      "root_xy_tracking_rmse_m": 0.056502488325627764,
+      "root_z_error_rms_mm": 30.781521761490055,
+      "root_z_error_std_mm": 9.567104658879948,
+      "root_z_error_10_20_rms_mm": 1.3405812058294093,
+      "leg_action_delta_rms": 0.29700924802669854,
+      "leg_torque_10_100_rms_nm": 50.95929552391587,
+      "force": {
+        "total_mean_N": 218.8510366072859,
+        "total_std_N": 283.7770661596721,
+        "total_p99_N": 1181.7476113891496,
+        "total_peak_N": 1550.7051086425645,
+        "total_10_100_rms_N": 292.22181350302645,
+        "total_dominant_hz": 14.0625,
+        "total_mean_over_mg": 1.0016151470371206,
+        "peak_over_mg": 7.0971092917022425,
+        "mean_left_right_N": [
+          97.62602282781077,
+          121.22501377947543
+        ],
+        "std_left_right_N": [
+          201.20602389843,
+          204.95054907456566
+        ],
+        "wheel_load_correlation": -0.02375481723909845,
+        "difference_std_N": 290.5989675820833,
+        "equal_duration_windows": {
+          "0.005": {
+            "window_s": 0.005,
+            "mean_N": 218.8510366072859,
+            "std_N": 283.7770661596721,
+            "peak_N": 1550.7051086425645,
+            "maximum_impulse_Ns": 7.753525543212823
+          },
+          "0.02": {
+            "window_s": 0.02,
+            "mean_N": 218.8510366072859,
+            "std_N": 179.5712069649378,
+            "peak_N": 747.7917441129619,
+            "maximum_impulse_Ns": 14.955834882259238
+          }
+        },
+        "corr_total_force_base_roll_acceleration": -0.20312045001749476,
+        "corr_load_difference_base_roll_acceleration": 0.10256735775690784
+      },
+      "contact": {
+        "definition": "native manifold counts only; archived separation unavailable (not geometric continuity)",
+        "core_both_fraction": 0.09375,
+        "core_missing_either_ms": 2320.0,
+        "full_missing_either_ms": 6160.0,
+        "core_transition_count": 153,
+        "core_zero_load_wheel_samples_while_touching": 0,
+        "force_difference_energy_near_contact_transitions_fraction": 0.9992718766556917,
+        "conditional_peak_force_both_touch_N": 1550.7051086425645
+      },
+      "mass_basis": "authored hash-locked masses; no new runtime readback",
+      "authored_mass_kg": 22.273,
+      "momentum": null
+    },
+    {
+      "id": "turn_beta_off",
+      "label": "Turn: beta OFF, 200 Hz",
+      "path": "outputs/no_sideslip_ppo_mu0p7_validation_20261016_v1/isaac",
+      "group": "turn",
+      "reference": "/home/roy/tron1-learning-from-human/outputs/drift-drl-turn-reference-20261013-v2/motion.npz",
+      "core": [
+        1.44,
+        4.0
+      ],
+      "actor_sha256": "cb336fa90a44ba73056fd6a1b4f5247a8a90fdcd636f0d05945ec973a24ec87f",
+      "native_hz": 200.0,
+      "policy_hz": 50,
+      "provenance": {
+        "report_sha256": "3dd5893e11533b4408fd2269e1cabb006ce0b90e20efecd26984f4ac1a190e62",
+        "reference_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+        "physics_trajectory_sha256": "31dc01848e19623831c7754b6b9f8070cf8dd6a56d46222506cd278a5d9c1327"
+      },
+      "core_native_states": 513,
+      "core_intervals": 512,
+      "angular_xy_native_10_100_rms_rad_s": 1.86958031328147,
+      "angular_dominant_hz": 25.730994152046787,
+      "angular_xy_native_25_100_rms_rad_s": 1.381723596003136,
+      "angular_xy_error_10_20_rms_rad_s": 0.6035396692275596,
+      "angular_xy_actual_10_20_rms_rad_s": 0.6035396692275596,
+      "angular_xy_reference_10_20_rms_rad_s": 0.0,
+      "orientation_error_xy_rms_deg": 1.039968934330592,
+      "root_xy_tracking_rmse_m": 0.07182016600002523,
+      "root_z_error_rms_mm": 37.82402088528645,
+      "root_z_error_std_mm": 7.204263204466516,
+      "root_z_error_10_20_rms_mm": 1.0006947083038302,
+      "leg_action_delta_rms": 0.24691555849493346,
+      "leg_torque_10_100_rms_nm": 48.3515759633807,
+      "force": {
+        "total_mean_N": 218.26209937035844,
+        "total_std_N": 242.83509683034862,
+        "total_p99_N": 996.6048635864169,
+        "total_peak_N": 1525.3403320312364,
+        "total_10_100_rms_N": 234.04862758221557,
+        "total_dominant_hz": 12.109375,
+        "total_mean_over_mg": 0.9989197590403105,
+        "peak_over_mg": 6.9810223640414515,
+        "mean_left_right_N": [
+          90.09666443988614,
+          128.16543493047268
+        ],
+        "std_left_right_N": [
+          147.28915721747333,
+          189.14196187541785
+        ],
+        "wheel_load_correlation": 0.026923621826161377,
+        "difference_std_N": 236.5769872562123,
+        "equal_duration_windows": {
+          "0.005": {
+            "window_s": 0.005,
+            "mean_N": 218.26209937035844,
+            "std_N": 242.83509683034862,
+            "peak_N": 1525.3403320312364,
+            "maximum_impulse_Ns": 7.626701660156182
+          },
+          "0.02": {
+            "window_s": 0.02,
+            "mean_N": 218.26209937035844,
+            "std_N": 173.52904450436975,
+            "peak_N": 723.1030845642025,
+            "maximum_impulse_Ns": 14.46206169128405
+          }
+        },
+        "corr_total_force_base_roll_acceleration": -0.2435106191262908,
+        "corr_load_difference_base_roll_acceleration": 0.05002178068496051
+      },
+      "contact": {
+        "definition": "native manifold counts only; archived separation unavailable (not geometric continuity)",
+        "core_both_fraction": 0.166015625,
+        "core_missing_either_ms": 2135.0000000000005,
+        "full_missing_either_ms": 6005.0,
+        "core_transition_count": 148,
+        "core_zero_load_wheel_samples_while_touching": 0,
+        "force_difference_energy_near_contact_transitions_fraction": 0.9999999850269858,
+        "conditional_peak_force_both_touch_N": 1525.3403320312364
+      },
+      "mass_basis": "authored hash-locked masses; no new runtime readback",
+      "authored_mass_kg": 22.273,
+      "momentum": null
+    },
+    {
+      "id": "turn_ar05_200",
+      "label": "Turn: action-rate -0.5, 200 Hz",
+      "path": "outputs/ppo_contact_timestep_20261022_v1/dt0p005",
+      "group": "turn",
+      "reference": "/home/roy/tron1-learning-from-human/outputs/drift-drl-turn-reference-20261013-v2/motion.npz",
+      "core": [
+        1.44,
+        4.0
+      ],
+      "actor_sha256": "8ba4178471c757b4d09f5bb44c0a508558f1bfd5cc15103195aeba420ebe6e9a",
+      "native_hz": 200.0,
+      "policy_hz": 50,
+      "provenance": {
+        "report_sha256": "5fe60ca1209fce4126ae5e9afddb742e820cbe30305046172ae4c946af1c65b2",
+        "reference_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+        "physics_trajectory_sha256": "54e01f57b01da11c5b0736c572f8b2ebc81ebe2cac8f06c9b3b5be29b1637780"
+      },
+      "core_native_states": 513,
+      "core_intervals": 512,
+      "angular_xy_native_10_100_rms_rad_s": 1.168982703108129,
+      "angular_dominant_hz": 14.035087719298247,
+      "angular_xy_native_25_100_rms_rad_s": 0.6416080063349069,
+      "angular_xy_error_10_20_rms_rad_s": 0.9538947586440103,
+      "angular_xy_actual_10_20_rms_rad_s": 0.9538947586440103,
+      "angular_xy_reference_10_20_rms_rad_s": 0.0,
+      "orientation_error_xy_rms_deg": 1.305577850394043,
+      "root_xy_tracking_rmse_m": 0.05622138868868881,
+      "root_z_error_rms_mm": 18.753658122918342,
+      "root_z_error_std_mm": 8.482992439390985,
+      "root_z_error_10_20_rms_mm": 1.8948770960410501,
+      "leg_action_delta_rms": 0.12413589278440736,
+      "leg_torque_10_100_rms_nm": 28.396440561476062,
+      "force": {
+        "total_mean_N": 218.7830579169075,
+        "total_std_N": 225.12308184425143,
+        "total_p99_N": 1038.9015850829976,
+        "total_peak_N": 1467.483398437487,
+        "total_10_100_rms_N": 226.66288607299938,
+        "total_dominant_hz": 14.0625,
+        "total_mean_over_mg": 1.0013040290866906,
+        "peak_over_mg": 6.716228639748482,
+        "mean_left_right_N": [
+          71.2474704645569,
+          147.5355874523513
+        ],
+        "std_left_right_N": [
+          143.73271283156328,
+          169.8514373402871
+        ],
+        "wheel_load_correlation": 0.023999272871934853,
+        "difference_std_N": 219.85632815525457,
+        "equal_duration_windows": {
+          "0.005": {
+            "window_s": 0.005,
+            "mean_N": 218.7830579169075,
+            "std_N": 225.12308184425143,
+            "peak_N": 1467.483398437487,
+            "maximum_impulse_Ns": 7.3374169921874355
+          },
+          "0.02": {
+            "window_s": 0.02,
+            "mean_N": 218.78305791690752,
+            "std_N": 174.39657923288337,
+            "peak_N": 819.7113189697194,
+            "maximum_impulse_Ns": 16.39422637939439
+          }
+        },
+        "corr_total_force_base_roll_acceleration": -0.2151576935171592,
+        "corr_load_difference_base_roll_acceleration": 0.03250193815155237
+      },
+      "contact": {
+        "definition": "native manifold counts only; archived separation unavailable (not geometric continuity)",
+        "core_both_fraction": 0.33984375,
+        "core_missing_either_ms": 1690.0,
+        "full_missing_either_ms": 2105.0,
+        "core_transition_count": 89,
+        "core_zero_load_wheel_samples_while_touching": 0,
+        "force_difference_energy_near_contact_transitions_fraction": 0.9962671728915915,
+        "conditional_peak_force_both_touch_N": 1379.861907958972
+      },
+      "mass_basis": "authored hash-locked masses; no new runtime readback",
+      "authored_mass_kg": 22.273,
+      "momentum": null
+    },
+    {
+      "id": "turn_ar05_400",
+      "label": "Turn: action-rate -0.5, 400 Hz",
+      "path": "outputs/ppo_contact_timestep_20261022_v1/dt0p0025",
+      "group": "turn",
+      "reference": "/home/roy/tron1-learning-from-human/outputs/drift-drl-turn-reference-20261013-v2/motion.npz",
+      "core": [
+        1.44,
+        4.0
+      ],
+      "actor_sha256": "8ba4178471c757b4d09f5bb44c0a508558f1bfd5cc15103195aeba420ebe6e9a",
+      "native_hz": 400.0,
+      "policy_hz": 50,
+      "provenance": {
+        "report_sha256": "abe05d4ea69634e9794514fc60664cf4c67fe718ad841716d5518923671e778e",
+        "reference_sha256": "da9945c25e6a9afc8ed27c6a3af117b7c5f091a5a8e98834457964a5640b9254",
+        "physics_trajectory_sha256": "8e7fc43c181b34b9ff87fe42d3c628ab483c7a6cddfb965562df250d77e46c1e"
+      },
+      "core_native_states": 1025,
+      "core_intervals": 1024,
+      "angular_xy_native_10_100_rms_rad_s": 0.9476500756207856,
+      "angular_dominant_hz": 12.878048780487806,
+      "angular_xy_native_25_100_rms_rad_s": 0.3780441097426832,
+      "angular_xy_error_10_20_rms_rad_s": 0.8513765890160115,
+      "angular_xy_actual_10_20_rms_rad_s": 0.8513765890160115,
+      "angular_xy_reference_10_20_rms_rad_s": 0.0,
+      "orientation_error_xy_rms_deg": 1.4215307020920687,
+      "root_xy_tracking_rmse_m": 0.05522103300021738,
+      "root_z_error_rms_mm": 19.052344145882433,
+      "root_z_error_std_mm": 13.896904108325108,
+      "root_z_error_10_20_rms_mm": 1.7870437177855447,
+      "leg_action_delta_rms": 0.11646442953740344,
+      "leg_torque_10_100_rms_nm": 25.856735720149462,
+      "force": {
+        "total_mean_N": 217.86893784045049,
+        "total_std_N": 276.3317343180559,
+        "total_p99_N": 1563.2862939452982,
+        "total_peak_N": 2328.129150390604,
+        "total_10_100_rms_N": 252.38232401841253,
+        "total_dominant_hz": 13.28125,
+        "total_mean_over_mg": 0.9971203773709665,
+        "peak_over_mg": 10.655144510347087,
+        "mean_left_right_N": [
+          68.67524960054976,
+          149.19368823990175
+        ],
+        "std_left_right_N": [
+          185.34628824600333,
+          202.9944647917952
+        ],
+        "wheel_load_correlation": 0.010621177183619263,
+        "difference_std_N": 273.4241598947164,
+        "equal_duration_windows": {
+          "0.005": {
+            "window_s": 0.005,
+            "mean_N": 217.86893784045049,
+            "std_N": 230.84486225161467,
+            "peak_N": 1289.2788543701058,
+            "maximum_impulse_Ns": 6.446394271850529
+          },
+          "0.02": {
+            "window_s": 0.02,
+            "mean_N": 217.86893784045049,
+            "std_N": 171.50948778398626,
+            "peak_N": 643.7349128723087,
+            "maximum_impulse_Ns": 12.874698257446173
+          }
+        },
+        "corr_total_force_base_roll_acceleration": -0.06761855403060811,
+        "corr_load_difference_base_roll_acceleration": -0.004139020814144679
+      },
+      "contact": {
+        "definition": "native manifold counts only; archived separation unavailable (not geometric continuity)",
+        "core_both_fraction": 0.326171875,
+        "core_missing_either_ms": 1725.0,
+        "full_missing_either_ms": 1997.5,
+        "core_transition_count": 100,
+        "core_zero_load_wheel_samples_while_touching": 0,
+        "force_difference_energy_near_contact_transitions_fraction": 0.9980536183577583,
+        "conditional_peak_force_both_touch_N": 2328.129150390604
+      },
+      "mass_basis": "authored hash-locked masses; no new runtime readback",
+      "authored_mass_kg": 22.273,
+      "momentum": null
+    },
+    {
+      "id": "hockey_dense",
+      "label": "Hockey: dense contact",
+      "path": "results/hockey_contact_reward_search_20261028_v1/publication_v2/run_v2/native_equal_dense/nominal",
+      "group": "stop",
+      "reference": "results/hockey_stop_evaluation_audit_20261026_v1/physx_command_v2/motion.npz",
+      "core": [
+        0.4,
+        1.8
+      ],
+      "actor_sha256": "c09fd697deb3b8425285bc09454ae6a231739c2b5416207560d66420c9441c1c",
+      "native_hz": 400.0,
+      "policy_hz": 50,
+      "provenance": {
+        "report_sha256": "a5d3bc409b3ebb431155f4bb31bad9c9ecf84b801d6ec123a2b93a518a2943ab",
+        "reference_sha256": "e23fbd82639d243f0c485cf391b1eff0e275d31f6bb6ba940647874a0ac83050",
+        "final_rollout.npz": "480537cabe5e7ba4923bd57d0d3e8a9ea975c2c44176de6759ffe4614d463d7a",
+        "native_contact_buffers.npz": "c900ef378dd54f972aefb226c0d1fa1860c6a04a980db5317d9ff297810fcdcd"
+      },
+      "core_native_states": 561,
+      "core_intervals": 560,
+      "angular_xy_native_10_100_rms_rad_s": 0.6853771009805283,
+      "angular_dominant_hz": 10.695187165775401,
+      "angular_xy_native_25_100_rms_rad_s": 0.22204303582580015,
+      "angular_xy_error_10_20_rms_rad_s": 0.6391497341272266,
+      "angular_xy_actual_10_20_rms_rad_s": 0.6404321137494116,
+      "angular_xy_reference_10_20_rms_rad_s": 0.044241035965899636,
+      "orientation_error_xy_rms_deg": 10.587023605877485,
+      "root_xy_tracking_rmse_m": 0.03175715826136588,
+      "root_z_error_rms_mm": 55.73542358979521,
+      "root_z_error_std_mm": 18.891700779734467,
+      "root_z_error_10_20_rms_mm": 0.5305605043693508,
+      "leg_action_delta_rms": 0.07066564403829233,
+      "leg_torque_10_100_rms_nm": null,
+      "force": {
+        "total_mean_N": 217.95278930664062,
+        "total_std_N": 55.16933059692383,
+        "total_p99_N": 376.3322448730469,
+        "total_peak_N": 484.57196044921875,
+        "total_10_100_rms_N": 38.86536976070693,
+        "total_dominant_hz": 10.714285714285714,
+        "total_mean_over_mg": 0.9975041747093201,
+        "peak_over_mg": 2.2177395820617676,
+        "mean_left_right_N": [
+          85.728515625,
+          132.22421264648438
+        ],
+        "std_left_right_N": [
+          23.380352020263672,
+          48.18696975708008
+        ],
+        "wheel_load_correlation": 0.07767830250544945,
+        "difference_std_N": 51.89987564086914,
+        "equal_duration_windows": {
+          "0.005": {
+            "window_s": 0.005,
+            "mean_N": 217.95278717449733,
+            "std_N": 52.915565758224105,
+            "peak_N": 364.0137634277344,
+            "maximum_impulse_Ns": 1.8200688171386719
+          },
+          "0.02": {
+            "window_s": 0.02,
+            "mean_N": 217.95278717449733,
+            "std_N": 46.67142794281589,
+            "peak_N": 321.7275733947754,
+            "maximum_impulse_Ns": 6.434551467895508
+          }
+        },
+        "corr_total_force_base_roll_acceleration": -0.5729418995012747,
+        "corr_load_difference_base_roll_acceleration": 0.4915266040022319
+      },
+      "contact": {
+        "definition": "geometric separation <=0.1 mm, valid normal; no force threshold",
+        "core_both_fraction": 0.9946428571428572,
+        "core_missing_either_ms": 7.5,
+        "full_missing_either_ms": 7.5,
+        "core_transition_count": 2,
+        "core_zero_load_wheel_samples_while_touching": 3,
+        "force_difference_energy_near_contact_transitions_fraction": 0.14136767387390137,
+        "conditional_peak_force_both_touch_N": 484.57196044921875
+      },
+      "mass_basis": "authored hash-locked masses; no new runtime readback",
+      "authored_mass_kg": 22.273,
+      "momentum": {
+        "vertical_balance_RMS_N": 0.0001817785106072247,
+        "shifted_force_RMS_N": {
+          "-1": 35.487526529766505,
+          "1": 35.487746037116175
+        },
+        "total_force_vs_whole_COM_az_correlation": 0.9999999999945745,
+        "required_reference_net_vertical_mean_N": 217.8828505568041,
+        "required_reference_net_vertical_std_N": 32.74646039853144,
+        "required_reference_net_vertical_min_N": 140.6233421069599,
+        "required_reference_net_vertical_max_N": 341.75350077988753,
+        "reference_force_is_measured": false,
+        "reference_force_identifies_individual_wheels": false
+      }
+    },
+    {
+      "id": "hockey_v7",
+      "label": "Hockey: continuity v7",
+      "path": "results/hockey_contact_reward_search_20261028_v1/continuity_publication_v3/run_v7/native_equal_smooth_stop_xyz_huber_continuity/nominal",
+      "group": "stop",
+      "reference": "results/hockey_stop_evaluation_audit_20261026_v1/physx_command_v2/motion.npz",
+      "core": [
+        0.4,
+        1.8
+      ],
+      "actor_sha256": "94d1941ecf0393a6a9e36a286a4291625fc92219cad17910d526862a75f01cdc",
+      "native_hz": 400.0,
+      "policy_hz": 50,
+      "provenance": {
+        "report_sha256": "1fdccaeab0434e28905acc7b0fad3e3a87b974c7ca0a365e5d0efe2a60e87628",
+        "reference_sha256": "e23fbd82639d243f0c485cf391b1eff0e275d31f6bb6ba940647874a0ac83050",
+        "final_rollout.npz": "20661d02030d5cbc80b900841c04404afbc4583ad572dcbb6022580bb3e641c6",
+        "native_contact_buffers.npz": "5da69c4a7df577b19ded816a2d544e00b3aaa90cd4cd2452d66debc4793da3e9"
+      },
+      "core_native_states": 561,
+      "core_intervals": 560,
+      "angular_xy_native_10_100_rms_rad_s": 0.3263535529339614,
+      "angular_dominant_hz": 10.695187165775401,
+      "angular_xy_native_25_100_rms_rad_s": 0.13713183036532944,
+      "angular_xy_error_10_20_rms_rad_s": 0.29430383507700264,
+      "angular_xy_actual_10_20_rms_rad_s": 0.2942852759721013,
+      "angular_xy_reference_10_20_rms_rad_s": 0.044241035965899636,
+      "orientation_error_xy_rms_deg": 9.988193742113882,
+      "root_xy_tracking_rmse_m": 0.02258927204037136,
+      "root_z_error_rms_mm": 29.71589541609329,
+      "root_z_error_std_mm": 15.433872365802204,
+      "root_z_error_10_20_rms_mm": 0.5115756032567551,
+      "leg_action_delta_rms": 0.047605895804417084,
+      "leg_torque_10_100_rms_nm": null,
+      "force": {
+        "total_mean_N": 218.05296325683594,
+        "total_std_N": 61.841976165771484,
+        "total_p99_N": 375.2245788574219,
+        "total_peak_N": 460.15692138671875,
+        "total_10_100_rms_N": 27.532673198534052,
+        "total_dominant_hz": 10.714285714285714,
+        "total_mean_over_mg": 0.9979626536369324,
+        "peak_over_mg": 2.10599946975708,
+        "mean_left_right_N": [
+          80.66781616210938,
+          137.3851318359375
+        ],
+        "std_left_right_N": [
+          24.267498016357422,
+          56.49177932739258
+        ],
+        "wheel_load_correlation": 0.016118829470666764,
+        "difference_std_N": 61.12314987182617,
+        "equal_duration_windows": {
+          "0.005": {
+            "window_s": 0.005,
+            "mean_N": 218.05294812066214,
+            "std_N": 60.86302970413702,
+            "peak_N": 401.84625244140625,
+            "maximum_impulse_Ns": 2.0092312622070314
+          },
+          "0.02": {
+            "window_s": 0.02,
+            "mean_N": 218.05294812066214,
+            "std_N": 57.44650111715379,
+            "peak_N": 365.5461769104004,
+            "maximum_impulse_Ns": 7.310923538208008
+          }
+        },
+        "corr_total_force_base_roll_acceleration": -0.4472138225873937,
+        "corr_load_difference_base_roll_acceleration": 0.4272797293002018
+      },
+      "contact": {
+        "definition": "geometric separation <=0.1 mm, valid normal; no force threshold",
+        "core_both_fraction": 0.9821428571428571,
+        "core_missing_either_ms": 25.0,
+        "full_missing_either_ms": 25.0,
+        "core_transition_count": 8,
+        "core_zero_load_wheel_samples_while_touching": 7,
+        "force_difference_energy_near_contact_transitions_fraction": 0.26734161376953125,
+        "conditional_peak_force_both_touch_N": 460.15692138671875
+      },
+      "mass_basis": "authored hash-locked masses; no new runtime readback",
+      "authored_mass_kg": 22.273,
+      "momentum": {
+        "vertical_balance_RMS_N": 0.00020820335737113622,
+        "shifted_force_RMS_N": {
+          "-1": 26.848472542118643,
+          "1": 26.717962650627047
+        },
+        "total_force_vs_whole_COM_az_correlation": 0.999999999994368,
+        "required_reference_net_vertical_mean_N": 217.8828505568041,
+        "required_reference_net_vertical_std_N": 32.74646039853144,
+        "required_reference_net_vertical_min_N": 140.6233421069599,
+        "required_reference_net_vertical_max_N": 341.75350077988753,
+        "reference_force_is_measured": false,
+        "reference_force_identifies_individual_wheels": false
+      }
+    },
+    {
+      "id": "hockey_v8",
+      "label": "Hockey v8: mu 0.7/0.7",
+      "path": "results/hockey_static_dynamic_transition_20261029_v1/probe_evidence/run_v10/probe_equal_070/nominal",
+      "group": "stop",
+      "reference": "results/hockey_stop_evaluation_audit_20261026_v1/physx_command_v2/motion.npz",
+      "core": [
+        0.4,
+        1.8
+      ],
+      "actor_sha256": "fde03b942dd9f62ae096f63ae9372c32ea9d43688c6a5fb5f0496c1ce5f5757a",
+      "native_hz": 400.0,
+      "policy_hz": 50,
+      "provenance": {
+        "report_sha256": "e960933ea61b24b06235beba6da71dcf996d72322040f4ef451378ff90ea4494",
+        "reference_sha256": "e23fbd82639d243f0c485cf391b1eff0e275d31f6bb6ba940647874a0ac83050",
+        "final_rollout.npz": "27b861b054ae9a9b432c9f7a47115edb444c93de4f2d40b5384a33ca5193f84c",
+        "native_contact_buffers.npz": "6d6742816e28569269e612ae8742b02a7bb59602843a4a0068c6c161cc0c34f8"
+      },
+      "core_native_states": 561,
+      "core_intervals": 560,
+      "angular_xy_native_10_100_rms_rad_s": 0.25365877701344397,
+      "angular_dominant_hz": 10.695187165775401,
+      "angular_xy_native_25_100_rms_rad_s": 0.08494119883984204,
+      "angular_xy_error_10_20_rms_rad_s": 0.2334758571383324,
+      "angular_xy_actual_10_20_rms_rad_s": 0.2366100773831956,
+      "angular_xy_reference_10_20_rms_rad_s": 0.044241035965899636,
+      "orientation_error_xy_rms_deg": 7.60991196375869,
+      "root_xy_tracking_rmse_m": 0.03275827255322027,
+      "root_z_error_rms_mm": 24.719497372639267,
+      "root_z_error_std_mm": 11.54911369617931,
+      "root_z_error_10_20_rms_mm": 0.26226954969775607,
+      "leg_action_delta_rms": 0.04078381282152559,
+      "leg_torque_10_100_rms_nm": null,
+      "force": {
+        "total_mean_N": 219.4959259033203,
+        "total_std_N": 24.246440887451172,
+        "total_p99_N": 283.66143798828125,
+        "total_peak_N": 415.25469970703125,
+        "total_10_100_rms_N": 15.868794539687471,
+        "total_dominant_hz": 44.99999999999999,
+        "total_mean_over_mg": 1.0045666694641113,
+        "peak_over_mg": 1.9004955291748047,
+        "mean_left_right_N": [
+          94.3224868774414,
+          125.17354583740234
+        ],
+        "std_left_right_N": [
+          16.516626358032227,
+          26.296852111816406
+        ],
+        "wheel_load_correlation": -0.4333445694577443,
+        "difference_std_N": 36.616355895996094,
+        "equal_duration_windows": {
+          "0.005": {
+            "window_s": 0.005,
+            "mean_N": 219.4959353855678,
+            "std_N": 22.782819808883524,
+            "peak_N": 305.9197311401367,
+            "maximum_impulse_Ns": 1.5295986557006835
+          },
+          "0.02": {
+            "window_s": 0.02,
+            "mean_N": 219.4959353855678,
+            "std_N": 19.082439952161668,
+            "peak_N": 262.1709442138672,
+            "maximum_impulse_Ns": 5.243418884277344
+          }
+        },
+        "corr_total_force_base_roll_acceleration": -0.3068783315815898,
+        "corr_load_difference_base_roll_acceleration": 0.46678331901198106
+      },
+      "contact": {
+        "definition": "geometric separation <=0.1 mm, valid normal; no force threshold",
+        "core_both_fraction": 1.0,
+        "core_missing_either_ms": 0.0,
+        "full_missing_either_ms": 0.0,
+        "core_transition_count": 0,
+        "core_zero_load_wheel_samples_while_touching": 0,
+        "force_difference_energy_near_contact_transitions_fraction": 0.0,
+        "conditional_peak_force_both_touch_N": 415.25469970703125
+      },
+      "mass_basis": "authored hash-locked masses; no new runtime readback",
+      "authored_mass_kg": 22.273,
+      "momentum": {
+        "vertical_balance_RMS_N": 0.00011704545490504468,
+        "shifted_force_RMS_N": {
+          "-1": 19.124750275566946,
+          "1": 19.13120576156746
+        },
+        "total_force_vs_whole_COM_az_correlation": 0.9999999999883813,
+        "required_reference_net_vertical_mean_N": 217.8828505568041,
+        "required_reference_net_vertical_std_N": 32.74646039853144,
+        "required_reference_net_vertical_min_N": 140.6233421069599,
+        "required_reference_net_vertical_max_N": 341.75350077988753,
+        "reference_force_is_measured": false,
+        "reference_force_identifies_individual_wheels": false
+      }
+    },
+    {
+      "id": "hockey_v8_split",
+      "label": "Hockey v8: mu 0.9/0.7",
+      "path": "results/hockey_static_dynamic_transition_20261029_v1/probe_evidence/run_v10/probe_split_090_070/nominal",
+      "group": "stop",
+      "reference": "results/hockey_stop_evaluation_audit_20261026_v1/physx_command_v2/motion.npz",
+      "core": [
+        0.4,
+        1.8
+      ],
+      "actor_sha256": "fde03b942dd9f62ae096f63ae9372c32ea9d43688c6a5fb5f0496c1ce5f5757a",
+      "native_hz": 400.0,
+      "policy_hz": 50,
+      "provenance": {
+        "report_sha256": "5fb040688d17743721f26dd7c919083bba12c3f9f640c42925bf44654a105d4f",
+        "reference_sha256": "e23fbd82639d243f0c485cf391b1eff0e275d31f6bb6ba940647874a0ac83050",
+        "final_rollout.npz": "a4fa39ff35adf332bde2bd510eba8675ba63e905bce1a5a67a2c9b84085488bc",
+        "native_contact_buffers.npz": "881511302356093955b4224ed0ff5d3d7444ae30a287b21504a97e76fddd9475"
+      },
+      "core_native_states": 561,
+      "core_intervals": 560,
+      "angular_xy_native_10_100_rms_rad_s": 0.25511031439611764,
+      "angular_dominant_hz": 10.695187165775401,
+      "angular_xy_native_25_100_rms_rad_s": 0.08646356663616481,
+      "angular_xy_error_10_20_rms_rad_s": 0.23469892766472994,
+      "angular_xy_actual_10_20_rms_rad_s": 0.23759071247424546,
+      "angular_xy_reference_10_20_rms_rad_s": 0.044241035965899636,
+      "orientation_error_xy_rms_deg": 7.6012915578323605,
+      "root_xy_tracking_rmse_m": 0.03279659594675448,
+      "root_z_error_rms_mm": 24.434491038880495,
+      "root_z_error_std_mm": 11.377265643003794,
+      "root_z_error_10_20_rms_mm": 0.262651345359387,
+      "leg_action_delta_rms": 0.041254011493008294,
+      "leg_torque_10_100_rms_nm": null,
+      "force": {
+        "total_mean_N": 219.4601287841797,
+        "total_std_N": 24.551128387451172,
+        "total_p99_N": 283.5284729003906,
+        "total_peak_N": 415.031005859375,
+        "total_10_100_rms_N": 16.259201762709274,
+        "total_dominant_hz": 44.99999999999999,
+        "total_mean_over_mg": 1.004402756690979,
+        "peak_over_mg": 1.8994717597961426,
+        "mean_left_right_N": [
+          94.66168975830078,
+          124.79842376708984
+        ],
+        "std_left_right_N": [
+          16.400287628173828,
+          26.306446075439453
+        ],
+        "wheel_load_correlation": -0.4151747651161154,
+        "difference_std_N": 36.32132339477539,
+        "equal_duration_windows": {
+          "0.005": {
+            "window_s": 0.005,
+            "mean_N": 219.46012066432408,
+            "std_N": 23.084728604707852,
+            "peak_N": 305.7382049560547,
+            "maximum_impulse_Ns": 1.5286910247802734
+          },
+          "0.02": {
+            "window_s": 0.02,
+            "mean_N": 219.46012066432408,
+            "std_N": 19.358669425348396,
+            "peak_N": 263.9826011657715,
+            "maximum_impulse_Ns": 5.27965202331543
+          }
+        },
+        "corr_total_force_base_roll_acceleration": -0.3032713458131577,
+        "corr_load_difference_base_roll_acceleration": 0.47268903805005025
+      },
+      "contact": {
+        "definition": "geometric separation <=0.1 mm, valid normal; no force threshold",
+        "core_both_fraction": 1.0,
+        "core_missing_either_ms": 0.0,
+        "full_missing_either_ms": 0.0,
+        "core_transition_count": 0,
+        "core_zero_load_wheel_samples_while_touching": 0,
+        "force_difference_energy_near_contact_transitions_fraction": 0.0,
+        "conditional_peak_force_both_touch_N": 415.031005859375
+      },
+      "mass_basis": "authored hash-locked masses; no new runtime readback",
+      "authored_mass_kg": 22.273,
+      "momentum": {
+        "vertical_balance_RMS_N": 0.0001141654535775537,
+        "shifted_force_RMS_N": {
+          "-1": 19.321017587416755,
+          "1": 19.326725187129856
+        },
+        "total_force_vs_whole_COM_az_correlation": 0.9999999999892389,
+        "required_reference_net_vertical_mean_N": 217.8828505568041,
+        "required_reference_net_vertical_std_N": 32.74646039853144,
+        "required_reference_net_vertical_min_N": 140.6233421069599,
+        "required_reference_net_vertical_max_N": 341.75350077988753,
+        "reference_force_is_measured": false,
+        "reference_force_identifies_individual_wheels": false
+      }
+    },
+    {
+      "id": "hockey_v8_high",
+      "label": "Hockey v8: mu 0.9/0.9",
+      "path": "results/hockey_static_dynamic_transition_20261029_v1/probe_evidence/run_v10/probe_equal_090/nominal",
+      "group": "stop",
+      "reference": "results/hockey_stop_evaluation_audit_20261026_v1/physx_command_v2/motion.npz",
+      "core": [
+        0.4,
+        1.8
+      ],
+      "actor_sha256": "fde03b942dd9f62ae096f63ae9372c32ea9d43688c6a5fb5f0496c1ce5f5757a",
+      "native_hz": 400.0,
+      "policy_hz": 50,
+      "provenance": {
+        "report_sha256": "66e2b44dbc7319a57b898ebd822eef1c0208471aad84ffcaaaef2bb76c9b4a7c",
+        "reference_sha256": "e23fbd82639d243f0c485cf391b1eff0e275d31f6bb6ba940647874a0ac83050",
+        "final_rollout.npz": "03bfb01a56f231c101e96edc79857aeb8957e5ce6b8fdc7ee165f562747731c8",
+        "native_contact_buffers.npz": "a48407c0ed071044ee631cfa36df72f7d11b2b8b0e31e64273ec476f650b618a"
+      },
+      "core_native_states": 561,
+      "core_intervals": 560,
+      "angular_xy_native_10_100_rms_rad_s": 0.2258564486296342,
+      "angular_dominant_hz": 12.834224598930481,
+      "angular_xy_native_25_100_rms_rad_s": 0.10041560986262368,
+      "angular_xy_error_10_20_rms_rad_s": 0.1959729208571828,
+      "angular_xy_actual_10_20_rms_rad_s": 0.19444394298959308,
+      "angular_xy_reference_10_20_rms_rad_s": 0.044241035965899636,
+      "orientation_error_xy_rms_deg": 7.84301032275137,
+      "root_xy_tracking_rmse_m": 0.035583898710364124,
+      "root_z_error_rms_mm": 24.047440293704092,
+      "root_z_error_std_mm": 11.975758483480593,
+      "root_z_error_10_20_rms_mm": 0.2551623194685905,
+      "leg_action_delta_rms": 0.05136889403924857,
+      "leg_torque_10_100_rms_nm": null,
+      "force": {
+        "total_mean_N": 219.91781616210938,
+        "total_std_N": 23.7628173828125,
+        "total_p99_N": 288.85736083984375,
+        "total_peak_N": 374.67706298828125,
+        "total_10_100_rms_N": 15.58222305344279,
+        "total_dominant_hz": 14.285714285714285,
+        "total_mean_over_mg": 1.0064975023269653,
+        "peak_over_mg": 1.7147839069366455,
+        "mean_left_right_N": [
+          93.68820190429688,
+          126.2297592163086
+        ],
+        "std_left_right_N": [
+          17.817615509033203,
+          28.715312957763672
+        ],
+        "wheel_load_correlation": -0.5642314062617361,
+        "difference_std_N": 41.46566390991211,
+        "equal_duration_windows": {
+          "0.005": {
+            "window_s": 0.005,
+            "mean_N": 219.91780572618757,
+            "std_N": 22.289911089460688,
+            "peak_N": 310.4923095703125,
+            "maximum_impulse_Ns": 1.5524615478515624
+          },
+          "0.02": {
+            "window_s": 0.02,
+            "mean_N": 219.91780572618757,
+            "std_N": 17.93306211107417,
+            "peak_N": 264.0717067718506,
+            "maximum_impulse_Ns": 5.281434135437012
+          }
+        },
+        "corr_total_force_base_roll_acceleration": -0.3224374034230227,
+        "corr_load_difference_base_roll_acceleration": 0.5186877934268199
+      },
+      "contact": {
+        "definition": "geometric separation <=0.1 mm, valid normal; no force threshold",
+        "core_both_fraction": 1.0,
+        "core_missing_either_ms": 0.0,
+        "full_missing_either_ms": 0.0,
+        "core_transition_count": 0,
+        "core_zero_load_wheel_samples_while_touching": 0,
+        "force_difference_energy_near_contact_transitions_fraction": 0.0,
+        "conditional_peak_force_both_touch_N": 374.67706298828125
+      },
+      "mass_basis": "authored hash-locked masses; no new runtime readback",
+      "authored_mass_kg": 22.273,
+      "momentum": {
+        "vertical_balance_RMS_N": 0.00015065125470155137,
+        "shifted_force_RMS_N": {
+          "-1": 19.722505887483965,
+          "1": 19.72920134988093
+        },
+        "total_force_vs_whole_COM_az_correlation": 0.999999999980426,
+        "required_reference_net_vertical_mean_N": 217.8828505568041,
+        "required_reference_net_vertical_std_N": 32.74646039853144,
+        "required_reference_net_vertical_min_N": 140.6233421069599,
+        "required_reference_net_vertical_max_N": 341.75350077988753,
+        "reference_force_is_measured": false,
+        "reference_force_identifies_individual_wheels": false
+      }
+    },
+    {
+      "id": "hockey_v9",
+      "label": "Hockey v9: split trained",
+      "path": "results/hockey_static_dynamic_transition_20261029_v1/continuation_evidence/run_v9/native_split_smooth_stop_xyz_huber_continuity/nominal",
+      "group": "stop",
+      "reference": "results/hockey_stop_evaluation_audit_20261026_v1/physx_command_v2/motion.npz",
+      "core": [
+        0.4,
+        1.8
+      ],
+      "actor_sha256": "592c9f8033f797b36db93ea4cb8cbbec79897df19c6a1878211b437d007c621c",
+      "native_hz": 400.0,
+      "policy_hz": 50,
+      "provenance": {
+        "report_sha256": "39680c764a448b10e78c4f8e9a2da48c2af6e9567dc59b3f2e345bc90a109388",
+        "reference_sha256": "e23fbd82639d243f0c485cf391b1eff0e275d31f6bb6ba940647874a0ac83050",
+        "final_rollout.npz": "4a172cab8991e84acfe5f615cb654c265035aea881c7e243d4600d354d86dfc7",
+        "native_contact_buffers.npz": "d1d2e593952e1217cdc13113e18cd0ad5ab00a897a6aada3cf2775e09b34b85e"
+      },
+      "core_native_states": 561,
+      "core_intervals": 560,
+      "angular_xy_native_10_100_rms_rad_s": 0.2261867722135028,
+      "angular_dominant_hz": 10.695187165775401,
+      "angular_xy_native_25_100_rms_rad_s": 0.11259402306107825,
+      "angular_xy_error_10_20_rms_rad_s": 0.19555668823697409,
+      "angular_xy_actual_10_20_rms_rad_s": 0.19087389889493428,
+      "angular_xy_reference_10_20_rms_rad_s": 0.044241035965899636,
+      "orientation_error_xy_rms_deg": 8.656903765433364,
+      "root_xy_tracking_rmse_m": 0.026545614774079965,
+      "root_z_error_rms_mm": 24.219758211083015,
+      "root_z_error_std_mm": 10.939475412200466,
+      "root_z_error_10_20_rms_mm": 0.3011638777600776,
+      "leg_action_delta_rms": 0.051468134562912896,
+      "leg_torque_10_100_rms_nm": null,
+      "force": {
+        "total_mean_N": 218.3252716064453,
+        "total_std_N": 29.68115234375,
+        "total_p99_N": 323.181396484375,
+        "total_peak_N": 387.2317199707031,
+        "total_10_100_rms_N": 19.11171779044649,
+        "total_dominant_hz": 42.857142857142854,
+        "total_mean_over_mg": 0.999208927154541,
+        "peak_over_mg": 1.772242784500122,
+        "mean_left_right_N": [
+          93.30677795410156,
+          125.01851654052734
+        ],
+        "std_left_right_N": [
+          17.454647064208984,
+          27.398277282714844
+        ],
+        "wheel_load_correlation": -0.18229825152411283,
+        "difference_std_N": 35.06694793701172,
+        "equal_duration_windows": {
+          "0.005": {
+            "window_s": 0.005,
+            "mean_N": 218.32526787349155,
+            "std_N": 27.968886901698156,
+            "peak_N": 329.068359375,
+            "maximum_impulse_Ns": 1.645341796875
+          },
+          "0.02": {
+            "window_s": 0.02,
+            "mean_N": 218.32526787349155,
+            "std_N": 23.725157838658703,
+            "peak_N": 293.30030059814453,
+            "maximum_impulse_Ns": 5.866006011962891
+          }
+        },
+        "corr_total_force_base_roll_acceleration": -0.3254731142669142,
+        "corr_load_difference_base_roll_acceleration": 0.43677718677012023
+      },
+      "contact": {
+        "definition": "geometric separation <=0.1 mm, valid normal; no force threshold",
+        "core_both_fraction": 1.0,
+        "core_missing_either_ms": 0.0,
+        "full_missing_either_ms": 0.0,
+        "core_transition_count": 0,
+        "core_zero_load_wheel_samples_while_touching": 0,
+        "force_difference_energy_near_contact_transitions_fraction": 0.0,
+        "conditional_peak_force_both_touch_N": 387.2317199707031
+      },
+      "mass_basis": "authored hash-locked masses; no new runtime readback",
+      "authored_mass_kg": 22.273,
+      "momentum": {
+        "vertical_balance_RMS_N": 0.0001341249737996755,
+        "shifted_force_RMS_N": {
+          "-1": 23.073553435330417,
+          "1": 23.05734033584557
+        },
+        "total_force_vs_whole_COM_az_correlation": 0.9999999999901896,
+        "required_reference_net_vertical_mean_N": 217.8828505568041,
+        "required_reference_net_vertical_std_N": 32.74646039853144,
+        "required_reference_net_vertical_min_N": 140.6233421069599,
+        "required_reference_net_vertical_max_N": 341.75350077988753,
+        "reference_force_is_measured": false,
+        "reference_force_identifies_individual_wheels": false
+      }
+    },
+    {
+      "id": "direct",
+      "label": "Direct braking",
+      "path": "results/direct_brake_comparison_20261103_v1/evidence/evaluation/nominal",
+      "group": "stop",
+      "reference": "results/direct_brake_training_20261102_v1/source_snapshot_v1/motion.npz",
+      "core": [
+        0.4,
+        1.8
+      ],
+      "actor_sha256": "598021e1a549bfbb769f7816a0073ed4ed0ee2b968e604e9d3cfd9a6dd683230",
+      "native_hz": 400.0,
+      "policy_hz": 50,
+      "provenance": {
+        "report_sha256": "8f61a9747e3722560a844ac39c9bdc1e37cfa09cd12d4918f10e54d05dd0de88",
+        "reference_sha256": "8102d3c9281c9e95bedbd077baa03192204223755fda64e0078c1e04931d4a46",
+        "final_rollout.npz": "7c8810007dc18dd88e80cbad45de2006b7f78c8fa7c6fc147259d0bbd96e3304",
+        "native_contact_buffers.npz": "17b3f2b0f6010c3fe688cb0f225b033821b4014fc77538cdb649a078fadb9bb0",
+        "common_reset_audit.json": "e5b24e56baaec42e4e05861da1b063a25826b241184d3b3645c1094ba42467b1",
+        "case.json": "8b32441d6df9b8db846401b287e602a84b615a5ac34b2d4c8affea53ac100a84"
+      },
+      "core_native_states": 561,
+      "core_intervals": 560,
+      "angular_xy_native_10_100_rms_rad_s": 0.006079966064627717,
+      "angular_dominant_hz": 49.19786096256684,
+      "angular_xy_native_25_100_rms_rad_s": 0.005870903347629403,
+      "angular_xy_error_10_20_rms_rad_s": 0.0014364922130263391,
+      "angular_xy_actual_10_20_rms_rad_s": 0.0014364922130263391,
+      "angular_xy_reference_10_20_rms_rad_s": 0.0,
+      "orientation_error_xy_rms_deg": 4.707120090136678,
+      "root_xy_tracking_rmse_m": 0.005908857140047803,
+      "root_z_error_rms_mm": 21.35115785653802,
+      "root_z_error_std_mm": 7.235033357047135,
+      "root_z_error_10_20_rms_mm": 0.002454681345824541,
+      "leg_action_delta_rms": 0.0019631673707294207,
+      "leg_torque_10_100_rms_nm": 0.19174960444235062,
+      "force": {
+        "total_mean_N": 219.1374969482422,
+        "total_std_N": 3.132093906402588,
+        "total_p99_N": 228.13621520996094,
+        "total_peak_N": 254.45419311523438,
+        "total_10_100_rms_N": 0.6921764744087392,
+        "total_dominant_hz": 50.71428571428571,
+        "total_mean_over_mg": 1.002926230430603,
+        "peak_over_mg": 1.164560079574585,
+        "mean_left_right_N": [
+          107.23886108398438,
+          111.89872741699219
+        ],
+        "std_left_right_N": [
+          3.1393492221832275,
+          1.9271196126937866
+        ],
+        "wheel_load_correlation": -0.31069023447491756,
+        "difference_std_N": 4.162761688232422,
+        "equal_duration_windows": {
+          "0.005": {
+            "window_s": 0.005,
+            "mean_N": 219.13749882834298,
+            "std_N": 3.0014396309442617,
+            "peak_N": 245.91055297851562,
+            "maximum_impulse_Ns": 1.2295527648925781
+          },
+          "0.02": {
+            "window_s": 0.02,
+            "mean_N": 219.13749882834298,
+            "std_N": 2.2872818161309794,
+            "peak_N": 231.2896499633789,
+            "maximum_impulse_Ns": 4.625792999267579
+          }
+        },
+        "corr_total_force_base_roll_acceleration": 0.45183596357509986,
+        "corr_load_difference_base_roll_acceleration": 0.4261245393186184
+      },
+      "contact": {
+        "definition": "geometric separation <=0.1 mm, valid normal; no force threshold",
+        "core_both_fraction": 1.0,
+        "core_missing_either_ms": 0.0,
+        "full_missing_either_ms": 0.0,
+        "core_transition_count": 0,
+        "core_zero_load_wheel_samples_while_touching": 0,
+        "force_difference_energy_near_contact_transitions_fraction": 0.0,
+        "conditional_peak_force_both_touch_N": 254.45419311523438
+      },
+      "mass_basis": "authored hash-locked masses; no new runtime readback",
+      "authored_mass_kg": 22.273,
+      "momentum": {
+        "vertical_balance_RMS_N": 4.5617099794099546e-05,
+        "shifted_force_RMS_N": {
+          "-1": 2.5753168926544623,
+          "1": 2.557966917901832
+        },
+        "total_force_vs_whole_COM_az_correlation": 0.999999999908201,
+        "required_reference_net_vertical_mean_N": 218.49812999999997,
+        "required_reference_net_vertical_std_N": 2.842170943040401e-14,
+        "required_reference_net_vertical_min_N": 218.49813,
+        "required_reference_net_vertical_max_N": 218.49813,
+        "reference_force_is_measured": false,
+        "reference_force_identifies_individual_wheels": false
+      }
+    }
+  ],
+  "new_training": false,
+  "new_simulation": false,
+  "reference_sample_hz": 50,
+  "reference_shared_spectral_band_hz": [
+    10,
+    20
+  ],
+  "native_comparison_band_hz": [
+    10,
+    100
+  ],
+  "native_above_reference_band_hz": [
+    25,
+    100
+  ],
+  "force_scope": "Impulse divided by native timestep, over consecutive velocity states; geometric contact at interval start",
+  "reference_interpolation": "Linear world angular velocity/position; quaternion SLERP. No phase optimization or time warping.",
+  "reference_force_scope": "Inferred necessary whole-COM vertical resultant M(g+dvref_COM,z/dt) at 50 Hz; not measured or dynamically validated, no per-wheel allocation.",
+  "comparisons": {
+    "turn_beta_on_off": "Same nominal physical/evaluation contract, historical training setup/RNG confound.",
+    "turn_ar05_200_400": "Same actor, reference and 50 Hz policy; physics and DC-PD update rates both change.",
+    "hockey_dense_v7_v8": "Contact recipe and accumulated training budgets differ; descriptive progression.",
+    "hockey_v8_materials": "Same actor/reference/initial state; only material coefficients differ in closed loop.",
+    "hockey_v8_split_v9": "Same material/reference, matched lineage budgets; distinct trained policy.",
+    "direct_hockey": "Different behavior references and training seeds; no isolated causal prior/beta conclusion."
+  },
+  "limitations": [
+    "Each entry is one archived nominal rollout, not independent training-seed evidence.",
+    "A 50 Hz kinematic reference cannot certify absence of true reference motion above 25 Hz.",
+    "Car contact manifold counts do not establish geometric touching; hockey geometry uses 0.1 mm tolerance.",
+    "No measured reference normal forces exist; per-wheel reference loads are not identifiable from the supplied poses alone.",
+    "Mean normal force, load distribution and force fluctuations are different statistics.",
+    "Whole-system force balance supports the summed channel and timing, not individual contact patch force accuracy.",
+    "Observed force-motion/action association does not establish a one-way causal direction."
+  ],
+  "artifacts": {
+    "hockey_material_reference_load.png": "2a71031dee94045c402f285d4b63acec6e6325b4970f0cda07c4ccfff97999d2",
+    "selection.json": "5391182a474dc3eef5a5b7c88de6378ac7a9f28f7a16c04ba0355e11cbf65661",
+    "signals.npz": "b926e7e42cba27b3307cb3f71de3ad3f43367c0a2457fe085478b317455d1900",
+    "stop_comparison_4x1.png": "59609bb788e4eb3649ec2545b397c3d1957fa97f810ba40aca448a373e043a0c",
+    "turn_comparison_4x1.png": "2160158f9073789dc1486788e54dd2d3ac78650211e354d5faf09c0f66302f86"
+  }
+}
